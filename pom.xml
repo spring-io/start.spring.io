@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.0.RELEASE</version>
+	</parent>
+	<groupId>io.spring.start</groupId>
+	<artifactId>start-site</artifactId>
+	<version>${revision}</version>
+	<name>start.spring.io website</name>
+
+	<properties>
+		<revision>0.0.1-SNAPSHOT</revision>
+		<spring.initializr.version>0.7.0.BUILD-SNAPSHOT</spring.initializr.version>
+		<spring-javaformat.version>0.0.6</spring-javaformat.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.spring.initializr</groupId>
+			<artifactId>initializr-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.spring.initializr</groupId>
+			<artifactId>initializr-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.spring.initializr</groupId>
+			<artifactId>initializr-generator</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.spring.initializr</groupId>
+				<artifactId>initializr-actuator</artifactId>
+				<version>${spring.initializr.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.initializr</groupId>
+				<artifactId>initializr-generator</artifactId>
+				<version>${spring.initializr.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.initializr</groupId>
+				<artifactId>initializr-generator</artifactId>
+				<version>${spring.initializr.version}</version>
+				<type>test-jar</type>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.initializr</groupId>
+				<artifactId>initializr-web</artifactId>
+				<version>${spring.initializr.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xmlunit</groupId>
+				<artifactId>xmlunit</artifactId>
+				<version>1.5</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<finalName>start-site</finalName>
+		<plugins>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>build-info</id>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+						<configuration>
+							<additionalProperties>
+								<versions.spring-boot>${project.parent.version}</versions.spring-boot>
+							</additionalProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/libs-snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+</project>

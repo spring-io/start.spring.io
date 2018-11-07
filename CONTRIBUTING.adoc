@@ -1,0 +1,65 @@
+= Contributing to start.spring.io
+
+start.spring.io is released under the Apache 2.0 license. If you would like to contribute
+something, or simply want to hack on the code this document should help you get started.
+
+== Code of Conduct
+This project adheres to the Contributor Covenant link:CODE_OF_CONDUCT.adoc[code of
+conduct]. By participating, you are expected to uphold this code. Please report
+unacceptable behavior to spring-code-of-conduct@pivotal.io.
+
+== Using GitHub issues
+We use GitHub issues to track bugs and enhancements. If you have a general usage question
+please ask on http://stackoverflow.com[Stack Overflow] or join us on the
+https://gitter.im/spring-io/initializr[Gitter channel].
+
+== Sign the Contributor License Agreement
+Before we accept a non-trivial patch or pull request we will need you to
+https://cla.pivotal.io/sign/spring[sign the Contributor License Agreement].
+Signing the contributor's agreement does not grant anyone commit rights to the main
+repository, but it does mean that we can accept your contributions, and you will get an
+author credit if we do.  Active contributors might be asked to join the core team, and
+given the ability to merge pull requests.
+
+== Code Conventions and Housekeeping
+None of these is essential for a pull request, but they will all help.  They can also be
+added after the original pull request but before a merge.
+
+* Use the https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Code-Style[Spring Framework code format conventions].
+* Make sure all new `.java` files to have a simple Javadoc class comment with at least an
+  `@author` tag identifying you, and preferably at least a paragraph on what the class is
+  for.
+* Add the ASF license header comment to all new `.java` files (copy from existing files
+  in the project)
+* Add yourself as an `@author` to the .java files that you modify substantially (more
+  than cosmetic changes).
+* Add some Javadocs and, if you change the namespace, some XSD doc elements.
+* A few unit tests would help a lot as well -- someone has to do it.
+* If no-one else is using your branch, please rebase it against the current master (or
+  other target branch in the main project).
+* When writing a commit message please follow http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html[these conventions],
+  if you are fixing an existing issue please add `Fixes gh-XXXX` at the end of the commit
+  message (where XXXX is the issue number).
+
+== Working with the Code
+
+=== Building from Source
+start.spring.io can be build from the command line using
+http://maven.apache.org/run-maven/index.html[Apache Maven] on JDK 1.8 or above.
+We include '`Maven Wrapper`' scripts (`./mvnw` or `mvnw.bat`) that you can run rather
+than needing to install Maven locally.
+
+==== Default Build
+The project can be built from the root directory using the standard Maven command:
+
+[indent=0]
+----
+	$ ./mvnw clean install
+----
+
+To start the site locally, execute the following command:
+
+[indent=0]
+----
+    $ ./mvnw spring-boot:run
+----
