@@ -742,7 +742,7 @@ initializr:
         - name: Kafka
           id: kafka
           weight: 100
-          description: Kafka messaging support using Spring Kafka
+          description: Apache Kafka messaging support using Spring Kafka
           versionRange: 1.5.0.RC1
           groupId: org.springframework.kafka
           artifactId: spring-kafka
@@ -770,6 +770,20 @@ initializr:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_kafka_streams_binding_capabilities_of_spring_cloud_stream
               description: Kafka Streams Binding Capabilities of Spring Cloud Stream
+        - name: Kafka Test
+          id: kafka-test
+          weight: 100
+          description: Test dependencies for Spring for Apache Kafka including an embedded broker
+          versionRange: 1.5.0.RC1
+          groupId: org.springframework.kafka
+          artifactId: spring-kafka-test
+          scope: test
+          starter: false
+          keywords:
+            - messaging
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-kafka/reference/html/_reference.html#testing
         - name: JMS (ActiveMQ)
           id: activemq
           description: Java Message Service API via Apache ActiveMQ
