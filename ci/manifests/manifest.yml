@@ -8,7 +8,7 @@ applications:
   memory: 2048M
   disk_quota: 1024M
   routes:
-  - route: https://start.spring.io
-  - route: https://start.cfapps.io
+  - route: start.spring.io
+  - route: start.cfapps.io
   services:
   - stats-index
