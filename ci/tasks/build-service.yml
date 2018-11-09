@@ -4,6 +4,8 @@ inputs:
 - name: git-repo
 outputs:
 - name: output
+caches:
+- path: maven
 run:
   path: git-repo/ci/scripts/build-service.sh
 
