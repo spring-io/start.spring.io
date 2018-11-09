@@ -1,0 +1,72 @@
+resource_types:
+- name: artifactory-resource
+  type: docker-image
+  source:
+    repository: springio/artifactory-resource
+    tag: 0.0.4
+resources:
+- name: git-repo
+  type: git
+  source:
+    uri: ((github-repo))
+    branch: ((branch))
+    ignore_paths: ["ci/images/*"]
+- name: artifactory-repo
+  type: artifactory-resource
+  source:
+    uri: ((artifactory-server))
+    build_name: ((build-name))
+- name: ci-images-git-repo
+  type: git
+  source:
+    uri: ((github-repo))
+    branch: ((branch))
+    paths: ["ci/images/*"]
+- name: start-site-ci-image
+  type: docker-image
+  source:
+    repository: springci/start-site-ci-image
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
+    tag: ((branch))
+- name: cf-resource
+  type: cf
+  source:
+    api: ((cf-api))
+    username: ((cf-username))
+    password: ((cf-password))
+    organization: ((cf-org))
+    space: ((cf-space))
+jobs:
+- name: build-start-site-ci-image
+  plan:
+  - get: ci-images-git-repo
+    trigger: true
+  - put: start-site-ci-image
+    params:
+      build: ci-images-git-repo/ci/images/start-site-ci-image
+- name: build-and-deploy
+  serial: true
+  plan:
+  - get: start-site-ci-image
+  - get: git-repo
+  - get: artifactory-repo
+  - do:
+    - task: build-service.yml
+      image: start-site-ci-image
+      file: git-repo/ci/tasks/build-service.yml
+  - put: cf-resource
+    params:
+      manifest: git-repo/ci/manifests/manifest.yml
+      path: output/start-site.jar
+      current_app_name: start
+      environment_variables:
+        INITIALIZR_ENV_FORCESSL: true
+        INITIALIZR_ENV_GOOGLE_ANALYTICS_TRACKING_CODE: ((google-analytics-tracking-code))
+groups:
+- name: "Build and Deploy"
+  jobs:
+  - build-and-deploy
+- name: "CI Images"
+  jobs:
+  - build-start-site-ci-image
