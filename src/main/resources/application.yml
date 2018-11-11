@@ -49,7 +49,7 @@ initializr:
           - versionRange: "[2.0.0.M1,2.1.0.M1)"
             version: 2.0.4
           - versionRange: "2.1.0.M1"
-            version: 2.1.0
+            version: 2.1.1
       keycloak:
         groupId: org.keycloak.bom
         artifactId: keycloak-adapter-bom
