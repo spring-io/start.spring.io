@@ -61,7 +61,7 @@ jobs:
       path: output/start-site.jar
       current_app_name: start
       environment_variables:
-        INITIALIZR_ENV_FORCESSL: true
+        INITIALIZR_ENV_FORCESSL: "true"
         INITIALIZR_ENV_GOOGLE_ANALYTICS_TRACKING_CODE: ((google-analytics-tracking-code))
 groups:
 - name: "Build and Deploy"
