@@ -178,8 +178,10 @@ initializr:
             version: 7.7.7
           - versionRange: "[1.5.0.M1,2.0.0.M1)"
             version: 8.4.4
-          - versionRange: "2.0.0.M1"
-            version: 10.0.5
+          - versionRange: "[2.0.0.M1,2.1.0.M1)"
+            version: 10.0.7
+          - versionRange: "2.1.0.M1"
+            version: 11.0.2
     gradle:
       dependency-management-plugin-version: 0.6.0.RELEASE
     kotlin:
@@ -395,7 +397,7 @@ initializr:
           artifactId: vaadin-spring-boot-starter
           description: Vaadin java web application framework
           bom: vaadin
-          versionRange: "[1.2.0.RELEASE,2.1.0.M1)"
+          versionRange: "1.2.0.RELEASE"
           mappings:
             - versionRange: "[1.2.0.RELEASE,1.4.0.RELEASE)"
               version: 1.0.2
