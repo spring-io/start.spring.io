@@ -46,7 +46,7 @@ public class SpringCloudStreamRequestPostProcessorTests
 				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
 				.hasSpringBootStarterTest()
 				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
-				.hasDependenciesCount(5);
+				.hasDependenciesCount(6);
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class SpringCloudStreamRequestPostProcessorTests
 				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_STREAMS_BINDER)
 				.hasSpringBootStarterTest()
 				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
-				.hasDependenciesCount(9);
+				.hasDependenciesCount(10);
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class SpringCloudStreamRequestPostProcessorTests
 				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
 				.hasSpringBootStarterTest()
 				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
-				.hasDependenciesCount(5);
+				.hasDependenciesCount(6);
 	}
 
 	@Test
@@ -128,7 +128,7 @@ public class SpringCloudStreamRequestPostProcessorTests
 				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_STREAMS_BINDER)
 				.hasSpringBootStarterTest()
 				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
-				.hasDependenciesCount(9);
+				.hasDependenciesCount(10);
 	}
 
 	@Test
@@ -159,7 +159,7 @@ public class SpringCloudStreamRequestPostProcessorTests
 				.hasDependency(getDependency("kafka-streams"))
 				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
 				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
-				.hasSpringBootStarterTest().hasDependenciesCount(7);
+				.hasSpringBootStarterTest().hasDependenciesCount(8);
 	}
 
 	@Test
@@ -179,7 +179,7 @@ public class SpringCloudStreamRequestPostProcessorTests
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
 				.hasDependency(getDependency("kafka"))
 				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
-				.hasSpringBootStarterTest().hasDependenciesCount(4);
+				.hasSpringBootStarterTest().hasDependenciesCount(5);
 	}
 
 	@Test
@@ -193,7 +193,7 @@ public class SpringCloudStreamRequestPostProcessorTests
 				.hasDependency(getDependency("kafka-streams"))
 				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
 				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
-				.hasSpringBootStarterTest().hasDependenciesCount(7);
+				.hasSpringBootStarterTest().hasDependenciesCount(8);
 	}
 
 }
