@@ -50,6 +50,7 @@ jobs:
   plan:
   - get: start-site-ci-image
   - get: git-repo
+    trigger: true
   - get: artifactory-repo
   - do:
     - task: build-service.yml
