@@ -844,7 +844,7 @@ initializr:
           versionRange: 1.2.0.RELEASE
         - name: Open Service Broker
           id: open-service-broker
-          description: Create service brokers that conform to the Open Server Broker API specification
+          description: Create service brokers that conform to the Open Service Broker API specification
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-open-service-broker-webmvc
           versionRange: 2.0.0.RELEASE
