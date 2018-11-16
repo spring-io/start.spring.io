@@ -21,29 +21,31 @@ import io.spring.initializr.generator.ProjectRequestPostProcessor;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.util.Version;
+
 import org.springframework.stereotype.Component;
 
 /**
  * A {@link ProjectRequestPostProcessor} that automatically adds "spring-kafka-test" when
  * kafka is selected.
  *
- * @author wonwoo lee
+ * @author Wonwoo Lee
  */
 @Component
-class KafkaTestRequestPostProcessor extends AbstractProjectRequestPostProcessor {
+class SpringKafkaTestRequestPostProcessor extends AbstractProjectRequestPostProcessor {
 
-    private static final Version VERSION_1_5_0 = Version.parse("1.5.0.RC1");
+	private static final Version VERSION_1_5_0 = Version.parse("1.5.0.RELEASE");
 
-    private static final Dependency KAFKA_TEST = Dependency.withId("spring-kafka-test",
-    		"org.springframework.kafka", "spring-kafka-test", null,
-    		Dependency.SCOPE_TEST);
+	private static final Dependency SPRING_KAFKA_TEST = Dependency.withId(
+			"spring-kafka-test", "org.springframework.kafka", "spring-kafka-test", null,
+			Dependency.SCOPE_TEST);
 
-    @Override
-    public void postProcessAfterResolution(ProjectRequest request,
-    		InitializrMetadata metadata) {
-    	if (hasDependency(request, "kafka")
-        		&& isSpringBootVersionAtLeastAfter(request, VERSION_1_5_0)) {
-            request.getResolvedDependencies().add(KAFKA_TEST);
-        }
-    }
+	@Override
+	public void postProcessAfterResolution(ProjectRequest request,
+			InitializrMetadata metadata) {
+		if (hasDependency(request, "kafka")
+				&& isSpringBootVersionAtLeastAfter(request, VERSION_1_5_0)) {
+			request.getResolvedDependencies().add(SPRING_KAFKA_TEST);
+		}
+	}
+
 }
