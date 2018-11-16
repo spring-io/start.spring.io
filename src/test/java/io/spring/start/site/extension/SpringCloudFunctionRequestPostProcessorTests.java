@@ -54,7 +54,7 @@ public class SpringCloudFunctionRequestPostProcessorTests
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("kafka"))
 				.hasDependency(SpringCloudFunctionRequestPostProcessor.SCS_ADAPTER)
-				.hasDependenciesCount(6);
+				.hasDependenciesCount(7);
 	}
 
 	@Test
