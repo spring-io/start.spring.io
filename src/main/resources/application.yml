@@ -112,7 +112,7 @@ initializr:
             version: Greenwich.M1
             repositories: spring-milestones
           - versionRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
-            version: Greenwich.M2
+            version: Greenwich.M3
             repositories: spring-milestones
           - versionRange: "2.1.x.BUILD-SNAPSHOT"
             version: Greenwich.BUILD-SNAPSHOT
