@@ -1,9 +1,18 @@
 resource_types:
-- name: artifactory-resource
+- name: pull-request
   type: docker-image
   source:
-    repository: springio/artifactory-resource
-    tag: 0.0.4
+    repository: jtarchie/pr
+- name: github-status-resource
+  type: docker-image
+  source:
+    repository: dpb587/github-status-resource
+    tag: master
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
 resources:
 - name: git-repo
   type: git
@@ -11,11 +20,12 @@ resources:
     uri: ((github-repo))
     branch: ((branch))
     ignore_paths: ["ci/images/*"]
-- name: artifactory-repo
-  type: artifactory-resource
+- name: git-pull-request
+  type: pull-request
   source:
-    uri: ((artifactory-server))
-    build_name: ((build-name))
+    access_token: ((github-access-token))
+    repo: spring-io/start.spring.io
+    base: ((branch))
 - name: ci-images-git-repo
   type: git
   source:
@@ -37,6 +47,17 @@ resources:
     password: ((cf-password))
     organization: ((cf-org))
     space: ((cf-space))
+- name: slack-alert
+  type: slack-notification
+  source:
+    url: ((slack-webhook-url))
+- name: repo-status-build
+  type: github-status-resource
+  source:
+    repository: spring-io/start.spring.io
+    access_token: ((github-access-token))
+    branch: ((branch))
+    context: build
 jobs:
 - name: build-start-site-ci-image
   plan:
@@ -51,11 +72,30 @@ jobs:
   - get: start-site-ci-image
   - get: git-repo
     trigger: true
-  - get: artifactory-repo
+  - put: repo-status-build
+    params: { state: "pending", commit: "git-repo" }
   - do:
     - task: build-service.yml
       image: start-site-ci-image
       file: git-repo/ci/tasks/build-service.yml
+      on_failure:
+        do:
+        - put: repo-status-build
+          params: { state: "failure", commit: "git-repo" }
+        - put: slack-alert
+          params:
+            text: ":concourse-failed: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} failed!>"
+            silent: true
+            icon_emoji: ":concourse:"
+            username: concourse-ci
+  - put: repo-status-build
+    params: { state: "success", commit: "git-repo" }
+  - put: slack-alert
+    params:
+      text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} was successful!>"
+      silent: true
+      icon_emoji: ":concourse:"
+      username: concourse-ci
   - put: cf-resource
     params:
       manifest: git-repo/ci/manifests/manifest.yml
@@ -64,10 +104,40 @@ jobs:
       environment_variables:
         INITIALIZR_ENV_FORCESSL: "true"
         INITIALIZR_ENV_GOOGLE_ANALYTICS_TRACKING_CODE: ((google-analytics-tracking-code))
+- name: build-pull-requests
+  serial: true
+  public: true
+  plan:
+  - get: start-site-ci-image
+  - get: git-repo
+    resource: git-pull-request
+    trigger: true
+    version: every
+  - do:
+    - put: git-pull-request
+      params:
+        path: git-repo
+        status: pending
+    - task: build-project
+      image: start-site-ci-image
+      file: git-repo/ci/tasks/build-service.yml
+      on_success:
+        put: git-pull-request
+        params:
+          path: git-repo
+          status: success
+      on_failure:
+        put: git-pull-request
+        params:
+          path: git-repo
+          status: failure
 groups:
 - name: "Build and Deploy"
   jobs:
   - build-and-deploy
+- name: "Build Pull Requests"
+  jobs:
+  - "build-pull-requests"
 - name: "CI Images"
   jobs:
   - build-start-site-ci-image
