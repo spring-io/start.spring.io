@@ -1373,8 +1373,6 @@ initializr:
   javaVersions:
     - id: 11
       default: false
-    - id: 10
-      default: false
     - id: 1.8
       name: 8
       default: true
