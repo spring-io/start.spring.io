@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +19,19 @@ package io.spring.start.site.extension;
 import java.util.Arrays;
 import java.util.List;
 
-import io.spring.initializr.generator.ProjectRequest;
-import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.util.Version;
-
-import org.springframework.stereotype.Component;
+import io.spring.initializr.generator.language.Language;
+import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
+import io.spring.initializr.generator.version.Version;
 
 /**
  * As of Spring Boot 2.0, Java8 is mandatory so this extension makes sure that the java
  * version is forced.
  *
  * @author Stephane Nicoll
+ * @author Madhura Bhave
  */
-@Component
-class SpringBoot2RequestPostProcessor extends AbstractProjectRequestPostProcessor {
+class SpringBoot2ProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
 	private static final Version VERSION_2_0_0_M1 = Version.parse("2.0.0.M1");
 
@@ -40,12 +39,16 @@ class SpringBoot2RequestPostProcessor extends AbstractProjectRequestPostProcesso
 			"11");
 
 	@Override
-	public void postProcessAfterResolution(ProjectRequest request,
-			InitializrMetadata metadata) {
-		if (!VALID_VERSIONS.contains(request.getJavaVersion())
-				&& isSpringBootVersionAtLeastAfter(request, VERSION_2_0_0_M1)) {
-			request.setJavaVersion("1.8");
+	public void customize(ProjectDescription description) {
+		if (!VALID_VERSIONS.contains(description.getLanguage().jvmVersion())
+				&& isSpringBootVersionAtLeastAfter(description)) {
+			description
+					.setLanguage(Language.forId(description.getLanguage().id(), "1.8"));
 		}
+	}
+
+	private boolean isSpringBootVersionAtLeastAfter(ProjectDescription description) {
+		return (VERSION_2_0_0_M1.compareTo(description.getPlatformVersion()) <= 0);
 	}
 
 }

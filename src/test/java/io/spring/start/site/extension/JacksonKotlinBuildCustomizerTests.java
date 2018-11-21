@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,27 +16,33 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.generator.ProjectRequest;
+import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.Test;
 
 /**
- * Tests for {@link JacksonKotlinRequestPostProcessor}.
+ * Tests for {@link JacksonKotlinBuildCustomizer}.
  *
  * @author Sebastien Deleuze
  * @author Stephane Nicoll
  */
-public class JacksonKotlinRequestPostProcessorTests
-		extends AbstractRequestPostProcessorTests {
+public class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
+
+	private static final Dependency JACKSON_KOTLIN = Dependency.withId(
+			"jackson-module-kotlin", "com.fasterxml.jackson.module",
+			"jackson-module-kotlin");
+
+	private static final Dependency REACTOR_TEST = Dependency.withId("reactor-test",
+			"io.projectreactor", "reactor-test", null, Dependency.SCOPE_TEST);
 
 	@Test
 	public void jacksonModuleKotlinIsAdded() {
-		ProjectRequest request = createProjectRequest("webflux");
+		WebProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
 		request.setLanguage("kotlin");
 		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
-				.hasDependency(JacksonKotlinRequestPostProcessor.JACKSON_KOTLIN)
-				.hasSpringBootStarterTest()
-				.hasDependency(ReactorTestRequestPostProcessor.REACTOR_TEST)
+				.hasDependency(JACKSON_KOTLIN).hasSpringBootStarterTest()
+				.hasDependency(REACTOR_TEST)
 				.hasDependency("org.jetbrains.kotlin", "kotlin-reflect")
 				.hasDependency("org.jetbrains.kotlin", "kotlin-stdlib-jdk8")
 				.hasDependenciesCount(6);
@@ -44,17 +50,16 @@ public class JacksonKotlinRequestPostProcessorTests
 
 	@Test
 	public void jacksonModuleKotlinIsNotAddedWithoutKotlin() {
-		ProjectRequest request = createProjectRequest("webflux");
+		WebProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
 		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
-				.hasSpringBootStarterTest()
-				.hasDependency(ReactorTestRequestPostProcessor.REACTOR_TEST)
+				.hasSpringBootStarterTest().hasDependency(REACTOR_TEST)
 				.hasDependenciesCount(3);
 	}
 
 	@Test
 	public void jacksonModuleKotlinIsNotAddedWithoutJsonFacet() {
-		ProjectRequest request = createProjectRequest("actuator");
+		WebProjectRequest request = createProjectRequest("actuator");
 		request.setBootVersion("2.0.0.M2");
 		request.setLanguage("kotlin");
 		generateMavenPom(request).hasSpringBootStarterDependency("actuator")

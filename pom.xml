@@ -15,7 +15,7 @@
 
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
-		<spring.initializr.version>0.7.0.RELEASE</spring.initializr.version>
+		<spring.initializr.version>0.8.0.BUILD-SNAPSHOT</spring.initializr.version>
 		<spring-javaformat.version>0.0.6</spring-javaformat.version>
 	</properties>
 
@@ -55,12 +55,18 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<artifactId>spring-boot-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.spring.initializr</groupId>
 			<artifactId>initializr-generator</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.spring.initializr</groupId>
+			<artifactId>initializr-generator-spring</artifactId>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
@@ -86,6 +92,12 @@
 			<dependency>
 				<groupId>io.spring.initializr</groupId>
 				<artifactId>initializr-generator</artifactId>
+				<version>${spring.initializr.version}</version>
+				<type>test-jar</type>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.initializr</groupId>
+				<artifactId>initializr-generator-spring</artifactId>
 				<version>${spring.initializr.version}</version>
 				<type>test-jar</type>
 			</dependency>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,36 +16,35 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.generator.ProjectRequest;
 import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.Test;
 
 /**
- * Tests for {@link SpringSecurityTestRequestPostProcessor}.
+ * Tests for {@link SpringBatchTestBuildCustomizer}.
  *
- * @author Stephane Nicoll
+ * @author Tim Riemer
  */
-public class SpringSecurityTestRequestPostProcessorTests
-		extends AbstractRequestPostProcessorTests {
+public class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	public void securityTestIsAddedWithSecurity() {
-		ProjectRequest request = createProjectRequest("security");
-		generateMavenPom(request).hasSpringBootStarterDependency("security")
-				.hasSpringBootStarterTest().hasDependency(springSecurityTest())
+	public void batchTestIsAddedWithBatch() {
+		WebProjectRequest request = createProjectRequest("batch");
+		generateMavenPom(request).hasSpringBootStarterDependency("batch")
+				.hasSpringBootStarterTest().hasDependency(springBatchTest())
 				.hasDependenciesCount(3);
 	}
 
 	@Test
-	public void securityTestIsNotAddedWithoutSpringSecurity() {
-		ProjectRequest request = createProjectRequest("web");
+	public void batchTestIsNotAddedWithoutSpringBatch() {
+		WebProjectRequest request = createProjectRequest("web");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);
 	}
 
-	private static Dependency springSecurityTest() {
-		Dependency dependency = Dependency.withId("spring-security-test",
-				"org.springframework.security", "spring-security-test");
+	private static Dependency springBatchTest() {
+		Dependency dependency = Dependency.withId("spring-batch-test",
+				"org.springframework.batch", "spring-batch-test");
 		dependency.setScope(Dependency.SCOPE_TEST);
 		return dependency;
 	}

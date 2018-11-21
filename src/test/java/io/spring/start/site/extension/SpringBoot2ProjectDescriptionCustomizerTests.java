@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,19 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.generator.ProjectRequest;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.Test;
 
 /**
- * Tests for {@link SpringBoot2RequestPostProcessor}.
+ * Tests for Spring Boot 2.0 Java Version customization.
  *
  * @author Stephane Nicoll
  */
-public class SpringBoot2RequestPostProcessorTests
-		extends AbstractRequestPostProcessorTests {
+public class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	public void java8IsMandatoryMaven() {
-		ProjectRequest request = createProjectRequest("web");
+		WebProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("1.7");
 		generateMavenPom(request).hasJavaVersion("1.8");
@@ -37,7 +36,7 @@ public class SpringBoot2RequestPostProcessorTests
 
 	@Test
 	public void java8IsMandatoryGradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
+		WebProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		request.setJavaVersion("1.7");
 		generateGradleBuild(request).hasJavaVersion("1.8");
@@ -45,7 +44,7 @@ public class SpringBoot2RequestPostProcessorTests
 
 	@Test
 	public void java9CanBeUsedMaven() {
-		ProjectRequest request = createProjectRequest("web");
+		WebProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("9");
 		generateMavenPom(request).hasJavaVersion("9");
@@ -53,7 +52,7 @@ public class SpringBoot2RequestPostProcessorTests
 
 	@Test
 	public void java9CanBeUsedGradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
+		WebProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		request.setJavaVersion("9");
 		generateGradleBuild(request).hasJavaVersion("9");
@@ -61,7 +60,7 @@ public class SpringBoot2RequestPostProcessorTests
 
 	@Test
 	public void java10CanBeUsedMaven() {
-		ProjectRequest request = createProjectRequest("web");
+		WebProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.1.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("10");
 		generateMavenPom(request).hasJavaVersion("10");
@@ -69,7 +68,7 @@ public class SpringBoot2RequestPostProcessorTests
 
 	@Test
 	public void java10CanBeUsedGradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
+		WebProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.2.RELEASE");
 		request.setJavaVersion("10");
 		generateGradleBuild(request).hasJavaVersion("10");

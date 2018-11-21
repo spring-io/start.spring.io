@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,183 +16,175 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.generator.ProjectRequest;
+import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.Test;
 
 /**
- * Tests for {@link SpringCloudStreamRequestPostProcessor}.
+ * Tests for {@link SpringCloudStreamBuildCustomizer}.
  *
  * @author Stephane Nicoll
  */
-public class SpringCloudStreamRequestPostProcessorTests
-		extends AbstractRequestPostProcessorTests {
+public class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
+
+	private static final Dependency KAFKA_BINDER = Dependency.withId(
+			"cloud-stream-binder-kafka", "org.springframework.cloud",
+			"spring-cloud-stream-binder-kafka");
+
+	private static final Dependency KAFKA_STREAMS_BINDER = Dependency.withId(
+			"cloud-stream-binder-kafka-streams", "org.springframework.cloud",
+			"spring-cloud-stream-binder-kafka-streams");
+
+	private static final Dependency RABBIT_BINDER = Dependency.withId(
+			"cloud-stream-binder-rabbit", "org.springframework.cloud",
+			"spring-cloud-stream-binder-rabbit");
+
+	private static final Dependency SCS_TEST = Dependency.withId("cloud-stream-test",
+			"org.springframework.cloud", "spring-cloud-stream-test-support", null,
+			Dependency.SCOPE_TEST);
 
 	@Test
 	public void springCloudStreamWithRabbit() {
-		ProjectRequest request = createProjectRequest("cloud-stream", "amqp");
+		WebProjectRequest request = createProjectRequest("cloud-stream", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
-				.hasDependency(getDependency("amqp"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
-				.hasSpringBootStarterTest()
-				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
+				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
+				.hasSpringBootStarterTest().hasDependency(SCS_TEST)
 				.hasDependenciesCount(5);
 	}
 
 	@Test
 	public void springCloudStreamWithKafka() {
-		ProjectRequest request = createProjectRequest("cloud-stream", "kafka");
+		WebProjectRequest request = createProjectRequest("cloud-stream", "kafka");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
-				.hasDependency(getDependency("kafka"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
-				.hasSpringBootStarterTest()
-				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
+				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER)
+				.hasSpringBootStarterTest().hasDependency(SCS_TEST)
 				.hasDependenciesCount(6);
 	}
 
 	@Test
 	public void springCloudStreamWithKafkaStreams() {
-		ProjectRequest request = createProjectRequest("cloud-stream", "kafka-streams");
+		WebProjectRequest request = createProjectRequest("cloud-stream", "kafka-streams");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("kafka-streams"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_STREAMS_BINDER)
-				.hasSpringBootStarterTest()
-				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
-				.hasDependenciesCount(5);
+				.hasDependency(KAFKA_STREAMS_BINDER).hasSpringBootStarterTest()
+				.hasDependency(SCS_TEST).hasDependenciesCount(5);
 	}
 
 	@Test
 	public void springCloudStreamWithAllBinders() {
-		ProjectRequest request = createProjectRequest("cloud-stream", "amqp", "kafka",
+		WebProjectRequest request = createProjectRequest("cloud-stream", "amqp", "kafka",
 				"kafka-streams");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("amqp"))
 				.hasDependency(getDependency("kafka"))
 				.hasDependency(getDependency("kafka-streams"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_STREAMS_BINDER)
-				.hasSpringBootStarterTest()
-				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
-				.hasDependenciesCount(10);
+				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
+				.hasDependency(KAFKA_STREAMS_BINDER).hasSpringBootStarterTest()
+				.hasDependency(SCS_TEST).hasDependenciesCount(10);
 	}
 
 	@Test
 	public void reactiveSpringCloudStreamWithRabbit() {
-		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp");
+		WebProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
-				.hasDependency(getDependency("amqp"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
-				.hasSpringBootStarterTest()
-				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
+				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
+				.hasSpringBootStarterTest().hasDependency(SCS_TEST)
 				.hasDependenciesCount(5);
 	}
 
 	@Test
 	public void reactiveSpringCloudStreamWithKafka() {
-		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka");
+		WebProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
-				.hasDependency(getDependency("kafka"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
-				.hasSpringBootStarterTest()
-				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
+				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER)
+				.hasSpringBootStarterTest().hasDependency(SCS_TEST)
 				.hasDependenciesCount(6);
 	}
 
 	@Test
 	public void reactiveSpringCloudStreamWithKafkaStreams() {
-		ProjectRequest request = createProjectRequest("reactive-cloud-stream",
+		WebProjectRequest request = createProjectRequest("reactive-cloud-stream",
 				"kafka-streams");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("kafka-streams"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_STREAMS_BINDER)
-				.hasSpringBootStarterTest()
-				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
-				.hasDependenciesCount(5);
+				.hasDependency(KAFKA_STREAMS_BINDER).hasSpringBootStarterTest()
+				.hasDependency(SCS_TEST).hasDependenciesCount(5);
 	}
 
 	@Test
 	public void reactiveSpringCloudStreamWithAllBinders() {
-		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp",
+		WebProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp",
 				"kafka", "kafka-streams");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("amqp"))
 				.hasDependency(getDependency("kafka"))
 				.hasDependency(getDependency("kafka-streams"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_STREAMS_BINDER)
-				.hasSpringBootStarterTest()
-				.hasDependency(SpringCloudStreamRequestPostProcessor.SCS_TEST)
-				.hasDependenciesCount(10);
+				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
+				.hasDependency(KAFKA_STREAMS_BINDER).hasSpringBootStarterTest()
+				.hasDependency(SCS_TEST).hasDependenciesCount(10);
 	}
 
 	@Test
 	public void springCloudBusWithRabbit() {
-		ProjectRequest request = createProjectRequest("cloud-bus", "amqp");
+		WebProjectRequest request = createProjectRequest("cloud-bus", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus"))
-				.hasDependency(getDependency("amqp"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
+				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
 				.hasSpringBootStarterTest().hasDependenciesCount(4);
 	}
 
 	@Test
 	public void springCloudBusWithKafka() {
-		ProjectRequest request = createProjectRequest("cloud-bus", "amqp");
+		WebProjectRequest request = createProjectRequest("cloud-bus", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus"))
-				.hasDependency(getDependency("amqp"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
+				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
 				.hasSpringBootStarterTest().hasDependenciesCount(4);
 	}
 
 	@Test
 	public void springCloudBusWithAllBinders() {
-		ProjectRequest request = createProjectRequest("cloud-bus", "amqp", "kafka",
+		WebProjectRequest request = createProjectRequest("cloud-bus", "amqp", "kafka",
 				"kafka-streams");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus"))
 				.hasDependency(getDependency("amqp"))
 				.hasDependency(getDependency("kafka"))
 				.hasDependency(getDependency("kafka-streams"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
+				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
 				.hasSpringBootStarterTest().hasDependenciesCount(8);
 	}
 
 	@Test
 	public void springCloudTurbineStreamWithRabbit() {
-		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp");
+		WebProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
-				.hasDependency(getDependency("amqp"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
+				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
 				.hasSpringBootStarterTest().hasDependenciesCount(4);
 	}
 
 	@Test
 	public void springCloudTurbineStreamWithKafka() {
-		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "kafka");
+		WebProjectRequest request = createProjectRequest("cloud-turbine-stream", "kafka");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
-				.hasDependency(getDependency("kafka"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
+				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER)
 				.hasSpringBootStarterTest().hasDependenciesCount(5);
 	}
 
 	@Test
 	public void springCloudTurbineStreamWithAllBinders() {
-		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp",
+		WebProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp",
 				"kafka", "kafka-streams");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
 				.hasDependency(getDependency("amqp"))
 				.hasDependency(getDependency("kafka"))
 				.hasDependency(getDependency("kafka-streams"))
-				.hasDependency(SpringCloudStreamRequestPostProcessor.RABBIT_BINDER)
-				.hasDependency(SpringCloudStreamRequestPostProcessor.KAFKA_BINDER)
+				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
 				.hasSpringBootStarterTest().hasDependenciesCount(8);
 	}
 

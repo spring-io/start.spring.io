@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,12 @@ package io.spring.start.site.extension;
 
 import java.util.Arrays;
 
-import io.spring.initializr.generator.ProjectGenerator;
-import io.spring.initializr.generator.ProjectRequest;
-import io.spring.initializr.generator.ProjectRequestPostProcessor;
+import io.spring.initializr.generator.spring.test.build.GradleBuildAssert;
+import io.spring.initializr.generator.spring.test.build.PomAssert;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
-import io.spring.initializr.test.generator.GradleBuildAssert;
-import io.spring.initializr.test.generator.PomAssert;
+import io.spring.initializr.web.project.ProjectGenerationInvoker;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +31,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Base test class for {@link ProjectRequestPostProcessor} implementations.
+ * Base test class for extensions.
  *
  * @author Stephane Nicoll
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public abstract class AbstractRequestPostProcessorTests {
+public abstract class AbstractExtensionTests {
 
 	@Autowired
-	private ProjectGenerator projectGenerator;
+	private ProjectGenerationInvoker invoker;
 
 	@Autowired
 	private InitializrMetadataProvider metadataProvider;
@@ -50,20 +49,21 @@ public abstract class AbstractRequestPostProcessorTests {
 		return this.metadataProvider.get().getDependencies().get(id);
 	}
 
-	protected PomAssert generateMavenPom(ProjectRequest request) {
+	protected PomAssert generateMavenPom(WebProjectRequest request) {
 		request.setType("maven-build");
-		String content = new String(this.projectGenerator.generateMavenPom(request));
+
+		String content = new String(this.invoker.invokeBuildGeneration(request));
 		return new PomAssert(content);
 	}
 
-	protected GradleBuildAssert generateGradleBuild(ProjectRequest request) {
+	protected GradleBuildAssert generateGradleBuild(WebProjectRequest request) {
 		request.setType("gradle-build");
-		String content = new String(this.projectGenerator.generateGradleBuild(request));
+		String content = new String(this.invoker.invokeBuildGeneration(request));
 		return new GradleBuildAssert(content);
 	}
 
-	protected ProjectRequest createProjectRequest(String... styles) {
-		ProjectRequest request = new ProjectRequest();
+	protected WebProjectRequest createProjectRequest(String... styles) {
+		WebProjectRequest request = new WebProjectRequest();
 		request.initialize(this.metadataProvider.get());
 		request.getStyle().addAll(Arrays.asList(styles));
 		return request;

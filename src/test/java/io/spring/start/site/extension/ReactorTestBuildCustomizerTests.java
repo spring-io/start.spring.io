@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,20 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.generator.ProjectRequest;
 import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.Test;
 
 /**
- * Tests for {@link ReactorTestRequestPostProcessor}.
+ * Tests for {@link ReactorTestBuildCustomizer}.
  *
  * @author Stephane Nicoll
  */
-public class ReactorTestRequestPostProcessorTests
-		extends AbstractRequestPostProcessorTests {
+public class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	public void reactorTestIsAdded() {
-		ProjectRequest request = createProjectRequest("webflux");
+		WebProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
 		Dependency reactorTest = Dependency.withId("reactor-test", "io.projectreactor",
 				"reactor-test");
@@ -42,7 +41,7 @@ public class ReactorTestRequestPostProcessorTests
 
 	@Test
 	public void reactorTestIsNotAddedWithEarlierVersions() {
-		ProjectRequest request = createProjectRequest("webflux");
+		WebProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M1");
 		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);
@@ -50,7 +49,7 @@ public class ReactorTestRequestPostProcessorTests
 
 	@Test
 	public void reactorTestIsNotAddedWithoutWebFlux() {
-		ProjectRequest request = createProjectRequest("web");
+		WebProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.M2");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,19 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.generator.ProjectRequest;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.Test;
 
 /**
- * Tests for {@link SpringCloudGcpBomRequestPostProcessor}.
+ * Tests for {@link SpringCloudGcpBomBuildCustomizer}.
  *
  * @author Stephane Nicoll
  */
-public class SpringCloudGcpBomRequestPostProcessorTests
-		extends AbstractRequestPostProcessorTests {
+public class SpringCloudGcpBomBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	public void springCloudGcpOffReleaseTrain() {
-		ProjectRequest request = createProjectRequest("cloud-gcp");
+		WebProjectRequest request = createProjectRequest("cloud-gcp");
 		request.setBootVersion("2.0.6.RELEASE");
 		generateMavenPom(request)
 				.hasBom("org.springframework.cloud", "spring-cloud-gcp-dependencies",
@@ -41,7 +40,7 @@ public class SpringCloudGcpBomRequestPostProcessorTests
 
 	@Test
 	public void springCloudGcpOnReleaseTrain() {
-		ProjectRequest request = createProjectRequest("cloud-gcp");
+		WebProjectRequest request = createProjectRequest("cloud-gcp");
 		request.setBootVersion("2.1.1.RELEASE");
 		generateMavenPom(request).hasBom("org.springframework.cloud",
 				"spring-cloud-dependencies", "${spring-cloud.version}").hasBomsCount(1);

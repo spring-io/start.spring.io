@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +19,21 @@ package io.spring.start.site.extension;
 import java.util.Arrays;
 import java.util.List;
 
-import io.spring.initializr.generator.ProjectRequest;
-import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.util.Version;
-
-import org.springframework.stereotype.Component;
+import io.spring.initializr.generator.language.Language;
+import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
+import io.spring.initializr.generator.version.Version;
 
 /**
+ *
  * Validate that the requested java version is compatible with the chosen Spring Boot
  * generation and adapt the request if necessary.
  *
  * @author Stephane Nicoll
+ * @author Madhura Bhave
  */
-@Component
-class JavaVersionRequestPostProcessor extends AbstractProjectRequestPostProcessor {
+public class JavaVersionProjectDescriptionCustomizer
+		implements ProjectDescriptionCustomizer {
 
 	private static final Version VERSION_2_0_0_M1 = Version.parse("2.0.0.M1");
 
@@ -44,29 +45,36 @@ class JavaVersionRequestPostProcessor extends AbstractProjectRequestPostProcesso
 			"kotlin");
 
 	@Override
-	public void postProcessAfterResolution(ProjectRequest request,
-			InitializrMetadata metadata) {
-		Integer javaGeneration = determineJavaGeneration(request.getJavaVersion());
+	public void customize(ProjectDescription description) {
+		Integer javaGeneration = determineJavaGeneration(
+				description.getLanguage().jvmVersion());
 		if (javaGeneration == null) {
 			return;
 		}
 		// Not supported for Spring Boot 1.x
-		if (isSpringBootVersionBefore(request, VERSION_2_0_0_M1)) {
-			request.setJavaVersion("1.8");
+		if (isSpringBootVersionBefore(description, VERSION_2_0_0_M1)) {
+			updateTo(description, "1.8");
 		}
 		// Not supported for Kotlin & Groovy
-		if (UNSUPPORTED_LANGUAGES.contains(request.getLanguage())) {
-			request.setJavaVersion("1.8");
+		if (UNSUPPORTED_LANGUAGES.contains(description.getLanguage().id())) {
+			updateTo(description, "1.8");
 		}
 		// 10 support only as of 2.0.1
-		if (javaGeneration == 10 && isSpringBootVersionBefore(request, VERSION_2_0_1)) {
-			request.setJavaVersion("1.8");
+		if (javaGeneration == 10
+				&& isSpringBootVersionBefore(description, VERSION_2_0_1)) {
+			updateTo(description, "1.8");
 		}
 		// 11 support only as of 2.1.x
 		if (javaGeneration == 11
-				&& isSpringBootVersionBefore(request, VERSION_2_1_0_M1)) {
-			request.setJavaVersion("1.8");
+				&& isSpringBootVersionBefore(description, VERSION_2_1_0_M1)) {
+			updateTo(description, "1.8");
 		}
+	}
+
+	private void updateTo(ProjectDescription projectDescription, String jvmVersion) {
+		Language language = Language.forId(projectDescription.getLanguage().id(),
+				jvmVersion);
+		projectDescription.setLanguage(language);
 	}
 
 	private Integer determineJavaGeneration(String javaVersion) {
@@ -77,6 +85,11 @@ class JavaVersionRequestPostProcessor extends AbstractProjectRequestPostProcesso
 		catch (NumberFormatException ex) {
 			return null;
 		}
+	}
+
+	protected boolean isSpringBootVersionBefore(ProjectDescription description,
+			Version version) {
+		return version.compareTo(description.getPlatformVersion()) > 0;
 	}
 
 }

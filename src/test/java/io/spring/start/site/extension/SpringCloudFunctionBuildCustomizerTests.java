@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,50 +16,54 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.generator.ProjectRequest;
+import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.Test;
 
 /**
- * Tests for {@link SpringCloudFunctionRequestPostProcessor}.
+ * Tests for {@link SpringCloudFunctionBuildCustomizer}.
  *
  * @author Dave Syer
  * @author Stephane Nicoll
  */
-public class SpringCloudFunctionRequestPostProcessorTests
-		extends AbstractRequestPostProcessorTests {
+public class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
+
+	static final Dependency SCS_ADAPTER = Dependency.withId("cloud-function-stream",
+			"org.springframework.cloud", "spring-cloud-function-stream");
+
+	static final Dependency WEB_ADAPTER = Dependency.withId("cloud-function-web",
+			"org.springframework.cloud", "spring-cloud-function-web");
 
 	@Test
 	public void functionOnly() {
-		ProjectRequest request = createProjectRequest("cloud-function");
+		WebProjectRequest request = createProjectRequest("cloud-function");
 		generateMavenPom(request).hasDependency(getDependency("cloud-function"))
 				.hasSpringBootStarterTest().hasDependenciesCount(2);
 	}
 
 	@Test
 	public void springCloudStreamWithRabbit() {
-		ProjectRequest request = createProjectRequest("cloud-stream", "amqp",
+		WebProjectRequest request = createProjectRequest("cloud-stream", "amqp",
 				"cloud-function");
 		request.setBootVersion("2.0.6.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
-				.hasDependency(getDependency("amqp"))
-				.hasDependency(SpringCloudFunctionRequestPostProcessor.SCS_ADAPTER)
+				.hasDependency(getDependency("amqp")).hasDependency(SCS_ADAPTER)
 				.hasDependenciesCount(6);
 	}
 
 	@Test
 	public void reactiveSpringCloudStreamWithKafka() {
-		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka",
+		WebProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka",
 				"cloud-function");
 		request.setBootVersion("2.0.6.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
-				.hasDependency(getDependency("kafka"))
-				.hasDependency(SpringCloudFunctionRequestPostProcessor.SCS_ADAPTER)
+				.hasDependency(getDependency("kafka")).hasDependency(SCS_ADAPTER)
 				.hasDependenciesCount(7);
 	}
 
 	@Test
 	public void springCloudStreamWith21() {
-		ProjectRequest request = createProjectRequest("cloud-stream", "cloud-function");
+		WebProjectRequest request = createProjectRequest("cloud-stream", "cloud-function");
 		request.setBootVersion("2.1.0.RC1");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4);
@@ -67,7 +71,7 @@ public class SpringCloudFunctionRequestPostProcessorTests
 
 	@Test
 	public void reactiveSpringCloudStreamWith21() {
-		ProjectRequest request = createProjectRequest("reactive-cloud-stream",
+		WebProjectRequest request = createProjectRequest("reactive-cloud-stream",
 				"cloud-function");
 		request.setBootVersion("2.1.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
@@ -76,24 +80,22 @@ public class SpringCloudFunctionRequestPostProcessorTests
 
 	@Test
 	public void web() {
-		ProjectRequest request = createProjectRequest("web", "cloud-function");
+		WebProjectRequest request = createProjectRequest("web", "cloud-function");
 		generateMavenPom(request).hasDependency(getDependency("web"))
-				.hasDependency(SpringCloudFunctionRequestPostProcessor.WEB_ADAPTER)
-				.hasDependenciesCount(3);
+				.hasDependency(WEB_ADAPTER).hasDependenciesCount(3);
 	}
 
 	@Test
 	public void webflux() {
-		ProjectRequest request = createProjectRequest("webflux", "cloud-function");
+		WebProjectRequest request = createProjectRequest("webflux", "cloud-function");
 		request.setBootVersion("2.1.0.BUILD-SNAPSHOT");
 		generateMavenPom(request).hasDependency(getDependency("webflux"))
-				.hasDependency(SpringCloudFunctionRequestPostProcessor.WEB_ADAPTER)
-				.hasDependenciesCount(4);
+				.hasDependency(WEB_ADAPTER).hasDependenciesCount(4);
 	}
 
 	@Test
 	public void webfluxNotAvailableIn20() {
-		ProjectRequest request = createProjectRequest("webflux", "cloud-function");
+		WebProjectRequest request = createProjectRequest("webflux", "cloud-function");
 		request.setBootVersion("2.0.5.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("webflux"))
 				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4);
