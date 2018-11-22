@@ -16,18 +16,13 @@
 
 package io.spring.start.site;
 
-import io.spring.initializr.metadata.InitializrMetadataProvider;
-import io.spring.initializr.web.project.LegacyStsController;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
 /**
- * Initializr website application. Enables legacy STS support for older clients.
+ * Initializr website application.
  *
  * @author Stephane Nicoll
  */
@@ -38,13 +33,6 @@ public class StartApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StartApplication.class, args);
-	}
-
-	@Bean
-	public LegacyStsController legacyStsController(
-			InitializrMetadataProvider metadataProvider,
-			ResourceUrlProvider resourceUrlProvider) {
-		return new LegacyStsController(metadataProvider, resourceUrlProvider);
 	}
 
 }
