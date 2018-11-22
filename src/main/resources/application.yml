@@ -117,17 +117,6 @@ initializr:
           - versionRange: "2.1.x.BUILD-SNAPSHOT"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
-      spring-cloud-gcp:
-        groupId: org.springframework.cloud
-        artifactId: spring-cloud-gcp-dependencies
-        versionProperty: spring-cloud-gcp.version
-        additionalBoms: [spring-cloud]
-        mappings:
-          - versionRange: "[2.0.0.RELEASE,2.1.0.M1)"
-            version: 1.0.0.RELEASE
-          - versionRange: "2.1.0.M1"
-            version: ${local.gcp.version}
-            repositories: spring-milestones
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
@@ -1179,7 +1168,7 @@ initializr:
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-storage-spring-boot-starter
               description: Reference doc
     - name: Spring Cloud GCP
-      bom: spring-cloud-gcp
+      bom: spring-cloud
       versionRange: 2.0.0.RELEASE
       content:
         - name: GCP Support
