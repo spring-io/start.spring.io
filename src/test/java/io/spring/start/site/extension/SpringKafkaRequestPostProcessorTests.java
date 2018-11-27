@@ -21,11 +21,12 @@ import io.spring.initializr.metadata.Dependency;
 import org.junit.Test;
 
 /**
- * Tests for {@link SpringKafkaTestRequestPostProcessor}.
+ * Tests for {@link SpringKafkaRequestPostProcessor}.
  *
  * @author Wonwoo Lee
+ * @author Stephane Nicoll
  */
-public class SpringKafkaTestRequestPostProcessorTests
+public class SpringKafkaRequestPostProcessorTests
 		extends AbstractRequestPostProcessorTests {
 
 	@Test
@@ -52,6 +53,35 @@ public class SpringKafkaTestRequestPostProcessorTests
 		request.setBootVersion("1.4.7.RELEASE");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);
+	}
+
+	@Test
+	public void springKafkaIsOverriddenWith15Maven() {
+		ProjectRequest request = createProjectRequest("kafka");
+		request.setBootVersion("1.5.0.RELEASE");
+		generateMavenPom(request).hasProperty("spring-kafka.version", "1.3.8.RELEASE");
+	}
+
+	@Test
+	public void springKafkaIsOverriddenWith15Gradle() {
+		ProjectRequest request = createProjectRequest("kafka");
+		request.setBootVersion("1.5.0.RELEASE");
+		generateGradleBuild(request)
+				.contains("ext['spring-kafka.version'] = '1.3.8.RELEASE'");
+	}
+
+	@Test
+	public void springKafkaIsNotOverriddenWith20Maven() {
+		ProjectRequest request = createProjectRequest("kafka");
+		request.setBootVersion("2.0.0.RELEASE");
+		generateMavenPom(request).hasNoProperty("spring-kafka.version");
+	}
+
+	@Test
+	public void springKafkaIsNotOverriddenWith20Gradle() {
+		ProjectRequest request = createProjectRequest("kafka");
+		request.setBootVersion("2.0.0.RELEASE");
+		generateGradleBuild(request).doesNotContain("spring-kafka.version");
 	}
 
 }

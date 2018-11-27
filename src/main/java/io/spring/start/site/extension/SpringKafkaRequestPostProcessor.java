@@ -21,19 +21,23 @@ import io.spring.initializr.generator.ProjectRequestPostProcessor;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.util.Version;
+import io.spring.initializr.util.VersionProperty;
 
 import org.springframework.stereotype.Component;
 
 /**
  * A {@link ProjectRequestPostProcessor} that automatically adds "spring-kafka-test" when
- * kafka is selected.
+ * kafka is selected and overrides to a more stable version when using Spring Boot 1.x
  *
  * @author Wonwoo Lee
+ * @author Stephane Nicoll
  */
 @Component
-class SpringKafkaTestRequestPostProcessor extends AbstractProjectRequestPostProcessor {
+class SpringKafkaRequestPostProcessor extends AbstractProjectRequestPostProcessor {
 
 	private static final Version VERSION_1_5_0 = Version.parse("1.5.0.RELEASE");
+
+	private static final Version VERSION_2_0_0 = Version.parse("2.0.0.M1");
 
 	private static final Dependency SPRING_KAFKA_TEST = Dependency.withId(
 			"spring-kafka-test", "org.springframework.kafka", "spring-kafka-test", null,
@@ -45,6 +49,12 @@ class SpringKafkaTestRequestPostProcessor extends AbstractProjectRequestPostProc
 		if (hasDependency(request, "kafka")
 				&& isSpringBootVersionAtLeastAfter(request, VERSION_1_5_0)) {
 			request.getResolvedDependencies().add(SPRING_KAFKA_TEST);
+			// Override to a more recent version
+			if (isSpringBootVersionBefore(request, VERSION_2_0_0)) {
+				request.getBuildProperties().getVersions().put(
+						VersionProperty.of("spring-kafka.version", false),
+						() -> "1.3.8.RELEASE");
+			}
 		}
 	}
 
