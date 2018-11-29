@@ -48,14 +48,6 @@ public class SpringKafkaRequestPostProcessorTests
 	}
 
 	@Test
-	public void springKafkaTestIsNotAddedWithKafkaAndOlderSpringBootVersion() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("1.4.7.RELEASE");
-		generateMavenPom(request).hasSpringBootStarterDependency("web")
-				.hasSpringBootStarterTest().hasDependenciesCount(2);
-	}
-
-	@Test
 	public void springKafkaIsOverriddenWith15Maven() {
 		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("1.5.0.RELEASE");

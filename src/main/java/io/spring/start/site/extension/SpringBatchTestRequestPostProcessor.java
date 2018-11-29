@@ -33,8 +33,6 @@ import org.springframework.stereotype.Component;
 @Component
 class SpringBatchTestRequestPostProcessor extends AbstractProjectRequestPostProcessor {
 
-	private static final Version VERSION_1_3_0 = Version.parse("1.3.0.RELEASE");
-
 	static final Dependency SPRING_BATCH_TEST = Dependency.withId("spring-batch-test",
 			"org.springframework.batch", "spring-batch-test", null,
 			Dependency.SCOPE_TEST);
@@ -42,8 +40,7 @@ class SpringBatchTestRequestPostProcessor extends AbstractProjectRequestPostProc
 	@Override
 	public void postProcessAfterResolution(ProjectRequest request,
 			InitializrMetadata metadata) {
-		if (hasDependency(request, "batch")
-				&& isSpringBootVersionAtLeastAfter(request, VERSION_1_3_0)) {
+		if (hasDependency(request, "batch")) {
 			request.getResolvedDependencies().add(SPRING_BATCH_TEST);
 		}
 	}

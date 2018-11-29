@@ -33,8 +33,6 @@ import org.springframework.stereotype.Component;
 @Component
 class SpringSecurityTestRequestPostProcessor extends AbstractProjectRequestPostProcessor {
 
-	private static final Version VERSION_1_3_0 = Version.parse("1.3.0.RELEASE");
-
 	static final Dependency SPRING_SECURITY_TEST = Dependency.withId("security-test",
 			"org.springframework.security", "spring-security-test", null,
 			Dependency.SCOPE_TEST);
@@ -42,8 +40,7 @@ class SpringSecurityTestRequestPostProcessor extends AbstractProjectRequestPostP
 	@Override
 	public void postProcessAfterResolution(ProjectRequest request,
 			InitializrMetadata metadata) {
-		if (hasDependency(request, "security")
-				&& isSpringBootVersionAtLeastAfter(request, VERSION_1_3_0)) {
+		if (hasDependency(request, "security")) {
 			request.getResolvedDependencies().add(SPRING_SECURITY_TEST);
 		}
 	}

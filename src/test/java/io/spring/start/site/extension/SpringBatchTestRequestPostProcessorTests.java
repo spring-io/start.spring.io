@@ -37,14 +37,6 @@ public class SpringBatchTestRequestPostProcessorTests
 	}
 
 	@Test
-	public void batchTestIsNotAddedBefore13() {
-		ProjectRequest request = createProjectRequest("batch");
-		request.setBootVersion("1.2.7.RELEASE");
-		generateMavenPom(request).hasSpringBootStarterDependency("batch")
-				.hasSpringBootStarterTest().hasDependenciesCount(2);
-	}
-
-	@Test
 	public void batchTestIsNotAddedWithoutSpringBatch() {
 		ProjectRequest request = createProjectRequest("web");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")

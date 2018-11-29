@@ -37,14 +37,6 @@ public class SpringSecurityTestRequestPostProcessorTests
 	}
 
 	@Test
-	public void securityTestIsNotAddedBefore13() {
-		ProjectRequest request = createProjectRequest("security");
-		request.setBootVersion("1.2.7.RELEASE");
-		generateMavenPom(request).hasSpringBootStarterDependency("security")
-				.hasSpringBootStarterTest().hasDependenciesCount(2);
-	}
-
-	@Test
 	public void securityTestIsNotAddedWithoutSpringSecurity() {
 		ProjectRequest request = createProjectRequest("web");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")

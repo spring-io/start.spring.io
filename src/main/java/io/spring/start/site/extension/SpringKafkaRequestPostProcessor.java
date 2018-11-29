@@ -35,8 +35,6 @@ import org.springframework.stereotype.Component;
 @Component
 class SpringKafkaRequestPostProcessor extends AbstractProjectRequestPostProcessor {
 
-	private static final Version VERSION_1_5_0 = Version.parse("1.5.0.RELEASE");
-
 	private static final Version VERSION_2_0_0 = Version.parse("2.0.0.M1");
 
 	private static final Dependency SPRING_KAFKA_TEST = Dependency.withId(
@@ -46,8 +44,7 @@ class SpringKafkaRequestPostProcessor extends AbstractProjectRequestPostProcesso
 	@Override
 	public void postProcessAfterResolution(ProjectRequest request,
 			InitializrMetadata metadata) {
-		if (hasDependency(request, "kafka")
-				&& isSpringBootVersionAtLeastAfter(request, VERSION_1_5_0)) {
+		if (hasDependency(request, "kafka")) {
 			request.getResolvedDependencies().add(SPRING_KAFKA_TEST);
 			// Override to a more recent version
 			if (isSpringBootVersionBefore(request, VERSION_2_0_0)) {
