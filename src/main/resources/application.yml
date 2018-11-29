@@ -1093,11 +1093,13 @@ initializr:
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-email
         - name: Apache Camel
           id: camel
-          versionRange: "[1.5.0.RELEASE,2.1.0.M1)"
+          versionRange: "1.5.0.RELEASE"
           mappings:
             - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
               version: 2.21.3
-            - versionRange: "2.0.0.M1"
+            - versionRange: "[2.0.0.M1,2.1.0.M1)"
+              version: 2.22.1
+            - versionRange: "2.1.0.M1"
               version: 2.23.0
           description: Integration using Apache Camel
           groupId: org.apache.camel
