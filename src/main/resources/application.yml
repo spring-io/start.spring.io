@@ -971,16 +971,28 @@ initializr:
           description: Config client on Pivotal Cloud Foundry
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-config-client
-        - name: Service Registry (PCF)
+          links:
+            - rel: reference
+              href: https://docs.pivotal.io/spring-cloud-services/
+              description: Reference doc
+        - name: Service Registry Client (PCF)
           id: scs-service-registry
-          description: Eureka service discovery on Pivotal Cloud Foundry
+          description: Eureka service discovery client on Pivotal Cloud Foundry
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-service-registry
-        - name: Circuit Breaker (PCF)
+          links:
+            - rel: reference
+              href: https://docs.pivotal.io/spring-cloud-services/
+              description: Reference doc
+        - name: Circuit Breaker Client (PCF)
           id: scs-circuit-breaker
-          description: Hystrix circuit breaker on Pivotal Cloud Foundry
+          description: Hystrix circuit breaker client on Pivotal Cloud Foundry
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-circuit-breaker
+          links:
+            - rel: reference
+              href: https://docs.pivotal.io/spring-cloud-services/
+              description: Reference doc
     - name: Amazon Web Services
       bom: spring-cloud
       content:
