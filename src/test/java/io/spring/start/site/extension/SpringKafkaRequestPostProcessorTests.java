@@ -59,7 +59,7 @@ public class SpringKafkaRequestPostProcessorTests
 		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("1.5.0.RELEASE");
 		generateGradleBuild(request)
-				.contains("ext['spring-kafka.version'] = '1.3.8.RELEASE'");
+				.hasBuildProperties("spring-kafka.version=1.3.8.RELEASE");
 	}
 
 	@Test
