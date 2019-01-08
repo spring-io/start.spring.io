@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ public class SpringKafkaRequestPostProcessorTests
 		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("1.5.0.RELEASE");
 		generateGradleBuild(request)
-				.hasBuildProperties("spring-kafka.version=1.3.8.RELEASE");
+				.hasProperties("spring-kafka.version", "1.3.8.RELEASE");
 	}
 
 	@Test
