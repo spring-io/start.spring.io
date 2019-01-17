@@ -10,7 +10,8 @@ start.spring.io must meet the following requirements.
 
 ## Code of Conduct
 This project adheres to the Contributor Covenant code of conduct. By participating, you
-are expected to uphold this code.
+are expected to adhere to this code. If you have not already done so, we also encourage
+you to adopt a code of conduct in your own project.
 
 ## Well-established project with a vibrant community
 To avoid overwhelming users with too much choice, we aim for each starter to be of
