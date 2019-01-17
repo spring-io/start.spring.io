@@ -22,6 +22,13 @@ Please provide some links that provide some evidence for this. We're looking for
 things like GitHub stars, multiple contributors, ongoing maintenance, Stack Overflow
 questions, etc.
 
+## Ongoing maintenance
+To ensure that the Spring Boot community has a good experience with your starter,
+it should be kept up-to-date with the latest Spring Boot releases and maintenenace
+releases should be shipped as needed. When a new release is made, a pull request
+should be made to this project to ensure that the Spring Boot community are using the
+latest version
+
 ## Licence
 Please provide details of your project's licence. If you starter pulls in any
 dependencies with a different license to the  starter's own licence, please provide
