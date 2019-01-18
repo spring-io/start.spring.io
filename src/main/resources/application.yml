@@ -1096,11 +1096,11 @@ initializr:
           versionRange: "1.5.0.RELEASE"
           mappings:
             - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
-              version: 2.21.3
+              version: 2.21.4
             - versionRange: "[2.0.0.M1,2.1.0.M1)"
-              version: 2.22.1
+              version: 2.22.2
             - versionRange: "2.1.0.M1"
-              version: 2.23.0
+              version: 2.23.1
           description: Integration using Apache Camel
           groupId: org.apache.camel
           artifactId: camel-spring-boot-starter
