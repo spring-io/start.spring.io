@@ -231,7 +231,7 @@ initializr:
           links:
             - rel: guide
               href: https://spring.io/guides/gs/validating-form-input/
-              title: Validating Form Input
+              description: Validating Form Input
         - name: Retry
           id: retry
           groupId: org.springframework.retry
