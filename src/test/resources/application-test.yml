@@ -1,0 +1,28 @@
+local:
+  gcp:
+    version: 1.1.0.M3
+
+logging:
+  level:
+    org.springframework.core.env: warn
+    org.springframework.jndi: warn
+
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,text/css,text/html
+    min-response-size: 2048
+  use-forward-headers: true
+
+spring:
+  jackson:
+    serialization:
+     write-dates-as-timestamps: false
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+  task:
+    execution:
+      thread-name-prefix: initializr-

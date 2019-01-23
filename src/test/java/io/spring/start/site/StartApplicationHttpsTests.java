@@ -41,7 +41,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = "initializr.env.force-ssl=true")
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {
+		"initializr.env.force-ssl=true",
+		"spring.config.location=file:./src/test/resources/application-test.yml" })
 @AutoConfigureCache
 public class StartApplicationHttpsTests {
 
