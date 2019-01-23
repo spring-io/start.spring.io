@@ -37,8 +37,10 @@ initializr:
         mappings:
           - versionRange: "[1.5.4.RELEASE,2.0.0.RELEASE)"
             version: 0.2.4
-          - versionRange: "2.0.0.RELEASE"
-            version: 2.0.8
+          - versionRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
+            version: 2.0.10
+          - versionRange: "2.1.0.RELEASE"
+            version: 2.1.2
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
