@@ -121,8 +121,10 @@ initializr:
         mappings:
           - versionRange: "[1.5.0.RELEASE,1.5.x.BUILD-SNAPSHOT]"
             version: 1.6.6.RELEASE
-          - versionRange: "2.0.0.RELEASE"
+          - versionRange: "[2.0.0.RELEASE,2.0.x.BUILD-SNAPSHOT]"
             version: 2.0.3.RELEASE
+          - versionRange: "2.1.0.RELEASE"
+            version: 2.1.0.RELEASE
       spring-statemachine:
         groupId: org.springframework.statemachine
         artifactId: spring-statemachine-bom
