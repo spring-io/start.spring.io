@@ -52,15 +52,6 @@ initializr:
             version: 2.0.4
           - versionRange: "2.1.0.M1"
             version: 2.1.1
-      keycloak:
-        groupId: org.keycloak.bom
-        artifactId: keycloak-adapter-bom
-        versionProperty: keycloak.version
-        mappings:
-          - versionRange : "[1.5.3.RELEASE,2.0.0.M1)"
-            version: 3.4.2.Final
-          - versionRange : "2.0.0.M1"
-            version: 4.5.0.Final
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -374,16 +365,6 @@ initializr:
           id: mobile
           description: Simplify the development of mobile web applications with spring-mobile
           versionRange : "[1.5.0.RELEASE, 2.0.0.M1)"
-        - name: Keycloak
-          id: keycloak
-          description: Keycloak integration, an open source Identity and Access Management solution.
-          groupId: org.keycloak
-          artifactId: keycloak-spring-boot-starter
-          versionRange: "[1.5.3.RELEASE,2.1.0.M1)"
-          bom: keycloak
-          links:
-            - rel: reference
-              href: https://keycloak.gitbooks.io/documentation/securing_apps/topics/oidc/java/spring-boot-adapter.html
     - name: Template Engines
       content:
         - name: Thymeleaf
