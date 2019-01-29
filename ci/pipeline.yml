@@ -104,6 +104,7 @@ jobs:
       environment_variables:
         INITIALIZR_ENV_FORCESSL: "true"
         INITIALIZR_ENV_GOOGLE_ANALYTICS_TRACKING_CODE: ((google-analytics-tracking-code))
+        INITIALIZR_STATS_ELASTIC_URI: ((elastic-uri))
 - name: build-pull-requests
   serial: true
   public: true

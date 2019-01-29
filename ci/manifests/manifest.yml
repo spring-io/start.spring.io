@@ -10,5 +10,3 @@ applications:
   routes:
   - route: start.spring.io
   - route: start.cfapps.io
-  services:
-  - stats-index
