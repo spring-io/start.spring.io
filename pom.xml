@@ -121,6 +121,7 @@
 						<configuration>
 							<additionalProperties>
 								<versions.spring-boot>${project.parent.version}</versions.spring-boot>
+								<versions.initializr>${spring.initializr.version}</versions.initializr>
 							</additionalProperties>
 						</configuration>
 					</execution>
