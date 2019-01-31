@@ -15,7 +15,7 @@
 
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
-		<spring.initializr.version>0.7.0.BUILD-SNAPSHOT</spring.initializr.version>
+		<spring.initializr.version>0.7.0.RELEASE</spring.initializr.version>
 		<spring-javaformat.version>0.0.6</spring-javaformat.version>
 	</properties>
 
