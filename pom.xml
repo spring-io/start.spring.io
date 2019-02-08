@@ -82,11 +82,6 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -117,11 +112,6 @@
 				<groupId>io.spring.initializr</groupId>
 				<artifactId>initializr-web</artifactId>
 				<version>${spring.initializr.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>xmlunit</groupId>
-				<artifactId>xmlunit</artifactId>
-				<version>1.5</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
