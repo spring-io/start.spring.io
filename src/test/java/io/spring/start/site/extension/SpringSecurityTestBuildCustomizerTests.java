@@ -18,17 +18,17 @@ package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.WebProjectRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link SpringSecurityTestBuildCustomizer}.
  *
  * @author Stephane Nicoll
  */
-public class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTests {
+class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	public void securityTestIsAddedWithSecurity() {
+	void securityTestIsAddedWithSecurity() {
 		WebProjectRequest request = createProjectRequest("security");
 		generateMavenPom(request).hasSpringBootStarterDependency("security")
 				.hasSpringBootStarterTest().hasDependency(springSecurityTest())
@@ -36,7 +36,7 @@ public class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTes
 	}
 
 	@Test
-	public void securityTestIsNotAddedWithoutSpringSecurity() {
+	void securityTestIsNotAddedWithoutSpringSecurity() {
 		WebProjectRequest request = createProjectRequest("web");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);

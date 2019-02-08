@@ -17,17 +17,17 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.web.project.WebProjectRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for Spring Boot 2.0 Java Version customization.
  *
  * @author Stephane Nicoll
  */
-public class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTests {
+class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	public void java8IsMandatoryMaven() {
+	void java8IsMandatoryMaven() {
 		WebProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("1.7");
@@ -35,7 +35,7 @@ public class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	public void java8IsMandatoryGradle() {
+	void java8IsMandatoryGradle() {
 		WebProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		request.setJavaVersion("1.7");
@@ -43,7 +43,7 @@ public class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	public void java9CanBeUsedMaven() {
+	void java9CanBeUsedMaven() {
 		WebProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("9");
@@ -51,7 +51,7 @@ public class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	public void java9CanBeUsedGradle() {
+	void java9CanBeUsedGradle() {
 		WebProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		request.setJavaVersion("9");
@@ -59,7 +59,7 @@ public class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	public void java10CanBeUsedMaven() {
+	void java10CanBeUsedMaven() {
 		WebProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.1.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("10");
@@ -67,7 +67,7 @@ public class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	public void java10CanBeUsedGradle() {
+	void java10CanBeUsedGradle() {
 		WebProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.2.RELEASE");
 		request.setJavaVersion("10");

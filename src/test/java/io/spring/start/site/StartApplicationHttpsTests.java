@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@ package io.spring.start.site;
 
 import java.net.URI;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
@@ -31,7 +30,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,10 +38,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = "initializr.env.force-ssl=true")
 @AutoConfigureCache
-public class StartApplicationHttpsTests {
+class StartApplicationHttpsTests {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -52,7 +49,7 @@ public class StartApplicationHttpsTests {
 	private int localPort;
 
 	@Test
-	public void httpCallRedirectsToHttps() {
+	void httpCallRedirectsToHttps() {
 		RequestEntity<Void> request = RequestEntity.get(URI.create("/"))
 				.accept(MediaType.TEXT_HTML).build();
 		ResponseEntity<String> response = this.restTemplate.exchange(request,
@@ -63,7 +60,7 @@ public class StartApplicationHttpsTests {
 	}
 
 	@Test
-	public void securedProxiedCallDoesNotRedirect() {
+	void securedProxiedCallDoesNotRedirect() {
 		RequestEntity<Void> request = RequestEntity.get(URI.create("/"))
 				.header("X-Forwarded-Proto", "https").accept(MediaType.TEXT_HTML).build();
 		ResponseEntity<String> response = this.restTemplate.exchange(request,

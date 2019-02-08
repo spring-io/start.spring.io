@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataBuilder;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
@@ -37,7 +36,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,10 +44,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureCache
-public class StartApplicationSmokeTests {
+class StartApplicationSmokeTests {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -58,7 +55,7 @@ public class StartApplicationSmokeTests {
 	private InitializrMetadataProvider metadataProvider;
 
 	@Test
-	public void metadataCanBeSerialized() throws URISyntaxException, IOException {
+	void metadataCanBeSerialized() throws URISyntaxException, IOException {
 		RequestEntity<Void> request = RequestEntity.get(new URI("/"))
 				.accept(MediaType.parseMediaType("application/vnd.initializr.v2.1+json"))
 				.build();
@@ -69,7 +66,7 @@ public class StartApplicationSmokeTests {
 	}
 
 	@Test
-	public void configurationCanBeSerialized() throws URISyntaxException {
+	void configurationCanBeSerialized() throws URISyntaxException {
 		RequestEntity<Void> request = RequestEntity.get(new URI("/metadata/config"))
 				.accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<String> response = this.restTemplate.exchange(request,

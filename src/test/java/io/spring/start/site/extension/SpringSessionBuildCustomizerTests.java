@@ -18,14 +18,14 @@ package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.WebProjectRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link SpringSessionBuildCustomizer}.
  *
  * @author Stephane Nicoll
  */
-public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
+class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 
 	private static final Dependency REDIS = Dependency.withId("session-data-redis",
 			"org.springframework.session", "spring-session-data-redis");
@@ -34,7 +34,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 			"org.springframework.session", "spring-session-jdbc");
 
 	@Test
-	public void sessionWithSpringBoot15() {
+	void sessionWithSpringBoot15() {
 		WebProjectRequest request = createProjectRequest("session");
 		request.setBootVersion("1.5.4.RELEASE");
 		generateMavenPom(request)
@@ -44,7 +44,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void sessionWithRedisAndSpringBoot15() {
+	void sessionWithRedisAndSpringBoot15() {
 		WebProjectRequest request = createProjectRequest("session", "data-redis");
 		request.setBootVersion("1.5.4.RELEASE");
 		generateMavenPom(request)
@@ -54,7 +54,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void sessionWithJdbcAndSpringBoot15() {
+	void sessionWithJdbcAndSpringBoot15() {
 		WebProjectRequest request = createProjectRequest("session", "jdbc");
 		request.setBootVersion("1.5.4.RELEASE");
 		generateMavenPom(request)
@@ -64,7 +64,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void sessionWithSpringBoot20M2() {
+	void sessionWithSpringBoot20M2() {
 		WebProjectRequest request = createProjectRequest("session");
 		request.setBootVersion("2.0.0.M2");
 		generateMavenPom(request)
@@ -74,7 +74,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void noSessionWithRedis() {
+	void noSessionWithRedis() {
 		WebProjectRequest request = createProjectRequest("data-redis");
 		request.setBootVersion("2.0.0.M3");
 		generateMavenPom(request).hasSpringBootStarterDependency("data-redis")
@@ -82,7 +82,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void sessionWithNoStore() {
+	void sessionWithNoStore() {
 		WebProjectRequest request = createProjectRequest("session", "data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		generateMavenPom(request)
@@ -92,7 +92,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void sessionWithRedis() {
+	void sessionWithRedis() {
 		WebProjectRequest request = createProjectRequest("session", "data-redis");
 		request.setBootVersion("2.0.0.M3");
 		generateMavenPom(request).hasSpringBootStarterDependency("data-redis")
@@ -100,7 +100,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void sessionWithRedisReactive() {
+	void sessionWithRedisReactive() {
 		WebProjectRequest request = createProjectRequest("session", "data-redis-reactive");
 		request.setBootVersion("2.0.0.M7");
 		generateMavenPom(request).hasSpringBootStarterDependency("data-redis-reactive")
@@ -108,7 +108,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void sessionWithJdbc() {
+	void sessionWithJdbc() {
 		WebProjectRequest request = createProjectRequest("session", "jdbc");
 		request.setBootVersion("2.0.0.M3");
 		generateMavenPom(request).hasSpringBootStarterDependency("jdbc")
@@ -116,7 +116,7 @@ public class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void sessionWithRedisAndJdbc() {
+	void sessionWithRedisAndJdbc() {
 		WebProjectRequest request = createProjectRequest("session", "data-redis", "jdbc");
 		request.setBootVersion("2.0.0.M3");
 		generateMavenPom(request).hasSpringBootStarterDependency("data-redis")

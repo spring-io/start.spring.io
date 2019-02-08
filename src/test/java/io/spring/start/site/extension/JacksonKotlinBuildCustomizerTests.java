@@ -18,7 +18,7 @@ package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.WebProjectRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link JacksonKotlinBuildCustomizer}.
@@ -26,7 +26,7 @@ import org.junit.Test;
  * @author Sebastien Deleuze
  * @author Stephane Nicoll
  */
-public class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
+class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
 
 	private static final Dependency JACKSON_KOTLIN = Dependency.withId(
 			"jackson-module-kotlin", "com.fasterxml.jackson.module",
@@ -36,7 +36,7 @@ public class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
 			"io.projectreactor", "reactor-test", null, Dependency.SCOPE_TEST);
 
 	@Test
-	public void jacksonModuleKotlinIsAdded() {
+	void jacksonModuleKotlinIsAdded() {
 		WebProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
 		request.setLanguage("kotlin");
@@ -49,7 +49,7 @@ public class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void jacksonModuleKotlinIsNotAddedWithoutKotlin() {
+	void jacksonModuleKotlinIsNotAddedWithoutKotlin() {
 		WebProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
 		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
@@ -58,7 +58,7 @@ public class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void jacksonModuleKotlinIsNotAddedWithoutJsonFacet() {
+	void jacksonModuleKotlinIsNotAddedWithoutJsonFacet() {
 		WebProjectRequest request = createProjectRequest("actuator");
 		request.setBootVersion("2.0.0.M2");
 		request.setLanguage("kotlin");

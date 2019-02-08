@@ -17,17 +17,17 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.web.project.WebProjectRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link SpringCloudGcpBomBuildCustomizer}.
  *
  * @author Stephane Nicoll
  */
-public class SpringCloudGcpBomBuildCustomizerTests extends AbstractExtensionTests {
+class SpringCloudGcpBomBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	public void springCloudGcpOffReleaseTrain() {
+	void springCloudGcpOffReleaseTrain() {
 		WebProjectRequest request = createProjectRequest("cloud-gcp");
 		request.setBootVersion("2.0.6.RELEASE");
 		generateMavenPom(request)
@@ -39,7 +39,7 @@ public class SpringCloudGcpBomBuildCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	public void springCloudGcpOnReleaseTrain() {
+	void springCloudGcpOnReleaseTrain() {
 		WebProjectRequest request = createProjectRequest("cloud-gcp");
 		request.setBootVersion("2.1.1.RELEASE");
 		generateMavenPom(request).hasBom("org.springframework.cloud",
