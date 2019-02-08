@@ -16,12 +16,17 @@
 
 package io.spring.start.site;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
 import io.spring.start.site.extension.ProjectDescriptionCustomizerConfiguration;
+import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -39,6 +44,13 @@ public class StartApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StartApplication.class, args);
+	}
+
+	@Bean
+	public InitializrMetadataUpdateStrategy startMetadataUpdateStrategy(
+			RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
+		return new StartInitializrMetadataUpdateStrategy(restTemplateBuilder.build(),
+				objectMapper);
 	}
 
 }
