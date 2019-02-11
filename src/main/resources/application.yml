@@ -1170,7 +1170,6 @@ initializr:
     - name: Maven Project
       id: maven-project
       description: Generate a Maven based project archive
-      sts-id: starter.zip
       tags:
         build: maven
         format: project
@@ -1179,7 +1178,6 @@ initializr:
     - name: Maven POM
       id: maven-build
       description: Generate a Maven pom.xml
-      sts-id: pom.xml
       tags:
         build: maven
         format: build
@@ -1188,7 +1186,6 @@ initializr:
     - name: Gradle Project
       id: gradle-project
       description: Generate a Gradle based project archive
-      sts-id: gradle.zip
       tags:
         build: gradle
         format: project
@@ -1197,7 +1194,6 @@ initializr:
     - name: Gradle Config
       id: gradle-build
       description: Generate a Gradle build file
-      sts-id: build.gradle
       tags:
         build: gradle
         format: build
