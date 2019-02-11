@@ -19,7 +19,6 @@ package io.spring.start.site;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -112,8 +111,8 @@ class StartApplicationIntegrationTests {
 		request.setGroupId("com.example");
 		request.setArtifactId("demo");
 		request.setApplicationName("DemoApplication");
-		Path project = Paths.get(
-				this.invoker.invokeProjectStructureGeneration(request).getAbsolutePath());
+		Path project = this.invoker.invokeProjectStructureGeneration(request)
+				.getRootDirectory();
 		ProcessBuilder processBuilder = createProcessBuilder(buildSystem);
 		processBuilder.directory(project.toFile());
 		Path output = Files.createTempFile(directory, "output-", ".log");
