@@ -17,7 +17,7 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
-import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -29,7 +29,7 @@ class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void batchTestIsAddedWithBatch() {
-		WebProjectRequest request = createProjectRequest("batch");
+		ProjectRequest request = createProjectRequest("batch");
 		generateMavenPom(request).hasSpringBootStarterDependency("batch")
 				.hasSpringBootStarterTest().hasDependency(springBatchTest())
 				.hasDependenciesCount(3);
@@ -37,7 +37,7 @@ class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void batchTestIsNotAddedWithoutSpringBatch() {
-		WebProjectRequest request = createProjectRequest("web");
+		ProjectRequest request = createProjectRequest("web");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);
 	}

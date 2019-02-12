@@ -66,7 +66,7 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	protected boolean hasDependency(String id, Build build) {
-		return build.dependencies().ids().anyMatch(i -> i.equals(id));
+		return build.dependencies().has(id);
 	}
 
 }

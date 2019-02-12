@@ -23,6 +23,7 @@ import io.spring.initializr.generator.spring.test.build.PomAssert;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
+import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,20 +47,19 @@ public abstract class AbstractExtensionTests {
 		return this.metadataProvider.get().getDependencies().get(id);
 	}
 
-	protected PomAssert generateMavenPom(WebProjectRequest request) {
+	protected PomAssert generateMavenPom(ProjectRequest request) {
 		request.setType("maven-build");
-
 		String content = new String(this.invoker.invokeBuildGeneration(request));
 		return new PomAssert(content);
 	}
 
-	protected GradleBuildAssert generateGradleBuild(WebProjectRequest request) {
+	protected GradleBuildAssert generateGradleBuild(ProjectRequest request) {
 		request.setType("gradle-build");
 		String content = new String(this.invoker.invokeBuildGeneration(request));
 		return new GradleBuildAssert(content);
 	}
 
-	protected WebProjectRequest createProjectRequest(String... styles) {
+	protected ProjectRequest createProjectRequest(String... styles) {
 		WebProjectRequest request = new WebProjectRequest();
 		request.initialize(this.metadataProvider.get());
 		request.getStyle().addAll(Arrays.asList(styles));

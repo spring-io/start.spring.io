@@ -25,7 +25,6 @@ import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
 
 /**
- *
  * Validate that the requested java version is compatible with the chosen Spring Boot
  * generation and adapt the request if necessary.
  *

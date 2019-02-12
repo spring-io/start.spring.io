@@ -17,7 +17,7 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
-import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -37,7 +37,7 @@ class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void jacksonModuleKotlinIsAdded() {
-		WebProjectRequest request = createProjectRequest("webflux");
+		ProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
 		request.setLanguage("kotlin");
 		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
@@ -50,7 +50,7 @@ class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void jacksonModuleKotlinIsNotAddedWithoutKotlin() {
-		WebProjectRequest request = createProjectRequest("webflux");
+		ProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
 		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
 				.hasSpringBootStarterTest().hasDependency(REACTOR_TEST)
@@ -59,7 +59,7 @@ class JacksonKotlinBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void jacksonModuleKotlinIsNotAddedWithoutJsonFacet() {
-		WebProjectRequest request = createProjectRequest("actuator");
+		ProjectRequest request = createProjectRequest("actuator");
 		request.setBootVersion("2.0.0.M2");
 		request.setLanguage("kotlin");
 		generateMavenPom(request).hasSpringBootStarterDependency("actuator")

@@ -17,7 +17,7 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
-import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -29,7 +29,7 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactorTestIsAdded() {
-		WebProjectRequest request = createProjectRequest("webflux");
+		ProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
 		Dependency reactorTest = Dependency.withId("reactor-test", "io.projectreactor",
 				"reactor-test");
@@ -41,7 +41,7 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactorTestIsNotAddedWithEarlierVersions() {
-		WebProjectRequest request = createProjectRequest("webflux");
+		ProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M1");
 		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);
@@ -49,7 +49,7 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactorTestIsNotAddedWithoutWebFlux() {
-		WebProjectRequest request = createProjectRequest("web");
+		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.M2");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);

@@ -16,7 +16,7 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -28,7 +28,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void java8IsMandatoryMaven() {
-		WebProjectRequest request = createProjectRequest("web");
+		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("1.7");
 		generateMavenPom(request).hasJavaVersion("1.8");
@@ -36,7 +36,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void java8IsMandatoryGradle() {
-		WebProjectRequest request = createProjectRequest("data-jpa");
+		ProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		request.setJavaVersion("1.7");
 		generateGradleBuild(request).hasJavaVersion("1.8");
@@ -44,7 +44,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void java9CanBeUsedMaven() {
-		WebProjectRequest request = createProjectRequest("web");
+		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("9");
 		generateMavenPom(request).hasJavaVersion("9");
@@ -52,7 +52,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void java9CanBeUsedGradle() {
-		WebProjectRequest request = createProjectRequest("data-jpa");
+		ProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		request.setJavaVersion("9");
 		generateGradleBuild(request).hasJavaVersion("9");
@@ -60,7 +60,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void java10CanBeUsedMaven() {
-		WebProjectRequest request = createProjectRequest("web");
+		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.1.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("10");
 		generateMavenPom(request).hasJavaVersion("10");
@@ -68,7 +68,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void java10CanBeUsedGradle() {
-		WebProjectRequest request = createProjectRequest("data-jpa");
+		ProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.2.RELEASE");
 		request.setJavaVersion("10");
 		generateGradleBuild(request).hasJavaVersion("10");

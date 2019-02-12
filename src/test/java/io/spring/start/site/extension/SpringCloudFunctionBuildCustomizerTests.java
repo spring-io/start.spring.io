@@ -17,7 +17,7 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
-import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -36,14 +36,14 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void functionOnly() {
-		WebProjectRequest request = createProjectRequest("cloud-function");
+		ProjectRequest request = createProjectRequest("cloud-function");
 		generateMavenPom(request).hasDependency(getDependency("cloud-function"))
 				.hasSpringBootStarterTest().hasDependenciesCount(2);
 	}
 
 	@Test
 	void springCloudStreamWithRabbit() {
-		WebProjectRequest request = createProjectRequest("cloud-stream", "amqp",
+		ProjectRequest request = createProjectRequest("cloud-stream", "amqp",
 				"cloud-function");
 		request.setBootVersion("2.0.6.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
@@ -53,7 +53,7 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactiveSpringCloudStreamWithKafka() {
-		WebProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka",
+		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka",
 				"cloud-function");
 		request.setBootVersion("2.0.6.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
@@ -63,7 +63,7 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudStreamWith21() {
-		WebProjectRequest request = createProjectRequest("cloud-stream", "cloud-function");
+		ProjectRequest request = createProjectRequest("cloud-stream", "cloud-function");
 		request.setBootVersion("2.1.0.RC1");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4);
@@ -71,7 +71,7 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactiveSpringCloudStreamWith21() {
-		WebProjectRequest request = createProjectRequest("reactive-cloud-stream",
+		ProjectRequest request = createProjectRequest("reactive-cloud-stream",
 				"cloud-function");
 		request.setBootVersion("2.1.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
@@ -80,14 +80,14 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void web() {
-		WebProjectRequest request = createProjectRequest("web", "cloud-function");
+		ProjectRequest request = createProjectRequest("web", "cloud-function");
 		generateMavenPom(request).hasDependency(getDependency("web"))
 				.hasDependency(WEB_ADAPTER).hasDependenciesCount(3);
 	}
 
 	@Test
 	void webflux() {
-		WebProjectRequest request = createProjectRequest("webflux", "cloud-function");
+		ProjectRequest request = createProjectRequest("webflux", "cloud-function");
 		request.setBootVersion("2.1.0.BUILD-SNAPSHOT");
 		generateMavenPom(request).hasDependency(getDependency("webflux"))
 				.hasDependency(WEB_ADAPTER).hasDependenciesCount(4);
@@ -95,7 +95,7 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void webfluxNotAvailableIn20() {
-		WebProjectRequest request = createProjectRequest("webflux", "cloud-function");
+		ProjectRequest request = createProjectRequest("webflux", "cloud-function");
 		request.setBootVersion("2.0.5.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("webflux"))
 				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4);

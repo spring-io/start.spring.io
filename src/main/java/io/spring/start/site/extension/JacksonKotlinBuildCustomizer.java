@@ -21,7 +21,7 @@ import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.generator.spring.build.BuildMetadataResolver;
 import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.util.ClassUtils;
@@ -35,13 +35,13 @@ import org.springframework.util.ClassUtils;
  */
 public class JacksonKotlinBuildCustomizer implements BuildCustomizer<Build> {
 
-	private final InitializrMetadata metadata;
+	private final BuildMetadataResolver buildMetadataResolver;
 
 	private final ResolvedProjectDescription description;
 
 	public JacksonKotlinBuildCustomizer(InitializrMetadata metadata,
 			ResolvedProjectDescription description) {
-		this.metadata = metadata;
+		this.buildMetadataResolver = new BuildMetadataResolver(metadata);
 		this.description = description;
 	}
 
@@ -49,21 +49,11 @@ public class JacksonKotlinBuildCustomizer implements BuildCustomizer<Build> {
 	public void customize(Build build) {
 		boolean isKotlin = ClassUtils.isAssignableValue(KotlinLanguage.class,
 				this.description.getLanguage());
-		if (hasJsonFacet(build) && isKotlin) {
+		if (this.buildMetadataResolver.hasFacet(build, "json") && isKotlin) {
 			build.dependencies().add("jackson-module-kotlin",
 					"com.fasterxml.jackson.module", "jackson-module-kotlin",
 					DependencyScope.COMPILE);
 		}
-	}
-
-	private boolean hasJsonFacet(Build build) {
-		return build.dependencies().ids().anyMatch((id) -> {
-			Dependency dependency = this.metadata.getDependencies().get(id);
-			if (dependency != null) {
-				return dependency.getFacets().contains("json");
-			}
-			return false;
-		});
 	}
 
 }

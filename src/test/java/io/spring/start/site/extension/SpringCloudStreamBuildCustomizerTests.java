@@ -17,7 +17,7 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
-import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -45,7 +45,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudStreamWithRabbit() {
-		WebProjectRequest request = createProjectRequest("cloud-stream", "amqp");
+		ProjectRequest request = createProjectRequest("cloud-stream", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
 				.hasSpringBootStarterTest().hasDependency(SCS_TEST)
@@ -54,7 +54,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudStreamWithKafka() {
-		WebProjectRequest request = createProjectRequest("cloud-stream", "kafka");
+		ProjectRequest request = createProjectRequest("cloud-stream", "kafka");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER)
 				.hasSpringBootStarterTest().hasDependency(SCS_TEST)
@@ -63,7 +63,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudStreamWithKafkaStreams() {
-		WebProjectRequest request = createProjectRequest("cloud-stream", "kafka-streams");
+		ProjectRequest request = createProjectRequest("cloud-stream", "kafka-streams");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("kafka-streams"))
@@ -73,7 +73,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudStreamWithAllBinders() {
-		WebProjectRequest request = createProjectRequest("cloud-stream", "amqp", "kafka",
+		ProjectRequest request = createProjectRequest("cloud-stream", "amqp", "kafka",
 				"kafka-streams");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("amqp"))
@@ -86,7 +86,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactiveSpringCloudStreamWithRabbit() {
-		WebProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp");
+		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
@@ -96,7 +96,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactiveSpringCloudStreamWithKafka() {
-		WebProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka");
+		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER)
@@ -106,7 +106,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactiveSpringCloudStreamWithKafkaStreams() {
-		WebProjectRequest request = createProjectRequest("reactive-cloud-stream",
+		ProjectRequest request = createProjectRequest("reactive-cloud-stream",
 				"kafka-streams");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
@@ -117,7 +117,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void reactiveSpringCloudStreamWithAllBinders() {
-		WebProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp",
+		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp",
 				"kafka", "kafka-streams");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
@@ -131,7 +131,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudBusWithRabbit() {
-		WebProjectRequest request = createProjectRequest("cloud-bus", "amqp");
+		ProjectRequest request = createProjectRequest("cloud-bus", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus"))
 				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
 				.hasSpringBootStarterTest().hasDependenciesCount(4);
@@ -139,7 +139,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudBusWithKafka() {
-		WebProjectRequest request = createProjectRequest("cloud-bus", "amqp");
+		ProjectRequest request = createProjectRequest("cloud-bus", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus"))
 				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
 				.hasSpringBootStarterTest().hasDependenciesCount(4);
@@ -147,7 +147,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudBusWithAllBinders() {
-		WebProjectRequest request = createProjectRequest("cloud-bus", "amqp", "kafka",
+		ProjectRequest request = createProjectRequest("cloud-bus", "amqp", "kafka",
 				"kafka-streams");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus"))
 				.hasDependency(getDependency("amqp"))
@@ -159,7 +159,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudTurbineStreamWithRabbit() {
-		WebProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp");
+		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
 				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
@@ -168,7 +168,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudTurbineStreamWithKafka() {
-		WebProjectRequest request = createProjectRequest("cloud-turbine-stream", "kafka");
+		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "kafka");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
 				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER)
@@ -177,7 +177,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudTurbineStreamWithAllBinders() {
-		WebProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp",
+		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp",
 				"kafka", "kafka-streams");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))

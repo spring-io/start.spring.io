@@ -31,9 +31,9 @@ import io.spring.initializr.generator.version.Version;
  */
 public class ReactorTestBuildCustomizer implements BuildCustomizer<Build> {
 
-	private final ResolvedProjectDescription description;
-
 	private static final Version VERSION_2_0_0_M2 = Version.parse("2.0.0.M2");
+
+	private final ResolvedProjectDescription description;
 
 	public ReactorTestBuildCustomizer(ResolvedProjectDescription description) {
 		this.description = description;

@@ -17,7 +17,7 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.metadata.Dependency;
-import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -30,7 +30,7 @@ class SpringKafkaBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springKafkaTestIsAdded() {
-		WebProjectRequest request = createProjectRequest("kafka");
+		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("1.5.0.RELEASE");
 		Dependency kafkaTest = Dependency.withId("spring-kafka-test",
 				"org.springframework.kafka", "spring-kafka-test", null,
@@ -41,21 +41,21 @@ class SpringKafkaBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springKafkaTestIsNotAddedWithoutKafka() {
-		WebProjectRequest request = createProjectRequest("web");
+		ProjectRequest request = createProjectRequest("web");
 		generateMavenPom(request).hasSpringBootStarterDependency("web")
 				.hasSpringBootStarterTest().hasDependenciesCount(2);
 	}
 
 	@Test
 	void springKafkaIsOverriddenWith15Maven() {
-		WebProjectRequest request = createProjectRequest("kafka");
+		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("1.5.0.RELEASE");
 		generateMavenPom(request).hasProperty("spring-kafka.version", "1.3.8.RELEASE");
 	}
 
 	@Test
 	void springKafkaIsOverriddenWith15Gradle() {
-		WebProjectRequest request = createProjectRequest("kafka");
+		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("1.5.0.RELEASE");
 		generateGradleBuild(request)
 				.hasProperties("spring-kafka.version", "1.3.8.RELEASE");
@@ -63,14 +63,14 @@ class SpringKafkaBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springKafkaIsNotOverriddenWith20Maven() {
-		WebProjectRequest request = createProjectRequest("kafka");
+		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).doesNotHaveProperty("spring-kafka.version");
 	}
 
 	@Test
 	void springKafkaIsNotOverriddenWith20Gradle() {
-		WebProjectRequest request = createProjectRequest("kafka");
+		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateGradleBuild(request).doesNotContain("spring-kafka.version");
 	}
