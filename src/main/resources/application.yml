@@ -166,22 +166,6 @@ initializr:
           links:
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#using-boot-devtools
-        - name: Security
-          id: security
-          description: Secure your application via spring-security
-          weight: 100
-          links:
-            - rel: guide
-              href: https://spring.io/guides/gs/securing-web/
-              description: Securing a Web Application
-            - rel: guide
-              href: https://spring.io/guides/tutorials/spring-boot-oauth2/
-              description: Spring Boot and OAuth2
-            - rel: guide
-              href: https://spring.io/guides/gs/authenticating-ldap/
-              description: Authenticating a User with LDAP
-            - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security
         - name: Lombok
           id: lombok
           groupId: org.projectlombok
@@ -403,6 +387,38 @@ initializr:
           links:
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
+    - name: Security
+      content:
+        - name: Security
+          id: security
+          description: Secure your application via spring-security
+          weight: 100
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/securing-web/
+              description: Securing a Web Application
+            - rel: guide
+              href: https://spring.io/guides/tutorials/spring-boot-oauth2/
+              description: Spring Boot and OAuth2
+            - rel: guide
+              href: https://spring.io/guides/gs/authenticating-ldap/
+              description: Authenticating a User with LDAP
+            - rel: reference
+              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security
+        - name: OAuth2 Client
+          id: oauth2-client
+          description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features
+          versionRange: 2.0.0.M5
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security-oauth2-client
+        - name: OAuth2 Resource Server
+          id: oauth2-resource-server
+          description: Spring Boot integration for Spring Security's OAuth2 resource server features
+          versionRange: 2.1.0.M2
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security-oauth2-server
     - name: SQL
       content:
         - name: JPA
