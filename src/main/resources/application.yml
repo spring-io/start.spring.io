@@ -419,6 +419,22 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security-oauth2-server
+        - name: Okta
+          id: okta
+          description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features
+          groupId: com.okta.spring
+          artifactId: okta-spring-boot-starter
+          versionRange: 2.1.2.RELEASE
+          version: 1.1.0
+          links:
+            - rel: guide
+              href: https://github.com/okta/samples-java-spring/tree/master/okta-hosted-login
+            - rel: guide
+              href: https://github.com/okta/samples-java-spring/tree/master/custom-login
+            - rel: guide
+              href: https://github.com/okta/samples-java-spring/tree/master/resource-server
+            - rel: reference
+              href: https://github.com/okta/okta-spring-boot/blob/master/README.md
     - name: SQL
       content:
         - name: JPA
