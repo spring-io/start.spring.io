@@ -37,8 +37,11 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void functionOnly() {
 		ProjectRequest request = createProjectRequest("cloud-function");
-		generateMavenPom(request).hasDependency(getDependency("cloud-function"))
-				.hasSpringBootStarterTest().hasDependenciesCount(2);
+		generateMavenPom(request)
+				.hasDependency(getDependency("cloud-function")).hasSpringBootStarterTest()
+				.hasDependenciesCount(2).hasBom("org.springframework.cloud",
+						"spring-cloud-dependencies", "${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 	@Test
@@ -48,7 +51,9 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 		request.setBootVersion("2.0.6.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("amqp")).hasDependency(SCS_ADAPTER)
-				.hasDependenciesCount(6);
+				.hasDependenciesCount(6).hasBom("org.springframework.cloud",
+						"spring-cloud-dependencies", "${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 	@Test
@@ -58,7 +63,9 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 		request.setBootVersion("2.0.6.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("kafka")).hasDependency(SCS_ADAPTER)
-				.hasDependenciesCount(7);
+				.hasDependenciesCount(7).hasBom("org.springframework.cloud",
+						"spring-cloud-dependencies", "${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 	@Test
@@ -66,7 +73,10 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("cloud-stream", "cloud-function");
 		request.setBootVersion("2.1.0.RC1");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
-				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4);
+				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4)
+				.hasBom("org.springframework.cloud", "spring-cloud-dependencies",
+						"${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 	@Test
@@ -75,22 +85,31 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 				"cloud-function");
 		request.setBootVersion("2.1.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
-				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4);
+				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4)
+				.hasBom("org.springframework.cloud", "spring-cloud-dependencies",
+						"${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 	@Test
 	void web() {
 		ProjectRequest request = createProjectRequest("web", "cloud-function");
-		generateMavenPom(request).hasDependency(getDependency("web"))
-				.hasDependency(WEB_ADAPTER).hasDependenciesCount(3);
+		generateMavenPom(request)
+				.hasDependency(getDependency("web")).hasDependency(WEB_ADAPTER)
+				.hasDependenciesCount(3).hasBom("org.springframework.cloud",
+						"spring-cloud-dependencies", "${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 	@Test
 	void webflux() {
 		ProjectRequest request = createProjectRequest("webflux", "cloud-function");
 		request.setBootVersion("2.1.0.BUILD-SNAPSHOT");
-		generateMavenPom(request).hasDependency(getDependency("webflux"))
-				.hasDependency(WEB_ADAPTER).hasDependenciesCount(4);
+		generateMavenPom(request)
+				.hasDependency(getDependency("webflux")).hasDependency(WEB_ADAPTER)
+				.hasDependenciesCount(4).hasBom("org.springframework.cloud",
+						"spring-cloud-dependencies", "${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 	@Test
@@ -98,7 +117,10 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("webflux", "cloud-function");
 		request.setBootVersion("2.0.5.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("webflux"))
-				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4);
+				.hasDependency(getDependency("cloud-function")).hasDependenciesCount(4)
+				.hasBom("org.springframework.cloud", "spring-cloud-dependencies",
+						"${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 }

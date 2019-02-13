@@ -22,6 +22,8 @@ import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.metadata.InitializrMetadata;
 
 /**
  * Determine the appropriate Spring Cloud function dependency according to the messaging
@@ -35,9 +37,13 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
 
+	private final InitializrMetadata metadata;
+
 	private final ResolvedProjectDescription description;
 
-	SpringCloudFunctionBuildCustomizer(ResolvedProjectDescription description) {
+	SpringCloudFunctionBuildCustomizer(InitializrMetadata metadata,
+			ResolvedProjectDescription description) {
+		this.metadata = metadata;
 		this.description = description;
 	}
 
@@ -47,22 +53,39 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 		if (dependencies.has("cloud-function")) {
 			if ((dependencies.has("cloud-stream")
 					|| dependencies.has("reactive-cloud-stream"))
-							&& isSpringBootVersionBefore()) {
+					&& isSpringBootVersionBefore()) {
 				dependencies.add("cloud-function-stream", "org.springframework.cloud",
 						"spring-cloud-function-stream", DependencyScope.COMPILE);
-				dependencies.remove("cloud-function");
+				removeCloudFunction(build);
 			}
 			if (dependencies.has("web")) {
 				dependencies.add("cloud-function-web", "org.springframework.cloud",
 						"spring-cloud-function-web", DependencyScope.COMPILE);
-				dependencies.remove("cloud-function");
+				removeCloudFunction(build);
 			}
 			if (dependencies.has("webflux") && isSpringBootVersionAtLeastAfter()) {
 				dependencies.add("cloud-function-web", "org.springframework.cloud",
 						"spring-cloud-function-web", DependencyScope.COMPILE);
-				dependencies.remove("cloud-function");
+				removeCloudFunction(build);
 			}
 		}
+	}
+
+	/**
+	 * Remove the Spring Cloud Function artifact, making sure that any metadata
+	 * information is kept.
+	 */
+	private void removeCloudFunction(Build build) {
+		Dependency cloudFunction = this.metadata.getDependencies().get("cloud-function");
+		// We should make sure the bom isn't lost as anything attached to this dependency
+		// is now removed from the model.
+		if (cloudFunction.getBom() != null) {
+			build.boms().add(cloudFunction.getBom());
+		}
+		if (cloudFunction.getRepository() != null) {
+			build.repositories().add(cloudFunction.getRepository());
+		}
+		build.dependencies().remove("cloud-function");
 	}
 
 	private boolean isSpringBootVersionAtLeastAfter() {

@@ -59,8 +59,8 @@ public class BuildCustomizerProjectGenerationConfiguration {
 
 	@Bean
 	public SpringCloudFunctionBuildCustomizer springCloudFunctionBuildCustomizer(
-			ResolvedProjectDescription description) {
-		return new SpringCloudFunctionBuildCustomizer(description);
+			InitializrMetadata metadata, ResolvedProjectDescription description) {
+		return new SpringCloudFunctionBuildCustomizer(metadata, description);
 	}
 
 	@Bean
