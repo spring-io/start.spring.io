@@ -22,6 +22,7 @@ import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 
@@ -77,15 +78,29 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 	 */
 	private void removeCloudFunction(Build build) {
 		Dependency cloudFunction = this.metadata.getDependencies().get("cloud-function");
-		// We should make sure the bom isn't lost as anything attached to this dependency
-		// is now removed from the model.
+		// We should make sure whatever metadata this entry convey isn't lost
+		// This is a workaround until we provide a feature to deal with this automatically
 		if (cloudFunction.getBom() != null) {
-			build.boms().add(cloudFunction.getBom());
+			BillOfMaterials bom = resolveBom(cloudFunction.getBom());
+			if (bom != null) {
+				build.boms().add(cloudFunction.getBom());
+				if (bom.getVersionProperty() != null) {
+					build.addVersionProperty(bom.getVersionProperty(), bom.getVersion());
+				}
+			}
 		}
 		if (cloudFunction.getRepository() != null) {
 			build.repositories().add(cloudFunction.getRepository());
 		}
 		build.dependencies().remove("cloud-function");
+	}
+
+	private BillOfMaterials resolveBom(String id) {
+		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get(id);
+		if (bom != null) {
+			return bom.resolve(this.description.getPlatformVersion());
+		}
+		return null;
 	}
 
 	private boolean isSpringBootVersionAtLeastAfter() {

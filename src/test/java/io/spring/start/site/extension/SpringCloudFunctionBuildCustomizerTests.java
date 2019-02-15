@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension;
 
+import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
@@ -94,22 +95,24 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void web() {
 		ProjectRequest request = createProjectRequest("web", "cloud-function");
-		generateMavenPom(request)
-				.hasDependency(getDependency("web")).hasDependency(WEB_ADAPTER)
-				.hasDependenciesCount(3).hasBom("org.springframework.cloud",
-						"spring-cloud-dependencies", "${spring-cloud.version}")
-				.hasBomsCount(1);
+		BillOfMaterials bom = getBom("spring-cloud", request.getBootVersion());
+		generateMavenPom(request).hasDependency(getDependency("web"))
+				.hasDependency(WEB_ADAPTER).hasDependenciesCount(3)
+				.hasBom("org.springframework.cloud", "spring-cloud-dependencies",
+						"${spring-cloud.version}")
+				.hasBomsCount(1).hasProperty("spring-cloud.version", bom.getVersion());
 	}
 
 	@Test
 	void webflux() {
 		ProjectRequest request = createProjectRequest("webflux", "cloud-function");
 		request.setBootVersion("2.1.0.BUILD-SNAPSHOT");
-		generateMavenPom(request)
-				.hasDependency(getDependency("webflux")).hasDependency(WEB_ADAPTER)
-				.hasDependenciesCount(4).hasBom("org.springframework.cloud",
-						"spring-cloud-dependencies", "${spring-cloud.version}")
-				.hasBomsCount(1);
+		BillOfMaterials bom = getBom("spring-cloud", "2.1.0.BUILD-SNAPSHOT");
+		generateMavenPom(request).hasDependency(getDependency("webflux"))
+				.hasDependency(WEB_ADAPTER).hasDependenciesCount(4)
+				.hasBom("org.springframework.cloud", "spring-cloud-dependencies",
+						"${spring-cloud.version}")
+				.hasBomsCount(1).hasProperty("spring-cloud.version", bom.getVersion());
 	}
 
 	@Test

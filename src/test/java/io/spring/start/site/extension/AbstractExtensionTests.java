@@ -20,6 +20,8 @@ import java.util.Arrays;
 
 import io.spring.initializr.generator.spring.test.build.GradleBuildAssert;
 import io.spring.initializr.generator.spring.test.build.PomAssert;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
@@ -45,6 +47,12 @@ public abstract class AbstractExtensionTests {
 
 	protected Dependency getDependency(String id) {
 		return this.metadataProvider.get().getDependencies().get(id);
+	}
+
+	protected BillOfMaterials getBom(String id, String version) {
+		BillOfMaterials bom = this.metadataProvider.get().getConfiguration().getEnv()
+				.getBoms().get(id);
+		return bom.resolve(Version.parse(version));
 	}
 
 	protected PomAssert generateMavenPom(ProjectRequest request) {
