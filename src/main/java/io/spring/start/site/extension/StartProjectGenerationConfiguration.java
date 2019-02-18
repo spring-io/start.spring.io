@@ -21,8 +21,10 @@ import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
 /**
  * Configuration for {@link BuildCustomizer}s.
@@ -30,7 +32,8 @@ import org.springframework.context.annotation.Bean;
  * @author Madhura Bhave
  */
 @ProjectGenerationConfiguration
-public class BuildCustomizerProjectGenerationConfiguration {
+@Import(SpringCloudProjectGenerationConfiguration.class)
+public class StartProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("webflux")
@@ -55,23 +58,6 @@ public class BuildCustomizerProjectGenerationConfiguration {
 	public JacksonKotlinBuildCustomizer jacksonKotlinBuildCustomizer(
 			InitializrMetadata metadata, ResolvedProjectDescription description) {
 		return new JacksonKotlinBuildCustomizer(metadata, description);
-	}
-
-	@Bean
-	public SpringCloudFunctionBuildCustomizer springCloudFunctionBuildCustomizer(
-			InitializrMetadata metadata, ResolvedProjectDescription description) {
-		return new SpringCloudFunctionBuildCustomizer(metadata, description);
-	}
-
-	@Bean
-	public SpringCloudGcpBomBuildCustomizer springCloudGcpBomBuildCustomizer(
-			ResolvedProjectDescription description) {
-		return new SpringCloudGcpBomBuildCustomizer(description);
-	}
-
-	@Bean
-	public SpringCloudStreamBuildCustomizer springCloudStreamBuildCustomizer() {
-		return new SpringCloudStreamBuildCustomizer();
 	}
 
 	@Bean
