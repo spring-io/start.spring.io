@@ -22,6 +22,7 @@ import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
+import io.spring.start.site.extension.springrestdocs.SpringRestDocsProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -32,7 +33,8 @@ import org.springframework.context.annotation.Import;
  * @author Madhura Bhave
  */
 @ProjectGenerationConfiguration
-@Import(SpringCloudProjectGenerationConfiguration.class)
+@Import({ SpringCloudProjectGenerationConfiguration.class,
+		SpringRestDocsProjectGenerationConfiguration.class })
 public class StartProjectGenerationConfiguration {
 
 	@Bean
