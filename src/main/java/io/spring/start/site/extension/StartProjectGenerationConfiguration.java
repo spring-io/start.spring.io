@@ -76,6 +76,12 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnRequestedDependency("flyway")
+	public FlywayProjectContributor flywayProjectContributor() {
+		return new FlywayProjectContributor();
+	}
+
+	@Bean
 	@ConditionalOnRequestedDependency("restdocs")
 	public SpringRestDocsBuildCustomizer springRestDocsBuildCustomizer() {
 		return new SpringRestDocsBuildCustomizer();

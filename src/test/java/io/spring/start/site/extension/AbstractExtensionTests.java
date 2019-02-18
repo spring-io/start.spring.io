@@ -20,11 +20,13 @@ import java.util.Arrays;
 
 import io.spring.initializr.generator.spring.test.build.GradleBuildAssert;
 import io.spring.initializr.generator.spring.test.build.PomAssert;
+import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
+import io.spring.initializr.web.project.ProjectGenerationResult;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
 
@@ -65,6 +67,12 @@ public abstract class AbstractExtensionTests {
 		request.setType("gradle-build");
 		String content = new String(this.invoker.invokeBuildGeneration(request));
 		return new GradleBuildAssert(content);
+	}
+
+	protected ProjectStructure generateProject(ProjectRequest request) {
+		ProjectGenerationResult result = this.invoker
+				.invokeProjectStructureGeneration(request);
+		return new ProjectStructure(result.getRootDirectory());
 	}
 
 	protected ProjectRequest createProjectRequest(String... styles) {
