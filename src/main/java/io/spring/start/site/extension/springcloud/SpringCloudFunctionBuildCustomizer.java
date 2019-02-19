@@ -72,7 +72,7 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 		}
 	}
 
-	/**
+	/*
 	 * Remove the Spring Cloud Function artifact, making sure that any metadata
 	 * information is kept.
 	 */

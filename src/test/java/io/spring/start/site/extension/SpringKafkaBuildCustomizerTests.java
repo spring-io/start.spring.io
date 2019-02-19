@@ -57,8 +57,8 @@ class SpringKafkaBuildCustomizerTests extends AbstractExtensionTests {
 	void springKafkaIsOverriddenWith15Gradle() {
 		ProjectRequest request = createProjectRequest("kafka");
 		request.setBootVersion("1.5.0.RELEASE");
-		generateGradleBuild(request)
-				.hasProperties("spring-kafka.version", "1.3.8.RELEASE");
+		generateGradleBuild(request).hasProperties("spring-kafka.version",
+				"1.3.8.RELEASE");
 	}
 
 	@Test
