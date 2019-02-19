@@ -73,4 +73,10 @@ public class StartProjectGenerationConfiguration {
 		return new SpringSessionBuildCustomizer(description);
 	}
 
+	@Bean
+	@ConditionalOnRequestedDependency("restdocs")
+	public SpringRestDocsBuildCustomizer springRestDocsBuildCustomizer() {
+		return new SpringRestDocsBuildCustomizer();
+	}
+
 }
