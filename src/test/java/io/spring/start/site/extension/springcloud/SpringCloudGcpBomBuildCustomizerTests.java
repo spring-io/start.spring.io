@@ -18,7 +18,6 @@ package io.spring.start.site.extension.springcloud;
 
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import io.spring.start.site.extension.springcloud.SpringCloudGcpBomBuildCustomizer;
 import org.junit.jupiter.api.Test;
 
 /**

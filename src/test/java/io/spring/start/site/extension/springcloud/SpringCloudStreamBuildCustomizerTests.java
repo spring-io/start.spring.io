@@ -19,7 +19,6 @@ package io.spring.start.site.extension.springcloud;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import io.spring.start.site.extension.springcloud.SpringCloudStreamBuildCustomizer;
 import org.junit.jupiter.api.Test;
 
 /**
