@@ -23,8 +23,8 @@ import java.nio.file.Path;
 import io.spring.initializr.generator.project.contributor.ProjectContributor;
 
 /**
- * A {@link ProjectContributor} that creates the "db/migration" resources directory
- * when Flyway is requested.
+ * A {@link ProjectContributor} that creates the "db/migration" resources directory when
+ * Flyway is requested.
  *
  * @author Stephane Nicoll
  */
