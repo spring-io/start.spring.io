@@ -222,7 +222,7 @@ initializr:
       content:
         - name: Web
           id: web
-          description: Full-stack web development with Tomcat and Spring MVC
+          description: Servlet web application with Spring MVC and Tomcat
           weight: 100
           facets:
             - web
@@ -242,7 +242,7 @@ initializr:
         - name: Reactive Web
           id: webflux
           versionRange: 2.0.0.M1
-          description: Reactive web development with Netty and Spring WebFlux
+          description: Reactive web applications with Spring WebFlux and Netty
           weight: 90
           facets:
             - json
@@ -251,7 +251,7 @@ initializr:
           weight: 10
           facets:
             - json
-          description: Exposing Spring Data repositories over REST via spring-data-rest-webmvc
+          description: Exposing Spring Data repositories over REST via Spring Data REST
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-rest/
@@ -281,7 +281,7 @@ initializr:
           starter: false
         - name: Web Services
           id: web-services
-          description: Contract-first SOAP service development with Spring Web Services
+          description: Contract-first SOAP services with Spring Web Services
           aliases:
             - ws
           links:
@@ -290,9 +290,9 @@ initializr:
               description: Producing a SOAP web service
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-webservices
-        - name: Jersey (JAX-RS)
+        - name: Jersey
           id: jersey
-          description: RESTful Web Services framework with support of JAX-RS
+          description: RESTful Web Services with JAX-RS
           facets:
             - json
           links:
@@ -300,7 +300,7 @@ initializr:
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
         - name: Websocket
           id: websocket
-          description: Websocket development with SockJS and STOMP
+          description: WebSocket applications with SockJS and STOMP
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-stomp-websocket/
@@ -327,12 +327,12 @@ initializr:
               description: Creating CRUD UI with Vaadin
             - rel: reference
               href: https://vaadin.com/spring
-        - name: Apache CXF (JAX-RS)
+        - name: Apache CXF
           id: cxf-jaxrs
           groupId: org.apache.cxf
           artifactId: cxf-spring-boot-starter-jaxrs
           version: 3.2.5
-          description: RESTful Web Services framework with support of JAX-RS
+          description: RESTful Web Services with JAX-RS
           versionRange: "[1.5.0.RELEASE,2.1.0.M1)"
           links:
             - rel: reference
@@ -347,7 +347,7 @@ initializr:
           starter: false
         - name: Mobile
           id: mobile
-          description: Simplify the development of mobile web applications with spring-mobile
+          description: Simplify the development of mobile web applications with Spring Mobile
           versionRange : "[1.5.0.RELEASE, 2.0.0.M1)"
     - name: Template Engines
       content:
@@ -439,7 +439,7 @@ initializr:
       content:
         - name: JPA
           id: data-jpa
-          description: Java Persistence API including spring-data-jpa, spring-orm and Hibernate
+          description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate
           weight: 100
           facets:
             - jpa
@@ -471,7 +471,7 @@ initializr:
           starter: false
         - name: JDBC
           id: jdbc
-          description: JDBC databases
+          description: Persistence support using JDBC
           links:
             - rel: guide
               href: https://spring.io/guides/gs/relational-data-access/
@@ -553,7 +553,7 @@ initializr:
       content:
         - name: Redis
           id: data-redis
-          description: Redis key-value data store, including spring-data-redis
+          description: Access Redis key-value data stores with Spring Data Redis
           aliases:
             - redis
           links:
@@ -564,7 +564,7 @@ initializr:
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-redis
         - name: Reactive Redis
           id: data-redis-reactive
-          description: Redis key-value data store, including spring-data-redis
+          description: Access Redis key-value data stores in a reactive fashion with Spring Data Redis
           versionRange: 2.0.0.M7
           links:
             - rel: guide
@@ -574,7 +574,7 @@ initializr:
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-redis
         - name: MongoDB
           id: data-mongodb
-          description: MongoDB NoSQL Database, including spring-data-mongodb
+          description: Access MongoDB NoSQL Database with Spring Data MongoDB
           weight: 50
           links:
             - rel: guide
@@ -584,7 +584,7 @@ initializr:
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
         - name: Reactive MongoDB
           id: data-mongodb-reactive
-          description: MongoDB NoSQL Database, including spring-data-mongodb and the reactive driver
+          description: Access MongoDB NoSQL Database in a reactive fashion with Spring Data MongoDB
           versionRange: 2.0.0.M1
           weight: 50
           links:
@@ -599,46 +599,46 @@ initializr:
           starter: false
         - name: Elasticsearch
           id: data-elasticsearch
-          description: Elasticsearch search and analytics engine including spring-data-elasticsearch
+          description: Elasticsearch search and analytics engine with Spring Data Elasticsearch
           weight: 10
           links:
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-elasticsearch
         - name: Solr
           id: data-solr
-          description: Apache Solr search platform, including spring-data-solr
+          description: Access Apache Solr search platform with Spring Data Solr
           links:
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-solr
         - name: Cassandra
           id: data-cassandra
-          description: Cassandra NoSQL Database, including spring-data-cassandra
+          description: Access Cassandra NoSQL Database with Spring Data Cassandra
           links:
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
         - name: Reactive Cassandra
           id: data-cassandra-reactive
-          description: Cassandra NoSQL Database, including spring-data-cassandra and the reactive driver
+          description: Access Cassandra NoSQL Database in a reactive fashion with Spring Data Cassandra
           versionRange: 2.0.0.M1
           links:
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
         - name: Couchbase
           id: data-couchbase
-          description: Couchbase NoSQL database, including spring-data-couchbase
+          description: Access Couchbase NoSQL database with Spring Data Couchbase
           links:
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase
         - name: Reactive Couchbase
           id: data-couchbase-reactive
-          description: Couchbase NoSQL database, including spring-data-couchbase and the reactive driver
+          description: Access Couchbase NoSQL database in a reactive fashion with Spring Data Couchbase
           versionRange: 2.0.0.M7
           links:
             - rel: reference
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase
         - name: Neo4j
           id: data-neo4j
-          description: Neo4j NoSQL graph database, including spring-data-neo4j
+          description: Access Neo4j NoSQL graph database with Spring Data Neo4j
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-neo4j/
@@ -647,7 +647,7 @@ initializr:
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-neo4j
         - name: Gemfire
           id: data-gemfire
-          description: GemFire distributed data store including spring-data-gemfire
+          description: Access GemFire distributed data store with Spring Data Gemfire
           versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
           links:
             - rel: guide
@@ -669,7 +669,7 @@ initializr:
               href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-integration
         - name: RabbitMQ
           id: amqp
-          description: Advanced Message Queuing Protocol via spring-rabbit
+          description: Advanced Message Queuing Protocol via Spring Rabbit
           weight: 100
           keywords:
             - messaging
@@ -695,7 +695,7 @@ initializr:
         - name: Kafka Streams
           id: kafka-streams
           weight: 90
-          description: Support for building stream processing applications with Apache Kafka Streams
+          description: Building stream processing applications with Apache Kafka Streams
           versionRange: 2.0.0.RELEASE
           groupId: org.apache.kafka
           artifactId: kafka-streams
@@ -788,7 +788,7 @@ initializr:
       content:
         - name: Config Client
           id: cloud-config-client
-          description: spring-cloud-config Client
+          description: Spring Cloud Config Client
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-config
           weight: 100
