@@ -761,7 +761,7 @@ initializr:
           artifactId: spring-cloud-starter-oauth2
         - name: Cloud Task
           id: cloud-task
-          description: Task result tracking and integration with Spring Batch
+          description: Task result tracking with Spring Batch and Spring Cloud Stream integrations
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-task
           starter: false
