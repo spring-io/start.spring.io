@@ -170,14 +170,14 @@ initializr:
           id: lombok
           groupId: org.projectlombok
           artifactId: lombok
-          scope: compileOnly
+          scope: annotationProcessor
           description: Java annotation library which helps to reduce boilerplate code and code faster
           starter: false
         - name: Configuration Processor
           id: configuration-processor
           groupId: org.springframework.boot
           artifactId: spring-boot-configuration-processor
-          scope: compileOnly
+          scope: annotationProcessor
           description: Generate metadata for your custom configuration keys
           versionRange: 1.2.0.RELEASE
           starter: false
