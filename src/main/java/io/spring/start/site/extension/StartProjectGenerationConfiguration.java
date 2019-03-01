@@ -19,7 +19,6 @@ package io.spring.start.site.extension;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
-import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
 import io.spring.start.site.extension.springrestdocs.SpringRestDocsProjectGenerationConfiguration;
@@ -28,20 +27,31 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 /**
- * Configuration for {@link BuildCustomizer}s.
+ * {@link ProjectGenerationConfiguration} for components that tune the build according to
+ * the settings of this instance.
  *
  * @author Madhura Bhave
+ * @author Stephane Nicoll
  */
 @ProjectGenerationConfiguration
 @Import({ SpringCloudProjectGenerationConfiguration.class,
 		SpringRestDocsProjectGenerationConfiguration.class })
 public class StartProjectGenerationConfiguration {
 
+	private final InitializrMetadata metadata;
+
+	private final ResolvedProjectDescription description;
+
+	public StartProjectGenerationConfiguration(InitializrMetadata metadata,
+			ResolvedProjectDescription description) {
+		this.metadata = metadata;
+		this.description = description;
+	}
+
 	@Bean
 	@ConditionalOnRequestedDependency("webflux")
-	public ReactorTestBuildCustomizer reactorTestBuildCustomizer(
-			ResolvedProjectDescription description) {
-		return new ReactorTestBuildCustomizer(description);
+	public ReactorTestBuildCustomizer reactorTestBuildCustomizer() {
+		return new ReactorTestBuildCustomizer(this.description);
 	}
 
 	@Bean
@@ -58,28 +68,24 @@ public class StartProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("lombok")
-	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer(
-			InitializrMetadata metadata) {
-		return new LombokGradleBuildCustomizer(metadata);
+	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer() {
+		return new LombokGradleBuildCustomizer(this.metadata);
 	}
 
 	@Bean
-	public JacksonKotlinBuildCustomizer jacksonKotlinBuildCustomizer(
-			InitializrMetadata metadata, ResolvedProjectDescription description) {
-		return new JacksonKotlinBuildCustomizer(metadata, description);
+	public JacksonKotlinBuildCustomizer jacksonKotlinBuildCustomizer() {
+		return new JacksonKotlinBuildCustomizer(this.metadata, this.description);
 	}
 
 	@Bean
-	public SpringKafkaBuildCustomizer springKafkaBuildCustomizer(
-			ResolvedProjectDescription description) {
-		return new SpringKafkaBuildCustomizer(description);
+	public SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
+		return new SpringKafkaBuildCustomizer(this.description);
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("session")
-	public SpringSessionBuildCustomizer springSessionBuildCustomizer(
-			ResolvedProjectDescription description) {
-		return new SpringSessionBuildCustomizer(description);
+	public SpringSessionBuildCustomizer springSessionBuildCustomizer() {
+		return new SpringSessionBuildCustomizer(this.description);
 	}
 
 	@Bean
