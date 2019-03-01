@@ -57,6 +57,13 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnRequestedDependency("lombok")
+	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer(
+			InitializrMetadata metadata) {
+		return new LombokGradleBuildCustomizer(metadata);
+	}
+
+	@Bean
 	public JacksonKotlinBuildCustomizer jacksonKotlinBuildCustomizer(
 			InitializrMetadata metadata, ResolvedProjectDescription description) {
 		return new JacksonKotlinBuildCustomizer(metadata, description);
