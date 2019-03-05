@@ -18,11 +18,6 @@ spring:
   jackson:
     serialization:
      write-dates-as-timestamps: false
-  resources:
-    chain:
-      strategy:
-        content:
-          enabled: true
   task:
     execution:
       thread-name-prefix: initializr-
