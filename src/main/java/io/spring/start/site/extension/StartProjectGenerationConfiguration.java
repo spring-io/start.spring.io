@@ -16,9 +16,12 @@
 
 package io.spring.start.site.extension;
 
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
+import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
 import io.spring.start.site.extension.springrestdocs.SpringRestDocsProjectGenerationConfiguration;
@@ -67,6 +70,8 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnGradleVersion({ "4", "5" })
+	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	@ConditionalOnRequestedDependency("lombok")
 	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer() {
 		return new LombokGradleBuildCustomizer(this.metadata);

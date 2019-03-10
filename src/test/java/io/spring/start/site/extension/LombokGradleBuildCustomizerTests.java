@@ -41,4 +41,12 @@ class LombokGradleBuildCustomizerTests extends AbstractExtensionTests {
 				.doesNotContain("compileOnly 'org.projectlombok:lombok'");
 	}
 
+	@Test
+	void lombokNotConfiguredWithSpringBoot15() {
+		ProjectRequest request = createProjectRequest("lombok");
+		request.setBootVersion("1.5.18.RELEASE");
+		generateGradleBuild(request)
+				.containsOnlyOnce("compileOnly 'org.projectlombok:lombok'");
+	}
+
 }
