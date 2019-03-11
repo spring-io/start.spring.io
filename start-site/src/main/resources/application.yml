@@ -17,10 +17,15 @@ server:
 spring:
   jackson:
     serialization:
-     write-dates-as-timestamps: false
+      write-dates-as-timestamps: false
   task:
     execution:
       thread-name-prefix: initializr-
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
 
 initializr:
   env:
@@ -1154,8 +1159,8 @@ initializr:
           version: 2.0.0.RELEASE
           repository: spring-milestones
           links:
-           - rel: reference
-             href: https://docs.spring.io/spring-shell/docs/2.0.0.M2/reference/htmlsingle/
+            - rel: reference
+              href: https://docs.spring.io/spring-shell/docs/2.0.0.M2/reference/htmlsingle/
         - name: Statemachine
           id: statemachine
           groupId: org.springframework.statemachine
@@ -1269,3 +1274,20 @@ initializr:
     - name : 2.1.1.
       id: 2.1.1.RELEASE
       default: true
+
+---
+
+spring:
+  profiles: dev
+  resources:
+    static_locations:
+      - file:start-client/build/
+    chain:
+      strategy:
+        content:
+          enabled: false
+  devtools:
+    restart:
+      additional_paths:
+        - start-client/build/
+      additional_exclude: "**/*.js,**/*.css"
