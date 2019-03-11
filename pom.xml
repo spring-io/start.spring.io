@@ -9,84 +9,24 @@
 		<version>2.1.3.RELEASE</version>
 	</parent>
 	<groupId>io.spring.start</groupId>
-	<artifactId>start-site</artifactId>
+	<artifactId>start-parent</artifactId>
 	<version>${revision}</version>
-	<name>start.spring.io website</name>
+	<packaging>pom</packaging>
+	<name>start.spring.io</name>
 
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
+		<disable.checks>false</disable.checks>
 		<junit-jupiter.version>5.4.0</junit-jupiter.version>
 		<spring.initializr.version>0.8.0.BUILD-SNAPSHOT</spring.initializr.version>
 		<spring-javaformat.version>0.0.6</spring-javaformat.version>
+		<maven-checkstyle.version>3.0.0</maven-checkstyle.version>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>io.spring.initializr</groupId>
-			<artifactId>initializr-generator-spring</artifactId>
-		</dependency>
-		<dependency>
-		<groupId>io.spring.initializr</groupId>
-			<artifactId>initializr-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.spring.initializr</groupId>
-			<artifactId>initializr-actuator</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.cache</groupId>
-			<artifactId>cache-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>io.spring.initializr</groupId>
-			<artifactId>initializr-generator</artifactId>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.spring.initializr</groupId>
-			<artifactId>initializr-generator-spring</artifactId>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>start-client</module>
+		<module>start-site</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -126,78 +66,29 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>start-site</finalName>
-		<plugins>
-			<plugin>
-				<groupId>io.spring.javaformat</groupId>
-				<artifactId>spring-javaformat-maven-plugin</artifactId>
-				<version>${spring-javaformat.version}</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<configuration>
-							<skip>${disable.checks}</skip>
-						</configuration>
-						<goals>
-							<goal>validate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.0.0</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.puppycrawl.tools</groupId>
-						<artifactId>checkstyle</artifactId>
-						<version>8.11</version>
-					</dependency>
-					<dependency>
-						<groupId>io.spring.javaformat</groupId>
-						<artifactId>spring-javaformat-checkstyle</artifactId>
-						<version>${spring-javaformat.version}</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<id>checkstyle-validation</id>
-						<phase>validate</phase>
-						<configuration>
-							<skip>${disable.checks}</skip>
-							<configLocation>io/spring/javaformat/checkstyle/checkstyle.xml</configLocation>
-							<includeTestSourceDirectory>true</includeTestSourceDirectory>
-						</configuration>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>build-info</id>
-						<goals>
-							<goal>build-info</goal>
-						</goals>
-						<configuration>
-							<additionalProperties>
-								<versions.spring-boot>${project.parent.version}</versions.spring-boot>
-								<versions.initializr>${spring.initializr.version}</versions.initializr>
-							</additionalProperties>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>io.spring.javaformat</groupId>
+					<artifactId>spring-javaformat-maven-plugin</artifactId>
+					<version>${spring-javaformat.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${maven-checkstyle.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>1.7.5</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<repositories>
