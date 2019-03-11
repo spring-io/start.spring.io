@@ -183,6 +183,7 @@ public class HomeController {
 		}
 		if (dependency.getVersionRange() != null) {
 			node.put("versionRange", dependency.getVersionRange());
+			node.put("versionRequirement", dependency.getVersionRequirement());
 		}
 		if (!CollectionUtils.isEmpty(dependency.getKeywords())
 				|| !CollectionUtils.isEmpty(dependency.getAliases())) {
