@@ -945,24 +945,6 @@ initializr:
           weight: 90
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream-reactive
-    - name: Cloud AWS
-      bom: spring-cloud
-      content:
-        - name: AWS Core
-          id: cloud-aws
-          description: AWS native services from spring-cloud-aws
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-aws
-        - name: AWS JDBC
-          id: cloud-aws-jdbc
-          description: Relational databases on AWS with RDS and spring-cloud-aws-jdbc
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-aws-jdbc
-        - name: AWS Messaging
-          id: cloud-aws-messaging
-          description: Messaging on AWS with SQS and spring-cloud-aws-messaging
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-aws-messaging
     - name: Cloud Contract
       bom: spring-cloud
       content:
@@ -998,6 +980,24 @@ initializr:
           description: Hystrix circuit breaker on Pivotal Cloud Foundry
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-circuit-breaker
+    - name: Amazon Web Services
+      bom: spring-cloud
+      content:
+        - name: AWS Core
+          id: cloud-aws
+          description: AWS native services from spring-cloud-aws
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-aws
+        - name: AWS JDBC
+          id: cloud-aws-jdbc
+          description: Relational databases on AWS with RDS and spring-cloud-aws-jdbc
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-aws-jdbc
+        - name: AWS Messaging
+          id: cloud-aws-messaging
+          description: Messaging on AWS with SQS and spring-cloud-aws-messaging
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-aws-messaging
     - name: Azure
       bom: azure
       versionRange: "1.5.4.RELEASE"
