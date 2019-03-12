@@ -1047,7 +1047,7 @@ initializr:
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-storage-spring-boot-starter
               description: Reference doc
-    - name: Spring Cloud GCP
+    - name: Google Cloud Platform
       bom: spring-cloud
       versionRange: 2.0.0.RELEASE
       content:
