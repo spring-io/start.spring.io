@@ -105,4 +105,9 @@ public class StartProjectGenerationConfiguration {
 		return new SpringRestDocsBuildCustomizer();
 	}
 
+	@Bean
+	public BuildSystemHelpCustomizer buildSystemHelpCustomizer() {
+		return new BuildSystemHelpCustomizer(this.description);
+	}
+
 }
