@@ -23,6 +23,7 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  * A {@link HelpDocumentCustomizer} that adds reference links for Gradle.
  *
  * @author Jenn Strater
+ * @author Stephane Nicoll
  */
 class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
@@ -30,7 +31,7 @@ class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer 
 	public void customize(HelpDocument document) {
 		document.gettingStarted().addAdditionalLink("https://scans.gradle.com#gradle",
 				"Free, shareable build insights for Gradle and Maven builds");
-		document.gettingStarted().addReferenceDocLink("https://gradle.org",
+		document.gettingStarted().addReferenceDocLink("https://docs.gradle.org",
 				"Official Gradle documentation");
 	}
 
