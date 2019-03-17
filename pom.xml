@@ -32,6 +32,10 @@
 
 		<dependency>
 			<groupId>io.spring.initializr</groupId>
+			<artifactId>initializr-generator-spring</artifactId>
+		</dependency>
+		<dependency>
+		<groupId>io.spring.initializr</groupId>
 			<artifactId>initializr-web</artifactId>
 		</dependency>
 		<dependency>
@@ -94,6 +98,11 @@
 			<dependency>
 				<groupId>io.spring.initializr</groupId>
 				<artifactId>initializr-generator</artifactId>
+				<version>${spring.initializr.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.initializr</groupId>
+				<artifactId>initializr-generator-spring</artifactId>
 				<version>${spring.initializr.version}</version>
 			</dependency>
 			<dependency>
