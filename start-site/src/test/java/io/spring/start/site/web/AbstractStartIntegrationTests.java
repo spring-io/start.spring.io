@@ -29,7 +29,7 @@ import java.util.List;
 import io.spring.initializr.generator.spring.test.ProjectAssert;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
-import io.spring.start.site.web.AbstractWebIntegrationTests.Config;
+import io.spring.start.site.web.AbstractStartIntegrationTests.Config;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Expand;
 import org.apache.tools.ant.taskdefs.Untar;
@@ -59,7 +59,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @SpringBootTest(classes = Config.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class AbstractWebIntegrationTests {
+public abstract class AbstractStartIntegrationTests {
 
 	public File folder;
 

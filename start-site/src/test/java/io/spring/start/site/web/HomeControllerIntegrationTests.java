@@ -30,7 +30,7 @@ import org.springframework.test.context.ActiveProfiles;
  * @author Stephane Nicoll
  */
 @ActiveProfiles("test-default")
-class HomeControllerTests extends AbstractWebIntegrationTests {
+class HomeControllerIntegrationTests extends AbstractStartIntegrationTests {
 
 	@Test
 	void dependenciesNoVersion() throws JSONException {

@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Brian Clozel
  */
 @ActiveProfiles("test-default")
-class WebSmokeTests extends AbstractWebIntegrationTests {
+class StartSmokeTests extends AbstractStartIntegrationTests {
 
 	private File downloadDir;
 

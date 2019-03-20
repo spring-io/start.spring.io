@@ -8,9 +8,9 @@
 		<artifactId>start-parent</artifactId>
 		<version>${revision}</version>
 	</parent>
-	<groupId>io.spring.start</groupId>
 	<artifactId>start-client</artifactId>
 	<name>start.spring.io client</name>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -65,4 +65,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
