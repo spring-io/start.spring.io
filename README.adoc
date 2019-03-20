@@ -40,7 +40,7 @@ especially the UI.
 
 ## Deploying to Cloud Foundry
 
-If you are on a Mac and using http://brew.sh/[homebrew], install the Cloud Foundry
+If you are on a Mac and using https://brew.sh/[homebrew], install the Cloud Foundry
 CLI:
 
 [indent=0]
@@ -72,4 +72,4 @@ Once the jar has been created, you can push the application:
 
 == License
 The start.spring.io website is Open Source software released under the
-http://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
+https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].

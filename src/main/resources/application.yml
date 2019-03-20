@@ -161,7 +161,7 @@ initializr:
           starter: false
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#using-boot-devtools
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#using-boot-devtools
         - name: Lombok
           id: lombok
           groupId: org.projectlombok
@@ -179,7 +179,7 @@ initializr:
           starter: false
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#configuration-metadata-annotation-processor
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#configuration-metadata-annotation-processor
         - name: Session
           id: session
           groupId: org.springframework.session
@@ -197,7 +197,7 @@ initializr:
               href: https://spring.io/guides/gs/caching/
               description: Caching Data with Spring
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-caching
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-caching
         - name: Validation
           id: validation
           description: JSR-303 validation infrastructure (already included with web)
@@ -228,7 +228,7 @@ initializr:
               href: https://spring.io/guides/gs/rest-service/
               description: Building a RESTful Web Service
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-developing-web-applications
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-developing-web-applications
             - rel: guide
               href: https://spring.io/guides/gs/serving-web-content/
               description: Serving Web Content with Spring MVC
@@ -259,7 +259,7 @@ initializr:
               href: https://spring.io/guides/gs/accessing-mongodb-data-rest/
               description: Accessing MongoDB Data with REST
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-use-exposing-spring-data-repositories-rest-endpoint
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-use-exposing-spring-data-repositories-rest-endpoint
         - name: Rest Repositories HAL Browser
           id: data-rest-hal
           description: Browsing Spring Data REST repositories in your browser
@@ -273,7 +273,7 @@ initializr:
               href: https://spring.io/guides/gs/rest-hateoas/
               description: Building a Hypermedia-Driven RESTful Web Service
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-hateoas
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-hateoas
           starter: false
         - name: Web Services
           id: web-services
@@ -285,7 +285,7 @@ initializr:
               href: https://spring.io/guides/gs/producing-web-service/
               description: Producing a SOAP web service
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-webservices
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-webservices
         - name: Jersey
           id: jersey
           description: RESTful Web Services with JAX-RS
@@ -293,7 +293,7 @@ initializr:
             - json
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
         - name: Websocket
           id: websocket
           description: WebSocket applications with SockJS and STOMP
@@ -302,7 +302,7 @@ initializr:
               href: https://spring.io/guides/gs/messaging-stomp-websocket/
               description: Using WebSocket to build an interactive web application
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-websockets
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-websockets
         - name: REST Docs
           id: restdocs
           description: Document RESTful services by combining hand-written and auto-generated documentation
@@ -358,7 +358,7 @@ initializr:
               href: https://spring.io/guides/gs/handling-form-submission/
               description: Handling Form Submission
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
         - name: Freemarker
           id: freemarker
           description: FreeMarker templating engine
@@ -366,7 +366,7 @@ initializr:
             - template
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
         - name: Mustache
           id: mustache
           description: Mustache templating engine
@@ -374,7 +374,7 @@ initializr:
             - template
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
         - name: Groovy Templates
           id: groovy-templates
           description: Groovy templating engine
@@ -382,7 +382,7 @@ initializr:
             - web
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
     - name: Security
       content:
         - name: Security
@@ -400,7 +400,7 @@ initializr:
               href: https://spring.io/guides/gs/authenticating-ldap/
               description: Authenticating a User with LDAP
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security
         - name: OAuth2 Client
           id: oauth2-client
           description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features
@@ -446,7 +446,7 @@ initializr:
               href: https://spring.io/guides/gs/accessing-data-jpa/
               description: Accessing Data with JPA
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jpa-and-spring-data
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jpa-and-spring-data
         - name: MySQL
           id: mysql
           description: MySQL JDBC driver
@@ -476,7 +476,7 @@ initializr:
               href: https://spring.io/guides/gs/managing-transactions/
               description: Managing Transactions
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-sql
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-sql
         - name: MyBatis
           id: mybatis
           description: Persistence support using MyBatis
@@ -529,7 +529,7 @@ initializr:
           starter: false
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-execute-liquibase-database-migrations-on-startup
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-execute-liquibase-database-migrations-on-startup
         - name: Flyway
           id: flyway
           description: Flyway Database Migrations library
@@ -538,13 +538,13 @@ initializr:
           starter: false
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-execute-flyway-database-migrations-on-startup
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-execute-flyway-database-migrations-on-startup
         - name: JOOQ
           id: jooq
           description: Persistence support using Java Object Oriented Querying
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jooq
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jooq
     - name: NoSQL
       content:
         - name: Redis
@@ -557,7 +557,7 @@ initializr:
               href: https://spring.io/guides/gs/messaging-redis/
               description: Messaging with Redis
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-redis
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-redis
         - name: Reactive Redis
           id: data-redis-reactive
           description: Access Redis key-value data stores in a reactive fashion with Spring Data Redis
@@ -567,7 +567,7 @@ initializr:
               href: https://spring.io/guides/gs/messaging-redis/
               description: Messaging with Redis
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-redis
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-redis
         - name: MongoDB
           id: data-mongodb
           description: Access MongoDB NoSQL Database with Spring Data MongoDB
@@ -577,7 +577,7 @@ initializr:
               href: https://spring.io/guides/gs/accessing-data-mongodb/
               description: Accessing Data with MongoDB
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
         - name: Reactive MongoDB
           id: data-mongodb-reactive
           description: Access MongoDB NoSQL Database in a reactive fashion with Spring Data MongoDB
@@ -585,7 +585,7 @@ initializr:
           weight: 50
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
         - name: Embedded MongoDB
           id: flapdoodle-mongo
           description: Embedded MongoDB for testing
@@ -599,39 +599,39 @@ initializr:
           weight: 10
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-elasticsearch
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-elasticsearch
         - name: Solr
           id: data-solr
           description: Access Apache Solr search platform with Spring Data Solr
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-solr
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-solr
         - name: Cassandra
           id: data-cassandra
           description: Access Cassandra NoSQL Database with Spring Data Cassandra
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
         - name: Reactive Cassandra
           id: data-cassandra-reactive
           description: Access Cassandra NoSQL Database in a reactive fashion with Spring Data Cassandra
           versionRange: 2.0.0.M1
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
         - name: Couchbase
           id: data-couchbase
           description: Access Couchbase NoSQL database with Spring Data Couchbase
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase
         - name: Reactive Couchbase
           id: data-couchbase-reactive
           description: Access Couchbase NoSQL database in a reactive fashion with Spring Data Couchbase
           versionRange: 2.0.0.M7
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase
         - name: Neo4j
           id: data-neo4j
           description: Access Neo4j NoSQL graph database with Spring Data Neo4j
@@ -640,7 +640,7 @@ initializr:
               href: https://spring.io/guides/gs/accessing-data-neo4j/
               description: Accessing Data with Neo4j
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-neo4j
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-neo4j
         - name: Gemfire
           id: data-gemfire
           description: Access GemFire distributed data store with Spring Data Gemfire
@@ -650,7 +650,7 @@ initializr:
               href: https://spring.io/guides/gs/accessing-data-gemfire/
               description: Accessing Data with GemFire
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-gemfire
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-gemfire
     - name: Integration
       content:
         - name: Spring Integration
@@ -662,7 +662,7 @@ initializr:
               href: https://spring.io/guides/gs/integration/
               description: Integrating Data
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-integration
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-integration
         - name: RabbitMQ
           id: amqp
           description: Advanced Message Queuing Protocol via Spring Rabbit
@@ -674,7 +674,7 @@ initializr:
               href: https://spring.io/guides/gs/messaging-rabbitmq/
               description: Messaging with RabbitMQ
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-amqp
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-amqp
         - name: Kafka
           id: kafka
           weight: 100
@@ -687,7 +687,7 @@ initializr:
             - messaging
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-kafka
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-kafka
         - name: Kafka Streams
           id: kafka-streams
           weight: 90
@@ -714,7 +714,7 @@ initializr:
               href: https://spring.io/guides/gs/messaging-jms/
               description: Messaging with JMS
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-activemq
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-activemq
         - name: JMS (Artemis)
           id: artemis
           description: Java Message Service API via Apache Artemis
@@ -723,7 +723,7 @@ initializr:
               href: https://spring.io/guides/gs/messaging-jms/
               description: Messaging with JMS
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-artemis
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-artemis
     - name: Cloud Core
       bom: spring-cloud
       content:
@@ -1111,13 +1111,13 @@ initializr:
               href: https://spring.io/guides/gs/batch-processing/
               description: Creating a Batch Service
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-batch-applications
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-batch-applications
         - name: Mail
           id: mail
           description: Send email using Java Mail and Spring Framework's JavaMailSender
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-email
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-email
         - name: Apache Camel
           id: camel
           versionRange: "1.5.0.RELEASE"
@@ -1133,7 +1133,7 @@ initializr:
           artifactId: camel-spring-boot-starter
           links:
             - rel: guide
-              href: http://camel.apache.org/spring-boot
+              href: https://camel.apache.org/spring-boot
               description: Using Apache Camel with Spring Boot
         - name: LDAP
           id: data-ldap
@@ -1141,7 +1141,7 @@ initializr:
           versionRange: 1.5.0.RELEASE
           links:
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-ldap
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-ldap
         - name: Quartz Scheduler
           id: quartz
           versionRange: 2.0.0.M2
@@ -1179,7 +1179,7 @@ initializr:
               href: https://spring.io/guides/gs/actuator-service/
               description: Building a RESTful Web Service with Spring Boot Actuator
             - rel: reference
-              href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready
         - name: Spring Boot Admin (Server)
           id: codecentric-spring-boot-admin-server
           groupId: de.codecentric
@@ -1189,7 +1189,7 @@ initializr:
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
-              href: http://codecentric.github.io/spring-boot-admin/current/#getting-started
+              href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
         - name: Spring Boot Admin (Client)
           id: codecentric-spring-boot-admin-client
           groupId: de.codecentric
@@ -1199,7 +1199,7 @@ initializr:
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
-              href: http://codecentric.github.io/spring-boot-admin/current/#getting-started
+              href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
         - name: Actuator Docs
           id: actuator-docs
           description: API documentation for the Actuator endpoints
