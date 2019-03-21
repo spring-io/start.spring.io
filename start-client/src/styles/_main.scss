@@ -1,0 +1,691 @@
+
+
+html, body {
+  min-height: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: white;
+  color: $spring-color;
+  padding: 0;
+  margin: 0;
+  font-size: $spring-font-size;
+  font-family: $spring-font-family;
+  font-weight: normal;
+  font-style: normal;
+  position: relative;
+  cursor: auto;
+  line-height: $spring-8points * 4;
+  //border-left: 4px solid $spring-primary-color;
+  height: 100%;
+
+  background-color: white;
+  background-repeat: repeat-y;
+  background-size: 316px 1px;
+  background-image: url(data:image/gif;base64,R0lGODlheAICAIAAAH2vUPf39yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowRjJERDYwM0ZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowRjJERDYwNEZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjBGMkRENjAxRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjBGMkRENjAyRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkEAAAAAAAsAAAAAHgCAgAAAiaEb6HL7Q+jnLTai7PevPsPhuJIluaJpmqJIOsLx/JM1/aN5/puFwA7);
+
+  min-width: 800px;
+
+}
+
+a {
+  color: $spring-link-color;
+  &:hover {
+
+  }
+}
+
+p {
+  line-height: $spring-8points * 3;
+  padding: ($spring-8points / 2) 0;
+  margin: 0;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+// Line layout
+
+.line {
+
+  display: flex;
+  //flex-flow: row wrap;
+  min-width: 900px;
+
+  .left, .right {
+    display: block;
+  }
+
+  .left {
+    font-weight: bold;
+    width: $spring-sidebar-width;
+    text-align: right;
+    //background: $spring-gray-color;
+    padding: $spring-8points ($spring-8points * 4) $spring-8points 0;
+    flex: $spring-sidebar-width 0 0;
+  }
+
+  .right {
+    padding: $spring-8points 0 $spring-8points ($spring-8points * 4);
+    flex: 2;
+    max-width: 1000px;
+  }
+
+}
+
+// Radios component
+
+div.radios {
+
+  div.radio {
+    display: inline-block;
+    a {
+      display: inline-block;
+      border-bottom: 3px solid #e4e4e4;
+      text-decoration: none;
+      color: #888;
+      line-height: $spring-8points * 4;
+      padding: 0 $spring-8points * 2;
+      text-align: center;
+      font-weight: bold;
+      &:hover {
+        @include transition(border-color $spring-transition-duration);
+        border-bottom-color: #d3d3d3;
+        color: $spring-color;
+      }
+    }
+    &.active {
+      a {
+        border-bottom-color: $spring-primary-color;
+        //
+        color: $spring-color;
+        &:hover {
+          color: $spring-color;
+        }
+      }
+    }
+  }
+
+}
+
+// Input component
+
+.control-text {
+  display: block;
+  border: 0 none;
+  outline: none;
+  border-bottom: 3px solid #ebebeb;
+  line-height: $spring-8points * 2;
+  font-family: $spring-font-family;
+  font-size: $spring-font-size;
+  box-sizing: border-box;
+  background-clip: padding-box;
+  width: 100%;
+  padding: .35rem 0 .55rem 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: 0px;
+  background: #FFF;
+
+  &:focus {
+    @include transition(border-color $spring-transition-duration);
+    border-color: $spring-primary-color;
+  }
+  &::placeholder {
+    font-style: italic;
+    color: #888;
+  }
+}
+
+// Control
+
+.control {
+  line-height: $spring-8points * 2;
+  padding-top: $spring-8points;
+}
+
+.control + .control {
+  padding-top: $spring-8points * 2;
+}
+
+.control label {
+  color: #706c69;
+  font-size: $spring-font-size-sm;
+  font-weight: lighter;
+}
+
+// Submit
+
+.control-submit {
+  height: $spring-8points * 5;
+  p {
+    border-bottom: 2px dotted #ebebeb;
+    height: 15px;
+    text-align: center;
+  }
+  .btn {
+    width: 120px;
+  }
+}
+
+// Colset
+
+.colset {
+  display: flex;
+  flex-flow: wrap;
+  .col {
+    flex: 1;
+    max-width: 350px;
+  }
+  .col + .col {
+    padding-left: $spring-8points * 3;
+  }
+}
+
+// List component
+
+.list {
+  min-height: 200px;
+  .item {
+    border: 2px solid $spring-gray-color;
+    background: $spring-gray-color;
+    line-height: $spring-8points * 3;
+    padding: $spring-8points $spring-8points * 5 $spring-8points $spring-8points * 2;
+    margin: $spring-8points 0;
+    border-radius: $spring-radius;
+    position: relative;
+    cursor: pointer;
+    .title {
+      font-weight: bold;
+      .cat {
+        color: $spring-primary-color;
+        font-weight: normal;
+      }
+    }
+    .desc {
+      color: #706c69;
+      font-size: 0.9rem;
+    }
+    .incompatible {
+      display: none;
+      color: #f30808;
+      font-weight: bold;
+    }
+    a.btn-ico {
+      position: absolute;
+      right: 2px;
+      top: 50%;
+      margin-top: -16px;
+      display: none;
+      &:hover {
+        color: $spring-color;
+      }
+    }
+    &.active {
+      background-color: #e7f1f4;
+      border-color: #e7f1f4;
+      a.btn-ico {
+        display: block;
+      }
+    }
+    &.invalid {
+      cursor: not-allowed;
+      a.btn-ico {
+        display: none;
+      }
+      .incompatible {
+        display: block;
+      }
+      &.active {
+        background-color: #ffe2e2;
+        border-color: #ffe2e2;
+      }
+    }
+    /*
+    }*/
+  }
+  &.light {
+    .item {
+      background: #fff;
+      &.active {
+        background-color: #e7f1f4;
+        border-color: #e7f1f4;
+      }
+
+      &.invalid {
+        cursor: not-allowed;
+        a.btn-ico {
+          display: block;
+        }
+      }
+      &:hover {
+        a.btn-ico {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// Buttons component
+
+a.btn, button.btn {
+  border: 2px solid #ebebeb;
+  background-color: #fff;
+  border-radius: $spring-radius;
+  font-family: $spring-font-family;
+  font-size: $spring-font-size;
+  line-height: $spring-8points * 4;
+  padding: 0 $spring-8points;
+  font-weight: normal;
+  cursor: pointer;
+  @include transition(border-color $spring-transition-duration);
+  &:hover {
+    border-color: #dcdcdc;
+  }
+  &.btn-primary {
+    background: $spring-primary-color;
+    color: white;
+    border-color: $spring-primary-color;
+    padding: ($spring-8points / 2) $spring-8points * 5;
+    @include transition(background $spring-transition-duration, border-color $spring-transition-duration);
+    &:hover {
+      background: darken($spring-primary-color, 5);
+      border-color: darken($spring-primary-color, 5);
+    }
+  }
+  &:focus {
+    //outline: ;
+  }
+}
+
+// Button ico
+
+a.btn-ico {
+  $btn-size: 32px;
+  display: block;
+  width: $btn-size;
+  height: $btn-size;
+  text-align: center;
+  line-height: $btn-size;
+  color: $spring-color;
+  cursor: pointer;
+  @include transition(color $spring-transition-duration);
+  &:hover {
+    color: $spring-primary-color;
+  }
+}
+
+// Submit
+
+.submit {
+  padding: $spring-8points * 3 0;
+  border-top: 1px solid #e4e4e4;
+  kbd {
+    display: inline-block;
+    letter-spacing: 5px;
+    margin-left: 15px;
+    vertical-align: middle;
+  }
+}
+
+// Header / Logo
+
+.header {
+  position: relative;
+  //width: $spring-sidebar-width;
+  padding: $spring-8points $spring-8points * 2 $spring-8points $spring-8points * 3;
+  //background: $spring-gray-color;
+  h1.logo {
+    margin: 0;
+    padding: $spring-8points 0;
+    width: $spring-sidebar-width;
+    a {
+      display: block;
+      position: relative;
+      padding: ($spring-8points / 2) 0;
+      padding-left: 65px;
+      color: $spring-color;
+      text-decoration: none;
+      font-size: 1rem;
+      line-height: 1.6rem;
+      font-weight: normal;
+      width: 205px;
+      svg {
+        width: 50px;
+        position: absolute;
+        left: 0;
+        top: 6px;
+        .st2 {
+          fill: $spring-primary-color;
+        }
+        .st3 {
+          fill: #FFFFFF;
+        }
+      }
+      strong {
+        display: block;
+        font-size: 1.4rem;
+        font-weight: normal;
+        letter-spacing: -1px;
+        span {
+          font-weight: bold;
+          color: $spring-primary-color;
+          letter-spacing: 0px;
+        }
+      }
+    }
+  }
+}
+
+// Quick Links
+
+.quick-links {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #ccc;
+  width: 220px;
+  a {
+    margin: 0 $spring-8points;
+    padding-left: $spring-8points * 3;
+    text-decoration: none;
+    position: relative;
+    color: $spring-color;
+    @include transition(color $spring-transition-duration);
+    .fab {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 18px;
+    }
+    &:hover {
+      color: $spring-primary-color;
+    }
+  }
+}
+
+// Footer
+
+.footer {
+  line-height: $spring-8points * 3;
+  padding: $spring-8points $spring-8points * 2;
+  font-weight: normal;
+  color: rgba(0, 0, 0, .5);
+  font-size: $spring-font-size-sm;
+  letter-spacing: -.5px;
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+// Pagination
+
+.pagination {
+  text-align: center;
+  a {
+    color: $spring-color;
+    font-size: 24px;
+    padding: 5px 3px;
+    @include transition(color $spring-transition-duration);
+    &:hover {
+      color: $spring-primary-color;
+    }
+    &.disabled {
+      cursor: not-allowed;
+      color: rgba(0, 0, 0, .15)
+    }
+  }
+}
+
+// Specific styles
+
+.project-metadata {
+  max-width: 500px;
+}
+
+.hide {
+  display: none;
+}
+
+// More Block
+
+#more-block {
+}
+
+.more-block {
+  padding-top: $spring-8points;
+}
+
+#more-block.hide {
+  display: block;
+  //height: 0;
+  overflow: hidden;
+  @include transition(height $spring-transition-duration);
+  &.in {
+    height: 330px;
+  }
+}
+
+// No result
+
+.no-result {
+  display: none;
+  &.show {
+    display: block;
+  }
+}
+
+// Fixed row-action
+
+body.fixed {
+
+  .list {
+    padding-bottom: 120px;
+  }
+
+  .row-action {
+    position: fixed;
+    bottom: 0;
+    .left {
+      background: $spring-gray-color;
+      margin-left: 4px;
+    }
+    .right {
+      padding-left: 28px;
+    }
+    .right, .left {
+      margin-top: 0;
+      padding-top: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .submit {
+      background-color: #FFFFFF;
+      min-width: 750px;
+      .btn-primary {
+      }
+    }
+  }
+}
+
+// Label Dependencies
+
+.dependencies-label {
+  position: relative;
+  a {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    font-weight: normal;
+    width: 50px;
+    cursor: pointer;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+// Overlay
+
+.overlay, .wrapper-modal {
+  display: none;
+}
+
+body.dependencies {
+  overflow: hidden;
+}
+
+.overlay {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 99997;
+  -webkit-tap-highlight-color: transparent;
+  background: rgba(255, 255, 255, .8);
+}
+
+.wrapper-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 99999;
+  .modal {
+    margin: $spring-8points * 3 auto;
+    max-width: 1200px;
+  }
+}
+
+.modal {
+  background: white;
+  box-shadow: 0 5px 20px rgba(0,0,0,.3);
+  .modal-header {
+    position: relative;
+    padding: $spring-8points * 2 $spring-8points * 3;
+    border-bottom: 1px solid #e4e4e4;
+    h2 {
+      padding: 0;
+      margin: 0;
+      font-size: $spring-font-size + 4px;
+      font-weight: normal;
+    }
+    a.close-modal {
+      position: absolute;
+      right: 20px;
+      top: 17px;
+      cursor: pointer;
+      color: $spring-color;
+      font-size: 20px;
+      padding: 0 $spring-8points;
+      &:hover {
+        color: $spring-primary-color;
+      }
+    }
+  }
+  .modal-footer {
+    border-top: 1px solid #e4e4e4;
+    text-align: center;
+    padding: $spring-8points * 2 0;
+    .btn-primary {
+      margin-right: $spring-8points;
+    }
+    .btn-primary, .btn {
+      padding: 2px 20px;
+    }
+  }
+  .modal-body {
+    overflow-y: scroll;
+    line-height: $spring-8points * 3;
+    .modal-body-list {
+      padding: 0 $spring-8points * 4;
+      .group {
+        padding: $spring-8points * 3 0;
+        border-bottom: 1px solid #e4e4e4;
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+      h3 {
+        padding: 0 0 $spring-8points 0;
+        margin: 0;
+        color: $spring-primary-color;
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        li {
+          label {
+            display: block;
+            padding: $spring-8points 0 $spring-8points $spring-8points * 4;
+            position: relative;
+            cursor: pointer;
+            border-radius: 3px;
+            input {
+              position: absolute;
+              top: 14px;
+              left: 12px;
+            }
+            &:hover {
+              background-color: $spring-gray-color;
+            }
+            span {
+              display: none;
+            }
+          }
+          &.invalid {
+            cursor: not-allowed;
+            label {
+              cursor: not-allowed;
+              &:hover {
+                background-color: white;
+              }
+            }
+            span {
+              display: block;
+              color: #f30808;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Survey
+
+.survey {
+  width: 250px;
+
+  position: absolute;
+  top: 50px;
+  right: 40px;
+
+  .survey-content {
+    background: #edf5ff;
+    border-radius: 3px;
+    font-weight: bold;
+    padding: $spring-8points $spring-8points * 2;
+    line-height: 22px ;
+    a {
+      font-weight: normal;
+    }
+  }
+}
+
+// Selection
+
+::selection {
+  background-color: #d1ff79;
+}
