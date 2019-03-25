@@ -76,7 +76,7 @@ that the jar has been created:
 [indent=0]
 ----
     $ cd start-site
-    $ ./mvnw package
+    $ ../mvnw package
 ----
 
 Once the jar has been created, you can push the application:
