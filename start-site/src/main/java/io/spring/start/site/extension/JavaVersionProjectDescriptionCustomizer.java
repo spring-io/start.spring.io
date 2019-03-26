@@ -63,8 +63,8 @@ public class JavaVersionProjectDescriptionCustomizer
 				&& isSpringBootVersionBefore(description, VERSION_2_0_1)) {
 			updateTo(description, "1.8");
 		}
-		// 11 support only as of 2.1.x
-		if (javaGeneration == 11
+		// 11 and 12 support only as of 2.1.x
+		if ((javaGeneration == 11 || javaGeneration == 12)
 				&& isSpringBootVersionBefore(description, VERSION_2_1_0_M1)) {
 			updateTo(description, "1.8");
 		}
@@ -79,7 +79,7 @@ public class JavaVersionProjectDescriptionCustomizer
 	private Integer determineJavaGeneration(String javaVersion) {
 		try {
 			int generation = Integer.valueOf(javaVersion);
-			return ((generation > 8 && generation <= 11) ? generation : null);
+			return ((generation > 8 && generation <= 12) ? generation : null);
 		}
 		catch (NumberFormatException ex) {
 			return null;

@@ -190,4 +190,52 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		generateGradleBuild(request).hasJavaVersion("11");
 	}
 
+	@Test
+	void java12CannotBeUsedWithSpringBoot1Maven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("1.5.8.RELEASE");
+		request.setJavaVersion("12");
+		generateMavenPom(request).hasJavaVersion("1.8");
+	}
+
+	@Test
+	void java12CannotBeUsedWithSpringBoot1Gradle() {
+		ProjectRequest request = createProjectRequest("data-jpa");
+		request.setBootVersion("1.99.99.BUILD-SNAPSHOT");
+		request.setJavaVersion("12");
+		generateGradleBuild(request).hasJavaVersion("1.8");
+	}
+
+	@Test
+	void java12CannotBeUsedWithSpringBoot20Maven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.0.5.RELEASE");
+		request.setJavaVersion("12");
+		generateMavenPom(request).hasJavaVersion("1.8");
+	}
+
+	@Test
+	void java12CannotBeUsedWithSpringBoot20Gradle() {
+		ProjectRequest request = createProjectRequest("data-jpa");
+		request.setBootVersion("2.0.5.RELEASE");
+		request.setJavaVersion("12");
+		generateGradleBuild(request).hasJavaVersion("1.8");
+	}
+
+	@Test
+	void java12CanBeUsedWithSpringBoot21Maven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.1.0.M1");
+		request.setJavaVersion("12");
+		generateMavenPom(request).hasJavaVersion("12");
+	}
+
+	@Test
+	void java12CanBeUsedWithSpringBoot21Gradle() {
+		ProjectRequest request = createProjectRequest("data-jpa");
+		request.setBootVersion("2.1.1.RELEASE");
+		request.setJavaVersion("12");
+		generateGradleBuild(request).hasJavaVersion("12");
+	}
+
 }
