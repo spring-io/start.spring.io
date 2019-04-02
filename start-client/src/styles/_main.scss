@@ -6,7 +6,6 @@ html, body {
 }
 
 body {
-  background: white;
   color: $spring-color;
   padding: 0;
   margin: 0;
@@ -20,10 +19,10 @@ body {
   //border-left: 4px solid $spring-primary-color;
   height: 100%;
 
-  background-color: white;
+  background-color: $spring-background;
   background-repeat: repeat-y;
   background-size: 316px 1px;
-  background-image: url(data:image/gif;base64,R0lGODlheAICAIAAAH2vUPf39yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowRjJERDYwM0ZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowRjJERDYwNEZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjBGMkRENjAxRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjBGMkRENjAyRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkEAAAAAAAsAAAAAHgCAgAAAiaEb6HL7Q+jnLTai7PevPsPhuJIluaJpmqJIOsLx/JM1/aN5/puFwA7);
+  background-image: $spring-sidebar-image;
 
   min-width: 800px;
 
@@ -83,7 +82,7 @@ div.radios {
     display: inline-block;
     a {
       display: inline-block;
-      border-bottom: 3px solid #e4e4e4;
+      border-bottom: 3px solid $spring-border-color;
       text-decoration: none;
       color: #888;
       line-height: $spring-8points * 4;
@@ -92,7 +91,7 @@ div.radios {
       font-weight: bold;
       &:hover {
         @include transition(border-color $spring-transition-duration);
-        border-bottom-color: #d3d3d3;
+        border-bottom-color: $spring-border-color-hover;
         color: $spring-color;
       }
     }
@@ -116,7 +115,7 @@ div.radios {
   display: block;
   border: 0 none;
   outline: none;
-  border-bottom: 3px solid #ebebeb;
+  border-bottom: 3px solid $spring-border-color;
   line-height: $spring-8points * 2;
   font-family: $spring-font-family;
   font-size: $spring-font-size;
@@ -128,7 +127,8 @@ div.radios {
   -webkit-appearance: none;
   -moz-appearance: none;
   -webkit-border-radius: 0px;
-  background: #FFF;
+  background: $spring-background;
+  color: $spring-color;
 
   &:focus {
     @include transition(border-color $spring-transition-duration);
@@ -162,7 +162,7 @@ div.radios {
 .control-submit {
   height: $spring-8points * 5;
   p {
-    border-bottom: 2px dotted #ebebeb;
+    border-bottom: 2px dotted $spring-border-color;
     height: 15px;
     text-align: center;
   }
@@ -273,8 +273,8 @@ div.radios {
 // Buttons component
 
 a.btn, button.btn {
-  border: 2px solid #ebebeb;
-  background-color: #fff;
+  border: 2px solid $spring-border-color;
+  background-color: $spring-background;
   border-radius: $spring-radius;
   font-family: $spring-font-family;
   font-size: $spring-font-size;
@@ -282,9 +282,10 @@ a.btn, button.btn {
   padding: 0 $spring-8points;
   font-weight: normal;
   cursor: pointer;
+  color: $spring-color;
   @include transition(border-color $spring-transition-duration);
   &:hover {
-    border-color: #dcdcdc;
+    border-color: $spring-border-color-hover;
   }
   &.btn-primary {
     background: $spring-primary-color;
@@ -323,7 +324,7 @@ a.btn-ico {
 
 .submit {
   padding: $spring-8points * 3 0;
-  border-top: 1px solid #e4e4e4;
+  border-top: 1px solid $spring-border-color;
   kbd {
     display: inline-block;
     letter-spacing: 5px;
@@ -387,7 +388,7 @@ a.btn-ico {
   position: absolute;
   top: 10px;
   right: 20px;
-  color: #ccc;
+  color: $spring-border-color;
   width: 220px;
   a {
     margin: 0 $spring-8points;
@@ -414,7 +415,7 @@ a.btn-ico {
   line-height: $spring-8points * 3;
   padding: $spring-8points $spring-8points * 2;
   font-weight: normal;
-  color: rgba(0, 0, 0, .5);
+  color: $spring-footer-color;
   font-size: $spring-font-size-sm;
   letter-spacing: -.5px;
   a {
@@ -493,7 +494,7 @@ body.fixed {
     position: fixed;
     bottom: 0;
     .left {
-      background: $spring-gray-color;
+      background: $spring-sidebar-background-color;
       margin-left: 4px;
     }
     .right {
@@ -506,7 +507,7 @@ body.fixed {
       padding-bottom: 0;
     }
     .submit {
-      background-color: #FFFFFF;
+      background-color: $spring-background;
       min-width: 750px;
       .btn-primary {
       }
