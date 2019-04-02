@@ -41,7 +41,7 @@ You can easily start the app as any other Spring Boot app:
 [indent=0]
 ----
     $ cd start-site
-    $ ./mvnw spring-boot:run
+    $ ../mvnw spring-boot:run
 ----
 
 [[run-ide]]

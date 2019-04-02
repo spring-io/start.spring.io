@@ -61,5 +61,6 @@ To start the site locally, execute the following command:
 
 [indent=0]
 ----
-    $ ./mvnw spring-boot:run
+    $ cd start-site
+    $ ../mvnw spring-boot:run
 ----
