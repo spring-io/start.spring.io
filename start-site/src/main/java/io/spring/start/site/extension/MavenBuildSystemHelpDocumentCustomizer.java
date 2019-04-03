@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,8 +29,6 @@ class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	@Override
 	public void customize(HelpDocument document) {
-		document.gettingStarted().addAdditionalLink("https://scans.gradle.com#maven",
-				"Free, shareable build insights for Gradle and Maven builds");
 		document.gettingStarted().addReferenceDocLink(
 				"https://maven.apache.org/guides/index.html",
 				"Official Apache Maven documentation");

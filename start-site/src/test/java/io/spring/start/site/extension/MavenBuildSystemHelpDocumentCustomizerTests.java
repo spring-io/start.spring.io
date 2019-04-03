@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,8 +38,7 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 		ProjectStructure structure = generateProject(request);
 		List<String> lines = structure.readAllLines("HELP.md");
 		assertThat(lines).contains(
-				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Free, shareable build insights for Gradle and Maven builds](https://scans.gradle.com#maven)");
+				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
 		assertThat(lines).doesNotContain(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Free, shareable build insights for Gradle and Maven builds](https://scans.gradle.com#gradle)");
