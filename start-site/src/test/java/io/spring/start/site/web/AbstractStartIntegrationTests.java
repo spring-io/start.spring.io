@@ -58,7 +58,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Stephane Nicoll
  */
-@SpringBootTest(classes = Config.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = Config.class,
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AbstractStartIntegrationTests {
 
 	public File folder;

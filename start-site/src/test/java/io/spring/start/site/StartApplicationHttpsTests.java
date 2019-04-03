@@ -38,7 +38,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = "initializr.env.force-ssl=true")
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,
+		properties = "initializr.env.force-ssl=true")
 @AutoConfigureCache
 class StartApplicationHttpsTests {
 
