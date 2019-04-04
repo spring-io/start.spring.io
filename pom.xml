@@ -17,7 +17,7 @@
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
-		<junit-jupiter.version>5.4.0</junit-jupiter.version>
+		<junit-jupiter.version>5.4.1</junit-jupiter.version>
 		<spring.initializr.version>0.8.0.BUILD-SNAPSHOT</spring.initializr.version>
 		<spring-javaformat.version>0.0.9</spring-javaformat.version>
 	</properties>
