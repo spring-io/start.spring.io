@@ -1,8 +1,11 @@
 = start.spring.io image:https://badges.gitter.im/spring-io/initializr.svg[link="https://gitter.im/spring-io/initializr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"]
 :library: https://github.com/spring-io/initializr
 
-This repository configures a {library}[Spring Initializr] instance running at
-https://start.spring.io.
+This repository configures a {library}[Spring Initializr] instance with a custom UI
+running at https://start.spring.io. The following defines are available:
+
+* `start-client`: client-side assets
+* `start-size`: server infrastructure and metadata configuration
 
 [[build]]
 == Building from Source
@@ -19,13 +22,26 @@ Invoke the build at the root of the project
     $ ./mvnw clean install
 ----
 
+The project also has Selenium tests that instrument the client side. In order to run them
+you need first to install Firefox and the latest
+https://github.com/mozilla/geckodriver[geckodriver].
+
+Once those are installed you can run the smoke tests by enabling an extra profile:
+
+[indent=0]
+----
+    $ ./mvnw verify -PsmokeTests
+----
+
+
 [[run-app]]
 === Running the app locally
 You can easily start the app as any other Spring Boot app:
 
 [indent=0]
 ----
-    $ ./mvnw spring-boot:run
+    $ cd start-site
+    $ ../mvnw spring-boot:run
 ----
 
 [[run-ide]]
@@ -40,7 +56,7 @@ especially the UI.
 
 ## Deploying to Cloud Foundry
 
-If you are on a Mac and using http://brew.sh/[homebrew], install the Cloud Foundry
+If you are on a Mac and using https://brew.sh/[homebrew], install the Cloud Foundry
 CLI:
 
 [indent=0]
@@ -59,7 +75,8 @@ that the jar has been created:
 
 [indent=0]
 ----
-    $ ./mvnw package
+    $ cd start-site
+    $ ../mvnw package
 ----
 
 Once the jar has been created, you can push the application:
@@ -72,4 +89,4 @@ Once the jar has been created, you can push the application:
 
 == License
 The start.spring.io website is Open Source software released under the
-http://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
+https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].

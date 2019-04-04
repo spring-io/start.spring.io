@@ -1,0 +1,152 @@
+
+
+
+@media (max-width: 900px) {
+
+  body {
+    background: none;
+    padding-bottom: 94px;
+    min-width: 0;
+  }
+
+  .line {
+    display: block;
+    max-width: none;
+    min-width: 0;
+    padding: $spring-8points * 2;
+    .left {
+      text-align: left;
+      padding: 0;
+      max-width: none;
+      min-width: 0;
+    }
+    .right {
+      padding: 0;
+      max-width: none;
+      min-width: 0;
+    }
+  }
+
+  .header {
+    padding: 0;
+    border-top: 4px solid $spring-primary-color;
+    h1.logo {
+      a {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .quick-links {
+    position: relative;
+    text-align: center;
+    top: 0;
+    right: 0;
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    background: $spring-gray-color;
+    padding: 0.5rem 0;
+    width: auto;
+  }
+
+  body, body.fixed {
+    .row-action {
+      position: relative;
+      flex: none;
+      display: block;
+      min-width: 0;
+      right: 0;
+      left: 0;
+      padding: 0;
+      .left {
+        width: auto;
+        flex: none;
+        margin: 0;
+        display: block;
+        text-align: center;
+        border-top: 1px solid #e4e4e4;
+      }
+      .right {
+        position: fixed;
+        display: block;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding-left: 0;
+        max-width: none;
+        flex: none;
+        width: 100%;
+        text-align: center;
+        .submit {
+          max-width: none;
+          min-width: 0;
+        }
+      }
+    }
+  }
+
+
+  // Colset
+
+  .colset {
+    display: block;
+    flex-flow: wrap;
+    .col {
+      flex: none;
+      max-width: none;
+      min-height: auto;
+    }
+    .col + .col {
+      padding-left: 0;
+      border-top: 1px solid #e4e4e4;
+      padding-top: $spring-8points * 2;
+    }
+  }
+
+  .project-metadata {
+    max-width: none;
+  }
+
+  .wrapper-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 99999;
+    .modal {
+      margin: 0;
+      max-width: none;
+      .modal-header {
+        h2 {
+          font-size: $spring-font-size + 2px;
+        }
+      }
+    }
+  }
+
+  .dependencies-label {
+    a {
+      position: relative;
+      top: auto;
+      right: auto;
+    }
+  }
+
+
+  // Survey
+
+  .survey {
+    width: auto;
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 1rem 1rem 0;
+    .survey-content {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+
+}
