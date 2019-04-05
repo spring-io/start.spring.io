@@ -17,6 +17,7 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
+import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -103,6 +104,18 @@ public class StartProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("restdocs")
 	public SpringRestDocsBuildCustomizer springRestDocsBuildCustomizer() {
 		return new SpringRestDocsBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+	public GradleBuildSystemHelpDocumentCustomizer gradleBuildSystemHelpDocumentCustomizer() {
+		return new GradleBuildSystemHelpDocumentCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	public MavenBuildSystemHelpDocumentCustomizer mavenBuildSystemHelpDocumentCustomizer() {
+		return new MavenBuildSystemHelpDocumentCustomizer();
 	}
 
 }
