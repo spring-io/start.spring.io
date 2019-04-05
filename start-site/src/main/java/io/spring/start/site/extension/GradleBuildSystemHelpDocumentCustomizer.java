@@ -30,7 +30,7 @@ class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer 
 	@Override
 	public void customize(HelpDocument document) {
 		document.gettingStarted().addAdditionalLink("https://scans.gradle.com#gradle",
-				"Free, shareable build insights for Gradle and Maven builds");
+				"Gradle Build Scans – insights for your project's build");
 		document.gettingStarted().addReferenceDocLink("https://docs.gradle.org",
 				"Official Gradle documentation");
 	}

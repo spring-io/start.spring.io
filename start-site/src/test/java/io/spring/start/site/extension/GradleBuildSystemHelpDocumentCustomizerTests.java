@@ -18,7 +18,6 @@ package io.spring.start.site.extension;
 
 import java.util.List;
 
-import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
@@ -28,21 +27,28 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link GradleBuildSystemHelpDocumentCustomizer}.
  *
  * @author Jenn Strater
+ * @author Andy Wilkinson
  */
 class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void linksAddedToHelpDocument() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setType("gradle-build");
-		ProjectStructure structure = generateProject(request);
-		List<String> lines = structure.readAllLines("HELP.md");
-		assertThat(lines).contains(
+	void linksAddedToHelpDocumentForGradleBuild() {
+		assertThat(helpMdLinesForProject("gradle-build")).contains(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
-				"* [Free, shareable build insights for Gradle and Maven builds](https://scans.gradle.com#gradle)");
-		assertThat(lines).doesNotContain(
-				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Free, shareable build insights for Gradle and Maven builds](https://scans.gradle.com#maven)");
+				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)");
+	}
+
+	@Test
+	void linksNotAddedToHelpDocumentForMavenBuild() {
+		assertThat(helpMdLinesForProject("maven-build")).doesNotContain(
+				"* [Official Gradle documentation](https://docs.gradle.org)",
+				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)");
+	}
+
+	private List<String> helpMdLinesForProject(String type) {
+		ProjectRequest request = createProjectRequest("web");
+		request.setType(type);
+		return generateProject(request).readAllLines("HELP.md");
 	}
 
 }
