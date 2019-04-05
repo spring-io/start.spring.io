@@ -16,6 +16,24 @@ $.fn.radio = function () {
     });
 };
 
+$.fn.dropdown = function() {
+    const _this = $(this);
+    const body = $('body');
+    body.click(function() {
+        _this.each(function () {
+            $(this).removeClass('open');
+        });
+    });
+    _this.each(function () {
+        const dropdown = $(this);
+        const toggle = $(this).find('.dropdown-toggle');
+        toggle.click(function (e) {
+            dropdown.addClass('open');
+            e.stopImmediatePropagation();
+        })
+    });
+}
+
 $(function () {
 
     const nameInput = $("input[name='name']");
@@ -85,6 +103,12 @@ $(function () {
         $("#baseDir").attr('value', this.value);
         generatePackageName();
     });
+
+    // -------------------------------
+
+    // Dropdown Component
+
+    $('.dropdown').dropdown();
 
     // -------------------------------
 
