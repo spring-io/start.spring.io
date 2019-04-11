@@ -387,9 +387,10 @@ a.btn-ico {
 .quick-links {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 30px;
   color: $spring-border-color;
-  width: 220px;
+  width: 320px;
+  text-align: right;
   a {
     margin: 0 $spring-8points;
     padding-left: $spring-8points * 3;
@@ -397,14 +398,75 @@ a.btn-ico {
     position: relative;
     color: $spring-color;
     @include transition(color $spring-transition-duration);
-    .fab {
+    .icon {
       position: absolute;
       left: 0;
       top: 0;
       font-size: 18px;
     }
+    .icon-svg {
+      width: 18px;
+    }
     &:hover {
       color: $spring-primary-color;
+    }
+  }
+  span.dropdown {
+    a.dropdown-toggle {
+      padding-right: 20px;
+    }
+  }
+}
+
+// Dropdown
+span.dropdown {
+  position: relative;
+  a.dropdown-toggle {
+    position: relative;
+    padding-right: 20px;
+    .fa-caret-down {
+      position: absolute;
+      right: 2px;
+      top: 2px;
+    }
+  }
+  ul.dropdown-menu {
+    display: none;
+    z-index: 999;
+    position: absolute;
+    top: 28px;
+    right: 0;
+    background: white;
+    width: 200px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+    text-align: left;
+    li {
+      border-bottom: 1px solid #ddd;
+      a {
+        display: block;
+        padding: 4px 12px;
+        margin: 0;
+        @include transition(background-color $spring-transition-duration);
+        &:hover {
+          background: #e7f1f4;
+          color: $spring-color;
+          text-decoration: underline;
+        }
+      }
+      &:last-child {
+        border: 0 none;
+      }
+    }
+  }
+  &.open {
+    a.dropdown-toggle {
+      color: $spring-primary-color;
+    }
+    ul.dropdown-menu {
+      display: block;
     }
   }
 }
