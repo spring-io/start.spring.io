@@ -299,15 +299,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
-        - name: Websocket
-          id: websocket
-          description: WebSocket applications with SockJS and STOMP
-          links:
-            - rel: guide
-              href: https://spring.io/guides/gs/messaging-stomp-websocket/
-              description: Using WebSocket to build an interactive web application
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-websockets
         - name: REST Docs
           id: restdocs
           description: Document RESTful services by combining hand-written and auto-generated documentation
@@ -656,7 +647,7 @@ initializr:
               description: Accessing Data with GemFire
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-gemfire
-    - name: Integration
+    - name: Messaging
       content:
         - name: Spring Integration
           id: integration
@@ -729,6 +720,19 @@ initializr:
               description: Messaging with JMS
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-artemis
+        - name: WebSocket
+          id: websocket
+          description: WebSocket applications with SockJS and STOMP
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/messaging-stomp-websocket/
+              description: Using WebSocket to build an interactive web application
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-websockets
+        - name: RSocket
+          id: rsocket
+          versionRange: 2.2.0.M2
+          description: RSocket.io applications with Spring Messaging and Netty
     - name: Cloud Core
       bom: spring-cloud
       content:
@@ -1293,3 +1297,4 @@ spring:
       additional_paths:
         - start-client/build/
       additional_exclude: "**/*.js,**/*.css"
+
