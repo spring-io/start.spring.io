@@ -424,6 +424,7 @@ span.dropdown {
   a.dropdown-toggle {
     position: relative;
     padding-right: 20px;
+    white-space: nowrap;
     .fa-caret-down {
       position: absolute;
       right: 2px;

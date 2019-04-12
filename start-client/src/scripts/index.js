@@ -29,7 +29,7 @@ $.fn.dropdown = function() {
         const toggle = $(this).find('.dropdown-toggle');
         toggle.click(function (e) {
             dropdown.addClass('open');
-            e.stopImmediatePropagation();
+            return false;
         })
     });
 }
