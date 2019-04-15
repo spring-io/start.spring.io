@@ -146,7 +146,7 @@ initializr:
       mappings:
         - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
           version: 1.2.51
-        - versionRange: "[2.0.0.M1,2.1.0.M1)"
+        - versionRange: "[2.0.0.M1,2.2.0.M1)"
           version: 1.2.71
     repositories:
       sonatype-snapshots:
