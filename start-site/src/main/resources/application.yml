@@ -823,6 +823,11 @@ initializr:
           description: Configuration management with Hashicorp Consul
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-config
+        - name: Kubernetes Configuration
+          id: cloud-starter-kubernetes-config
+          description: Configuration management with Kubernetes Config Maps
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-kubernetes-config
     - name: Cloud Discovery
       bom: spring-cloud
       content:
@@ -856,6 +861,11 @@ initializr:
           description: Service discovery with Hashicorp Consul
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-discovery
+        - name: Kubernetes Discovery
+          id: cloud-starter-kubernetes-discovery
+          description: Service discovery with Kubernetes
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-kubernetes
     - name: Cloud Routing
       bom: spring-cloud
       content:
@@ -892,6 +902,11 @@ initializr:
           description: Declarative REST clients with spring-cloud-netflix Feign
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-openfeign
+        - name: Kubernetes-Ribbon
+          id: cloud-kubernetes-ribbon
+          description: Client side load balancing with spring-cloud-kubernetes and Ribbon
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-kubernetes-ribbon
     - name: Cloud Circuit Breaker
       bom: spring-cloud
       content:
