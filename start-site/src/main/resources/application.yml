@@ -50,7 +50,7 @@ initializr:
             version: 1.5.7
           - versionRange: "[2.0.0.M1,2.1.0.M1)"
             version: 2.0.6
-          - versionRange: "2.1.0.M1"
+          - versionRange: "[2.1.0.M1,2.2.0.M1)"
             version: 2.1.4
       spring-cloud:
         groupId: org.springframework.cloud
@@ -1194,7 +1194,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: An admin interface for Spring Boot applications
-          versionRange: "1.5.9.RELEASE"
+          versionRange: "[1.5.9.RELEASE,2.2.0.M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1204,7 +1204,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Register your application with a Spring Boot Admin instance
-          versionRange: "1.5.9.RELEASE"
+          versionRange: "[1.5.9.RELEASE,2.2.0.M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
