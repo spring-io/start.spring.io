@@ -20,11 +20,13 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.io.template.TemplateRenderer;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
+import io.spring.start.site.extension.springcloud.maintenancemode.SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer;
 import io.spring.start.site.extension.springrestdocs.SpringRestDocsProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
@@ -36,6 +38,7 @@ import org.springframework.context.annotation.Import;
  *
  * @author Madhura Bhave
  * @author Stephane Nicoll
+ * @author Olga Maciaszek-Sharma
  */
 @ProjectGenerationConfiguration
 @Import({ SpringCloudProjectGenerationConfiguration.class,
@@ -116,6 +119,13 @@ public class StartProjectGenerationConfiguration {
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
 	public MavenBuildSystemHelpDocumentCustomizer mavenBuildSystemHelpDocumentCustomizer() {
 		return new MavenBuildSystemHelpDocumentCustomizer();
+	}
+
+	@Bean
+	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(
+			TemplateRenderer templateRenderer) {
+		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata,
+				this.description, templateRenderer);
 	}
 
 }
