@@ -779,9 +779,9 @@ initializr:
           id: open-service-broker
           description: Create service brokers that conform to the Open Service Broker API specification
           groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-open-service-broker-webmvc
-          versionRange: 2.0.0.RELEASE
-          version: 2.1.1.RELEASE
+          artifactId: spring-cloud-starter-open-service-broker
+          versionRange: 2.1.0.RELEASE
+          version: 3.0.0.RELEASE
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/html5/
@@ -1297,4 +1297,3 @@ spring:
       additional_paths:
         - start-client/build/
       additional_exclude: "**/*.js,**/*.css"
-
