@@ -39,4 +39,9 @@ public class ProjectDescriptionCustomizerConfiguration {
 		return new SpringBoot2ProjectDescriptionCustomizer();
 	}
 
+	@Bean
+	public GradleDslProjectDescriptionCustomizer gradleDslProjectDescriptionCustomizer() {
+		return new GradleDslProjectDescriptionCustomizer();
+	}
+
 }
