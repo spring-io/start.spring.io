@@ -139,7 +139,7 @@ initializr:
           - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
             version: 8.8.0
           - versionRange: "[2.0.0.M1,2.1.0.M1)"
-            version: 10.0.14
+            version: 10.0.15
           - versionRange: "2.1.0.M1"
             version: 13.0.6
     gradle:
