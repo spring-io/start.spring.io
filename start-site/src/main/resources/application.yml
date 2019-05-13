@@ -100,8 +100,11 @@ initializr:
             repositories: spring-milestones
           - versionRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
             version: Greenwich.SR1
-          - versionRange: "2.1.x.BUILD-SNAPSHOT"
+          - versionRange: "[2.1.x.BUILD-SNAPSHOT, 2.2.0.M1)"
             version: Greenwich.BUILD-SNAPSHOT
+            repositories: spring-snapshots,spring-milestones
+          - versionRange: "2.2.0.M1"
+            version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
