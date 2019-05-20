@@ -19,6 +19,7 @@ package io.spring.start.site.extension.springcloud;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.VersionReference;
 
 /**
  * Determine the appropriate Spring Cloud stream dependency to use based on the selected
@@ -49,6 +50,12 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 						"org.springframework.cloud", "spring-cloud-stream-binder-kafka",
 						DependencyScope.COMPILE);
 			}
+			if (hasDependency("smf", build)) {
+				build.dependencies().add("cloud-stream-binder-solace",
+						"com.solace.spring.cloud", "spring-cloud-stream-binder-solace",
+						VersionReference.ofValue("1.1.0"), DependencyScope.COMPILE);
+			}
+
 		}
 		// Spring Cloud Stream specific
 		if (hasDependency("cloud-stream", build)

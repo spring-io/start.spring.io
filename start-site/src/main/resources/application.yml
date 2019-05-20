@@ -674,6 +674,19 @@ initializr:
               description: Messaging with RabbitMQ
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-amqp
+        - name: Solace
+          id: smf
+          weight: 100
+          description: Solace PubSub+ messaging support using Java API
+          version: 2.1.0
+          groupId: com.solace.spring.boot
+          artifactId: solace-java-spring-boot-autoconfigure
+          starter: false
+          keywords:
+            - messaging
+          links:
+            - rel: reference
+              href: https://github.com/SolaceProducts/solace-java-spring-boot 
         - name: Kafka
           id: kafka
           weight: 100
@@ -723,6 +736,18 @@ initializr:
               description: Messaging with JMS
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-artemis
+        - name: JMS (Solace)
+          id: solace
+          description: Java Messaging Service API via Solace PubSub+
+          version: 2.1.0
+          groupId: com.solace.spring.boot
+          artifactId: solace-jms-spring-boot-autoconfigure
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/messaging-jms/
+              description: Messaging with JMS
+            - rel: reference
+              href: https://github.com/SolaceProducts/solace-jms-spring-boot
         - name: WebSocket
           id: websocket
           description: WebSocket applications with SockJS and STOMP
@@ -924,7 +949,7 @@ initializr:
           artifactId: spring-cloud-starter-netflix-turbine
         - name: Turbine Stream
           id: cloud-turbine-stream
-          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ)
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Kafka, Solace or RabbitMQ)
           versionRange: 1.3.0.RELEASE
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine-stream
@@ -947,18 +972,18 @@ initializr:
       content:
         - name: Cloud Bus
           id: cloud-bus
-          description: A simple control bus using Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ)
+          description: A simple control bus using Spring Cloud Stream (requires a binder, e.g. Kafka, Solace or RabbitMQ)
           groupId: org.springframework.cloud
           artifactId: spring-cloud-bus
         - name: Cloud Stream
           id: cloud-stream
-          description: Messaging microservices with Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ)
+          description: Messaging microservices with Spring Cloud Stream (requires a binder, e.g. Kafka, Solace or RabbitMQ)
           weight: 90
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
         - name: Reactive Cloud Stream
           id: reactive-cloud-stream
-          description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ)
+          description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Kafka, Solace or RabbitMQ)
           versionRange: 2.0.0.RC2
           weight: 90
           groupId: org.springframework.cloud
