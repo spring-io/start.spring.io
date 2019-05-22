@@ -17,6 +17,7 @@
 package io.spring.start.site.extension;
 
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
@@ -31,8 +32,10 @@ public class SpringBatchTestBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		build.dependencies().add("spring-batch-test", "org.springframework.batch",
-				"spring-batch-test", null, DependencyScope.TEST_COMPILE);
+		build.dependencies().add("spring-batch-test",
+				Dependency
+						.withCoordinates("org.springframework.batch", "spring-batch-test")
+						.scope(DependencyScope.TEST_COMPILE));
 	}
 
 }
