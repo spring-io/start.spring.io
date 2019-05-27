@@ -26,7 +26,7 @@ import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
-import io.spring.start.site.extension.springcloud.maintenancemode.MaintenanceModeHelpDocumentCustomizer;
+import io.spring.start.site.extension.springcloud.maintenancemode.SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer;
 import io.spring.start.site.extension.springrestdocs.SpringRestDocsProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
@@ -122,10 +122,10 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
-	public MaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(
+	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(
 			TemplateRenderer templateRenderer) {
-		return new MaintenanceModeHelpDocumentCustomizer(this.metadata, this.description,
-				templateRenderer);
+		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata,
+				this.description, templateRenderer);
 	}
 
 }

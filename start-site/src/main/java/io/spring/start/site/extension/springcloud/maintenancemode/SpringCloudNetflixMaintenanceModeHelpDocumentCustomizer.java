@@ -30,12 +30,13 @@ import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 
 /**
- * A {@link HelpDocumentCustomizer} that adds a warning when user has requested
- * dependencies that are in maintenance mode.
+ * A {@link HelpDocumentCustomizer} that adds a warning when user has requested Spring
+ * Cloud Netflix dependencies that are in maintenance mode.
  *
  * @author Olga Maciaszek-Sharma
  */
-public class MaintenanceModeHelpDocumentCustomizer implements HelpDocumentCustomizer {
+public class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer
+		implements HelpDocumentCustomizer {
 
 	private static final Set<String> maintenanceModuleIds = new HashSet<>(
 			Arrays.asList("cloud-ribbon", "cloud-hystrix", "cloud-hystrix-dashboard",
@@ -47,7 +48,8 @@ public class MaintenanceModeHelpDocumentCustomizer implements HelpDocumentCustom
 
 	private final TemplateRenderer templateRenderer;
 
-	public MaintenanceModeHelpDocumentCustomizer(InitializrMetadata initializrMetadata,
+	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(
+			InitializrMetadata initializrMetadata,
 			ResolvedProjectDescription resolvedProjectDescription,
 			TemplateRenderer templateRenderer) {
 		this.initializrMetadata = initializrMetadata;
@@ -64,9 +66,9 @@ public class MaintenanceModeHelpDocumentCustomizer implements HelpDocumentCustom
 				.filter(maintenanceModuleIds::contains).map(availableDependencies::get)
 				.collect(Collectors.toSet());
 		maintenanceModeDependencies.stream().findAny()
-				.ifPresent((dependency) -> helpDocument.addSection(
-						new MaintenanceModeWarningSection(maintenanceModeDependencies,
-								this.templateRenderer)));
+				.ifPresent((dependency) -> helpDocument
+						.addSection(new SpringCloudNetflixMaintenanceModeWarningSection(
+								maintenanceModeDependencies, this.templateRenderer)));
 	}
 
 }

@@ -26,11 +26,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link MaintenanceModeHelpDocumentCustomizer}
+ * Tests for {@link SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer}
  *
  * @author Olga Maciaszek-Sharma
  */
-class MaintenanceModeHelpDocumentCustomizerTests extends AbstractExtensionTests {
+class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizerTests
+		extends AbstractExtensionTests {
 
 	private static final String maintenanceModuleInfo = "# Warning - Maintenance Mode\n"
 			+ "\n"

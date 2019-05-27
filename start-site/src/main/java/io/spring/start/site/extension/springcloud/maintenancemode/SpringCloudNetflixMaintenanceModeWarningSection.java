@@ -25,18 +25,19 @@ import io.spring.initializr.generator.spring.documentation.PreDefinedSection;
 import io.spring.initializr.metadata.Dependency;
 
 /**
- * A {@link Section} that provides information about maintenance mode dependencies
- * requested by the user.
+ * A {@link Section} that provides information about Spring Cloud Netflix maintenance
+ * mode dependencies requested by the user.
  *
  * @author Olga Maciaszek-Sharma
  */
-class MaintenanceModeWarningSection extends PreDefinedSection {
+class SpringCloudNetflixMaintenanceModeWarningSection extends PreDefinedSection {
 
 	private static final String WARNING_MAINTENANCE_MODE = "Warning - Maintenance Mode";
 
-	private static final String TEMPLATE_NAME = "maintenance-mode-dependencies";
+	private static final String TEMPLATE_NAME = "spring-cloud-netflix-maintenance-mode-dependencies";
 
-	MaintenanceModeWarningSection(Set<Dependency> maintenanceModeDependencies,
+	SpringCloudNetflixMaintenanceModeWarningSection(
+			Set<Dependency> maintenanceModeDependencies,
 			TemplateRenderer templateRenderer) {
 		super(WARNING_MAINTENANCE_MODE);
 		BulletedSection<Dependency> dependencies = new BulletedSection<>(templateRenderer,
