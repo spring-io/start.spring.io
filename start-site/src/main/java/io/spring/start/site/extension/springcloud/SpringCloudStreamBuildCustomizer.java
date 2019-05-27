@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.springcloud;
 
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
@@ -59,9 +60,11 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 						"spring-cloud-stream-binder-kafka-streams",
 						DependencyScope.COMPILE);
 			}
-			build.dependencies().add("cloud-stream-test", "org.springframework.cloud",
-					"spring-cloud-stream-test-support", null,
-					DependencyScope.TEST_COMPILE);
+			build.dependencies().add("cloud-stream-test",
+					Dependency
+							.withCoordinates("org.springframework.cloud",
+									"spring-cloud-stream-test-support")
+							.scope(DependencyScope.TEST_COMPILE));
 		}
 	}
 

@@ -5,7 +5,7 @@ This repository configures a {library}[Spring Initializr] instance with a custom
 running at https://start.spring.io. The following defines are available:
 
 * `start-client`: client-side assets
-* `start-size`: server infrastructure and metadata configuration
+* `start-site`: server infrastructure and metadata configuration
 
 [[build]]
 == Building from Source

@@ -50,8 +50,8 @@ initializr:
             version: 1.5.7
           - versionRange: "[2.0.0.M1,2.1.0.M1)"
             version: 2.0.6
-          - versionRange: "2.1.0.M1"
-            version: 2.1.4
+          - versionRange: "[2.1.0.M1,2.2.0.M1)"
+            version: 2.1.5
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -100,8 +100,11 @@ initializr:
             repositories: spring-milestones
           - versionRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
             version: Greenwich.SR1
-          - versionRange: "2.1.x.BUILD-SNAPSHOT"
+          - versionRange: "[2.1.x.BUILD-SNAPSHOT, 2.2.0.M1)"
             version: Greenwich.BUILD-SNAPSHOT
+            repositories: spring-snapshots,spring-milestones
+          - versionRange: "2.2.0.M1"
+            version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
@@ -114,7 +117,7 @@ initializr:
           - versionRange: "[2.0.0.RELEASE,2.0.x.BUILD-SNAPSHOT]"
             version: 2.0.3.RELEASE
           - versionRange: "2.1.0.RELEASE"
-            version: 2.1.2.RELEASE
+            version: 2.1.4.RELEASE
       spring-statemachine:
         groupId: org.springframework.statemachine
         artifactId: spring-statemachine-bom
@@ -134,15 +137,15 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
-            version: 8.7.2
+            version: 8.8.2
           - versionRange: "[2.0.0.M1,2.1.0.M1)"
-            version: 10.0.13
+            version: 10.0.15
           - versionRange: "2.1.0.M1"
-            version: 13.0.4
+            version: 13.0.7
     gradle:
-      dependency-management-plugin-version: 0.6.0.RELEASE
+      dependency-management-plugin-version: 1.0.7.RELEASE
     kotlin:
-      default-version: 1.3.30
+      default-version: 1.3.31
       mappings:
         - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
           version: 1.2.51
@@ -417,7 +420,7 @@ initializr:
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
           versionRange: 2.1.2.RELEASE
-          version: 1.1.0
+          version: 1.2.0
           links:
             - rel: guide
               href: https://github.com/okta/samples-java-spring/tree/master/okta-hosted-login
@@ -779,9 +782,14 @@ initializr:
           id: open-service-broker
           description: Create service brokers that conform to the Open Service Broker API specification
           groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-open-service-broker-webmvc
+          artifactId: spring-cloud-starter-open-service-broker
           versionRange: 2.0.0.RELEASE
-          version: 2.1.1.RELEASE
+          mappings:
+            - versionRange: "[2.0.0.RELEASE,2.1.0.M1)"
+              version: 2.1.2.RELEASE
+              artifactId: spring-cloud-starter-open-service-broker-webmvc
+            - versionRange: "2.1.0.M1"
+              version: 3.0.0.RELEASE
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/html5/
@@ -1136,7 +1144,7 @@ initializr:
             - versionRange: "[2.0.0.M1,2.1.0.M1)"
               version: 2.22.4
             - versionRange: "2.1.0.M1"
-              version: 2.23.2
+              version: 2.24.0
           description: Integration using Apache Camel
           groupId: org.apache.camel
           artifactId: camel-spring-boot-starter
@@ -1194,7 +1202,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: An admin interface for Spring Boot applications
-          versionRange: "1.5.9.RELEASE"
+          versionRange: "[1.5.9.RELEASE,2.2.0.M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1204,7 +1212,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Register your application with a Spring Boot Admin instance
-          versionRange: "1.5.9.RELEASE"
+          versionRange: "[1.5.9.RELEASE,2.2.0.M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1297,4 +1305,3 @@ spring:
       additional_paths:
         - start-client/build/
       additional_exclude: "**/*.js,**/*.css"
-
