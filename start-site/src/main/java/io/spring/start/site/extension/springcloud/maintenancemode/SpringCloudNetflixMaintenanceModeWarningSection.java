@@ -25,8 +25,8 @@ import io.spring.initializr.generator.spring.documentation.PreDefinedSection;
 import io.spring.initializr.metadata.Dependency;
 
 /**
- * A {@link Section} that provides information about Spring Cloud Netflix maintenance
- * mode dependencies requested by the user.
+ * A {@link Section} that provides information about Spring Cloud Netflix maintenance mode
+ * dependencies requested by the user.
  *
  * @author Olga Maciaszek-Sharma
  */
