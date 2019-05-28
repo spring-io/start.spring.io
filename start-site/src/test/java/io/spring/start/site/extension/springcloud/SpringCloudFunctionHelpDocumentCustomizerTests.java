@@ -32,42 +32,30 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
-	private static final String AWS_SECTION_TITLE = "# Additional build setup for Spring Cloud Function apps - AWS";
-
-	private static final String AZURE_SECTION_TITLE = "# Additional build setup for Spring Cloud Function apps - Azure";
-
 	@Test
-	void functionBuildSetupInfoSectionAddedForMaven() {
+	void shouldAddFunctionBuildSetupInfoForMaven() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.1.0.RELEASE");
 		request.setType("maven-build");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
+		request.setDependencies(
+				Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
 		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).contains(AWS_SECTION_TITLE);
-		assertThat(lines).contains(AZURE_SECTION_TITLE);
+		assertThat(lines).contains(
+				"# Additional build setup for Spring Cloud Function apps - AWS");
+		assertThat(lines).contains(
+				"# Additional build setup for Spring Cloud Function apps - Azure");
 	}
 
 	@Test
-	void functionBuildSetupInfoSectionAddedForGradle() {
+	void shouldAddFunctionBuildSetupInfoForGradle() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.1.0.RELEASE");
 		request.setType("gradle-build");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
+		request.setDependencies(
+				Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
 		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).contains(AWS_SECTION_TITLE);
-		assertThat(lines).contains(AZURE_SECTION_TITLE);
-		assertThat(lines).contains("A GRADLE plugin has not been provided by Azure as of yet.");
-
-	}
-
-	@Test
-	void sectionNotAddedWhenRelevantVersionIsNotSelected() {
-		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.0.7.RELEASE");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
-		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).doesNotContain(AWS_SECTION_TITLE);
-		assertThat(lines).doesNotContain(AZURE_SECTION_TITLE);
+		assertThat(lines).contains(
+				"# Additional build setup for Spring Cloud Function apps - AWS");
+		assertThat(lines).doesNotContain(
+				"# Additional build setup for Spring Cloud Function apps - Azure");
 	}
 
 	private List<String> generateHelpDocument(ProjectRequest projectRequest) {

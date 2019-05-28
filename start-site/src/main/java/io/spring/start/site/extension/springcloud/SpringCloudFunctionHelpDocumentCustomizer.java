@@ -16,17 +16,11 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.BuildSystem;
-import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
@@ -43,15 +37,14 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 
 	private static final String CLOUD_FUNCTION_DEPENDENCY_ID = "cloud-function";
 
-	private static final String TEMPLATE_PREFIX = "spring-cloud-function-build-setup-";
-
 	private final Set<String> buildDependencies;
 
 	private final BuildSystem buildSystem;
 
 	private final MustacheTemplateRenderer templateRenderer;
 
-	SpringCloudFunctionHelpDocumentCustomizer(Build build, ResolvedProjectDescription resolvedProjectDescription,
+	SpringCloudFunctionHelpDocumentCustomizer(Build build,
+			ResolvedProjectDescription resolvedProjectDescription,
 			MustacheTemplateRenderer templateRenderer) {
 		this.buildDependencies = build.dependencies().ids().collect(Collectors.toSet());
 		this.buildSystem = resolvedProjectDescription.getBuildSystem();
@@ -60,75 +53,53 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 
 	@Override
 	public void customize(HelpDocument helpDocument) {
-		this.buildDependencies.stream().filter((dependencyId) -> dependencyId.equals(CLOUD_FUNCTION_DEPENDENCY_ID))
-				.findAny().ifPresent((dependency) -> addBuildInfo(helpDocument));
+		this.buildDependencies.stream()
+				.filter((dependencyId) -> dependencyId
+						.equals(CLOUD_FUNCTION_DEPENDENCY_ID))
+				.findAny()
+				.ifPresent((dependency) -> addBuildInfoIfApplicable(helpDocument));
 	}
 
-	private void addBuildInfo(HelpDocument helpDocument) {
-		Set<CloudPlatform> presentCloudPlatforms = cloudPlatformsFromDependencies();
-
-		Map<Boolean, List<CloudPlatform>> platformsByBuildSystemSupport = presentCloudPlatforms.stream()
-				.collect(Collectors.partitioningBy(
-						(cloudPlatform) -> cloudPlatform.getPluginsForBuildSystems().contains(this.buildSystem.id())));
-		platformsByBuildSystemSupport.get(true).forEach((cloudPlatform) -> helpDocument
-				.addSection(springCloudFunctionBuildSetupSection(cloudPlatform, getTemplateName(cloudPlatform))));
-
-		platformsByBuildSystemSupport.get(false).forEach((cloudPlatform) -> helpDocument
-				.addSection(springCloudFunctionBuildSetupSection(cloudPlatform, TEMPLATE_PREFIX + "missing")));
-	}
-
-	private Set<CloudPlatform> cloudPlatformsFromDependencies() {
-		return new HashSet<>(Arrays.stream(CloudPlatform.values())
-				.collect(Collectors.partitioningBy(
-						(cloudPlatform) -> this.buildDependencies.contains(cloudPlatform.getDependencyId())))
-				.get(true));
-	}
-
-	private SpringCloudFunctionBuildSetupSection springCloudFunctionBuildSetupSection(CloudPlatform cloudPlatform,
-			String templateName) {
-		return new SpringCloudFunctionBuildSetupSection(cloudPlatform, this.buildSystem.id().toUpperCase(),
-				this.templateRenderer, templateName);
-	}
-
-	private String getTemplateName(CloudPlatform cloudPlatform) {
-		return TEMPLATE_PREFIX + cloudPlatform.toString().toLowerCase();
+	private void addBuildInfoIfApplicable(HelpDocument helpDocument) {
+		if (this.buildDependencies.contains(CloudPlatform.AWS.dependencyId)) {
+			helpDocument.addSection(
+					new SpringCloudFunctionBuildSetupSection(CloudPlatform.AWS,
+							this.buildSystem.id().toUpperCase(), this.templateRenderer));
+		}
+		if (this.buildDependencies.contains(CloudPlatform.AZURE.dependencyId)
+				// No gradle plugin provided by Azure as of yet
+				&& this.buildSystem instanceof MavenBuildSystem) {
+			helpDocument.addSection(
+					new SpringCloudFunctionBuildSetupSection(CloudPlatform.AZURE,
+							this.buildSystem.id().toUpperCase(), this.templateRenderer));
+		}
 	}
 
 	/**
-	 * Represents Cloud Platforms that provide build plugins that can be used for
-	 * deploying Spring Cloud Function applications.
+	 * Contains Cloud Platform types for which additional build setup information can be
+	 * added.
 	 */
 	enum CloudPlatform {
 
-		AWS("AWS", "cloud-aws"), AZURE("Azure", "azure-support", Collections.singletonList(MavenBuildSystem.ID));
+		AWS("AWS", "cloud-aws"), AZURE("Azure", "azure-support");
 
 		private final String name;
 
 		private final String dependencyId;
-
-		private List<String> pluginsForBuildSystems = Arrays.asList(MavenBuildSystem.ID, GradleBuildSystem.ID);
-
-		CloudPlatform(String name, String dependencyId, List<String> pluginsForBuildSystems) {
-			this(name, dependencyId);
-			this.pluginsForBuildSystems = pluginsForBuildSystems;
-
-		}
 
 		CloudPlatform(String name, String dependencyId) {
 			this.name = name;
 			this.dependencyId = dependencyId;
 		}
 
+		static boolean isAws(
+				SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform platform) {
+			return SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform.AWS
+					.equals(platform);
+		}
+
 		String getName() {
 			return this.name;
-		}
-
-		String getDependencyId() {
-			return this.dependencyId;
-		}
-
-		List<String> getPluginsForBuildSystems() {
-			return Collections.unmodifiableList(this.pluginsForBuildSystems);
 		}
 
 	}
