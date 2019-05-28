@@ -152,14 +152,14 @@ initializr:
         url: https://oss.sonatype.org/content/repositories/snapshots/
         snapshotsEnabled: true
   dependencies:
-    - name: Core
+    - name: Developer Tools
       content:
-        - name: DevTools
+        - name: Spring Boot DevTools
           id: devtools
           groupId: org.springframework.boot
           artifactId: spring-boot-devtools
           scope: runtime
-          description: Spring Boot Development Tools
+          description: Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
           versionRange: 1.3.0.RELEASE
           starter: false
           links:
@@ -170,58 +170,24 @@ initializr:
           groupId: org.projectlombok
           artifactId: lombok
           scope: annotationProcessor
-          description: Java annotation library which helps to reduce boilerplate code and code faster
+          description: Java annotation library which helps to reduce boilerplate code.
           starter: false
-        - name: Configuration Processor
+        - name: Spring Configuration Processor
           id: configuration-processor
           groupId: org.springframework.boot
           artifactId: spring-boot-configuration-processor
           scope: annotationProcessor
-          description: Generate metadata for your custom configuration keys
+          description: Generate metadata for developers to offer contextual help and “code completion” when working with custom configuration keys (ex.application.properties/.yml files).
           versionRange: 1.2.0.RELEASE
           starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#configuration-metadata-annotation-processor
-        - name: Session
-          id: session
-          groupId: org.springframework.session
-          artifactId: spring-session-core
-          description: API and implementations for managing a user’s session information
-          starter: false
-          mappings:
-            - versionRange: "[1.5.0.RELEASE,2.0.0.M2]"
-              artifactId: spring-session
-        - name: Cache
-          id: cache
-          description: Spring's Cache abstraction
-          links:
-            - rel: guide
-              href: https://spring.io/guides/gs/caching/
-              description: Caching Data with Spring
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-caching
-        - name: Validation
-          id: validation
-          description: JSR-303 validation infrastructure (already included with web)
-          links:
-            - rel: guide
-              href: https://spring.io/guides/gs/validating-form-input/
-              description: Validating Form Input
-        - name: Retry
-          id: retry
-          groupId: org.springframework.retry
-          artifactId: spring-retry
-          description: Provide declarative retry support via spring-retry
-          starter: false
-        - name: Aspects
-          id: aop
-          description: Create your own Aspects using Spring AOP and AspectJ
     - name: Web
       content:
-        - name: Web
+        - name: Spring Web Starter
           id: web
-          description: Servlet web application with Spring MVC and Tomcat
+          description: Build web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container.
           weight: 100
           facets:
             - web
@@ -238,10 +204,10 @@ initializr:
             - rel: guide
               href: https://spring.io/guides/tutorials/bookmarks/
               description: Building REST services with Spring
-        - name: Reactive Web
+        - name: Spring Reactive Web
           id: webflux
           versionRange: 2.0.0.M1
-          description: Reactive web applications with Spring WebFlux and Netty
+          description: Build reactive web applications with Spring WebFlux and Netty.
           weight: 90
           facets:
             - json
@@ -250,7 +216,7 @@ initializr:
           weight: 10
           facets:
             - json
-          description: Exposing Spring Data repositories over REST via Spring Data REST
+          description: Exposing Spring Data repositories over REST via Spring Data REST.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-rest/
@@ -263,14 +229,23 @@ initializr:
               description: Accessing MongoDB Data with REST
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-use-exposing-spring-data-repositories-rest-endpoint
+        - name: Spring Session
+          id: session
+          groupId: org.springframework.session
+          artifactId: spring-session-core
+          description: Provides an API and implementations for managing user session information.
+          starter: false
+          mappings:
+            - versionRange: "[1.5.0.RELEASE,2.0.0.M2]"
+              artifactId: spring-session
         - name: Rest Repositories HAL Browser
           id: data-rest-hal
-          description: Browsing Spring Data REST repositories in your browser
+          description: Browsing Spring Data REST repositories in your browser.
           groupId: org.springframework.data
           artifactId: spring-data-rest-hal-browser
-        - name: HATEOAS
+        - name: Spring HATEOAS
           id: hateoas
-          description: HATEOAS-based RESTful services
+          description: Eases the creation of RESTful APIs that follow the HATEOAS principle when working with Spring / Spring MVC.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/rest-hateoas/
@@ -278,72 +253,72 @@ initializr:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-hateoas
           starter: false
-        - name: Web Services
+        - name: Spring Web Services
           id: web-services
-          description: Contract-first SOAP services with Spring Web Services
+          description: Facilitates contract-first SOAP development. Allows for the creation of flexible web services using one of the many ways to manipulate XML payloads.
           aliases:
-            - ws
+           - ws
           links:
-            - rel: guide
-              href: https://spring.io/guides/gs/producing-web-service/
-              description: Producing a SOAP web service
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-webservices
+           - rel: guide
+             href: https://spring.io/guides/gs/producing-web-service/
+             description: Producing a SOAP web service
+           - rel: reference
+             href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-webservices
         - name: Jersey
           id: jersey
-          description: RESTful Web Services with JAX-RS
+          description: Framework for developing RESTful Web Services in Java that provides support for JAX-RS APIs.
           facets:
-            - json
+           - json
           links:
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
-        - name: REST Docs
+           - rel: reference
+             href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
+        - name: Spring REST Docs
           id: restdocs
-          description: Document RESTful services by combining hand-written and auto-generated documentation
+          description: Document RESTful services by combining hand-written with Asciidoctor and auto-generated snippets produced with Spring MVC Test.
           groupId: org.springframework.restdocs
           artifactId: spring-restdocs-mockmvc
           scope: test
         - name: Vaadin
           id: vaadin
           facets:
-            - web
+           - web
           groupId: com.vaadin
           artifactId: vaadin-spring-boot-starter
-          description: Vaadin java web application framework
+          description: Java framework for building rich client apps based on Web components.
           bom: vaadin
           links:
-            - rel: guide
-              href: https://spring.io/guides/gs/crud-with-vaadin/
-              description: Creating CRUD UI with Vaadin
-            - rel: reference
-              href: https://vaadin.com/spring
+           - rel: guide
+             href: https://spring.io/guides/gs/crud-with-vaadin/
+             description: Creating CRUD UI with Vaadin
+           - rel: reference
+             href: https://vaadin.com/spring
         - name: Apache CXF
           id: cxf-jaxrs
           groupId: org.apache.cxf
           artifactId: cxf-spring-boot-starter-jaxrs
           version: 3.2.5
-          description: RESTful Web Services with JAX-RS
+          description: RESTful Web Services with JAX-RS. Making it trivial to declare endpoints which are backed by Spring and inject clients into your application.
           versionRange: "[1.5.0.RELEASE,2.1.0.M1)"
           links:
-            - rel: reference
-              href: https://cxf.apache.org/docs/springboot.html#SpringBoot-SpringBootCXFJAX-RSStarter
+           - rel: reference
+             href: https://cxf.apache.org/docs/springboot.html#SpringBoot-SpringBootCXFJAX-RSStarter
         - name: Ratpack
           id: ratpack
-          description: Spring Boot integration for the Ratpack framework
+          description: Ratpack is a set of Java libraries that facilitate fast, efficient, evolvable and well tested HTTP applications. Built on Netty the event-driven networking engine.
           groupId: io.ratpack
           artifactId: ratpack-spring-boot
           version: 1.1.1
           versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
           starter: false
-        - name: Mobile
+        - name: Spring Mobile
           id: mobile
-          description: Simplify the development of mobile web applications with Spring Mobile
+          description: Framework that provides capabilities to detect the type of device making a request to your Spring web site and serve alternative views based on that device.
           versionRange : "[1.5.0.RELEASE, 2.0.0.M1)"
     - name: Template Engines
       content:
         - name: Thymeleaf
           id: thymeleaf
-          description: Thymeleaf templating engine
+          description: A modern server-side Java template engine for both web and standalone environments. Allows HTML to be correctly displayed in browsers and as static prototypes.
           weight: 90
           keywords:
             - template
@@ -353,9 +328,9 @@ initializr:
               description: Handling Form Submission
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
-        - name: Freemarker
+        - name: Apache Freemarker
           id: freemarker
-          description: FreeMarker templating engine
+          description: Java library to generate text output (HTML web pages, e-mails, configuration files, source code, etc.) based on templates and changing data.
           keywords:
             - template
           links:
@@ -363,7 +338,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
         - name: Mustache
           id: mustache
-          description: Mustache templating engine
+          description: Logic-less Templates. There are no if statements, else clauses, or for loops. Instead there are only tags.
           keywords:
             - template
           links:
@@ -379,9 +354,9 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
     - name: Security
       content:
-        - name: Security
+        - name: Spring Security
           id: security
-          description: Secure your application via spring-security
+          description: Highly customizable authentication and access-control framework for Spring applications.
           weight: 100
           links:
             - rel: guide
@@ -397,21 +372,28 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security
         - name: OAuth2 Client
           id: oauth2-client
-          description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features
+          description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features.
           versionRange: 2.0.0.M5
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security-oauth2-client
         - name: OAuth2 Resource Server
           id: oauth2-resource-server
-          description: Spring Boot integration for Spring Security's OAuth2 resource server features
+          description: Spring Boot integration for Spring Security's OAuth2 resource server features.
           versionRange: 2.1.0.M2
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security-oauth2-server
+        - name: Spring LDAP
+          id: data-ldap
+          description: Makes it easier to build Spring based applications that use the Lightweight Directory Access Protocol.
+          versionRange: 1.5.0.RELEASE
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-ldap
         - name: Okta
           id: okta
-          description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features
+          description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features. Enable your Spring Boot application to work with Okta via OAuth 2.0/OIDC.
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
           versionRange: 2.1.2.RELEASE
@@ -427,9 +409,9 @@ initializr:
               href: https://github.com/okta/okta-spring-boot/blob/master/README.md
     - name: SQL
       content:
-        - name: JPA
+        - name: Spring Data JPA
           id: data-jpa
-          description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate
+          description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
           weight: 100
           facets:
             - jpa
@@ -441,9 +423,9 @@ initializr:
               description: Accessing Data with JPA
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jpa-and-spring-data
-        - name: MySQL
+        - name: MySQL Driver
           id: mysql
-          description: MySQL JDBC driver
+          description: MySQL JDBC driver.
           groupId: mysql
           artifactId: mysql-connector-java
           scope: runtime
@@ -452,16 +434,16 @@ initializr:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-mysql/
               description: Accessing data with MySQL
-        - name: H2
+        - name: H2 Database
           id: h2
-          description: H2 database (with embedded support)
+          description: Provides a fast in-memory database that supports JDBC API, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
           groupId: com.h2database
           artifactId: h2
           scope: runtime
           starter: false
-        - name: JDBC
+        - name: JDBC API
           id: jdbc
-          description: Persistence support using JDBC
+          description: Database Connectivity API that defines how a client may connect and query a database.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/relational-data-access/
@@ -471,9 +453,9 @@ initializr:
               description: Managing Transactions
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-sql
-        - name: MyBatis
+        - name: MyBatis Framework
           id: mybatis
-          description: Persistence support using MyBatis
+          description: Persistence framework with support for custom SQL, stored procedures and advanced mappings. MyBatis couples objects with stored procedures or SQL statements using a XML descriptor or annotations.
           links:
             - rel: guide
               href: https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start
@@ -487,63 +469,63 @@ initializr:
               version: 1.3.4
             - versionRange: 2.0.0.RELEASE
               version: 2.0.1
-        - name: PostgreSQL
+        - name: PostgreSQL Driver
           id: postgresql
-          description: PostgreSQL JDBC driver
+          description: An open source JDBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
           groupId: org.postgresql
           artifactId: postgresql
           scope: runtime
           starter: false
-        - name: SQL Server
+        - name: MS SQL Server Driver
           id: sqlserver
-          description: Microsoft SQL Server JDBC driver
+          description: A Type 4 JDBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application.
           groupId: com.microsoft.sqlserver
           artifactId: mssql-jdbc
           scope: runtime
           starter: false
-        - name: HSQLDB
+        - name: HyperSQL Database
           id: hsql
-          description: HSQLDB database (with embedded support)
+          description: Lightweight 100% Java SQL Database Engine.
           groupId: org.hsqldb
           artifactId: hsqldb
           scope: runtime
           starter: false
-        - name: Apache Derby
+        - name: Apache Derby Database
           id: derby
-          description: Apache Derby database (with embedded support)
+          description: An open source relational database implemented entirely in Java.
           groupId: org.apache.derby
           artifactId: derby
           scope: runtime
           starter: false
-        - name: Liquibase
+        - name: Liquibase Migration
           id: liquibase
-          description: Liquibase Database Migrations library
+          description: Liquibase database migration and source control library.
           groupId: org.liquibase
           artifactId: liquibase-core
           starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-execute-liquibase-database-migrations-on-startup
-        - name: Flyway
+        - name: Flyway Migration
           id: flyway
-          description: Flyway Database Migrations library
+          description: Version control for your database so you can migrate from any version (incl. an empty database) to the latest version of the schema.
           groupId: org.flywaydb
           artifactId: flyway-core
           starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-execute-flyway-database-migrations-on-startup
-        - name: JOOQ
+        - name: JOOQ Access Layer
           id: jooq
-          description: Persistence support using Java Object Oriented Querying
+          description: Generate Java code from your database and build type safe SQL queries through a fluent API.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jooq
     - name: NoSQL
       content:
-        - name: Redis
+        - name: Spring Data Redis (Access+Driver)
           id: data-redis
-          description: Access Redis key-value data stores with Spring Data Redis
+          description: Advanced and thread-safe Java Redis client for synchronous, asynchronous, and reactive usage. Supports Cluster, Sentinel, Pipelining, Auto-Reconnect, Codecs and much more.
           aliases:
             - redis
           links:
@@ -552,9 +534,9 @@ initializr:
               description: Messaging with Redis
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-redis
-        - name: Reactive Redis
+        - name: Spring Data Reactive Redis
           id: data-redis-reactive
-          description: Access Redis key-value data stores in a reactive fashion with Spring Data Redis
+          description: Access Redis key-value data stores in a reactive fashion with Spring Data Redis.
           versionRange: 2.0.0.M7
           links:
             - rel: guide
@@ -562,9 +544,9 @@ initializr:
               description: Messaging with Redis
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-redis
-        - name: MongoDB
+        - name: Spring Data MongoDB
           id: data-mongodb
-          description: Access MongoDB NoSQL Database with Spring Data MongoDB
+          description: Store data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time.
           weight: 50
           links:
             - rel: guide
@@ -572,72 +554,72 @@ initializr:
               description: Accessing Data with MongoDB
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
-        - name: Reactive MongoDB
+        - name: Spring Data Reactive MongoDB
           id: data-mongodb-reactive
-          description: Access MongoDB NoSQL Database in a reactive fashion with Spring Data MongoDB
+          description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB. Implements the Reactive Streams API.
           versionRange: 2.0.0.M1
           weight: 50
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
-        - name: Embedded MongoDB
+        - name: Embedded MongoDB database
           id: flapdoodle-mongo
-          description: Embedded MongoDB for testing
+          description: Provides a platform neutral way for running MongoDB in unit tests.
           groupId: de.flapdoodle.embed
           artifactId: de.flapdoodle.embed.mongo
           scope: test
           starter: false
-        - name: Elasticsearch
+        - name: Spring Data Elasticsearch (Access+Driver)
           id: data-elasticsearch
-          description: Elasticsearch search and analytics engine with Spring Data Elasticsearch
+          description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
           weight: 10
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-elasticsearch
-        - name: Solr
+        - name: Spring Data Apache Solr
           id: data-solr
-          description: Access Apache Solr search platform with Spring Data Solr
+          description: Solr is an open source enterprise search platform built on Apache Lucene.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-solr
-        - name: Cassandra
+        - name: Spring Data Apache Cassandra
           id: data-cassandra
-          description: Access Cassandra NoSQL Database with Spring Data Cassandra
+          description: A free and open-source, distributed, NoSQL database management system that offers high-scalability and high-performance.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
-        - name: Reactive Cassandra
+        - name: Spring Data Reactive Cassandra
           id: data-cassandra-reactive
-          description: Access Cassandra NoSQL Database in a reactive fashion with Spring Data Cassandra
+          description: Access Cassandra NoSQL Database in a reactive fashion with Spring Data Cassandra.
           versionRange: 2.0.0.M1
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
-        - name: Couchbase
+        - name: Spring Data Couchbase
           id: data-couchbase
-          description: Access Couchbase NoSQL database with Spring Data Couchbase
+          description: NoSQL document-oriented database that offers in memory-first architecture, geo-distributed deployments, and workload isolation.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase
-        - name: Reactive Couchbase
+        - name: Spring Data Reactive Couchbase
           id: data-couchbase-reactive
-          description: Access Couchbase NoSQL database in a reactive fashion with Spring Data Couchbase
+          description: Access Couchbase NoSQL database in a reactive fashion with Spring Data Couchbase.
           versionRange: 2.0.0.M7
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase
-        - name: Neo4j
+        - name: Spring Data Neo4j
           id: data-neo4j
-          description: Access Neo4j NoSQL graph database with Spring Data Neo4j
+          description: An open source NoSQL database that stores data structured as graphs consisting of nodes, connected by relationships.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-neo4j/
               description: Accessing Data with Neo4j
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-neo4j
-        - name: Gemfire
+        - name: Spring Data Gemfire
           id: data-gemfire
-          description: Access GemFire distributed data store with Spring Data Gemfire
+          description: Access GemFire distributed data store with Spring Data Gemfire.
           versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
           links:
             - rel: guide
@@ -649,7 +631,7 @@ initializr:
       content:
         - name: Spring Integration
           id: integration
-          description: Common spring-integration modules
+          description: Adds support for Enterprise Integration Patterns. Enables lightweight messaging and supports integration with external systems via declarative adapters.
           weight: 100
           links:
             - rel: guide
@@ -657,9 +639,9 @@ initializr:
               description: Integrating Data
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-integration
-        - name: RabbitMQ
+        - name: Spring for RabbitMQ
           id: amqp
-          description: Advanced Message Queuing Protocol via Spring Rabbit
+          description: Gives your applications a common platform to send and receive messages, and your messages a safe place to live until received.
           weight: 100
           keywords:
             - messaging
@@ -669,10 +651,10 @@ initializr:
               description: Messaging with RabbitMQ
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-amqp
-        - name: Kafka
+        - name: Spring for Apache Kafka
           id: kafka
           weight: 100
-          description: Kafka messaging support using Spring Kafka
+          description: Publish, subscribe, store, and process streams of records.
           versionRange: 1.5.0.RELEASE
           groupId: org.springframework.kafka
           artifactId: spring-kafka
@@ -682,10 +664,10 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-kafka
-        - name: Kafka Streams
+        - name: Spring for Apache Kafka Streams
           id: kafka-streams
           weight: 90
-          description: Building stream processing applications with Apache Kafka Streams
+          description: Building stream processing applications with Apache Kafka Streams.
           versionRange: 2.0.0.RELEASE
           groupId: org.apache.kafka
           artifactId: kafka-streams
@@ -700,18 +682,18 @@ initializr:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_kafka_streams_binding_capabilities_of_spring_cloud_stream
               description: Kafka Streams Binding Capabilities of Spring Cloud Stream
-        - name: JMS (ActiveMQ)
+        - name: Spring for Apache ActiveMQ 5
           id: activemq
-          description: Java Message Service API via Apache ActiveMQ
+          description: Spring JMS support with Apache ActiveMQ 'Classic'
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-jms/
-              description: Messaging with JMS
+              description: Java Message Service API via Apache ActiveMQ Classic.
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-activemq
-        - name: JMS (Artemis)
+        - name: Spring for Apache ActiveMQ Artemis
           id: artemis
-          description: Java Message Service API via Apache Artemis
+          description: Spring JMS support with Apache ActiveMQ Artemis
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-jms/
@@ -720,7 +702,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-artemis
         - name: WebSocket
           id: websocket
-          description: WebSocket applications with SockJS and STOMP
+          description: Build WebSocket applications with SockJS and STOMP.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-stomp-websocket/
@@ -729,22 +711,101 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-websockets
         - name: RSocket
           id: rsocket
+          description: RSocket.io applications with Spring Messaging and Netty.
           versionRange: 2.2.0.M2
-          description: RSocket.io applications with Spring Messaging and Netty
-    - name: Cloud Core
+        - name: Apache Camel
+          id: camel
+          versionRange: "1.5.0.RELEASE"
+          mappings:
+            - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
+              version: 2.21.5
+            - versionRange: "[2.0.0.M1,2.1.0.M1)"
+              version: 2.22.4
+            - versionRange: "2.1.0.M1"
+              version: 2.24.0
+          description: Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
+          groupId: org.apache.camel
+          artifactId: camel-spring-boot-starter
+          links:
+            - rel: guide
+              href: https://camel.apache.org/spring-boot
+              description: Using Apache Camel with Spring Boot
+    - name: I/O
+      content:
+        - name: Spring Batch
+          id: batch
+          description: Batch applications with transactions, retry/skip and chunk based processing.
+          weight: 100
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/batch-processing/
+              description: Creating a Batch Service
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-batch-applications
+        - name: Java Mail Sender
+          id: mail
+          description: Send email using Java Mail and Spring Framework's JavaMailSender.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-email
+        - name: Quartz Scheduler
+          id: quartz
+          versionRange: 2.0.0.M2
+          description: Schedule jobs using Quartz.
+        - name: Spring cache abstraction
+          id: cache
+          description: Provides cache-related operations, such as the ability to update the content of the cache, but does not provide the actual data store.
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/caching/
+              description: Caching Data with Spring
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-caching
+    - name: Ops
+      content:
+        - name: Spring Boot Actuator
+          id: actuator
+          description: Supports built in (or custom) endpoints that let you monitor and manage your application - such as application health, metrics, sessions, etc.
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/actuator-service/
+              description: Building a RESTful Web Service with Spring Boot Actuator
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready
+        - name: Spring Boot Actuator Docs
+          id: actuator-docs
+          description: API documentation for the Actuator endpoints.
+          versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
+          groupId: org.springframework.boot
+          artifactId: spring-boot-actuator-docs
+        - name: Spring Boot Admin (Client)
+          id: codecentric-spring-boot-admin-client
+          groupId: de.codecentric
+          artifactId: spring-boot-admin-starter-client
+          description: Required for your application to register with a Spring Boot Admin Server instance.
+          versionRange: "[1.5.9.RELEASE,2.2.0.M1)"
+          bom: codecentric-spring-boot-admin
+          links:
+            - rel: reference
+              href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
+        - name: Spring Boot Admin (Server)
+          id: codecentric-spring-boot-admin-server
+          groupId: de.codecentric
+          artifactId: spring-boot-admin-starter-server
+          description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
+          versionRange: "[1.5.9.RELEASE,2.2.0.M1)"
+          bom: codecentric-spring-boot-admin
+          links:
+            - rel: reference
+              href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
+    - name: Spring Cloud
       bom: spring-cloud
       content:
-        - name: Cloud Bootstrap
-          id: cloud-starter
-          description: spring-cloud-context (e.g. Bootstrap context and @RefreshScope)
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter
-          weight: 100
-        - name: Cloud Function
+        - name: Function
           id: cloud-function
           groupId: org.springframework.cloud
           artifactId: spring-cloud-function-context
-          description: Functions as Spring Beans
+          description: Promotes the implementation of business logic via functions and supports a uniform programming model across serverless providers, as well as the ability to run standalone (locally or in a PaaS).
           versionRange: 2.0.2.RELEASE
           links:
             - rel: reference
@@ -752,30 +813,33 @@ initializr:
             - rel: sample
               href: https://github.com/spring-cloud/spring-cloud-function/tree/master/spring-cloud-function-samples
               description: Various sample apps using Spring Cloud Function
+        - name: Task
+          id: cloud-task
+          description: Allows a user to develop and run short lived microservices using Spring Cloud. Run them locally, in the cloud, and on Spring Cloud Data Flow.
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-task
+          starter: false
+    - name: Spring Cloud Security
+      bom: spring-cloud
+      content:
         - name: Cloud Security
           id: cloud-security
-          description: Secure load balancing and routing with spring-cloud-security
+          description: A declarative model which can be heavily configured externally (or centrally) lends itself to the implementation of large systems of co-operating, remote components, usually with a central indentity management service.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-security
         - name: Cloud OAuth2
           id: cloud-oauth2
-          description: OAuth2 and distributed application patterns with spring-cloud-security
+          description: OAuth2 and distributed application patterns with spring-cloud-security.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-oauth2
-        - name: Cloud Task
-          id: cloud-task
-          description: Task result tracking with Spring Batch and Spring Cloud Stream integrations
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-task
-          starter: false
-    - name: Cloud Support
+    - name: Spring Cloud Tools
       content:
         - name: Cloud Connectors
           id: cloud-connectors
-          description: Simplifies connecting to services in cloud platforms, including spring-cloud-connector and spring-cloud-cloudfoundry-connector
+          description: Simplifies the process of connecting to services and gaining operating environment awareness in cloud platforms such as Cloud Foundry and Heroku.
         - name: Open Service Broker
           id: open-service-broker
-          description: Create service brokers that conform to the Open Service Broker API specification
+          description: Framework for building Spring Boot apps that implement the Open Service Broker API, which can deliver services to applications running within cloud native platforms such as Cloud Foundry, Kubernetes and OpenShift.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-open-service-broker
           versionRange: 2.0.0.RELEASE
@@ -791,18 +855,32 @@ initializr:
             - rel: guide
               href: https://github.com/spring-cloud-samples/bookstore-service-broker
               description: Using Spring Cloud Open Service Broker
-    - name: Cloud Config
+        - name: Contract Verifier
+          id: cloud-contract-verifier
+          description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-contract-verifier
+          scope: test
+          starter: false
+        - name: Contract Stub Runner
+          id: cloud-contract-stub-runner
+          description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-contract-stub-runner
+          scope: test
+          starter: false
+    - name: Spring Cloud Config
       bom: spring-cloud
       content:
         - name: Config Client
           id: cloud-config-client
-          description: Spring Cloud Config Client
+          description: Client that connects to a Spring Cloud Config Server to fetch the application's configuration.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-config
           weight: 100
         - name: Config Server
           id: cloud-config-server
-          description: Central management for configuration via a git or svn backend
+          description: Central management for configuration via Git, SVN, or HashiCorp Vault.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-config-server
           links:
@@ -811,27 +889,27 @@ initializr:
               description: Centralized Configuration
         - name: Vault Configuration
           id: cloud-starter-vault-config
-          description: Configuration management with HashiCorp Vault
+          description: Provides client-side support for externalized configuration in a distributed system. Using HashiCorp's Vault you have a central place to manage external secret properties for applications across all environments.
           versionRange: 1.5.3.RELEASE
           starter: false
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-vault-config
         - name: Zookeeper Configuration
           id: cloud-starter-zookeeper-config
-          description: Configuration management with Zookeeper and spring-cloud-zookeeper-config
+          description: Enable and configure common patterns inside your application and build large distributed systems with Zookeeper based components. The provided patterns include Service Discovery and Configuration.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-config
         - name: Consul Configuration
           id: cloud-starter-consul-config
-          description: Configuration management with Hashicorp Consul
+          description: Enable and configure the common patterns inside your application and build large distributed systems with Hashicorp’s Consul. The patterns provided include Service Discovery, Distributed Configuration and Control Bus.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-config
-    - name: Cloud Discovery
+    - name: Spring Cloud Discovery
       bom: spring-cloud
       content:
         - name: Eureka Discovery
           id: cloud-eureka
-          description: Service discovery using spring-cloud-netflix and Eureka
+          description: a REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-client
           weight: 100
@@ -859,12 +937,12 @@ initializr:
           description: Service discovery with Hashicorp Consul
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-discovery
-    - name: Cloud Routing
+    - name: Spring Cloud Routing
       bom: spring-cloud
       content:
         - name: Zuul
           id: cloud-zuul
-          description: Intelligent and programmable routing with spring-cloud-netflix Zuul
+          description: Intelligent and programmable routing with Spring Cloud Netflix Zuul.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-zuul
           links:
@@ -875,7 +953,7 @@ initializr:
           id: cloud-gateway
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-gateway
-          description: Intelligent and programmable routing with the reactive Spring Cloud Gateway
+          description: Provides a simple, yet effective way to route to APIs and provide cross cutting concerns to them such as security, monitoring/metrics, and resiliency.
           versionRange: 2.0.0.M5
           links:
             - rel: guide
@@ -883,24 +961,24 @@ initializr:
               description: Using Spring Cloud Gateway
         - name: Ribbon
           id: cloud-ribbon
-          description: Client side load balancing with spring-cloud-netflix and Ribbon
+          description: Client side load balancing with Spring Cloud Netflix and Ribbon.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-ribbon
           links:
             - rel: guide
               href: https://spring.io/guides/gs/client-side-load-balancing/
               description: Client Side Load Balancing with Ribbon and Spring Cloud
-        - name: Feign
+        - name: OpenFeign
           id: cloud-feign
-          description: Declarative REST clients with spring-cloud-netflix Feign
+          description: Declarative REST Client. Feign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-openfeign
-    - name: Cloud Circuit Breaker
+    - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
       content:
         - name: Hystrix
           id: cloud-hystrix
-          description: Circuit breaker with spring-cloud-netflix Hystrix
+          description: Circuit breaker with Spring Cloud Netflix Hystrix.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-hystrix
           links:
@@ -909,7 +987,7 @@ initializr:
               description: Circuit Breaker
         - name: Hystrix Dashboard
           id: cloud-hystrix-dashboard
-          description: Circuit breaker dashboard with spring-cloud-netflix Hystrix
+          description: Circuit breaker dashboard with Spring Cloud Netflix Hystrix.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-hystrix-dashboard
         - name: Turbine
@@ -924,57 +1002,40 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine-stream
           weight: -1
-    - name: Cloud Tracing
+    - name: Spring Cloud Tracing
       bom: spring-cloud
       content:
         - name: Sleuth
           id: cloud-starter-sleuth
-          description: Distributed tracing via logs with spring-cloud-sleuth
+          description: Distributed tracing via logs with Spring Cloud Sleuth.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-sleuth
         - name: Zipkin Client
           id: cloud-starter-zipkin
-          description: Distributed tracing with an existing Zipkin installation and spring-cloud-sleuth-zipkin. Alternatively, consider Sleuth Stream.
+          description: Distributed tracing with an existing Zipkin installation and Spring Cloud Sleuth Zipkin.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zipkin
-    - name: Cloud Messaging
+    - name: Spring Cloud Messaging
       bom: spring-cloud
       content:
         - name: Cloud Bus
           id: cloud-bus
-          description: A simple control bus using Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ)
+          description: Links nodes of a distributed system with a lightweight message broker which can used to broadcast state changes or other management instructions (requires a binder, e.g. Kafka or RabbitMQ).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-bus
         - name: Cloud Stream
           id: cloud-stream
-          description: Messaging microservices with Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ)
+          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Kafka or RabbitMQ).
           weight: 90
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
         - name: Reactive Cloud Stream
           id: reactive-cloud-stream
-          description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ)
+          description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ).
           versionRange: 2.0.0.RC2
           weight: 90
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream-reactive
-    - name: Cloud Contract
-      bom: spring-cloud
-      content:
-        - name: Cloud Contract Verifier
-          id: cloud-contract-verifier
-          description: Test dependencies required for autogenerated tests
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-contract-verifier
-          scope: test
-          starter: false
-        - name: Cloud Contract Stub Runner
-          id: cloud-contract-stub-runner
-          description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-contract-stub-runner
-          scope: test
-          starter: false
     - name: Pivotal Cloud Foundry
       bom: spring-cloud-services
       content:
@@ -987,7 +1048,7 @@ initializr:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
               description: Reference doc
-        - name: Service Registry Client (PCF)
+        - name: Service Registry (PCF)
           id: scs-service-registry
           description: Eureka service discovery client on Pivotal Cloud Foundry
           groupId: io.pivotal.spring.cloud
@@ -996,7 +1057,7 @@ initializr:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
               description: Reference doc
-        - name: Circuit Breaker Client (PCF)
+        - name: Circuit Breaker (PCF)
           id: scs-circuit-breaker
           description: Hystrix circuit breaker client on Pivotal Cloud Foundry
           groupId: io.pivotal.spring.cloud
@@ -1010,20 +1071,20 @@ initializr:
       content:
         - name: AWS Core
           id: cloud-aws
-          description: AWS native services from spring-cloud-aws
+          description: AWS native services from Spring Cloud for AWS
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws
-        - name: AWS JDBC
+        - name: AWS RDS
           id: cloud-aws-jdbc
-          description: Relational databases on AWS with RDS and spring-cloud-aws-jdbc
+          description: Relational databases on AWS with RDS and Spring Cloud AWS JDBC
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws-jdbc
-        - name: AWS Messaging
+        - name: AWS Simple Queue Service
           id: cloud-aws-messaging
-          description: Messaging on AWS with SQS and spring-cloud-aws-messaging
+          description: Messaging on AWS with SQS and Spring Cloud AWS Messaging
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws-messaging
-    - name: Azure
+    - name: Microsoft Azure
       bom: azure
       versionRange: "1.5.4.RELEASE"
       content:
@@ -1031,7 +1092,7 @@ initializr:
           id: azure-support
           groupId: com.microsoft.azure
           artifactId: azure-spring-boot-starter
-          description: Auto-configuration for Azure Services (service bus, storage, active directory, cosmos DB, key vault and more)
+          description: Auto-configuration for Azure Services (service bus, storage, active directory, cosmos DB, key vault and more).
           links:
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot
@@ -1040,7 +1101,7 @@ initializr:
           id: azure-active-directory
           groupId: com.microsoft.azure
           artifactId: azure-active-directory-spring-boot-starter
-          description: Spring Security integration with Azure Active Directory for authentication
+          description: Spring Security integration with Azure Active Directory for authentication.
           links:
             - rel: guide
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-samples/azure-active-directory-spring-boot-sample
@@ -1052,7 +1113,7 @@ initializr:
           id: azure-keyvault-secrets
           groupId: com.microsoft.azure
           artifactId: azure-keyvault-secrets-spring-boot-starter
-          description: Spring value annotation integration with Azure Key Vault Secrets
+          description: Manage application secrets and keys.
           links:
             - rel: guide
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-samples/azure-keyvault-secrets-spring-boot-sample
@@ -1064,7 +1125,7 @@ initializr:
           id: azure-storage
           groupId: com.microsoft.azure
           artifactId: azure-storage-spring-boot-starter
-          description: Azure Storage service integration
+          description: Azure Storage service integration.
           links:
             - rel: guide
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-samples/azure-storage-spring-boot-sample
@@ -1078,7 +1139,7 @@ initializr:
       content:
         - name: GCP Support
           id: cloud-gcp
-          description: Support for Google Cloud Platform services
+          description: Contains auto-configuration support for every Spring Cloud GCP integration. Most of the auto-configuration code is only enabled if other dependencies are added to the classpath.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-gcp-starter
           links:
@@ -1090,7 +1151,7 @@ initializr:
               description: Samples
         - name: GCP Messaging
           id: cloud-gcp-pubsub
-          description: Publish to and subcribe from Google Cloud Pub/Sub topics
+          description: Adds the GCP Support entry and all the required dependencies so that the Google Cloud Pub/Sub integration work out of the box.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-gcp-starter-pubsub
           links:
@@ -1102,7 +1163,7 @@ initializr:
               description: Sample
         - name: GCP Storage
           id: cloud-gcp-storage
-          description: Access Google Cloud Storage objects
+          description: Adds the GCP Support entry and all the required dependencies so that the Google Cloud Storage integration work out of the box.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-gcp-starter-storage
           links:
@@ -1112,112 +1173,6 @@ initializr:
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
               description: Sample
-    - name: I/O
-      content:
-        - name: Batch
-          id: batch
-          description: Spring Batch support
-          weight: 100
-          links:
-            - rel: guide
-              href: https://spring.io/guides/gs/batch-processing/
-              description: Creating a Batch Service
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-batch-applications
-        - name: Mail
-          id: mail
-          description: Send email using Java Mail and Spring Framework's JavaMailSender
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-email
-        - name: Apache Camel
-          id: camel
-          versionRange: "1.5.0.RELEASE"
-          mappings:
-            - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
-              version: 2.21.5
-            - versionRange: "[2.0.0.M1,2.1.0.M1)"
-              version: 2.22.4
-            - versionRange: "2.1.0.M1"
-              version: 2.24.0
-          description: Integration using Apache Camel
-          groupId: org.apache.camel
-          artifactId: camel-spring-boot-starter
-          links:
-            - rel: guide
-              href: https://camel.apache.org/spring-boot
-              description: Using Apache Camel with Spring Boot
-        - name: LDAP
-          id: data-ldap
-          description: LDAP support, including spring-data-ldap
-          versionRange: 1.5.0.RELEASE
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-ldap
-        - name: Quartz Scheduler
-          id: quartz
-          versionRange: 2.0.0.M2
-          description: Schedule jobs using Quartz
-        - name: Spring Shell
-          id: spring-shell
-          groupId: org.springframework.shell
-          artifactId: spring-shell-starter
-          description: Build shell-based clients
-          version: 2.0.0.RELEASE
-          repository: spring-milestones
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-shell/docs/2.0.0.M2/reference/htmlsingle/
-        - name: Statemachine
-          id: statemachine
-          groupId: org.springframework.statemachine
-          artifactId: spring-statemachine-starter
-          description: Build applications using state machine concepts
-          versionRange: 2.0.0.RC1
-          bom: spring-statemachine
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-statemachine/docs/current-SNAPSHOT/reference/htmlsingle/
-            - rel: guide
-              href: https://docs.spring.io/spring-statemachine/docs/current-SNAPSHOT/reference/htmlsingle/#developing-your-first-spring-statemachine-application
-              description: Developing your first Spring Statemachine application
-    - name: Ops
-      content:
-        - name: Actuator
-          id: actuator
-          description: Production ready features to help you monitor and manage your application
-          links:
-            - rel: guide
-              href: https://spring.io/guides/gs/actuator-service/
-              description: Building a RESTful Web Service with Spring Boot Actuator
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready
-        - name: Spring Boot Admin (Server)
-          id: codecentric-spring-boot-admin-server
-          groupId: de.codecentric
-          artifactId: spring-boot-admin-starter-server
-          description: An admin interface for Spring Boot applications
-          versionRange: "[1.5.9.RELEASE,2.2.0.M1)"
-          bom: codecentric-spring-boot-admin
-          links:
-            - rel: reference
-              href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
-        - name: Spring Boot Admin (Client)
-          id: codecentric-spring-boot-admin-client
-          groupId: de.codecentric
-          artifactId: spring-boot-admin-starter-client
-          description: Register your application with a Spring Boot Admin instance
-          versionRange: "[1.5.9.RELEASE,2.2.0.M1)"
-          bom: codecentric-spring-boot-admin
-          links:
-            - rel: reference
-              href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
-        - name: Actuator Docs
-          id: actuator-docs
-          description: API documentation for the Actuator endpoints
-          versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
-          groupId: org.springframework.boot
-          artifactId: spring-boot-actuator-docs
   types:
     - name: Maven Project
       id: maven-project
