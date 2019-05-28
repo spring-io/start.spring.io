@@ -21,6 +21,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
+import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.TemplateRenderer;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -92,6 +93,13 @@ public class SpringCloudProjectGenerationConfiguration {
 	SpringCloudContractGradleBuildCustomizer springCloudContractGradleBuildCustomizer(
 			SpringCloudProjectVersionResolver versionResolver) {
 		return new SpringCloudContractGradleBuildCustomizer(this.description, versionResolver);
+	}
+
+	@Bean
+	public SpringCloudFunctionHelpDocumentCustomizer springCloudFunctionHelpDocumentCustomizer(
+			Build build, MustacheTemplateRenderer templateRenderer) {
+		return new SpringCloudFunctionHelpDocumentCustomizer(build, this.description,
+				templateRenderer);
 	}
 
 }
