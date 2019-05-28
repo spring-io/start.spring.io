@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void shouldAddFunctionBuildSetupInfoForMaven() {
+	void functionBuildSetupInfoAddedForMaven() {
 		ProjectRequest request = createProjectRequest();
 		request.setType("maven-build");
 		request.setDependencies(
@@ -46,7 +46,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	}
 
 	@Test
-	void shouldAddFunctionBuildSetupInfoForGradle() {
+	void functionBuildSetupInfoAddedForGradle() {
 		ProjectRequest request = createProjectRequest();
 		request.setType("gradle-build");
 		request.setDependencies(
