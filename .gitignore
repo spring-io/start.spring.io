@@ -24,3 +24,12 @@ target
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Start Client ###
+/start-client/public/
+/start-client/node_modules/
+/start-client/.env
+/start-client/.cache/
+/start-client/yarn-error.log
+/start-client/yarn.lock
+/start-client/package-lock.json

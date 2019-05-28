@@ -1,0 +1,7 @@
+.env
+.cache/
+node_modules/
+yarn-error.log
+
+content/
+public/

@@ -1,54 +1,108 @@
 {
-  "name": "webpack-starter",
-  "version": "1.0.0",
-  "description": "A light foundation for your next frontend project based on webpack.",
-  "scripts": {
-    "build": "webpack --config webpack/webpack.config.prod.js  --colors",
-    "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wbkd/webpack-starter.git"
-  },
+  "name": "spring-initializr",
+  "private": true,
+  "description": "Start.spring.io",
+  "version": "0.0.1",
+  "author": "Spring",
   "keywords": [
-    "webpack",
-    "startkit",
-    "frontend",
-    "es6",
-    "javascript",
-    "webdev"
+    "spring",
+    "initializr"
   ],
-  "author": "webkid.io",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/wbkd/webpack-starter/issues"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "babel-loader": "^8.0.4",
-    "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.4",
-    "css-loader": "^1.0.0",
-    "eslint": "^5.7.0",
-    "eslint-loader": "^2.1.1",
-    "file-loader": "^2.0.0",
-    "@fortawesome/fontawesome-free": "^5.5.0",
-    "html-webpack-plugin": "^4.0.0-beta.2",
-    "js-search": "^1.4.2",
-    "mini-css-extract-plugin": "^0.4.4",
-    "nanohtml": "^1.3.1",
-    "node-sass": "^4.9.4",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.21.0",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9",
-    "webpack-merge": "^4.1.4"
+  "license": "Apache 2.0",
+  "scripts": {
+    "clean": "rimraf .cache",
+    "prebuild": "yarn run clean && yarn run lint && yarn run test",
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "prestart": "yarn run clean",
+    "start": "gatsby develop",
+    "serve": "gatsby serve",
+    "fix": "NODE_ENV=test import-sort --write '(src|utils|plugins)/**/*.js' && eslint . --fix && prettier --write '**/*.{{c,le,sc}ss,g?(raph)ql,htm?(l),js?(on|on5|onl|x|s),md?(x|wn),m?(ark)down,mkdn,ts?(x),vue,y?(a)ml}'",
+    "lint": "NODE_ENV=test import-sort -l '(src|utils|plugins)/**/*.js' && eslint . && prettier --check '**/*.{{c,le,sc}ss,g?(raph)ql,htm?(l),js?(on|on5|onl|x|s),md?(x|wn),m?(ark)down,mkdn,ts?(x),vue,y?(a)ml}'",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "dependencies": {
-    "@babel/polyfill": "^7.2.5"
+    "file-saver": "^2.0.1",
+    "gatsby": "^2.3.2",
+    "gatsby-image": "^2.0.35",
+    "gatsby-plugin-google-analytics": "^2.0.19",
+    "gatsby-plugin-manifest": "^2.0.24",
+    "gatsby-plugin-offline": "^2.0.25",
+    "gatsby-plugin-prefetch-google-fonts": "^1.4.1",
+    "gatsby-plugin-react-helmet": "^3.0.11",
+    "gatsby-plugin-sass": "^2.0.11",
+    "gatsby-plugin-sharp": "^2.0.31",
+    "gatsby-plugin-webpack-bundle-analyzer": "^1.0.4",
+    "gatsby-source-filesystem": "^2.0.28",
+    "gatsby-transformer-json": "^2.1.11",
+    "gatsby-transformer-sharp": "^2.1.17",
+    "js-search": "^1.4.2",
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2",
+    "node-sass": "^4.12.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "react-helmet": "^5.2.0",
+    "react-hotkeys": "^2.0.0-pre5",
+    "react-toastify": "^5.1.0",
+    "styled-react-modal": "^1.2.1"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "import-sort-cli": "^6.0.0",
+    "import-sort-parser-babylon": "^6.0.0",
+    "import-sort-style-renke": "^6.0.0",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "react-app",
+      "prettier",
+      "prettier/react"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error"
+      ],
+      "no-unused-vars": [
+        "warn"
+      ]
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
+  },
+  "prettier": {
+    "endOfLine": "lf",
+    "tabWidth": 2,
+    "semi": false,
+    "printWidth": 80,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "jsxBracketSameLine": false,
+    "arrowParens": "avoid"
+  },
+  "importSort": {
+    ".js": {
+      "parser": "babylon",
+      "style": "renke"
+    }
+  },
+  "on-save": {
+    "**/*.js": "cross-env NODE_ENV=test import-sort --write",
+    "**/*.{{c,le,sc}ss,g?(raph)ql,htm?(l),js?(on|on5|onl|x|s),md?(x|wn),m?(ark)down,mkdn,ts?(x),vue,y?(a)ml}": [
+      "prettier --write"
+    ]
   }
 }

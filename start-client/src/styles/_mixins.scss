@@ -1,25 +1,159 @@
-@mixin bp-large {
-  @media only screen and (max-width: 60em) {
-    @content;
-  }
-}
-
-@mixin bp-medium {
-  @media only screen and (max-width: 40em) {
-    @content;
-  }
-}
-
-@mixin bp-small {
-  @media only screen and (max-width: 30em) {
-    @content;
-  }
-}
-
 @mixin transition($args...) {
   -webkit-transition: $args;
   -moz-transition: $args;
   -ms-transition: $args;
   -o-transition: $args;
   transition: $args;
+}
+
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin outline {
+  &:focus {
+    outline: 1px dotted $spring-outline-color;
+  }
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow: inset $top $left $blur $color;
+    -moz-box-shadow: inset $top $left $blur $color;
+    box-shadow: inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+@mixin tile {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  padding: $spring-8points * 2;
+  padding-right: 60px;
+  color: rgba($spring-color, 0.8);
+  background: $spring-gray-color;
+  cursor: pointer;
+  font-size: $spring-font-size-sm;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+  line-height: 24px;
+  @include outline();
+  strong {
+    color: $spring-color;
+  }
+  input {
+    display: none;
+  }
+  div {
+    padding: 0;
+    margin: 0;
+  }
+  span {
+    font-size: $spring-font-size-sm - 1;
+  }
+  .icon {
+    $s: 24px;
+    position: absolute;
+    display: block;
+    border: 2px solid $spring-border-color;
+    height: $s;
+    width: $s;
+    margin-top: -$s/2;
+    top: 50%;
+    right: 16px;
+    border-radius: $s/2 + 2;
+    color: $spring-color;
+  }
+  .icon-times,
+  .icon-check,
+  .icon-plus {
+    display: block;
+    opacity: 0;
+    width: 12px;
+    margin: 0 auto;
+    position: absolute;
+    top: 5px;
+    left: 6px;
+  }
+  .icon-times {
+    left: 7px;
+    width: 10px;
+    color: #d20000;
+  }
+  .icon-check {
+    top: 6px;
+  }
+  &.selected {
+    background: #e7f1f4;
+    .icon {
+      border-color: rgba(darken(#e7f1f4, 20), 0.6);
+      color: darken(#e7f1f4, 60);
+    }
+    .icon-plus {
+      opacity: 1;
+    }
+  }
+  &.checked,
+  .selected {
+    background: white;
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.1);
+    .icon {
+      border-color: rgba(0, 0, 0, 0.1);
+      color: $spring-primary-color;
+    }
+    .icon-check {
+      opacity: 1;
+    }
+  }
+  &.checked:hover {
+    .icon-plus {
+      opacity: 0;
+    }
+    .icon-check {
+      opacity: 0;
+    }
+    .icon-times {
+      opacity: 1;
+    }
+  }
+  &.invalid,
+  &.checked.invalid {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: $spring-gray-color;
+    &:hover {
+      background: $spring-gray-color;
+    }
+    .warning {
+      color: #f30808;
+    }
+  }
+}
+
+@mixin tilehover {
+  &:hover {
+    background: #e7f1f4;
+    .icon {
+      border-color: rgba(darken(#e7f1f4, 20), 0.6);
+      color: darken(#e7f1f4, 80);
+    }
+    .icon-plus {
+      opacity: 1;
+    }
+  }
+  &.checked:hover {
+    background: white;
+    .icon {
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+  }
 }

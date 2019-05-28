@@ -1,7 +1,5 @@
-
-
-html, body {
-  min-height: 100%;
+html,
+body {
   text-rendering: optimizeLegibility;
 }
 
@@ -11,745 +9,584 @@ body {
   margin: 0;
   font-size: $spring-font-size;
   font-family: $spring-font-family;
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
   position: relative;
-  cursor: auto;
-  line-height: $spring-8points * 4;
-  //border-left: 4px solid $spring-primary-color;
-  height: 100%;
-
-  background-color: $spring-background;
+  line-height: 32px;
   background-repeat: repeat-y;
   background-size: 316px 1px;
-  background-image: $spring-sidebar-image;
-
-  min-width: 800px;
-
+  background-image: url(data:image/gif;base64,R0lGODlheAICAIAAAH2vUPf39yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowRjJERDYwM0ZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowRjJERDYwNEZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjBGMkRENjAxRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjBGMkRENjAyRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkEAAAAAAAsAAAAAHgCAgAAAiaEb6HL7Q+jnLTai7PevPsPhuJIluaJpmqJIOsLx/JM1/aN5/puFwA7);
 }
 
-a {
-  color: $spring-link-color;
-  &:hover {
-
-  }
-}
-
-p {
-  line-height: $spring-8points * 3;
-  padding: ($spring-8points / 2) 0;
-  margin: 0;
-}
-
-.normal {
-  font-weight: normal;
-}
-
-// Line layout
-
-.line {
-
-  display: flex;
-  //flex-flow: row wrap;
-  min-width: 900px;
-
-  .left, .right {
-    display: block;
-  }
-
-  .left {
-    font-weight: bold;
-    width: $spring-sidebar-width;
-    text-align: right;
-    //background: $spring-gray-color;
-    padding: $spring-8points ($spring-8points * 4) $spring-8points 0;
-    flex: $spring-sidebar-width 0 0;
-  }
-
-  .right {
-    padding: $spring-8points 0 $spring-8points ($spring-8points * 4);
-    flex: 2;
-    max-width: 1000px;
-  }
-
-}
-
-// Radios component
-
-div.radios {
-
-  div.radio {
-    display: inline-block;
-    a {
-      display: inline-block;
-      border-bottom: 3px solid $spring-border-color;
-      text-decoration: none;
-      color: #888;
-      line-height: $spring-8points * 4;
-      padding: 0 $spring-8points * 2;
-      text-align: center;
-      font-weight: bold;
-      &:hover {
-        @include transition(border-color $spring-transition-duration);
-        border-bottom-color: $spring-border-color-hover;
-        color: $spring-color;
-      }
-    }
-    &.active {
-      a {
-        border-bottom-color: $spring-primary-color;
-        //
-        color: $spring-color;
-        &:hover {
-          color: $spring-color;
-        }
-      }
-    }
-  }
-
-}
-
-// Input component
-
-.control-text {
-  display: block;
-  border: 0 none;
+div {
   outline: none;
-  border-bottom: 3px solid $spring-border-color;
-  line-height: $spring-8points * 2;
-  font-family: $spring-font-family;
-  font-size: $spring-font-size;
-  box-sizing: border-box;
-  background-clip: padding-box;
-  width: 100%;
-  padding: .35rem 0 .55rem 0;
-  border-radius: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -webkit-border-radius: 0px;
-  background: $spring-background;
-  color: $spring-color;
-
-  &:focus {
-    @include transition(border-color $spring-transition-duration);
-    border-color: $spring-primary-color;
-  }
-  &::placeholder {
-    font-style: italic;
-    color: #888;
-  }
 }
 
-// Control
-
-.control {
-  line-height: $spring-8points * 2;
-  padding-top: $spring-8points;
-}
-
-.control + .control {
-  padding-top: $spring-8points * 2;
-}
-
-.control label {
-  color: #706c69;
-  font-size: $spring-font-size-sm;
-  font-weight: lighter;
-}
-
-// Submit
-
-.control-submit {
-  height: $spring-8points * 5;
-  p {
-    border-bottom: 2px dotted $spring-border-color;
-    height: 15px;
-    text-align: center;
-  }
-  .btn {
-    width: 120px;
-  }
-}
-
-// Colset
-
-.colset {
-  display: flex;
-  flex-flow: wrap;
-  .col {
-    flex: 1;
-    max-width: 350px;
-  }
-  .col + .col {
-    padding-left: $spring-8points * 3;
-  }
-}
-
-// List component
-
-.list {
-  min-height: 200px;
-  .item {
-    border: 2px solid $spring-gray-color;
-    background: $spring-gray-color;
-    line-height: $spring-8points * 3;
-    padding: $spring-8points $spring-8points * 5 $spring-8points $spring-8points * 2;
-    margin: $spring-8points 0;
-    border-radius: $spring-radius;
-    position: relative;
-    cursor: pointer;
-    .title {
-      font-weight: bold;
-      .cat {
-        color: $spring-primary-color;
-        font-weight: normal;
-      }
-    }
-    .desc {
-      color: #706c69;
-      font-size: 0.9rem;
-    }
-    .incompatible {
-      display: none;
-      color: #f30808;
-      font-weight: bold;
-    }
-    a.btn-ico {
-      position: absolute;
-      right: 2px;
-      top: 50%;
-      margin-top: -16px;
-      display: none;
-      &:hover {
-        color: $spring-color;
-      }
-    }
-    &.active {
-      background-color: #e7f1f4;
-      border-color: #e7f1f4;
-      a.btn-ico {
-        display: block;
-      }
-    }
-    &.invalid {
-      cursor: not-allowed;
-      a.btn-ico {
-        display: none;
-      }
-      .incompatible {
-        display: block;
-      }
-      &.active {
-        background-color: #ffe2e2;
-        border-color: #ffe2e2;
-      }
-    }
-    /*
-    }*/
-  }
-  &.light {
-    .item {
-      background: #fff;
-      &.active {
-        background-color: #e7f1f4;
-        border-color: #e7f1f4;
-      }
-
-      &.invalid {
-        cursor: not-allowed;
-        a.btn-ico {
-          display: block;
-        }
-      }
-      &:hover {
-        a.btn-ico {
-          display: block;
-        }
-      }
-    }
-  }
-}
-
-// Buttons component
-
-a.btn, button.btn {
-  border: 2px solid $spring-border-color;
-  background-color: $spring-background;
-  border-radius: $spring-radius;
-  font-family: $spring-font-family;
-  font-size: $spring-font-size;
-  line-height: $spring-8points * 4;
-  padding: 0 $spring-8points;
-  font-weight: normal;
-  cursor: pointer;
-  color: $spring-color;
-  @include transition(border-color $spring-transition-duration);
-  &:hover {
-    border-color: $spring-border-color-hover;
-  }
-  &.btn-primary {
-    background: $spring-primary-color;
-    color: white;
-    border-color: $spring-primary-color;
-    padding: ($spring-8points / 2) $spring-8points * 5;
-    @include transition(background $spring-transition-duration, border-color $spring-transition-duration);
-    &:hover {
-      background: darken($spring-primary-color, 5);
-      border-color: darken($spring-primary-color, 5);
-    }
-  }
-  &:focus {
-    //outline: ;
-  }
-}
-
-// Button ico
-
-a.btn-ico {
-  $btn-size: 32px;
-  display: block;
-  width: $btn-size;
-  height: $btn-size;
-  text-align: center;
-  line-height: $btn-size;
-  color: $spring-color;
-  cursor: pointer;
-  @include transition(color $spring-transition-duration);
-  &:hover {
-    color: $spring-primary-color;
-  }
-}
-
-// Submit
-
-.submit {
-  padding: $spring-8points * 3 0;
-  border-top: 1px solid $spring-border-color;
-  kbd {
-    display: inline-block;
-    letter-spacing: 5px;
-    margin-left: 15px;
-    vertical-align: middle;
-  }
-}
-
-// Header / Logo
+// -----------------
+// Header
 
 .header {
-  position: relative;
-  //width: $spring-sidebar-width;
-  padding: $spring-8points $spring-8points * 2 $spring-8points $spring-8points * 3;
-  //background: $spring-gray-color;
+  width: $spring-sidebar-width;
   h1.logo {
-    margin: 0;
-    padding: $spring-8points 0;
-    width: $spring-sidebar-width;
+    width: 280px;
+    margin: 0px 20px 0px 24px;
+    padding: $spring-8points * 2 0px;
     a {
       display: block;
       position: relative;
-      padding: ($spring-8points / 2) 0;
+      padding: 4px 0;
       padding-left: 65px;
-      color: $spring-color;
+      color: #000;
       text-decoration: none;
       font-size: 1rem;
       line-height: 1.6rem;
       font-weight: normal;
       width: 205px;
+      outline: 1px dotted rgba(0, 0, 0, 0);
+      span {
+        display: block;
+      }
+      span.title {
+        display: block;
+        font-size: 1.4rem;
+        font-weight: normal;
+        letter-spacing: -1px;
+        strong {
+          color: $spring-primary-color;
+        }
+      }
       svg {
         width: 50px;
         position: absolute;
         left: 0;
         top: 6px;
-        .st2 {
-          fill: $spring-primary-color;
-        }
-        .st3 {
-          fill: #FFFFFF;
-        }
       }
-      strong {
-        display: block;
-        font-size: 1.4rem;
-        font-weight: normal;
-        letter-spacing: -1px;
-        span {
-          font-weight: bold;
-          color: $spring-primary-color;
-          letter-spacing: 0px;
-        }
+      &:focus {
+        outline: 1px dotted $spring-outline-color;
       }
     }
   }
 }
 
+// -----------------
 // Quick Links
 
 .quick-links {
   position: absolute;
   top: 10px;
-  right: 30px;
-  color: $spring-border-color;
+  right: 20px;
   width: 320px;
   text-align: right;
-  a {
-    margin: 0 $spring-8points;
-    padding-left: $spring-8points * 3;
-    text-decoration: none;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  li {
     position: relative;
-    color: $spring-color;
-    @include transition(color $spring-transition-duration);
-    .icon {
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-size: 18px;
-    }
-    .icon-svg {
-      width: 18px;
-    }
-    &:hover {
-      color: $spring-primary-color;
-    }
-  }
-  span.dropdown {
-    a.dropdown-toggle {
-      padding-right: 20px;
-    }
-  }
-}
-
-// Dropdown
-span.dropdown {
-  position: relative;
-  a.dropdown-toggle {
-    position: relative;
-    padding-right: 20px;
-    white-space: nowrap;
-    .fa-caret-down {
-      position: absolute;
-      right: 2px;
-      top: 2px;
-    }
-  }
-  ul.dropdown-menu {
-    display: none;
-    z-index: 999;
-    position: absolute;
-    top: 28px;
-    right: 0;
-    background: white;
-    width: 200px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,.2);
-    text-align: left;
-    li {
-      border-bottom: 1px solid #ddd;
-      a {
-        display: block;
-        padding: 4px 12px;
-        margin: 0;
-        @include transition(background-color $spring-transition-duration);
-        &:hover {
-          background: #e7f1f4;
-          color: $spring-color;
-          text-decoration: underline;
-        }
-      }
-      &:last-child {
-        border: 0 none;
-      }
-    }
-  }
-  &.open {
-    a.dropdown-toggle {
-      color: $spring-primary-color;
-    }
-    ul.dropdown-menu {
-      display: block;
-    }
-  }
-}
-
-// Footer
-
-.footer {
-  line-height: $spring-8points * 3;
-  padding: $spring-8points $spring-8points * 2;
-  font-weight: normal;
-  color: $spring-footer-color;
-  font-size: $spring-font-size-sm;
-  letter-spacing: -.5px;
-  a {
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-// Pagination
-
-.pagination {
-  text-align: center;
-  a {
-    color: $spring-color;
-    font-size: 24px;
-    padding: 5px 3px;
-    @include transition(color $spring-transition-duration);
-    &:hover {
-      color: $spring-primary-color;
-    }
-    &.disabled {
-      cursor: not-allowed;
-      color: rgba(0, 0, 0, .15)
-    }
-  }
-}
-
-// Specific styles
-
-.project-metadata {
-  max-width: 500px;
-}
-
-.hide {
-  display: none;
-}
-
-// More Block
-
-#more-block {
-}
-
-.more-block {
-  padding-top: $spring-8points;
-}
-
-#more-block.hide {
-  display: block;
-  //height: 0;
-  overflow: hidden;
-  @include transition(height $spring-transition-duration);
-  &.in {
-    height: 330px;
-  }
-}
-
-// No result
-
-.no-result {
-  display: none;
-  &.show {
-    display: block;
-  }
-}
-
-// Fixed row-action
-
-body.fixed {
-
-  .list {
-    padding-bottom: 120px;
-  }
-
-  .row-action {
-    position: fixed;
-    bottom: 0;
-    .left {
-      background: $spring-sidebar-background-color;
-      margin-left: 4px;
-    }
-    .right {
+    display: inline-block;
+    a {
+      padding: 8px;
       padding-left: 28px;
-    }
-    .right, .left {
-      margin-top: 0;
-      padding-top: 0;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-    .submit {
-      background-color: $spring-background;
-      min-width: 750px;
-      .btn-primary {
-      }
-    }
-  }
-}
-
-// Label Dependencies
-
-.dependencies-label {
-  position: relative;
-  a {
-    position: absolute;
-    top: 20px;
-    right: 0;
-    font-weight: normal;
-    width: 50px;
-    cursor: pointer;
-    text-decoration: underline;
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-// Overlay
-
-.overlay, .wrapper-modal {
-  display: none;
-}
-
-body.dependencies {
-  overflow: hidden;
-}
-
-.overlay {
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: 99997;
-  -webkit-tap-highlight-color: transparent;
-  background: rgba(255, 255, 255, .8);
-}
-
-.wrapper-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: 0 auto;
-  z-index: 99999;
-  .modal {
-    margin: $spring-8points * 3 auto;
-    max-width: 1200px;
-  }
-}
-
-.modal {
-  background: white;
-  box-shadow: 0 5px 20px rgba(0,0,0,.3);
-  .modal-header {
-    position: relative;
-    padding: $spring-8points * 2 $spring-8points * 3;
-    border-bottom: 1px solid #e4e4e4;
-    h2 {
-      padding: 0;
-      margin: 0;
-      font-size: $spring-font-size + 4px;
-      font-weight: normal;
-    }
-    a.close-modal {
-      position: absolute;
-      right: 20px;
-      top: 17px;
-      cursor: pointer;
+      padding-right: 4px;
+      position: relative;
       color: $spring-color;
-      font-size: 20px;
-      padding: 0 $spring-8points;
+      margin: 0px 12px;
+      text-decoration: none;
+      cursor: pointer;
+      outline: none;
+      @include transition(color $spring-transition-duration);
+      svg {
+        position: absolute;
+        left: 4px;
+        top: 8px;
+        height: 18px;
+      }
       &:hover {
         color: $spring-primary-color;
       }
-    }
-  }
-  .modal-footer {
-    border-top: 1px solid #e4e4e4;
-    text-align: center;
-    padding: $spring-8points * 2 0;
-    .btn-primary {
-      margin-right: $spring-8points;
-    }
-    .btn-primary, .btn {
-      padding: 2px 20px;
-    }
-  }
-  .modal-body {
-    overflow-y: scroll;
-    line-height: $spring-8points * 3;
-    .modal-body-list {
-      padding: 0 $spring-8points * 4;
-      .group {
-        padding: $spring-8points * 3 0;
-        border-bottom: 1px solid #e4e4e4;
-        &:last-child {
-          border-bottom: 0;
+      &.dropdown {
+        padding-right: 8px;
+        svg.caret {
+          position: relative;
+          width: 10px;
+          top: 3px;
+          margin-left: 10px;
         }
       }
-      h3 {
-        padding: 0 0 $spring-8points 0;
-        margin: 0;
-        color: $spring-primary-color;
-      }
-      ul {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        li {
-          label {
-            display: block;
-            padding: $spring-8points 0 $spring-8points $spring-8points * 4;
-            position: relative;
-            cursor: pointer;
-            border-radius: 3px;
-            input {
-              position: absolute;
-              top: 14px;
-              left: 12px;
-            }
-            &:hover {
-              background-color: $spring-gray-color;
-            }
-            span {
-              display: none;
-            }
-          }
-          &.invalid {
-            cursor: not-allowed;
-            label {
-              cursor: not-allowed;
-              &:hover {
-                background-color: white;
-              }
-            }
-            span {
-              display: block;
-              color: #f30808;
-            }
-          }
+    }
+  }
+  ul.dropdown-menu {
+    z-index: 999;
+    position: absolute;
+    top: 34px;
+    right: 0px;
+    width: 220px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px;
+    text-align: left;
+    background: white;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    li {
+      display: block;
+      a {
+        display: block;
+        position: relative;
+        color: $spring-color;
+        padding: 4px 12px;
+        margin: 0px;
+        text-decoration: none;
+        @include transition(background $spring-transition-duration);
+        &:hover {
+          background: rgb(231, 241, 244);
         }
       }
     }
   }
 }
 
-// Survey
+// -----------------
+// Footer
 
-.survey {
-  width: 250px;
+.footer {
+  background: $spring-gray-color;
+  line-height: 24px;
+  padding: 0 40px 8px 8px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: $spring-font-size-sm;
+  letter-spacing: -0.5px;
+  text-align: right;
+  margin-left: 8px;
+  .footer-container {
+    padding: 4px 0 0;
+  }
+  a {
+    color: #097dff;
+  }
+}
 
+// -----------------
+// line
+
+.colset {
+  display: flex;
+  .left {
+    font-weight: 700;
+    width: 280px;
+    text-align: right;
+    position: relative;
+    padding: 8px 32px 8px 0px;
+    flex: 0 0 280px;
+    &.nopadding {
+      padding: 0;
+      flex: 0 0 310px;
+      margin-left: 6px;
+    }
+  }
+  .right {
+    max-width: 600px;
+    padding: 8px 0px 8px 32px;
+    flex: 2 1 0%;
+    &.nopadding {
+      max-width: 600px;
+      margin-left: 28px;
+      flex: 2 1 0%;
+      padding: 0px;
+    }
+    &.right-md {
+      max-width: 500px;
+      padding: 8px 0px 8px 32px;
+      flex: 2 1 0%;
+    }
+  }
+}
+
+// -----------------
+// Dependencies
+
+.dependencies-box {
+  padding: 8px 0 8px 32px;
+  flex: 2;
+  max-width: 900px;
+  .colset-2 {
+    //padding: $spring-8points * 2;
+    padding-top: $spring-8points * 2.5;
+  }
+}
+
+// -----------------
+// Colset 2
+
+.colset-2 {
+  display: flex;
+  min-height: 300px;
+  .column {
+    flex: 1 1 0%;
+    & + .column {
+      padding-left: 20px;
+    }
+  }
+}
+
+// -----------------
+// Control
+
+.control {
+  padding-top: 8px;
+  & + .control {
+    padding-top: 16px;
+  }
+}
+
+label {
+  display: block;
+  color: rgb(112, 108, 105);
+  font-size: 14px;
+  font-weight: lighter;
+  line-height: 17px;
+}
+
+.dependencies label {
+  padding: 8px 0;
+}
+
+.control-input {
+  display: block;
+  border: 0;
+  outline: none;
+  border-bottom: 3px solid #ebebeb;
+  line-height: 16px;
+  font-family: Karla, sans-serif;
+  font-size: 15px;
+  box-sizing: border-box;
+  background-clip: padding-box;
+  width: 100%;
+  padding: 0.35rem 0 0.55rem;
+  border-radius: 0;
+  background: #fff;
+  @include transition(border-color $spring-transition-duration);
+  &:hover {
+    border-color: $spring-border-color-hover;
+  }
+  &:focus {
+    border-color: $spring-primary-color;
+  }
+}
+
+.button {
+  color: #222;
+  padding: 0px 12px;
+
+  border: 2px solid #e4e4e4;
+  background-color: #fff;
+  border-radius: 4px;
+  font-family: Karla, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  line-height: 32px;
+  @include transition(all $spring-transition-duration);
+  outline: 1px dotted white;
+  &:hover {
+    border: 2px solid #d0d0d0;
+    background-color: #fff;
+  }
+  &:focus {
+    outline: 1px dotted $spring-outline-color;
+  }
+  &.primary {
+    padding: 4px 32px;
+    color: #fff;
+    border: 2px solid $spring-primary-color;
+    background-color: $spring-primary-color;
+    @include transition(all $spring-transition-duration);
+    &:hover {
+      border: 2px solid #5fa82f;
+      background-color: #5fa82f;
+    }
+  }
+}
+
+.sticky {
+  position: sticky;
+  bottom: 0px;
+  z-index: 100;
+}
+
+// -----------------
+// Custom
+
+.see-all {
   position: absolute;
-  top: 50px;
-  right: 40px;
+  top: 38px;
+  right: 35px;
+  font-weight: 400;
+  width: 80px;
+  height: 22px;
+  line-height: 22px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #097dff;
+  outline: 1px dotted white;
+  @include outline();
+}
 
-  .survey-content {
-    background: #edf5ff;
-    border-radius: 3px;
-    font-weight: bold;
-    padding: $spring-8points $spring-8points * 2;
-    line-height: 22px ;
-    a {
-      font-weight: normal;
+.submit {
+  bottom: 0px;
+  width: 920px;
+  background: white;
+  height: 36px;
+  padding: 18px 0 29px;
+  border-top: 1px solid #ccc;
+}
+
+.radio {
+  display: inline-block;
+  border-bottom: 3px solid $spring-border-color;
+  text-decoration: none;
+  color: #888;
+  line-height: 32px;
+  padding: 0 16px;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 4px;
+  @include transition(all $spring-transition-duration);
+  outline: 1px dotted white;
+  @include outline();
+  &:hover {
+    border-color: $spring-border-color-hover;
+    color: $spring-color;
+  }
+  &.checked {
+    border-bottom-color: $spring-primary-color;
+    color: #000;
+  }
+}
+
+.dependencies-list {
+  .dependency-item {
+    @include tile();
+    margin: $spring-8points / 2 0;
+  }
+  &.dependencies-list-checked {
+    .dependency-item {
+      margin: $spring-8points * 2 0;
     }
   }
 }
 
-// Selection
+.more {
+  line-height: 16px;
+  padding-top: 4px;
+  margin-top: 4px;
+  div.wrap {
+    border-bottom: 3px solid #ebebeb;
+    padding-bottom: 4px;
+    a {
+      position: relative;
+      display: block;
+      background: white;
+      height: 28px;
+      line-height: 28px;
+      margin-top: 4px;
+      padding: 0 $spring-8points * 2 0 24px;
+      color: $spring-color;
+      text-decoration: none;
+      border-radius: $spring-radius;
+      @include transition(all $spring-transition-duration);
+      @include outline();
+      &:hover {
+        color: $spring-color;
+        svg {
+          color: $spring-primary-color;
+        }
+      }
+      svg {
+        position: absolute;
+        width: 8px;
+        left: 8px;
+        top: 8px;
+        color: $spring-color;
+        @include transition(all $spring-transition-duration);
+      }
+      &.toggle {
+        svg {
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+}
 
-::selection {
-  background-color: #d1ff79;
+.panel {
+  overflow: hidden;
+  max-height: 0;
+  @include transition(all $spring-transition-duration * 3);
+  &.panel-active {
+    max-height: 600px;
+  }
+  .panel-wrap {
+    border: 1px solid lighten(#ebebeb, 4);
+    border-top: 0 none;
+    padding: $spring-8points * 1.5 $spring-8points * 3;
+    padding-bottom: $spring-8points * 3;
+  }
+}
+
+// -----------------
+// Group
+
+$gw: 200px;
+.groups {
+  padding: 0px 0px 16px 0;
+  .group {
+    line-height: 1.4rem;
+    position: relative;
+    padding-bottom: 12px;
+    a {
+      @include tile();
+      @include tilehover();
+    }
+    .group-title {
+      border-bottom: 1px solid $spring-border-color;
+      //padding-top: $spring-8points;
+      font-weight: bold;
+      margin-top: $spring-8points;
+      cursor: pointer;
+      span {
+        display: block;
+        position: relative;
+        margin: $spring-8points/2 0;
+        padding: $spring-8points/2 0;
+        padding-left: 26px;
+        font-size: 16px;
+        @include outline();
+
+        svg {
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          width: 8px;
+          @include transition(all $spring-transition-duration);
+        }
+        &.toggleGroupItems {
+          svg {
+            transform: rotate(90deg);
+          }
+        }
+        &:hover {
+          svg {
+            color: $spring-primary-color;
+          }
+        }
+      }
+    }
+    &:first-child {
+      padding-top: 8px;
+    }
+  }
+  div.group-items {
+    padding-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(85, 0.75fr));
+    grid-gap: 8px 10px;
+  }
+}
+
+.search-label {
+  padding-bottom: 8px;
+}
+
+.search-no-selected {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.search-more-warning {
+  padding: $spring-8points 0 $spring-8points * 2;
+  color: rgba(0, 0, 0, 0.5);
+  p {
+    padding: 0;
+    margin: 0;
+    line-height: 24px;
+    padding-left: 16px;
+  }
+}
+
+.sticky-label {
+  padding-top: $spring-8points / 2;
+  position: sticky;
+  top: 0;
+}
+
+// -----------------
+// Tab
+
+.tab {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: white;
+  padding: 0 20px;
+  margin: 0 -20px;
+  margin-bottom: 10px;
+  .tab-container {
+    border-bottom: 3px solid lighten($spring-border-color, 6);
+  }
+  a {
+    display: inline-block;
+    margin-bottom: -3px;
+    text-decoration: none;
+    color: rgba($spring-color, 0.6);
+    border-bottom: 3px solid lighten($spring-border-color, 6);
+    padding: 0 $spring-8points * 2;
+    padding-top: $spring-8points / 2;
+    font-weight: bold;
+    outline: 1px dotted white;
+    @include transition(all $spring-transition-duration);
+    @include outline();
+    svg {
+      width: 16px;
+    }
+    &:hover {
+      color: $spring-color;
+      border-bottom: 3px solid $spring-border-color-hover;
+    }
+    &.active {
+      color: $spring-color;
+      border-bottom: 3px solid $spring-primary-color;
+    }
+  }
+  strong {
+    float: right;
+    font-weight: normal;
+    background-color: $spring-gray-color;
+    padding: 0 $spring-8points;
+    border-radius: $spring-radius;
+    line-height: $spring-8points * 3;
+    margin-top: 6px;
+    font-weight: bold;
+    color: rgba($spring-color, 0.7);
+    span {
+      color: $spring-color;
+    }
+  }
+}
+
+.loading-page {
+  .text {
+    position: absolute;
+    left: 340px;
+    top: 25px;
+    padding-left: 44px;
+    padding-top: 4px;
+    color: rgba(0, 0, 0, 0.4);
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: $spring-primary-color;
+    }
+  }
 }
