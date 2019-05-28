@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2019 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.springcloud.maintenancemode;
+package io.spring.start.site.extension.springcloud;
 
 import java.util.Set;
 
@@ -30,14 +30,13 @@ import io.spring.initializr.metadata.Dependency;
  *
  * @author Olga Maciaszek-Sharma
  */
-class SpringCloudNetflixMaintenanceModeWarningSection extends PreDefinedSection {
+class SpringCloudNetflixMaintenanceModeSection extends PreDefinedSection {
 
-	private static final String WARNING_MAINTENANCE_MODE = "Warning - Maintenance Mode";
+	private static final String WARNING_MAINTENANCE_MODE = "Spring Cloud Netflix Maintenance Mode";
 
-	private static final String TEMPLATE_NAME = "spring-cloud-netflix-maintenance-mode-dependencies";
+	private static final String TEMPLATE_NAME = "spring-cloud-netflix-maintenance-mode";
 
-	SpringCloudNetflixMaintenanceModeWarningSection(
-			Set<Dependency> maintenanceModeDependencies,
+	SpringCloudNetflixMaintenanceModeSection(Set<Dependency> maintenanceModeDependencies,
 			TemplateRenderer templateRenderer) {
 		super(WARNING_MAINTENANCE_MODE);
 		BulletedSection<Dependency> dependencies = new BulletedSection<>(templateRenderer,

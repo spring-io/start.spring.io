@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2019 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.springcloud.maintenancemode;
+package io.spring.start.site.extension.springcloud;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.io.template.TemplateRenderer;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.metadata.DependenciesCapability;
@@ -34,41 +35,38 @@ import io.spring.initializr.metadata.InitializrMetadata;
  * Cloud Netflix dependencies that are in maintenance mode.
  *
  * @author Olga Maciaszek-Sharma
+ * @author Stephane Nicoll
  */
-public class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer
+class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer
 		implements HelpDocumentCustomizer {
 
 	private static final Set<String> maintenanceModuleIds = new HashSet<>(
 			Arrays.asList("cloud-ribbon", "cloud-hystrix", "cloud-hystrix-dashboard",
 					"cloud-turbine", "cloud-turbine-stream", "cloud-zuul"));
 
-	private final InitializrMetadata initializrMetadata;
+	private final InitializrMetadata metadata;
 
-	private final ResolvedProjectDescription resolvedProjectDescription;
+	private final Build build;
 
 	private final TemplateRenderer templateRenderer;
 
-	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(
-			InitializrMetadata initializrMetadata,
-			ResolvedProjectDescription resolvedProjectDescription,
-			TemplateRenderer templateRenderer) {
-		this.initializrMetadata = initializrMetadata;
-		this.resolvedProjectDescription = resolvedProjectDescription;
+	SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(InitializrMetadata metadata,
+			Build build, TemplateRenderer templateRenderer) {
+		this.metadata = metadata;
+		this.build = build;
 		this.templateRenderer = templateRenderer;
 	}
 
 	@Override
 	public void customize(HelpDocument helpDocument) {
-		DependenciesCapability availableDependencies = this.initializrMetadata
-				.getDependencies();
-		Set<Dependency> maintenanceModeDependencies = this.resolvedProjectDescription
-				.getRequestedDependencies().keySet().stream()
+		DependenciesCapability availableDependencies = this.metadata.getDependencies();
+		Set<Dependency> maintenanceModeDependencies = this.build.dependencies().ids()
 				.filter(maintenanceModuleIds::contains).map(availableDependencies::get)
-				.collect(Collectors.toSet());
-		maintenanceModeDependencies.stream().findAny()
-				.ifPresent((dependency) -> helpDocument
-						.addSection(new SpringCloudNetflixMaintenanceModeWarningSection(
-								maintenanceModeDependencies, this.templateRenderer)));
+				.filter(Objects::nonNull).collect(Collectors.toSet());
+		if (!maintenanceModeDependencies.isEmpty()) {
+			helpDocument.addSection(new SpringCloudNetflixMaintenanceModeSection(
+					maintenanceModeDependencies, this.templateRenderer));
+		}
 	}
 
 }
