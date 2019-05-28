@@ -17,7 +17,6 @@
 package io.spring.start.site;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
 import io.spring.start.site.extension.ProjectDescriptionCustomizerConfiguration;
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
@@ -31,7 +30,6 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
 /**
  * Initializr website application.
@@ -57,9 +55,8 @@ public class StartApplication {
 	}
 
 	@Bean
-	public HomeController homeController(InitializrMetadataProvider metadataProvider,
-			ResourceUrlProvider resourceUrlProvider) {
-		return new HomeController(metadataProvider, resourceUrlProvider);
+	public HomeController homeController() {
+		return new HomeController();
 	}
 
 }

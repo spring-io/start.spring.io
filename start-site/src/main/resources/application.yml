@@ -21,11 +21,6 @@ spring:
   task:
     execution:
       thread-name-prefix: initializr-
-  resources:
-    chain:
-      strategy:
-        content:
-          enabled: true
 
 initializr:
   env:
@@ -1295,13 +1290,9 @@ spring:
   profiles: dev
   resources:
     static_locations:
-      - file:start-client/build/
-    chain:
-      strategy:
-        content:
-          enabled: false
+      - file:start-client/public/
   devtools:
     restart:
       additional_paths:
-        - start-client/build/
-      additional_exclude: "**/*.js,**/*.css"
+        - start-client/public/
+      additional_exclude: "**/*.js,**/*.css,**/*.html"
