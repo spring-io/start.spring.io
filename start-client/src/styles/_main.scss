@@ -503,7 +503,8 @@ $gw: 200px;
   color: rgba(0, 0, 0, 0.4);
 }
 
-.search-more-warning {
+.search-more-warning,
+.search-no-result {
   padding: $spring-8points 0 $spring-8points * 2;
   color: rgba(0, 0, 0, 0.5);
   p {
@@ -511,6 +512,12 @@ $gw: 200px;
     margin: 0;
     line-height: 24px;
     padding-left: 16px;
+  }
+}
+
+.search-no-result {
+  p {
+    padding-left: 0;
   }
 }
 

@@ -99,8 +99,8 @@ class Typehead extends React.Component {
     this.setState({ selected: index })
   }
 
-  showWarningForSearchReturn = dependencies => {
-    if (dependencies.length > 5) {
+  messageSearch = count => {
+    if (count > 5) {
       return (
         <div className='search-more-warning'>
           <p>
@@ -108,6 +108,13 @@ class Typehead extends React.Component {
             <br />
             Refine your search if necessary.
           </p>
+        </div>
+      )
+    }
+    if (count === 0 && this.state.search.trim() !== '') {
+      return (
+        <div className='search-no-result'>
+          <p>No result.</p>
         </div>
       )
     }
@@ -133,11 +140,13 @@ class Typehead extends React.Component {
 
   render() {
     let dependencies = []
+    let count = 0
     if (this.state.search) {
       dependencies = this.search
         .search(this.state.search)
         .filter(item => !this.props.exclude.find(o => o.name === item.name))
 
+      count = dependencies.length
       if (dependencies && dependencies.length > 5) {
         dependencies = dependencies.slice(0, 5)
       }
@@ -168,7 +177,7 @@ class Typehead extends React.Component {
           selected={this.state.selected}
           onSelectedChanged={this.onSelectedChanged}
         />
-        {this.showWarningForSearchReturn(dependencies)}
+        {this.messageSearch(count)}
       </>
     )
   }
