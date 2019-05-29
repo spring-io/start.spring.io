@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import CompareVersion from './../../utils/version-compare'
+import Versions from './../../utils/versions'
 import DependencyGroup from './DependencyGroup'
 
 class CheckboxList extends React.Component {
@@ -21,7 +21,7 @@ class CheckboxList extends React.Component {
         map.push(parent)
       }
       const valid = dep.versionRange
-        ? CompareVersion(this.props.boot, dep.versionRange)
+        ? Versions.isInRange(this.props.boot, dep.versionRange)
         : true
       parent.children.push({ ...dep, valid: valid })
     }

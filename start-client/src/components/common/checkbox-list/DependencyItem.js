@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import { IconCheck, IconPlus, IconTimes } from './../icons'
+import Versions from './../../utils/versions'
 
 class DependencyItem extends React.Component {
   onClick = event => {
@@ -60,7 +61,7 @@ class DependencyItem extends React.Component {
           )}
           {!dep.valid && (
             <span className='warning' key={`warning${dep.id}`}>
-              Requires Spring Boot {dep.versionRequirement}.
+              Requires Spring Boot {Versions.rangeToText(dep.versionRequirement)}.
             </span>
           )}
         </div>

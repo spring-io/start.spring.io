@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import CompareVersion from '../../utils/version-compare'
+import Versions from '../../utils/versions'
 import { IconPlus } from '../icons'
 
 class SearchResultsList extends React.Component {
@@ -23,7 +23,7 @@ class SearchResultsList extends React.Component {
       <div className='dependencies-list'>
         {dependencies.map((dependency, index) => {
           const valid = dependency.versionRange
-            ? CompareVersion(this.props.boot, dependency.versionRange)
+            ? Versions.isInRange(this.props.boot, dependency.versionRange)
             : true
           return (
             <a

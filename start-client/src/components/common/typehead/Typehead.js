@@ -2,7 +2,7 @@ import * as JsSearch from 'js-search'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import CompareVersion from './../../utils/version-compare'
+import Versions from './../../utils/versions'
 import SearchResultsList from './SearchResultsList'
 
 class Typehead extends React.Component {
@@ -69,7 +69,7 @@ class Typehead extends React.Component {
 
   onAdded = item => {
     const valid = item.versionRange
-      ? CompareVersion(this.props.boot, item.versionRange)
+      ? Versions.isInRange(this.props.boot, item.versionRange)
       : true
     if (valid) {
       this.props.add(item)
@@ -115,7 +115,7 @@ class Typehead extends React.Component {
 
   isValid = dependency => {
     return dependency.versionRange
-      ? CompareVersion(this.props.boot, dependency.versionRange)
+      ? Versions.isInRange(this.props.boot, dependency.versionRange)
       : true
   }
 

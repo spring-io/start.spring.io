@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import CompareVersion from './../../utils/version-compare'
+import Versions from './../../utils/versions'
 import { IconCheck, IconTimes } from './../icons'
 
 class List extends React.Component {
@@ -17,7 +17,7 @@ class List extends React.Component {
       <div className='dependencies-list dependencies-list-checked'>
         {dependencies.map(dependency => {
           const compatibility = dependency.versionRange
-            ? CompareVersion(this.props.boot, dependency.versionRange)
+            ? Versions.isInRange(this.props.boot, dependency.versionRange)
             : true
           return (
             <a

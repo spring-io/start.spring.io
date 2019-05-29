@@ -137,8 +137,12 @@ class IndexPage extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8000/api.json')
-      .then(response => response.json())
+    fetch('http://localhost:8080/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/vnd.initializr.v2.1+json'
+        }
+    }).then(response => response.json())
       .then(data => {
         this.onComplete(data)
       })
