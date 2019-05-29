@@ -28,6 +28,7 @@ target
 ### Start Client ###
 /start-client/public/
 /start-client/node_modules/
+/start-client/node/
 /start-client/.env
 /start-client/.cache/
 /start-client/yarn-error.log
