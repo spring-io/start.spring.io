@@ -7,7 +7,7 @@ const siteMetadata = {
   canonical: `https://start.spring.io`,
   author: `@springboot`,
   image: `https://cocky-roentgen-4351af.netlify.com/images/initializr-card.jpg`,
-  apiUrl: isDev ? `http://localhost:8080/` : `/`,
+  apiUrl: isDev ? `/api.json` : `/`,
 }
 
 const plugins = [

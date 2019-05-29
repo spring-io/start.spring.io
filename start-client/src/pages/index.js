@@ -8,6 +8,7 @@ import { GlobalHotKeys } from 'react-hotkeys'
 import { ToastContainer, toast } from 'react-toastify'
 import { graphql } from 'gatsby'
 
+import META_EXTEND from '../data/meta-extend.json'
 import { CheckboxList } from '../components/common/checkbox-list'
 import { Footer, Header, Layout, Loader } from '../components/common/layout'
 import {
@@ -18,6 +19,8 @@ import {
 import { List, RadioGroup } from '../components/common/form'
 import { Meta } from '../components/common/meta'
 import { Typehead } from '../components/common/typehead'
+
+const WEIGHT_DEFAULT = 50
 
 class IndexPage extends React.Component {
   onComplete = json => {
@@ -35,20 +38,21 @@ class IndexPage extends React.Component {
         java: get(json, 'javaVersion.default'),
       },
     }
-
     const deps = []
     get(json, 'dependencies.values', []).forEach(group => {
-      deps.push(
-        ...group.values.map(item => ({
+      group.values.forEach(item => {
+        const metaExtend = META_EXTEND.find(meta => get(meta, 'id') === item.id)
+        const val = {
           id: `${get(item, 'id', '')}`,
           name: `${get(item, 'name', '')}`,
           group: `${group.name}`,
-          weight: 0,
+          weight: get(metaExtend, `weight`, WEIGHT_DEFAULT),
           description: `${get(item, 'description', '')}`,
           versionRange: `${get(item, 'versionRange', '')}`,
           versionRequirement: `${get(item, 'versionRange', '')}`,
-        }))
-      )
+        }
+        deps.push(val)
+      })
     })
     this.lists = {
       project: get(json, 'type.values', [])
@@ -139,7 +143,8 @@ class IndexPage extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8080/', {
+    const apiUrl = this.props.data.site.edges[0].node.siteMetadata.apiUrl
+    fetch(`${apiUrl}`, {
       method: 'GET',
       headers: {
         Accept: 'application/vnd.initializr.v2.1+json',
