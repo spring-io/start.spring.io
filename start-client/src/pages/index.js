@@ -469,7 +469,11 @@ class IndexPage extends React.Component {
             <div className='left'>
               <div className='sticky-label'>Dependencies</div>
             </div>
-            <div className='dependencies-box'>
+            <div
+              className={`dependencies-box ${
+                this.state.tab === 'list' ? 'large' : ''
+              }`}
+            >
               <div className='tab'>
                 <div className='tab-container'>
                   <a
@@ -546,7 +550,7 @@ class IndexPage extends React.Component {
             </div>
           </div>
           <div className='sticky'>
-            <div className='colset'>
+            <div className='colset colset-submit'>
               <div className='left nopadding'>
                 <Footer />
               </div>

@@ -170,6 +170,7 @@ div {
 
 .colset {
   display: flex;
+  padding-right: 8px;
   .left {
     font-weight: 700;
     width: 280px;
@@ -208,9 +209,13 @@ div {
   padding: 8px 0 8px 32px;
   flex: 2;
   max-width: 900px;
+  @include transition(all $spring-transition-duration);
   .colset-2 {
     //padding: $spring-8points * 2;
     padding-top: $spring-8points * 2.5;
+  }
+  &.large {
+    max-width: 1200px;
   }
 }
 
@@ -333,11 +338,22 @@ label {
 
 .submit {
   bottom: 0px;
-  width: 920px;
+  width: auto;
   background: white;
   height: 36px;
   padding: 18px 0 29px;
+  margin-right: 12px;
   border-top: 1px solid #ccc;
+}
+
+.colset-submit {
+  .right.nopadding {
+    max-width: 100%;
+    background: white;
+    margin-left: 0;
+    padding-left: 28px;
+    max-width: 1212px;
+  }
 }
 
 .radio {
