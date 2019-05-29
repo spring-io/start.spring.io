@@ -59,7 +59,7 @@ initializr:
         order: 50
         mappings:
           - versionRange: "[1.5.0.RELEASE,1.5.x.RELEASE]"
-            version: Edgware.SR5
+            version: Edgware.SR6
           - versionRange: "[1.5.x.BUILD-SNAPSHOT,2.0.0.M1)"
             version: Edgware.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
