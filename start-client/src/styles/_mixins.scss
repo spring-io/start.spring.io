@@ -145,6 +145,23 @@
       color: #f30808;
     }
   }
+  &.invalid {
+    .icon {
+      display: none;
+    }
+  }
+  &.checked.invalid {
+    cursor: pointer;
+    .icon {
+      display: block;
+    }
+    .icon-check {
+      opacity: 0;
+    }
+    .icon-times {
+      opacity: 1;
+    }
+  }
 }
 
 @mixin tilehover {

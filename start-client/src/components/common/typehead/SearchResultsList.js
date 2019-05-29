@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Versions from '../../utils/versions'
 import { IconPlus } from '../icons'
+import { isInRange, rangeToText } from '../../utils/versions'
 
 class SearchResultsList extends React.Component {
   onClick = dependency => {
@@ -23,7 +23,7 @@ class SearchResultsList extends React.Component {
       <div className='dependencies-list'>
         {dependencies.map((dependency, index) => {
           const valid = dependency.versionRange
-            ? Versions.isInRange(this.props.boot, dependency.versionRange)
+            ? isInRange(this.props.boot, dependency.versionRange)
             : true
           return (
             <a
@@ -64,7 +64,8 @@ class SearchResultsList extends React.Component {
                 )}
                 {!valid && (
                   <span className='warning' key={`warning${dependency.id}`}>
-                    Requires Spring Boot {dependency.versionRequirement}.
+                    Requires Spring Boot{' '}
+                    {rangeToText(dependency.versionRequirement)}.
                   </span>
                 )}
               </div>

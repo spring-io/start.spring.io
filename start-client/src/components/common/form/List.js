@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Versions from './../../utils/versions'
 import { IconCheck, IconTimes } from './../icons'
+import { isInRange, rangeToText } from './../../utils/versions'
 
 class List extends React.Component {
   onClick = (dependency, event) => {
@@ -17,11 +17,13 @@ class List extends React.Component {
       <div className='dependencies-list dependencies-list-checked'>
         {dependencies.map(dependency => {
           const compatibility = dependency.versionRange
-            ? Versions.isInRange(this.props.boot, dependency.versionRange)
+            ? isInRange(this.props.boot, dependency.versionRange)
             : true
           return (
             <a
-              className='dependency-item checked'
+              className={`dependency-item checked ${
+                !compatibility ? 'invalid' : ''
+              }`}
               href='/'
               onClick={event => {
                 this.onClick(dependency, event)
@@ -33,18 +35,20 @@ class List extends React.Component {
                   {dependency.name} <span>{dependency.group}</span>
                 </strong>
                 <br key={`d3${dependency.id}`} />
-                <span key={`d4${dependency.id}`} className='description'>
-                  {dependency.description}
-                </span>
+
                 {compatibility && (
-                  <span key={`d5${dependency.id}`} className='icon'>
-                    <IconTimes key={`d6${dependency.id}`} />
-                    <IconCheck key={`d7${dependency.id}`} />
+                  <span key={`d4${dependency.id}`} className='description'>
+                    {dependency.description}
                   </span>
                 )}
+                <span key={`d5${dependency.id}`} className='icon'>
+                  <IconTimes key={`d6${dependency.id}`} />
+                  <IconCheck key={`d7${dependency.id}`} />
+                </span>
                 {!compatibility && (
                   <span className='warning' key={`warning${dependency.id}`}>
-                    Requires Spring Boot {dependency.versionRequirement}.
+                    Requires Spring Boot{' '}
+                    {rangeToText(dependency.versionRequirement)}.
                   </span>
                 )}
               </div>

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import DependencyGroup from './DependencyGroup'
-import Versions from './../../utils/versions'
+import { isInRange } from './../../utils/versions'
 
 class CheckboxList extends React.Component {
   groupByParent = list => {
@@ -21,7 +21,7 @@ class CheckboxList extends React.Component {
         map.push(parent)
       }
       const valid = dep.versionRange
-        ? Versions.isInRange(this.props.boot, dep.versionRange)
+        ? isInRange(this.props.boot, dep.versionRange)
         : true
       parent.children.push({ ...dep, valid: valid })
     }

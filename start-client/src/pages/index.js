@@ -19,6 +19,7 @@ import {
 import { List, RadioGroup } from '../components/common/form'
 import { Meta } from '../components/common/meta'
 import { Typehead } from '../components/common/typehead'
+import { isInRange } from '../components/utils/versions'
 
 const WEIGHT_DEFAULT = 50
 
@@ -212,9 +213,24 @@ class IndexPage extends React.Component {
     this.setState({ meta: meta })
   }
 
+  getValidDependencies = () => {
+    const { dependencies, boot } = this.state
+    return dependencies
+      .map(dep => {
+        const compatibility = dep.versionRange
+          ? isInRange(boot, dep.versionRange)
+          : true
+        if (!compatibility) {
+          return null
+        }
+        return dep
+      })
+      .filter(d => !!d)
+  }
+
   onSubmit = event => {
     event.preventDefault()
-    const { project, language, boot, meta, dependencies } = this.state
+    const { project, language, boot, meta } = this.state
     const apiUrl = this.props.data.site.edges[0].node.siteMetadata.apiUrl
     const url = `${apiUrl}starter.zip`
     const params = querystring.stringify({
@@ -230,7 +246,7 @@ class IndexPage extends React.Component {
       packaging: meta.packaging,
       javaVersion: meta.java,
     })
-    const paramsDependencies = dependencies
+    const paramsDependencies = this.getValidDependencies()
       .map(dep => `&style=${dep.id}`)
       .join('')
     fetch(`${url}?${params}${paramsDependencies}`, { method: 'GET' })
@@ -281,12 +297,13 @@ class IndexPage extends React.Component {
         </div>
       )
     }
+    const selected = get(this.getValidDependencies(), 'length', 0)
     return (
       <Layout>
         <GlobalHotKeys keyMap={this.keyMap} handlers={this.handlers} />
         <Meta />
         <ToastContainer position='top-center' hideProgressBar />
-        <form onSubmit={this.onSubmit} autocomplete='off'>
+        <form onSubmit={this.onSubmit} autoComplete='off'>
           <input
             style={{ display: 'none' }}
             type='text'
@@ -448,7 +465,6 @@ class IndexPage extends React.Component {
               </div>
             </div>
           </div>
-
           <div className='colset'>
             <div className='left'>
               <div className='sticky-label'>Dependencies</div>
@@ -478,16 +494,15 @@ class IndexPage extends React.Component {
                   >
                     <IconList />
                   </a>
-                  {this.state.dependencies.length > 0 && (
+                  {selected > 0 && (
                     <>
                       <strong>
-                        <span>{this.state.dependencies.length}</span> selected
+                        <span>{selected}</span> selected
                       </strong>
                     </>
                   )}
                 </div>
               </div>
-
               {this.state.tab === 'quick-search' ? (
                 <div className='colset-2'>
                   <div className='column'>
@@ -530,7 +545,6 @@ class IndexPage extends React.Component {
               )}
             </div>
           </div>
-
           <div className='sticky'>
             <div className='colset'>
               <div className='left nopadding'>

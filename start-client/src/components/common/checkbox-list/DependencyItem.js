@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Versions from './../../utils/versions'
 import { IconCheck, IconPlus, IconTimes } from './../icons'
+import { rangeToText } from './../../utils/versions'
 
 class DependencyItem extends React.Component {
   onClick = event => {
@@ -49,20 +49,15 @@ class DependencyItem extends React.Component {
           />
           <strong key={`ck1${dep.id}`}>{dep.name}</strong>
           <br key={`br${dep.id}`} />
-          {dep.valid && (
-            <span key={`ck0${dep.id}`}>
-              <span key={`ck2${dep.id}`}>{dep.description}</span>
-              <span key={`ck3${dep.id}`} className='icon'>
-                <IconPlus key={`ck4${dep.id}`} />
-                <IconTimes key={`ck5${dep.id}`} />
-                <IconCheck key={`ck6${dep.id}`} />
-              </span>
-            </span>
-          )}
+          {dep.valid && <span key={`ck2${dep.id}`}>{dep.description}</span>}
+          <span key={`ck3${dep.id}`} className='icon'>
+            <IconPlus key={`ck4${dep.id}`} />
+            <IconTimes key={`ck5${dep.id}`} />
+            <IconCheck key={`ck6${dep.id}`} />
+          </span>
           {!dep.valid && (
             <span className='warning' key={`warning${dep.id}`}>
-              Requires Spring Boot{' '}
-              {Versions.rangeToText(dep.versionRequirement)}.
+              Requires Spring Boot {rangeToText(dep.versionRequirement)}.
             </span>
           )}
         </div>
