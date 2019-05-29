@@ -161,7 +161,7 @@ div {
     padding: 4px 0 0;
   }
   a {
-    color: #097dff;
+    @include link;
   }
 }
 
@@ -618,4 +618,29 @@ $gw: 200px;
   padding: 15px;
   z-index: 1000;
   line-height: 24px;
+}
+
+.error {
+  position: fixed;
+  background: white;
+  display: block;
+  left: 350px;
+  top: 10px;
+  line-height: 24px;
+  h1 {
+    font-weight: normal;
+    font-size: 16px;
+    color: rgba($spring-color, 0.4);
+    padding: $spring-8points * 2 0 0;
+    span.title {
+      font-family: $spring-font-family-special;
+      font-size: 50px;
+      color: rgba($spring-color, 0.6);
+      padding-right: $spring-8points;
+    }
+  }
+
+  a {
+    @include link;
+  }
 }

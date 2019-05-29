@@ -32,6 +32,14 @@
   }
 }
 
+@mixin link {
+  color: #097dff;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 @mixin tile {
   position: relative;
   display: block;
