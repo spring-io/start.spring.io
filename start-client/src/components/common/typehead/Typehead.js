@@ -2,8 +2,8 @@ import * as JsSearch from 'js-search'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Versions from './../../utils/versions'
 import SearchResultsList from './SearchResultsList'
+import Versions from './../../utils/versions'
 
 class Typehead extends React.Component {
   search = null

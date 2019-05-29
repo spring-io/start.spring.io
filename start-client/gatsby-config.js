@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV === 'development'
+
 const siteMetadata = {
   title: `Spring Initializr`,
   description: `Initializr generates spring boot project with just what you need to start quickly!`,
@@ -5,7 +7,7 @@ const siteMetadata = {
   canonical: `https://start.spring.io`,
   author: `@springboot`,
   image: `https://cocky-roentgen-4351af.netlify.com/images/initializr-card.jpg`,
-  apiUrl: `http://localhost:8080/`,
+  apiUrl: isDev ? `http://localhost:8080/` : `/`,
 }
 
 const plugins = [

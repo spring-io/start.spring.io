@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Versions from './../../utils/versions'
 import DependencyGroup from './DependencyGroup'
+import Versions from './../../utils/versions'
 
 class CheckboxList extends React.Component {
   groupByParent = list => {

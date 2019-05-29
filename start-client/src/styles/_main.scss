@@ -574,7 +574,8 @@ $gw: 200px;
   }
 }
 
-.loading-page {
+.loading-page,
+.error-page {
   .text {
     position: absolute;
     left: 340px;
@@ -588,5 +589,15 @@ $gw: 200px;
       left: 0;
       color: $spring-primary-color;
     }
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+.error-page {
+  .text {
+    left: 320px;
+    line-height: 20px;
   }
 }

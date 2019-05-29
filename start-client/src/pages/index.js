@@ -6,6 +6,7 @@ import querystring from 'querystring'
 import set from 'lodash.set'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { ToastContainer, toast } from 'react-toastify'
+import { graphql } from 'gatsby'
 
 import { CheckboxList } from '../components/common/checkbox-list'
 import { Footer, Header, Layout, Loader } from '../components/common/layout'
@@ -132,19 +133,29 @@ class IndexPage extends React.Component {
       dependencies: [],
       tab: 'quick-search',
       more: false,
+      error: false,
       ...values,
     })
   }
 
   componentDidMount() {
     fetch('http://localhost:8080/', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/vnd.initializr.v2.1+json'
+      method: 'GET',
+      headers: {
+        Accept: 'application/vnd.initializr.v2.1+json',
+      },
+    })
+      .then(
+        response => response.json(),
+        error => {
+          this.setState({ error: true })
+          return null
         }
-    }).then(response => response.json())
+      )
       .then(data => {
-        this.onComplete(data)
+        if (data) {
+          this.onComplete(data)
+        }
       })
   }
 
@@ -241,6 +252,19 @@ class IndexPage extends React.Component {
   }
 
   render() {
+    if (get(this.state, 'error')) {
+      return (
+        <div className='error-page'>
+          <Header />
+          <div className='text'>
+            <p>The service is temporarily unavailable.</p>
+            <p>
+              <a href='/'>Refresh the page</a>
+            </p>
+          </div>
+        </div>
+      )
+    }
     if (!get(this.state, 'complete')) {
       return (
         <div className='loading-page'>
@@ -525,5 +549,26 @@ class IndexPage extends React.Component {
     )
   }
 }
+
+export const jsonObject = graphql`
+  query {
+    site: allSite {
+      edges {
+        node {
+          id
+          siteMetadata {
+            title
+            description
+            twitter
+            canonical
+            author
+            image
+            apiUrl
+          }
+        }
+      }
+    }
+  }
+`
 
 export default IndexPage
