@@ -489,7 +489,7 @@ class IndexPage extends React.Component {
                       event.preventDefault()
                       this.setTab('quick-search')
                     }}
-                    className={`${
+                    className={`quick-search ${
                       this.state.tab === 'quick-search' ? 'active' : ''
                     }`}
                   >
@@ -501,7 +501,9 @@ class IndexPage extends React.Component {
                       event.preventDefault()
                       this.setTab('list')
                     }}
-                    className={`${this.state.tab === 'list' ? 'active' : ''}`}
+                    className={`list ${
+                      this.state.tab === 'list' ? 'active' : ''
+                    }`}
                   >
                     <IconList />
                   </a>
