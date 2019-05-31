@@ -56,14 +56,11 @@ const plugins = [
   },
 ]
 
-if (process.env.GOOGLE_ANALYTICS_TRACKING_ID) {
+if (process.env.GOOGLE_TAGMANAGER_ID) {
   plugins.push({
-    resolve: `gatsby-plugin-google-analytics`,
+    resolve: `gatsby-plugin-google-tagmanager`,
     options: {
-      trackingId: `${process.env.GOOGLE_ANALYTICS_TRACKING_ID}`,
-      head: false,
-      respectDNT: true,
-      cookieDomain: 'spring.io',
+      id: `${process.env.GOOGLE_TAGMANAGER_ID}`,
     },
   })
 }
