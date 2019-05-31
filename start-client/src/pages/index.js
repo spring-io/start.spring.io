@@ -139,6 +139,7 @@ class IndexPage extends React.Component {
       tab: 'quick-search',
       more: false,
       error: false,
+      groups: {},
       ...values,
     })
   }
@@ -226,6 +227,12 @@ class IndexPage extends React.Component {
         return dep
       })
       .filter(d => !!d)
+  }
+
+  toggleGroup = group => {
+    const val = get(this.state, 'groups')
+    val[group] = !get(val, `${group}`, true)
+    this.setState({ groups: val })
   }
 
   onSubmit = event => {
@@ -545,6 +552,8 @@ class IndexPage extends React.Component {
                   remove={this.dependencyRemove}
                   list={this.lists.dependencies}
                   checked={this.state.dependencies}
+                  stateGroups={this.state.groups}
+                  toggleGroup={this.toggleGroup}
                 />
               )}
             </div>

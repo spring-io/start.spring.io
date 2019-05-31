@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import get from 'lodash.get'
 
 import DependencyGroup from './DependencyGroup'
 import { isInRange } from './../../utils/versions'
@@ -36,15 +37,20 @@ class CheckboxList extends React.Component {
     })
     return (
       <div className='groups'>
-        {groups.map(group => (
-          <DependencyGroup
-            key={group.group}
-            dependencyGroup={group}
-            addDependency={this.props.add}
-            removeDependency={this.props.remove}
-            selectedDependencies={select}
-          />
-        ))}
+        {groups.map(group => {
+          const isExpand = get(this.props.stateGroups, group.group, true)
+          return (
+            <DependencyGroup
+              key={group.group}
+              dependencyGroup={group}
+              addDependency={this.props.add}
+              removeDependency={this.props.remove}
+              selectedDependencies={select}
+              toggleGroup={this.props.toggleGroup}
+              expand={isExpand}
+            />
+          )
+        })}
       </div>
     )
   }
@@ -73,7 +79,9 @@ CheckboxList.propTypes = {
   ),
   add: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
+  toggleGroup: PropTypes.func.isRequired,
   boot: PropTypes.string.isRequired,
+  stateGroups: PropTypes.any.isRequired,
 }
 
 export default CheckboxList

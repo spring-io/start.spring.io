@@ -5,17 +5,19 @@ import DependencyItem from './DependencyItem'
 import { IconChevronRight } from './../icons'
 
 class DependencyGroup extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      showGroupItems: true,
+      showGroupItems: this.props.expand,
     }
   }
 
   toggleGroupItems() {
+    const { dependencyGroup, toggleGroup } = this.props
     this.setState({
       showGroupItems: !this.state.showGroupItems,
     })
+    toggleGroup(dependencyGroup.group)
   }
 
   checkIfKeyWasEnterOrSpaceAndToggle = (event, groupId) => {
@@ -67,7 +69,9 @@ class DependencyGroup extends React.Component {
 DependencyGroup.propTypes = {
   addDependency: PropTypes.func.isRequired,
   removeDependency: PropTypes.func.isRequired,
+  toggleGroup: PropTypes.func.isRequired,
   selectedDependencies: PropTypes.object,
+  expand: PropTypes.bool.isRequired,
   group: PropTypes.shape({
     group: PropTypes.string.isRequired,
     children: PropTypes.arrayOf(
