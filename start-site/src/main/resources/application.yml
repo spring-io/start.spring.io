@@ -907,7 +907,7 @@ initializr:
     - name: Spring Cloud Discovery
       bom: spring-cloud
       content:
-        - name: Eureka Discovery
+        - name: Eureka Discovery Client
           id: cloud-eureka
           description: a REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
           groupId: org.springframework.cloud
@@ -970,7 +970,7 @@ initializr:
               description: Client Side Load Balancing with Ribbon and Spring Cloud
         - name: OpenFeign
           id: cloud-feign
-          description: Declarative REST Client. Feign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.
+          description: Declarative REST Client. OpenFeign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-openfeign
     - name: Spring Cloud Circuit Breaker
