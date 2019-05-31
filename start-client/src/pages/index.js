@@ -146,7 +146,7 @@ class IndexPage extends React.Component {
 
   componentDidMount() {
     const apiUrl = this.props.data.site.edges[0].node.siteMetadata.apiUrl
-    fetch(`${apiUrl}`, {
+    fetch(`${apiUrl}metadata/client`, {
       method: 'GET',
       headers: {
         Accept: 'application/vnd.initializr.v2.1+json',
