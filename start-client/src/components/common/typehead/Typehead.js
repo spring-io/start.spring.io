@@ -134,7 +134,7 @@ class Typehead extends React.Component {
       if (!this.isValid(a) && this.isValid(b)) {
         return 1
       }
-      return 0
+      return b.weight - a.weight
     })
   }
 
