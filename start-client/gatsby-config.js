@@ -57,20 +57,12 @@ const plugins = [
 ]
 
 if (process.env.GOOGLE_ANALYTICS_TRACKING_ID) {
-  const analyticsTrackingId = process.env.GOOGLE_ANALYTICS_TRACKING_ID
-  const optimizeTrackingId = process.env.GOOGLE_OPTIMIZE_TRACKING_ID
-  const experimentId = process.env.GOOGLE_EXPERIMENT_ID
-  const optimizeVariationId = process.env.YOUR_GOOGLE_OPTIMIZE_VARIATION_ID
   plugins.push({
     resolve: `gatsby-plugin-google-analytics`,
     options: {
-      trackingId: analyticsTrackingId,
+      trackingId: `${process.env.GOOGLE_ANALYTICS_TRACKING_ID}`,
       head: false,
       respectDNT: true,
-      exclude: ['/preview/**', '/do-not-track/me/too/'],
-      optimizeId: optimizeTrackingId,
-      experimentId: experimentId,
-      variationId: optimizeVariationId,
       cookieDomain: 'spring.io',
     },
   })
