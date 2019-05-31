@@ -123,11 +123,11 @@ class IndexPage extends React.Component {
             case 'meta.java':
               const vals = get(this.lists, key, [])
               if (vals.find(a => a.key === value)) {
-                set(this.state, key, value)
+                set(values, key, value)
               }
               break
             default:
-              set(this.state, key, value)
+              set(values, key, value)
           }
         }
       })
