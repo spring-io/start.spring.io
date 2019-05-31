@@ -24,6 +24,7 @@ import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.start.site.extension.springboot.SpringBootProjectGenerationConfiguration;
 import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
 import io.spring.start.site.extension.springrestdocs.SpringRestDocsProjectGenerationConfiguration;
 
@@ -38,7 +39,8 @@ import org.springframework.context.annotation.Import;
  * @author Stephane Nicoll
  */
 @ProjectGenerationConfiguration
-@Import({ SpringCloudProjectGenerationConfiguration.class,
+@Import({ SpringBootProjectGenerationConfiguration.class,
+		SpringCloudProjectGenerationConfiguration.class,
 		SpringRestDocsProjectGenerationConfiguration.class })
 public class StartProjectGenerationConfiguration {
 
