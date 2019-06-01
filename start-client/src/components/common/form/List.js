@@ -31,9 +31,7 @@ class List extends React.Component {
               key={dependency.id}
             >
               <div key={`d1${dependency.id}`}>
-                <strong key={`d2${dependency.id}`}>
-                  {dependency.name} <span>{dependency.group}</span>
-                </strong>
+                <strong key={`d2${dependency.id}`}>{dependency.name}</strong>
                 <br key={`d3${dependency.id}`} />
 
                 {compatibility && (
