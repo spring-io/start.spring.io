@@ -146,7 +146,7 @@ class IndexPage extends React.Component {
 
   componentDidMount() {
     const apiUrl = this.props.data.site.edges[0].node.siteMetadata.apiUrl
-    fetch(`${apiUrl}metadata/client`, {
+    fetch(`${apiUrl}`, {
       method: 'GET',
       headers: {
         Accept: 'application/vnd.initializr.v2.1+json',
@@ -238,8 +238,8 @@ class IndexPage extends React.Component {
   onSubmit = event => {
     event.preventDefault()
     const { project, language, boot, meta } = this.state
-    const apiUrl = this.props.data.site.edges[0].node.siteMetadata.apiUrl
-    const url = `${apiUrl}starter.zip`
+    const apiZip = this.props.data.site.edges[0].node.siteMetadata.apiZip
+    const url = `${apiZip}`
     const params = querystring.stringify({
       type: project,
       language: language,
@@ -598,6 +598,7 @@ export const jsonObject = graphql`
             author
             image
             apiUrl
+            apiZip
           }
         }
       }
