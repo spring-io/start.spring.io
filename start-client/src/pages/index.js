@@ -304,6 +304,10 @@ class IndexPage extends React.Component {
         </div>
       )
     }
+    let keySymb = 'alt'
+    if (navigator.appVersion.indexOf('Mac') !== -1) {
+      keySymb = '⌘'
+    }
     const selected = get(this.getValidDependencies(), 'length', 0)
     return (
       <Layout>
@@ -572,7 +576,7 @@ class IndexPage extends React.Component {
                     type='submit'
                     id='generate-project'
                   >
-                    Generate the project - ⌘ + ⏎
+                    Generate the project - {keySymb} + ⏎
                   </button>
                 </div>
               </div>
