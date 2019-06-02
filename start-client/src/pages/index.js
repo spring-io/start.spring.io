@@ -368,9 +368,10 @@ class IndexPage extends React.Component {
             <div className='left'>Project Metadata</div>
             <div className='right right-md'>
               <div className='control'>
-                <label>Group</label>
+                <label htmlFor='input-group'>Group</label>
                 <input
                   type='text'
+                  id='input-group'
                   className='control-input'
                   value={this.state.meta.group}
                   onChange={event => {
@@ -379,9 +380,10 @@ class IndexPage extends React.Component {
                 />
               </div>
               <div className='control'>
-                <label>Artifact</label>
+                <label htmlFor='input-artifact'>Artifact</label>
                 <input
                   type='text'
+                  id='input-artifact'
                   className='control-input'
                   value={this.state.meta.artifact}
                   onChange={event => {
@@ -406,9 +408,10 @@ class IndexPage extends React.Component {
               <div className={`panel ${this.state.more ? 'panel-active' : ''}`}>
                 <div className='panel-wrap'>
                   <div className='control'>
-                    <label>Name</label>
+                    <label htmlFor='input-name'>Name</label>
                     <input
                       type='text'
+                      id='input-name'
                       className='control-input'
                       value={this.state.meta.name}
                       disabled={!this.state.more}
@@ -421,9 +424,10 @@ class IndexPage extends React.Component {
                     />
                   </div>
                   <div className='control'>
-                    <label>Description</label>
+                    <label htmlFor='input-description'>Description</label>
                     <input
                       type='text'
+                      id='input-description'
                       className='control-input'
                       disabled={!this.state.more}
                       value={this.state.meta.description}
@@ -433,9 +437,10 @@ class IndexPage extends React.Component {
                     />
                   </div>
                   <div className='control'>
-                    <label>Package Name</label>
+                    <label htmlFor='input-packageName'>Package Name</label>
                     <input
                       type='text'
+                      id='input-packageName'
                       className='control-input'
                       disabled={!this.state.more}
                       value={this.state.meta.packageName}
@@ -489,6 +494,7 @@ class IndexPage extends React.Component {
                 <div className='tab-container'>
                   <a
                     href='/'
+                    aria-label='Search'
                     onClick={event => {
                       event.preventDefault()
                       this.setTab('quick-search')
@@ -501,6 +507,7 @@ class IndexPage extends React.Component {
                   </a>
                   <a
                     href='/'
+                    aria-label='List'
                     onClick={event => {
                       event.preventDefault()
                       this.setTab('list')
@@ -523,7 +530,7 @@ class IndexPage extends React.Component {
               {this.state.tab === 'quick-search' ? (
                 <div className='colset-2'>
                   <div className='column'>
-                    <label className='search-label'>
+                    <label className='search-label' htmlFor='input-quicksearch'>
                       Search dependencies to add
                     </label>
                     <Typehead

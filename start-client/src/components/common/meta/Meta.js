@@ -25,6 +25,7 @@ const Meta = () => {
   return (
     <>
       <Helmet>
+        <html lang='en' />
         <title>{metaData.title}</title>
 
         <meta name='description' content={metaData.description} />
