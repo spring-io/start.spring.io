@@ -188,6 +188,7 @@ div {
     max-width: 600px;
     padding: 8px 0px 8px 32px;
     flex: 2 1 0%;
+    min-height: 51px;
     &.nopadding {
       max-width: 600px;
       margin-left: 28px;
@@ -198,6 +199,7 @@ div {
       max-width: 500px;
       padding: 8px 0px 8px 32px;
       flex: 2 1 0%;
+      min-height: 187px;
     }
   }
 }

@@ -24,6 +24,17 @@ import { isInRange } from '../components/utils/versions'
 const WEIGHT_DEFAULT = 50
 
 class IndexPage extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      complete: false,
+      tab: 'quick-search',
+      more: false,
+      error: false,
+      groups: {},
+    }
+  }
   onComplete = json => {
     const values = {
       project: get(json, 'type.default'),
@@ -215,7 +226,8 @@ class IndexPage extends React.Component {
   }
 
   getValidDependencies = () => {
-    const { dependencies, boot } = this.state
+    const boot = get(this.state, 'boot')
+    const dependencies = get(this.state, 'dependencies', [])
     return dependencies
       .map(dep => {
         const compatibility = dep.versionRange
@@ -293,17 +305,6 @@ class IndexPage extends React.Component {
         </div>
       )
     }
-    if (!get(this.state, 'complete')) {
-      return (
-        <div className='loading-page'>
-          <Header />
-          <div className='text'>
-            <Loader />
-            loading ...
-          </div>
-        </div>
-      )
-    }
     let keySymb = 'alt'
     if (navigator.appVersion.indexOf('Mac') !== -1) {
       keySymb = '⌘'
@@ -328,157 +329,175 @@ class IndexPage extends React.Component {
           <div className='colset'>
             <div className='left'>Project</div>
             <div className='right'>
-              <RadioGroup
-                name='project'
-                selected={this.state.project}
-                options={this.lists.project}
-                onChange={value => {
-                  this.setState({ project: value })
-                }}
-              />
+              {get(this.state, 'complete') && (
+                <RadioGroup
+                  name='project'
+                  selected={this.state.project}
+                  options={this.lists.project}
+                  onChange={value => {
+                    this.setState({ project: value })
+                  }}
+                />
+              )}
             </div>
           </div>
           <div className='colset'>
             <div className='left'>Language</div>
             <div className='right'>
-              <RadioGroup
-                name='language'
-                selected={this.state.language}
-                onChange={value => {
-                  this.setState({ language: value })
-                }}
-                options={this.lists.language}
-              />
+              {get(this.state, 'complete') && (
+                <RadioGroup
+                  name='language'
+                  selected={this.state.language}
+                  onChange={value => {
+                    this.setState({ language: value })
+                  }}
+                  options={this.lists.language}
+                />
+              )}
             </div>
           </div>
           <div className='colset'>
             <div className='left'>Spring Boot</div>
             <div className='right'>
-              <RadioGroup
-                name='boot'
-                selected={this.state.boot}
-                options={this.lists.boot}
-                onChange={value => {
-                  this.setState({ boot: value })
-                }}
-              />
+              {get(this.state, 'complete') && (
+                <RadioGroup
+                  name='boot'
+                  selected={this.state.boot}
+                  options={this.lists.boot}
+                  onChange={value => {
+                    this.setState({ boot: value })
+                  }}
+                />
+              )}
             </div>
           </div>
           <div className='colset'>
             <div className='left'>Project Metadata</div>
             <div className='right right-md'>
-              <div className='control'>
-                <label htmlFor='input-group'>Group</label>
-                <input
-                  type='text'
-                  id='input-group'
-                  className='control-input'
-                  value={this.state.meta.group}
-                  onChange={event => {
-                    this.updateMetaState('group', event.target.value)
-                  }}
-                />
-              </div>
-              <div className='control'>
-                <label htmlFor='input-artifact'>Artifact</label>
-                <input
-                  type='text'
-                  id='input-artifact'
-                  className='control-input'
-                  value={this.state.meta.artifact}
-                  onChange={event => {
-                    this.updateMetaState('artifact', event.target.value)
-                  }}
-                />
-              </div>
+              {get(this.state, 'complete') && (
+                <>
+                  <div className='control'>
+                    <label htmlFor='input-group'>Group</label>
+                    <input
+                      type='text'
+                      id='input-group'
+                      className='control-input'
+                      value={this.state.meta.group}
+                      onChange={event => {
+                        this.updateMetaState('group', event.target.value)
+                      }}
+                    />
+                  </div>
+                  <div className='control'>
+                    <label htmlFor='input-artifact'>Artifact</label>
+                    <input
+                      type='text'
+                      id='input-artifact'
+                      className='control-input'
+                      value={this.state.meta.artifact}
+                      onChange={event => {
+                        this.updateMetaState('artifact', event.target.value)
+                      }}
+                    />
+                  </div>
 
-              <div className='more'>
-                <div className='wrap'>
-                  <a
-                    href='/'
-                    onClick={this.toggle}
-                    className={this.state.more ? 'toggle' : ''}
+                  <div className='more'>
+                    <div className='wrap'>
+                      <a
+                        href='/'
+                        onClick={this.toggle}
+                        className={this.state.more ? 'toggle' : ''}
+                      >
+                        <IconChevronRight />
+                        {!this.state.more ? 'Options' : 'Options'}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`panel ${this.state.more ? 'panel-active' : ''}`}
                   >
-                    <IconChevronRight />
-                    {!this.state.more ? 'Options' : 'Options'}
-                  </a>
-                </div>
-              </div>
-
-              <div className={`panel ${this.state.more ? 'panel-active' : ''}`}>
-                <div className='panel-wrap'>
-                  <div className='control'>
-                    <label htmlFor='input-name'>Name</label>
-                    <input
-                      type='text'
-                      id='input-name'
-                      className='control-input'
-                      value={this.state.meta.name}
-                      disabled={!this.state.more}
-                      ref={input => {
-                        this.inputMetaName = input
-                      }}
-                      onChange={event => {
-                        this.updateMetaState('name', event.target.value)
-                      }}
-                    />
-                  </div>
-                  <div className='control'>
-                    <label htmlFor='input-description'>Description</label>
-                    <input
-                      type='text'
-                      id='input-description'
-                      className='control-input'
-                      disabled={!this.state.more}
-                      value={this.state.meta.description}
-                      onChange={event => {
-                        this.updateMetaState('description', event.target.value)
-                      }}
-                    />
-                  </div>
-                  <div className='control'>
-                    <label htmlFor='input-packageName'>Package Name</label>
-                    <input
-                      type='text'
-                      id='input-packageName'
-                      className='control-input'
-                      disabled={!this.state.more}
-                      value={this.state.meta.packageName}
-                      onChange={event => {
-                        this.updateMetaState('packageName', event.target.value)
-                      }}
-                    />
-                  </div>
-                  <div className='control'>
-                    <label>Packaging</label>
-                    <div>
-                      <RadioGroup
-                        name='packaging'
-                        disabled={!this.state.more}
-                        selected={this.state.meta.packaging}
-                        options={this.lists.meta.packaging}
-                        onChange={value => {
-                          this.updateMetaState('packaging', value)
-                        }}
-                      />
+                    <div className='panel-wrap'>
+                      <div className='control'>
+                        <label htmlFor='input-name'>Name</label>
+                        <input
+                          type='text'
+                          id='input-name'
+                          className='control-input'
+                          value={this.state.meta.name}
+                          disabled={!this.state.more}
+                          ref={input => {
+                            this.inputMetaName = input
+                          }}
+                          onChange={event => {
+                            this.updateMetaState('name', event.target.value)
+                          }}
+                        />
+                      </div>
+                      <div className='control'>
+                        <label htmlFor='input-description'>Description</label>
+                        <input
+                          type='text'
+                          id='input-description'
+                          className='control-input'
+                          disabled={!this.state.more}
+                          value={this.state.meta.description}
+                          onChange={event => {
+                            this.updateMetaState(
+                              'description',
+                              event.target.value
+                            )
+                          }}
+                        />
+                      </div>
+                      <div className='control'>
+                        <label htmlFor='input-packageName'>Package Name</label>
+                        <input
+                          type='text'
+                          id='input-packageName'
+                          className='control-input'
+                          disabled={!this.state.more}
+                          value={this.state.meta.packageName}
+                          onChange={event => {
+                            this.updateMetaState(
+                              'packageName',
+                              event.target.value
+                            )
+                          }}
+                        />
+                      </div>
+                      <div className='control'>
+                        <label>Packaging</label>
+                        <div>
+                          <RadioGroup
+                            name='packaging'
+                            disabled={!this.state.more}
+                            selected={this.state.meta.packaging}
+                            options={this.lists.meta.packaging}
+                            onChange={value => {
+                              this.updateMetaState('packaging', value)
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className='control'>
+                        <label>Java</label>
+                        <div>
+                          <RadioGroup
+                            name='java'
+                            disabled={!this.state.more}
+                            selected={this.state.meta.java}
+                            options={this.lists.meta.java}
+                            onChange={value => {
+                              this.updateMetaState('java', value)
+                            }}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className='control'>
-                    <label>Java</label>
-                    <div>
-                      <RadioGroup
-                        name='java'
-                        disabled={!this.state.more}
-                        selected={this.state.meta.java}
-                        options={this.lists.meta.java}
-                        onChange={value => {
-                          this.updateMetaState('java', value)
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </>
+              )}
             </div>
           </div>
           <div className='colset'>
@@ -490,105 +509,115 @@ class IndexPage extends React.Component {
                 this.state.tab === 'list' ? 'large' : ''
               }`}
             >
-              <div className='tab'>
-                <div className='tab-container'>
-                  <a
-                    href='/'
-                    aria-label='Search'
-                    onClick={event => {
-                      event.preventDefault()
-                      this.setTab('quick-search')
-                    }}
-                    className={`quick-search ${
-                      this.state.tab === 'quick-search' ? 'active' : ''
-                    }`}
-                  >
-                    <IconSearch />
-                  </a>
-                  <a
-                    href='/'
-                    aria-label='List'
-                    onClick={event => {
-                      event.preventDefault()
-                      this.setTab('list')
-                    }}
-                    className={`list ${
-                      this.state.tab === 'list' ? 'active' : ''
-                    }`}
-                  >
-                    <IconList />
-                  </a>
-                  {selected > 0 && (
-                    <>
-                      <strong>
-                        <span>{selected}</span> selected
-                      </strong>
-                    </>
-                  )}
-                </div>
-              </div>
-              {this.state.tab === 'quick-search' ? (
-                <div className='colset-2'>
-                  <div className='column'>
-                    <label className='search-label' htmlFor='input-quicksearch'>
-                      Search dependencies to add
-                    </label>
-                    <Typehead
+              {get(this.state, 'complete') && (
+                <>
+                  <div className='tab'>
+                    <div className='tab-container'>
+                      <a
+                        href='/'
+                        aria-label='Search'
+                        onClick={event => {
+                          event.preventDefault()
+                          this.setTab('quick-search')
+                        }}
+                        className={`quick-search ${
+                          this.state.tab === 'quick-search' ? 'active' : ''
+                        }`}
+                      >
+                        <IconSearch />
+                      </a>
+                      <a
+                        href='/'
+                        aria-label='List'
+                        onClick={event => {
+                          event.preventDefault()
+                          this.setTab('list')
+                        }}
+                        className={`list ${
+                          this.state.tab === 'list' ? 'active' : ''
+                        }`}
+                      >
+                        <IconList />
+                      </a>
+                      {selected > 0 && (
+                        <>
+                          <strong>
+                            <span>{selected}</span> selected
+                          </strong>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  {this.state.tab === 'quick-search' ? (
+                    <div className='colset-2'>
+                      <div className='column'>
+                        <label
+                          className='search-label'
+                          htmlFor='input-quicksearch'
+                        >
+                          Search dependencies to add
+                        </label>
+                        <Typehead
+                          boot={this.state.boot}
+                          add={this.dependencyAdd}
+                          submit={this.onSubmit}
+                          options={this.lists.dependencies}
+                          exclude={this.state.dependencies}
+                        />
+                      </div>
+                      <div className='column'>
+                        <label>Selected dependencies</label>
+                        {this.state.dependencies.length > 0 ? (
+                          <>
+                            <List
+                              boot={this.state.boot}
+                              remove={this.dependencyRemove}
+                              list={this.state.dependencies}
+                            />
+                          </>
+                        ) : (
+                          <div className='search-no-selected'>
+                            No dependency selected
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <CheckboxList
                       boot={this.state.boot}
                       add={this.dependencyAdd}
-                      submit={this.onSubmit}
-                      options={this.lists.dependencies}
-                      exclude={this.state.dependencies}
+                      remove={this.dependencyRemove}
+                      list={this.lists.dependencies}
+                      checked={this.state.dependencies}
+                      stateGroups={this.state.groups}
+                      toggleGroup={this.toggleGroup}
                     />
-                  </div>
-                  <div className='column'>
-                    <label>Selected dependencies</label>
-                    {this.state.dependencies.length > 0 ? (
-                      <>
-                        <List
-                          boot={this.state.boot}
-                          remove={this.dependencyRemove}
-                          list={this.state.dependencies}
-                        />
-                      </>
-                    ) : (
-                      <div className='search-no-selected'>
-                        No dependency selected
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <CheckboxList
-                  boot={this.state.boot}
-                  add={this.dependencyAdd}
-                  remove={this.dependencyRemove}
-                  list={this.lists.dependencies}
-                  checked={this.state.dependencies}
-                  stateGroups={this.state.groups}
-                  toggleGroup={this.toggleGroup}
-                />
+                  )}
+                </>
               )}
             </div>
           </div>
-          <div className='sticky'>
-            <div className='colset colset-submit'>
-              <div className='left nopadding'>
-                <Footer />
-              </div>
-              <div className='right nopadding'>
-                <div className='submit'>
-                  <button
-                    className='button primary'
-                    type='submit'
-                    id='generate-project'
-                  >
-                    Generate the project - {keySymb} + ⏎
-                  </button>
+
+          {get(this.state, 'complete') && (
+            <div className='sticky'>
+              <div className='colset colset-submit'>
+                <div className='left nopadding'>
+                  <Footer />
+                </div>
+                <div className='right nopadding'>
+                  <div className='submit'>
+                    <button
+                      className='button primary'
+                      type='submit'
+                      id='generate-project'
+                    >
+                      Generate the project - {keySymb} + ⏎
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </form>
       </Layout>
     )
