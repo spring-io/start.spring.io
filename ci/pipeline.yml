@@ -78,6 +78,8 @@ jobs:
     - task: build-service.yml
       image: start-site-ci-image
       file: git-repo/ci/tasks/build-service.yml
+      params:
+        GOOGLE_TAGMANAGER_ID: ((google-tagmanager-id))
       on_failure:
         do:
         - put: repo-status-build
@@ -103,7 +105,6 @@ jobs:
       current_app_name: start
       environment_variables:
         INITIALIZR_ENV_FORCESSL: "true"
-        INITIALIZR_ENV_GOOGLE_ANALYTICS_TRACKING_CODE: ((google-analytics-tracking-code))
         INITIALIZR_STATS_ELASTIC_URI: ((elastic-uri))
 - name: build-pull-requests
   serial: true
