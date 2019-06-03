@@ -92,12 +92,6 @@ jobs:
             username: concourse-ci
   - put: repo-status-build
     params: { state: "success", commit: "git-repo" }
-  - put: slack-alert
-    params:
-      text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|sucess: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
-      silent: true
-      icon_emoji: ":concourse:"
-      username: concourse-ci
   - put: cf-resource
     params:
       manifest: git-repo/ci/manifests/manifest.yml
@@ -106,6 +100,12 @@ jobs:
       environment_variables:
         INITIALIZR_ENV_FORCESSL: "true"
         INITIALIZR_STATS_ELASTIC_URI: ((elastic-uri))
+  - put: slack-alert
+    params:
+      text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|sucess: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
+      silent: true
+      icon_emoji: ":concourse:"
+      username: concourse-ci
 - name: build-pull-requests
   serial: true
   public: true
