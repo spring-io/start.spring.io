@@ -32,6 +32,7 @@ class IndexPage extends React.Component {
       tab: 'quick-search',
       more: false,
       error: false,
+      symb: 'alt',
       groups: {},
     }
   }
@@ -157,6 +158,9 @@ class IndexPage extends React.Component {
 
   componentDidMount() {
     const apiUrl = this.props.data.site.edges[0].node.siteMetadata.apiUrl
+    if (window.navigator.userAgent.toLowerCase().indexOf('mac') > -1) {
+      this.setState({ symb: '⌘' })
+    }
     fetch(`${apiUrl}`, {
       method: 'GET',
       headers: {
@@ -304,10 +308,6 @@ class IndexPage extends React.Component {
           </div>
         </div>
       )
-    }
-    let keySymb = 'alt'
-    if (navigator.appVersion.indexOf('Mac') !== -1) {
-      keySymb = '⌘'
     }
     const selected = get(this.getValidDependencies(), 'length', 0)
     return (
@@ -611,7 +611,7 @@ class IndexPage extends React.Component {
                       type='submit'
                       id='generate-project'
                     >
-                      Generate the project - {keySymb} + ⏎
+                      Generate the project - {this.state.symb} + ⏎
                     </button>
                   </div>
                 </div>
