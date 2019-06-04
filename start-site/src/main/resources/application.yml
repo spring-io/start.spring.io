@@ -1092,7 +1092,7 @@ initializr:
           id: azure-support
           groupId: com.microsoft.azure
           artifactId: azure-spring-boot-starter
-          description: Auto-configuration for Azure Services (service bus, storage, active directory, cosmos DB, key vault and more).
+          description: Auto-configuration for Azure Services (Service Bus, Storage, Active Directory, Cosmos DB, Key Vault, and more).
           links:
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot
