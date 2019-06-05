@@ -1,0 +1,26 @@
+$rt-color-default: #fff;
+$rt-color-info: #3498db;
+$rt-color-success: $spring-primary-color;
+$rt-color-warning: #f1c40f;
+$rt-color-error: #e74c3c;
+$rt-toast-width: 400px;
+
+@import '../../node_modules/react-toastify/scss/variables';
+
+@import '../../node_modules/react-toastify/scss/toastContainer';
+@import '../../node_modules/react-toastify/scss/toast';
+@import '../../node_modules/react-toastify/scss/closeButton';
+@import '../../node_modules/react-toastify/scss/progressBar';
+
+@import '../../node_modules/react-toastify/scss/animations/bounce.scss';
+@import '../../node_modules/react-toastify/scss/animations/zoom.scss';
+@import '../../node_modules/react-toastify/scss/animations/flip.scss';
+@import '../../node_modules/react-toastify/scss/animations/slide.scss';
+
+.#{$rt-namespace}__toast-container {
+  line-height: 22px;
+}
+
+.#{$rt-namespace}__toast {
+  padding: $spring-8points * 2;
+}

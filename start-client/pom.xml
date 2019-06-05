@@ -18,27 +18,28 @@
 				<artifactId>frontend-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>install node and npm</id>
+						<id>install node and yarn</id>
 						<goals>
-							<goal>install-node-and-npm</goal>
+							<goal>install-node-and-yarn</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v11.11.0</nodeVersion>
+							<nodeVersion>v10.15.3</nodeVersion>
+							<yarnVersion>v1.16.0</yarnVersion>
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm install</id>
+						<id>yarn install</id>
 						<goals>
-							<goal>npm</goal>
+							<goal>yarn</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>npm build</id>
+						<id>yarn build</id>
 						<goals>
-							<goal>npm</goal>
+							<goal>yarn</goal>
 						</goals>
 						<configuration>
-							<arguments>run build</arguments>
+							<arguments>build</arguments>
 						</configuration>
 					</execution>
 				</executions>
@@ -56,7 +57,7 @@
 							<outputDirectory>${project.build.directory}/classes/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/build</directory>
+									<directory>${basedir}/public</directory>
 								</resource>
 							</resources>
 						</configuration>
