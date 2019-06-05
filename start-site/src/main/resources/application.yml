@@ -397,7 +397,7 @@ initializr:
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
           versionRange: 2.1.2.RELEASE
-          version: 1.2.0
+          version: 1.2.1
           links:
             - rel: guide
               href: https://github.com/okta/samples-java-spring/tree/master/okta-hosted-login
