@@ -17,7 +17,9 @@
 package io.spring.start.site.support;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.generator.version.Version;
@@ -44,7 +46,9 @@ public class StartInitializrMetadataUpdateStrategy
 
 	@Override
 	protected List<DefaultMetadataElement> fetchSpringBootVersions(String url) {
-		return super.fetchSpringBootVersions(url).stream()
+		return Optional.ofNullable(super.fetchSpringBootVersions(url))
+				.map(List::stream)
+				.orElse(Stream.empty())
 				.filter(this::isStartGenerationVersion).collect(Collectors.toList());
 	}
 
