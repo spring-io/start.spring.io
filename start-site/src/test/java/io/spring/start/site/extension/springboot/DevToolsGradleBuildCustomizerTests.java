@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 class DevToolsGradleBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void gradleWithDevtoolsCreateRuntimeOnlyConfiguration() {
+	void gradleWithDevtoolsCreatesDevelopmentOnlyConfiguration() {
 		ProjectRequest request = createProjectRequest("devtools");
 		generateGradleBuild(request).contains("configurations {", "\tdevelopmentOnly",
 				"\truntimeClasspath {", "\t\textendsFrom developmentOnly", "\t}", "}",
