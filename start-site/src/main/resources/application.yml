@@ -1239,6 +1239,10 @@ initializr:
       id: 2.1.1.RELEASE
       default: true
 
+start:
+    spring-cloud:
+        info-host: https://spring-cloud-info.cfapps.io/bomversions/
+
 ---
 
 spring:

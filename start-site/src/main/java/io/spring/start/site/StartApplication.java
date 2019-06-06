@@ -19,6 +19,7 @@ package io.spring.start.site;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
 import io.spring.start.site.extension.ProjectDescriptionCustomizerConfiguration;
+import io.spring.start.site.extension.springcloud.DefaultSpringCloudProjectsMetadataProviderConfiguration;
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 import io.spring.start.site.web.HomeController;
 
@@ -41,7 +42,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @EnableAutoConfiguration
 @SpringBootConfiguration
-@Import(ProjectDescriptionCustomizerConfiguration.class)
+@Import({ ProjectDescriptionCustomizerConfiguration.class,
+		DefaultSpringCloudProjectsMetadataProviderConfiguration.class })
 @EnableCaching
 @EnableAsync
 public class StartApplication {
