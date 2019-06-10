@@ -801,6 +801,14 @@ initializr:
     - name: Spring Cloud
       bom: spring-cloud
       content:
+        - name: Cloud Bootstrap
+          id: cloud-starter
+          description: Non-specific Spring Cloud features, unrelated to external libraries or integrations (e.g. Bootstrap context and @RefreshScope)
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter
+          links:
+          - rel: reference
+            href: https://cloud.spring.io/spring-cloud-static/Greenwich.SR1/multi/multi__spring_cloud_context_application_context_services.html
         - name: Function
           id: cloud-function
           groupId: org.springframework.cloud
