@@ -833,6 +833,7 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-oauth2
     - name: Spring Cloud Tools
+      bom: spring-cloud
       content:
         - name: Cloud Connectors
           id: cloud-connectors
