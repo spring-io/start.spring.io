@@ -31,7 +31,7 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest(
-				SpringCloudContractBuildCustomizerUtils.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID);
+				SpringCloudContractDependencyVerifier.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID);
 		projectRequest.setType("gradle-project");
 
 		GradleBuildAssert build = generateGradleBuild(projectRequest);

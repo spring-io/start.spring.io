@@ -19,23 +19,31 @@ package io.spring.start.site.extension.springcloud;
 import java.util.Map;
 
 import io.spring.initializr.generator.buildsystem.Dependency;
-import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * An util class for Spring Cloud Contract {@link BuildCustomizer} implementations.
+ * An interface for verifying the presence of Spring Cloud Contract dependencies.
  *
  * @author Olga Maciaszek-Sharma
  */
-final class SpringCloudContractBuildCustomizerUtils {
+interface SpringCloudContractDependencyVerifier {
 
-	static final String SPRING_CLOUD_CONTRACT_ID = "spring-cloud-contract";
-	static final String CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID = "cloud-contract-verifier";
+	/**
+	 * Spring Cloud Contract project id.
+	 */
+	String SPRING_CLOUD_CONTRACT_ID = "spring-cloud-contract";
 
-	private SpringCloudContractBuildCustomizerUtils() {
-		throw new AssertionError("Must not instantiate utility class.");
-	}
+	/**
+	 * Spring Cloud Contract Verifier dependency id.
+	 */
+	String CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID = "cloud-contract-verifier";
 
-	static boolean doesNotContainSCCVerifier(Map<String, Dependency> dependencies) {
+	/**
+	 * Checks if Spring Cloud Contract Verifier is not present in provided dependency
+	 * {@link Map}.
+	 * @param dependencies dependency {@link Map} to search through
+	 * @return <code>true</code> if Spring Cloud Contract Verifier dependency not present
+	 */
+	default boolean doesNotContainSCCVerifier(Map<String, Dependency> dependencies) {
 		return dependencies.keySet().stream()
 				.noneMatch((id) -> id.equals(CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
 	}

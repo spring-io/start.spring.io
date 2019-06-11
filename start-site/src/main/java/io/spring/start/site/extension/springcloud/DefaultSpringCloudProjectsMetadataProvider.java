@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.springcloud;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -66,9 +65,9 @@ class DefaultSpringCloudProjectsMetadataProvider
 		try {
 			LOG.info(
 					"Fetching Spring Cloud projects metadata for " + releaseTrainVersion);
-			ResponseEntity<HashMap<String, String>> springCloudProjectsResponse = this.restTemplate
+			ResponseEntity<Map<String, String>> springCloudProjectsResponse = this.restTemplate
 					.exchange(this.infoHost + releaseTrainVersion, HttpMethod.GET, null,
-							new ParameterizedTypeReference<HashMap<String, String>>() {
+							new ParameterizedTypeReference<Map<String, String>>() {
 							});
 			return springCloudProjectsResponse.getBody();
 		}

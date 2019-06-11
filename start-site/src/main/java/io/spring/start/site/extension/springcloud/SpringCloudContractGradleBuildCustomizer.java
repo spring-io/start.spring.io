@@ -31,7 +31,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Olga Maciaszek-Sharma
  */
-class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
+class SpringCloudContractGradleBuildCustomizer
+		implements BuildCustomizer<GradleBuild>, SpringCloudContractDependencyVerifier {
 
 	private static final Log LOG = LogFactory
 			.getLog(SpringCloudContractGradleBuildCustomizer.class);
@@ -48,14 +49,12 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 
 	@Override
 	public void customize(GradleBuild build) {
-		if (SpringCloudContractBuildCustomizerUtils
-				.doesNotContainSCCVerifier(this.description.getRequestedDependencies())) {
+		if (doesNotContainSCCVerifier(this.description.getRequestedDependencies())) {
 			return;
 		}
 		Version bootVersion = this.description.getPlatformVersion();
 		Optional<String> sccPluginVersion = this.projectsVersionResolver
-				.resolveProjectVersion(bootVersion,
-						SpringCloudContractBuildCustomizerUtils.SPRING_CLOUD_CONTRACT_ID);
+				.resolveProjectVersion(bootVersion, SPRING_CLOUD_CONTRACT_ID);
 		if (!sccPluginVersion.isPresent()) {
 			LOG.warn(
 					"Spring Cloud Contract Verifier Gradle plugin version could not be resolved for Spring Boot version: "
@@ -65,8 +64,7 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 		build.buildscript((buildscript) -> buildscript.dependency(
 				"org.springframework.cloud:spring-cloud-contract-gradle-plugin:"
 						+ sccPluginVersion.get()));
-		build.applyPlugin(
-				SpringCloudContractBuildCustomizerUtils.SPRING_CLOUD_CONTRACT_ID);
+		build.applyPlugin(SPRING_CLOUD_CONTRACT_ID);
 	}
 
 }

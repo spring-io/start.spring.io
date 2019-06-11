@@ -31,12 +31,12 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest(
-				SpringCloudContractBuildCustomizerUtils.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID);
+				SpringCloudContractDependencyVerifier.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID);
 
 		PomAssert pom = generateMavenPom(projectRequest);
 
 		pom.hasDependency(getDependency(
-				SpringCloudContractBuildCustomizerUtils.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
+				SpringCloudContractDependencyVerifier.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
 		pom.hasText("/project/build/plugins/plugin[1]/groupId",
 				"org.springframework.cloud");
 		pom.hasText("/project/build/plugins/plugin[1]/artifactId",
