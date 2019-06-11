@@ -44,8 +44,12 @@ public class StartInitializrMetadataUpdateStrategy
 
 	@Override
 	protected List<DefaultMetadataElement> fetchSpringBootVersions(String url) {
-		return super.fetchSpringBootVersions(url).stream()
-				.filter(this::isStartGenerationVersion).collect(Collectors.toList());
+		List<DefaultMetadataElement> versions = super.fetchSpringBootVersions(url);
+		if (versions != null) {
+			return versions.stream().filter(this::isStartGenerationVersion)
+					.collect(Collectors.toList());
+		}
+		return null;
 	}
 
 	private boolean isStartGenerationVersion(DefaultMetadataElement element) {
