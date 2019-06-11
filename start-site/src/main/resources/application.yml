@@ -838,6 +838,7 @@ initializr:
           id: cloud-connectors
           description: Simplifies the process of connecting to services and gaining operating environment awareness in cloud platforms such as Cloud Foundry and Heroku.
         - name: Open Service Broker
+          bom: spring-cloud
           id: open-service-broker
           description: Framework for building Spring Boot apps that implement the Open Service Broker API, which can deliver services to applications running within cloud native platforms such as Cloud Foundry, Kubernetes and OpenShift.
           groupId: org.springframework.cloud
@@ -856,6 +857,7 @@ initializr:
               href: https://github.com/spring-cloud-samples/bookstore-service-broker
               description: Using Spring Cloud Open Service Broker
         - name: Contract Verifier
+          bom: spring-cloud
           id: cloud-contract-verifier
           description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
           groupId: org.springframework.cloud
@@ -863,6 +865,7 @@ initializr:
           scope: test
           starter: false
         - name: Contract Stub Runner
+          bom: spring-cloud
           id: cloud-contract-stub-runner
           description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
           groupId: org.springframework.cloud
