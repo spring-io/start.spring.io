@@ -23,6 +23,12 @@ package io.spring.start.site.extension.springcloud;
  */
 public interface SpringCloudProjectsMetadataProvider {
 
+	/**
+	 * Returns Spring Cloud projects metadata for the specified Spring Cloud Release Train
+	 * version.
+	 * @param releaseTrainVersion release Train version as {@link String}
+	 * @return {@link SpringCloudProjectsMetadata} object
+	 */
 	SpringCloudProjectsMetadata get(String releaseTrainVersion);
 
 }

@@ -16,32 +16,28 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import java.util.Collections;
 import java.util.Map;
 
+import io.spring.initializr.generator.buildsystem.Dependency;
+import io.spring.initializr.generator.spring.build.BuildCustomizer;
+
 /**
- * Spring Cloud projects metadata for given release train version.
+ * An util class for Spring Cloud Contract {@link BuildCustomizer} implementations.
  *
  * @author Olga Maciaszek-Sharma
  */
-public class SpringCloudProjectsMetadata {
+final class SpringCloudContractBuildCustomizerUtils {
 
-	private final String releaseTrainVersion;
+	static final String SPRING_CLOUD_CONTRACT_ID = "spring-cloud-contract";
+	static final String CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID = "cloud-contract-verifier";
 
-	private final Map<String, String> projects;
-
-	SpringCloudProjectsMetadata(String releaseTrainVersion,
-			Map<String, String> projects) {
-		this.releaseTrainVersion = releaseTrainVersion;
-		this.projects = projects;
+	private SpringCloudContractBuildCustomizerUtils() {
+		throw new AssertionError("Must not instantiate utility class.");
 	}
 
-	String getReleaseTrainVersion() {
-		return this.releaseTrainVersion;
-	}
-
-	Map<String, String> getProjects() {
-		return Collections.unmodifiableMap(this.projects);
+	static boolean doesNotContainSCCVerifier(Map<String, Dependency> dependencies) {
+		return dependencies.keySet().stream()
+				.noneMatch((id) -> id.equals(CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
 	}
 
 }

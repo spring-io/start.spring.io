@@ -16,32 +16,25 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import java.util.Collections;
-import java.util.Map;
+import java.util.Optional;
+
+import io.spring.initializr.generator.version.Version;
 
 /**
- * Spring Cloud projects metadata for given release train version.
+ * Resolves metadata related to generating projects with Spring Cloud dependencies.
  *
  * @author Olga Maciaszek-Sharma
  */
-public class SpringCloudProjectsMetadata {
+public interface SpringCloudProjectsMetadataResolver {
 
-	private final String releaseTrainVersion;
-
-	private final Map<String, String> projects;
-
-	SpringCloudProjectsMetadata(String releaseTrainVersion,
-			Map<String, String> projects) {
-		this.releaseTrainVersion = releaseTrainVersion;
-		this.projects = projects;
-	}
-
-	String getReleaseTrainVersion() {
-		return this.releaseTrainVersion;
-	}
-
-	Map<String, String> getProjects() {
-		return Collections.unmodifiableMap(this.projects);
-	}
+	/**
+	 * Resolve the version of a specified project that matches the provided Spring Boot
+	 * version.
+	 * @param bootVersion the Spring Boot version to check the Spring Cloud Release train
+	 * version against.
+	 * @param projectId id of the specified Spring Cloud project.
+	 * @return an {@link Optional} of the appropriate project version.
+	 */
+	Optional<String> resolveProjectVersion(Version bootVersion, String projectId);
 
 }

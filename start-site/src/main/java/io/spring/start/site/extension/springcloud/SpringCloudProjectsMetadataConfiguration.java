@@ -34,7 +34,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Configuration
 @ConditionalOnMissingBean(SpringCloudProjectsMetadataProvider.class)
-public class DefaultSpringCloudProjectsMetadataProviderConfiguration {
+public class SpringCloudProjectsMetadataConfiguration {
 
 	@Bean
 	SpringCloudProjectGenerationProperties springCloudProjectGenerationProperties() {
