@@ -33,16 +33,14 @@ class FlywayProjectContributorTests extends AbstractExtensionTests {
 	void flywayMigrationDirectoryIsCreatedWithFlyway() {
 		ProjectRequest request = createProjectRequest("web", "flyway");
 		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory()
-				.resolve("src/main/resources/db/migration")).exists().isDirectory();
+		assertThat(structure.getProjectDirectory().resolve("src/main/resources/db/migration")).exists().isDirectory();
 	}
 
 	@Test
 	void flywayMigrationDirectoryIsNotCreatedIfFlywayIsNotRequested() {
 		ProjectRequest request = createProjectRequest("web");
 		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("src/main/resources/db"))
-				.doesNotExist();
+		assertThat(structure.getProjectDirectory().resolve("src/main/resources/db")).doesNotExist();
 	}
 
 }

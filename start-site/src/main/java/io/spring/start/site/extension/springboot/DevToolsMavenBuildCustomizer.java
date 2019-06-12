@@ -31,8 +31,7 @@ class DevToolsMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 	@Override
 	public void customize(MavenBuild build) {
 		Dependency devtools = build.dependencies().get("devtools");
-		build.dependencies().add("devtools",
-				MavenDependency.from(devtools).optional(true));
+		build.dependencies().add("devtools", MavenDependency.from(devtools).optional(true));
 	}
 
 }

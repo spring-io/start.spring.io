@@ -44,8 +44,8 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new MavenBuildSystem());
 		description.addDependency("restdocs", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(
-				description, (context) -> context.getBeansOfType(BuildCustomizer.class));
+		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
+				(context) -> context.getBeansOfType(BuildCustomizer.class));
 		assertThat(buildCustomizers).containsOnlyKeys("restDocsMavenBuildCustomizer");
 	}
 
@@ -54,8 +54,8 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
 		description.addDependency("restdocs", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(
-				description, (context) -> context.getBeansOfType(BuildCustomizer.class));
+		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
+				(context) -> context.getBeansOfType(BuildCustomizer.class));
 		assertThat(buildCustomizers).containsOnlyKeys("restDocsGradleBuildCustomizer");
 	}
 
@@ -64,8 +64,8 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
 		description.addDependency("web", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(
-				description, (context) -> context.getBeansOfType(BuildCustomizer.class));
+		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
+				(context) -> context.getBeansOfType(BuildCustomizer.class));
 		assertThat(buildCustomizers).isEmpty();
 	}
 

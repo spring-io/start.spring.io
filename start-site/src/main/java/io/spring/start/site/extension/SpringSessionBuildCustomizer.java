@@ -44,15 +44,14 @@ public class SpringSessionBuildCustomizer implements BuildCustomizer<Build> {
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
 		if (isSpringBootVersionAtLeastAfter()) {
-			if (dependencies.has("data-redis")
-					|| dependencies.has("data-redis-reactive")) {
-				dependencies.add("session-data-redis", "org.springframework.session",
-						"spring-session-data-redis", DependencyScope.COMPILE);
+			if (dependencies.has("data-redis") || dependencies.has("data-redis-reactive")) {
+				dependencies.add("session-data-redis", "org.springframework.session", "spring-session-data-redis",
+						DependencyScope.COMPILE);
 				dependencies.remove("session");
 			}
 			if (dependencies.has("jdbc")) {
-				dependencies.add("session-jdbc", "org.springframework.session",
-						"spring-session-jdbc", DependencyScope.COMPILE);
+				dependencies.add("session-jdbc", "org.springframework.session", "spring-session-jdbc",
+						DependencyScope.COMPILE);
 				dependencies.remove("session");
 			}
 		}

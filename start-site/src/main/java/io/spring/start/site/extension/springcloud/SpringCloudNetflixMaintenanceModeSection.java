@@ -39,8 +39,7 @@ class SpringCloudNetflixMaintenanceModeSection extends PreDefinedSection {
 	SpringCloudNetflixMaintenanceModeSection(Set<Dependency> maintenanceModeDependencies,
 			TemplateRenderer templateRenderer) {
 		super(WARNING_MAINTENANCE_MODE);
-		BulletedSection<Dependency> dependencies = new BulletedSection<>(templateRenderer,
-				TEMPLATE_NAME);
+		BulletedSection<Dependency> dependencies = new BulletedSection<>(templateRenderer, TEMPLATE_NAME);
 		maintenanceModeDependencies.forEach(dependencies::addItem);
 		addSection(dependencies);
 	}

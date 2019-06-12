@@ -36,34 +36,25 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		if (hasDependency("cloud-stream", build)
-				|| hasDependency("reactive-cloud-stream", build)
-				|| hasDependency("cloud-bus", build)
-				|| hasDependency("cloud-turbine-stream", build)) {
+		if (hasDependency("cloud-stream", build) || hasDependency("reactive-cloud-stream", build)
+				|| hasDependency("cloud-bus", build) || hasDependency("cloud-turbine-stream", build)) {
 			if (hasDependency("amqp", build)) {
-				build.dependencies().add("cloud-stream-binder-rabbit",
-						"org.springframework.cloud", "spring-cloud-stream-binder-rabbit",
-						DependencyScope.COMPILE);
+				build.dependencies().add("cloud-stream-binder-rabbit", "org.springframework.cloud",
+						"spring-cloud-stream-binder-rabbit", DependencyScope.COMPILE);
 			}
 			if (hasDependency("kafka", build)) {
-				build.dependencies().add("cloud-stream-binder-kafka",
-						"org.springframework.cloud", "spring-cloud-stream-binder-kafka",
-						DependencyScope.COMPILE);
+				build.dependencies().add("cloud-stream-binder-kafka", "org.springframework.cloud",
+						"spring-cloud-stream-binder-kafka", DependencyScope.COMPILE);
 			}
 		}
 		// Spring Cloud Stream specific
-		if (hasDependency("cloud-stream", build)
-				|| hasDependency("reactive-cloud-stream", build)) {
+		if (hasDependency("cloud-stream", build) || hasDependency("reactive-cloud-stream", build)) {
 			if (hasDependency("kafka-streams", build)) {
-				build.dependencies().add("cloud-stream-binder-kafka-streams",
-						"org.springframework.cloud",
-						"spring-cloud-stream-binder-kafka-streams",
-						DependencyScope.COMPILE);
+				build.dependencies().add("cloud-stream-binder-kafka-streams", "org.springframework.cloud",
+						"spring-cloud-stream-binder-kafka-streams", DependencyScope.COMPILE);
 			}
 			build.dependencies().add("cloud-stream-test",
-					Dependency
-							.withCoordinates("org.springframework.cloud",
-									"spring-cloud-stream-test-support")
+					Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream-test-support")
 							.scope(DependencyScope.TEST_COMPILE));
 		}
 	}

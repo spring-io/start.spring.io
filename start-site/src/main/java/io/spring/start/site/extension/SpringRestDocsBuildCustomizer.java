@@ -32,9 +32,8 @@ public class SpringRestDocsBuildCustomizer implements BuildCustomizer<Build> {
 	public void customize(Build build) {
 		if (switchToWebTestClient(build)) {
 			build.dependencies().remove("restdocs");
-			build.dependencies().add("restdocs-webtestclient",
-					"org.springframework.restdocs", "spring-restdocs-webtestclient",
-					DependencyScope.TEST_COMPILE);
+			build.dependencies().add("restdocs-webtestclient", "org.springframework.restdocs",
+					"spring-restdocs-webtestclient", DependencyScope.TEST_COMPILE);
 		}
 	}
 

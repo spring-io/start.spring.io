@@ -29,18 +29,16 @@ import io.spring.initializr.generator.version.Version;
  *
  * @author Stephane Nicoll
  */
-public class GradleDslProjectDescriptionCustomizer
-		implements ProjectDescriptionCustomizer {
+public class GradleDslProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
 	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
 
 	@Override
 	public void customize(ProjectDescription description) {
-		if (isCompatibleSpringBootVersion(description)
-				&& description.getLanguage() instanceof KotlinLanguage
+		if (isCompatibleSpringBootVersion(description) && description.getLanguage() instanceof KotlinLanguage
 				&& description.getBuildSystem() instanceof GradleBuildSystem) {
-			description.setBuildSystem(BuildSystem.forIdAndDialect(GradleBuildSystem.ID,
-					GradleBuildSystem.DIALECT_KOTLIN));
+			description.setBuildSystem(
+					BuildSystem.forIdAndDialect(GradleBuildSystem.ID, GradleBuildSystem.DIALECT_KOTLIN));
 		}
 	}
 

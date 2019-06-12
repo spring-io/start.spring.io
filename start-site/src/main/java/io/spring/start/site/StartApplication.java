@@ -51,10 +51,9 @@ public class StartApplication {
 	}
 
 	@Bean
-	public InitializrMetadataUpdateStrategy startMetadataUpdateStrategy(
-			RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
-		return new StartInitializrMetadataUpdateStrategy(restTemplateBuilder.build(),
-				objectMapper);
+	public InitializrMetadataUpdateStrategy startMetadataUpdateStrategy(RestTemplateBuilder restTemplateBuilder,
+			ObjectMapper objectMapper) {
+		return new StartInitializrMetadataUpdateStrategy(restTemplateBuilder.build(), objectMapper);
 	}
 
 	@Bean
@@ -64,8 +63,7 @@ public class StartApplication {
 
 	@Bean
 	public ErrorPageRegistrar notFound() {
-		return (registry) -> registry
-				.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
+		return (registry) -> registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
 	}
 
 }

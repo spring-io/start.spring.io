@@ -33,9 +33,7 @@ public class SpringSecurityTestBuildCustomizer implements BuildCustomizer<Build>
 	@Override
 	public void customize(Build build) {
 		build.dependencies().add("security-test",
-				Dependency
-						.withCoordinates("org.springframework.security",
-								"spring-security-test")
+				Dependency.withCoordinates("org.springframework.security", "spring-security-test")
 						.scope(DependencyScope.TEST_COMPILE));
 	}
 

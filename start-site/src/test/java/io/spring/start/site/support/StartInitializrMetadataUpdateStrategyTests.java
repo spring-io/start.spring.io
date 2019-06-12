@@ -52,16 +52,12 @@ class StartInitializrMetadataUpdateStrategyTests {
 
 	@Test
 	void metadataUpdateStrategyIgnoreServerFailures() {
-		InitializrMetadata metadata = new InitializrMetadataTestBuilder()
-				.addBootVersion("2.2.0.RELEASE", true)
+		InitializrMetadata metadata = new InitializrMetadataTestBuilder().addBootVersion("2.2.0.RELEASE", true)
 				.addBootVersion("2.1.9.RELEASE", false).build();
-		this.mockServer
-				.expect(requestTo(
-						metadata.getConfiguration().getEnv().getSpringBootMetadataUrl()))
-				.andExpect(method(HttpMethod.GET))
-				.andRespond(withStatus(HttpStatus.SERVICE_UNAVAILABLE));
-		InitializrMetadata updatedMetadata = new StartInitializrMetadataUpdateStrategy(
-				this.restTemplate, objectMapper).update(metadata);
+		this.mockServer.expect(requestTo(metadata.getConfiguration().getEnv().getSpringBootMetadataUrl()))
+				.andExpect(method(HttpMethod.GET)).andRespond(withStatus(HttpStatus.SERVICE_UNAVAILABLE));
+		InitializrMetadata updatedMetadata = new StartInitializrMetadataUpdateStrategy(this.restTemplate, objectMapper)
+				.update(metadata);
 
 	}
 

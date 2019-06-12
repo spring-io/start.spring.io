@@ -32,10 +32,8 @@ public class SpringBatchTestBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		build.dependencies().add("spring-batch-test",
-				Dependency
-						.withCoordinates("org.springframework.batch", "spring-batch-test")
-						.scope(DependencyScope.TEST_COMPILE));
+		build.dependencies().add("spring-batch-test", Dependency
+				.withCoordinates("org.springframework.batch", "spring-batch-test").scope(DependencyScope.TEST_COMPILE));
 	}
 
 }

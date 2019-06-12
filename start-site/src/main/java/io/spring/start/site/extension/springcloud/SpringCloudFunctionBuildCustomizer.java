@@ -42,8 +42,7 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 
 	private final ResolvedProjectDescription description;
 
-	SpringCloudFunctionBuildCustomizer(InitializrMetadata metadata,
-			ResolvedProjectDescription description) {
+	SpringCloudFunctionBuildCustomizer(InitializrMetadata metadata, ResolvedProjectDescription description) {
 		this.metadata = metadata;
 		this.description = description;
 	}
@@ -52,21 +51,20 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
 		if (dependencies.has("cloud-function")) {
-			if ((dependencies.has("cloud-stream")
-					|| dependencies.has("reactive-cloud-stream"))
+			if ((dependencies.has("cloud-stream") || dependencies.has("reactive-cloud-stream"))
 					&& isSpringBootVersionBefore()) {
-				dependencies.add("cloud-function-stream", "org.springframework.cloud",
-						"spring-cloud-function-stream", DependencyScope.COMPILE);
+				dependencies.add("cloud-function-stream", "org.springframework.cloud", "spring-cloud-function-stream",
+						DependencyScope.COMPILE);
 				removeCloudFunction(build);
 			}
 			if (dependencies.has("web")) {
-				dependencies.add("cloud-function-web", "org.springframework.cloud",
-						"spring-cloud-function-web", DependencyScope.COMPILE);
+				dependencies.add("cloud-function-web", "org.springframework.cloud", "spring-cloud-function-web",
+						DependencyScope.COMPILE);
 				removeCloudFunction(build);
 			}
 			if (dependencies.has("webflux") && isSpringBootVersionAtLeastAfter()) {
-				dependencies.add("cloud-function-web", "org.springframework.cloud",
-						"spring-cloud-function-web", DependencyScope.COMPILE);
+				dependencies.add("cloud-function-web", "org.springframework.cloud", "spring-cloud-function-web",
+						DependencyScope.COMPILE);
 				removeCloudFunction(build);
 			}
 		}

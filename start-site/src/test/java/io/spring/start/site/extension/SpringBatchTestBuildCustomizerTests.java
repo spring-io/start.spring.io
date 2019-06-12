@@ -30,21 +30,20 @@ class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void batchTestIsAddedWithBatch() {
 		ProjectRequest request = createProjectRequest("batch");
-		generateMavenPom(request).hasSpringBootStarterDependency("batch")
-				.hasSpringBootStarterTest().hasDependency(springBatchTest())
-				.hasDependenciesCount(3);
+		generateMavenPom(request).hasSpringBootStarterDependency("batch").hasSpringBootStarterTest()
+				.hasDependency(springBatchTest()).hasDependenciesCount(3);
 	}
 
 	@Test
 	void batchTestIsNotAddedWithoutSpringBatch() {
 		ProjectRequest request = createProjectRequest("web");
-		generateMavenPom(request).hasSpringBootStarterDependency("web")
-				.hasSpringBootStarterTest().hasDependenciesCount(2);
+		generateMavenPom(request).hasSpringBootStarterDependency("web").hasSpringBootStarterTest()
+				.hasDependenciesCount(2);
 	}
 
 	private static Dependency springBatchTest() {
-		Dependency dependency = Dependency.withId("spring-batch-test",
-				"org.springframework.batch", "spring-batch-test");
+		Dependency dependency = Dependency.withId("spring-batch-test", "org.springframework.batch",
+				"spring-batch-test");
 		dependency.setScope(Dependency.SCOPE_TEST);
 		return dependency;
 	}

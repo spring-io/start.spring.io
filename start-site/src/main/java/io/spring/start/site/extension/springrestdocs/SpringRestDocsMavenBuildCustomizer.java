@@ -30,8 +30,7 @@ class SpringRestDocsMavenBuildCustomizer implements BuildCustomizer<MavenBuild> 
 
 	@Override
 	public void customize(MavenBuild build) {
-		MavenPlugin plugin = build.plugin("org.asciidoctor", "asciidoctor-maven-plugin",
-				"1.5.3");
+		MavenPlugin plugin = build.plugin("org.asciidoctor", "asciidoctor-maven-plugin", "1.5.3");
 		plugin.execution("generate-docs", (execution) -> {
 			execution.phase("prepare-package");
 			execution.goal("process-asciidoc");
@@ -40,8 +39,7 @@ class SpringRestDocsMavenBuildCustomizer implements BuildCustomizer<MavenBuild> 
 				configuration.add("doctype", "book");
 			});
 		});
-		plugin.dependency("org.springframework.restdocs", "spring-restdocs-asciidoctor",
-				"${spring-restdocs.version}");
+		plugin.dependency("org.springframework.restdocs", "spring-restdocs-asciidoctor", "${spring-restdocs.version}");
 	}
 
 }

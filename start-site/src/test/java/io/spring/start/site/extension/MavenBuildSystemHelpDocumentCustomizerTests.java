@@ -33,14 +33,14 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 
 	@Test
 	void linksAddedToHelpDocumentForMavenBuild() {
-		assertThat(helpMdLinesForProject("maven-build")).contains(
-				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
+		assertThat(helpMdLinesForProject("maven-build"))
+				.contains("* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForGradleBuild() {
-		assertThat(helpMdLinesForProject("gradle-build")).doesNotContain(
-				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
+		assertThat(helpMdLinesForProject("gradle-build"))
+				.doesNotContain("* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
 	}
 
 	private List<String> helpMdLinesForProject(String type) {

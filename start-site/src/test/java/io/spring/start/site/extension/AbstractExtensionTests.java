@@ -52,8 +52,7 @@ public abstract class AbstractExtensionTests {
 	}
 
 	protected BillOfMaterials getBom(String id, String version) {
-		BillOfMaterials bom = this.metadataProvider.get().getConfiguration().getEnv()
-				.getBoms().get(id);
+		BillOfMaterials bom = this.metadataProvider.get().getConfiguration().getEnv().getBoms().get(id);
 		return bom.resolve(Version.parse(version));
 	}
 
@@ -70,8 +69,7 @@ public abstract class AbstractExtensionTests {
 	}
 
 	protected ProjectStructure generateProject(ProjectRequest request) {
-		ProjectGenerationResult result = this.invoker
-				.invokeProjectStructureGeneration(request);
+		ProjectGenerationResult result = this.invoker.invokeProjectStructureGeneration(request);
 		return new ProjectStructure(result.getRootDirectory());
 	}
 

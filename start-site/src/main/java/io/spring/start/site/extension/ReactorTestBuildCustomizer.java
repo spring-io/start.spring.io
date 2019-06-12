@@ -43,9 +43,8 @@ public class ReactorTestBuildCustomizer implements BuildCustomizer<Build> {
 	@Override
 	public void customize(Build build) {
 		if (isSpringBootVersionAtLeastAfter()) {
-			build.dependencies().add("reactor-test",
-					Dependency.withCoordinates("io.projectreactor", "reactor-test")
-							.scope(DependencyScope.TEST_COMPILE));
+			build.dependencies().add("reactor-test", Dependency.withCoordinates("io.projectreactor", "reactor-test")
+					.scope(DependencyScope.TEST_COMPILE));
 		}
 	}
 

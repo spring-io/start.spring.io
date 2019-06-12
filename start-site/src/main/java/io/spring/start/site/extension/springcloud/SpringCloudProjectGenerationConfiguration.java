@@ -60,10 +60,9 @@ public class SpringCloudProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnPlatformVersion("2.1.0.RELEASE")
-	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(
-			Build build, TemplateRenderer templateRenderer) {
-		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata,
-				build, templateRenderer);
+	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(Build build,
+			TemplateRenderer templateRenderer) {
+		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata, build, templateRenderer);
 	}
 
 }

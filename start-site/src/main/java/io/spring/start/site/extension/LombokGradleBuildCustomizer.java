@@ -39,8 +39,8 @@ class LombokGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 	@Override
 	public void customize(GradleBuild build) {
 		Dependency lombok = this.metadata.getDependencies().get("lombok");
-		build.dependencies().add("lombok-compileOnly", lombok.getGroupId(),
-				lombok.getArtifactId(), DependencyScope.COMPILE_ONLY);
+		build.dependencies().add("lombok-compileOnly", lombok.getGroupId(), lombok.getArtifactId(),
+				DependencyScope.COMPILE_ONLY);
 	}
 
 }

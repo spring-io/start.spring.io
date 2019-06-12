@@ -29,8 +29,7 @@ class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	@Override
 	public void customize(HelpDocument document) {
-		document.gettingStarted().addReferenceDocLink(
-				"https://maven.apache.org/guides/index.html",
+		document.gettingStarted().addReferenceDocLink("https://maven.apache.org/guides/index.html",
 				"Official Apache Maven documentation");
 	}
 

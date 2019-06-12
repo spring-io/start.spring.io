@@ -31,11 +31,8 @@ class SpringCloudGcpBomBuildCustomizerTests extends AbstractExtensionTests {
 	void springCloudGcpOffReleaseTrain() {
 		ProjectRequest request = createProjectRequest("cloud-gcp");
 		request.setBootVersion("2.0.6.RELEASE");
-		generateMavenPom(request)
-				.hasBom("org.springframework.cloud", "spring-cloud-gcp-dependencies",
-						"1.0.0.RELEASE")
-				.hasBom("org.springframework.cloud", "spring-cloud-dependencies",
-						"${spring-cloud.version}")
+		generateMavenPom(request).hasBom("org.springframework.cloud", "spring-cloud-gcp-dependencies", "1.0.0.RELEASE")
+				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
 				.hasBomsCount(2);
 	}
 
@@ -43,8 +40,9 @@ class SpringCloudGcpBomBuildCustomizerTests extends AbstractExtensionTests {
 	void springCloudGcpOnReleaseTrain() {
 		ProjectRequest request = createProjectRequest("cloud-gcp");
 		request.setBootVersion("2.1.1.RELEASE");
-		generateMavenPom(request).hasBom("org.springframework.cloud",
-				"spring-cloud-dependencies", "${spring-cloud.version}").hasBomsCount(1);
+		generateMavenPom(request)
+				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
+				.hasBomsCount(1);
 	}
 
 }

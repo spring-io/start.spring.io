@@ -31,28 +31,26 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 	void reactorTestIsAdded() {
 		ProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M2");
-		Dependency reactorTest = Dependency.withId("reactor-test", "io.projectreactor",
-				"reactor-test");
+		Dependency reactorTest = Dependency.withId("reactor-test", "io.projectreactor", "reactor-test");
 		reactorTest.setScope(Dependency.SCOPE_TEST);
-		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
-				.hasSpringBootStarterTest().hasDependency(reactorTest)
-				.hasDependenciesCount(3);
+		generateMavenPom(request).hasSpringBootStarterDependency("webflux").hasSpringBootStarterTest()
+				.hasDependency(reactorTest).hasDependenciesCount(3);
 	}
 
 	@Test
 	void reactorTestIsNotAddedWithEarlierVersions() {
 		ProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M1");
-		generateMavenPom(request).hasSpringBootStarterDependency("webflux")
-				.hasSpringBootStarterTest().hasDependenciesCount(2);
+		generateMavenPom(request).hasSpringBootStarterDependency("webflux").hasSpringBootStarterTest()
+				.hasDependenciesCount(2);
 	}
 
 	@Test
 	void reactorTestIsNotAddedWithoutWebFlux() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.M2");
-		generateMavenPom(request).hasSpringBootStarterDependency("web")
-				.hasSpringBootStarterTest().hasDependenciesCount(2);
+		generateMavenPom(request).hasSpringBootStarterDependency("web").hasSpringBootStarterTest()
+				.hasDependenciesCount(2);
 	}
 
 }

@@ -39,8 +39,7 @@ import org.springframework.context.annotation.Import;
  * @author Stephane Nicoll
  */
 @ProjectGenerationConfiguration
-@Import({ SpringBootProjectGenerationConfiguration.class,
-		SpringCloudProjectGenerationConfiguration.class,
+@Import({ SpringBootProjectGenerationConfiguration.class, SpringCloudProjectGenerationConfiguration.class,
 		SpringRestDocsProjectGenerationConfiguration.class })
 public class StartProjectGenerationConfiguration {
 
@@ -48,8 +47,7 @@ public class StartProjectGenerationConfiguration {
 
 	private final ResolvedProjectDescription description;
 
-	public StartProjectGenerationConfiguration(InitializrMetadata metadata,
-			ResolvedProjectDescription description) {
+	public StartProjectGenerationConfiguration(InitializrMetadata metadata, ResolvedProjectDescription description) {
 		this.metadata = metadata;
 		this.description = description;
 	}

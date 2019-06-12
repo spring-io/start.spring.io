@@ -76,21 +76,16 @@ class StartApplicationIntegrationTests {
 
 	Stream<Arguments> parameters() {
 		List<Version> bootVersions = this.metadata.getBootVersions().getContent().stream()
-				.map((element) -> Version.parse(element.getId()))
-				.collect(Collectors.toList());
-		List<Packaging> packagings = Arrays.asList(new JarPackaging(),
-				new WarPackaging());
-		List<Language> languages = Arrays.asList(new KotlinLanguage(),
-				new JavaLanguage());
-		List<BuildSystem> buildSystems = Arrays.asList(new GradleBuildSystem(),
-				new MavenBuildSystem());
+				.map((element) -> Version.parse(element.getId())).collect(Collectors.toList());
+		List<Packaging> packagings = Arrays.asList(new JarPackaging(), new WarPackaging());
+		List<Language> languages = Arrays.asList(new KotlinLanguage(), new JavaLanguage());
+		List<BuildSystem> buildSystems = Arrays.asList(new GradleBuildSystem(), new MavenBuildSystem());
 		List<Arguments> configurations = new ArrayList<>();
 		for (Version bootVersion : bootVersions) {
 			for (Packaging packaging : packagings) {
 				for (Language language : languages) {
 					for (BuildSystem buildSystem : buildSystems) {
-						configurations.add(Arguments.arguments(bootVersion, packaging,
-								language, buildSystem));
+						configurations.add(Arguments.arguments(bootVersion, packaging, language, buildSystem));
 					}
 				}
 			}
@@ -100,9 +95,8 @@ class StartApplicationIntegrationTests {
 
 	@ParameterizedTest(name = "{0} {1} {2} {3}")
 	@MethodSource("parameters")
-	void projectBuilds(Version bootVersion, Packaging packaging, Language language,
-			BuildSystem buildSystem, @TempDir Path directory)
-			throws IOException, InterruptedException {
+	void projectBuilds(Version bootVersion, Packaging packaging, Language language, BuildSystem buildSystem,
+			@TempDir Path directory) throws IOException, InterruptedException {
 		WebProjectRequest request = new WebProjectRequest();
 		request.setBootVersion(bootVersion.toString());
 		request.setLanguage(language.id());
@@ -112,15 +106,14 @@ class StartApplicationIntegrationTests {
 		request.setArtifactId("demo");
 		request.setApplicationName("DemoApplication");
 		request.setDependencies(Arrays.asList("devtools"));
-		Path project = this.invoker.invokeProjectStructureGeneration(request)
-				.getRootDirectory();
+		Path project = this.invoker.invokeProjectStructureGeneration(request).getRootDirectory();
 		ProcessBuilder processBuilder = createProcessBuilder(buildSystem);
 		processBuilder.directory(project.toFile());
 		Path output = Files.createTempFile(directory, "output-", ".log");
 		processBuilder.redirectError(output.toFile());
 		processBuilder.redirectOutput(output.toFile());
-		assertThat(processBuilder.start().waitFor())
-				.describedAs(String.join("\n", Files.readAllLines(output))).isEqualTo(0);
+		assertThat(processBuilder.start().waitFor()).describedAs(String.join("\n", Files.readAllLines(output)))
+				.isEqualTo(0);
 	}
 
 	private ProcessBuilder createProcessBuilder(BuildSystem buildSystem) {
