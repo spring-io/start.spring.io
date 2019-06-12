@@ -19,7 +19,7 @@
 		<disable.checks>false</disable.checks>
 		<junit-jupiter.version>5.4.2</junit-jupiter.version>
 		<spring-initializr.version>0.8.0.BUILD-SNAPSHOT</spring-initializr.version>
-		<spring-javaformat.version>0.0.9</spring-javaformat.version>
+		<spring-javaformat.version>0.0.12</spring-javaformat.version>
 	</properties>
 
 	<modules>
@@ -96,7 +96,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>3.1.0</version>
 					<executions>
 						<execution>
 							<id>checkstyle-validation</id>
