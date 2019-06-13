@@ -132,7 +132,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
-            version: 8.8.2
+            version: 8.8.3
           - versionRange: "[2.0.0.M1,2.1.0.M1)"
             version: 10.0.16
           - versionRange: "2.1.0.M1"
