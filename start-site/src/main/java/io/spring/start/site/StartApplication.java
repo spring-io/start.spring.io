@@ -16,9 +16,19 @@
 
 package io.spring.start.site;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.spring.initializr.generator.spring.code.kotlin.InitializrMetadataKotlinVersionResolver;
+import io.spring.initializr.generator.spring.code.kotlin.KotlinVersionResolver;
+import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
 import io.spring.start.site.extension.ProjectDescriptionCustomizerConfiguration;
+import io.spring.start.site.kotlin.CompositeKotlinVersionResolver;
+import io.spring.start.site.kotlin.ManagedDependenciesKotlinVersionResolver;
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 import io.spring.start.site.web.HomeController;
 
@@ -64,6 +74,20 @@ public class StartApplication {
 	@Bean
 	public ErrorPageRegistrar notFound() {
 		return (registry) -> registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
+	}
+
+	@Bean
+	public DependencyManagementVersionResolver dependencyManagementVersionResolver() throws IOException {
+		return DependencyManagementVersionResolver
+				.withCacheLocation(Files.createTempDirectory("version-resolver-cache-"));
+	}
+
+	@Bean
+	public KotlinVersionResolver kotlinVersionResolver(DependencyManagementVersionResolver versionResolver,
+			InitializrMetadataProvider metadataProvider) {
+		return new CompositeKotlinVersionResolver(
+				Arrays.asList(new ManagedDependenciesKotlinVersionResolver(versionResolver),
+						new InitializrMetadataKotlinVersionResolver(metadataProvider)));
 	}
 
 }
