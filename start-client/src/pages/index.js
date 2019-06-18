@@ -34,6 +34,16 @@ class IndexPage extends React.Component {
       symb: 'alt',
       groups: {},
     }
+
+    this.keyMap = {
+      SUBMIT: ['command+enter', 'ctrl+enter'],
+    }
+    const submit = this.onSubmit
+    this.handlers = {
+      SUBMIT: event => {
+        submit(event)
+      },
+    }
   }
   onComplete = json => {
     const values = {
@@ -93,15 +103,7 @@ class IndexPage extends React.Component {
       },
       dependencies: deps,
     }
-    this.keyMap = {
-      SUBMIT: ['command+enter', 'ctrl+enter'],
-    }
-    const submit = this.onSubmit
-    this.handlers = {
-      SUBMIT: event => {
-        submit(event)
-      },
-    }
+
     // Parsing parameters URL (search or hash)
     if (this.props.location.search || this.props.location.hash) {
       let queryParams = queryString.parse(this.props.location.search)
