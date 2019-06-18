@@ -857,7 +857,7 @@ initializr:
               version: 2.1.2.RELEASE
               artifactId: spring-cloud-starter-open-service-broker-webmvc
             - versionRange: "2.1.0.M1"
-              version: 3.0.1.RELEASE
+              version: 3.0.2.RELEASE
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/html5/
