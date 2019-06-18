@@ -808,7 +808,7 @@ initializr:
           artifactId: spring-cloud-starter
           links:
           - rel: reference
-            href: https://cloud.spring.io/spring-cloud-static/Greenwich.SR1/multi/multi__spring_cloud_context_application_context_services.html
+            href: https://spring.io/projects/spring-cloud-commons
         - name: Function
           id: cloud-function
           groupId: org.springframework.cloud
