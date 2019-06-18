@@ -662,3 +662,68 @@ $gw: 200px;
     @include link;
   }
 }
+
+$placeholder-bg: #f7f7f7;
+$placeholder-border: #e4e4e4;
+
+.placeholder-radios {
+  .placeholder-radio {
+    display: inline-block;
+    height: 32px;
+    background: $placeholder-bg;
+    border-bottom: 3px solid $placeholder-border;
+    margin-right: 4px;
+  }
+}
+
+.placeholder-input {
+  display: block;
+  height: 32px;
+  background: $placeholder-bg;
+  border-bottom: 3px solid $placeholder-border;
+  position: relative;
+  margin-top: 15px;
+  &:after {
+    display: inline-block;
+    content: ' ';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    height: 15px;
+    background: $placeholder-bg;
+    width: 70px;
+  }
+}
+
+.placeholder-dropdown {
+  display: block;
+  margin-top: -3px;
+  height: 32px;
+  background: $placeholder-bg;
+  border-bottom: 3px solid $placeholder-border;
+  position: relative;
+}
+.placeholder-tabs {
+  display: block;
+  height: 378px;
+  .placeholder-header {
+    display: block;
+    height: 45px;
+    border-bottom: 3px solid $placeholder-border;
+    position: relative;
+  }
+  .placeholder-tab {
+    display: inline-block;
+    height: 45px;
+    background: $placeholder-bg;
+    width: 42px;
+  }
+}
+
+.placeholder-button {
+  display: block;
+  height: 44px;
+  background: $placeholder-bg;
+  position: relative;
+  border-radius: $spring-radius;
+}
