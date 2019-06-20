@@ -24,6 +24,9 @@ class Placeholder extends React.Component {
     if (this.props.type === 'dropdown') {
       return <span className='placeholder-dropdown' />
     }
+    if (this.props.type === 'text') {
+      return <span style={{ width: width }} className='placeholder-text' />
+    }
     if (this.props.type === 'button') {
       return <span style={{ width: width }} className='placeholder-button' />
     }
