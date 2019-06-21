@@ -24,6 +24,7 @@ import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.metadata.InitializrMetadata;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -32,6 +33,7 @@ import org.springframework.context.annotation.Bean;
  * @author Stephane Nicoll
  */
 @ProjectGenerationConfiguration
+@EnableConfigurationProperties
 public class SpringCloudProjectGenerationConfiguration {
 
 	private final InitializrMetadata metadata;
@@ -68,6 +70,7 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnPlatformVersion("2.1.0.RELEASE")
 	public SpringCloudFunctionHelpDocumentCustomizer springCloudFunctionHelpDocumentCustomizer(
 			Build build, MustacheTemplateRenderer templateRenderer) {
 		return new SpringCloudFunctionHelpDocumentCustomizer(build, this.description,

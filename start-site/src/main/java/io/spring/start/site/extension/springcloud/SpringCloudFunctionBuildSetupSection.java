@@ -19,8 +19,6 @@ package io.spring.start.site.extension.springcloud;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
-import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.io.text.MustacheSection;
 import io.spring.initializr.generator.io.text.Section;
@@ -34,43 +32,19 @@ import io.spring.initializr.generator.spring.documentation.PreDefinedSection;
  */
 class SpringCloudFunctionBuildSetupSection extends PreDefinedSection {
 
-	private static final String templateName = "spring-cloud-function-build-setup";
-
-	private static final String AWS_MAVEN_SETUP_EXAMPLE = "https://github.com/spring-cloud/spring-cloud-function/blob/master/spring-cloud-function-samples/function-sample-aws/pom.xml";
-
-	private static final String AWS_GRADLE_SETUP_EXAMPLE = "https://github.com/spring-cloud/spring-cloud-function/blob/master/spring-cloud-function-samples/function-sample-aws/build.gradle";
-
-	private static final String AZURE_MAVEN_SETUP_EXAMPLE = "https://github.com/spring-cloud/spring-cloud-function/blob/master/spring-cloud-function-samples/function-sample-azure/pom.xml";
-
 	private static final String FUNCTION_BUILD_SETUP_INFO = "Additional build setup for Spring Cloud Function apps - ";
 
 	SpringCloudFunctionBuildSetupSection(
 			SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform platform,
-			String buildTool, MustacheTemplateRenderer templateRenderer) {
+			String buildTool, MustacheTemplateRenderer templateRenderer,
+			String templateName) {
 		super(FUNCTION_BUILD_SETUP_INFO + platform.getName());
 		Map<String, Object> model = new HashMap<>();
 		model.put("platform", platform.getName());
 		model.put("buildTool", buildTool);
-		model.put("link", getExampleLink(platform, buildTool));
 		MustacheSection mustacheSection = new MustacheSection(templateRenderer,
 				templateName, model);
 		addSection(mustacheSection);
-	}
-
-	private String getExampleLink(
-			SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform platform,
-			String buildTool) {
-		if (SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform.isAws(platform)
-				&& MavenBuildSystem.ID.toUpperCase().equals(buildTool)) {
-			return AWS_MAVEN_SETUP_EXAMPLE;
-		}
-		if (SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform.isAws(platform)
-				&& GradleBuildSystem.ID.toUpperCase().equals(buildTool)) {
-			return AWS_GRADLE_SETUP_EXAMPLE;
-		}
-		else {
-			return AZURE_MAVEN_SETUP_EXAMPLE;
-		}
 	}
 
 }
