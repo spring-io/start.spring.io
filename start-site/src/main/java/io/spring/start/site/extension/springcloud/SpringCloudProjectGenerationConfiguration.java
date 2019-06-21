@@ -71,10 +71,9 @@ public class SpringCloudProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnPlatformVersion("2.1.0.RELEASE")
-	public SpringCloudFunctionHelpDocumentCustomizer springCloudFunctionHelpDocumentCustomizer(
-			Build build, MustacheTemplateRenderer templateRenderer) {
-		return new SpringCloudFunctionHelpDocumentCustomizer(build, this.description,
-				templateRenderer);
+	public SpringCloudFunctionHelpDocumentCustomizer springCloudFunctionHelpDocumentCustomizer(Build build,
+			MustacheTemplateRenderer templateRenderer) {
+		return new SpringCloudFunctionHelpDocumentCustomizer(build, this.description, templateRenderer);
 	}
 
 }
