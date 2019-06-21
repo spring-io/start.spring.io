@@ -34,16 +34,13 @@ class SpringCloudFunctionBuildSetupSection extends PreDefinedSection {
 
 	private static final String FUNCTION_BUILD_SETUP_INFO = "Additional build setup for Spring Cloud Function apps - ";
 
-	SpringCloudFunctionBuildSetupSection(
-			SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform platform,
-			String buildTool, MustacheTemplateRenderer templateRenderer,
-			String templateName) {
+	SpringCloudFunctionBuildSetupSection(SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform platform,
+			String buildTool, MustacheTemplateRenderer templateRenderer, String templateName) {
 		super(FUNCTION_BUILD_SETUP_INFO + platform.getName());
 		Map<String, Object> model = new HashMap<>();
 		model.put("platform", platform.getName());
 		model.put("buildTool", buildTool);
-		MustacheSection mustacheSection = new MustacheSection(templateRenderer,
-				templateName, model);
+		MustacheSection mustacheSection = new MustacheSection(templateRenderer, templateName, model);
 		addSection(mustacheSection);
 	}
 
