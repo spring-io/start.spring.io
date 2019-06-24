@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * Contains controller for request mapping for start.spring.io.
+ *  Server-side web support for start.spring.io.
  */
 package io.spring.start.site.web;

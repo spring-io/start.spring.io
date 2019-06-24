@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * Contains support configurations for start.spring.io.
+ * Support classes for start.spring.io.
  */
 package io.spring.start.site.support;

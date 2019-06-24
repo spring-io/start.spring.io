@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * Contains customizers and configurations for start.spring.io and the StartApplication to
- * run the application.
+ * Classes specific to running instance at start.spring.io.
  */
 package io.spring.start.site;

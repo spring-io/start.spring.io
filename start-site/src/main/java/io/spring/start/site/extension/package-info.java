@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * Contains necessary customizers and configurations for specific settings on
- * start.spring.io.
+ * Extensions and configuration of
+ * {@link io.spring.initializr.generator.project.contributor.ProjectContributor}s and
+ * {@link io.spring.initializr.generator.spring.build.BuildCustomizer}s used for
+ * customizing the start.spring.io instance.
  */
 package io.spring.start.site.extension;

@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * Contains necessary customizers and configurations for Spring Boot.
+ * Customizers and configuration for start.spring.io specific to Spring Boot.
  */
 package io.spring.start.site.extension.springboot;

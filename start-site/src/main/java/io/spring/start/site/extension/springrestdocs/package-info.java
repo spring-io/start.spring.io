@@ -15,6 +15,6 @@
  */
 
 /**
- * Contains necessary customizers and configurations for Spring REST Docs.
+ * Customizers and configuration for start.spring.io specific to Spring REST Docs.
  */
 package io.spring.start.site.extension.springrestdocs;
