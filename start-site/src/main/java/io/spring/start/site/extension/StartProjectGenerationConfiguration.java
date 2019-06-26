@@ -89,6 +89,11 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
+	public SpringLdapBuildCustomizer springLdapBuildCustomizer() {
+		return new SpringLdapBuildCustomizer();
+	}
+
+	@Bean
 	@ConditionalOnRequestedDependency("session")
 	public SpringSessionBuildCustomizer springSessionBuildCustomizer() {
 		return new SpringSessionBuildCustomizer(this.description);
