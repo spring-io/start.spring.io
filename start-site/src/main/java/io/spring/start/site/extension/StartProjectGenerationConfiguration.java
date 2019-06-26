@@ -37,6 +37,7 @@ import org.springframework.context.annotation.Import;
  *
  * @author Madhura Bhave
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
 @Import({ SpringBootProjectGenerationConfiguration.class, SpringCloudProjectGenerationConfiguration.class,
@@ -98,6 +99,12 @@ public class StartProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("flyway")
 	public FlywayProjectContributor flywayProjectContributor() {
 		return new FlywayProjectContributor();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("liquibase")
+	public LiquibaseProjectContributor liquibaseProjectContributor() {
+		return new LiquibaseProjectContributor();
 	}
 
 	@Bean
