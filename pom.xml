@@ -19,7 +19,7 @@
 		<disable.checks>false</disable.checks>
 		<junit-jupiter.version>5.4.2</junit-jupiter.version>
 		<spring-initializr.version>0.8.0.BUILD-SNAPSHOT</spring-initializr.version>
-		<spring-javaformat.version>0.0.12</spring-javaformat.version>
+		<spring-javaformat.version>0.0.14</spring-javaformat.version>
 	</properties>
 
 	<modules>
@@ -120,7 +120,7 @@
 						<dependency>
 							<groupId>com.puppycrawl.tools</groupId>
 							<artifactId>checkstyle</artifactId>
-							<version>8.18</version>
+							<version>8.22</version>
 						</dependency>
 						<dependency>
 							<groupId>io.spring.javaformat</groupId>
