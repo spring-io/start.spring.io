@@ -30,14 +30,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LiquibaseProjectContributorTests extends AbstractExtensionTests {
 
 	@Test
-	void liquibaseMigrationDirectoryIsCreatedWithFlyway() {
+	void liquibaseMigrationDirectoryIsCreatedWithLiquibase() {
 		ProjectRequest request = createProjectRequest("web", "liquibase");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("src/main/resources/db/changelog")).exists().isDirectory();
 	}
 
 	@Test
-	void liquibaseMigrationDirectoryIsNotCreatedIfFlywayIsNotRequested() {
+	void liquibaseMigrationDirectoryIsNotCreatedIfLiquibaseIsNotRequested() {
 		ProjectRequest request = createProjectRequest("web");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("src/main/resources/db")).doesNotExist();
