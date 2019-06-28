@@ -105,7 +105,7 @@ class StartApplicationIntegrationTests {
 		request.setGroupId("com.example");
 		request.setArtifactId("demo");
 		request.setApplicationName("DemoApplication");
-		request.setDependencies(Arrays.asList("devtools"));
+		request.setDependencies(Arrays.asList("devtools", "configuration-processor"));
 		Path project = this.invoker.invokeProjectStructureGeneration(request).getRootDirectory();
 		ProcessBuilder processBuilder = createProcessBuilder(buildSystem);
 		processBuilder.directory(project.toFile());
