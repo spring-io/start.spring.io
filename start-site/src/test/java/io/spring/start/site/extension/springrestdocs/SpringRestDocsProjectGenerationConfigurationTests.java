@@ -40,6 +40,7 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 			.withConfiguration(SpringRestDocsProjectGenerationConfiguration.class);
 
 	@Test
+	@SuppressWarnings("rawtypes")
 	void springRestDocsCustomizerMaven() {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new MavenBuildSystem());
@@ -50,6 +51,7 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 	}
 
 	@Test
+	@SuppressWarnings("rawtypes")
 	void springRestDocsCustomizerGradle() {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
@@ -60,6 +62,7 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 	}
 
 	@Test
+	@SuppressWarnings("rawtypes")
 	void springRestDocsNotAppliedIfRestDocsNotSelected() {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
