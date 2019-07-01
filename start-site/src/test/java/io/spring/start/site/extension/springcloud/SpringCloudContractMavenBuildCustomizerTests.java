@@ -35,14 +35,10 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 
 		PomAssert pom = generateMavenPom(projectRequest);
 
-		pom.hasDependency(getDependency(
-				SpringCloudContractDependencyVerifier.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
-		pom.hasText("/project/build/plugins/plugin[1]/groupId",
-				"org.springframework.cloud");
-		pom.hasText("/project/build/plugins/plugin[1]/artifactId",
-				"spring-cloud-contract-maven-plugin");
-		pom.hasText("/project/build/plugins/plugin[1]/extensions",
-				Boolean.toString(true));
+		pom.hasDependency(getDependency(SpringCloudContractDependencyVerifier.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
+		pom.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud");
+		pom.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin");
+		pom.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
 
 	}
 

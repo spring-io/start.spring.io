@@ -30,8 +30,8 @@ class DevToolsGradleBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void gradleWithDevtoolsCreatesDevelopmentOnlyConfiguration() {
 		ProjectRequest request = createProjectRequest("devtools");
-		generateGradleBuild(request).contains("configurations {", "\tdevelopmentOnly",
-				"\truntimeClasspath {", "\t\textendsFrom developmentOnly", "\t}", "}",
+		generateGradleBuild(request).contains("configurations {", "\tdevelopmentOnly", "\truntimeClasspath {",
+				"\t\textendsFrom developmentOnly", "\t}", "}",
 				"\tdevelopmentOnly 'org.springframework.boot:spring-boot-devtools'");
 	}
 

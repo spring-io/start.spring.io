@@ -34,15 +34,14 @@ import org.apache.commons.logging.LogFactory;
 class SpringCloudContractMavenBuildCustomizer
 		implements BuildCustomizer<MavenBuild>, SpringCloudContractDependencyVerifier {
 
-	private static final Log LOG = LogFactory
-			.getLog(SpringCloudContractMavenBuildCustomizer.class);
+	private static final Log LOG = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
 
 	private final ResolvedProjectDescription description;
 
-	private final SpringCloudProjectsMetadataResolver projectsVersionResolver;
+	private final SpringCloudProjectsVersionResolver projectsVersionResolver;
 
 	SpringCloudContractMavenBuildCustomizer(ResolvedProjectDescription description,
-			SpringCloudProjectsMetadataResolver projectsVersionResolver) {
+			SpringCloudProjectsVersionResolver projectsVersionResolver) {
 		this.description = description;
 		this.projectsVersionResolver = projectsVersionResolver;
 	}
@@ -53,16 +52,15 @@ class SpringCloudContractMavenBuildCustomizer
 			return;
 		}
 		Version bootVersion = this.description.getPlatformVersion();
-		Optional<String> sccPluginVersion = this.projectsVersionResolver
-				.resolveProjectVersion(bootVersion, SPRING_CLOUD_CONTRACT_ID);
+		Optional<String> sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
+				SPRING_CLOUD_CONTRACT_ARTIFACT_ID);
 		if (!sccPluginVersion.isPresent()) {
 			LOG.warn(
 					"Spring Cloud Contract Verifier Maven plugin version could not be resolved for Spring Boot version: "
 							+ bootVersion.toString());
 			return;
 		}
-		mavenBuild.plugin("org.springframework.cloud",
-				"spring-cloud-contract-maven-plugin", sccPluginVersion.get())
+		mavenBuild.plugin("org.springframework.cloud", "spring-cloud-contract-maven-plugin", sccPluginVersion.get())
 				.extensions();
 	}
 

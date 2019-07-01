@@ -16,21 +16,24 @@
 
 package io.spring.start.site.extension;
 
-import io.spring.initializr.generator.spring.documentation.HelpDocument;
-import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import io.spring.initializr.generator.project.contributor.ProjectContributor;
 
 /**
- * A {@link HelpDocumentCustomizer} that adds reference links for Apache Maven.
+ * A {@link ProjectContributor} that creates the "db/changelog" resources directory when
+ * Liquibase is requested.
  *
- * @author Jenn Strater
- * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
-class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
+public class LiquibaseProjectContributor implements ProjectContributor {
 
 	@Override
-	public void customize(HelpDocument document) {
-		document.gettingStarted().addReferenceDocLink("https://maven.apache.org/guides/index.html",
-				"Official Apache Maven documentation");
+	public void contribute(Path projectRoot) throws IOException {
+		Path changelogDirectory = projectRoot.resolve("src/main/resources/db/changelog");
+		Files.createDirectories(changelogDirectory);
 	}
 
 }

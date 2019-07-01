@@ -42,15 +42,13 @@ class SpringRestDocsGradleBuildCustomizerTests {
 		assertThat(plugin.getId()).isEqualTo("org.asciidoctor.convert");
 		assertThat(plugin.getVersion()).isEqualTo("1.5.3");
 		assertThat(build.getTaskCustomizations()).containsKey("test");
-		assertThat(build.getExt()).containsEntry("snippetsDir",
-				"file(\"build/generated-snippets\")");
+		assertThat(build.getExt()).containsEntry("snippetsDir", "file(\"build/generated-snippets\")");
 		TaskCustomization testCustomization = build.getTaskCustomizations().get("test");
 		assertThat(testCustomization.getInvocations()).hasSize(1);
 		Invocation invocation = testCustomization.getInvocations().get(0);
 		assertThat(invocation.getTarget()).isEqualTo("outputs.dir");
 		assertThat(invocation.getArguments()).containsExactly("snippetsDir");
-		TaskCustomization asciidoctorCustomization = build.getTaskCustomizations()
-				.get("asciidoctor");
+		TaskCustomization asciidoctorCustomization = build.getTaskCustomizations().get("asciidoctor");
 		assertThat(asciidoctorCustomization.getInvocations()).hasSize(2);
 		Invocation inputsDir = asciidoctorCustomization.getInvocations().get(0);
 		assertThat(inputsDir.getTarget()).isEqualTo("inputs.dir");

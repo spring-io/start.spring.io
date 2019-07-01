@@ -16,34 +16,31 @@
 
 package io.spring.start.site.extension;
 
+import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
- * Tests for {@link LombokGradleBuildCustomizer}.
+ * Tests for {@link LiquibaseProjectContributor}.
  *
- * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
-class LombokGradleBuildCustomizerTests extends AbstractExtensionTests {
+class LiquibaseProjectContributorTests extends AbstractExtensionTests {
 
 	@Test
-	void lombokConfiguredWithCompileOnlyScope() {
-		ProjectRequest request = createProjectRequest("lombok");
-		generateGradleBuild(request).contains("annotationProcessor 'org.projectlombok:lombok'")
-				.contains("compileOnly 'org.projectlombok:lombok'");
+	void liquibaseMigrationDirectoryIsCreatedWithLiquibase() {
+		ProjectRequest request = createProjectRequest("web", "liquibase");
+		ProjectStructure structure = generateProject(request);
+		assertThat(structure.getProjectDirectory().resolve("src/main/resources/db/changelog")).exists().isDirectory();
 	}
 
 	@Test
-	void lombokNotAddedIfLombokIsNotSelected() {
+	void liquibaseMigrationDirectoryIsNotCreatedIfLiquibaseIsNotRequested() {
 		ProjectRequest request = createProjectRequest("web");
-		generateGradleBuild(request).doesNotContain("compileOnly 'org.projectlombok:lombok'");
-	}
-
-	@Test
-	void lombokNotConfiguredWithSpringBoot15() {
-		ProjectRequest request = createProjectRequest("lombok");
-		request.setBootVersion("1.5.18.RELEASE");
-		generateGradleBuild(request).containsOnlyOnce("compileOnly 'org.projectlombok:lombok'");
+		ProjectStructure structure = generateProject(request);
+		assertThat(structure.getProjectDirectory().resolve("src/main/resources/db")).doesNotExist();
 	}
 
 }

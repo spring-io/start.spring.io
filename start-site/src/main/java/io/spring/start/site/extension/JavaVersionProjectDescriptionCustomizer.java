@@ -31,8 +31,7 @@ import io.spring.initializr.generator.version.Version;
  * @author Stephane Nicoll
  * @author Madhura Bhave
  */
-public class JavaVersionProjectDescriptionCustomizer
-		implements ProjectDescriptionCustomizer {
+public class JavaVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
 	private static final Version VERSION_2_0_0_M1 = Version.parse("2.0.0.M1");
 
@@ -40,13 +39,11 @@ public class JavaVersionProjectDescriptionCustomizer
 
 	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
 
-	private static final List<String> UNSUPPORTED_LANGUAGES = Arrays.asList("groovy",
-			"kotlin");
+	private static final List<String> UNSUPPORTED_LANGUAGES = Arrays.asList("groovy", "kotlin");
 
 	@Override
 	public void customize(ProjectDescription description) {
-		Integer javaGeneration = determineJavaGeneration(
-				description.getLanguage().jvmVersion());
+		Integer javaGeneration = determineJavaGeneration(description.getLanguage().jvmVersion());
 		if (javaGeneration == null) {
 			return;
 		}
@@ -59,8 +56,7 @@ public class JavaVersionProjectDescriptionCustomizer
 			updateTo(description, "1.8");
 		}
 		// 10 support only as of 2.0.1
-		if (javaGeneration == 10
-				&& isSpringBootVersionBefore(description, VERSION_2_0_1)) {
+		if (javaGeneration == 10 && isSpringBootVersionBefore(description, VERSION_2_0_1)) {
 			updateTo(description, "1.8");
 		}
 		// 11 and 12 support only as of 2.1.x
@@ -71,8 +67,7 @@ public class JavaVersionProjectDescriptionCustomizer
 	}
 
 	private void updateTo(ProjectDescription projectDescription, String jvmVersion) {
-		Language language = Language.forId(projectDescription.getLanguage().id(),
-				jvmVersion);
+		Language language = Language.forId(projectDescription.getLanguage().id(), jvmVersion);
 		projectDescription.setLanguage(language);
 	}
 
@@ -86,8 +81,7 @@ public class JavaVersionProjectDescriptionCustomizer
 		}
 	}
 
-	protected boolean isSpringBootVersionBefore(ProjectDescription description,
-			Version version) {
+	protected boolean isSpringBootVersionBefore(ProjectDescription description, Version version) {
 		return version.compareTo(description.getPlatformVersion()) > 0;
 	}
 

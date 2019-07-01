@@ -23,7 +23,7 @@ resources:
 - name: git-pull-request
   type: pull-request
   source:
-    access_token: ((github-access-token))
+    access_token: ((github-ci-pull-request-token))
     repo: spring-io/start.spring.io
     base: ((branch))
 - name: ci-images-git-repo
@@ -55,7 +55,7 @@ resources:
   type: github-status-resource
   source:
     repository: spring-io/start.spring.io
-    access_token: ((github-access-token))
+    access_token: ((github-ci-status-token))
     branch: ((branch))
     context: build
 jobs:

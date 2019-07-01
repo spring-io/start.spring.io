@@ -14,23 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension;
-
-import io.spring.initializr.generator.spring.documentation.HelpDocument;
-import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
-
 /**
- * A {@link HelpDocumentCustomizer} that adds reference links for Apache Maven.
- *
- * @author Jenn Strater
- * @author Stephane Nicoll
+ * Customizers and configuration for start.spring.io specific to Spring REST Docs.
  */
-class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
-
-	@Override
-	public void customize(HelpDocument document) {
-		document.gettingStarted().addReferenceDocLink("https://maven.apache.org/guides/index.html",
-				"Official Apache Maven documentation");
-	}
-
-}
+package io.spring.start.site.extension.springrestdocs;

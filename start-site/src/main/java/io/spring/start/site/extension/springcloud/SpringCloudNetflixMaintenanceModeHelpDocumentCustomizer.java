@@ -37,12 +37,10 @@ import io.spring.initializr.metadata.InitializrMetadata;
  * @author Olga Maciaszek-Sharma
  * @author Stephane Nicoll
  */
-class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer
-		implements HelpDocumentCustomizer {
+class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final Set<String> maintenanceModuleIds = new HashSet<>(
-			Arrays.asList("cloud-ribbon", "cloud-hystrix", "cloud-hystrix-dashboard",
-					"cloud-turbine", "cloud-turbine-stream", "cloud-zuul"));
+	private static final Set<String> maintenanceModuleIds = new HashSet<>(Arrays.asList("cloud-ribbon", "cloud-hystrix",
+			"cloud-hystrix-dashboard", "cloud-turbine", "cloud-turbine-stream", "cloud-zuul"));
 
 	private final InitializrMetadata metadata;
 
@@ -50,8 +48,8 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer
 
 	private final TemplateRenderer templateRenderer;
 
-	SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(InitializrMetadata metadata,
-			Build build, TemplateRenderer templateRenderer) {
+	SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(InitializrMetadata metadata, Build build,
+			TemplateRenderer templateRenderer) {
 		this.metadata = metadata;
 		this.build = build;
 		this.templateRenderer = templateRenderer;
@@ -61,11 +59,11 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer
 	public void customize(HelpDocument helpDocument) {
 		DependenciesCapability availableDependencies = this.metadata.getDependencies();
 		Set<Dependency> maintenanceModeDependencies = this.build.dependencies().ids()
-				.filter(maintenanceModuleIds::contains).map(availableDependencies::get)
-				.filter(Objects::nonNull).collect(Collectors.toSet());
+				.filter(maintenanceModuleIds::contains).map(availableDependencies::get).filter(Objects::nonNull)
+				.collect(Collectors.toSet());
 		if (!maintenanceModeDependencies.isEmpty()) {
-			helpDocument.addSection(new SpringCloudNetflixMaintenanceModeSection(
-					maintenanceModeDependencies, this.templateRenderer));
+			helpDocument.addSection(
+					new SpringCloudNetflixMaintenanceModeSection(maintenanceModeDependencies, this.templateRenderer));
 		}
 	}
 

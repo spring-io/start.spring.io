@@ -14,21 +14,10 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.springcloud;
-
 /**
- * Provides the {@link SpringCloudProjectsMetadata} for a given release train version.
- *
- * @author Olga Maciaszek-Sharma
+ * Extensions and configuration of
+ * {@link io.spring.initializr.generator.project.contributor.ProjectContributor}s and
+ * {@link io.spring.initializr.generator.spring.build.BuildCustomizer}s used for
+ * customizing the start.spring.io instance.
  */
-public interface SpringCloudProjectsMetadataProvider {
-
-	/**
-	 * Returns Spring Cloud projects metadata for the specified Spring Cloud Release Train
-	 * version.
-	 * @param releaseTrainVersion release Train version as {@link String}
-	 * @return {@link SpringCloudProjectsMetadata} object
-	 */
-	SpringCloudProjectsMetadata get(String releaseTrainVersion);
-
-}
+package io.spring.start.site.extension;

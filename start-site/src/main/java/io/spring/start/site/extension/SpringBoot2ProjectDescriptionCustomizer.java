@@ -35,15 +35,13 @@ class SpringBoot2ProjectDescriptionCustomizer implements ProjectDescriptionCusto
 
 	private static final Version VERSION_2_0_0_M1 = Version.parse("2.0.0.M1");
 
-	private static final List<String> VALID_VERSIONS = Arrays.asList("1.8", "9", "10",
-			"11", "12");
+	private static final List<String> VALID_VERSIONS = Arrays.asList("1.8", "9", "10", "11", "12");
 
 	@Override
 	public void customize(ProjectDescription description) {
 		if (!VALID_VERSIONS.contains(description.getLanguage().jvmVersion())
 				&& isSpringBootVersionAtLeastAfter(description)) {
-			description
-					.setLanguage(Language.forId(description.getLanguage().id(), "1.8"));
+			description.setLanguage(Language.forId(description.getLanguage().id(), "1.8"));
 		}
 	}
 

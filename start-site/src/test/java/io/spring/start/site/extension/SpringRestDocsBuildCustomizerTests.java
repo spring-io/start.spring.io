@@ -29,31 +29,24 @@ public class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	public void restDocsWithWebMvc() {
 		ProjectRequest request = createProjectRequest("web", "restdocs");
-		generateMavenPom(request)
-				.hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc",
-						null, "test")
-				.doesNotHaveDependency("org.springframework.restdocs",
-						"spring-restdocs-webtestclient");
+		generateMavenPom(request).hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
+				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient");
 	}
 
 	@Test
 	public void restDocsWithWebFlux() {
 		ProjectRequest request = createProjectRequest("webflux", "restdocs");
 		generateMavenPom(request)
-				.hasDependency("org.springframework.restdocs",
-						"spring-restdocs-webtestclient", null, "test")
-				.doesNotHaveDependency("org.springframework.restdocs",
-						"spring-restdocs-mockmvc");
+				.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
+				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
 	}
 
 	@Test
 	public void restDocsWithJersey() {
 		ProjectRequest request = createProjectRequest("jersey", "restdocs");
 		generateMavenPom(request)
-				.hasDependency("org.springframework.restdocs",
-						"spring-restdocs-webtestclient", null, "test")
-				.doesNotHaveDependency("org.springframework.restdocs",
-						"spring-restdocs-mockmvc");
+				.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
+				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
 	}
 
 }

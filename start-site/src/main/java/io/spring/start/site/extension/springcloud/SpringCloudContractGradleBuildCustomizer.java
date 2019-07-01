@@ -34,15 +34,16 @@ import org.apache.commons.logging.LogFactory;
 class SpringCloudContractGradleBuildCustomizer
 		implements BuildCustomizer<GradleBuild>, SpringCloudContractDependencyVerifier {
 
-	private static final Log LOG = LogFactory
-			.getLog(SpringCloudContractGradleBuildCustomizer.class);
+	private static final String SPRING_CLOUD_CONTRACT_GRADLE_PLUGIN_ID = "spring-cloud-contract";
+
+	private static final Log LOG = LogFactory.getLog(SpringCloudContractGradleBuildCustomizer.class);
 
 	private final ResolvedProjectDescription description;
 
-	private final SpringCloudProjectsMetadataResolver projectsVersionResolver;
+	private final SpringCloudProjectsVersionResolver projectsVersionResolver;
 
 	SpringCloudContractGradleBuildCustomizer(ResolvedProjectDescription description,
-			SpringCloudProjectsMetadataResolver projectsVersionResolver) {
+			SpringCloudProjectsVersionResolver projectsVersionResolver) {
 		this.description = description;
 		this.projectsVersionResolver = projectsVersionResolver;
 	}
@@ -53,18 +54,17 @@ class SpringCloudContractGradleBuildCustomizer
 			return;
 		}
 		Version bootVersion = this.description.getPlatformVersion();
-		Optional<String> sccPluginVersion = this.projectsVersionResolver
-				.resolveProjectVersion(bootVersion, SPRING_CLOUD_CONTRACT_ID);
+		Optional<String> sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
+				SPRING_CLOUD_CONTRACT_ARTIFACT_ID);
 		if (!sccPluginVersion.isPresent()) {
 			LOG.warn(
 					"Spring Cloud Contract Verifier Gradle plugin version could not be resolved for Spring Boot version: "
 							+ bootVersion.toString());
 			return;
 		}
-		build.buildscript((buildscript) -> buildscript.dependency(
-				"org.springframework.cloud:spring-cloud-contract-gradle-plugin:"
-						+ sccPluginVersion.get()));
-		build.applyPlugin(SPRING_CLOUD_CONTRACT_ID);
+		build.buildscript((buildscript) -> buildscript
+				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion.get()));
+		build.applyPlugin(SPRING_CLOUD_CONTRACT_GRADLE_PLUGIN_ID);
 	}
 
 }

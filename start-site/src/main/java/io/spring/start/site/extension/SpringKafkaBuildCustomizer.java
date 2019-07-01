@@ -46,15 +46,11 @@ public class SpringKafkaBuildCustomizer implements BuildCustomizer<Build> {
 	public void customize(Build build) {
 		if (build.dependencies().has("kafka")) {
 			build.dependencies().add("spring-kafka-test",
-					Dependency
-							.withCoordinates("org.springframework.kafka",
-									"spring-kafka-test")
+					Dependency.withCoordinates("org.springframework.kafka", "spring-kafka-test")
 							.scope(DependencyScope.TEST_COMPILE));
 			// Override to a more recent version
 			if (isSpringBootVersionBefore()) {
-				build.addVersionProperty(
-						VersionProperty.of("spring-kafka.version", false),
-						"1.3.8.RELEASE");
+				build.addVersionProperty(VersionProperty.of("spring-kafka.version", false), "1.3.8.RELEASE");
 			}
 		}
 	}

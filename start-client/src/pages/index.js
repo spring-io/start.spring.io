@@ -16,7 +16,7 @@ import {
   IconList,
   IconSearch,
 } from '../components/common/icons'
-import { List, RadioGroup } from '../components/common/form'
+import { List, Placeholder, RadioGroup } from '../components/common/form'
 import { Meta } from '../components/common/meta'
 import { Typehead } from '../components/common/typehead'
 import { isInRange } from '../components/utils/versions'
@@ -26,7 +26,6 @@ const WEIGHT_DEFAULT = 50
 class IndexPage extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = {
       complete: false,
       tab: 'quick-search',
@@ -34,6 +33,16 @@ class IndexPage extends React.Component {
       error: false,
       symb: 'alt',
       groups: {},
+    }
+
+    this.keyMap = {
+      SUBMIT: ['command+enter', 'ctrl+enter'],
+    }
+    const submit = this.onSubmit
+    this.handlers = {
+      SUBMIT: event => {
+        submit(event)
+      },
     }
   }
   onComplete = json => {
@@ -94,15 +103,7 @@ class IndexPage extends React.Component {
       },
       dependencies: deps,
     }
-    this.keyMap = {
-      SUBMIT: ['command+enter', 'ctrl+enter'],
-    }
-    const submit = this.onSubmit
-    this.handlers = {
-      SUBMIT: event => {
-        submit(event)
-      },
-    }
+
     // Parsing parameters URL (search or hash)
     if (this.props.location.search || this.props.location.hash) {
       let queryParams = queryString.parse(this.props.location.search)
@@ -329,7 +330,7 @@ class IndexPage extends React.Component {
           <div className='colset'>
             <div className='left'>Project</div>
             <div className='right'>
-              {get(this.state, 'complete') && (
+              {get(this.state, 'complete') ? (
                 <RadioGroup
                   name='project'
                   selected={this.state.project}
@@ -338,13 +339,15 @@ class IndexPage extends React.Component {
                     this.setState({ project: value })
                   }}
                 />
+              ) : (
+                <Placeholder type='radios' count={2} width='133px' />
               )}
             </div>
           </div>
           <div className='colset'>
             <div className='left'>Language</div>
             <div className='right'>
-              {get(this.state, 'complete') && (
+              {get(this.state, 'complete') ? (
                 <RadioGroup
                   name='language'
                   selected={this.state.language}
@@ -353,13 +356,15 @@ class IndexPage extends React.Component {
                   }}
                   options={this.lists.language}
                 />
+              ) : (
+                <Placeholder type='radios' count={3} width='73px' />
               )}
             </div>
           </div>
           <div className='colset'>
             <div className='left'>Spring Boot</div>
             <div className='right'>
-              {get(this.state, 'complete') && (
+              {get(this.state, 'complete') ? (
                 <RadioGroup
                   name='boot'
                   selected={this.state.boot}
@@ -368,13 +373,15 @@ class IndexPage extends React.Component {
                     this.setState({ boot: value })
                   }}
                 />
+              ) : (
+                <Placeholder type='radios' count={5} width='105px' />
               )}
             </div>
           </div>
           <div className='colset'>
             <div className='left'>Project Metadata</div>
             <div className='right right-md'>
-              {get(this.state, 'complete') && (
+              {get(this.state, 'complete') ? (
                 <>
                   <div className='control'>
                     <label htmlFor='input-group'>Group</label>
@@ -497,6 +504,18 @@ class IndexPage extends React.Component {
                     </div>
                   </div>
                 </>
+              ) : (
+                <div>
+                  <div className='control'>
+                    <Placeholder type='input' />
+                  </div>
+                  <div className='control'>
+                    <Placeholder type='input' />
+                  </div>
+                  <div className='control'>
+                    <Placeholder type='dropdown' />
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -509,7 +528,7 @@ class IndexPage extends React.Component {
                 this.state.tab === 'list' ? 'large' : ''
               }`}
             >
-              {get(this.state, 'complete') && (
+              {get(this.state, 'complete') ? (
                 <>
                   <div className='tab'>
                     <div className='tab-container'>
@@ -594,18 +613,20 @@ class IndexPage extends React.Component {
                     />
                   )}
                 </>
+              ) : (
+                <Placeholder type='tabs' count={2} />
               )}
             </div>
           </div>
 
-          {get(this.state, 'complete') && (
-            <div className='sticky'>
-              <div className='colset colset-submit'>
-                <div className='left nopadding'>
-                  <Footer />
-                </div>
-                <div className='right nopadding'>
-                  <div className='submit'>
+          <div className='sticky'>
+            <div className='colset colset-submit'>
+              <div className='left nopadding'>
+                <Footer />
+              </div>
+              <div className='right nopadding'>
+                <div className='submit'>
+                  {get(this.state, 'complete') ? (
                     <button
                       className='button primary'
                       type='submit'
@@ -613,11 +634,13 @@ class IndexPage extends React.Component {
                     >
                       Generate the project - {this.state.symb} + ⏎
                     </button>
-                  </div>
+                  ) : (
+                    <Placeholder type='button' width='267px' />
+                  )}
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </form>
       </Layout>
     )

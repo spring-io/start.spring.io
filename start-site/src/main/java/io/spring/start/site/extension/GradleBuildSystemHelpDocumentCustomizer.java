@@ -31,8 +31,7 @@ class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer 
 	public void customize(HelpDocument document) {
 		document.gettingStarted().addAdditionalLink("https://scans.gradle.com#gradle",
 				"Gradle Build Scans – insights for your project's build");
-		document.gettingStarted().addReferenceDocLink("https://docs.gradle.org",
-				"Official Gradle documentation");
+		document.gettingStarted().addReferenceDocLink("https://docs.gradle.org", "Official Gradle documentation");
 	}
 
 }

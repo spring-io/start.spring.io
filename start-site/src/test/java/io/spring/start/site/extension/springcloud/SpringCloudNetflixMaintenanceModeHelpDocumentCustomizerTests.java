@@ -32,8 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Olga Maciaszek-Sharma
  * @author Stephane Nicoll
  */
-class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizerTests
-		extends AbstractExtensionTests {
+class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void sectionAddedWhenMaintenanceModeDependenciesPresent() {

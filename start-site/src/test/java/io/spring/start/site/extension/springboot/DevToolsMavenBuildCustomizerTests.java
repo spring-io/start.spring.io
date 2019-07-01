@@ -30,10 +30,8 @@ class DevToolsMavenBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void mavenWithDevtoolsIsOptional() {
 		ProjectRequest request = createProjectRequest("devtools");
-		generateMavenPom(request).hasText(
-				"/project/dependencies/dependency[2]/artifactId", "spring-boot-devtools");
-		generateMavenPom(request).hasText("/project/dependencies/dependency[2]/optional",
-				"true");
+		generateMavenPom(request).hasText("/project/dependencies/dependency[2]/artifactId", "spring-boot-devtools");
+		generateMavenPom(request).hasText("/project/dependencies/dependency[2]/optional", "true");
 	}
 
 	@Test

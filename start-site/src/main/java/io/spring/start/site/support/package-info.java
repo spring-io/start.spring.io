@@ -14,26 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.springcloud;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 /**
- * Properties related to generating Spring Cloud projects.
- *
- * @author Olga Maciaszek-Sharma
+ * Support classes for start.spring.io.
  */
-@ConfigurationProperties("start.spring-cloud")
-class SpringCloudProjectGenerationProperties {
-
-	private String infoHost;
-
-	public String getInfoHost() {
-		return this.infoHost;
-	}
-
-	public void setInfoHost(String infoHost) {
-		this.infoHost = infoHost;
-	}
-
-}
+package io.spring.start.site.support;

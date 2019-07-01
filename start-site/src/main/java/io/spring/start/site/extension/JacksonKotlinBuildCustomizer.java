@@ -39,19 +39,16 @@ public class JacksonKotlinBuildCustomizer implements BuildCustomizer<Build> {
 
 	private final ResolvedProjectDescription description;
 
-	public JacksonKotlinBuildCustomizer(InitializrMetadata metadata,
-			ResolvedProjectDescription description) {
+	public JacksonKotlinBuildCustomizer(InitializrMetadata metadata, ResolvedProjectDescription description) {
 		this.buildMetadataResolver = new BuildMetadataResolver(metadata);
 		this.description = description;
 	}
 
 	@Override
 	public void customize(Build build) {
-		boolean isKotlin = ClassUtils.isAssignableValue(KotlinLanguage.class,
-				this.description.getLanguage());
+		boolean isKotlin = ClassUtils.isAssignableValue(KotlinLanguage.class, this.description.getLanguage());
 		if (this.buildMetadataResolver.hasFacet(build, "json") && isKotlin) {
-			build.dependencies().add("jackson-module-kotlin",
-					"com.fasterxml.jackson.module", "jackson-module-kotlin",
+			build.dependencies().add("jackson-module-kotlin", "com.fasterxml.jackson.module", "jackson-module-kotlin",
 					DependencyScope.COMPILE);
 		}
 	}

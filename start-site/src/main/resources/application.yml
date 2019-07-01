@@ -86,7 +86,7 @@ initializr:
             version: Finchley.RC2
             repositories: spring-milestones
           - versionRange: "[2.0.3.RELEASE,2.0.x.BUILD-SNAPSHOT)"
-            version: Finchley.SR3
+            version: Finchley.SR4
           - versionRange: "[2.0.x.BUILD-SNAPSHOT,2.1.0.M3)"
             version: Finchley.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
@@ -132,20 +132,17 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
-            version: 8.8.2
+            version: 8.8.4
           - versionRange: "[2.0.0.M1,2.1.0.M1)"
             version: 10.0.16
           - versionRange: "2.1.0.M1"
-            version: 13.0.8
+            version: 13.0.9
     gradle:
       dependency-management-plugin-version: 1.0.7.RELEASE
     kotlin:
-      default-version: 1.3.31
       mappings:
         - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
           version: 1.2.51
-        - versionRange: "[2.0.0.M1,2.2.0.M1)"
-          version: 1.2.71
     repositories:
       sonatype-snapshots:
         name: Sonatype Snapshots
@@ -801,6 +798,14 @@ initializr:
     - name: Spring Cloud
       bom: spring-cloud
       content:
+        - name: Cloud Bootstrap
+          id: cloud-starter
+          description: Non-specific Spring Cloud features, unrelated to external libraries or integrations (e.g. Bootstrap context and @RefreshScope)
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter
+          links:
+          - rel: reference
+            href: https://spring.io/projects/spring-cloud-commons
         - name: Function
           id: cloud-function
           groupId: org.springframework.cloud
@@ -849,7 +854,7 @@ initializr:
               version: 2.1.2.RELEASE
               artifactId: spring-cloud-starter-open-service-broker-webmvc
             - versionRange: "2.1.0.M1"
-              version: 3.0.1.RELEASE
+              version: 3.0.2.RELEASE
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/html5/
@@ -1245,10 +1250,6 @@ initializr:
     - name : 2.1.1.
       id: 2.1.1.RELEASE
       default: true
-
-start:
-    spring-cloud:
-        info-host: https://spring-cloud-info.cfapps.io/bomversions/
 
 ---
 

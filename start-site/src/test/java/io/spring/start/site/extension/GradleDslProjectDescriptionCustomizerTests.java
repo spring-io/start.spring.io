@@ -34,8 +34,8 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		request.setType("gradle-project");
 		request.setLanguage("kotlin");
 		request.setBootVersion("2.1.4.RELEASE");
-		assertThat(generateProject(request).getRelativePathsOfProjectFiles())
-				.contains("build.gradle.kts").doesNotContain("build.gradle");
+		assertThat(generateProject(request).getRelativePathsOfProjectFiles()).contains("build.gradle.kts")
+				.doesNotContain("build.gradle");
 	}
 
 	@Test
@@ -44,8 +44,8 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		request.setType("gradle-project");
 		request.setLanguage("java");
 		request.setBootVersion("2.1.4.RELEASE");
-		assertThat(generateProject(request).getRelativePathsOfProjectFiles())
-				.contains("build.gradle").doesNotContain("build.gradle.kts");
+		assertThat(generateProject(request).getRelativePathsOfProjectFiles()).contains("build.gradle")
+				.doesNotContain("build.gradle.kts");
 	}
 
 	@Test
@@ -54,8 +54,8 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		request.setType("gradle-project");
 		request.setLanguage("groovy");
 		request.setBootVersion("2.1.4.RELEASE");
-		assertThat(generateProject(request).getRelativePathsOfProjectFiles())
-				.contains("build.gradle").doesNotContain("build.gradle.kts");
+		assertThat(generateProject(request).getRelativePathsOfProjectFiles()).contains("build.gradle")
+				.doesNotContain("build.gradle.kts");
 	}
 
 	@Test
@@ -64,8 +64,8 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		request.setType("gradle-project");
 		request.setLanguage("kotlin");
 		request.setBootVersion("1.5.18.RELEASE");
-		assertThat(generateProject(request).getRelativePathsOfProjectFiles())
-				.contains("build.gradle").doesNotContain("build.gradle.kts");
+		assertThat(generateProject(request).getRelativePathsOfProjectFiles()).contains("build.gradle")
+				.doesNotContain("build.gradle.kts");
 	}
 
 }

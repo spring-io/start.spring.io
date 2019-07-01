@@ -28,12 +28,12 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 interface SpringCloudContractDependencyVerifier {
 
 	/**
-	 * Spring Cloud Contract project id.
+	 * Spring Cloud Contract Verifier artifact id.
 	 */
-	String SPRING_CLOUD_CONTRACT_ID = "spring-cloud-contract";
+	String SPRING_CLOUD_CONTRACT_ARTIFACT_ID = "org.springframework.cloud:spring-cloud-contract-verifier";
 
 	/**
-	 * Spring Cloud Contract Verifier dependency id.
+	 * Spring Cloud Contract Verifier start-site dependency id.
 	 */
 	String CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID = "cloud-contract-verifier";
 
@@ -44,8 +44,7 @@ interface SpringCloudContractDependencyVerifier {
 	 * @return <code>true</code> if Spring Cloud Contract Verifier dependency not present
 	 */
 	default boolean doesNotContainSCCVerifier(Map<String, Dependency> dependencies) {
-		return dependencies.keySet().stream()
-				.noneMatch((id) -> id.equals(CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
+		return dependencies.keySet().stream().noneMatch((id) -> id.equals(CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
 	}
 
 }

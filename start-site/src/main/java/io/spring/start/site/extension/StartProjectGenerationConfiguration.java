@@ -37,10 +37,10 @@ import org.springframework.context.annotation.Import;
  *
  * @author Madhura Bhave
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
-@Import({ SpringBootProjectGenerationConfiguration.class,
-		SpringCloudProjectGenerationConfiguration.class,
+@Import({ SpringBootProjectGenerationConfiguration.class, SpringCloudProjectGenerationConfiguration.class,
 		SpringRestDocsProjectGenerationConfiguration.class })
 public class StartProjectGenerationConfiguration {
 
@@ -48,8 +48,7 @@ public class StartProjectGenerationConfiguration {
 
 	private final ResolvedProjectDescription description;
 
-	public StartProjectGenerationConfiguration(InitializrMetadata metadata,
-			ResolvedProjectDescription description) {
+	public StartProjectGenerationConfiguration(InitializrMetadata metadata, ResolvedProjectDescription description) {
 		this.metadata = metadata;
 		this.description = description;
 	}
@@ -100,6 +99,12 @@ public class StartProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("flyway")
 	public FlywayProjectContributor flywayProjectContributor() {
 		return new FlywayProjectContributor();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("liquibase")
+	public LiquibaseProjectContributor liquibaseProjectContributor() {
+		return new LiquibaseProjectContributor();
 	}
 
 	@Bean

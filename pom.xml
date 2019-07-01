@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.5.RELEASE</version>
+		<version>2.1.6.RELEASE</version>
 	</parent>
 	<groupId>io.spring.start</groupId>
 	<artifactId>start-parent</artifactId>
@@ -19,7 +19,7 @@
 		<disable.checks>false</disable.checks>
 		<junit-jupiter.version>5.4.2</junit-jupiter.version>
 		<spring-initializr.version>0.8.0.BUILD-SNAPSHOT</spring-initializr.version>
-		<spring-javaformat.version>0.0.9</spring-javaformat.version>
+		<spring-javaformat.version>0.0.14</spring-javaformat.version>
 	</properties>
 
 	<modules>
@@ -55,6 +55,11 @@
 				<artifactId>initializr-generator-spring</artifactId>
 				<version>${spring-initializr.version}</version>
 				<type>test-jar</type>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.initializr</groupId>
+				<artifactId>initializr-version-resolver</artifactId>
+				<version>${spring-initializr.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.spring.initializr</groupId>
@@ -96,7 +101,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>3.1.0</version>
 					<executions>
 						<execution>
 							<id>checkstyle-validation</id>
@@ -115,7 +120,7 @@
 						<dependency>
 							<groupId>com.puppycrawl.tools</groupId>
 							<artifactId>checkstyle</artifactId>
-							<version>8.18</version>
+							<version>8.22</version>
 						</dependency>
 						<dependency>
 							<groupId>io.spring.javaformat</groupId>

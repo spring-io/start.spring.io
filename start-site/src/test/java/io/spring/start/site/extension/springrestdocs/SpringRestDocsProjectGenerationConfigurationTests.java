@@ -40,32 +40,35 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 			.withConfiguration(SpringRestDocsProjectGenerationConfiguration.class);
 
 	@Test
+	@SuppressWarnings("rawtypes")
 	void springRestDocsCustomizerMaven() {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new MavenBuildSystem());
 		description.addDependency("restdocs", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(
-				description, (context) -> context.getBeansOfType(BuildCustomizer.class));
+		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
+				(context) -> context.getBeansOfType(BuildCustomizer.class));
 		assertThat(buildCustomizers).containsOnlyKeys("restDocsMavenBuildCustomizer");
 	}
 
 	@Test
+	@SuppressWarnings("rawtypes")
 	void springRestDocsCustomizerGradle() {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
 		description.addDependency("restdocs", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(
-				description, (context) -> context.getBeansOfType(BuildCustomizer.class));
+		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
+				(context) -> context.getBeansOfType(BuildCustomizer.class));
 		assertThat(buildCustomizers).containsOnlyKeys("restDocsGradleBuildCustomizer");
 	}
 
 	@Test
+	@SuppressWarnings("rawtypes")
 	void springRestDocsNotAppliedIfRestDocsNotSelected() {
 		ProjectDescription description = new ProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
 		description.addDependency("web", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(
-				description, (context) -> context.getBeansOfType(BuildCustomizer.class));
+		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
+				(context) -> context.getBeansOfType(BuildCustomizer.class));
 		assertThat(buildCustomizers).isEmpty();
 	}
 

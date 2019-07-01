@@ -25,6 +25,7 @@ import io.spring.initializr.generator.io.template.TemplateRenderer;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -41,14 +42,10 @@ public class SpringCloudProjectGenerationConfiguration {
 
 	private final ResolvedProjectDescription description;
 
-	private final SpringCloudProjectsMetadataProvider springCloudProjectsMetadataProvider;
-
 	public SpringCloudProjectGenerationConfiguration(InitializrMetadata metadata,
-			ResolvedProjectDescription description,
-			SpringCloudProjectsMetadataProvider springCloudProjectsMetadataProvider) {
+			ResolvedProjectDescription description) {
 		this.metadata = metadata;
 		this.description = description;
-		this.springCloudProjectsMetadataProvider = springCloudProjectsMetadataProvider;
 	}
 
 	@Bean
@@ -68,31 +65,30 @@ public class SpringCloudProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnPlatformVersion("2.1.0.RELEASE")
-	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(
-			Build build, TemplateRenderer templateRenderer) {
-		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata,
-				build, templateRenderer);
+	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(Build build,
+			TemplateRenderer templateRenderer) {
+		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata, build, templateRenderer);
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(SpringCloudProjectsMetadataResolver.class)
-	SpringCloudProjectsMetadataResolver springCloudProjectsVersionResolver() {
-		return new DefaultSpringCloudProjectsMetadataResolver(this.metadata,
-				this.springCloudProjectsMetadataProvider);
+	@ConditionalOnMissingBean(SpringCloudProjectsVersionResolver.class)
+	SpringCloudProjectsVersionResolver springCloudProjectsVersionResolver(
+			DependencyManagementVersionResolver versionResolver) {
+		return new DefaultSpringCloudProjectsVersionResolver(this.metadata, versionResolver);
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-	SpringCloudContractMavenBuildCustomizer springCloudContractMavenBuildCustomizer() {
-		return new SpringCloudContractMavenBuildCustomizer(this.description,
-				springCloudProjectsVersionResolver());
+	SpringCloudContractMavenBuildCustomizer springCloudContractMavenBuildCustomizer(
+			SpringCloudProjectsVersionResolver versionResolver) {
+		return new SpringCloudContractMavenBuildCustomizer(this.description, versionResolver);
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
-	SpringCloudContractGradleBuildCustomizer springCloudContractGradleBuildCustomizer() {
-		return new SpringCloudContractGradleBuildCustomizer(this.description,
-				springCloudProjectsVersionResolver());
+	SpringCloudContractGradleBuildCustomizer springCloudContractGradleBuildCustomizer(
+			SpringCloudProjectsVersionResolver versionResolver) {
+		return new SpringCloudContractGradleBuildCustomizer(this.description, versionResolver);
 	}
 
 }
