@@ -869,6 +869,10 @@ initializr:
           artifactId: spring-cloud-starter-contract-verifier
           scope: test
           starter: false
+          links:
+            - rel: additional
+              href: https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_spring_cloud_contract_verifier_setup
+              description: In order to leverage Spring Cloud Contract Verifier during builds, Spring Cloud Contract build plugins are used; you can find information on setting them up here.
         - name: Contract Stub Runner
           bom: spring-cloud
           id: cloud-contract-stub-runner
