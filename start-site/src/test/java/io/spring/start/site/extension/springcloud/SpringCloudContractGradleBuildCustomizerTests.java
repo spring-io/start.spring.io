@@ -25,19 +25,28 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link SpringCloudContractGradleBuildCustomizer}.
  *
  * @author Olga Maciaszek-Sharma
+ * @author Madhura Bhave
  */
 class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
-		ProjectRequest projectRequest = createProjectRequest(
-				SpringCloudContractDependencyVerifier.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID);
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		projectRequest.setType("gradle-project");
-
 		GradleBuildAssert build = generateGradleBuild(projectRequest);
 		build.containsSubsequence("buildscript {", "dependencies {",
 				"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:");
 		build.contains("apply plugin: 'spring-cloud-contract'");
+	}
+
+	@Test
+	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
+		ProjectRequest projectRequest = createProjectRequest();
+		projectRequest.setType("gradle-project");
+		GradleBuildAssert build = generateGradleBuild(projectRequest);
+		build.doesNotContain("buildscript {",
+				"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:");
+		build.doesNotContain("apply plugin: 'spring-cloud-contract'");
 	}
 
 }

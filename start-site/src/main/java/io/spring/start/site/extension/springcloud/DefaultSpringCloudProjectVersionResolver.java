@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import java.util.Optional;
-
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.InitializrMetadata;
@@ -26,17 +24,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Default implementation of the {@link SpringCloudProjectsVersionResolver}.
+ * Implementation of the {@link SpringCloudProjectVersionResolver} that resolves the
+ * version for a Spring Cloud project from the release train version that corresponds to
+ * the given Spring Boot version.
  *
  * @author Olga Maciaszek-Sharma
  */
-class DefaultSpringCloudProjectsVersionResolver implements SpringCloudProjectsVersionResolver {
+class DefaultSpringCloudProjectVersionResolver implements SpringCloudProjectVersionResolver {
 
 	private static final String SPRING_CLOUD_GROUP_ID = "org.springframework.cloud";
 
 	private static final String SPRING_CLOUD_DEPENDENCIES_ID = "spring-cloud-dependencies";
 
-	private static final Log LOG = LogFactory.getLog(DefaultSpringCloudProjectsVersionResolver.class);
+	private static final Log LOG = LogFactory.getLog(DefaultSpringCloudProjectVersionResolver.class);
 
 	private static final String SPRING_CLOUD_ID = "spring-cloud";
 
@@ -44,21 +44,21 @@ class DefaultSpringCloudProjectsVersionResolver implements SpringCloudProjectsVe
 
 	private final DependencyManagementVersionResolver resolver;
 
-	DefaultSpringCloudProjectsVersionResolver(InitializrMetadata metadata,
+	DefaultSpringCloudProjectVersionResolver(InitializrMetadata metadata,
 			DependencyManagementVersionResolver resolver) {
 		this.metadata = metadata;
 		this.resolver = resolver;
 	}
 
 	@Override
-	public Optional<String> resolveVersion(Version bootVersion, String artifactId) {
+	public String resolveVersion(Version bootVersion, String artifactId) {
 		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get(SPRING_CLOUD_ID);
 		String releaseTrainVersion = bom.resolve(bootVersion).getVersion();
 		LOG.info("Retrieving version for artifact: " + artifactId + " and release train version: "
 				+ releaseTrainVersion);
 		String resolvedProjectVersion = this.resolver
 				.resolve(SPRING_CLOUD_GROUP_ID, SPRING_CLOUD_DEPENDENCIES_ID, releaseTrainVersion).get(artifactId);
-		return Optional.ofNullable(resolvedProjectVersion);
+		return resolvedProjectVersion;
 	}
 
 }

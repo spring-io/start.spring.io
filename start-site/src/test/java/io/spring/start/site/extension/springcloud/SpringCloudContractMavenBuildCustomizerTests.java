@@ -25,21 +25,25 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link SpringCloudContractMavenBuildCustomizer}.
  *
  * @author Olga Maciaszek-Sharma
+ * @author Madhura Bhave
  */
 class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
-		ProjectRequest projectRequest = createProjectRequest(
-				SpringCloudContractDependencyVerifier.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID);
-
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		PomAssert pom = generateMavenPom(projectRequest);
-
-		pom.hasDependency(getDependency(SpringCloudContractDependencyVerifier.CLOUD_CONTRACT_VERIFIER_DEPENDENCY_ID));
+		pom.hasDependency(getDependency("cloud-contract-verifier"));
 		pom.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud");
 		pom.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin");
 		pom.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
+	}
 
+	@Test
+	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
+		ProjectRequest projectRequest = createProjectRequest();
+		PomAssert pom = generateMavenPom(projectRequest);
+		pom.doesNotContain("spring-cloud-contract-maven-plugin");
 	}
 
 }

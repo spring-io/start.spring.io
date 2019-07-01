@@ -21,6 +21,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.TemplateRenderer;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
@@ -71,23 +72,25 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(SpringCloudProjectsVersionResolver.class)
-	SpringCloudProjectsVersionResolver springCloudProjectsVersionResolver(
+	@ConditionalOnMissingBean(SpringCloudProjectVersionResolver.class)
+	SpringCloudProjectVersionResolver springCloudProjectsVersionResolver(
 			DependencyManagementVersionResolver versionResolver) {
-		return new DefaultSpringCloudProjectsVersionResolver(this.metadata, versionResolver);
+		return new DefaultSpringCloudProjectVersionResolver(this.metadata, versionResolver);
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	@ConditionalOnRequestedDependency("cloud-contract-verifier")
 	SpringCloudContractMavenBuildCustomizer springCloudContractMavenBuildCustomizer(
-			SpringCloudProjectsVersionResolver versionResolver) {
+			SpringCloudProjectVersionResolver versionResolver) {
 		return new SpringCloudContractMavenBuildCustomizer(this.description, versionResolver);
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+	@ConditionalOnRequestedDependency("cloud-contract-verifier")
 	SpringCloudContractGradleBuildCustomizer springCloudContractGradleBuildCustomizer(
-			SpringCloudProjectsVersionResolver versionResolver) {
+			SpringCloudProjectVersionResolver versionResolver) {
 		return new SpringCloudContractGradleBuildCustomizer(this.description, versionResolver);
 	}
 

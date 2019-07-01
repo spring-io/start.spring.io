@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import java.util.Optional;
-
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -31,8 +29,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Olga Maciaszek-Sharma
  */
-class SpringCloudContractGradleBuildCustomizer
-		implements BuildCustomizer<GradleBuild>, SpringCloudContractDependencyVerifier {
+class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	private static final String SPRING_CLOUD_CONTRACT_GRADLE_PLUGIN_ID = "spring-cloud-contract";
 
@@ -40,30 +37,27 @@ class SpringCloudContractGradleBuildCustomizer
 
 	private final ResolvedProjectDescription description;
 
-	private final SpringCloudProjectsVersionResolver projectsVersionResolver;
+	private final SpringCloudProjectVersionResolver projectsVersionResolver;
 
 	SpringCloudContractGradleBuildCustomizer(ResolvedProjectDescription description,
-			SpringCloudProjectsVersionResolver projectsVersionResolver) {
+			SpringCloudProjectVersionResolver projectsVersionResolver) {
 		this.description = description;
 		this.projectsVersionResolver = projectsVersionResolver;
 	}
 
 	@Override
 	public void customize(GradleBuild build) {
-		if (doesNotContainSCCVerifier(this.description.getRequestedDependencies())) {
-			return;
-		}
 		Version bootVersion = this.description.getPlatformVersion();
-		Optional<String> sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
-				SPRING_CLOUD_CONTRACT_ARTIFACT_ID);
-		if (!sccPluginVersion.isPresent()) {
+		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
+				"org.springframework.cloud:spring-cloud-contract-verifier");
+		if (sccPluginVersion == null) {
 			LOG.warn(
 					"Spring Cloud Contract Verifier Gradle plugin version could not be resolved for Spring Boot version: "
 							+ bootVersion.toString());
 			return;
 		}
 		build.buildscript((buildscript) -> buildscript
-				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion.get()));
+				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion));
 		build.applyPlugin(SPRING_CLOUD_CONTRACT_GRADLE_PLUGIN_ID);
 	}
 

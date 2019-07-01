@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import java.util.Optional;
-
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -31,36 +29,32 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Olga Maciaszek-Sharma
  */
-class SpringCloudContractMavenBuildCustomizer
-		implements BuildCustomizer<MavenBuild>, SpringCloudContractDependencyVerifier {
+class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
 	private static final Log LOG = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
 
 	private final ResolvedProjectDescription description;
 
-	private final SpringCloudProjectsVersionResolver projectsVersionResolver;
+	private final SpringCloudProjectVersionResolver projectsVersionResolver;
 
 	SpringCloudContractMavenBuildCustomizer(ResolvedProjectDescription description,
-			SpringCloudProjectsVersionResolver projectsVersionResolver) {
+			SpringCloudProjectVersionResolver projectsVersionResolver) {
 		this.description = description;
 		this.projectsVersionResolver = projectsVersionResolver;
 	}
 
 	@Override
 	public void customize(MavenBuild mavenBuild) {
-		if (doesNotContainSCCVerifier(this.description.getRequestedDependencies())) {
-			return;
-		}
 		Version bootVersion = this.description.getPlatformVersion();
-		Optional<String> sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
-				SPRING_CLOUD_CONTRACT_ARTIFACT_ID);
-		if (!sccPluginVersion.isPresent()) {
+		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
+				"org.springframework.cloud:spring-cloud-contract-verifier");
+		if (sccPluginVersion == null) {
 			LOG.warn(
 					"Spring Cloud Contract Verifier Maven plugin version could not be resolved for Spring Boot version: "
 							+ bootVersion.toString());
 			return;
 		}
-		mavenBuild.plugin("org.springframework.cloud", "spring-cloud-contract-maven-plugin", sccPluginVersion.get())
+		mavenBuild.plugin("org.springframework.cloud", "spring-cloud-contract-maven-plugin", sccPluginVersion)
 				.extensions();
 	}
 
