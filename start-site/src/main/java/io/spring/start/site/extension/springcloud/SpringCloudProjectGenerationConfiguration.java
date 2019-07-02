@@ -17,12 +17,18 @@
 package io.spring.start.site.extension.springcloud;
 
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
+import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.TemplateRenderer;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -63,6 +69,29 @@ public class SpringCloudProjectGenerationConfiguration {
 	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(Build build,
 			TemplateRenderer templateRenderer) {
 		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata, build, templateRenderer);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(SpringCloudProjectVersionResolver.class)
+	SpringCloudProjectVersionResolver springCloudProjectsVersionResolver(
+			DependencyManagementVersionResolver versionResolver) {
+		return new DefaultSpringCloudProjectVersionResolver(this.metadata, versionResolver);
+	}
+
+	@Bean
+	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	@ConditionalOnRequestedDependency("cloud-contract-verifier")
+	SpringCloudContractMavenBuildCustomizer springCloudContractMavenBuildCustomizer(
+			SpringCloudProjectVersionResolver versionResolver) {
+		return new SpringCloudContractMavenBuildCustomizer(this.description, versionResolver);
+	}
+
+	@Bean
+	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+	@ConditionalOnRequestedDependency("cloud-contract-verifier")
+	SpringCloudContractGradleBuildCustomizer springCloudContractGradleBuildCustomizer(
+			SpringCloudProjectVersionResolver versionResolver) {
+		return new SpringCloudContractGradleBuildCustomizer(this.description, versionResolver);
 	}
 
 }
