@@ -98,6 +98,9 @@ initializr:
           - versionRange: "[2.1.x.BUILD-SNAPSHOT, 2.2.0.M1)"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
+          - versionRange: [2.2.0.M4, 2.2.0.M4]
+            version: Hoxton.M1
+            repositories: spring-milestones
           - versionRange: "2.2.0.M1"
             version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
