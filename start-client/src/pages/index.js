@@ -1,4 +1,5 @@
 import FileSaver from 'file-saver'
+import JSZip from 'jszip'
 import React from 'react'
 import get from 'lodash.get'
 import queryString from 'query-string'
@@ -10,7 +11,8 @@ import { graphql } from 'gatsby'
 
 import META_EXTEND from '../data/meta-extend.json'
 import { CheckboxList } from '../components/common/checkbox-list'
-import { Footer, Header, Layout, Loader } from '../components/common/layout'
+import { ExploreModal } from '../components/common/explore'
+import { Footer, Header, Layout } from '../components/common/layout'
 import {
   IconChevronRight,
   IconList,
@@ -19,6 +21,7 @@ import {
 import { List, Placeholder, RadioGroup } from '../components/common/form'
 import { Meta } from '../components/common/meta'
 import { Typehead } from '../components/common/typehead'
+import { createTree, findRoot } from '../components/utils/Zip'
 import { isInRange } from '../components/utils/versions'
 
 const WEIGHT_DEFAULT = 50
@@ -33,15 +36,21 @@ class IndexPage extends React.Component {
       error: false,
       symb: 'alt',
       groups: {},
+      exploreModal: false,
     }
 
     this.keyMap = {
       SUBMIT: ['command+enter', 'ctrl+enter'],
+      EXPLORE: ['command+space', 'ctrl+space'],
     }
     const submit = this.onSubmit
+    const explore = this.onExplore
     this.handlers = {
       SUBMIT: event => {
         submit(event)
+      },
+      EXPLORE: event => {
+        explore()
       },
     }
   }
@@ -252,48 +261,104 @@ class IndexPage extends React.Component {
     this.setState({ groups: val })
   }
 
-  onSubmit = event => {
-    event.preventDefault()
-    const { project, language, boot, meta } = this.state
-    const apiZip = this.props.data.site.edges[0].node.siteMetadata.apiZip
-    const url = `${apiZip}`
-    const params = querystring.stringify({
-      type: project,
-      language: language,
-      bootVersion: boot,
-      baseDir: meta.artifact,
-      groupId: meta.group,
-      artifactId: meta.artifact,
-      name: meta.name,
-      description: meta.description,
-      packageName: meta.packageName,
-      packaging: meta.packaging,
-      javaVersion: meta.java,
-    })
-    const paramsDependencies = this.getValidDependencies()
-      .map(dep => `&style=${dep.id}`)
-      .join('')
-    fetch(`${url}?${params}${paramsDependencies}`, { method: 'GET' })
-      .then(
+  retrieveBlob = () => {
+    return new Promise((resolve, reject) => {
+      const { project, language, boot, meta } = this.state
+      const url = `${this.props.data.site.edges[0].node.siteMetadata.apiZip}`
+      const params = querystring.stringify({
+        type: project,
+        language: language,
+        bootVersion: boot,
+        baseDir: meta.artifact,
+        groupId: meta.group,
+        artifactId: meta.artifact,
+        name: meta.name,
+        description: meta.description,
+        packageName: meta.packageName,
+        packaging: meta.packaging,
+        javaVersion: meta.java,
+      })
+      const paramsDependencies = this.getValidDependencies()
+        .map(dep => `&style=${dep.id}`)
+        .join('')
+      fetch(`${url}?${params}${paramsDependencies}`, {
+        method: 'GET',
+      }).then(
         function(response) {
           if (response.status === 200) {
-            return response.blob()
+            resolve(response.blob())
+            return
           }
-          return null
+          reject()
         },
         function(error) {
-          return null
+          reject()
         }
       )
-      .then(function(blob) {
-        if (!blob) {
-          toast.error('The server API is not available.')
-          return
-        }
-        const fileName = `${meta.artifact}.zip`
-        FileSaver.saveAs(blob, fileName)
-        toast.success('Your project has been generated with success.')
+    })
+  }
+
+  onSubmit = async event => {
+    event.preventDefault()
+    const { meta } = this.state
+    const blob = await this.retrieveBlob().catch(err => {
+      toast.error('The server API is not available.')
+    })
+    const fileName = `${meta.artifact}.zip`
+    FileSaver.saveAs(blob, fileName)
+    toast.success('Your project has been generated with success.')
+  }
+
+  onExplore = async () => {
+    if (get(this.state, 'exploreModal')) {
+      return
+    }
+    this.setState({
+      exploreModal: true,
+      tree: null,
+      file: null,
+      projectName: null,
+      originalProject: null,
+    })
+    const { meta } = this.state
+    const blob = await this.retrieveBlob().catch(err => {
+      toast.error('The server API is not available.')
+      this.onExploreClose()
+    })
+    const zip = new JSZip()
+    const { files } = await zip.loadAsync(blob)
+    const path = `${findRoot(zip)}/`
+    const { tree, selected } = await createTree(files, path, path, zip)
+
+    if (get(this.state, 'exploreModal')) {
+      this.setState({
+        exploreModal: true,
+        tree: tree,
+        file: selected,
+        projectName: `${meta.artifact}.zip`,
+        originalProject: blob,
       })
+    }
+  }
+
+  downloadFile = () => {
+    const { originalProject, projectName } = this.state
+    FileSaver.saveAs(originalProject, projectName)
+    toast.success('Your project has been downloaded with success.')
+  }
+
+  onSelectedFile = item => {
+    this.setState({ file: item })
+  }
+
+  onExploreClose = () => {
+    this.setState({
+      exploreModal: false,
+      tree: null,
+      file: null,
+      projectName: null,
+      originalProject: null,
+    })
   }
 
   render() {
@@ -313,7 +378,7 @@ class IndexPage extends React.Component {
     const selected = get(this.getValidDependencies(), 'length', 0)
     return (
       <Layout>
-        <GlobalHotKeys keyMap={this.keyMap} handlers={this.handlers} />
+        <GlobalHotKeys keyMap={this.keyMap} handlers={this.handlers} global />
         <Meta />
         <ToastContainer position='top-center' hideProgressBar />
         <form onSubmit={this.onSubmit} autoComplete='off'>
@@ -627,21 +692,44 @@ class IndexPage extends React.Component {
               <div className='right nopadding'>
                 <div className='submit'>
                   {get(this.state, 'complete') ? (
-                    <button
-                      className='button primary'
-                      type='submit'
-                      id='generate-project'
-                    >
-                      Generate the project - {this.state.symb} + ⏎
-                    </button>
+                    <>
+                      <button
+                        className='button primary'
+                        type='submit'
+                        id='generate-project'
+                      >
+                        Generate the project - {this.state.symb} + ⏎
+                      </button>
+                      <button
+                        className='button'
+                        type='button'
+                        onClick={this.onExplore}
+                        id='explore-project'
+                      >
+                        Explore the project - {this.state.symb} + Space
+                      </button>
+                    </>
                   ) : (
-                    <Placeholder type='button' width='267px' />
+                    <>
+                      <Placeholder type='button' width='267px' />
+                      <Placeholder type='button' width='281px' />
+                    </>
                   )}
                 </div>
               </div>
             </div>
           </div>
         </form>
+
+        <ExploreModal
+          open={this.state.exploreModal}
+          onClose={this.onExploreClose}
+          onSelected={this.onSelectedFile}
+          tree={get(this.state, 'tree')}
+          selected={get(this.state, 'file')}
+          projectName={get(this.state, 'projectName')}
+          download={this.downloadFile}
+        />
       </Layout>
     )
   }
