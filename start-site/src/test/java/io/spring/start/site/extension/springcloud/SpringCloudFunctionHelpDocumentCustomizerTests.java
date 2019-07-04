@@ -39,7 +39,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForMaven() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.1.0.RELEASE");
+		request.setBootVersion("2.2.0.M3");
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
 		List<String> lines = generateHelpDocument(request);
@@ -50,24 +50,42 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForGradle() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.1.0.RELEASE");
+		request.setBootVersion("2.2.0.M3");
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
 		List<String> lines = generateHelpDocument(request);
 		assertThat(lines).contains(AWS_SECTION_TITLE);
 		assertThat(lines).contains(AZURE_SECTION_TITLE);
 		assertThat(lines).contains("A GRADLE plugin has not been provided by Azure as of yet.");
-
 	}
 
 	@Test
-	void sectionNotAddedWhenRelevantVersionIsNotSelected() {
+	void functionBuildSetupInfoSectionNotAddedWhenRelevantVersionIsNotSelected() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.0.7.RELEASE");
+		request.setBootVersion("2.1.0.RELEASE");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
 		List<String> lines = generateHelpDocument(request);
 		assertThat(lines).doesNotContain(AWS_SECTION_TITLE);
 		assertThat(lines).doesNotContain(AZURE_SECTION_TITLE);
+	}
+
+	@Test
+	void functionBuildSetupInfoSectionNotAddedWhenFunctionAndCloudDependenciesAbsent() {
+		ProjectRequest request = createProjectRequest();
+		request.setBootVersion("2.2.0.M3");
+		assertThat(generateHelpDocument(request)).doesNotContain(AWS_SECTION_TITLE);
+		assertThat(generateHelpDocument(request)).doesNotContain(AZURE_SECTION_TITLE);
+	}
+
+	@Test
+	void functionBuildSetupInfoSectionNotAddedForFunctionSnapshot() {
+		ProjectRequest request = createProjectRequest();
+		request.setBootVersion("2.2.0.BUILD_SNAPSHOT");
+		request.setType("maven-build");
+		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
+		List<String> lines = generateHelpDocument(request);
+		assertThat(lines).contains(AWS_SECTION_TITLE);
+		assertThat(lines).contains(AZURE_SECTION_TITLE);
 	}
 
 	private List<String> generateHelpDocument(ProjectRequest projectRequest) {

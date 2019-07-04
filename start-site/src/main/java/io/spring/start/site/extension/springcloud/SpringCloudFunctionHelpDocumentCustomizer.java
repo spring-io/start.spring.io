@@ -25,13 +25,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.BuildSystem;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
+import io.spring.initializr.generator.version.Version;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * A {@link HelpDocumentCustomizer} that adds information regarding build file setup for
@@ -41,40 +43,69 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  */
 class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final String CLOUD_FUNCTION_DEPENDENCY_ID = "cloud-function";
+	private static final String SNAPSHOT = "SNAPSHOT";
+
+	private static final Log LOG = LogFactory.getLog(SpringCloudFunctionHelpDocumentCustomizer.class);
+
+	private static final String SPRING_CLOUD_FUNCTION_DEPENDENCY_ID = "cloud-function";
 
 	private static final String TEMPLATE_PREFIX = "spring-cloud-function-build-setup-";
 
-	private final Set<String> buildDependencies;
+	private static final String SPRING_CLOUD_FUNCTION_ARTIFACT_ID = "org.springframework.cloud:spring-cloud-function-core";
 
-	private final BuildSystem buildSystem;
+	private final Set<String> buildDependencies;
 
 	private final MustacheTemplateRenderer templateRenderer;
 
-	SpringCloudFunctionHelpDocumentCustomizer(Build build, ResolvedProjectDescription resolvedProjectDescription,
-			MustacheTemplateRenderer templateRenderer) {
+	private final SpringCloudProjectVersionResolver projectVersionResolver;
+
+	private final ResolvedProjectDescription description;
+
+	SpringCloudFunctionHelpDocumentCustomizer(Build build, ResolvedProjectDescription description,
+			MustacheTemplateRenderer templateRenderer, SpringCloudProjectVersionResolver projectVersionResolver) {
 		this.buildDependencies = build.dependencies().ids().collect(Collectors.toSet());
-		this.buildSystem = resolvedProjectDescription.getBuildSystem();
+		this.description = description;
 		this.templateRenderer = templateRenderer;
+		this.projectVersionResolver = projectVersionResolver;
 	}
 
 	@Override
 	public void customize(HelpDocument helpDocument) {
-		this.buildDependencies.stream().filter((dependencyId) -> dependencyId.equals(CLOUD_FUNCTION_DEPENDENCY_ID))
-				.findAny().ifPresent((dependency) -> addBuildInfo(helpDocument));
+		this.buildDependencies.stream()
+				.filter((dependencyId) -> dependencyId.equals(SPRING_CLOUD_FUNCTION_DEPENDENCY_ID)).findAny()
+				.ifPresent((dependency) -> addBuildSetupInfo(helpDocument));
 	}
 
-	private void addBuildInfo(HelpDocument helpDocument) {
+	private void addBuildSetupInfo(HelpDocument helpDocument) {
+		Version bootVersion = this.description.getPlatformVersion();
+		String springCloudFunctionVersion = this.projectVersionResolver.resolveVersion(bootVersion,
+				SPRING_CLOUD_FUNCTION_ARTIFACT_ID);
+		if (springCloudFunctionVersion == null) {
+			LOG.warn("Spring Cloud Function version could not be resolved for Spring Boot version: "
+					+ bootVersion.toString());
+			return;
+		}
+		if (isSnapshot(springCloudFunctionVersion)) {
+			LOG.debug("Spring Cloud Function version " + springCloudFunctionVersion
+					+ " is a snapshot. No documents are present for this version to link to.");
+			return;
+		}
+		String buildSystemId = this.description.getBuildSystem().id();
 		Set<CloudPlatform> presentCloudPlatforms = cloudPlatformsFromDependencies();
 
 		Map<Boolean, List<CloudPlatform>> platformsByBuildSystemSupport = presentCloudPlatforms.stream()
 				.collect(Collectors.partitioningBy(
-						(cloudPlatform) -> cloudPlatform.getPluginsForBuildSystems().contains(this.buildSystem.id())));
-		platformsByBuildSystemSupport.get(true).forEach((cloudPlatform) -> helpDocument
-				.addSection(springCloudFunctionBuildSetupSection(cloudPlatform, getTemplateName(cloudPlatform))));
+						(cloudPlatform) -> cloudPlatform.getPluginsForBuildSystems().contains(buildSystemId)));
+		platformsByBuildSystemSupport.get(true)
+				.forEach((cloudPlatform) -> helpDocument.addSection(springCloudFunctionBuildSetupSection(cloudPlatform,
+						buildSystemId, springCloudFunctionVersion, getTemplateName(cloudPlatform))));
+		platformsByBuildSystemSupport.get(false)
+				.forEach((cloudPlatform) -> helpDocument.addSection(springCloudFunctionBuildSetupSection(cloudPlatform,
+						buildSystemId, springCloudFunctionVersion, TEMPLATE_PREFIX + "missing")));
+	}
 
-		platformsByBuildSystemSupport.get(false).forEach((cloudPlatform) -> helpDocument
-				.addSection(springCloudFunctionBuildSetupSection(cloudPlatform, TEMPLATE_PREFIX + "missing")));
+	private boolean isSnapshot(String springCloudFunctionVersion) {
+		return springCloudFunctionVersion.toUpperCase().contains(SNAPSHOT);
 	}
 
 	private Set<CloudPlatform> cloudPlatformsFromDependencies() {
@@ -85,8 +116,9 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 	}
 
 	private SpringCloudFunctionBuildSetupSection springCloudFunctionBuildSetupSection(CloudPlatform cloudPlatform,
-			String templateName) {
-		return new SpringCloudFunctionBuildSetupSection(cloudPlatform, this.buildSystem.id().toUpperCase(),
+			String buildSystemId, String version, String templateName) {
+		return new SpringCloudFunctionBuildSetupSection(
+				new SpringCloudFunctionBuildSetupSection.Data(cloudPlatform, buildSystemId.toUpperCase(), version),
 				this.templateRenderer, templateName);
 	}
 
