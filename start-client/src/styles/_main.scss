@@ -282,10 +282,10 @@ label {
 
 .button {
   color: #222;
-  padding: 0px 12px;
+  padding: 4px 32px;
 
-  border: 2px solid #e4e4e4;
-  background-color: #fff;
+  border: 2px solid #f1f1f1;
+  background-color: #f1f1f1;
   border-radius: 4px;
   font-family: Karla, sans-serif;
   font-size: 15px;
@@ -295,14 +295,13 @@ label {
   @include transition(all $spring-transition-duration);
   outline: 1px dotted white;
   &:hover {
-    border: 2px solid #d0d0d0;
-    background-color: #fff;
+    border: 2px solid #e4e4e4;
+    background-color: #e4e4e4;
   }
   &:focus {
     outline: 1px dotted $spring-outline-color;
   }
   &.primary {
-    padding: 4px 32px;
     color: #fff;
     border: 2px solid $spring-primary-color;
     background-color: $spring-primary-color;
@@ -311,6 +310,12 @@ label {
       border: 2px solid #5fa82f;
       background-color: #5fa82f;
     }
+  }
+  + .button {
+    margin-left: 6px;
+  }
+
+  &.gray {
   }
 }
 
@@ -695,6 +700,12 @@ $placeholder-border: #e4e4e4;
   }
 }
 
+.placeholder-text {
+  display: inline-block;
+  height: 14px;
+  background: $placeholder-bg;
+}
+
 .placeholder-dropdown {
   display: block;
   margin-top: -3px;
@@ -721,9 +732,12 @@ $placeholder-border: #e4e4e4;
 }
 
 .placeholder-button {
-  display: block;
+  display: inline-block;
   height: 44px;
   background: $placeholder-bg;
   position: relative;
   border-radius: $spring-radius;
+  + .placeholder-button {
+    margin-left: 6px;
+  }
 }

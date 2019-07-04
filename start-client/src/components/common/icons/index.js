@@ -13,3 +13,5 @@ export {
   IconChevronUp,
   IconChevronDown,
 } from './IconChevron'
+
+export { IconFolder, IconFile } from './IconFileTree'
