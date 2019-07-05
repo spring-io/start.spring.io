@@ -34,14 +34,14 @@ class IndexPage extends React.Component {
       tab: 'quick-search',
       more: false,
       error: false,
-      symb: 'alt',
+      symb: 'Ctrl',
       groups: {},
       exploreModal: false,
     }
 
     this.keyMap = {
       SUBMIT: ['command+enter', 'ctrl+enter'],
-      EXPLORE: ['command+space', 'ctrl+space'],
+      EXPLORE: ['ctrl+space'],
     }
     const submit = this.onSubmit
     const explore = this.onExplore
@@ -698,7 +698,10 @@ class IndexPage extends React.Component {
                         type='submit'
                         id='generate-project'
                       >
-                        Generate the project - {this.state.symb} + ⏎
+                        Generate{' '}
+                        <span className='desktop-only'>
+                          the project - {this.state.symb} + ⏎
+                        </span>
                       </button>
                       <button
                         className='button'
@@ -706,7 +709,10 @@ class IndexPage extends React.Component {
                         onClick={this.onExplore}
                         id='explore-project'
                       >
-                        Explore the project - {this.state.symb} + Space
+                        Explore{' '}
+                        <span className='desktop-only'>
+                          the project - Ctrl + Space
+                        </span>
                       </button>
                     </>
                   ) : (
