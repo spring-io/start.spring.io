@@ -293,6 +293,7 @@ label {
   cursor: pointer;
   line-height: 32px;
   @include transition(all $spring-transition-duration);
+  white-space: nowrap;
   outline: 1px dotted white;
   &:hover {
     border: 2px solid #e4e4e4;
