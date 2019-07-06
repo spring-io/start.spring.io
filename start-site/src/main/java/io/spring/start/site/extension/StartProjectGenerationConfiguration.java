@@ -114,6 +114,12 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnRequestedDependency("cloud-contract-verifier")
+	public SpringCloudContractProjectContributor springCloudContractContributor() {
+		return new SpringCloudContractProjectContributor();
+	}
+
+	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	public GradleBuildSystemHelpDocumentCustomizer gradleBuildSystemHelpDocumentCustomizer() {
 		return new GradleBuildSystemHelpDocumentCustomizer();
