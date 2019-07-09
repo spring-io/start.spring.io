@@ -95,13 +95,13 @@ initializr:
             repositories: spring-milestones
           - versionRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
             version: Greenwich.SR1
-          - versionRange: "[2.1.x.BUILD-SNAPSHOT, 2.2.0.M1)"
+          - versionRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
-          - versionRange: [2.2.0.M4, 2.2.0.M4]
+          - versionRange: "[2.2.0.M4,2.2.0.M4]"
             version: Hoxton.M1
             repositories: spring-milestones
-          - versionRange: "2.2.0.M1"
+          - versionRange: "2.2.0.BUILD-SNAPSHOT"
             version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-services:
