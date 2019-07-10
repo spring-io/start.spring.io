@@ -24,17 +24,17 @@ import org.junit.jupiter.api.Test;
  *
  * @author Andy Wilkinson
  */
-public class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
+class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	public void restDocsWithWebMvc() {
+	void restDocsWithWebMvc() {
 		ProjectRequest request = createProjectRequest("web", "restdocs");
 		generateMavenPom(request).hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
 				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient");
 	}
 
 	@Test
-	public void restDocsWithWebFlux() {
+	void restDocsWithWebFlux() {
 		ProjectRequest request = createProjectRequest("webflux", "restdocs");
 		generateMavenPom(request)
 				.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
@@ -42,7 +42,7 @@ public class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	public void restDocsWithJersey() {
+	void restDocsWithJersey() {
 		ProjectRequest request = createProjectRequest("jersey", "restdocs");
 		generateMavenPom(request)
 				.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")

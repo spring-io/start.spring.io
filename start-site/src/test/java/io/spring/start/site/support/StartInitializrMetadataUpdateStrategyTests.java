@@ -45,7 +45,7 @@ class StartInitializrMetadataUpdateStrategyTests {
 	private MockRestServiceServer mockServer;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		this.restTemplate = new RestTemplate();
 		this.mockServer = MockRestServiceServer.createServer(this.restTemplate);
 	}
