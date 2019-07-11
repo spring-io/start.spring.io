@@ -241,6 +241,7 @@ initializr:
         - name: Rest Repositories HAL Browser
           id: data-rest-hal
           description: Browsing Spring Data REST repositories in your browser.
+          starter: false
           groupId: org.springframework.data
           artifactId: spring-data-rest-hal-browser
         - name: Spring HATEOAS
