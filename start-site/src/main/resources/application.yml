@@ -94,7 +94,7 @@ initializr:
             version: Greenwich.M1
             repositories: spring-milestones
           - versionRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
-            version: Greenwich.SR1
+            version: Greenwich.SR2
           - versionRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
