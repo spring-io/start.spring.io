@@ -907,7 +907,6 @@ initializr:
           id: cloud-starter-vault-config
           description: Provides client-side support for externalized configuration in a distributed system. Using HashiCorp's Vault you have a central place to manage external secret properties for applications across all environments.
           versionRange: 1.5.3.RELEASE
-          starter: false
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-vault-config
         - name: Zookeeper Configuration
