@@ -468,8 +468,10 @@ initializr:
           mappings:
             - versionRange: "[1.5.0.RELEASE,2.0.0.RELEASE)"
               version: 1.3.4
-            - versionRange: 2.0.0.RELEASE
+            - versionRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
               version: 2.0.1
+            - versionRange: 2.1.0.RELEASE
+              version: 2.1.0
         - name: PostgreSQL Driver
           id: postgresql
           description: An open source JDBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
