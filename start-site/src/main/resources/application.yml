@@ -470,7 +470,7 @@ initializr:
               version: 1.3.4
             - versionRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
               version: 2.0.1
-            - versionRange: 2.1.0.RELEASE
+            - versionRange: "2.1.0.RELEASE"
               version: 2.1.0
         - name: PostgreSQL Driver
           id: postgresql
