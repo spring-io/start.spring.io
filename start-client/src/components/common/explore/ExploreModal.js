@@ -200,7 +200,7 @@ class ExploreModal extends React.Component {
                         <IconTimes />
                       </a>
                     </div>
-                    <div className='content'></div>
+                    <div className='content' />
                   </>
                 </div>
               </div>

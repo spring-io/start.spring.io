@@ -45,7 +45,7 @@ class CodePrism extends React.Component {
             >
               {tokens.map((line, i) => (
                 <div {...getLineProps({ line, key: i })}>
-                  <span data-value={i + 1} className='explorer-number'></span>
+                  <span data-value={i + 1} className='explorer-number' />
                   {line.map((token, key) => (
                     <span {...getTokenProps({ token, key })} />
                   ))}

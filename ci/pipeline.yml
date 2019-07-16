@@ -58,6 +58,9 @@ resources:
     access_token: ((github-ci-status-token))
     branch: ((branch))
     context: build
+- name: daily
+  type: time
+  source: { interval: "24h" }
 jobs:
 - name: build-start-site-ci-image
   plan:
@@ -106,6 +109,33 @@ jobs:
       silent: true
       icon_emoji: ":concourse:"
       username: concourse-ci
+- name: verify
+  serial: true
+  public: true
+  plan:
+  - get: start-site-ci-image
+  - get: daily
+    trigger: true
+  - get: git-repo
+    trigger: true
+  - do:
+    - task: verify-service.yml
+      image: start-site-ci-image
+      file: git-repo/ci/tasks/verify-service.yml
+      on_failure:
+        do:
+        - put: slack-alert
+          params:
+            text: ":concourse-failed: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|failure: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
+            silent: true
+            icon_emoji: ":concourse:"
+            username: concourse-ci
+  - put: slack-alert
+    params:
+      text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|sucess: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
+      silent: true
+      icon_emoji: ":concourse:"
+      username: concourse-ci
 - name: build-pull-requests
   serial: true
   public: true
@@ -137,6 +167,7 @@ groups:
 - name: "Build and Deploy"
   jobs:
   - build-and-deploy
+  - verify
 - name: "Build Pull Requests"
   jobs:
   - "build-pull-requests"

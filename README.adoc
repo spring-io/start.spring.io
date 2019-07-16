@@ -22,6 +22,22 @@ Invoke the build at the root of the project
     $ ./mvnw clean install
 ----
 
+The project also includes a number of longer-running verification tests. They
+can be built and run using the `verification` profile:
+
+[indent=0]
+----
+    $ ./mvnw -Pverification clean install
+----
+
+The project's other tests are not included in the `verification` profile. All of
+the project's tests can be run using the `full` profile:
+
+[indent=0]
+----
+    $ ./mvnw -Pfull clean install
+----
+
 
 
 [[run-app]]

@@ -253,7 +253,6 @@ initializr:
               description: Building a Hypermedia-Driven RESTful Web Service
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-hateoas
-          starter: false
         - name: Spring Web Services
           id: web-services
           description: Facilitates contract-first SOAP development. Allows for the creation of flexible web services using one of the many ways to manipulate XML payloads.
@@ -279,6 +278,7 @@ initializr:
           groupId: org.springframework.restdocs
           artifactId: spring-restdocs-mockmvc
           scope: test
+          starter: false
         - name: Vaadin
           id: vaadin
           facets:
@@ -781,6 +781,7 @@ initializr:
           versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
           groupId: org.springframework.boot
           artifactId: spring-boot-actuator-docs
+          starter: false
         - name: Spring Boot Admin (Client)
           id: codecentric-spring-boot-admin-client
           groupId: de.codecentric
@@ -816,6 +817,7 @@ initializr:
           id: cloud-function
           groupId: org.springframework.cloud
           artifactId: spring-cloud-function-context
+          starter: false
           description: Promotes the implementation of business logic via functions and supports a uniform programming model across serverless providers, as well as the ability to run standalone (locally or in a PaaS).
           versionRange: 2.0.2.RELEASE
           links:
@@ -829,7 +831,9 @@ initializr:
           description: Allows a user to develop and run short lived microservices using Spring Cloud. Run them locally, in the cloud, and on Spring Cloud Data Flow.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-task
-          starter: false
+          mappings:
+            - versionRange: "[1.5.0.RELEASE,2.0.0.RELEASE)"
+              starter: false
     - name: Spring Cloud Security
       bom: spring-cloud
       content:
@@ -874,7 +878,9 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-contract-verifier
           scope: test
-          starter: false
+          mappings:
+            - versionRange: "[1.5.0.RELEASE,2.0.0.RELEASE)"
+              starter: false
           links:
             - rel: additional
               href: https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_spring_cloud_contract_verifier_setup
@@ -886,7 +892,6 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-contract-stub-runner
           scope: test
-          starter: false
     - name: Spring Cloud Config
       bom: spring-cloud
       content:
@@ -916,11 +921,16 @@ initializr:
           description: Enable and configure common patterns inside your application and build large distributed systems with Apache Zookeeper based components. The provided patterns include Service Discovery and Configuration.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-config
+          starter: false
         - name: Consul Configuration
           id: cloud-starter-consul-config
           description: Enable and configure the common patterns inside your application and build large distributed systems with Hashicorp’s Consul. The patterns provided include Service Discovery, Distributed Configuration and Control Bus.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-config
+          starter: false
+          mappings:
+            - versionRange: "[1.5.0.RELEASE,2.0.0.RELEASE)"
+              starter: true
     - name: Spring Cloud Discovery
       bom: spring-cloud
       content:
@@ -949,6 +959,9 @@ initializr:
           description: Service discovery with Cloud Foundry
           groupId: org.springframework.cloud
           artifactId: spring-cloud-cloudfoundry-discovery
+          mappings:
+            - versionRange: "[1.5.0.RELEASE,2.0.0.RELEASE)"
+              starter: false
         - name: Consul Discovery
           id: cloud-starter-consul-discovery
           description: Service discovery with Hashicorp Consul
@@ -1061,6 +1074,10 @@ initializr:
           description: Config client on Pivotal Cloud Foundry
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-config-client
+          starter: false
+          mappings:
+            - versionRange: "[1.5.0.RELEASE,2.0.0.RELEASE)"
+              starter: true
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
@@ -1091,16 +1108,19 @@ initializr:
           description: AWS native services from Spring Cloud for AWS
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws
+          starter: false
         - name: AWS RDS
           id: cloud-aws-jdbc
           description: Relational databases on AWS with RDS and Spring Cloud AWS JDBC
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws-jdbc
+          starter: false
         - name: AWS Simple Queue Service
           id: cloud-aws-messaging
           description: Messaging on AWS with SQS and Spring Cloud AWS Messaging
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws-messaging
+          starter: false
     - name: Microsoft Azure
       bom: azure
       versionRange: "1.5.4.RELEASE"

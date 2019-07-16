@@ -40,7 +40,7 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 	void functionOnly() {
 		ProjectRequest request = createProjectRequest("cloud-function");
 		generateMavenPom(request).hasDependency(getDependency("cloud-function")).hasSpringBootStarterTest()
-				.hasDependenciesCount(2)
+				.hasSpringBootStarterRootDependency().hasDependenciesCount(3)
 				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
 				.hasBomsCount(1);
 	}

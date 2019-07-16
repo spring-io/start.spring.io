@@ -116,6 +116,12 @@
 							</additionalProperties>
 						</configuration>
 					</execution>
+					<execution>
+						<id>repackage</id>
+						<configuration>
+							<classifier>exec</classifier>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
