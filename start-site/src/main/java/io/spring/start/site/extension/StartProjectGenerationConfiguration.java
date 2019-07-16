@@ -80,11 +80,6 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
-	public JacksonKotlinBuildCustomizer jacksonKotlinBuildCustomizer() {
-		return new JacksonKotlinBuildCustomizer(this.metadata, this.description);
-	}
-
-	@Bean
 	public SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
 		return new SpringKafkaBuildCustomizer(this.description);
 	}
