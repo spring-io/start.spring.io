@@ -17,22 +17,57 @@
 package io.spring.start.site.extension.springcloud;
 
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.metadata.BillOfMaterials;
+import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * Strategy for resolving the version for a Spring Cloud artifact from a platform version.
+ * Resolve Spring Cloud artifact versions using a
+ * {@link DependencyManagementVersionResolver}.
  *
  * @author Olga Maciaszek-Sharma
+ * @author Stephane Nicoll
  */
-public interface SpringCloudProjectVersionResolver {
+class SpringCloudProjectVersionResolver {
+
+	private static final String SPRING_CLOUD_GROUP_ID = "org.springframework.cloud";
+
+	private static final String SPRING_CLOUD_DEPENDENCIES_ID = "spring-cloud-dependencies";
+
+	private static final String SPRING_CLOUD_BOM_ID = "spring-cloud";
+
+	private static final Log logger = LogFactory.getLog(SpringCloudProjectVersionResolver.class);
+
+	private final InitializrMetadata metadata;
+
+	private final DependencyManagementVersionResolver resolver;
+
+	SpringCloudProjectVersionResolver(InitializrMetadata metadata, DependencyManagementVersionResolver resolver) {
+		this.metadata = metadata;
+		this.resolver = resolver;
+	}
 
 	/**
 	 * Resolve the version of a specified artifact that matches the provided Spring Boot
 	 * version.
-	 * @param bootVersion the Spring Boot version to check the Spring Cloud Release train
-	 * version against.
-	 * @param artifactId id of the specified Spring Cloud artifact.
-	 * @return the appropriate project version.
+	 * @param platformVersion the Spring Boot version to check the Spring Cloud Release
+	 * train version against
+	 * @param dependencyId the dependency id of the Spring Cloud artifact in the form of
+	 * {@code groupId:artifactId}
+	 * @return the appropriate project version or {@code null} if the resolution failed
 	 */
-	String resolveVersion(Version bootVersion, String artifactId);
+	String resolveVersion(Version platformVersion, String dependencyId) {
+		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get(SPRING_CLOUD_BOM_ID);
+		if (bom == null) {
+			return null;
+		}
+		String releaseTrainVersion = bom.resolve(platformVersion).getVersion();
+		logger.info("Retrieving version for artifact: " + dependencyId + " and release train version: "
+				+ releaseTrainVersion);
+		return this.resolver.resolve(SPRING_CLOUD_GROUP_ID, SPRING_CLOUD_DEPENDENCIES_ID, releaseTrainVersion)
+				.get(dependencyId);
+	}
 
 }

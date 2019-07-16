@@ -75,7 +75,7 @@ public class SpringCloudProjectGenerationConfiguration {
 	@ConditionalOnMissingBean(SpringCloudProjectVersionResolver.class)
 	SpringCloudProjectVersionResolver springCloudProjectsVersionResolver(
 			DependencyManagementVersionResolver versionResolver) {
-		return new DefaultSpringCloudProjectVersionResolver(this.metadata, versionResolver);
+		return new SpringCloudProjectVersionResolver(this.metadata, versionResolver);
 	}
 
 	@Bean
