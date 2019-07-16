@@ -187,7 +187,7 @@ initializr:
       content:
         - name: Spring Web Starter
           id: web
-          description: Build web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container.
+          description: Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container.
           weight: 100
           facets:
             - web
@@ -579,21 +579,21 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-elasticsearch
-        - name: Spring Data Apache Solr
+        - name: Spring Data for Apache Solr
           id: data-solr
-          description: Solr is an open source enterprise search platform built on Apache Lucene.
+          description: Apache Solr is an open source enterprise search platform built on Apache Lucene.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-solr
-        - name: Spring Data Apache Cassandra
+        - name: Spring Data for Apache Cassandra
           id: data-cassandra
           description: A free and open-source, distributed, NoSQL database management system that offers high-scalability and high-performance.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
-        - name: Spring Data Reactive Cassandra
+        - name: Spring Data Reactive for Apache Cassandra
           id: data-cassandra-reactive
-          description: Access Cassandra NoSQL Database in a reactive fashion with Spring Data Cassandra.
+          description: Access Cassandra NoSQL Database in a reactive fashion
           versionRange: 2.0.0.M1
           links:
             - rel: reference
@@ -678,13 +678,13 @@ initializr:
           links:
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-stream-samples/tree/master/kafka-streams-samples
-              description: Samples for using Kafka Streams with Spring Cloud stream
+              description: Samples for using Apache Kafka Streams with Spring Cloud stream
             - rel: reference
               href: https://docs.spring.io/spring-kafka/docs/current/reference/html/_reference.html#kafka-streams
-              description: Kafka Streams Support in Spring Kafka
+              description: Apache Kafka Streams Support
             - rel: reference
               href: https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_kafka_streams_binding_capabilities_of_spring_cloud_stream
-              description: Kafka Streams Binding Capabilities of Spring Cloud Stream
+              description: Apache Kafka Streams Binding Capabilities of Spring Cloud Stream
         - name: Spring for Apache ActiveMQ 5
           id: activemq
           description: Spring JMS support with Apache ActiveMQ 'Classic'
@@ -726,7 +726,7 @@ initializr:
               version: 2.22.4
             - versionRange: "2.1.0.M1"
               version: 2.24.0
-          description: Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
+          description: Apache Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
           groupId: org.apache.camel
           artifactId: camel-spring-boot-starter
           links:
@@ -911,9 +911,9 @@ initializr:
           versionRange: 1.5.3.RELEASE
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-vault-config
-        - name: Zookeeper Configuration
+        - name: Apache Zookeeper Configuration
           id: cloud-starter-zookeeper-config
-          description: Enable and configure common patterns inside your application and build large distributed systems with Zookeeper based components. The provided patterns include Service Discovery and Configuration.
+          description: Enable and configure common patterns inside your application and build large distributed systems with Apache Zookeeper based components. The provided patterns include Service Discovery and Configuration.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-config
         - name: Consul Configuration
@@ -939,9 +939,9 @@ initializr:
             - rel: guide
               href: https://spring.io/guides/gs/service-registration-and-discovery/
               description: Service Registration and Discovery
-        - name: Zookeeper Discovery
+        - name: Apache Zookeeper Discovery
           id: cloud-starter-zookeeper-discovery
-          description: Service discovery with Zookeeper and spring-cloud-zookeeper-discovery
+          description: Service discovery with Apache Zookeeper
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-discovery
         - name: Cloud Foundry Discovery
@@ -1014,7 +1014,7 @@ initializr:
           artifactId: spring-cloud-starter-netflix-turbine
         - name: Turbine Stream
           id: cloud-turbine-stream
-          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ)
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ)
           versionRange: 1.3.0.RELEASE
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine-stream
@@ -1037,18 +1037,18 @@ initializr:
       content:
         - name: Cloud Bus
           id: cloud-bus
-          description: Links nodes of a distributed system with a lightweight message broker which can used to broadcast state changes or other management instructions (requires a binder, e.g. Kafka or RabbitMQ).
+          description: Links nodes of a distributed system with a lightweight message broker which can used to broadcast state changes or other management instructions (requires a binder, e.g. Apache Kafka or RabbitMQ).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-bus
         - name: Cloud Stream
           id: cloud-stream
-          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Kafka or RabbitMQ).
+          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka or RabbitMQ).
           weight: 90
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
         - name: Reactive Cloud Stream
           id: reactive-cloud-stream
-          description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Kafka or RabbitMQ).
+          description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
           versionRange: 2.0.0.RC2
           weight: 90
           groupId: org.springframework.cloud
