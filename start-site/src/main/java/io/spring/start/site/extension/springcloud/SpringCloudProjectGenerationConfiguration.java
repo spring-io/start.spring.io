@@ -96,7 +96,7 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("2.2.0.M3")
+	@ConditionalOnPlatformVersion("2.2.0.M4")
 	public SpringCloudFunctionHelpDocumentCustomizer springCloudFunctionHelpDocumentCustomizer(Build build,
 			MustacheTemplateRenderer templateRenderer, SpringCloudProjectVersionResolver versionResolver) {
 		return new SpringCloudFunctionHelpDocumentCustomizer(build, this.description, templateRenderer,

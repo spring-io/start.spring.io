@@ -45,6 +45,10 @@ class SpringCloudFunctionBuildSetupSection extends PreDefinedSection {
 		addSection(mustacheSection);
 	}
 
+	/**
+	 * Represents data necessary for generating
+	 * {@link SpringCloudFunctionBuildSetupSection}.
+	 */
 	static class Data {
 
 		private SpringCloudFunctionHelpDocumentCustomizer.CloudPlatform platform;

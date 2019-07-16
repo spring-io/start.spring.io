@@ -43,9 +43,11 @@ import org.apache.commons.logging.LogFactory;
  */
 class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
+	private static final Log LOG = LogFactory.getLog(SpringCloudFunctionHelpDocumentCustomizer.class);
+
 	private static final String SNAPSHOT = "SNAPSHOT";
 
-	private static final Log LOG = LogFactory.getLog(SpringCloudFunctionHelpDocumentCustomizer.class);
+	private static final String MISSING_TEMPLATE_SUFFIX = "missing";
 
 	private static final String SPRING_CLOUD_FUNCTION_DEPENDENCY_ID = "cloud-function";
 
@@ -101,7 +103,7 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 						buildSystemId, springCloudFunctionVersion, getTemplateName(cloudPlatform))));
 		platformsByBuildSystemSupport.get(false)
 				.forEach((cloudPlatform) -> helpDocument.addSection(springCloudFunctionBuildSetupSection(cloudPlatform,
-						buildSystemId, springCloudFunctionVersion, TEMPLATE_PREFIX + "missing")));
+						buildSystemId, springCloudFunctionVersion, TEMPLATE_PREFIX + MISSING_TEMPLATE_SUFFIX)));
 	}
 
 	private boolean isSnapshot(String springCloudFunctionVersion) {

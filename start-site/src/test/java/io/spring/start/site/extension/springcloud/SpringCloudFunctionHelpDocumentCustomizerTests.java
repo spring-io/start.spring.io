@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SpringCloudFunctionHelpDocumentCustomizer}
+ * Tests for {@link SpringCloudFunctionHelpDocumentCustomizer}.
  *
  * @author Olga Maciaszek-Sharma
  */
@@ -39,7 +39,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForMaven() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.2.0.M3");
+		request.setBootVersion("2.2.0.M4");
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
 		List<String> lines = generateHelpDocument(request);
@@ -50,7 +50,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForGradle() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.2.0.M3");
+		request.setBootVersion("2.2.0.M4");
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
 		List<String> lines = generateHelpDocument(request);
@@ -72,7 +72,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionNotAddedWhenFunctionAndCloudDependenciesAbsent() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.2.0.M3");
+		request.setBootVersion("2.2.0.M4");
 		assertThat(generateHelpDocument(request)).doesNotContain(AWS_SECTION_TITLE);
 		assertThat(generateHelpDocument(request)).doesNotContain(AZURE_SECTION_TITLE);
 	}
@@ -84,8 +84,8 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
 		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).contains(AWS_SECTION_TITLE);
-		assertThat(lines).contains(AZURE_SECTION_TITLE);
+		assertThat(lines).doesNotContain(AWS_SECTION_TITLE);
+		assertThat(lines).doesNotContain(AZURE_SECTION_TITLE);
 	}
 
 	private List<String> generateHelpDocument(ProjectRequest projectRequest) {
