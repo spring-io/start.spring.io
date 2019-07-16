@@ -28,7 +28,6 @@ import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -72,8 +71,7 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(SpringCloudProjectVersionResolver.class)
-	SpringCloudProjectVersionResolver springCloudProjectsVersionResolver(
+	SpringCloudProjectVersionResolver springCloudProjectVersionResolver(
 			DependencyManagementVersionResolver versionResolver) {
 		return new SpringCloudProjectVersionResolver(this.metadata, versionResolver);
 	}
