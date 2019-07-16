@@ -22,6 +22,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,6 +41,7 @@ import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.WebProjectRequest;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.io.TempDir;
@@ -50,6 +53,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.FileSystemUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -64,6 +68,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Execution(ExecutionMode.CONCURRENT)
 class StartApplicationIntegrationTests {
 
+	private static final Set<Path> mavenHomes = new CopyOnWriteArraySet<>();
+
+	private final ThreadLocal<Path> mavenHome = ThreadLocal.withInitial(() -> {
+		try {
+			Path mavenHome = Files.createTempDirectory("maven-home");
+			StartApplicationIntegrationTests.mavenHomes.add(mavenHome);
+			return mavenHome;
+		}
+		catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
+	});
+
 	private final ProjectGenerationInvoker invoker;
 
 	private final InitializrMetadata metadata;
@@ -72,6 +89,18 @@ class StartApplicationIntegrationTests {
 			@Autowired InitializrMetadataProvider metadataProvider) {
 		this.invoker = invoker;
 		this.metadata = metadataProvider.get();
+	}
+
+	@AfterAll
+	static void deleteMavenHomes() {
+		for (Path mavenHome : mavenHomes) {
+			try {
+				FileSystemUtils.deleteRecursively(mavenHome);
+			}
+			catch (IOException ex) {
+				// Continue
+			}
+		}
 	}
 
 	Stream<Arguments> parameters() {
@@ -118,7 +147,11 @@ class StartApplicationIntegrationTests {
 
 	private ProcessBuilder createProcessBuilder(BuildSystem buildSystem) {
 		if (buildSystem.id().equals(new MavenBuildSystem().id())) {
-			return new ProcessBuilder("./mvnw", "package");
+			Path mavenHome = this.mavenHome.get();
+			ProcessBuilder processBuilder = new ProcessBuilder("./mvnw",
+					"-Dmaven.repo.local=" + mavenHome.resolve("repository").toFile(), "package");
+			processBuilder.environment().put("MAVEN_USER_HOME", mavenHome.toFile().getAbsolutePath());
+			return processBuilder;
 		}
 		if (buildSystem.id().equals(new GradleBuildSystem().id())) {
 			return new ProcessBuilder("./gradlew", "--no-daemon", "build");
