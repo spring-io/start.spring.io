@@ -68,7 +68,8 @@ jobs:
     trigger: true
   - put: start-site-ci-image
     params:
-      build: ci-images-git-repo/ci/images/start-site-ci-image
+      build: ci-images-git-repo/ci/images/
+      dockerfile: ci-images-git-repo/ci/images/start-site-ci-image/Dockerfile
 - name: build-and-deploy
   serial: true
   plan:
