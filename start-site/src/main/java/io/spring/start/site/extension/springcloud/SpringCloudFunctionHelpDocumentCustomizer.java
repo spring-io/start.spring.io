@@ -19,6 +19,7 @@ package io.spring.start.site.extension.springcloud;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,6 +29,7 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
+import io.spring.initializr.generator.io.text.MustacheSection;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
@@ -93,17 +95,14 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 			return;
 		}
 		String buildSystemId = this.description.getBuildSystem().id();
-		Set<CloudPlatform> presentCloudPlatforms = cloudPlatformsFromDependencies();
-
-		Map<Boolean, List<CloudPlatform>> platformsByBuildSystemSupport = presentCloudPlatforms.stream()
+		Map<Boolean, List<CloudPlatform>> platformsByBuildSystemSupport = cloudPlatformsFromDependencies().stream()
 				.collect(Collectors.partitioningBy(
-						(cloudPlatform) -> cloudPlatform.getPluginsForBuildSystems().contains(buildSystemId)));
-		platformsByBuildSystemSupport.get(true)
-				.forEach((cloudPlatform) -> helpDocument.addSection(springCloudFunctionBuildSetupSection(cloudPlatform,
-						buildSystemId, springCloudFunctionVersion, getTemplateName(cloudPlatform))));
+						(cloudPlatform) -> cloudPlatform.getSupportedBuildSystems().contains(buildSystemId)));
+		platformsByBuildSystemSupport.get(true).forEach((cloudPlatform) -> helpDocument.nextSteps().addSection(
+				getSection(springCloudFunctionVersion, buildSystemId, cloudPlatform, getTemplateName(cloudPlatform))));
 		platformsByBuildSystemSupport.get(false)
-				.forEach((cloudPlatform) -> helpDocument.addSection(springCloudFunctionBuildSetupSection(cloudPlatform,
-						buildSystemId, springCloudFunctionVersion, TEMPLATE_PREFIX + MISSING_TEMPLATE_SUFFIX)));
+				.forEach((cloudPlatform) -> helpDocument.nextSteps().addSection(getSection(springCloudFunctionVersion,
+						buildSystemId, cloudPlatform, TEMPLATE_PREFIX + MISSING_TEMPLATE_SUFFIX)));
 	}
 
 	private boolean isSnapshot(String springCloudFunctionVersion) {
@@ -117,11 +116,18 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 				.get(true));
 	}
 
-	private SpringCloudFunctionBuildSetupSection springCloudFunctionBuildSetupSection(CloudPlatform cloudPlatform,
-			String buildSystemId, String version, String templateName) {
-		return new SpringCloudFunctionBuildSetupSection(
-				new SpringCloudFunctionBuildSetupSection.Data(cloudPlatform, buildSystemId.toUpperCase(), version),
-				this.templateRenderer, templateName);
+	private MustacheSection getSection(String version, String buildSystemId, CloudPlatform cloudPlatform,
+			String templateName) {
+		return new MustacheSection(this.templateRenderer, templateName,
+				getModel(cloudPlatform, buildSystemId, version));
+	}
+
+	private Map<String, Object> getModel(CloudPlatform cloudPlatform, String buildSystemId, String version) {
+		Map<String, Object> model = new LinkedHashMap<>();
+		model.put("platform", cloudPlatform.getName());
+		model.put("buildTool", buildSystemId);
+		model.put("version", version);
+		return model;
 	}
 
 	private String getTemplateName(CloudPlatform cloudPlatform) {
@@ -134,18 +140,18 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 	 */
 	enum CloudPlatform {
 
-		AWS("AWS", "cloud-aws"), AZURE("Azure", "azure-support", Collections.singletonList(MavenBuildSystem.ID));
+		AWS("AWS Lambda", "cloud-aws"), AZURE("Microsoft Azure", "azure-support",
+				Collections.singletonList(MavenBuildSystem.ID));
 
 		private final String name;
 
 		private final String dependencyId;
 
-		private List<String> pluginsForBuildSystems = Arrays.asList(MavenBuildSystem.ID, GradleBuildSystem.ID);
+		private List<String> supportedBuildSystems = Arrays.asList(MavenBuildSystem.ID, GradleBuildSystem.ID);
 
-		CloudPlatform(String name, String dependencyId, List<String> pluginsForBuildSystems) {
+		CloudPlatform(String name, String dependencyId, List<String> supportedBuildSystems) {
 			this(name, dependencyId);
-			this.pluginsForBuildSystems = pluginsForBuildSystems;
-
+			this.supportedBuildSystems = supportedBuildSystems;
 		}
 
 		CloudPlatform(String name, String dependencyId) {
@@ -161,8 +167,8 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 			return this.dependencyId;
 		}
 
-		List<String> getPluginsForBuildSystems() {
-			return Collections.unmodifiableList(this.pluginsForBuildSystems);
+		List<String> getSupportedBuildSystems() {
+			return Collections.unmodifiableList(this.supportedBuildSystems);
 		}
 
 	}

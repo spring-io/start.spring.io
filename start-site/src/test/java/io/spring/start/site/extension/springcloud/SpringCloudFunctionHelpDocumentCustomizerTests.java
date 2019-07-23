@@ -32,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
-	private static final String AWS_SECTION_TITLE = "# Additional build setup for Spring Cloud Function apps - AWS";
+	private static final String AWS_SECTION_TITLE = "## Running Spring Cloud Function applications on AWS Lambda";
 
-	private static final String AZURE_SECTION_TITLE = "# Additional build setup for Spring Cloud Function apps - Azure";
+	private static final String AZURE_SECTION_TITLE = "## Running Spring Cloud Function applications on Microsoft Azure";
 
 	@Test
 	void functionBuildSetupInfoSectionAddedForMaven() {
@@ -56,7 +56,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		List<String> lines = generateHelpDocument(request);
 		assertThat(lines).contains(AWS_SECTION_TITLE);
 		assertThat(lines).contains(AZURE_SECTION_TITLE);
-		assertThat(lines).contains("A GRADLE plugin has not been provided by Azure as of yet.");
+		assertThat(lines).contains("A gradle plugin has not been provided by Microsoft Azure as yet.");
 	}
 
 	@Test
