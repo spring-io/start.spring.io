@@ -885,9 +885,9 @@ initializr:
             - versionRange: "[1.5.0.RELEASE,2.0.0.RELEASE)"
               starter: false
           links:
-            - rel: additional
+            - rel: guide
               href: https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_spring_cloud_contract_verifier_setup
-              description: In order to leverage Spring Cloud Contract Verifier during builds, Spring Cloud Contract build plugins are used; you can find information on setting them up here.
+              description: Spring Cloud Contract Verifier Setup
         - name: Contract Stub Runner
           bom: spring-cloud
           id: cloud-contract-stub-runner
