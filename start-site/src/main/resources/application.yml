@@ -402,10 +402,13 @@ initializr:
           links:
             - rel: guide
               href: https://github.com/okta/samples-java-spring/tree/master/okta-hosted-login
+              description: Okta-Hosted Login Page Example
             - rel: guide
               href: https://github.com/okta/samples-java-spring/tree/master/custom-login
+              description: Custom Login Page Example
             - rel: guide
               href: https://github.com/okta/samples-java-spring/tree/master/resource-server
+              description: Okta Spring Security Resource Server Example
             - rel: reference
               href: https://github.com/okta/okta-spring-boot/blob/master/README.md
     - name: SQL
@@ -460,7 +463,7 @@ initializr:
           links:
             - rel: guide
               href: https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start
-              description: Quick Start
+              description: MyBatis Quick Start
             - rel: reference
               href: http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
           groupId: org.mybatis.spring.boot
@@ -811,8 +814,8 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter
           links:
-          - rel: reference
-            href: https://spring.io/projects/spring-cloud-commons
+            - rel: reference
+              href: https://spring.io/projects/spring-cloud-commons
         - name: Function
           id: cloud-function
           groupId: org.springframework.cloud
@@ -1081,7 +1084,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
-              description: Reference doc
         - name: Service Registry (PCF)
           id: scs-service-registry
           description: Eureka service discovery client on Pivotal Cloud Foundry
@@ -1090,7 +1092,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
-              description: Reference doc
         - name: Circuit Breaker (PCF)
           id: scs-circuit-breaker
           description: Hystrix circuit breaker client on Pivotal Cloud Foundry
@@ -1099,7 +1100,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
-              description: Reference doc
     - name: Amazon Web Services
       bom: spring-cloud
       content:
@@ -1133,7 +1133,6 @@ initializr:
           links:
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot
-              description: Reference doc
         - name: Azure Active Directory
           id: azure-active-directory
           groupId: com.microsoft.azure
@@ -1145,7 +1144,6 @@ initializr:
               description: Using Active Directory
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-active-directory-spring-boot-starter
-              description: Reference doc
         - name: Azure Key Vault
           id: azure-keyvault-secrets
           groupId: com.microsoft.azure
@@ -1157,7 +1155,6 @@ initializr:
               description: Using Key Vault
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-keyvault-secrets-spring-boot-starter
-              description: Reference doc
         - name: Azure Storage
           id: azure-storage
           groupId: com.microsoft.azure
@@ -1169,7 +1166,6 @@ initializr:
               description: Using Azure Storage
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-storage-spring-boot-starter
-              description: Reference doc
     - name: Google Cloud Platform
       bom: spring-cloud
       versionRange: 2.0.0.RELEASE
@@ -1182,10 +1178,9 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-gcp/docs/${local.gcp.version}/reference/htmlsingle/
-              description: Reference doc
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples
-              description: Samples
+              description: GCP Samples
         - name: GCP Messaging
           id: cloud-gcp-pubsub
           description: Adds the GCP Support entry and all the required dependencies so that the Google Cloud Pub/Sub integration work out of the box.
@@ -1194,10 +1189,9 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-gcp/docs/${local.gcp.version}/reference/htmlsingle/#_spring_cloud_gcp_for_pub_sub
-              description: Reference doc
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-pubsub-sample
-              description: Sample
+              description: GCP Pub/Sub Sample
         - name: GCP Storage
           id: cloud-gcp-storage
           description: Adds the GCP Support entry and all the required dependencies so that the Google Cloud Storage integration work out of the box.
@@ -1206,10 +1200,9 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-gcp/docs/${local.gcp.version}/reference/htmlsingle/#_spring_resources
-              description: Reference doc
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
-              description: Sample
+              description: GCP Storage Sample
   types:
     - name: Maven Project
       id: maven-project
