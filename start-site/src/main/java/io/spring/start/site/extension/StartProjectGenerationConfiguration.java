@@ -110,8 +110,8 @@ public class StartProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("cloud-contract-verifier")
-	public SpringCloudContractProjectContributor springCloudContractContributor() {
-		return new SpringCloudContractProjectContributor();
+	public SpringCloudContractDirectoryProjectContributor springCloudContractContributor() {
+		return new SpringCloudContractDirectoryProjectContributor();
 	}
 
 	@Bean

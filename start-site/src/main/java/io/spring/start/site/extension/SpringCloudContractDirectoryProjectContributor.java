@@ -23,12 +23,12 @@ import java.nio.file.Path;
 import io.spring.initializr.generator.project.contributor.ProjectContributor;
 
 /**
- * A {@link ProjectContributor} that creates the "contracts" resources directory when
- * Spring Cloud Contract Verifier is requested.
+ * A {@link ProjectContributor} that creates the {@code contracts} resources directory
+ * when Spring Cloud Contract Verifier is requested.
  *
  * @author Eddú Meléndez
  */
-public class SpringCloudContractProjectContributor implements ProjectContributor {
+public class SpringCloudContractDirectoryProjectContributor implements ProjectContributor {
 
 	@Override
 	public void contribute(Path projectRoot) throws IOException {

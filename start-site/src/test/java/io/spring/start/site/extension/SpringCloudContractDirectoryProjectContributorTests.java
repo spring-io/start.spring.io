@@ -23,11 +23,11 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SpringCloudContractProjectContributor}.
+ * Tests for {@link SpringCloudContractDirectoryProjectContributor}.
  *
  * @author Eddú Meléndez
  */
-class SpringCloudContractProjectContributorTests extends AbstractExtensionTests {
+class SpringCloudContractDirectoryProjectContributorTests extends AbstractExtensionTests {
 
 	@Test
 	void contractsDirectoryIsCreatedWithSpringCloudContractVerifier() {
