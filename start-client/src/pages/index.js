@@ -279,7 +279,7 @@ class IndexPage extends React.Component {
         javaVersion: meta.java,
       })
       const paramsDependencies = this.getValidDependencies()
-        .map(dep => `&style=${dep.id}`)
+        .map(dep => `&dependencies=${dep.id}`)
         .join('')
       fetch(`${url}?${params}${paramsDependencies}`, {
         method: 'GET',
