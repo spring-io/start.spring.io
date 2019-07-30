@@ -123,7 +123,6 @@ class IndexPage extends React.Component {
       const params = {
         type: 'project',
         language: 'language',
-        boot: 'boot',
         packaging: 'meta.packaging',
         javaVersion: 'meta.java',
         groupId: 'meta.group',
@@ -132,7 +131,6 @@ class IndexPage extends React.Component {
         description: 'meta.description',
         packageName: 'meta.packageName',
       }
-
       Object.keys(queryParams).forEach(entry => {
         const key = get(params, entry)
         const value = get(queryParams, entry).toLowerCase()
@@ -144,8 +142,9 @@ class IndexPage extends React.Component {
             case 'meta.packaging':
             case 'meta.java':
               const vals = get(this.lists, key, [])
-              if (vals.find(a => a.key === value)) {
-                set(values, key, value)
+              const res = vals.find(a => a.key.toLowerCase() === value)
+              if (res) {
+                set(values, key, res.key)
               }
               break
             default:
