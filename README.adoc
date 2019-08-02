@@ -85,11 +85,13 @@ that the jar has been created:
     $ ../mvnw package
 ----
 
-Once the jar has been created, you can push the application:
+The project creates a regular library jar and a repackaged archive that can be used to
+start the application with the `exec` classifier. Once the build as completed, you can
+push the application:
 
 [indent=0]
 ----
-    $ cf push your-start -p target/start-site.jar
+    $ cf push your-start -p target/start-site-exec.jar
 ----
 
 
