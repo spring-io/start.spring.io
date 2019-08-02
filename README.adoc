@@ -2,10 +2,11 @@
 :library: https://github.com/spring-io/initializr
 
 This repository configures a {library}[Spring Initializr] instance with a custom UI
-running at https://start.spring.io. The following defines are available:
+running at https://start.spring.io. The following modules are available:
 
 * `start-client`: client-side assets
 * `start-site`: server infrastructure and metadata configuration
+* `start-site-verification`: tests to verify the validity of the metadata
 
 [[build]]
 == Building from Source
