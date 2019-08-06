@@ -17,7 +17,6 @@
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
-		<disable.unit.tests>false</disable.unit.tests>
 		<junit-jupiter.version>5.4.2</junit-jupiter.version>
 		<spring-initializr.version>0.8.0.BUILD-SNAPSHOT</spring-initializr.version>
 		<spring-javaformat.version>0.0.15</spring-javaformat.version>
@@ -35,7 +34,7 @@
 				<module>start-site-verification</module>
 			</modules>
 			<properties>
-				<disable.unit.tests>true</disable.unit.tests>
+				<skipTests>true</skipTests>
 			</properties>
 		</profile>
 		<profile>
@@ -188,13 +187,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skipTests>${disable.unit.tests}</skipTests>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
