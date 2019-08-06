@@ -34,38 +34,6 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 			"spring-session-jdbc");
 
 	@Test
-	void sessionWithSpringBoot15() {
-		ProjectRequest request = createProjectRequest("session");
-		request.setBootVersion("1.5.4.RELEASE");
-		generateMavenPom(request).hasDependency("org.springframework.session", "spring-session")
-				.hasSpringBootStarterRootDependency().hasSpringBootStarterTest().hasDependenciesCount(3);
-	}
-
-	@Test
-	void sessionWithRedisAndSpringBoot15() {
-		ProjectRequest request = createProjectRequest("session", "data-redis");
-		request.setBootVersion("1.5.4.RELEASE");
-		generateMavenPom(request).hasDependency("org.springframework.session", "spring-session")
-				.hasSpringBootStarterDependency("data-redis").hasSpringBootStarterTest().hasDependenciesCount(3);
-	}
-
-	@Test
-	void sessionWithJdbcAndSpringBoot15() {
-		ProjectRequest request = createProjectRequest("session", "jdbc");
-		request.setBootVersion("1.5.4.RELEASE");
-		generateMavenPom(request).hasDependency("org.springframework.session", "spring-session")
-				.hasSpringBootStarterDependency("jdbc").hasSpringBootStarterTest().hasDependenciesCount(3);
-	}
-
-	@Test
-	void sessionWithSpringBoot20M2() {
-		ProjectRequest request = createProjectRequest("session");
-		request.setBootVersion("2.0.0.M2");
-		generateMavenPom(request).hasDependency("org.springframework.session", "spring-session")
-				.hasSpringBootStarterRootDependency().hasSpringBootStarterTest().hasDependenciesCount(3);
-	}
-
-	@Test
 	void noSessionWithRedis() {
 		ProjectRequest request = createProjectRequest("data-redis");
 		request.setBootVersion("2.0.0.M3");

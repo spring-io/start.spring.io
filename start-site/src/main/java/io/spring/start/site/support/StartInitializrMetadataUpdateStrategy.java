@@ -51,11 +51,10 @@ public class StartInitializrMetadataUpdateStrategy extends DefaultInitializrMeta
 
 	private boolean isStartGenerationVersion(DefaultMetadataElement element) {
 		Version springBootVersion = Version.parse(element.getId());
-		if (springBootVersion.getMajor().equals(2) && springBootVersion.getMinor().equals(0)) {
+		if (springBootVersion.getMajor() < 2) {
 			return false;
 		}
-		if ("BUILD-SNAPSHOT".equals(springBootVersion.getQualifier().getQualifier())
-				&& springBootVersion.getMajor().equals(1)) {
+		if (springBootVersion.getMajor().equals(2) && springBootVersion.getMinor().equals(0)) {
 			return false;
 		}
 		return true;
