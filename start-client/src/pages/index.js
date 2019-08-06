@@ -170,7 +170,7 @@ class IndexPage extends React.Component {
     if (window.navigator.userAgent.toLowerCase().indexOf('mac') > -1) {
       this.setState({ symb: '⌘' })
     }
-    fetch(`${apiUrl}`, {
+    fetch(`${apiUrl}?t=${new Date().getTime()}`, {
       method: 'GET',
       headers: {
         Accept: 'application/vnd.initializr.v2.1+json',
