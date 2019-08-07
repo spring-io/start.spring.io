@@ -19,9 +19,11 @@
     "serve": "gatsby serve",
     "fix": "cross-env NODE_ENV=test import-sort --write \"(src|utils|plugins)/**/*.js\" && prettier --write \"**/*.{{c,le,sc}ss,g?(raph)ql,htm?(l),js?(on|on5|onl|x|s),md?(x|wn),m?(ark)down,mkdn,ts?(x),vue,y?(a)ml}\"",
     "lint": "cross-env NODE_ENV=test import-sort -l \"(src|utils|plugins)/**/*.js\" && prettier --check \"src/**/*.{{c,le,sc}ss,g?(raph)ql,htm?(l),js?(on|on5|onl|x|s),md?(x|wn),m?(ark)down,mkdn,ts?(x),vue,y?(a)ml}\"",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "test": "jest"
   },
   "dependencies": {
+    "babel-jest": "^24.8.0",
+    "babel-preset-gatsby": "^0.2.8",
     "file-saver": "^2.0.1",
     "gatsby": "^2.3.2",
     "gatsby-image": "^2.0.35",
@@ -36,6 +38,8 @@
     "gatsby-source-filesystem": "^2.0.28",
     "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-sharp": "^2.1.17",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.8.0",
     "js-search": "^1.4.2",
     "jszip": "^3.2.1",
     "lodash.get": "^4.4.2",
@@ -51,6 +55,7 @@
     "react-hotkeys": "^2.0.0-pre5",
     "react-markdown": "^4.0.9",
     "react-responsive-modal": "^4.0.1",
+    "react-test-renderer": "^16.8.6",
     "react-toastify": "^5.1.0"
   },
   "devDependencies": {
