@@ -30,18 +30,18 @@ initializr:
         artifactId: azure-spring-boot-bom
         versionProperty: azure.version
         mappings:
-          - versionRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
+          - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
             version: 2.0.10
-          - versionRange: "2.1.0.RELEASE"
+          - compatibilityRange: "2.1.0.RELEASE"
             version: 2.1.6
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
         versionProperty: spring-boot-admin.version
         mappings:
-          - versionRange: "[2.0.0.M1,2.1.0.M1)"
+          - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
             version: 2.0.6
-          - versionRange: "[2.1.0.M1,2.2.0.M1)"
+          - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
             version: 2.1.5
       spring-cloud:
         groupId: org.springframework.cloud
@@ -49,50 +49,50 @@ initializr:
         versionProperty: spring-cloud.version
         order: 50
         mappings:
-          - versionRange: "[2.0.0.M3, 2.0.0.M5)"
+          - compatibilityRange: "[2.0.0.M3, 2.0.0.M5)"
             version: Finchley.M2
             repositories: spring-milestones
-          - versionRange: "[2.0.0.M5, 2.0.0.M5]"
+          - compatibilityRange: "[2.0.0.M5, 2.0.0.M5]"
             version: Finchley.M3
             repositories: spring-milestones
-          - versionRange: "[2.0.0.M6, 2.0.0.M6]"
+          - compatibilityRange: "[2.0.0.M6, 2.0.0.M6]"
             version: Finchley.M4
             repositories: spring-milestones
-          - versionRange: "[2.0.0.M7, 2.0.0.M7]"
+          - compatibilityRange: "[2.0.0.M7, 2.0.0.M7]"
             version: Finchley.M5
             repositories: spring-milestones
-          - versionRange: "[2.0.0.RC1, 2.0.0.RC1]"
+          - compatibilityRange: "[2.0.0.RC1, 2.0.0.RC1]"
             version: Finchley.M6
             repositories: spring-milestones
-          - versionRange: "[2.0.0.RC2,2.0.0.RC2]"
+          - compatibilityRange: "[2.0.0.RC2,2.0.0.RC2]"
             version: Finchley.M7
             repositories: spring-milestones
-          - versionRange: "[2.0.0.RELEASE,2.0.0.RELEASE]"
+          - compatibilityRange: "[2.0.0.RELEASE,2.0.0.RELEASE]"
             version: Finchley.M9
             repositories: spring-milestones
-          - versionRange: "[2.0.1.RELEASE,2.0.2.RELEASE)"
+          - compatibilityRange: "[2.0.1.RELEASE,2.0.2.RELEASE)"
             version: Finchley.RC1
             repositories: spring-milestones
-          - versionRange: "[2.0.2.RELEASE,2.0.3.RELEASE)"
+          - compatibilityRange: "[2.0.2.RELEASE,2.0.3.RELEASE)"
             version: Finchley.RC2
             repositories: spring-milestones
-          - versionRange: "[2.0.3.RELEASE,2.0.x.BUILD-SNAPSHOT)"
+          - compatibilityRange: "[2.0.3.RELEASE,2.0.x.BUILD-SNAPSHOT)"
             version: Finchley.SR4
-          - versionRange: "[2.0.x.BUILD-SNAPSHOT,2.1.0.M3)"
+          - compatibilityRange: "[2.0.x.BUILD-SNAPSHOT,2.1.0.M3)"
             version: Finchley.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
-          - versionRange: "[2.1.0.M3,2.1.0.RELEASE)"
+          - compatibilityRange: "[2.1.0.M3,2.1.0.RELEASE)"
             version: Greenwich.M1
             repositories: spring-milestones
-          - versionRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
+          - compatibilityRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
             version: Greenwich.SR2
-          - versionRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
+          - compatibilityRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
-          - versionRange: "[2.2.0.M4,2.2.0.M5]"
+          - compatibilityRange: "[2.2.0.M4,2.2.0.M5]"
             version: Hoxton.M1
             repositories: spring-milestones
-          - versionRange: "2.2.0.BUILD-SNAPSHOT"
+          - compatibilityRange: "2.2.0.BUILD-SNAPSHOT"
             version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-services:
@@ -101,37 +101,37 @@ initializr:
         versionProperty: spring-cloud-services.version
         additionalBoms: [spring-cloud]
         mappings:
-          - versionRange: "[2.0.0.RELEASE,2.0.x.BUILD-SNAPSHOT]"
+          - compatibilityRange: "[2.0.0.RELEASE,2.0.x.BUILD-SNAPSHOT]"
             version: 2.0.3.RELEASE
-          - versionRange: "2.1.0.RELEASE"
+          - compatibilityRange: "2.1.0.RELEASE"
             version: 2.1.4.RELEASE
       spring-statemachine:
         groupId: org.springframework.statemachine
         artifactId: spring-statemachine-bom
         versionProperty: spring-statemachine.version
         mappings:
-          - versionRange: "[2.0.0.RC1,2.0.0.RC1]"
+          - compatibilityRange: "[2.0.0.RC1,2.0.0.RC1]"
             version: 2.0.0.M4
             repositories: spring-milestones
-          - versionRange: "[2.0.0.RC2,2.0.0.RC2]"
+          - compatibilityRange: "[2.0.0.RC2,2.0.0.RC2]"
             version: 2.0.0.M5
             repositories: spring-milestones
-          - versionRange: "2.0.0.RELEASE"
+          - compatibilityRange: "2.0.0.RELEASE"
             version: 2.0.1.RELEASE
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
         versionProperty: vaadin.version
         mappings:
-          - versionRange: "[2.0.0.M1,2.1.0.M1)"
+          - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
             version: 10.0.16
-          - versionRange: "2.1.0.M1"
+          - compatibilityRange: "2.1.0.M1"
             version: 13.0.11
     gradle:
       dependency-management-plugin-version: 1.0.7.RELEASE
     kotlin:
       mappings:
-        - versionRange: "[1.5.0.RELEASE,2.0.0.M1)"
+        - compatibilityRange: "[1.5.0.RELEASE,2.0.0.M1)"
           version: 1.2.51
     repositories:
       sonatype-snapshots:
@@ -339,7 +339,7 @@ initializr:
         - name: OAuth2 Resource Server
           id: oauth2-resource-server
           description: Spring Boot integration for Spring Security's OAuth2 resource server features.
-          versionRange: 2.1.0.M2
+          compatibilityRange: 2.1.0.M2
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security-oauth2-server
@@ -354,7 +354,7 @@ initializr:
           description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features. Enable your Spring Boot application to work with Okta via OAuth 2.0/OIDC.
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
-          versionRange: 2.1.2.RELEASE
+          compatibilityRange: 2.1.2.RELEASE
           version: 1.2.1
           links:
             - rel: guide
@@ -426,9 +426,9 @@ initializr:
           groupId: org.mybatis.spring.boot
           artifactId: mybatis-spring-boot-starter
           mappings:
-            - versionRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
+            - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
               version: 2.0.1
-            - versionRange: "2.1.0.RELEASE"
+            - compatibilityRange: "2.1.0.RELEASE"
               version: 2.1.0
         - name: PostgreSQL Driver
           id: postgresql
@@ -657,13 +657,13 @@ initializr:
         - name: RSocket
           id: rsocket
           description: RSocket.io applications with Spring Messaging and Netty.
-          versionRange: 2.2.0.M2
+          compatibilityRange: 2.2.0.M2
         - name: Apache Camel
           id: camel
           mappings:
-            - versionRange: "[2.0.0.M1,2.1.0.M1)"
+            - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
               version: 2.22.4
-            - versionRange: "2.1.0.M1"
+            - compatibilityRange: "2.1.0.M1"
               version: 2.24.0
           description: Apache Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
           groupId: org.apache.camel
@@ -718,7 +718,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Required for your application to register with a Spring Boot Admin Server instance.
-          versionRange: "[2.0.0.RELEASE,2.2.0.M1)"
+          compatibilityRange: "[2.0.0.RELEASE,2.2.0.M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -728,7 +728,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
-          versionRange: "[2.0.0.RELEASE,2.2.0.M1)"
+          compatibilityRange: "[2.0.0.RELEASE,2.2.0.M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -786,10 +786,10 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-open-service-broker
           mappings:
-            - versionRange: "[2.0.0.RELEASE,2.1.0.M1)"
+            - compatibilityRange: "[2.0.0.RELEASE,2.1.0.M1)"
               version: 2.1.2.RELEASE
               artifactId: spring-cloud-starter-open-service-broker-webmvc
-            - versionRange: "2.1.0.M1"
+            - compatibilityRange: "2.1.0.M1"
               version: 3.0.3.RELEASE
           links:
             - rel: reference
