@@ -31,4 +31,5 @@ target
 /start-client/node/
 /start-client/.env
 /start-client/.cache/
+/start-client/package-lock.json
 /start-client/yarn-error.log
