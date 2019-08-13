@@ -58,7 +58,7 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 		}
 		build.buildscript((buildscript) -> buildscript
 				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion));
-		build.applyPlugin(SPRING_CLOUD_CONTRACT_GRADLE_PLUGIN_ID);
+		build.plugins().apply(SPRING_CLOUD_CONTRACT_GRADLE_PLUGIN_ID);
 	}
 
 }

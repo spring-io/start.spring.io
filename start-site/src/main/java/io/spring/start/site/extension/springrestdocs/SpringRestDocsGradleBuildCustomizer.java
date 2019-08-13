@@ -29,7 +29,7 @@ class SpringRestDocsGradleBuildCustomizer implements BuildCustomizer<GradleBuild
 
 	@Override
 	public void customize(GradleBuild build) {
-		build.addPlugin("org.asciidoctor.convert", "1.5.3");
+		build.plugins().add("org.asciidoctor.convert", (plugin) -> plugin.setVersion("1.5.3"));
 		build.ext("snippetsDir", "file(\"build/generated-snippets\")");
 		build.customizeTask("test", (task) -> task.invoke("outputs.dir", "snippetsDir"));
 		build.customizeTask("asciidoctor", (task) -> {

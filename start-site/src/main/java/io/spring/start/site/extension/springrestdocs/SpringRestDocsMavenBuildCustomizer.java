@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.springrestdocs;
 
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
-import io.spring.initializr.generator.buildsystem.maven.MavenPlugin;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
@@ -30,16 +29,19 @@ class SpringRestDocsMavenBuildCustomizer implements BuildCustomizer<MavenBuild> 
 
 	@Override
 	public void customize(MavenBuild build) {
-		MavenPlugin plugin = build.plugin("org.asciidoctor", "asciidoctor-maven-plugin", "1.5.3");
-		plugin.execution("generate-docs", (execution) -> {
-			execution.phase("prepare-package");
-			execution.goal("process-asciidoc");
-			execution.configuration((configuration) -> {
-				configuration.add("backend", "html");
-				configuration.add("doctype", "book");
+		build.plugins().add("org.asciidoctor", "asciidoctor-maven-plugin", (plugin) -> {
+			plugin.setVersion("1.5.3");
+			plugin.execution("generate-docs", (execution) -> {
+				execution.phase("prepare-package");
+				execution.goal("process-asciidoc");
+				execution.configuration((configuration) -> {
+					configuration.add("backend", "html");
+					configuration.add("doctype", "book");
+				});
 			});
+			plugin.dependency("org.springframework.restdocs", "spring-restdocs-asciidoctor",
+					"${spring-restdocs.version}");
 		});
-		plugin.dependency("org.springframework.restdocs", "spring-restdocs-asciidoctor", "${spring-restdocs.version}");
 	}
 
 }

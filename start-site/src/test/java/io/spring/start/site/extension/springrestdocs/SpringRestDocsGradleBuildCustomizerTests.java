@@ -19,7 +19,7 @@ package io.spring.start.site.extension.springrestdocs;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild.TaskCustomization;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild.TaskCustomization.Invocation;
-import io.spring.initializr.generator.buildsystem.gradle.GradlePlugin;
+import io.spring.initializr.generator.buildsystem.gradle.StandardGradlePlugin;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,10 +37,10 @@ class SpringRestDocsGradleBuildCustomizerTests {
 	void customizesGradleBuild() {
 		GradleBuild build = new GradleBuild();
 		this.customizer.customize(build);
-		assertThat(build.getPlugins()).hasSize(1);
-		GradlePlugin plugin = build.getPlugins().get(0);
-		assertThat(plugin.getId()).isEqualTo("org.asciidoctor.convert");
-		assertThat(plugin.getVersion()).isEqualTo("1.5.3");
+		assertThat(build.plugins().values()).hasOnlyOneElementSatisfying((plugin) -> {
+			assertThat(plugin.getId()).isEqualTo("org.asciidoctor.convert");
+			assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("1.5.3");
+		});
 		assertThat(build.getTaskCustomizations()).containsKey("test");
 		assertThat(build.getExt()).containsEntry("snippetsDir", "file(\"build/generated-snippets\")");
 		TaskCustomization testCustomization = build.getTaskCustomizations().get("test");

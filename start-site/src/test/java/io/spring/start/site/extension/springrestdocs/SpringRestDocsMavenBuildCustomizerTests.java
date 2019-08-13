@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.springrestdocs;
 
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
-import io.spring.initializr.generator.buildsystem.maven.MavenPlugin;
 import io.spring.initializr.generator.buildsystem.maven.MavenPlugin.Configuration;
 import io.spring.initializr.generator.buildsystem.maven.MavenPlugin.Dependency;
 import io.spring.initializr.generator.buildsystem.maven.MavenPlugin.Execution;
@@ -39,30 +38,30 @@ class SpringRestDocsMavenBuildCustomizerTests {
 	void customizesGradleBuild() {
 		MavenBuild build = new MavenBuild();
 		this.customizer.customize(build);
-		assertThat(build.getPlugins()).hasSize(1);
-		MavenPlugin plugin = build.getPlugins().get(0);
-		assertThat(plugin.getGroupId()).isEqualTo("org.asciidoctor");
-		assertThat(plugin.getArtifactId()).isEqualTo("asciidoctor-maven-plugin");
-		assertThat(plugin.getVersion()).isEqualTo("1.5.3");
-		assertThat(plugin.getExecutions()).hasSize(1);
-		Execution execution = plugin.getExecutions().get(0);
-		assertThat(execution.getId()).isEqualTo("generate-docs");
-		assertThat(execution.getGoals()).containsExactly("process-asciidoc");
-		assertThat(execution.getPhase()).isEqualTo("prepare-package");
-		assertThat(execution.getConfiguration()).isNotNull();
-		Configuration configuration = execution.getConfiguration();
-		assertThat(configuration.getSettings()).hasSize(2);
-		Setting backend = configuration.getSettings().get(0);
-		assertThat(backend.getName()).isEqualTo("backend");
-		assertThat(backend.getValue()).isEqualTo("html");
-		Setting doctype = configuration.getSettings().get(1);
-		assertThat(doctype.getName()).isEqualTo("doctype");
-		assertThat(doctype.getValue()).isEqualTo("book");
-		assertThat(plugin.getDependencies()).hasSize(1);
-		Dependency dependency = plugin.getDependencies().get(0);
-		assertThat(dependency.getGroupId()).isEqualTo("org.springframework.restdocs");
-		assertThat(dependency.getArtifactId()).isEqualTo("spring-restdocs-asciidoctor");
-		assertThat(dependency.getVersion()).isEqualTo("${spring-restdocs.version}");
+		assertThat(build.plugins().values()).hasOnlyOneElementSatisfying((plugin) -> {
+			assertThat(plugin.getGroupId()).isEqualTo("org.asciidoctor");
+			assertThat(plugin.getArtifactId()).isEqualTo("asciidoctor-maven-plugin");
+			assertThat(plugin.getVersion()).isEqualTo("1.5.3");
+			assertThat(plugin.getExecutions()).hasSize(1);
+			Execution execution = plugin.getExecutions().get(0);
+			assertThat(execution.getId()).isEqualTo("generate-docs");
+			assertThat(execution.getGoals()).containsExactly("process-asciidoc");
+			assertThat(execution.getPhase()).isEqualTo("prepare-package");
+			assertThat(execution.getConfiguration()).isNotNull();
+			Configuration configuration = execution.getConfiguration();
+			assertThat(configuration.getSettings()).hasSize(2);
+			Setting backend = configuration.getSettings().get(0);
+			assertThat(backend.getName()).isEqualTo("backend");
+			assertThat(backend.getValue()).isEqualTo("html");
+			Setting doctype = configuration.getSettings().get(1);
+			assertThat(doctype.getName()).isEqualTo("doctype");
+			assertThat(doctype.getValue()).isEqualTo("book");
+			assertThat(plugin.getDependencies()).hasSize(1);
+			Dependency dependency = plugin.getDependencies().get(0);
+			assertThat(dependency.getGroupId()).isEqualTo("org.springframework.restdocs");
+			assertThat(dependency.getArtifactId()).isEqualTo("spring-restdocs-asciidoctor");
+			assertThat(dependency.getVersion()).isEqualTo("${spring-restdocs.version}");
+		});
 	}
 
 }

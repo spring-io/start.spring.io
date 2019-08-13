@@ -54,8 +54,10 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 							+ bootVersion.toString());
 			return;
 		}
-		mavenBuild.plugin("org.springframework.cloud", "spring-cloud-contract-maven-plugin", sccPluginVersion)
-				.extensions();
+		mavenBuild.plugins().add("org.springframework.cloud", "spring-cloud-contract-maven-plugin", (plugin) -> {
+			plugin.setVersion(sccPluginVersion);
+			plugin.extensions();
+		});
 	}
 
 }
