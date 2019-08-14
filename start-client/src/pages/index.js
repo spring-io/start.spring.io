@@ -133,8 +133,8 @@ class IndexPage extends React.Component {
       }
       Object.keys(queryParams).forEach(entry => {
         const key = get(params, entry)
-        const value = get(queryParams, entry).toLowerCase()
         if (key) {
+          const value = get(queryParams, entry).toLowerCase()
           switch (key) {
             case 'project':
             case 'language':
