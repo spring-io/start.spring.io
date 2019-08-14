@@ -20,6 +20,10 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.generator.spring.build.gradle.DependencyManagementPluginVersionResolver;
+import io.spring.initializr.generator.spring.build.gradle.InitializrDependencyManagementPluginVersionResolver;
+import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 
 import org.springframework.context.annotation.Bean;
 
@@ -36,6 +40,14 @@ class GradleProjectGenerationConfiguration {
 	@Bean
 	GradleBuildSystemHelpDocumentCustomizer gradleBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
 		return new GradleBuildSystemHelpDocumentCustomizer(description);
+	}
+
+	@Bean
+	DependencyManagementPluginVersionResolver dependencyManagementPluginVersionResolver(
+			DependencyManagementVersionResolver versionResolver, InitializrMetadata metadata) {
+		return new ManagedDependenciesDependencyManagementPluginVersionResolver(versionResolver,
+				(description) -> new InitializrDependencyManagementPluginVersionResolver(metadata)
+						.resolveDependencyManagementPluginVersion(description));
 	}
 
 }
