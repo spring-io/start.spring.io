@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.kotlin;
+package io.spring.start.site.infrastructure;
 
 import java.nio.file.Path;
+import java.util.function.Function;
 
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
@@ -26,22 +27,27 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
  * Tests for {@link ManagedDependenciesKotlinVersionResolver}.
  *
  * @author Andy Wilkinson
  */
-public class ManagedDependenciesKotlinVersionResolverTests {
+class ManagedDependenciesKotlinVersionResolverTests {
 
 	@Test
+	@SuppressWarnings("unchecked")
 	void kotlinVersionCanBeResolved(@TempDir Path temp) {
 		ProjectDescription description = new ProjectDescription();
 		description.setPlatformVersion(Version.parse("2.1.6.RELEASE"));
+		Function<ResolvedProjectDescription, String> fallback = mock(Function.class);
 		String version = new ManagedDependenciesKotlinVersionResolver(
-				DependencyManagementVersionResolver.withCacheLocation(temp))
+				DependencyManagementVersionResolver.withCacheLocation(temp), fallback)
 						.resolveKotlinVersion(new ResolvedProjectDescription(description));
 		assertThat(version).isEqualTo("1.2.71");
+		verifyZeroInteractions(fallback);
 	}
 
 }
