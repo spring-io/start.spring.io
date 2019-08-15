@@ -39,7 +39,7 @@ class SpringRestDocsGradleBuildCustomizerTests {
 		this.customizer.customize(build);
 		assertThat(build.plugins().values()).hasOnlyOneElementSatisfying((plugin) -> {
 			assertThat(plugin.getId()).isEqualTo("org.asciidoctor.convert");
-			assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("1.5.3");
+			assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("1.5.8");
 		});
 		assertThat(build.getTaskCustomizations()).containsKey("test");
 		assertThat(build.getExt()).containsEntry("snippetsDir", "file(\"build/generated-snippets\")");

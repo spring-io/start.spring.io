@@ -41,7 +41,7 @@ class SpringRestDocsMavenBuildCustomizerTests {
 		assertThat(build.plugins().values()).hasOnlyOneElementSatisfying((plugin) -> {
 			assertThat(plugin.getGroupId()).isEqualTo("org.asciidoctor");
 			assertThat(plugin.getArtifactId()).isEqualTo("asciidoctor-maven-plugin");
-			assertThat(plugin.getVersion()).isEqualTo("1.5.3");
+			assertThat(plugin.getVersion()).isEqualTo("1.5.8");
 			assertThat(plugin.getExecutions()).hasSize(1);
 			Execution execution = plugin.getExecutions().get(0);
 			assertThat(execution.getId()).isEqualTo("generate-docs");
