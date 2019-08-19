@@ -90,7 +90,7 @@ initializr:
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
           - compatibilityRange: "[2.2.0.M4,2.2.0.M5]"
-            version: Hoxton.M1
+            version: Hoxton.M2
             repositories: spring-milestones
           - compatibilityRange: "2.2.0.BUILD-SNAPSHOT"
             version: Hoxton.BUILD-SNAPSHOT
