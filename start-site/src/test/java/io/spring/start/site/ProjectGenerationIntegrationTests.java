@@ -70,11 +70,24 @@ class ProjectGenerationIntegrationTests {
 
 	private static final Set<Path> mavenHomes = new CopyOnWriteArraySet<>();
 
+	private static final Set<Path> gradleHomes = new CopyOnWriteArraySet<>();
+
 	private final ThreadLocal<Path> mavenHome = ThreadLocal.withInitial(() -> {
 		try {
 			Path mavenHome = Files.createTempDirectory("maven-home");
 			ProjectGenerationIntegrationTests.mavenHomes.add(mavenHome);
 			return mavenHome;
+		}
+		catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
+	});
+
+	private final ThreadLocal<Path> gradleHome = ThreadLocal.withInitial(() -> {
+		try {
+			Path gradleHome = Files.createTempDirectory("gradle-home");
+			ProjectGenerationIntegrationTests.gradleHomes.add(gradleHome);
+			return gradleHome;
 		}
 		catch (IOException ex) {
 			throw new RuntimeException(ex);
@@ -92,10 +105,18 @@ class ProjectGenerationIntegrationTests {
 	}
 
 	@AfterAll
-	static void deleteMavenHomes() {
+	static void deleteMavenAndGradleHomes() {
 		for (Path mavenHome : mavenHomes) {
 			try {
 				FileSystemUtils.deleteRecursively(mavenHome);
+			}
+			catch (IOException ex) {
+				// Continue
+			}
+		}
+		for (Path gradleHome : gradleHomes) {
+			try {
+				FileSystemUtils.deleteRecursively(gradleHome);
 			}
 			catch (IOException ex) {
 				// Continue
@@ -154,7 +175,10 @@ class ProjectGenerationIntegrationTests {
 			return processBuilder;
 		}
 		if (buildSystem.id().equals(new GradleBuildSystem().id())) {
-			return new ProcessBuilder("./gradlew", "--no-daemon", "build");
+			Path gradleHome = this.gradleHome.get();
+			ProcessBuilder processBuilder = new ProcessBuilder("./gradlew", "--no-daemon", "build");
+			processBuilder.environment().put("GRADLE_USER_HOME", gradleHome.toFile().getAbsolutePath());
+			return processBuilder;
 		}
 		throw new IllegalStateException();
 	}
