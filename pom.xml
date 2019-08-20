@@ -49,40 +49,10 @@
 		<dependencies>
 			<dependency>
 				<groupId>io.spring.initializr</groupId>
-				<artifactId>initializr-actuator</artifactId>
+				<artifactId>initializr-bom</artifactId>
 				<version>${spring-initializr.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.spring.initializr</groupId>
-				<artifactId>initializr-generator</artifactId>
-				<version>${spring-initializr.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.spring.initializr</groupId>
-				<artifactId>initializr-generator-spring</artifactId>
-				<version>${spring-initializr.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.spring.initializr</groupId>
-				<artifactId>initializr-generator</artifactId>
-				<version>${spring-initializr.version}</version>
-				<type>test-jar</type>
-			</dependency>
-			<dependency>
-				<groupId>io.spring.initializr</groupId>
-				<artifactId>initializr-generator-spring</artifactId>
-				<version>${spring-initializr.version}</version>
-				<type>test-jar</type>
-			</dependency>
-			<dependency>
-				<groupId>io.spring.initializr</groupId>
-				<artifactId>initializr-version-resolver</artifactId>
-				<version>${spring-initializr.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.spring.initializr</groupId>
-				<artifactId>initializr-web</artifactId>
-				<version>${spring-initializr.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>io.spring.start</groupId>
