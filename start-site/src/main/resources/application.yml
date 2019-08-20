@@ -549,6 +549,20 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
+        - name: Spring for Apache Geode
+          id: geode
+          compatibilityRange: 2.2.0.M5
+          groupId: org.springframework.geode
+          artifactId: spring-geode-starter
+          version: 1.2.0.BUILD-SNAPSHOT
+          repository: spring-snapshots
+          description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot-data-geode-build/current/reference/html5/
+            - rel: guide
+              href: https://github.com/spring-projects/spring-boot-data-geode/tree/master/spring-geode-samples
+              description: Using Spring for Apache Geode
         - name: Spring Data Couchbase
           id: data-couchbase
           description: NoSQL document-oriented database that offers in memory-first architecture, geo-distributed deployments, and workload isolation.
