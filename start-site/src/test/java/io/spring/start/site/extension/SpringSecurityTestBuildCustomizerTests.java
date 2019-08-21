@@ -30,15 +30,17 @@ class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void securityTestIsAddedWithSecurity() {
 		ProjectRequest request = createProjectRequest("security");
-		generateMavenPom(request).hasSpringBootStarterDependency("security").hasSpringBootStarterTest()
-				.hasDependency(springSecurityTest()).hasDependenciesCount(3);
+		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("security"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependency(springSecurityTest()).hasDependenciesSize(3);
 	}
 
 	@Test
 	void securityTestIsNotAddedWithoutSpringSecurity() {
 		ProjectRequest request = createProjectRequest("web");
-		generateMavenPom(request).hasSpringBootStarterDependency("web").hasSpringBootStarterTest()
-				.hasDependenciesCount(2);
+		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("web"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependenciesSize(2);
 	}
 
 	private static Dependency springSecurityTest() {

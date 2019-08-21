@@ -18,13 +18,13 @@ package io.spring.start.site.extension.springcloud;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
+import io.spring.initializr.generator.test.io.TextAssert;
+import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
+import org.assertj.core.api.ListAssert;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer}
@@ -39,8 +39,7 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizerTests extends Abstr
 		ProjectRequest request = createProjectRequest();
 		request.setBootVersion("2.1.5.RELEASE");
 		request.setDependencies(Arrays.asList("cloud-ribbon", "cloud-eureka"));
-		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).containsSequence("# Spring Cloud Netflix Maintenance Mode", "",
+		assertHelpDocument(request).containsSequence("# Spring Cloud Netflix Maintenance Mode", "",
 				"The dependencies listed below are in maintenance mode. We do not recommend adding them to",
 				"new projects:", "", "*  Ribbon", "");
 	}
@@ -50,8 +49,7 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizerTests extends Abstr
 		ProjectRequest request = createProjectRequest();
 		request.setBootVersion("2.0.7.RELEASE");
 		request.setDependencies(Arrays.asList("cloud-ribbon", "cloud-eureka"));
-		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).doesNotContain("# Spring Cloud Netflix Maintenance Mode");
+		assertHelpDocument(request).doesNotContain("# Spring Cloud Netflix Maintenance Mode");
 	}
 
 	@Test
@@ -59,12 +57,12 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizerTests extends Abstr
 		ProjectRequest request = createProjectRequest();
 		request.setBootVersion("2.1.5.RELEASE");
 		request.setDependencies(Collections.singletonList("cloud-eureka"));
-		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).doesNotContain("# Spring Cloud Netflix Maintenance Mode");
+		assertHelpDocument(request).doesNotContain("# Spring Cloud Netflix Maintenance Mode");
 	}
 
-	private List<String> generateHelpDocument(ProjectRequest projectRequest) {
-		return generateProject(projectRequest).readAllLines("HELP.md");
+	private ListAssert<String> assertHelpDocument(ProjectRequest projectRequest) {
+		ProjectStructure project = generateProject(projectRequest);
+		return new TextAssert(project.getProjectDirectory().resolve("HELP.md")).lines();
 	}
 
 }

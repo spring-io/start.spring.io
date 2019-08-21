@@ -16,7 +16,7 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import io.spring.initializr.generator.spring.test.build.PomAssert;
+import io.spring.initializr.generator.test.buildsystem.maven.MavenBuildAssert;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		PomAssert pom = generateMavenPom(projectRequest);
+		MavenBuildAssert pom = generateMavenPom(projectRequest);
 		pom.hasDependency(getDependency("cloud-contract-verifier"));
 		pom.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud");
 		pom.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin");
@@ -42,7 +42,7 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	@Test
 	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
 		ProjectRequest projectRequest = createProjectRequest();
-		PomAssert pom = generateMavenPom(projectRequest);
+		MavenBuildAssert pom = generateMavenPom(projectRequest);
 		pom.doesNotContain("spring-cloud-contract-maven-plugin");
 	}
 

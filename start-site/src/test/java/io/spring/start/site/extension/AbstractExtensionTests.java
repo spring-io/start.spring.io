@@ -18,8 +18,8 @@ package io.spring.start.site.extension;
 
 import java.util.Arrays;
 
-import io.spring.initializr.generator.spring.test.build.GradleBuildAssert;
-import io.spring.initializr.generator.spring.test.build.PomAssert;
+import io.spring.initializr.generator.test.buildsystem.gradle.GroovyDslGradleBuildAssert;
+import io.spring.initializr.generator.test.buildsystem.maven.MavenBuildAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
@@ -56,10 +56,10 @@ public abstract class AbstractExtensionTests {
 		return bom.resolve(Version.parse(version));
 	}
 
-	protected PomAssert generateMavenPom(ProjectRequest request) {
+	protected MavenBuildAssert generateMavenPom(ProjectRequest request) {
 		request.setType("maven-build");
 		String content = new String(this.invoker.invokeBuildGeneration(request));
-		return new PomAssert(content);
+		return new MavenBuildAssert(content);
 	}
 
 	protected GradleBuildAssert generateGradleBuild(ProjectRequest request) {

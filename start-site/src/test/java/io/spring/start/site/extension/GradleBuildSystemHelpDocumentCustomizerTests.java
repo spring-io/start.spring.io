@@ -16,12 +16,11 @@
 
 package io.spring.start.site.extension;
 
-import java.util.List;
-
+import io.spring.initializr.generator.test.io.TextAssert;
+import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import org.assertj.core.api.ListAssert;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link GradleBuildSystemHelpDocumentCustomizer}.
@@ -33,22 +32,21 @@ class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void linksAddedToHelpDocumentForGradleBuild() {
-		assertThat(helpMdLinesForProject("gradle-build")).contains(
-				"* [Official Gradle documentation](https://docs.gradle.org)",
+		assertHelpDocument("gradle-build").contains("* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForMavenBuild() {
-		assertThat(helpMdLinesForProject("maven-build")).doesNotContain(
-				"* [Official Gradle documentation](https://docs.gradle.org)",
+		assertHelpDocument("maven-build").doesNotContain("* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)");
 	}
 
-	private List<String> helpMdLinesForProject(String type) {
+	private ListAssert<String> assertHelpDocument(String type) {
 		ProjectRequest request = createProjectRequest("web");
 		request.setType(type);
-		return generateProject(request).readAllLines("HELP.md");
+		ProjectStructure project = generateProject(request);
+		return new TextAssert(project.getProjectDirectory().resolve("HELP.md")).lines();
 	}
 
 }

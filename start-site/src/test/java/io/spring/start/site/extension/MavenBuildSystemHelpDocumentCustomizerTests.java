@@ -16,12 +16,11 @@
 
 package io.spring.start.site.extension;
 
-import java.util.List;
-
+import io.spring.initializr.generator.test.io.TextAssert;
+import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import org.assertj.core.api.ListAssert;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link MavenBuildSystemHelpDocumentCustomizer}.
@@ -33,20 +32,21 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 
 	@Test
 	void linksAddedToHelpDocumentForMavenBuild() {
-		assertThat(helpMdLinesForProject("maven-build"))
+		assertHelpDocument("maven-build")
 				.contains("* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForGradleBuild() {
-		assertThat(helpMdLinesForProject("gradle-build"))
+		assertHelpDocument("gradle-build")
 				.doesNotContain("* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
 	}
 
-	private List<String> helpMdLinesForProject(String type) {
+	private ListAssert<String> assertHelpDocument(String type) {
 		ProjectRequest request = createProjectRequest("web");
 		request.setType(type);
-		return generateProject(request).readAllLines("HELP.md");
+		ProjectStructure project = generateProject(request);
+		return new TextAssert(project.getProjectDirectory().resolve("HELP.md")).lines();
 	}
 
 }

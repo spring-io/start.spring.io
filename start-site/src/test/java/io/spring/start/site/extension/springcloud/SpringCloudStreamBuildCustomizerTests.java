@@ -44,15 +44,15 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 	void springCloudStreamWithRabbit() {
 		ProjectRequest request = createProjectRequest("cloud-stream", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream")).hasDependency(getDependency("amqp"))
-				.hasDependency(RABBIT_BINDER).hasSpringBootStarterTest().hasDependency(SCS_TEST)
-				.hasDependenciesCount(5);
+				.hasDependency(RABBIT_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(SCS_TEST)
+				.hasDependenciesSize(5);
 	}
 
 	@Test
 	void springCloudStreamWithKafka() {
 		ProjectRequest request = createProjectRequest("cloud-stream", "kafka");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream")).hasDependency(getDependency("kafka"))
-				.hasDependency(KAFKA_BINDER).hasSpringBootStarterTest().hasDependency(SCS_TEST).hasDependenciesCount(6);
+				.hasDependency(KAFKA_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(SCS_TEST).hasDependenciesSize(6);
 	}
 
 	@Test
@@ -61,7 +61,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream"))
 				.hasDependency(getDependency("kafka-streams")).hasDependency(KAFKA_STREAMS_BINDER)
-				.hasSpringBootStarterTest().hasDependency(SCS_TEST).hasDependenciesCount(5);
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(SCS_TEST).hasDependenciesSize(5);
 	}
 
 	@Test
@@ -70,7 +70,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		generateMavenPom(request).hasDependency(getDependency("cloud-stream")).hasDependency(getDependency("amqp"))
 				.hasDependency(getDependency("kafka")).hasDependency(getDependency("kafka-streams"))
 				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER).hasDependency(KAFKA_STREAMS_BINDER)
-				.hasSpringBootStarterTest().hasDependency(SCS_TEST).hasDependenciesCount(10);
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(SCS_TEST).hasDependenciesSize(10);
 	}
 
 	@Test
@@ -78,8 +78,8 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "amqp");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
-				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER).hasSpringBootStarterTest()
-				.hasDependency(SCS_TEST).hasDependenciesCount(5);
+				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependency(SCS_TEST).hasDependenciesSize(5);
 	}
 
 	@Test
@@ -87,8 +87,8 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("reactive-cloud-stream", "kafka");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
-				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER).hasSpringBootStarterTest()
-				.hasDependency(SCS_TEST).hasDependenciesCount(6);
+				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependency(SCS_TEST).hasDependenciesSize(6);
 	}
 
 	@Test
@@ -97,7 +97,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("kafka-streams")).hasDependency(KAFKA_STREAMS_BINDER)
-				.hasSpringBootStarterTest().hasDependency(SCS_TEST).hasDependenciesCount(5);
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(SCS_TEST).hasDependenciesSize(5);
 	}
 
 	@Test
@@ -107,22 +107,22 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		generateMavenPom(request).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("amqp")).hasDependency(getDependency("kafka"))
 				.hasDependency(getDependency("kafka-streams")).hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
-				.hasDependency(KAFKA_STREAMS_BINDER).hasSpringBootStarterTest().hasDependency(SCS_TEST)
-				.hasDependenciesCount(10);
+				.hasDependency(KAFKA_STREAMS_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(SCS_TEST)
+				.hasDependenciesSize(10);
 	}
 
 	@Test
 	void springCloudBusWithRabbit() {
 		ProjectRequest request = createProjectRequest("cloud-bus", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus")).hasDependency(getDependency("amqp"))
-				.hasDependency(RABBIT_BINDER).hasSpringBootStarterTest().hasDependenciesCount(4);
+				.hasDependency(RABBIT_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependenciesSize(4);
 	}
 
 	@Test
 	void springCloudBusWithKafka() {
 		ProjectRequest request = createProjectRequest("cloud-bus", "amqp");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus")).hasDependency(getDependency("amqp"))
-				.hasDependency(RABBIT_BINDER).hasSpringBootStarterTest().hasDependenciesCount(4);
+				.hasDependency(RABBIT_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependenciesSize(4);
 	}
 
 	@Test
@@ -130,8 +130,8 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("cloud-bus", "amqp", "kafka", "kafka-streams");
 		generateMavenPom(request).hasDependency(getDependency("cloud-bus")).hasDependency(getDependency("amqp"))
 				.hasDependency(getDependency("kafka")).hasDependency(getDependency("kafka-streams"))
-				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER).hasSpringBootStarterTest()
-				.hasDependenciesCount(8);
+				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependenciesSize(8);
 	}
 
 	@Test
@@ -139,8 +139,8 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
-				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER).hasSpringBootStarterTest()
-				.hasDependenciesCount(4);
+				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependenciesSize(4);
 	}
 
 	@Test
@@ -148,8 +148,8 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "kafka");
 		request.setBootVersion("2.0.0.RELEASE");
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
-				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER).hasSpringBootStarterTest()
-				.hasDependenciesCount(5);
+				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependenciesSize(5);
 	}
 
 	@Test
@@ -159,7 +159,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		generateMavenPom(request).hasDependency(getDependency("cloud-turbine-stream"))
 				.hasDependency(getDependency("amqp")).hasDependency(getDependency("kafka"))
 				.hasDependency(getDependency("kafka-streams")).hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
-				.hasSpringBootStarterTest().hasDependenciesCount(8);
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependenciesSize(8);
 	}
 
 }

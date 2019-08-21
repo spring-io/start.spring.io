@@ -31,7 +31,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("1.5.8.RELEASE");
 		request.setJavaVersion("9");
-		generateMavenPom(request).hasJavaVersion("1.8");
+		generateMavenPom(request).hasProperty("java.version", "1.8");
 	}
 
 	@Test

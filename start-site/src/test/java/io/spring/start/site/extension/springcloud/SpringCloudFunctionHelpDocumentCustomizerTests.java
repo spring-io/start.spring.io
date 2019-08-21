@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.springcloud;
 
 import java.util.Arrays;
-import java.util.List;
 
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
@@ -42,9 +41,8 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		request.setBootVersion("2.2.0.M4");
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
-		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).contains(AWS_SECTION_TITLE);
-		assertThat(lines).contains(AZURE_SECTION_TITLE);
+		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE)
+				.contains(AZURE_SECTION_TITLE);
 	}
 
 	@Test
@@ -53,10 +51,9 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		request.setBootVersion("2.2.0.M4");
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
-		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).contains(AWS_SECTION_TITLE);
-		assertThat(lines).contains(AZURE_SECTION_TITLE);
-		assertThat(lines).contains("A gradle plugin has not been provided by Microsoft Azure as yet.");
+		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE)
+				.contains(AZURE_SECTION_TITLE)
+				.contains("A gradle plugin has not been provided by Microsoft Azure as yet.");
 	}
 
 	@Test
@@ -64,17 +61,16 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		ProjectRequest request = createProjectRequest();
 		request.setBootVersion("2.1.0.RELEASE");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
-		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).doesNotContain(AWS_SECTION_TITLE);
-		assertThat(lines).doesNotContain(AZURE_SECTION_TITLE);
+		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AWS_SECTION_TITLE)
+				.doesNotContain(AZURE_SECTION_TITLE);
 	}
 
 	@Test
 	void functionBuildSetupInfoSectionNotAddedWhenFunctionAndCloudDependenciesAbsent() {
 		ProjectRequest request = createProjectRequest();
 		request.setBootVersion("2.2.0.M4");
-		assertThat(generateHelpDocument(request)).doesNotContain(AWS_SECTION_TITLE);
-		assertThat(generateHelpDocument(request)).doesNotContain(AZURE_SECTION_TITLE);
+		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AWS_SECTION_TITLE)
+				.doesNotContain(AZURE_SECTION_TITLE);
 	}
 
 	@Test
@@ -83,13 +79,8 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		request.setBootVersion("2.2.0.BUILD_SNAPSHOT");
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
-		List<String> lines = generateHelpDocument(request);
-		assertThat(lines).doesNotContain(AWS_SECTION_TITLE);
-		assertThat(lines).doesNotContain(AZURE_SECTION_TITLE);
-	}
-
-	private List<String> generateHelpDocument(ProjectRequest projectRequest) {
-		return generateProject(projectRequest).readAllLines("HELP.md");
+		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AWS_SECTION_TITLE)
+				.doesNotContain(AZURE_SECTION_TITLE);
 	}
 
 }

@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension;
 
+import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
@@ -34,8 +35,8 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		request.setType("gradle-project");
 		request.setLanguage("kotlin");
 		request.setBootVersion("2.1.4.RELEASE");
-		assertThat(generateProject(request).getRelativePathsOfProjectFiles()).contains("build.gradle.kts")
-				.doesNotContain("build.gradle");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).containsFiles("build.gradle.kts").doesNotContainFiles("build.gradle");
 	}
 
 	@Test
@@ -44,8 +45,8 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		request.setType("gradle-project");
 		request.setLanguage("java");
 		request.setBootVersion("2.1.4.RELEASE");
-		assertThat(generateProject(request).getRelativePathsOfProjectFiles()).contains("build.gradle")
-				.doesNotContain("build.gradle.kts");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).containsFiles("build.gradle").doesNotContainFiles("build.gradle.kts");
 	}
 
 	@Test
@@ -54,8 +55,8 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		request.setType("gradle-project");
 		request.setLanguage("groovy");
 		request.setBootVersion("2.1.4.RELEASE");
-		assertThat(generateProject(request).getRelativePathsOfProjectFiles()).contains("build.gradle")
-				.doesNotContain("build.gradle.kts");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).containsFiles("build.gradle").doesNotContainFiles("build.gradle.kts");
 	}
 
 	@Test
@@ -64,8 +65,8 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		request.setType("gradle-project");
 		request.setLanguage("kotlin");
 		request.setBootVersion("1.5.18.RELEASE");
-		assertThat(generateProject(request).getRelativePathsOfProjectFiles()).contains("build.gradle")
-				.doesNotContain("build.gradle.kts");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).containsFiles("build.gradle").doesNotContainFiles("build.gradle.kts");
 	}
 
 }

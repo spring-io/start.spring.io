@@ -37,8 +37,9 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	void noSessionWithRedis() {
 		ProjectRequest request = createProjectRequest("data-redis");
 		request.setBootVersion("2.0.0.M3");
-		generateMavenPom(request).hasSpringBootStarterDependency("data-redis").hasSpringBootStarterTest()
-				.hasDependenciesCount(2);
+		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("data-redis"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependenciesSize(2);
 	}
 
 	@Test
@@ -46,39 +47,46 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("session", "data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		generateMavenPom(request).hasDependency("org.springframework.session", "spring-session-core")
-				.hasSpringBootStarterDependency("data-jpa").hasSpringBootStarterTest().hasDependenciesCount(3);
+				.hasDependency(Dependency.createSpringBootStarter("data-jpa"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+				.hasDependenciesSize(3);
 	}
 
 	@Test
 	void sessionWithRedis() {
 		ProjectRequest request = createProjectRequest("session", "data-redis");
 		request.setBootVersion("2.0.0.M3");
-		generateMavenPom(request).hasSpringBootStarterDependency("data-redis").hasSpringBootStarterTest()
-				.hasDependency(REDIS).hasDependenciesCount(3);
+		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("data-redis"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
+				.hasDependenciesSize(3);
 	}
 
 	@Test
 	void sessionWithRedisReactive() {
 		ProjectRequest request = createProjectRequest("session", "data-redis-reactive");
 		request.setBootVersion("2.0.0.M7");
-		generateMavenPom(request).hasSpringBootStarterDependency("data-redis-reactive").hasSpringBootStarterTest()
-				.hasDependency(REDIS).hasDependenciesCount(3);
+		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("data-redis-reactive"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
+				.hasDependenciesSize(3);
 	}
 
 	@Test
 	void sessionWithJdbc() {
 		ProjectRequest request = createProjectRequest("session", "jdbc");
 		request.setBootVersion("2.0.0.M3");
-		generateMavenPom(request).hasSpringBootStarterDependency("jdbc").hasSpringBootStarterTest().hasDependency(JDBC)
-				.hasDependenciesCount(3);
+		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("jdbc"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(JDBC)
+				.hasDependenciesSize(3);
 	}
 
 	@Test
 	void sessionWithRedisAndJdbc() {
 		ProjectRequest request = createProjectRequest("session", "data-redis", "jdbc");
 		request.setBootVersion("2.0.0.M3");
-		generateMavenPom(request).hasSpringBootStarterDependency("data-redis").hasSpringBootStarterDependency("jdbc")
-				.hasSpringBootStarterTest().hasDependency(REDIS).hasDependency(JDBC).hasDependenciesCount(5);
+		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("data-redis"))
+				.hasDependency(Dependency.createSpringBootStarter("jdbc"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
+				.hasDependency(JDBC).hasDependenciesSize(5);
 	}
 
 }
