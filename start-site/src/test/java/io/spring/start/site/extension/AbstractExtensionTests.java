@@ -29,6 +29,7 @@ import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.ProjectGenerationResult;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
+import org.assertj.core.api.AssertProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,16 +57,16 @@ public abstract class AbstractExtensionTests {
 		return bom.resolve(Version.parse(version));
 	}
 
-	protected MavenBuildAssert generateMavenPom(ProjectRequest request) {
+	protected AssertProvider<MavenBuildAssert> mavenPom(ProjectRequest request) {
 		request.setType("maven-build");
 		String content = new String(this.invoker.invokeBuildGeneration(request));
-		return new MavenBuildAssert(content);
+		return () -> new MavenBuildAssert(content);
 	}
 
-	protected GradleBuildAssert generateGradleBuild(ProjectRequest request) {
+	protected AssertProvider<GroovyDslGradleBuildAssert> gradleBuild(ProjectRequest request) {
 		request.setType("gradle-build");
 		String content = new String(this.invoker.invokeBuildGeneration(request));
-		return new GradleBuildAssert(content);
+		return () -> new GroovyDslGradleBuildAssert(content);
 	}
 
 	protected ProjectStructure generateProject(ProjectRequest request) {

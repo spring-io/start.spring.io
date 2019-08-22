@@ -20,6 +20,8 @@ import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Tests for {@link DevToolsMavenBuildCustomizer}.
  *
@@ -30,14 +32,14 @@ class DevToolsMavenBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void mavenWithDevtoolsIsOptional() {
 		ProjectRequest request = createProjectRequest("devtools");
-		generateMavenPom(request).hasText("/project/dependencies/dependency[2]/artifactId", "spring-boot-devtools");
-		generateMavenPom(request).hasText("/project/dependencies/dependency[2]/optional", "true");
+		assertThat(mavenPom(request)).hasText("/project/dependencies/dependency[2]/artifactId", "spring-boot-devtools")
+				.hasText("/project/dependencies/dependency[2]/optional", "true");
 	}
 
 	@Test
 	void mavenWithoutDevtoolsDoesNotChangeOptional() {
 		ProjectRequest request = createProjectRequest("web");
-		generateMavenPom(request).doesNotContain("optional");
+		assertThat(mavenPom(request)).doesNotContain("optional");
 	}
 
 }

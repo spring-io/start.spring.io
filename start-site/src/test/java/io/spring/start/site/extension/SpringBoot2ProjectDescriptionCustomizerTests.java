@@ -19,6 +19,8 @@ package io.spring.start.site.extension;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Tests for Spring Boot 2.0 Java Version customization.
  *
@@ -31,7 +33,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("1.7");
-		generateMavenPom(request).hasJavaVersion("1.8");
+		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
 	}
 
 	@Test
@@ -39,7 +41,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		request.setJavaVersion("1.7");
-		generateGradleBuild(request).hasJavaVersion("1.8");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
 	}
 
 	@Test
@@ -47,7 +49,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("9");
-		generateMavenPom(request).hasJavaVersion("9");
+		assertThat(mavenPom(request)).hasProperty("java.version", "9");
 	}
 
 	@Test
@@ -55,7 +57,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.0.M3");
 		request.setJavaVersion("9");
-		generateGradleBuild(request).hasJavaVersion("9");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("9");
 	}
 
 	@Test
@@ -63,7 +65,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.1.0.BUILD-SNAPSHOT");
 		request.setJavaVersion("10");
-		generateMavenPom(request).hasJavaVersion("10");
+		assertThat(mavenPom(request)).hasProperty("java.version", "10");
 	}
 
 	@Test
@@ -71,7 +73,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.0.2.RELEASE");
 		request.setJavaVersion("10");
-		generateGradleBuild(request).hasJavaVersion("10");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("10");
 	}
 
 }

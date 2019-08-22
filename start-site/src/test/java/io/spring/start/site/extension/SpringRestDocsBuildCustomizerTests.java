@@ -19,6 +19,8 @@ package io.spring.start.site.extension;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Tests for {@link SpringRestDocsBuildCustomizer}.
  *
@@ -29,14 +31,15 @@ class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void restDocsWithWebMvc() {
 		ProjectRequest request = createProjectRequest("web", "restdocs");
-		generateMavenPom(request).hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
+		assertThat(mavenPom(request))
+				.hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
 				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient");
 	}
 
 	@Test
 	void restDocsWithWebFlux() {
 		ProjectRequest request = createProjectRequest("webflux", "restdocs");
-		generateMavenPom(request)
+		assertThat(mavenPom(request))
 				.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
 				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
 	}
@@ -44,7 +47,7 @@ class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void restDocsWithJersey() {
 		ProjectRequest request = createProjectRequest("jersey", "restdocs");
-		generateMavenPom(request)
+		assertThat(mavenPom(request))
 				.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
 				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
 	}

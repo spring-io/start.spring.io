@@ -20,6 +20,8 @@ import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Tests for {@link SpringSecurityTestBuildCustomizer}.
  *
@@ -30,7 +32,7 @@ class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void securityTestIsAddedWithSecurity() {
 		ProjectRequest request = createProjectRequest("security");
-		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("security"))
+		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("security"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 				.hasDependency(springSecurityTest()).hasDependenciesSize(3);
 	}
@@ -38,7 +40,7 @@ class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void securityTestIsNotAddedWithoutSpringSecurity() {
 		ProjectRequest request = createProjectRequest("web");
-		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("web"))
+		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 				.hasDependenciesSize(2);
 	}

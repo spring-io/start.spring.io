@@ -20,6 +20,8 @@ import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Tests for {@link SpringCloudGcpBomBuildCustomizer}.
  *
@@ -31,7 +33,8 @@ class SpringCloudGcpBomBuildCustomizerTests extends AbstractExtensionTests {
 	void springCloudGcpOffReleaseTrain() {
 		ProjectRequest request = createProjectRequest("cloud-gcp");
 		request.setBootVersion("2.0.6.RELEASE");
-		generateMavenPom(request).hasBom("org.springframework.cloud", "spring-cloud-gcp-dependencies", "1.0.0.RELEASE")
+		assertThat(mavenPom(request))
+				.hasBom("org.springframework.cloud", "spring-cloud-gcp-dependencies", "1.0.0.RELEASE")
 				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
 				.hasBomsSize(2);
 	}
@@ -40,7 +43,7 @@ class SpringCloudGcpBomBuildCustomizerTests extends AbstractExtensionTests {
 	void springCloudGcpOnReleaseTrain() {
 		ProjectRequest request = createProjectRequest("cloud-gcp");
 		request.setBootVersion("2.1.1.RELEASE");
-		generateMavenPom(request)
+		assertThat(mavenPom(request))
 				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
 				.hasBomsSize(1);
 	}

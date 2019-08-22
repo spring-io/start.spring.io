@@ -16,10 +16,11 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import io.spring.initializr.generator.test.buildsystem.maven.MavenBuildAssert;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link SpringCloudContractMavenBuildCustomizer}.
@@ -32,18 +33,16 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		MavenBuildAssert pom = generateMavenPom(projectRequest);
-		pom.hasDependency(getDependency("cloud-contract-verifier"));
-		pom.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud");
-		pom.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin");
-		pom.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
+		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("cloud-contract-verifier"))
+				.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud")
+				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+				.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
 	}
 
 	@Test
 	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
 		ProjectRequest projectRequest = createProjectRequest();
-		MavenBuildAssert pom = generateMavenPom(projectRequest);
-		pom.doesNotContain("spring-cloud-contract-maven-plugin");
+		assertThat(mavenPom(projectRequest)).doesNotContain("spring-cloud-contract-maven-plugin");
 	}
 
 }

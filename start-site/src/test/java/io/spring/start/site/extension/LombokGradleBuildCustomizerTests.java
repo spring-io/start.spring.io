@@ -19,6 +19,8 @@ package io.spring.start.site.extension;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Tests for {@link LombokGradleBuildCustomizer}.
  *
@@ -29,21 +31,21 @@ class LombokGradleBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void lombokConfiguredWithCompileOnlyScope() {
 		ProjectRequest request = createProjectRequest("lombok");
-		generateGradleBuild(request).contains("annotationProcessor 'org.projectlombok:lombok'")
+		assertThat(gradleBuild(request)).contains("annotationProcessor 'org.projectlombok:lombok'")
 				.contains("compileOnly 'org.projectlombok:lombok'");
 	}
 
 	@Test
 	void lombokNotAddedIfLombokIsNotSelected() {
 		ProjectRequest request = createProjectRequest("web");
-		generateGradleBuild(request).doesNotContain("compileOnly 'org.projectlombok:lombok'");
+		assertThat(gradleBuild(request)).doesNotContain("compileOnly 'org.projectlombok:lombok'");
 	}
 
 	@Test
 	void lombokNotConfiguredWithSpringBoot15() {
 		ProjectRequest request = createProjectRequest("lombok");
 		request.setBootVersion("1.5.18.RELEASE");
-		generateGradleBuild(request).containsOnlyOnce("compileOnly 'org.projectlombok:lombok'");
+		assertThat(gradleBuild(request)).containsOnlyOnce("compileOnly 'org.projectlombok:lombok'");
 	}
 
 }

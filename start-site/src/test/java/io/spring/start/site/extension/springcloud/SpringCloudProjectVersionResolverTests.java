@@ -18,7 +18,7 @@ package io.spring.start.site.extension.springcloud;
 
 import java.util.Collections;
 
-import io.spring.initializr.generator.spring.test.InitializrMetadataTestBuilder;
+import io.spring.initializr.generator.test.InitializrMetadataTestBuilder;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.InitializrMetadata;

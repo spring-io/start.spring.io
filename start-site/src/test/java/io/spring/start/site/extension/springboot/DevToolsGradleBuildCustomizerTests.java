@@ -20,6 +20,8 @@ import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Tests for {@link DevToolsGradleBuildCustomizer}.
  *
@@ -30,7 +32,7 @@ class DevToolsGradleBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void gradleWithDevtoolsCreatesDevelopmentOnlyConfiguration() {
 		ProjectRequest request = createProjectRequest("devtools");
-		generateGradleBuild(request).contains("configurations {", "\tdevelopmentOnly", "\truntimeClasspath {",
+		assertThat(gradleBuild(request)).contains("configurations {", "\tdevelopmentOnly", "\truntimeClasspath {",
 				"\t\textendsFrom developmentOnly", "\t}", "}",
 				"\tdevelopmentOnly 'org.springframework.boot:spring-boot-devtools'");
 	}
@@ -38,7 +40,7 @@ class DevToolsGradleBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void gradleWithoutDevtoolsDoesNotChangeOptional() {
 		ProjectRequest request = createProjectRequest("web");
-		generateGradleBuild(request).doesNotContain("developmentOnly");
+		assertThat(gradleBuild(request)).doesNotContain("developmentOnly");
 	}
 
 }

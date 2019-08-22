@@ -16,10 +16,11 @@
 
 package io.spring.start.site.extension.springcloud;
 
-import io.spring.initializr.generator.spring.test.build.GradleBuildAssert;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link SpringCloudContractGradleBuildCustomizer}.
@@ -33,20 +34,20 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		projectRequest.setType("gradle-project");
-		GradleBuildAssert build = generateGradleBuild(projectRequest);
-		build.containsSubsequence("buildscript {", "dependencies {",
-				"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:");
-		build.contains("apply plugin: 'spring-cloud-contract'");
+		assertThat(gradleBuild(projectRequest))
+				.containsSubsequence("buildscript {", "dependencies {",
+						"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:")
+				.contains("apply plugin: 'spring-cloud-contract'");
 	}
 
 	@Test
 	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
 		ProjectRequest projectRequest = createProjectRequest();
 		projectRequest.setType("gradle-project");
-		GradleBuildAssert build = generateGradleBuild(projectRequest);
-		build.doesNotContain("buildscript {",
-				"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:");
-		build.doesNotContain("apply plugin: 'spring-cloud-contract'");
+		assertThat(gradleBuild(projectRequest))
+				.doesNotContain("buildscript {",
+						"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:")
+				.doesNotContain("apply plugin: 'spring-cloud-contract'");
 	}
 
 }

@@ -20,6 +20,8 @@ import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Tests for {@link ReactorTestBuildCustomizer}.
  *
@@ -33,7 +35,7 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 		request.setBootVersion("2.0.0.M2");
 		Dependency reactorTest = Dependency.withId("reactor-test", "io.projectreactor", "reactor-test");
 		reactorTest.setScope(Dependency.SCOPE_TEST);
-		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("webflux"))
+		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webflux"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 				.hasDependency(reactorTest).hasDependenciesSize(3);
 	}
@@ -42,7 +44,7 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 	void reactorTestIsNotAddedWithEarlierVersions() {
 		ProjectRequest request = createProjectRequest("webflux");
 		request.setBootVersion("2.0.0.M1");
-		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("webflux"))
+		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webflux"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 				.hasDependenciesSize(2);
 	}
@@ -51,7 +53,7 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 	void reactorTestIsNotAddedWithoutWebFlux() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.M2");
-		generateMavenPom(request).hasDependency(Dependency.createSpringBootStarter("web"))
+		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 				.hasDependenciesSize(2);
 	}
