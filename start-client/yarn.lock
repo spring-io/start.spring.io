@@ -7206,7 +7206,17 @@ jest-snapshot@^24.9.0:
     pretty-format "^24.9.0"
     semver "^6.2.0"
 
-jest-util@^24.9.0:
+jest-standard-reporter@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jest-standard-reporter/-/jest-standard-reporter-1.0.1.tgz#af3f723d71a9ee286b485b85566c34d5f601de14"
+  dependencies:
+    chalk "^2.4.2"
+    jest-util "^24.0.0"
+    path "^0.12.7"
+    slash "^2.0.0"
+    string-length "^2.0.0"
+
+jest-util@^24.0.0, jest-util@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-util/-/jest-util-24.9.0.tgz#7396814e48536d2e85a37de3e4c431d7cb140162"
   dependencies:

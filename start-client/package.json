@@ -19,7 +19,7 @@
     "serve": "gatsby serve",
     "fix": "cross-env NODE_ENV=test import-sort --write \"(src|utils|plugins)/**/*.js\" && prettier --write \"**/*.{{c,le,sc}ss,g?(raph)ql,htm?(l),js?(on|on5|onl|x|s),md?(x|wn),m?(ark)down,mkdn,ts?(x),vue,y?(a)ml}\"",
     "lint": "cross-env NODE_ENV=test import-sort -l \"(src|utils|plugins)/**/*.js\" && prettier --check \"src/**/*.{{c,le,sc}ss,g?(raph)ql,htm?(l),js?(on|on5|onl|x|s),md?(x|wn),m?(ark)down,mkdn,ts?(x),vue,y?(a)ml}\"",
-    "test": "jest"
+    "test": "jest --reporters=jest-standard-reporter"
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
@@ -69,6 +69,7 @@
     "import-sort-cli": "^6.0.0",
     "import-sort-parser-babylon": "^6.0.0",
     "import-sort-style-renke": "^6.0.0",
+    "jest-standard-reporter": "^1.0.1",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0"
   },
