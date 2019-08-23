@@ -19,8 +19,8 @@ package io.spring.start.site.infrastructure;
 import java.nio.file.Path;
 import java.util.function.Function;
 
+import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescription;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 import org.junit.jupiter.api.Test;
@@ -40,12 +40,12 @@ class ManagedDependenciesKotlinVersionResolverTests {
 	@Test
 	@SuppressWarnings("unchecked")
 	void kotlinVersionCanBeResolved(@TempDir Path temp) {
-		ProjectDescription description = new ProjectDescription();
+		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("2.1.6.RELEASE"));
-		Function<ResolvedProjectDescription, String> fallback = mock(Function.class);
+		Function<ProjectDescription, String> fallback = mock(Function.class);
 		String version = new ManagedDependenciesKotlinVersionResolver(
 				DependencyManagementVersionResolver.withCacheLocation(temp), fallback)
-						.resolveKotlinVersion(new ResolvedProjectDescription(description));
+						.resolveKotlinVersion(description);
 		assertThat(version).isEqualTo("1.2.71");
 		verifyZeroInteractions(fallback);
 	}

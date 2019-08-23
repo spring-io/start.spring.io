@@ -19,7 +19,7 @@ package io.spring.start.site.extension;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
 
@@ -34,9 +34,9 @@ public class SpringSessionBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final Version VERSION_2_0_0_M3 = Version.parse("2.0.0.M3");
 
-	private final ResolvedProjectDescription description;
+	private final ProjectDescription description;
 
-	public SpringSessionBuildCustomizer(ResolvedProjectDescription description) {
+	public SpringSessionBuildCustomizer(ProjectDescription description) {
 		this.description = description;
 	}
 

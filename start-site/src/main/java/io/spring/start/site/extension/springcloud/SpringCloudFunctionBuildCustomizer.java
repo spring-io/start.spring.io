@@ -19,7 +19,7 @@ package io.spring.start.site.extension.springcloud;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
@@ -40,9 +40,9 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 
 	private final InitializrMetadata metadata;
 
-	private final ResolvedProjectDescription description;
+	private final ProjectDescription description;
 
-	SpringCloudFunctionBuildCustomizer(InitializrMetadata metadata, ResolvedProjectDescription description) {
+	SpringCloudFunctionBuildCustomizer(InitializrMetadata metadata, ProjectDescription description) {
 		this.metadata = metadata;
 		this.description = description;
 	}

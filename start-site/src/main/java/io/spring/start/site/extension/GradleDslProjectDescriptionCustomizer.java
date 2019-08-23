@@ -19,7 +19,7 @@ package io.spring.start.site.extension;
 import io.spring.initializr.generator.buildsystem.BuildSystem;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
-import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
 
@@ -34,7 +34,7 @@ public class GradleDslProjectDescriptionCustomizer implements ProjectDescription
 	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
 
 	@Override
-	public void customize(ProjectDescription description) {
+	public void customize(MutableProjectDescription description) {
 		if (isCompatibleSpringBootVersion(description) && description.getLanguage() instanceof KotlinLanguage
 				&& description.getBuildSystem() instanceof GradleBuildSystem) {
 			description.setBuildSystem(
@@ -42,7 +42,7 @@ public class GradleDslProjectDescriptionCustomizer implements ProjectDescription
 		}
 	}
 
-	protected boolean isCompatibleSpringBootVersion(ProjectDescription description) {
+	protected boolean isCompatibleSpringBootVersion(MutableProjectDescription description) {
 		return VERSION_2_1_0_M1.compareTo(description.getPlatformVersion()) <= 0;
 	}
 

@@ -17,7 +17,7 @@
 package io.spring.start.site.extension.springcloud;
 
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
 import org.apache.commons.logging.Log;
@@ -33,11 +33,11 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 
 	private static final Log LOG = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
 
-	private final ResolvedProjectDescription description;
+	private final ProjectDescription description;
 
 	private final SpringCloudProjectVersionResolver projectsVersionResolver;
 
-	SpringCloudContractMavenBuildCustomizer(ResolvedProjectDescription description,
+	SpringCloudContractMavenBuildCustomizer(ProjectDescription description,
 			SpringCloudProjectVersionResolver projectsVersionResolver) {
 		this.description = description;
 		this.projectsVersionResolver = projectsVersionResolver;

@@ -20,8 +20,8 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.springboot.SpringBootProjectGenerationConfiguration;
@@ -46,9 +46,9 @@ public class StartProjectGenerationConfiguration {
 
 	private final InitializrMetadata metadata;
 
-	private final ResolvedProjectDescription description;
+	private final ProjectDescription description;
 
-	public StartProjectGenerationConfiguration(InitializrMetadata metadata, ResolvedProjectDescription description) {
+	public StartProjectGenerationConfiguration(InitializrMetadata metadata, ProjectDescription description) {
 		this.metadata = metadata;
 		this.description = description;
 	}

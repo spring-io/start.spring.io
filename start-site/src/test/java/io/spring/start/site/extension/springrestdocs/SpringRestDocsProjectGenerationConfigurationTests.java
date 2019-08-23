@@ -21,7 +21,7 @@ import java.util.Map;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
-import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.test.project.ProjectAssetTester;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 	@Test
 	@SuppressWarnings("rawtypes")
 	void springRestDocsCustomizerMaven() {
-		ProjectDescription description = new ProjectDescription();
+		MutableProjectDescription description = new MutableProjectDescription();
 		description.setBuildSystem(new MavenBuildSystem());
 		description.addDependency("restdocs", mock(Dependency.class));
 		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
@@ -53,7 +53,7 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 	@Test
 	@SuppressWarnings("rawtypes")
 	void springRestDocsCustomizerGradle() {
-		ProjectDescription description = new ProjectDescription();
+		MutableProjectDescription description = new MutableProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
 		description.addDependency("restdocs", mock(Dependency.class));
 		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
@@ -64,7 +64,7 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 	@Test
 	@SuppressWarnings("rawtypes")
 	void springRestDocsNotAppliedIfRestDocsNotSelected() {
-		ProjectDescription description = new ProjectDescription();
+		MutableProjectDescription description = new MutableProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
 		description.addDependency("web", mock(Dependency.class));
 		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,

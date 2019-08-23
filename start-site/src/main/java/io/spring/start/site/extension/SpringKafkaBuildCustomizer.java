@@ -19,7 +19,7 @@ package io.spring.start.site.extension;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionProperty;
@@ -36,9 +36,9 @@ public class SpringKafkaBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final Version VERSION_2_0_0 = Version.parse("2.0.0.M1");
 
-	private final ResolvedProjectDescription description;
+	private final ProjectDescription description;
 
-	public SpringKafkaBuildCustomizer(ResolvedProjectDescription description) {
+	public SpringKafkaBuildCustomizer(ProjectDescription description) {
 		this.description = description;
 	}
 

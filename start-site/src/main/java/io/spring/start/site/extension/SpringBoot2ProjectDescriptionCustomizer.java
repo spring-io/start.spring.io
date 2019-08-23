@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.spring.initializr.generator.language.Language;
-import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
 
@@ -38,14 +38,14 @@ class SpringBoot2ProjectDescriptionCustomizer implements ProjectDescriptionCusto
 	private static final List<String> VALID_VERSIONS = Arrays.asList("1.8", "9", "10", "11", "12");
 
 	@Override
-	public void customize(ProjectDescription description) {
+	public void customize(MutableProjectDescription description) {
 		if (!VALID_VERSIONS.contains(description.getLanguage().jvmVersion())
 				&& isSpringBootVersionAtLeastAfter(description)) {
 			description.setLanguage(Language.forId(description.getLanguage().id(), "1.8"));
 		}
 	}
 
-	private boolean isSpringBootVersionAtLeastAfter(ProjectDescription description) {
+	private boolean isSpringBootVersionAtLeastAfter(MutableProjectDescription description) {
 		return (VERSION_2_0_0_M1.compareTo(description.getPlatformVersion()) <= 0);
 	}
 

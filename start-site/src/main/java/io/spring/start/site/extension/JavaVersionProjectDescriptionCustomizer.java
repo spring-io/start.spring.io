@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.spring.initializr.generator.language.Language;
-import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
 
@@ -42,7 +42,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private static final List<String> UNSUPPORTED_LANGUAGES = Arrays.asList("groovy", "kotlin");
 
 	@Override
-	public void customize(ProjectDescription description) {
+	public void customize(MutableProjectDescription description) {
 		Integer javaGeneration = determineJavaGeneration(description.getLanguage().jvmVersion());
 		if (javaGeneration == null) {
 			return;
@@ -66,9 +66,9 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		}
 	}
 
-	private void updateTo(ProjectDescription projectDescription, String jvmVersion) {
-		Language language = Language.forId(projectDescription.getLanguage().id(), jvmVersion);
-		projectDescription.setLanguage(language);
+	private void updateTo(MutableProjectDescription description, String jvmVersion) {
+		Language language = Language.forId(description.getLanguage().id(), jvmVersion);
+		description.setLanguage(language);
 	}
 
 	private Integer determineJavaGeneration(String javaVersion) {
@@ -81,7 +81,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		}
 	}
 
-	protected boolean isSpringBootVersionBefore(ProjectDescription description, Version version) {
+	protected boolean isSpringBootVersionBefore(MutableProjectDescription description, Version version) {
 		return version.compareTo(description.getPlatformVersion()) > 0;
 	}
 

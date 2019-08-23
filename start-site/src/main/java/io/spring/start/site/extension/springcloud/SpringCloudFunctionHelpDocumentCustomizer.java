@@ -30,7 +30,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.io.text.MustacheSection;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.generator.version.Version;
@@ -63,9 +63,9 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 
 	private final SpringCloudProjectVersionResolver projectVersionResolver;
 
-	private final ResolvedProjectDescription description;
+	private final ProjectDescription description;
 
-	SpringCloudFunctionHelpDocumentCustomizer(Build build, ResolvedProjectDescription description,
+	SpringCloudFunctionHelpDocumentCustomizer(Build build, ProjectDescription description,
 			MustacheTemplateRenderer templateRenderer, SpringCloudProjectVersionResolver projectVersionResolver) {
 		this.buildDependencies = build.dependencies().ids().collect(Collectors.toSet());
 		this.description = description;

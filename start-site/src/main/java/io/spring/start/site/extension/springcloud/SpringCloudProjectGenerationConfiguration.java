@@ -24,8 +24,8 @@ import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.io.template.TemplateRenderer;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 
@@ -41,10 +41,9 @@ public class SpringCloudProjectGenerationConfiguration {
 
 	private final InitializrMetadata metadata;
 
-	private final ResolvedProjectDescription description;
+	private final ProjectDescription description;
 
-	public SpringCloudProjectGenerationConfiguration(InitializrMetadata metadata,
-			ResolvedProjectDescription description) {
+	public SpringCloudProjectGenerationConfiguration(InitializrMetadata metadata, ProjectDescription description) {
 		this.metadata = metadata;
 		this.description = description;
 	}

@@ -17,7 +17,7 @@
 package io.spring.start.site.extension.springcloud;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.project.ResolvedProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionReference;
@@ -31,11 +31,11 @@ import io.spring.initializr.generator.version.VersionReference;
  */
 class SpringCloudGcpBomBuildCustomizer implements BuildCustomizer<Build> {
 
-	private final ResolvedProjectDescription description;
+	private final ProjectDescription description;
 
 	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
 
-	SpringCloudGcpBomBuildCustomizer(ResolvedProjectDescription description) {
+	SpringCloudGcpBomBuildCustomizer(ProjectDescription description) {
 		this.description = description;
 	}
 
