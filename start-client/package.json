@@ -66,6 +66,7 @@
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "eslint-utils": "^1.4.2",
     "import-sort-cli": "^6.0.0",
     "import-sort-parser-babylon": "^6.0.0",
     "import-sort-style-renke": "^6.0.0",
