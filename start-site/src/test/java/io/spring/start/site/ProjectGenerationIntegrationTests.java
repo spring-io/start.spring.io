@@ -39,7 +39,9 @@ import io.spring.initializr.generator.packaging.war.WarPackaging;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.web.project.DefaultProjectRequestToDescriptionConverter;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
+import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.TestInstance;
@@ -53,6 +55,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.util.FileSystemUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -94,13 +97,14 @@ class ProjectGenerationIntegrationTests {
 		}
 	});
 
-	private final ProjectGenerationInvoker invoker;
+	private final ProjectGenerationInvoker<ProjectRequest> invoker;
 
 	private final InitializrMetadata metadata;
 
-	ProjectGenerationIntegrationTests(@Autowired ProjectGenerationInvoker invoker,
+	ProjectGenerationIntegrationTests(@Autowired ApplicationContext applicationContext,
 			@Autowired InitializrMetadataProvider metadataProvider) {
-		this.invoker = invoker;
+		this.invoker = new ProjectGenerationInvoker<>(applicationContext,
+				new DefaultProjectRequestToDescriptionConverter());
 		this.metadata = metadataProvider.get();
 	}
 

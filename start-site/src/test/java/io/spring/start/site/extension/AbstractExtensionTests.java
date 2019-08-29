@@ -25,6 +25,7 @@ import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.web.project.DefaultProjectRequestToDescriptionConverter;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.ProjectGenerationResult;
 import io.spring.initializr.web.project.ProjectRequest;
@@ -33,6 +34,7 @@ import org.assertj.core.api.AssertProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Base test class for extensions.
@@ -43,10 +45,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 public abstract class AbstractExtensionTests {
 
 	@Autowired
-	private ProjectGenerationInvoker invoker;
+	private ApplicationContext applicationContext;
 
 	@Autowired
 	private InitializrMetadataProvider metadataProvider;
+
+	private ProjectGenerationInvoker<ProjectRequest> invoker;
+
+	private ProjectGenerationInvoker<ProjectRequest> getInvoker() {
+		if (this.invoker == null) {
+			this.invoker = new ProjectGenerationInvoker<>(this.applicationContext,
+					new DefaultProjectRequestToDescriptionConverter());
+		}
+		return this.invoker;
+	}
 
 	protected Dependency getDependency(String id) {
 		return this.metadataProvider.get().getDependencies().get(id);
@@ -59,18 +71,18 @@ public abstract class AbstractExtensionTests {
 
 	protected AssertProvider<MavenBuildAssert> mavenPom(ProjectRequest request) {
 		request.setType("maven-build");
-		String content = new String(this.invoker.invokeBuildGeneration(request));
+		String content = new String(getInvoker().invokeBuildGeneration(request));
 		return () -> new MavenBuildAssert(content);
 	}
 
 	protected AssertProvider<GroovyDslGradleBuildAssert> gradleBuild(ProjectRequest request) {
 		request.setType("gradle-build");
-		String content = new String(this.invoker.invokeBuildGeneration(request));
+		String content = new String(getInvoker().invokeBuildGeneration(request));
 		return () -> new GroovyDslGradleBuildAssert(content);
 	}
 
 	protected ProjectStructure generateProject(ProjectRequest request) {
-		ProjectGenerationResult result = this.invoker.invokeProjectStructureGeneration(request);
+		ProjectGenerationResult result = getInvoker().invokeProjectStructureGeneration(request);
 		return new ProjectStructure(result.getRootDirectory());
 	}
 
