@@ -16,8 +16,10 @@
 
 package io.spring.start.site.extension;
 
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
+import io.spring.initializr.generator.version.Version;
 
 /**
  * A {@link HelpDocumentCustomizer} that adds reference links for Gradle.
@@ -27,11 +29,21 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  */
 class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
+	private final Version springBootVersion;
+
+	public GradleBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
+		this.springBootVersion = description.getPlatformVersion();
+	}
+
 	@Override
 	public void customize(HelpDocument document) {
 		document.gettingStarted().addAdditionalLink("https://scans.gradle.com#gradle",
 				"Gradle Build Scans – insights for your project's build");
 		document.gettingStarted().addReferenceDocLink("https://docs.gradle.org", "Official Gradle documentation");
+		document.gettingStarted().addReferenceDocLink(
+				String.format("https://docs.spring.io/spring-boot/docs/%s/gradle-plugin/reference/html/",
+						this.springBootVersion),
+				"Spring Boot Gradle Plugin Reference Guide");
 	}
 
 }

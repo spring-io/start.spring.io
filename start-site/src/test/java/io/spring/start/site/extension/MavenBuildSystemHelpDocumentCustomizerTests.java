@@ -32,19 +32,22 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 
 	@Test
 	void linksAddedToHelpDocumentForMavenBuild() {
-		assertHelpDocument("maven-build")
-				.contains("* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
+		assertHelpDocument("maven-build").contains(
+				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/maven-plugin/)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForGradleBuild() {
-		assertHelpDocument("gradle-build")
-				.doesNotContain("* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)");
+		assertHelpDocument("gradle-build").doesNotContain(
+				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/maven-plugin/)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String type) {
 		ProjectRequest request = createProjectRequest("web");
 		request.setType(type);
+		request.setBootVersion("2.1.6.RELEASE");
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md")).lines();
 	}

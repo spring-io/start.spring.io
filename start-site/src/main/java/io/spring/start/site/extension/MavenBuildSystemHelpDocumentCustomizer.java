@@ -16,8 +16,10 @@
 
 package io.spring.start.site.extension;
 
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
+import io.spring.initializr.generator.version.Version;
 
 /**
  * A {@link HelpDocumentCustomizer} that adds reference links for Apache Maven.
@@ -27,10 +29,19 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  */
 class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
+	private final Version springBootVersion;
+
+	public MavenBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
+		this.springBootVersion = description.getPlatformVersion();
+	}
+
 	@Override
 	public void customize(HelpDocument document) {
 		document.gettingStarted().addReferenceDocLink("https://maven.apache.org/guides/index.html",
 				"Official Apache Maven documentation");
+		document.gettingStarted().addReferenceDocLink(
+				String.format("https://docs.spring.io/spring-boot/docs/%s/maven-plugin/", this.springBootVersion),
+				"Spring Boot Maven Plugin Reference Guide");
 	}
 
 }

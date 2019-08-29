@@ -33,18 +33,21 @@ class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTest
 	@Test
 	void linksAddedToHelpDocumentForGradleBuild() {
 		assertHelpDocument("gradle-build").contains("* [Official Gradle documentation](https://docs.gradle.org)",
-				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)");
+				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/gradle-plugin/reference/html/)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForMavenBuild() {
 		assertHelpDocument("maven-build").doesNotContain("* [Official Gradle documentation](https://docs.gradle.org)",
-				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)");
+				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/gradle-plugin/reference/html/)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String type) {
 		ProjectRequest request = createProjectRequest("web");
 		request.setType(type);
+		request.setBootVersion("2.1.6.RELEASE");
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md")).lines();
 	}

@@ -117,13 +117,13 @@ public class StartProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	public GradleBuildSystemHelpDocumentCustomizer gradleBuildSystemHelpDocumentCustomizer() {
-		return new GradleBuildSystemHelpDocumentCustomizer();
+		return new GradleBuildSystemHelpDocumentCustomizer(this.description);
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
 	public MavenBuildSystemHelpDocumentCustomizer mavenBuildSystemHelpDocumentCustomizer() {
-		return new MavenBuildSystemHelpDocumentCustomizer();
+		return new MavenBuildSystemHelpDocumentCustomizer(this.description);
 	}
 
 }
