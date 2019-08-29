@@ -31,7 +31,7 @@ class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	private final Version springBootVersion;
 
-	public MavenBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
+	MavenBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
 		this.springBootVersion = description.getPlatformVersion();
 	}
 

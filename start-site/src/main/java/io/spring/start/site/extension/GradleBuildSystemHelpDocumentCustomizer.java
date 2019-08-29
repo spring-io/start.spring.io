@@ -31,7 +31,7 @@ class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer 
 
 	private final Version springBootVersion;
 
-	public GradleBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
+	GradleBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
 		this.springBootVersion = description.getPlatformVersion();
 	}
 
