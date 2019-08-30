@@ -746,6 +746,16 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-contract-stub-runner
           scope: test
+        - name: Embedded LDAP Server
+          id: unboundid-ldap
+          description: Provides a platform neutral way for running a LDAP server in unit tests.
+          groupId: com.unboundid
+          artifactId: unboundid-ldapsdk
+          scope: test
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/boot-features-nosql.html#boot-features-ldap-embedded
         - name: Embedded MongoDB Database
           id: flapdoodle-mongo
           description: Provides a platform neutral way for running MongoDB in unit tests.
