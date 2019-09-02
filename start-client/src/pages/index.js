@@ -305,7 +305,6 @@ class IndexPage extends React.Component {
     })
     const fileName = `${meta.artifact}.zip`
     FileSaver.saveAs(blob, fileName)
-    toast.success('Your project has been generated with success.')
   }
 
   onExplore = async () => {
@@ -343,7 +342,6 @@ class IndexPage extends React.Component {
   downloadFile = () => {
     const { originalProject, projectName } = this.state
     FileSaver.saveAs(originalProject, projectName)
-    toast.success('Your project has been downloaded with success.')
   }
 
   onSelectedFile = item => {
