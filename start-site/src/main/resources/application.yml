@@ -124,7 +124,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
-            version: 10.0.16
+            version: 10.0.17
           - compatibilityRange: "2.1.0.M1"
             version: 14.0.2
     gradle:
