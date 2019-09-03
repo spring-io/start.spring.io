@@ -83,7 +83,7 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 			if (bom != null) {
 				build.boms().add(cloudFunction.getBom());
 				if (bom.getVersionProperty() != null) {
-					build.addVersionProperty(bom.getVersionProperty(), bom.getVersion());
+					build.properties().version(bom.getVersionProperty(), bom.getVersion());
 				}
 			}
 		}

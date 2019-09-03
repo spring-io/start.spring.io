@@ -50,7 +50,7 @@ public class SpringKafkaBuildCustomizer implements BuildCustomizer<Build> {
 							.scope(DependencyScope.TEST_COMPILE));
 			// Override to a more recent version
 			if (isSpringBootVersionBefore()) {
-				build.addVersionProperty(VersionProperty.of("spring-kafka.version", false), "1.3.10.RELEASE");
+				build.properties().version(VersionProperty.of("spring-kafka.version", false), "1.3.10.RELEASE");
 			}
 		}
 	}

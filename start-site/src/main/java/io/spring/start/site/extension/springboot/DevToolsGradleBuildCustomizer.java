@@ -31,12 +31,11 @@ class DevToolsGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	@Override
 	public void customize(GradleBuild build) {
-		build.addConfiguration("developmentOnly");
-		build.customizeConfiguration("runtimeClasspath",
+		build.configurations().add("developmentOnly");
+		build.configurations().customize("runtimeClasspath",
 				(runtimeClasspath) -> runtimeClasspath.extendsFrom("developmentOnly"));
 		Dependency devtools = build.dependencies().get("devtools");
 		build.dependencies().add("devtools", GradleDependency.from(devtools).configuration("developmentOnly"));
-
 	}
 
 }
