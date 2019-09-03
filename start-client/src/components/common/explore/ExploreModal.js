@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import get from 'lodash.get'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { toast } from 'react-toastify'
 
 import CodePrism from './CodePrism'
 import FileTree from './FileTree'
