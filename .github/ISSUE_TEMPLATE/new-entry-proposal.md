@@ -44,8 +44,7 @@ provide a link to the CI jobs that verify its compatibility. Compatibility shoul
 be achieved using Spring Boot's dependency management without overriding.
 
 ## Maven Central
-Third-party starters that are included on start.spring.io must be available on Maven
-Central.
+Starters that are included on start.spring.io must be available on Maven Central.
 
 [ ] Starter and all of its dependencies are available on Maven Central.
 
