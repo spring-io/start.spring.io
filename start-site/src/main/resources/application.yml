@@ -170,7 +170,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#configuration-metadata-annotation-processor
     - name: Web
       content:
-        - name: Spring Web Starter
+        - name: Spring Web
           id: web
           description: Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container.
           weight: 100
