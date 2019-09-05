@@ -15,16 +15,21 @@ class ExploreModal extends React.Component {
   constructor(props) {
     super(props)
     this.ref = React.createRef()
+    this.state = {
+      button: 'Copy',
+    }
   }
 
   onCopy = () => {
-    toast.success('Your file has been copied in the clipboard with success.')
+    this.setState({ button: 'Copied!' })
+    setTimeout(() => {
+      this.setState({ button: 'Copy' })
+    }, 3000)
   }
 
   download = file => {
     let blob = new Blob([file.content], { type: 'text/plain;charset=utf-8' })
     FileSaver.saveAs(blob, file.filename)
-    toast.success('Your file has been downloaded with success.')
   }
 
   onClickItem = item => {
@@ -103,7 +108,7 @@ class ExploreModal extends React.Component {
                             }}
                             className='action'
                           >
-                            Copy
+                            {this.state.button}
                           </a>
                         </CopyToClipboard>
                         {get(selected, 'language') === 'markdown' && (
