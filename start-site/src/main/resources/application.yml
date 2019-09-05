@@ -377,6 +377,16 @@ initializr:
               description: Accessing Data with JPA
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jpa-and-spring-data
+        - name: Spring Data JDBC
+          id: data-jdbc
+          compatibilityRange: "2.1.0.RELEASE"
+          description: Persist data in SQL stores with plain JDBC using Spring Data.
+          links:
+            - rel: guide
+              href: https://github.com/spring-projects/spring-data-examples/tree/master/jdbc/basics
+              description: Using Spring Data JDBC
+            - rel: reference
+              href: https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/
         - name: MySQL Driver
           id: mysql
           description: MySQL JDBC driver.
