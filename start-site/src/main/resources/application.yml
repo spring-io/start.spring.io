@@ -987,6 +987,7 @@ initializr:
           artifactId: spring-cloud-stream
         - name: Reactive Cloud Stream
           id: reactive-cloud-stream
+          compatibilityRange: "[2.0.0.RELEASE,2.2.0.M1)"
           description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
           weight: 90
           groupId: org.springframework.cloud
