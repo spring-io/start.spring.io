@@ -33,7 +33,7 @@ initializr:
           - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
             version: 2.0.10
           - compatibilityRange: "2.1.0.RELEASE"
-            version: 2.1.6
+            version: 2.1.7
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
