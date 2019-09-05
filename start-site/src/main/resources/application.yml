@@ -509,7 +509,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
         - name: Spring Data Reactive MongoDB
           id: data-mongodb-reactive
-          description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB. Implements the Reactive Streams API.
+          description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB.
           weight: 50
           links:
             - rel: reference
