@@ -39,11 +39,21 @@ the project's tests can be run using the `full` profile:
     $ ./mvnw -Pfull clean install
 ----
 
+If building `start-client` fails, you may have an outdated cache that can be deleted as
+follows:
+
+[indent=0]
+----
+    $ cd start-client
+    $ rm -rf .cache node_modules
+----
+
 
 
 [[run-app]]
 === Running the app locally
-You can easily start the app as any other Spring Boot app:
+As long as you've built the project beforehand (in particular `start-client`), you can
+easily start the app as any other Spring Boot app:
 
 [indent=0]
 ----
