@@ -143,20 +143,6 @@ class IndexPage extends React.Component {
    * Notify the user
    */
   checkError = () => {
-    const errors = []
-    if (get(this.state, 'errors.boot.code')) {
-      errors.push(`You have to select a valid version of Spring Boot.`)
-    }
-    if (errors.length > 0) {
-      toast.error(
-        <>
-          {errors.map((err, i) => (
-            <div key={i}>{err}</div>
-          ))}
-        </>
-      )
-      return true
-    }
     return false
   }
 

@@ -227,7 +227,6 @@ ExploreModal.propTypes = {
   onSelected: PropTypes.func.isRequired,
   tree: PropTypes.object,
   selected: PropTypes.object,
-  download: PropTypes.func.isRequired,
   projectName: PropTypes.string,
   blob: PropTypes.any,
 }
