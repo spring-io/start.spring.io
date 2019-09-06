@@ -3,14 +3,30 @@ const halfopen_right_range = /\[(.*),(.*)\)/
 const halfopen_left_range = /\((.*),(.*)\]/
 const qualifiers = ['M', 'RC', 'BUILD-SNAPSHOT', 'RELEASE']
 
+const parseQualifier = version => {
+  const qual = (version || '')
+    .replace(/\d+/g, '')
+    .replace(/\./g, ' ')
+    .replace(/\s/g, '')
+  return qualifiers.indexOf(qual) > -1 ? qual : 'RELEASE'
+}
+
+export const parseVersion = version => {
+  const r = version.split('.')
+  return {
+    version,
+    short: `${r[0]}.${r[1]}.${r[2]}`,
+    major: `${r[0]}.${r[1]}.x`,
+    qualify: qualifiers.indexOf(parseQualifier(version)),
+    minor: +r[2],
+  }
+}
+
 export const compare = (a, b) => {
   let result
   const versionA = a.split('.')
   const versionB = b.split('.')
-  const parseQualifier = version => {
-    const qual = (version || '').replace(/\d+/g, '')
-    return qualifiers.indexOf(qual) !== -1 ? qual : 'RELEASE'
-  }
+
   for (let i = 0; i < 3; i++) {
     result = parseInt(versionA[i], 10) - parseInt(versionB[i], 10)
     if (result !== 0) {
@@ -23,6 +39,13 @@ export const compare = (a, b) => {
     return result
   }
   return versionA[3].localeCompare(versionB[3])
+}
+
+export const parseReleases = releases => {
+  return releases.map(release => {
+    const version = parseVersion(release.key)
+    return version
+  })
 }
 
 export const isInRange = (version, range) => {
@@ -62,4 +85,18 @@ export const rangeToText = range => {
     return '> ' + hol_match[1] + ' and <= ' + hol_match[2]
   }
   return '>= ' + range
+}
+
+export const getValidDependencies = (boot, dependencies) => {
+  return dependencies
+    .map(dep => {
+      const compatibility = dep.versionRange
+        ? isInRange(boot, dep.versionRange)
+        : true
+      if (!compatibility) {
+        return null
+      }
+      return dep
+    })
+    .filter(d => !!d)
 }
