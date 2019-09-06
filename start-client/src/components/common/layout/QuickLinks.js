@@ -1,4 +1,5 @@
 import React from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import { IconCaretDown, IconGithub, IconSpring, IconTwitter } from '../icons'
 
@@ -71,66 +72,71 @@ class QuickLinks extends React.Component {
             Help
             <IconCaretDown className='caret' />
           </a>
-          {this.state.help && (
-            <ul className='dropdown-menu' ref={this.setWrapperRef}>
-              <li>
-                <a
-                  id='ql-help-projects'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  href='https://spring.io/projects'
-                  tabIndex='-1'
-                  onClick={() => {
-                    this.setState({ help: false })
-                  }}
-                >
-                  Spring Projects
-                </a>
-              </li>
-              <li>
-                <a
-                  id='ql-help-guides'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  tabIndex='-1'
-                  href='https://spring.io/guides'
-                  onClick={() => {
-                    this.setState({ help: false })
-                  }}
-                >
-                  Spring Guides
-                </a>
-              </li>
-              <li>
-                <a
-                  id='ql-help-spring-blog'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  tabIndex='-1'
-                  href='https://spring.io/blog'
-                  onClick={() => {
-                    this.setState({ help: false })
-                  }}
-                >
-                  What's New With Spring
-                </a>
-              </li>
-              <li>
-                <a
-                  id='ql-help-migration'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  tabIndex='-1'
-                  href='https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide'
-                  onClick={() => {
-                    this.setState({ help: false })
-                  }}
-                >
-                  Migrate from 1.5 => 2.0
-                </a>
-              </li>
-            </ul>
-          )}
+
+          <TransitionGroup component={null}>
+            {this.state.help && (
+              <CSSTransition classNames='nav-anim' timeout={500}>
+                <ul className='dropdown-menu' ref={this.setWrapperRef}>
+                  <li>
+                    <a
+                      id='ql-help-projects'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      href='https://spring.io/projects'
+                      tabIndex='-1'
+                      onClick={() => {
+                        this.setState({ help: false })
+                      }}
+                    >
+                      Spring Projects
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      id='ql-help-guides'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      tabIndex='-1'
+                      href='https://spring.io/guides'
+                      onClick={() => {
+                        this.setState({ help: false })
+                      }}
+                    >
+                      Spring Guides
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      id='ql-help-spring-blog'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      tabIndex='-1'
+                      href='https://spring.io/blog'
+                      onClick={() => {
+                        this.setState({ help: false })
+                      }}
+                    >
+                      What's New With Spring
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      id='ql-help-migration'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      tabIndex='-1'
+                      href='https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide'
+                      onClick={() => {
+                        this.setState({ help: false })
+                      }}
+                    >
+                      Migrate from 1.5 => 2.0
+                    </a>
+                  </li>
+                </ul>
+              </CSSTransition>
+            )}
+          </TransitionGroup>
         </li>
       </ul>
     )
