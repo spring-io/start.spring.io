@@ -28,7 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 import org.eclipse.aether.DefaultRepositorySystemSession;
@@ -42,6 +41,7 @@ import org.eclipse.aether.impl.DefaultServiceLocator;
 import org.eclipse.aether.internal.impl.DefaultRepositorySystem;
 import org.eclipse.aether.repository.LocalRepository;
 import org.eclipse.aether.repository.RemoteRepository;
+import org.eclipse.aether.repository.RemoteRepository.Builder;
 import org.eclipse.aether.repository.RepositoryPolicy;
 import org.eclipse.aether.resolution.ArtifactDescriptorException;
 import org.eclipse.aether.resolution.ArtifactDescriptorRequest;
@@ -77,14 +77,8 @@ final class DependencyResolver {
 	private static final RepositoryPolicy repositoryPolicy = new RepositoryPolicy(true,
 			RepositoryPolicy.UPDATE_POLICY_NEVER, RepositoryPolicy.CHECKSUM_POLICY_IGNORE);
 
-	private static final RemoteRepository mavenCentral = new RemoteRepository.Builder("central", "default",
-			"https://repo1.maven.org/maven2").setReleasePolicy(repositoryPolicy).build();
-
-	private static final RemoteRepository springMilestones = new RemoteRepository.Builder("spring-milestones",
-			"default", "https://repo.spring.io/milestone").setReleasePolicy(repositoryPolicy).build();
-
-	private static final RemoteRepository springSnapshots = new RemoteRepository.Builder("spring-snapshots", "default",
-			"https://repo.spring.io/snapshot").setSnapshotPolicy(repositoryPolicy).build();
+	static final RemoteRepository mavenCentral = createRemoteRepository("central", "https://repo1.maven.org/maven2",
+			false);
 
 	private static final Map<String, List<Dependency>> managedDependencies = new ConcurrentHashMap<>();
 
@@ -112,14 +106,25 @@ final class DependencyResolver {
 		}
 	}
 
-	static List<String> resolveDependencies(String groupId, String artifactId, String version, Version bootVersion,
-			List<BillOfMaterials> boms) {
+	static RemoteRepository createRemoteRepository(String id, String url, boolean snapshot) {
+		Builder repositoryBuilder = new Builder(id, "default", url);
+		if (snapshot) {
+			repositoryBuilder.setSnapshotPolicy(repositoryPolicy);
+		}
+		else {
+			repositoryBuilder.setReleasePolicy(repositoryPolicy);
+		}
+		return repositoryBuilder.build();
+	}
+
+	static List<String> resolveDependencies(String groupId, String artifactId, String version,
+			List<BillOfMaterials> boms, List<RemoteRepository> repositories) {
 		DependencyResolver instance = instanceForThread.get();
-		List<Dependency> managedDependencies = instance.getManagedDependencies(boms, bootVersion);
+		List<Dependency> managedDependencies = instance.getManagedDependencies(boms, repositories);
 		Dependency aetherDependency = new Dependency(new DefaultArtifact(groupId, artifactId, "pom",
 				instance.getVersion(groupId, artifactId, version, managedDependencies)), "compile");
 		CollectRequest collectRequest = new CollectRequest((org.eclipse.aether.graph.Dependency) null,
-				Collections.singletonList(aetherDependency), instance.getRepositoriesForVersion(bootVersion));
+				Collections.singletonList(aetherDependency), repositories);
 		collectRequest.setManagedDependencies(managedDependencies);
 		DependencyRequest dependencyRequest = new DependencyRequest(collectRequest,
 				DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE, JavaScopes.RUNTIME));
@@ -147,25 +152,24 @@ final class DependencyResolver {
 		}
 	}
 
-	private List<Dependency> getManagedDependencies(List<BillOfMaterials> boms, Version bootVersion) {
+	private List<Dependency> getManagedDependencies(List<BillOfMaterials> boms, List<RemoteRepository> repositories) {
 		return boms.stream().flatMap(
-				(bom) -> getManagedDependencies(bom.getGroupId(), bom.getArtifactId(), bom.getVersion(), bootVersion))
+				(bom) -> getManagedDependencies(bom.getGroupId(), bom.getArtifactId(), bom.getVersion(), repositories))
 				.collect(Collectors.toList());
 	}
 
 	private Stream<Dependency> getManagedDependencies(String groupId, String artifactId, String version,
-			Version bootVersion) {
+			List<RemoteRepository> repositories) {
 		String key = groupId + ":" + artifactId + ":" + version;
 		List<org.eclipse.aether.graph.Dependency> managedDependencies = DependencyResolver.managedDependencies
 				.computeIfAbsent(key,
-						(coords) -> resolveManagedDependencies(groupId, artifactId, version, bootVersion));
+						(coords) -> resolveManagedDependencies(groupId, artifactId, version, repositories));
 		return managedDependencies.stream();
 	}
 
 	private List<org.eclipse.aether.graph.Dependency> resolveManagedDependencies(String groupId, String artifactId,
-			String version, Version bootVersion) {
+			String version, List<RemoteRepository> repositories) {
 		try {
-			List<RemoteRepository> repositories = getRepositoriesForVersion(bootVersion);
 			return this.repositorySystem
 					.readArtifactDescriptor(this.repositorySystemSession, new ArtifactDescriptorRequest(
 							new DefaultArtifact(groupId, artifactId, "pom", version), repositories, null))
@@ -174,18 +178,6 @@ final class DependencyResolver {
 		catch (ArtifactDescriptorException ex) {
 			throw new RuntimeException(ex);
 		}
-	}
-
-	private List<RemoteRepository> getRepositoriesForVersion(Version bootVersion) {
-		List<RemoteRepository> repositories = new ArrayList<>();
-		repositories.add(mavenCentral);
-		if (!bootVersion.getQualifier().getQualifier().equals("RELEASE")) {
-			repositories.add(springMilestones);
-			if (bootVersion.getQualifier().getQualifier().contains("SNAPSHOT")) {
-				repositories.add(springSnapshots);
-			}
-		}
-		return repositories;
 	}
 
 	private DependencyResult resolveDependencies(DependencyRequest dependencyRequest)

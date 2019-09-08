@@ -19,6 +19,7 @@ package io.spring.start.site;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -33,6 +34,8 @@ import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.DependencyGroup;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.metadata.Repository;
+import org.eclipse.aether.repository.RemoteRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -70,10 +73,10 @@ class MetadataVerificationTests {
 
 	@ParameterizedTest(name = "{3}")
 	@MethodSource("parameters")
-	void dependencyStarterConfigurationIsCorrect(Version bootVersion, List<BillOfMaterials> boms, Dependency dependency,
-			String description) {
+	void dependencyStarterConfigurationIsCorrect(Dependency dependency, List<BillOfMaterials> boms,
+			List<RemoteRepository> repositories, String description) {
 		List<String> dependencies = DependencyResolver.resolveDependencies(dependency.getGroupId(),
-				dependency.getArtifactId(), dependency.getVersion(), bootVersion, boms);
+				dependency.getArtifactId(), dependency.getVersion(), boms, repositories);
 		if (dependency.isStarter()) {
 			assertThat(dependencies).anyMatch("org.springframework.boot:spring-boot-starter"::equals);
 		}
@@ -88,17 +91,18 @@ class MetadataVerificationTests {
 			for (DependencyGroup group : groups()) {
 				for (Dependency dependency : dependenciesForBootVersion(group, bootVersion)) {
 					dependency = dependency.resolve(bootVersion);
-					List<BillOfMaterials> boms = getBoms(bootVersion, group, dependency);
-					parameters.add(Arguments.of(bootVersion, boms, dependency, bootVersion + " " + dependency.getId()));
+					List<BillOfMaterials> boms = getBoms(dependency, bootVersion);
+					List<RemoteRepository> repositories = getRepositories(dependency, bootVersion, boms);
+					parameters
+							.add(Arguments.of(dependency, boms, repositories, bootVersion + " " + dependency.getId()));
 				}
 			}
 		}
 		return parameters.stream();
 	}
 
-	private List<BillOfMaterials> getBoms(Version bootVersion, DependencyGroup group, Dependency dependency) {
+	private List<BillOfMaterials> getBoms(Dependency dependency, Version bootVersion) {
 		List<BillOfMaterials> boms = new ArrayList<>();
-		bomsForId(group.getBom(), bootVersion, boms::add);
 		bomsForId(dependency.getBom(), bootVersion, boms::add);
 		boms.add(
 				BillOfMaterials.create("org.springframework.boot", "spring-boot-dependencies", bootVersion.toString()));
@@ -115,6 +119,34 @@ class MetadataVerificationTests {
 			consumer.accept(bom.resolve(bootVersion));
 			bom.getAdditionalBoms().forEach((additionalBomId) -> bomsForId(additionalBomId, bootVersion, consumer));
 		}
+	}
+
+	private List<RemoteRepository> getRepositories(Dependency dependency, Version bootVersion,
+			List<BillOfMaterials> boms) {
+		Map<String, RemoteRepository> repositories = new HashMap<>();
+		repositories.put("central", DependencyResolver.mavenCentral);
+		String dependencyRepository = dependency.getRepository();
+		if (dependencyRepository != null) {
+			repositories.computeIfAbsent(dependencyRepository, this::repositoryForId);
+		}
+		for (BillOfMaterials bom : boms) {
+			for (String repository : bom.getRepositories()) {
+				repositories.computeIfAbsent(repository, this::repositoryForId);
+			}
+		}
+		if (!bootVersion.getQualifier().getQualifier().equals("RELEASE")) {
+			repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
+			if (bootVersion.getQualifier().getQualifier().contains("SNAPSHOT")) {
+				repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
+			}
+		}
+		return new ArrayList<>(repositories.values());
+	}
+
+	private RemoteRepository repositoryForId(String id) {
+		Repository repository = this.metadata.getConfiguration().getEnv().getRepositories().get(id);
+		return DependencyResolver.createRemoteRepository(id, repository.getUrl().toExternalForm(),
+				repository.isSnapshotsEnabled());
 	}
 
 	private Collection<Version> bootVersions() {
