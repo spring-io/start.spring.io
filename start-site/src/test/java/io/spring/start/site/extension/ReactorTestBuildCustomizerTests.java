@@ -50,7 +50,7 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void reactorTestIsNotAddedWithoutWebFlux() {
+	void reactorTestIsNotAddedWithoutReactiveFacet() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.M2");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))

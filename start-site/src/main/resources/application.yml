@@ -195,6 +195,7 @@ initializr:
           weight: 90
           facets:
             - json
+            - reactive
         - name: Rest Repositories
           id: data-rest
           weight: 10
@@ -501,6 +502,8 @@ initializr:
         - name: Spring Data Reactive Redis
           id: data-redis-reactive
           description: Access Redis key-value data stores in a reactive fashion with Spring Data Redis.
+          facets:
+            - reactive
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-redis/
@@ -520,6 +523,8 @@ initializr:
         - name: Spring Data Reactive MongoDB
           id: data-mongodb-reactive
           description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB.
+          facets:
+            - reactive
           weight: 50
           links:
             - rel: reference
@@ -546,6 +551,8 @@ initializr:
         - name: Spring Data Reactive for Apache Cassandra
           id: data-cassandra-reactive
           description: Access Cassandra NoSQL Database in a reactive fashion
+          facets:
+            - reactive
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
@@ -572,6 +579,8 @@ initializr:
         - name: Spring Data Reactive Couchbase
           id: data-couchbase-reactive
           description: Access Couchbase NoSQL database in a reactive fashion with Spring Data Couchbase.
+          facets:
+            - reactive
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-couchbase

@@ -69,7 +69,7 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 		request.setBootVersion("2.0.0.M7");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis-reactive"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
-				.hasDependenciesSize(3);
+				.hasDependenciesSize(4); // TODO: side effect of `reactor-test`
 	}
 
 	@Test

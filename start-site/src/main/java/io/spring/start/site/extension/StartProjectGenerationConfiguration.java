@@ -54,9 +54,8 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnRequestedDependency("webflux")
 	public ReactorTestBuildCustomizer reactorTestBuildCustomizer() {
-		return new ReactorTestBuildCustomizer(this.description);
+		return new ReactorTestBuildCustomizer(this.metadata, this.description);
 	}
 
 	@Bean
