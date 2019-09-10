@@ -16,19 +16,27 @@
 
 package io.spring.start.site.extension;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnLanguage;
+import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
+import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 import io.spring.start.site.extension.springboot.SpringBootProjectGenerationConfiguration;
 import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
 import io.spring.start.site.extension.springrestdocs.SpringRestDocsProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -123,6 +131,30 @@ public class StartProjectGenerationConfiguration {
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
 	public MavenBuildSystemHelpDocumentCustomizer mavenBuildSystemHelpDocumentCustomizer() {
 		return new MavenBuildSystemHelpDocumentCustomizer(this.description);
+	}
+
+	@Configuration
+	@ConditionalOnLanguage(KotlinLanguage.ID)
+	@ConditionalOnPlatformVersion("2.2.0.M5")
+	static class KotlinCoroutinesCustomizerConfiguration {
+
+		private final KotlinCoroutinesCustomizer customizer;
+
+		KotlinCoroutinesCustomizerConfiguration(InitializrMetadata metadata, ProjectDescription description,
+				DependencyManagementVersionResolver versionResolver) {
+			this.customizer = new KotlinCoroutinesCustomizer(metadata, description, versionResolver);
+		}
+
+		@Bean
+		BuildCustomizer<Build> kotlinCoroutinesBuildCustomizer() {
+			return this.customizer::customize;
+		}
+
+		@Bean
+		HelpDocumentCustomizer kotlinCoroutinesHelpDocumentCustomizer(Build build) {
+			return (helpDocument) -> this.customizer.customize(helpDocument, build);
+		}
+
 	}
 
 }
