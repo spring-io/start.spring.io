@@ -39,6 +39,11 @@ class ExploreModal extends React.Component {
     this.props.onSelected(item)
   }
 
+  downloadZip = () => {
+    const { blob, projectName } = this.props
+    FileSaver.saveAs(blob, projectName)
+  }
+
   render() {
     const { tree, selected } = this.props
     return (
@@ -67,7 +72,7 @@ class ExploreModal extends React.Component {
                     href='/#'
                     onClick={e => {
                       e.preventDefault()
-                      this.props.download()
+                      this.downloadZip()
                     }}
                     className='action'
                   >
@@ -224,6 +229,7 @@ ExploreModal.propTypes = {
   selected: PropTypes.object,
   download: PropTypes.func.isRequired,
   projectName: PropTypes.string,
+  blob: PropTypes.any,
 }
 
 export default ExploreModal
