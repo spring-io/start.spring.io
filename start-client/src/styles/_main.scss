@@ -113,13 +113,28 @@ div {
         }
       }
     }
+    &::after {
+      content: ' ';
+      background: #e4e4e4;
+      height: 15px;
+      width: 2px;
+      position: absolute;
+      top: 8px;
+      right: -1px;
+    }
+
+    &:last-child {
+      &::after {
+        display: none;
+      }
+    }
   }
   ul.dropdown-menu {
     z-index: 999;
     position: absolute;
     top: 34px;
     right: 0px;
-    width: 220px;
+    width: 250px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px;
     text-align: left;
     background: white;

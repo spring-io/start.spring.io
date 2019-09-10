@@ -119,6 +119,21 @@ class QuickLinks extends React.Component {
                       What's New With Spring
                     </a>
                   </li>
+
+                  <li>
+                    <a
+                      id='ql-help-comminty'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      tabIndex='-1'
+                      href='https://github.com/spring-projects/spring-boot/blob/b0626bca320c21928e9790fcd2c59337344f9ac5/spring-boot-project/spring-boot-starters/README.adoc'
+                      onClick={() => {
+                        this.setState({ help: false })
+                      }}
+                    >
+                      Discover Community Starters
+                    </a>
+                  </li>
                   <li>
                     <a
                       id='ql-help-migration'
