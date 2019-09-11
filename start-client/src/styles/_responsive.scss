@@ -2,7 +2,8 @@
   .desktop-only {
     display: none;
   }
-  body {
+  body,
+  body.light {
     background: none;
     padding-bottom: 94px;
     min-width: 0;
