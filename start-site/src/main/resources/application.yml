@@ -108,6 +108,13 @@ initializr:
             version: 2.0.3.RELEASE
           - compatibilityRange: "2.1.0.RELEASE"
             version: 2.1.4.RELEASE
+      spring-data-r2dbc:
+        groupId: org.springframework.boot.experimental
+        artifactId: spring-boot-bom-r2dbc
+        mappings:
+          - compatibilityRange: "2.0.0.M6"
+            version: 0.1.0.BUILD-SNAPSHOT
+            repositories: spring-snapshots,spring-milestones
       spring-statemachine:
         groupId: org.springframework.statemachine
         artifactId: spring-statemachine-bom
@@ -392,9 +399,27 @@ initializr:
               description: Using Spring Data JDBC
             - rel: reference
               href: https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/
+        - name: Spring Data R2DBC [Experimental]
+          id: data-r2dbc
+          compatibilityRange: "2.2.0.M6"
+          groupId: org.springframework.boot.experimental
+          artifactId: spring-boot-starter-data-r2dbc
+          bom: spring-data-r2dbc
+          description: Provides Reactive Relational Database Connectivity to persist data in SQL stores using Spring Data in reactive applications.
+          facets:
+            - reactive
+          links:
+            - rel: guide
+              href: https://github.com/spring-projects-experimental/spring-boot-r2dbc/tree/master/spring-boot-example-h2
+              description: R2DBC example
+            - rel: reference
+              href: https://docs.spring.io/spring-data/r2dbc/docs/1.0.x/reference/html/#reference
+            - rel: home
+              href: https://r2dbc.io
+              description: R2DBC Homepage
         - name: MySQL Driver
           id: mysql
-          description: MySQL JDBC driver.
+          description: MySQL JDBC and R2DBC driver.
           groupId: mysql
           artifactId: mysql-connector-java
           scope: runtime
@@ -405,7 +430,7 @@ initializr:
               description: Accessing data with MySQL
         - name: H2 Database
           id: h2
-          description: Provides a fast in-memory database that supports JDBC API, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
+          description: Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
           groupId: com.h2database
           artifactId: h2
           scope: runtime
@@ -440,14 +465,14 @@ initializr:
               version: 2.1.0
         - name: PostgreSQL Driver
           id: postgresql
-          description: A JDBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
+          description: A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
           groupId: org.postgresql
           artifactId: postgresql
           scope: runtime
           starter: false
         - name: MS SQL Server Driver
           id: sqlserver
-          description: A JDBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application.
+          description: A JDBC and R2DBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application.
           groupId: com.microsoft.sqlserver
           artifactId: mssql-jdbc
           scope: runtime
