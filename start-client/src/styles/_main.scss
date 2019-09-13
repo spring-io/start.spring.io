@@ -15,6 +15,9 @@ body {
   line-height: 32px;
   background-repeat: repeat-y;
   background-size: 316px 1px;
+}
+
+body.light {
   background-image: url(data:image/gif;base64,R0lGODlheAICAIAAAH2vUPf39yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowRjJERDYwM0ZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowRjJERDYwNEZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjBGMkRENjAxRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjBGMkRENjAyRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkEAAAAAAAsAAAAAHgCAgAAAiaEb6HL7Q+jnLTai7PevPsPhuJIluaJpmqJIOsLx/JM1/aN5/puFwA7);
 }
 
@@ -42,7 +45,7 @@ div {
       line-height: 1.6rem;
       font-weight: normal;
       width: 205px;
-      outline: 1px dotted rgba(0, 0, 0, 0);
+      outline: 1px dotted transparent;
       span {
         display: block;
       }
@@ -75,7 +78,7 @@ div {
   position: absolute;
   top: 10px;
   right: 20px;
-  width: 320px;
+  width: 450px;
   text-align: right;
   list-style: none;
   margin: 0px;
@@ -163,6 +166,17 @@ div {
     opacity: 0.01;
     transform: scale(0.95);
     transition: all 300ms;
+  }
+
+  .switch-mode {
+    position: relative;
+    padding-left: 32px;
+    padding-right: 20px;
+    .switch {
+      position: absolute;
+      top: -3px;
+      left: 0;
+    }
   }
 }
 
@@ -318,7 +332,7 @@ label {
   @include transition(all $spring-transition-duration);
   white-space: nowrap;
   text-decoration: none;
-  outline: 1px dotted white;
+  outline: 1px dotted transparent;
   &:hover {
     border: 2px solid #e4e4e4;
     background-color: #e4e4e4;
@@ -395,7 +409,7 @@ label {
   cursor: pointer;
   text-decoration: underline;
   color: #097dff;
-  outline: 1px dotted white;
+  outline: 1px dotted transparent;
   @include outline();
 }
 
@@ -431,7 +445,7 @@ label {
   cursor: pointer;
   margin-right: 4px;
   @include transition(all $spring-transition-duration);
-  outline: 1px dotted white;
+  outline: 1px dotted transparent;
   @include outline();
   &:hover {
     border-color: $spring-border-color-hover;
@@ -506,7 +520,6 @@ ul.dependencies-list {
     a {
       position: relative;
       display: block;
-      background: white;
       height: 28px;
       line-height: 28px;
       margin-top: 4px;
@@ -514,6 +527,7 @@ ul.dependencies-list {
       color: $spring-color;
       text-decoration: none;
       border-radius: $spring-radius;
+      outline: 1px dotted transparent;
       @include transition(all $spring-transition-duration);
       @include outline();
       &:hover {
@@ -670,7 +684,7 @@ $gw: 200px;
     padding: 15px $spring-8points * 2 11px;
     font-weight: bold;
     line-height: 16px;
-    outline: 1px dotted white;
+    outline: 1px dotted transparent;
     @include transition(all $spring-transition-duration);
     @include outline();
     svg {
@@ -873,4 +887,56 @@ $placeholder-border: #e4e4e4;
     padding: 0;
     margin: 0;
   }
+}
+
+// -----------------
+// Switch Component
+
+.switch-checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.switch-label {
+  cursor: pointer;
+  width: 25px;
+  height: 16px;
+  position: relative;
+  display: inline-block;
+  &::after {
+    content: ' ';
+    width: 25px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: 6px;
+    top: 5px;
+  }
+}
+
+.switch-label .switch-button {
+  content: '';
+  z-index: 2;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  transition: 0.2s left;
+  background: $spring-color;
+}
+
+.switch-checkbox:checked + .switch-label .switch-button {
+  left: 9px;
+  background: $spring-color;
+  width: 16px;
+}
+
+.switch-label:active .switch-button {
+  width: 16px;
 }
