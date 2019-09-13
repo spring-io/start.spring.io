@@ -40,9 +40,8 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		ProjectRequest request = createProjectRequest();
 		request.setBootVersion("2.2.0.M4");
 		request.setType("maven-build");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
-		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE)
-				.contains(AZURE_SECTION_TITLE);
+		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
+		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE);
 	}
 
 	@Test
@@ -50,10 +49,9 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		ProjectRequest request = createProjectRequest();
 		request.setBootVersion("2.2.0.M4");
 		request.setType("gradle-build");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
+		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE)
-				.contains(AZURE_SECTION_TITLE)
-				.contains("A gradle plugin has not been provided by Microsoft Azure as yet.");
+				.contains(AZURE_SECTION_TITLE);
 	}
 
 	@Test
@@ -78,7 +76,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		ProjectRequest request = createProjectRequest();
 		request.setBootVersion("2.2.0.BUILD_SNAPSHOT");
 		request.setType("maven-build");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
+		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
 		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AWS_SECTION_TITLE)
 				.doesNotContain(AZURE_SECTION_TITLE);
 	}
