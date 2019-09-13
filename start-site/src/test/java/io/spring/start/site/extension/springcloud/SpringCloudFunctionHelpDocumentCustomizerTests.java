@@ -50,8 +50,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		request.setBootVersion("2.2.0.M4");
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
-		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE)
-				.contains(AZURE_SECTION_TITLE);
+		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE);
 	}
 
 	@Test
