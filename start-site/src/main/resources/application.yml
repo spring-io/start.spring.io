@@ -436,14 +436,14 @@ initializr:
               version: 2.1.0
         - name: PostgreSQL Driver
           id: postgresql
-          description: An open source JDBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
+          description: A JDBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
           groupId: org.postgresql
           artifactId: postgresql
           scope: runtime
           starter: false
         - name: MS SQL Server Driver
           id: sqlserver
-          description: A Type 4 JDBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application.
+          description: A JDBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application.
           groupId: com.microsoft.sqlserver
           artifactId: mssql-jdbc
           scope: runtime
