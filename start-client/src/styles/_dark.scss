@@ -1,7 +1,7 @@
 $spring-background: #1b1f23;
 $spring-background-light: #262a2d;
 $spring-background-lighter: lighten($spring-background-light, 5);
-$spring-background-disabled: #1f2326;
+$spring-background-disabled: #23282b;
 
 $spring-outline-color: #76797a;
 $spring-color: #d1d2d3;
@@ -168,7 +168,7 @@ body.dark {
   .groups .group a.checked.invalid {
     background: $spring-background-disabled;
     strong {
-      color: $spring-color-light;
+      color: $spring-color-medium;
     }
     &:hover {
       background: $spring-background-disabled;
@@ -247,6 +247,17 @@ body.dark {
       background: $spring-background-lighter;
       .icon {
         color: $spring-color;
+      }
+    }
+
+    &.invalid,
+    &.checked.invalid {
+      background: $spring-background-disabled;
+      &:hover {
+        background: $spring-background-disabled;
+      }
+      .warning {
+        color: #ff7676;
       }
     }
   }
@@ -420,6 +431,11 @@ body.dark {
     &:focus {
       outline-color: $spring-outline-color;
     }
+  }
+
+  .groups .group a.invalid .warning,
+  .groups .group a.checked.invalid .warning {
+    color: #ff7676;
   }
 }
 
