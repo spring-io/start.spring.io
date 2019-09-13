@@ -455,7 +455,7 @@ initializr:
               href: https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start
               description: MyBatis Quick Start
             - rel: reference
-              href: http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
+              href: https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
           groupId: org.mybatis.spring.boot
           artifactId: mybatis-spring-boot-starter
           mappings:
