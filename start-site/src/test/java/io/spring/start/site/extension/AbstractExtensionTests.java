@@ -24,6 +24,7 @@ import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.web.project.DefaultProjectRequestToDescriptionConverter;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
@@ -60,12 +61,16 @@ public abstract class AbstractExtensionTests {
 		return this.invoker;
 	}
 
+	protected InitializrMetadata getMetadata() {
+		return this.metadataProvider.get();
+	}
+
 	protected Dependency getDependency(String id) {
-		return this.metadataProvider.get().getDependencies().get(id);
+		return getMetadata().getDependencies().get(id);
 	}
 
 	protected BillOfMaterials getBom(String id, String version) {
-		BillOfMaterials bom = this.metadataProvider.get().getConfiguration().getEnv().getBoms().get(id);
+		BillOfMaterials bom = getMetadata().getConfiguration().getEnv().getBoms().get(id);
 		return bom.resolve(Version.parse(version));
 	}
 
