@@ -204,7 +204,7 @@ class IndexPage extends React.Component {
       meta,
       deps
     ).catch(err => {
-      toast.error('The server API is not available.')
+      toast.error(`Could not connect to server. Please check your network.`)
     })
     const fileName = `${meta.artifact}.zip`
     FileSaver.saveAs(blob, fileName)
@@ -241,7 +241,7 @@ class IndexPage extends React.Component {
       meta,
       deps
     ).catch(err => {
-      toast.error('The server API is not available.')
+      toast.error(`Could not connect to server. Please check your network.`)
       this.onExploreClose()
     })
     const zip = new JSZip()
