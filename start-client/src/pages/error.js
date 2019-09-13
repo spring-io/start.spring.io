@@ -9,7 +9,7 @@ const ErrorPage = () => (
     <div className='error'>
       <h1>
         <span className='title'>/error</span>
-        Oops! Something bad happened!
+        Oops! Something went wrong.
       </h1>
       <p>You can navigate to the following pages:</p>
       <ul>

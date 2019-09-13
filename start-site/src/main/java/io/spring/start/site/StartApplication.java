@@ -66,8 +66,11 @@ public class StartApplication {
 	}
 
 	@Bean
-	public ErrorPageRegistrar notFound() {
-		return (registry) -> registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
+	public ErrorPageRegistrar errorPageRegistrar() {
+		return (registry) -> {
+			registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
+			registry.addErrorPages(new ErrorPage("/error/index.html"));
+		};
 	}
 
 	@Bean
