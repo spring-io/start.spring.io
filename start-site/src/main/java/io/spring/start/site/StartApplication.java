@@ -22,7 +22,7 @@ import java.nio.file.Files;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
-import io.spring.start.site.extension.ProjectDescriptionCustomizerConfiguration;
+import io.spring.start.site.project.ProjectDescriptionCustomizerConfiguration;
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 import io.spring.start.site.web.HomeController;
 

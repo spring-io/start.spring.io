@@ -15,8 +15,7 @@
  */
 
 /**
- * {@link io.spring.initializr.generator.project.contributor.ProjectContributor project
- * contributors} and {@link io.spring.initializr.generator.spring.build.BuildCustomizer
- * build customizers} used for customizing the start.spring.io instance.
+ * {@link io.spring.initializr.generator.project.ProjectDescriptionCustomizer project
+ * description customizers} specific to start.spring.io.
  */
-package io.spring.start.site.extension;
+package io.spring.start.site.project;
