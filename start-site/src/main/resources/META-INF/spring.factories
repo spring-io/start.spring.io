@@ -6,5 +6,6 @@ io.spring.start.site.extension.dependency.springamqp.SpringAmqpProjectGeneration
 io.spring.start.site.extension.dependency.springboot.SpringBootProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springcloud.SpringCloudProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springdata.SpringDataProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springintegration.SpringIntegrationProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springrestdocs.SpringRestDocsProjectGenerationConfiguration,\
 io.spring.start.site.extension.code.kotin.KotlinProjectGenerationConfiguration
