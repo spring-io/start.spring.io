@@ -48,7 +48,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-stream")).hasDependency(getDependency("amqp"))
 				.hasDependency(RABBIT_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(SCS_TEST).hasDependenciesSize(5);
+				.hasDependency(SCS_TEST).hasDependenciesSize(6);
 	}
 
 	@Test
@@ -77,7 +77,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 				.hasDependency(getDependency("kafka")).hasDependency(getDependency("kafka-streams"))
 				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER).hasDependency(KAFKA_STREAMS_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(SCS_TEST).hasDependenciesSize(10);
+				.hasDependency(SCS_TEST).hasDependenciesSize(11);
 	}
 
 	@Test
@@ -87,7 +87,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request)).hasDependency(getDependency("reactive-cloud-stream"))
 				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(SCS_TEST).hasDependenciesSize(5);
+				.hasDependency(SCS_TEST).hasDependenciesSize(6);
 	}
 
 	@Test
@@ -119,7 +119,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 				.hasDependency(getDependency("kafka-streams")).hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
 				.hasDependency(KAFKA_STREAMS_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(SCS_TEST).hasDependenciesSize(10);
+				.hasDependency(SCS_TEST).hasDependenciesSize(11);
 	}
 
 	@Test
@@ -128,7 +128,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-bus")).hasDependency(getDependency("amqp"))
 				.hasDependency(RABBIT_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(4);
+				.hasDependenciesSize(5);
 	}
 
 	@Test
@@ -137,7 +137,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-bus")).hasDependency(getDependency("amqp"))
 				.hasDependency(RABBIT_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(4);
+				.hasDependenciesSize(5);
 	}
 
 	@Test
@@ -147,7 +147,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 				.hasDependency(getDependency("kafka")).hasDependency(getDependency("kafka-streams"))
 				.hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(8);
+				.hasDependenciesSize(9);
 	}
 
 	@Test
@@ -157,7 +157,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-turbine-stream"))
 				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(4);
+				.hasDependenciesSize(5);
 	}
 
 	@Test
@@ -178,7 +178,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 				.hasDependency(getDependency("amqp")).hasDependency(getDependency("kafka"))
 				.hasDependency(getDependency("kafka-streams")).hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(8);
+				.hasDependenciesSize(9);
 	}
 
 }

@@ -53,7 +53,7 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("cloud-stream", "amqp", "cloud-function");
 		request.setBootVersion("2.0.6.RELEASE");
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-stream")).hasDependency(getDependency("amqp"))
-				.hasDependency(SCS_ADAPTER).hasDependenciesSize(6)
+				.hasDependency(SCS_ADAPTER).hasDependenciesSize(7)
 				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
 				.hasBomsSize(1);
 	}
