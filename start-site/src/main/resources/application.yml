@@ -875,7 +875,6 @@ initializr:
         - name: Open Service Broker
           bom: spring-cloud
           id: open-service-broker
-          compatibilityRange: "[2.0.0.RELEASE,2.2.0.M1)"
           description: Framework for building Spring Boot apps that implement the Open Service Broker API, which can deliver services to applications running within cloud native platforms such as Cloud Foundry, Kubernetes and OpenShift.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-open-service-broker
