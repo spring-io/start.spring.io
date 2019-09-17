@@ -35,7 +35,6 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 		if (build.dependencies().has("h2")) {
 			build.dependencies().add("r2dbc-h2",
 					Dependency.withCoordinates("io.r2dbc", "r2dbc-h2").scope(DependencyScope.RUNTIME));
-			build.dependencies().add("spring-jdbc", Dependency.withCoordinates("org.springframework", "spring-jdbc"));
 		}
 		if (build.dependencies().has("mysql")) {
 			build.dependencies().add("r2dbc-mysql",

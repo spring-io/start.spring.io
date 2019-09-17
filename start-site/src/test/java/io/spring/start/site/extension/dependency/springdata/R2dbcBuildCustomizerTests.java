@@ -46,8 +46,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("h2");
 		customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "h2", "r2dbc-h2", "spring-jdbc",
-				"r2dbc-test-autoconfigure");
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "h2", "r2dbc-h2", "r2dbc-test-autoconfigure");
 	}
 
 	@Test
