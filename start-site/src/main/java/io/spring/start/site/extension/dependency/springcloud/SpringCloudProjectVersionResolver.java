@@ -32,12 +32,6 @@ import org.apache.commons.logging.LogFactory;
  */
 class SpringCloudProjectVersionResolver {
 
-	private static final String SPRING_CLOUD_GROUP_ID = "org.springframework.cloud";
-
-	private static final String SPRING_CLOUD_DEPENDENCIES_ID = "spring-cloud-dependencies";
-
-	private static final String SPRING_CLOUD_BOM_ID = "spring-cloud";
-
 	private static final Log logger = LogFactory.getLog(SpringCloudProjectVersionResolver.class);
 
 	private final InitializrMetadata metadata;
@@ -59,14 +53,14 @@ class SpringCloudProjectVersionResolver {
 	 * @return the appropriate project version or {@code null} if the resolution failed
 	 */
 	String resolveVersion(Version platformVersion, String dependencyId) {
-		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get(SPRING_CLOUD_BOM_ID);
+		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get("spring-cloud");
 		if (bom == null) {
 			return null;
 		}
 		String releaseTrainVersion = bom.resolve(platformVersion).getVersion();
 		logger.info("Retrieving version for artifact: " + dependencyId + " and release train version: "
 				+ releaseTrainVersion);
-		return this.resolver.resolve(SPRING_CLOUD_GROUP_ID, SPRING_CLOUD_DEPENDENCIES_ID, releaseTrainVersion)
+		return this.resolver.resolve("org.springframework.cloud", "spring-cloud-dependencies", releaseTrainVersion)
 				.get(dependencyId);
 	}
 

@@ -45,17 +45,7 @@ import org.apache.commons.logging.LogFactory;
  */
 class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final Log LOG = LogFactory.getLog(SpringCloudFunctionHelpDocumentCustomizer.class);
-
-	private static final String SNAPSHOT = "SNAPSHOT";
-
-	private static final String MISSING_TEMPLATE_SUFFIX = "missing";
-
-	private static final String SPRING_CLOUD_FUNCTION_DEPENDENCY_ID = "cloud-function";
-
-	private static final String TEMPLATE_PREFIX = "spring-cloud-function-build-setup-";
-
-	private static final String SPRING_CLOUD_FUNCTION_ARTIFACT_ID = "org.springframework.cloud:spring-cloud-function-core";
+	private static final Log logger = LogFactory.getLog(SpringCloudFunctionHelpDocumentCustomizer.class);
 
 	private final Set<String> buildDependencies;
 
@@ -75,22 +65,21 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 
 	@Override
 	public void customize(HelpDocument helpDocument) {
-		this.buildDependencies.stream()
-				.filter((dependencyId) -> dependencyId.equals(SPRING_CLOUD_FUNCTION_DEPENDENCY_ID)).findAny()
+		this.buildDependencies.stream().filter((dependencyId) -> dependencyId.equals("cloud-function")).findAny()
 				.ifPresent((dependency) -> addBuildSetupInfo(helpDocument));
 	}
 
 	private void addBuildSetupInfo(HelpDocument helpDocument) {
 		Version bootVersion = this.description.getPlatformVersion();
 		String springCloudFunctionVersion = this.projectVersionResolver.resolveVersion(bootVersion,
-				SPRING_CLOUD_FUNCTION_ARTIFACT_ID);
+				"org.springframework.cloud:spring-cloud-function-core");
 		if (springCloudFunctionVersion == null) {
-			LOG.warn("Spring Cloud Function version could not be resolved for Spring Boot version: "
+			logger.warn("Spring Cloud Function version could not be resolved for Spring Boot version: "
 					+ bootVersion.toString());
 			return;
 		}
 		if (isSnapshot(springCloudFunctionVersion)) {
-			LOG.debug("Spring Cloud Function version " + springCloudFunctionVersion
+			logger.debug("Spring Cloud Function version " + springCloudFunctionVersion
 					+ " is a snapshot. No documents are present for this version to link to.");
 			return;
 		}
@@ -102,11 +91,11 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 				getSection(springCloudFunctionVersion, buildSystemId, cloudPlatform, getTemplateName(cloudPlatform))));
 		platformsByBuildSystemSupport.get(false)
 				.forEach((cloudPlatform) -> helpDocument.nextSteps().addSection(getSection(springCloudFunctionVersion,
-						buildSystemId, cloudPlatform, TEMPLATE_PREFIX + MISSING_TEMPLATE_SUFFIX)));
+						buildSystemId, cloudPlatform, "spring-cloud-function-build-setup-missing")));
 	}
 
 	private boolean isSnapshot(String springCloudFunctionVersion) {
-		return springCloudFunctionVersion.toUpperCase().contains(SNAPSHOT);
+		return springCloudFunctionVersion.toUpperCase().contains("SNAPSHOT");
 	}
 
 	private Set<CloudPlatform> cloudPlatformsFromDependencies() {
@@ -131,7 +120,7 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 	}
 
 	private String getTemplateName(CloudPlatform cloudPlatform) {
-		return TEMPLATE_PREFIX + cloudPlatform.toString().toLowerCase();
+		return "spring-cloud-function-build-setup-" + cloudPlatform.toString().toLowerCase();
 	}
 
 	/**

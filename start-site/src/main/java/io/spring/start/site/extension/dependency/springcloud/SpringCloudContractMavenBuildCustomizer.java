@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  */
 class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
-	private static final Log LOG = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
+	private static final Log logger = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
 
 	private final ProjectDescription description;
 
@@ -49,7 +49,7 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
 				"org.springframework.cloud:spring-cloud-contract-verifier");
 		if (sccPluginVersion == null) {
-			LOG.warn(
+			logger.warn(
 					"Spring Cloud Contract Verifier Maven plugin version could not be resolved for Spring Boot version: "
 							+ bootVersion.toString());
 			return;

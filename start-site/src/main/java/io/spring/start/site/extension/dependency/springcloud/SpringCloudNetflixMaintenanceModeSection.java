@@ -32,14 +32,11 @@ import io.spring.initializr.metadata.Dependency;
  */
 class SpringCloudNetflixMaintenanceModeSection extends PreDefinedSection {
 
-	private static final String WARNING_MAINTENANCE_MODE = "Spring Cloud Netflix Maintenance Mode";
-
-	private static final String TEMPLATE_NAME = "spring-cloud-netflix-maintenance-mode";
-
 	SpringCloudNetflixMaintenanceModeSection(Set<Dependency> maintenanceModeDependencies,
 			TemplateRenderer templateRenderer) {
-		super(WARNING_MAINTENANCE_MODE);
-		BulletedSection<Dependency> dependencies = new BulletedSection<>(templateRenderer, TEMPLATE_NAME);
+		super("Spring Cloud Netflix Maintenance Mode");
+		BulletedSection<Dependency> dependencies = new BulletedSection<>(templateRenderer,
+				"spring-cloud-netflix-maintenance-mode");
 		maintenanceModeDependencies.forEach(dependencies::addItem);
 		addSection(dependencies);
 	}

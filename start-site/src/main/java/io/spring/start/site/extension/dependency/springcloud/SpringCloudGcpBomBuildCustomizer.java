@@ -31,9 +31,9 @@ import io.spring.initializr.generator.version.VersionReference;
  */
 class SpringCloudGcpBomBuildCustomizer implements BuildCustomizer<Build> {
 
-	private final ProjectDescription description;
-
 	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
+
+	private final ProjectDescription description;
 
 	SpringCloudGcpBomBuildCustomizer(ProjectDescription description) {
 		this.description = description;

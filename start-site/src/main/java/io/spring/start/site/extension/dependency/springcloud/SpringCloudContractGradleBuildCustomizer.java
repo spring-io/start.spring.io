@@ -31,9 +31,7 @@ import org.apache.commons.logging.LogFactory;
  */
 class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private static final String SPRING_CLOUD_CONTRACT_GRADLE_PLUGIN_ID = "spring-cloud-contract";
-
-	private static final Log LOG = LogFactory.getLog(SpringCloudContractGradleBuildCustomizer.class);
+	private static final Log logger = LogFactory.getLog(SpringCloudContractGradleBuildCustomizer.class);
 
 	private final ProjectDescription description;
 
@@ -47,18 +45,18 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 
 	@Override
 	public void customize(GradleBuild build) {
-		Version bootVersion = this.description.getPlatformVersion();
-		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
+		Version platformVersion = this.description.getPlatformVersion();
+		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(platformVersion,
 				"org.springframework.cloud:spring-cloud-contract-verifier");
 		if (sccPluginVersion == null) {
-			LOG.warn(
+			logger.warn(
 					"Spring Cloud Contract Verifier Gradle plugin version could not be resolved for Spring Boot version: "
-							+ bootVersion.toString());
+							+ platformVersion.toString());
 			return;
 		}
 		build.buildscript((buildscript) -> buildscript
 				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion));
-		build.plugins().apply(SPRING_CLOUD_CONTRACT_GRADLE_PLUGIN_ID);
+		build.plugins().apply("spring-cloud-contract");
 	}
 
 }
