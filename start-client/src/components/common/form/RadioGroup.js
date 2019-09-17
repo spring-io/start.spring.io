@@ -4,28 +4,19 @@ import React from 'react'
 import Radio from './Radio'
 
 class RadioGroup extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { selected: props.selected, options: props.options }
-  }
-
   onChange = value => {
-    this.setState({
-      selected: value,
-    })
     if (this.props.onChange) {
       this.props.onChange(value)
     }
   }
 
   render() {
-    const { options } = this.state
-
+    const { options, error } = this.props
     const allOptions = options.map((option, i) => {
       return (
         <Radio
           key={i}
-          checked={this.state.selected === option.key}
+          checked={!error && this.props.selected === option.key}
           text={option.text}
           value={option.key}
           disabled={this.props.disabled}
@@ -33,6 +24,19 @@ class RadioGroup extends React.Component {
         />
       )
     })
+    if (error) {
+      allOptions.push(
+        <Radio
+          key={allOptions.length + 1}
+          checked={true}
+          text={error}
+          value={error}
+          disabled={this.props.disabled}
+          handler={this.onChange}
+          error={true}
+        />
+      )
+    }
 
     return <div className='group-radio'>{allOptions}</div>
   }
@@ -40,11 +44,15 @@ class RadioGroup extends React.Component {
 
 RadioGroup.defaultProps = {
   disabled: false,
+  options: {
+    error: '',
+  },
 }
 
 RadioGroup.propTypes = {
   name: PropTypes.string.isRequired,
-  selected: PropTypes.string.isRequired,
+  selected: PropTypes.string,
+  error: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string.isRequired,
