@@ -94,7 +94,7 @@ public abstract class AbstractExtensionTests {
 	protected ProjectRequest createProjectRequest(String... styles) {
 		WebProjectRequest request = new WebProjectRequest();
 		request.initialize(this.metadataProvider.get());
-		request.getStyle().addAll(Arrays.asList(styles));
+		request.getDependencies().addAll(Arrays.asList(styles));
 		return request;
 	}
 
