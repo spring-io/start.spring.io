@@ -3,12 +3,14 @@ import querystring from 'querystring'
 import set from 'lodash.set'
 
 import META_EXTEND from '../../data/meta-extend.json'
+import { parseReleases, parseVersion } from './versions'
 
 const WEIGHT_DEFAULT = 50
 
 const PROPERTIES_MAPPING_URL = {
   type: 'project',
   language: 'language',
+  platformVersion: 'boot',
   packaging: 'meta.packaging',
   jvmVersion: 'meta.java',
   groupId: 'meta.group',
@@ -85,20 +87,32 @@ export const parseParams = (values, queryParams, lists) => {
   const vals = Object.assign({}, values)
   const meta = Object.assign({}, values.meta)
   const params = parseParametersUrl(queryParams, lists)
-
+  const paramsDeps = parseParametersDepsUrl(queryParams, lists)
   Object.assign(meta, params.meta, get(params, 'values.meta', {}))
   set(params, 'values.meta', meta)
   Object.assign(vals, params.values)
-
   return {
-    dependencies: [],
-    warnings: Object.assign({}, params.warnings),
+    dependencies: paramsDeps.values,
+    errors: params.errors,
+    warnings: Object.assign({}, paramsDeps.warnings, params.warnings),
     values: vals,
   }
 }
 
+export const isValidParams = params => {
+  return (
+    Object.keys(params)
+      .map(entry => {
+        const key = get(PROPERTIES_MAPPING_URL, entry, null)
+        return key !== null
+      })
+      .filter(item => !!item).length > 0
+  )
+}
+
 export const parseParametersUrl = (queryParams, lists) => {
   const values = {}
+  const errors = {}
   const warnings = {}
   Object.keys(queryParams).forEach(entry => {
     const key = get(PROPERTIES_MAPPING_URL, entry)
@@ -116,6 +130,50 @@ export const parseParametersUrl = (queryParams, lists) => {
           } else {
             set(warnings, key, {
               value: get(queryParams, entry, ''),
+            })
+          }
+          break
+        case 'boot':
+          const vals2 = get(lists, key, [])
+          const res2 = vals2.find(a => a.key.toLowerCase() === value)
+          if (res2) {
+            set(values, key, res2.key)
+          } else {
+            let versionMajor = value
+            if (versionMajor.indexOf('.x') === -1) {
+              versionMajor = get(parseVersion(versionMajor), 'major', '')
+            }
+            if (versionMajor.indexOf('.x') > -1) {
+              const releases = parseReleases(vals2).filter(release => {
+                return (
+                  release.major.toLowerCase() === versionMajor.toLowerCase()
+                )
+              })
+              if (releases.length > 0) {
+                const release = releases.reduce((p, c) => {
+                  if (p.qualify > c.qualify) {
+                    return p
+                  }
+                  if (p.qualify === c.qualify) {
+                    if (p.minor > c.minor) {
+                      return p
+                    }
+                  }
+                  return c
+                }, releases[0])
+
+                if (release) {
+                  set(values, key, release.version)
+                  set(warnings, key, {
+                    value: get(queryParams, entry, ''),
+                  })
+                }
+              }
+            }
+          }
+          if (!get(values, 'boot')) {
+            set(errors, 'boot', {
+              value: get(queryParams, entry, ''),
               code: 'invalid',
             })
           }
@@ -127,8 +185,70 @@ export const parseParametersUrl = (queryParams, lists) => {
   })
   return {
     values,
+    errors,
     warnings,
   }
+}
+
+export const parseParametersDepsUrl = (queryParams, lists) => {
+  const depsWarning = []
+  const params = {
+    dependencies: 'dependencies',
+  }
+  const result = {
+    values: [],
+    warnings: {},
+  }
+  for (let entry in queryParams) {
+    const key = get(params, entry)
+    if (key === 'dependencies') {
+      const value = get(queryParams, entry, '').toLowerCase()
+      result.values = value
+        .split(',')
+        .map(item => {
+          const dep = get(lists, 'dependencies').find(
+            dep => dep.id === item.trim()
+          )
+          if (dep) {
+            return dep
+          } else {
+            depsWarning.push({ value: item, code: 'invalid' })
+          }
+          return null
+        })
+        .filter(item => !!item)
+    }
+  }
+  if (depsWarning.length > 0) {
+    result.warnings = { dependencies: depsWarning }
+  }
+  return result
+}
+
+export const getShareUrl = (path, values, rootValues, short) => {
+  const props = {}
+  for (var key in PROPERTIES_MAPPING_URL) {
+    const key2 = get(PROPERTIES_MAPPING_URL, key)
+    const value = get(values, key2)
+    set(props, key, value)
+  }
+  const propertiesDepToUrl = get(values, 'dependencies', [])
+    .map(item => {
+      return item.id
+    })
+    .join(',')
+
+  let params = `${querystring.stringify(props)}${propertiesDepToUrl ? '&' : ''}`
+
+  if (propertiesDepToUrl) {
+    params = `${params}dependencies=${propertiesDepToUrl}`
+  }
+
+  if (!short) {
+    return `${path}/#!${params}`
+  }
+
+  return params
 }
 
 export const getInfo = function getInfo(url) {
@@ -194,4 +314,79 @@ export const getProject = function getProject(
       }
     )
   })
+}
+
+export const getWarningText = function getWarningText(
+  values,
+  currentValues,
+  lists
+) {
+  let warnings = []
+  const keys = Object.keys(values || {})
+  if (keys.length > 0) {
+    for (let key of keys) {
+      const value = get(values, key)
+      let currentValue
+      if (key === 'dependencies') {
+        warnings.push({
+          order: 5,
+          text: `The following dependencies are not supported: <strong>${value.map(
+            dep => dep.value
+          )}</strong>.`,
+        })
+      }
+      if (key === 'project' || key === 'language' || key === 'boot') {
+        currentValue = get(lists, key).find(
+          item => item.key === get(currentValues, key)
+        ).text
+      }
+      if (key === 'project') {
+        warnings.push({
+          order: 1,
+          text: `<strong>${value.value}</strong> is not a valid project type, <strong>${currentValue}</strong> has been selected.`,
+        })
+      }
+      if (key === 'language') {
+        warnings.push({
+          order: 2,
+          text: `<strong>${value.value}</strong> is not a valid language, <strong>${currentValue}</strong> has been selected.`,
+        })
+      }
+      if (key === 'boot') {
+        warnings.push({
+          order: 3,
+          text: `Spring Boot <strong>${value.value}</strong> is not available, <strong>${currentValue}</strong> has been selected.`,
+        })
+      }
+      if (key === 'meta') {
+        if (get(value, 'java')) {
+          currentValue = get(lists, 'meta.java').find(
+            item => item.key === get(currentValues, 'meta.java')
+          ).text
+
+          warnings.push({
+            order: 4,
+            text: `<strong>${get(
+              value,
+              'java.value'
+            )}</strong> is not a valid Java version, <strong>${currentValue}</strong> has been selected.`,
+          })
+        }
+        if (get(value, 'packaging')) {
+          currentValue = get(lists, 'meta.packaging').find(
+            item => item.key === get(currentValues, 'meta.packaging')
+          ).text
+
+          warnings.push({
+            order: 5,
+            text: `<strong>${get(
+              value,
+              'packaging.value'
+            )}</strong> is not a valid packaging, <strong>${currentValue}</strong> has been selected.`,
+          })
+        }
+      }
+    }
+  }
+  return warnings
 }
