@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.springamqp;
 
-import java.util.Map;
-
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -41,18 +39,16 @@ class SpringAmqpProjectGenerationConfigurationTests {
 	void springAmqpTestWithAmqp() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.addDependency("amqp", mock(Dependency.class));
-		Map<String, BuildCustomizer> customizers = this.projectTester.generate(description,
-				(context) -> context.getBeansOfType(BuildCustomizer.class));
-		assertThat(customizers).containsKeys("springAmqpTestBuildCustomizer");
+		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
+				.containsKeys("springAmqpTestBuildCustomizer"));
 	}
 
 	@Test
 	void springAmqpTestWithoutAmqp() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.addDependency("another", mock(Dependency.class));
-		Map<String, BuildCustomizer> customizers = this.projectTester.generate(description,
-				(context) -> context.getBeansOfType(BuildCustomizer.class));
-		assertThat(customizers).doesNotContainKeys("springAmqpTestBuildCustomizer");
+		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
+				.doesNotContainKeys("springAmqpTestBuildCustomizer"));
 	}
 
 }

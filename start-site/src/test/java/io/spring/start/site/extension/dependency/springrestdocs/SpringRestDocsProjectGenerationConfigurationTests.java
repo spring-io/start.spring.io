@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.springrestdocs;
 
-import java.util.Map;
-
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
@@ -45,10 +43,8 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setBuildSystem(new MavenBuildSystem());
 		description.addDependency("restdocs", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
-				(context) -> context.getBeansOfType(BuildCustomizer.class));
-		assertThat(buildCustomizers).containsKeys("restDocsMavenBuildCustomizer")
-				.doesNotContainKeys("restDocsGradleBuildCustomizer");
+		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
+				.containsKeys("restDocsMavenBuildCustomizer").doesNotContainKeys("restDocsGradleBuildCustomizer"));
 	}
 
 	@Test
@@ -57,10 +53,8 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
 		description.addDependency("restdocs", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
-				(context) -> context.getBeansOfType(BuildCustomizer.class));
-		assertThat(buildCustomizers).containsKeys("restDocsGradleBuildCustomizer")
-				.doesNotContainKeys("restDocsMavenBuildCustomizer");
+		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
+				.containsKeys("restDocsGradleBuildCustomizer").doesNotContainKeys("restDocsMavenBuildCustomizer"));
 	}
 
 	@Test
@@ -69,9 +63,8 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setBuildSystem(new GradleBuildSystem());
 		description.addDependency("web", mock(Dependency.class));
-		Map<String, BuildCustomizer> buildCustomizers = this.projectTester.generate(description,
-				(context) -> context.getBeansOfType(BuildCustomizer.class));
-		assertThat(buildCustomizers).isEmpty();
+		this.projectTester.configure(description,
+				(context) -> assertThat(context).getBeans(BuildCustomizer.class).isEmpty());
 	}
 
 }

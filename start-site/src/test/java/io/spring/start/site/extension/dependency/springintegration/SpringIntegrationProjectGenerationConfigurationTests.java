@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.springintegration;
 
-import java.util.Map;
-
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -41,18 +39,16 @@ class SpringIntegrationProjectGenerationConfigurationTests {
 	void springIntegrationTestWithIntegration() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.addDependency("integration", mock(Dependency.class));
-		Map<String, BuildCustomizer> customizers = this.projectTester.generate(description,
-				(context) -> context.getBeansOfType(BuildCustomizer.class));
-		assertThat(customizers).containsKeys("springIntegrationTestBuildCustomizer");
+		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
+				.containsKeys("springIntegrationTestBuildCustomizer"));
 	}
 
 	@Test
 	void springIntegrationTestWithoutIntegration() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.addDependency("another", mock(Dependency.class));
-		Map<String, BuildCustomizer> customizers = this.projectTester.generate(description,
-				(context) -> context.getBeansOfType(BuildCustomizer.class));
-		assertThat(customizers).doesNotContainKeys("springIntegrationTestBuildCustomizer");
+		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
+				.doesNotContainKeys("springIntegrationTestBuildCustomizer"));
 	}
 
 }
