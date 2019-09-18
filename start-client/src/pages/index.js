@@ -8,6 +8,7 @@ import { GlobalHotKeys } from 'react-hotkeys'
 import { ToastContainer, toast } from 'react-toastify'
 import { graphql } from 'gatsby'
 
+import CloseToast from '../components/utils/CloseToast'
 import { CheckboxList } from '../components/common/checkbox-list'
 import { ErrorPage } from '../components/common/error'
 import { ExploreModal } from '../components/common/explore'
@@ -313,7 +314,11 @@ class IndexPage extends React.Component {
           global
         />
         <Meta />
-        <ToastContainer position='top-center' hideProgressBar />
+        <ToastContainer
+          closeButton={<CloseToast />}
+          position='top-center'
+          hideProgressBar
+        />
         <form onSubmit={this.onSubmit} autoComplete='off'>
           <input
             style={{ display: 'none' }}

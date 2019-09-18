@@ -24,3 +24,28 @@ $rt-toast-width: 400px;
 .#{$rt-namespace}__toast {
   padding: $spring-8points * 2;
 }
+
+.Toastify__toast {
+  position: relative;
+  min-height: 32px;
+  padding: 12px;
+  .toast-close {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6px 8px;
+    height: 28px;
+    cursor: pointer;
+    opacity: 0;
+    color: white;
+    svg {
+      width: 14px;
+    }
+  }
+  &:hover {
+    .toast-close {
+      opacity: 0.6;
+    }
+  }
+}
