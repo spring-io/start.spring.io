@@ -92,7 +92,7 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+	@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
 	@ConditionalOnRequestedDependency("cloud-contract-verifier")
 	SpringCloudContractGradleBuildCustomizer springCloudContractGradleBuildCustomizer(
 			SpringCloudProjectVersionResolver versionResolver) {
