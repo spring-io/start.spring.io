@@ -720,6 +720,22 @@ initializr:
             - rel: guide
               href: https://camel.apache.org/spring-boot
               description: Using Apache Camel with Spring Boot
+        - name: Solace PubSub+
+          id: solace
+          compatibilityRange: 2.1.0.RELEASE
+          description: Connect to a Solace PubSub+ Advanced Event Broker using the Solace Java API to send and receive messages.
+          groupId: com.solace.spring.boot
+          artifactId: solace-java-spring-boot-starter
+          version: 3.1.0
+          links:
+            - rel: reference
+              href: https://solace.dev
+              description: Solace Developer Portal
+            - rel: reference
+              href: https://github.com/SolaceProducts/solace-java-spring-boot
+            - rel: guide
+              href: https://github.com/SolaceProducts/solace-java-spring-boot/tree/master/solace-java-sample-app
+              description: Solace sample application using Java API.
     - name: I/O
       content:
         - name: Spring Batch
