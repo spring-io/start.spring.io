@@ -231,6 +231,10 @@ body.dark {
     }
   }
 
+  .groups .group a .icon-check {
+    color: $spring-primary-color;
+  }
+
   .dependencies-list .dependency-item,
   ul.dependencies-list .dependency-item {
     background: $spring-background-light;
@@ -241,7 +245,7 @@ body.dark {
 
     .icon {
       border: 2px solid $spring-border-color-hover;
-      color: $spring-color;
+      color: $spring-primary-color;
     }
     &:hover {
       background: $spring-background-lighter;
@@ -272,6 +276,13 @@ body.dark {
     background: $spring-background-lighter;
     .icon {
       color: $spring-color;
+    }
+  }
+
+  .dependencies-list-checked .dependency-item.checked,
+  ul.dependencies-list-checked .dependency-item.checked {
+    .icon {
+      color: $spring-primary-color;
     }
   }
 
