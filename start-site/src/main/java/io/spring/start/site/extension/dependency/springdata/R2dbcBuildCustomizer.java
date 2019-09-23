@@ -38,8 +38,9 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 		}
 		if (build.dependencies().has("mysql")) {
 			build.dependencies().add("r2dbc-mysql",
-					Dependency.withCoordinates("com.github.mirromutth", "r2dbc-mysql").scope(DependencyScope.RUNTIME));
-			build.repositories().add("jitpack.io", "JitPack", "https://jitpack.io", true);
+					Dependency.withCoordinates("dev.miku", "r2dbc-mysql").scope(DependencyScope.RUNTIME));
+			build.repositories().add("sonatype-oss-snapshots", "Sonatype OSS Snapshots",
+					"https://oss.sonatype.org/content/repositories/snapshots", true);
 		}
 		if (build.dependencies().has("postgresql")) {
 			build.dependencies().add("r2dbc-postgresql",

@@ -57,7 +57,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql", "r2dbc-mysql",
 				"r2dbc-test-autoconfigure");
-		assertThat(build.repositories().ids()).contains("jitpack.io");
+		assertThat(build.repositories().ids()).contains("sonatype-oss-snapshots");
 	}
 
 	@Test
