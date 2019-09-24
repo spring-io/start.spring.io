@@ -298,6 +298,35 @@ body.dark {
     }
   }
 
+  .share-area {
+    .popup-share {
+      background: $spring-background-lighter;
+      .popup-header {
+        border-color: $spring-border-color-hover;
+        .close {
+          color: $spring-color-medium;
+        }
+      }
+      .popup-content {
+        label {
+          color: $spring-color;
+        }
+      }
+      .control-input {
+        background: $spring-background-lighter;
+        border-color: $spring-border-color-hover;
+        &:focus {
+          border-color: $spring-primary-color;
+        }
+      }
+    }
+    .popup-share-overlay {
+      background: rgba($spring-background, 0.95);
+    }
+    .popup-content .link {
+    }
+  }
+
   .placeholder-radios .placeholder-radio {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.2);
@@ -417,6 +446,15 @@ body.dark {
     &::after {
       background: rgba(255, 255, 255, 0.2);
     }
+  }
+
+  .warnings {
+    background: #ffe09c;
+  }
+
+  .radio.err {
+    background: $spring-background-lighter;
+    border-color: #f30808;
   }
 
   .switch-label .switch-button,

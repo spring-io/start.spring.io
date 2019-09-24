@@ -4,6 +4,8 @@ import { MockClient } from '../../../../__mocks__/api'
 import {
   getDefaultValues,
   getListsValues,
+  getShareUrl,
+  parseParametersDepsUrl,
   parseParametersUrl,
   parseParams,
 } from '../api'
@@ -135,54 +137,51 @@ describe('getListValues', () => {
 })
 
 /**
+ * Function parseParametersDepsUrl
+ */
+describe('parseParametersDepsUrl', () => {
+  it('return dependencies and no warning', () => {
+    const json = Object.assign({}, MockClient)
+    const listsValues = getListsValues(json)
+    let result = parseParametersDepsUrl(
+      { dependencies: 'devtools,lombok' },
+      listsValues
+    )
+    expect(result.values.length).toBe(2)
+    expect(Object.keys(result.warnings).length).toBe(0)
+    result = parseParametersDepsUrl(
+      { dependencies: ' devtools , lombok ' },
+      listsValues
+    )
+    expect(result.values.length).toBe(2)
+    expect(Object.keys(result.warnings).length).toBe(0)
+  })
+
+  it('return dependencies and warnings', () => {
+    const json = Object.assign({}, MockClient)
+    const listsValues = getListsValues(json)
+    let result = parseParametersDepsUrl(
+      { dependencies: 'a,devtools,b,lombok' },
+      listsValues
+    )
+    expect(result.values.length).toBe(2)
+    expect(Object.keys(result.warnings).length).toBe(1)
+    expect(result.warnings.dependencies.length).toBe(2)
+  })
+})
+
+/**
  * Function parseParametersUrl
  */
 describe('parseParametersUrl', () => {
-  it('return parameters', () => {
+  it('return parameters, no warning and no error', () => {
     const json = Object.assign({}, MockClient)
     const listsValues = getListsValues(json)
     let result = parseParametersUrl(
       {
         type: 'gradle-project',
         language: 'kotlin',
-        packaging: 'war',
-        jvmVersion: '11',
-        groupId: 'com.example2',
-        artifactId: 'demo2',
-        name: 'demo2',
-        description: 'Demo project for Spring Boot2',
-        packageName: 'com.example2.demo2',
-      },
-      listsValues
-    )
-    expect(get(result, 'values.project')).toBe('gradle-project')
-    expect(get(result, 'values.language')).toBe('kotlin')
-    expect(get(result, 'values.meta.packaging')).toBe('war')
-    expect(get(result, 'values.meta.java')).toBe('11')
-    expect(get(result, 'values.meta.group')).toBe('com.example2')
-    expect(get(result, 'values.meta.artifact')).toBe('demo2')
-    expect(get(result, 'values.meta.name')).toBe('demo2')
-    expect(get(result, 'values.meta.description')).toBe(
-      'demo project for spring boot2'
-    )
-    expect(get(result, 'values.meta.packageName')).toBe('com.example2.demo2')
-  })
-})
-
-/**
- * Function parseParams
- */
-describe('parseParams', () => {
-  it('return parameters', () => {
-    const json = Object.assign({}, MockClient)
-    const defaultValues = getDefaultValues(json)
-    const listsValues = getListsValues(json)
-
-    let result = parseParams(
-      defaultValues,
-      {
-        type: 'gradle-project',
-        language: 'kotlin',
+        platformVersion: '2.1.8.BUILD-SNAPSHOT',
         packaging: 'war',
         jvmVersion: '11',
         groupId: 'com.example2',
@@ -194,9 +193,10 @@ describe('parseParams', () => {
       listsValues
     )
     expect(Object.keys(result.warnings).length).toBe(0)
-
+    expect(Object.keys(result.errors).length).toBe(0)
     expect(get(result, 'values.project')).toBe('gradle-project')
     expect(get(result, 'values.language')).toBe('kotlin')
+    expect(get(result, 'values.boot')).toBe('2.1.8.BUILD-SNAPSHOT')
     expect(get(result, 'values.meta.packaging')).toBe('war')
     expect(get(result, 'values.meta.java')).toBe('11')
     expect(get(result, 'values.meta.group')).toBe('com.example2')
@@ -206,6 +206,195 @@ describe('parseParams', () => {
       'demo project for spring boot2'
     )
     expect(get(result, 'values.meta.packageName')).toBe('com.example2.demo2')
-    expect(Object.keys(result.dependencies).length).toBe(0)
+  })
+
+  it('return parameters, warnings and an error', () => {
+    const json = Object.assign({}, MockClient)
+    const listsValues = getListsValues(json)
+    let result = parseParametersUrl(
+      {
+        type: 'ant-project',
+        language: 'php',
+        platformVersion: '1.1.1',
+        packaging: 'tar',
+        jvmVersion: '1',
+        groupId: 'com.example',
+        artifactId: 'demo',
+        name: 'demo',
+        description: 'Demo project for Spring Boot',
+        packageName: 'com.example.demo',
+      },
+      listsValues
+    )
+    expect(Object.keys(result.warnings).length).toBe(3)
+    expect(Object.keys(result.warnings.meta).length).toBe(2)
+    expect(Object.keys(result.errors).length).toBe(1)
+
+    expect(get(result, 'warnings.project.value')).toBe('ant-project')
+    expect(get(result, 'warnings.language.value')).toBe('php')
+    expect(get(result, 'warnings.meta.packaging.value')).toBe('tar')
+    expect(get(result, 'warnings.meta.java.value')).toBe('1')
+
+    expect(get(result, 'errors.boot.value')).toBe('1.1.1')
+
+    expect(get(result, 'values.meta.group')).toBe('com.example')
+    expect(get(result, 'values.meta.artifact')).toBe('demo')
+    expect(get(result, 'values.meta.name')).toBe('demo')
+    expect(get(result, 'values.meta.description')).toBe(
+      'demo project for spring boot'
+    )
+  })
+})
+
+/**
+ * Function parseParams
+ */
+describe('parseParams', () => {
+  it('return parameters, no warning and no error', () => {
+    const json = Object.assign({}, MockClient)
+    const defaultValues = getDefaultValues(json)
+    const listsValues = getListsValues(json)
+
+    let result = parseParams(
+      defaultValues,
+      {
+        type: 'gradle-project',
+        language: 'kotlin',
+        platformVersion: '2.1.8.BUILD-SNAPSHOT',
+        packaging: 'war',
+        jvmVersion: '11',
+        groupId: 'com.example2',
+        artifactId: 'demo2',
+        name: 'demo2',
+        description: 'Demo project for Spring Boot2',
+        packageName: 'com.example2.demo2',
+        dependencies: ' devtools , lombok ',
+      },
+      listsValues
+    )
+    expect(Object.keys(result.warnings).length).toBe(0)
+    expect(Object.keys(result.errors).length).toBe(0)
+
+    expect(get(result, 'values.project')).toBe('gradle-project')
+    expect(get(result, 'values.language')).toBe('kotlin')
+    expect(get(result, 'values.boot')).toBe('2.1.8.BUILD-SNAPSHOT')
+    expect(get(result, 'values.meta.packaging')).toBe('war')
+    expect(get(result, 'values.meta.java')).toBe('11')
+    expect(get(result, 'values.meta.group')).toBe('com.example2')
+    expect(get(result, 'values.meta.artifact')).toBe('demo2')
+    expect(get(result, 'values.meta.name')).toBe('demo2')
+    expect(get(result, 'values.meta.description')).toBe(
+      'demo project for spring boot2'
+    )
+    expect(get(result, 'values.meta.packageName')).toBe('com.example2.demo2')
+    expect(Object.keys(result.dependencies).length).toBe(2)
+  })
+
+  it('return parameters, warnings and an error', () => {
+    const json = Object.assign({}, MockClient)
+    const defaultValues = getDefaultValues(json)
+    const listsValues = getListsValues(json)
+
+    let result = parseParams(
+      defaultValues,
+      {
+        type: 'ant-project',
+        language: 'php',
+        platformVersion: '1.1.1',
+        packaging: 'tar',
+        jvmVersion: '1',
+        groupId: 'com.example',
+        artifactId: 'demo',
+        name: 'demo',
+        description: 'Demo project for Spring Boot',
+        packageName: 'com.example.demo',
+        dependencies: 'a,devtools,b,lombok',
+      },
+      listsValues
+    )
+    expect(get(result, 'warnings.project.value')).toBe('ant-project')
+    expect(get(result, 'warnings.language.value')).toBe('php')
+    expect(get(result, 'warnings.meta.packaging.value')).toBe('tar')
+    expect(get(result, 'warnings.meta.java.value')).toBe('1')
+
+    expect(get(result, 'errors.boot.value')).toBe('1.1.1')
+
+    expect(get(result, 'values.meta.group')).toBe('com.example')
+    expect(get(result, 'values.meta.artifact')).toBe('demo')
+    expect(get(result, 'values.meta.name')).toBe('demo')
+    expect(get(result, 'values.meta.description')).toBe(
+      'demo project for spring boot'
+    )
+
+    expect(Object.keys(result.dependencies).length).toBe(2)
+    expect(get(result, 'warnings.dependencies').length).toBe(2)
+    expect(get(result, 'warnings.dependencies[0].value')).toBe('a')
+    expect(get(result, 'warnings.dependencies[1].value')).toBe('b')
+
+    expect(get(result, 'values.project')).toBe('maven-project')
+    expect(get(result, 'values.language')).toBe('java')
+    expect(get(result, 'values.boot')).toBe('2.1.7.RELEASE')
+    expect(get(result, 'values.meta.packaging')).toBe('jar')
+    expect(get(result, 'values.meta.java')).toBe('1.8')
+  })
+})
+
+/**
+ * Function getShareUrl
+ */
+describe('getShareUrl', () => {
+  it('return the URL with the default values', () => {
+    const json = Object.assign({}, MockClient)
+    const defaultValues = getDefaultValues(json)
+    const result = getShareUrl(
+      'https://start.spring.io',
+      {
+        project: get(json, 'type.default'),
+        language: get(json, 'language.default'),
+        boot: get(json, 'bootVersion.default'),
+        meta: {
+          packaging: get(json, 'packaging.default'),
+          java: get(json, 'javaVersion.default'),
+          group: get(json, 'groupId.default'),
+          artifact: get(json, 'artifactId.default'),
+          name: get(json, 'name.default'),
+          description: get(json, 'description.default'),
+          packageName: get(json, 'packageName.default'),
+        },
+      },
+      defaultValues,
+      false
+    )
+    expect(result).toBe(
+      'https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.1.7.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo'
+    )
+  })
+
+  it('return the base URL with custom values', () => {
+    const json = Object.assign({}, MockClient)
+    const defaultValues = getDefaultValues(json)
+    const result = getShareUrl(
+      'https://start.spring.io',
+      {
+        project: 'foo1',
+        language: 'foo2',
+        boot: 'foo3',
+        meta: {
+          packaging: 'foo4',
+          java: 'foo5',
+          group: 'foo6',
+          artifact: 'foo7',
+          name: 'foo8',
+          description: 'foo9',
+          packageName: 'foo10',
+        },
+        dependencies: [{ id: 'foo11' }, { id: 'foo12' }],
+      },
+      defaultValues,
+      false
+    )
+    expect(result).toBe(
+      'https://start.spring.io/#!type=foo1&language=foo2&platformVersion=foo3&packaging=foo4&jvmVersion=foo5&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&dependencies=foo11,foo12'
+    )
   })
 })

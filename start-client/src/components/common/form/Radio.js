@@ -8,9 +8,13 @@ class Radio extends React.Component {
   }
 
   render() {
-    if (this.props.disabled) {
+    if (this.props.disabled || this.props.error) {
       return (
-        <span className={`radio ${this.props.checked ? 'checked' : ''}`}>
+        <span
+          className={`radio disabled ${this.props.checked ? 'checked' : ''} ${
+            this.props.error ? 'err' : ''
+          }`}
+        >
           {this.props.text}
         </span>
       )
@@ -29,6 +33,7 @@ class Radio extends React.Component {
 
 Radio.defaultProps = {
   disabled: false,
+  error: false,
 }
 
 Radio.propTypes = {
@@ -37,6 +42,7 @@ Radio.propTypes = {
   value: PropTypes.string.isRequired,
   handler: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  error: PropTypes.bool,
 }
 
 export default Radio

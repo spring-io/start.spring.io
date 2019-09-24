@@ -9,8 +9,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import { graphql } from 'gatsby'
 
 import CloseToast from '../components/utils/CloseToast'
+import HashChangeHandler from '../components/utils/HashChangeHandler'
+import { BootError, ErrorPage, Warnings } from '../components/common/error'
 import { CheckboxList } from '../components/common/checkbox-list'
-import { ErrorPage } from '../components/common/error'
 import { ExploreModal } from '../components/common/explore'
 import { Footer, Layout } from '../components/common/layout'
 import {
@@ -20,6 +21,7 @@ import {
 } from '../components/common/icons'
 import { List, Placeholder, RadioGroup } from '../components/common/form'
 import { Meta } from '../components/common/meta'
+import { ShareOverlay, SharePopup } from '../components/common/share'
 import { Typehead } from '../components/common/typehead'
 import { createTree, findRoot } from '../components/utils/Zip'
 import {
@@ -27,9 +29,12 @@ import {
   getInfo,
   getListsValues,
   getProject,
+  getShareUrl,
+  isValidParams,
   parseParams,
 } from '../components/utils/api'
 import { getValidDependencies } from '../components/utils/versions'
+import { noScroll } from '../components/utils/no-scroll'
 
 class IndexPage extends React.Component {
   /**
@@ -43,6 +48,7 @@ class IndexPage extends React.Component {
       explore: false,
       more: false,
       error: false,
+      share: false,
       errors: {},
       warnings: {},
       tab: 'quick-search',
@@ -52,6 +58,7 @@ class IndexPage extends React.Component {
     }
     getInfo(this.props.data.site.edges[0].node.siteMetadata.apiUrl).then(
       data => {
+        this.json = data
         this.onComplete(data)
       },
       err => {
@@ -67,6 +74,7 @@ class IndexPage extends React.Component {
     if (window.navigator.userAgent.toLowerCase().indexOf('mac') > -1) {
       this.setState({ symb: '⌘' })
     }
+    this.setState({ path: window.location.origin })
   }
 
   /**
@@ -78,24 +86,12 @@ class IndexPage extends React.Component {
     const rootValues = getDefaultValues(json)
     const lists = getListsValues(json)
     this.lists = lists
-    // Parsing parameters URL (search or hash)
-    if (this.props.location.search || this.props.location.hash) {
-      let queryParams = queryString.parse(this.props.location.search)
-      if (this.props.location.hash) {
-        let hash = this.props.location.hash.substr(2)
-        queryParams = queryString.parse(`?${hash}`)
-      }
-      const params = parseParams(values, queryParams, lists)
-      values = { ...params.values }
-      values.dependencies = params.dependencies
-      values.errors = params.errors
-      values.warnings = params.warnings
-    }
     this.setState({
-      complete: true,
       rootValues,
       ...values,
     })
+    this.hashChange()
+    this.update({ complete: true })
   }
 
   /**
@@ -103,6 +99,30 @@ class IndexPage extends React.Component {
    */
   update = change => {
     this.setState(change)
+    if (window.location.hash) {
+      if (window.history.pushState) {
+        window.history.pushState(null, null, window.location.pathname)
+      } else {
+        window.history.hash = ``
+      }
+    }
+  }
+
+  /**
+   * Get Share URL
+   */
+  getShareUrl = (change, short) => {
+    const values = Object.assign(
+      {
+        language: this.state.language,
+        project: this.state.project,
+        boot: this.state.boot,
+        meta: this.state.meta,
+        dependencies: this.state.dependencies,
+      },
+      change
+    )
+    return getShareUrl(this.state.path, values, this.state.rootValues, short)
   }
 
   /**
@@ -144,6 +164,20 @@ class IndexPage extends React.Component {
    * Notify the user
    */
   checkError = () => {
+    const errors = []
+    if (get(this.state, 'errors.boot.code')) {
+      errors.push(`Please select a valid Spring Boot version.`)
+    }
+    if (errors.length > 0) {
+      toast.error(
+        <>
+          {errors.map((err, i) => (
+            <div key={i}>{err}</div>
+          ))}
+        </>
+      )
+      return true
+    }
     return false
   }
 
@@ -285,6 +319,74 @@ class IndexPage extends React.Component {
   }
 
   /**
+   * Hash Change Handler
+   */
+  hashChange = () => {
+    let values = getDefaultValues(this.json)
+    values.dependencies = []
+    if (window.location.hash) {
+      const queryParams = queryString.parse(
+        `?${window.location.hash.substr(2)}`
+      )
+      if (isValidParams(queryParams)) {
+        const params = parseParams(values, queryParams, this.lists)
+        values = { ...params.values }
+        values.dependencies = params.dependencies
+        values.errors = params.errors
+        values.warnings = params.warnings
+        // if (
+        //   Object.keys(values.warnings).length > 0 ||
+        //   Object.keys(values.errors).length > 0
+        // ) {
+        //   if (
+        //     get(values.warnings, 'meta.java') ||
+        //     get(values.warnings, 'meta.packaging')
+        //   ) {
+        //     values.more = true
+        //   }
+        //   // toast.warning('Configuration loaded with warnings.', {
+        //   //   autoClose: 2000,
+        //   // })
+        // } else {
+        //   // toast.success('Configuration loaded.', { autoClose: 2000 })
+        // }
+        toast.success('Configuration loaded.', { autoClose: 2000 })
+      }
+    }
+    this.update(values)
+  }
+
+  /**
+   * Share
+   * This action displays a popup and an overlay
+   */
+  onShare = () => {
+    if (this.state.share) {
+      return
+    }
+    if (this.checkError()) {
+      return
+    }
+    noScroll.on()
+    this.setState({
+      share: true,
+    })
+  }
+
+  /**
+   * On close share popup
+   */
+  onShareClose = () => {
+    if (!this.state.share) {
+      return
+    }
+    this.setState({
+      share: false,
+    })
+    noScroll.off()
+  }
+
+  /**
    * Render page
    */
   render = () => {
@@ -319,6 +421,7 @@ class IndexPage extends React.Component {
           position='top-center'
           hideProgressBar
         />
+        <HashChangeHandler onChange={this.hashChange} />
         <form onSubmit={this.onSubmit} autoComplete='off'>
           <input
             style={{ display: 'none' }}
@@ -329,6 +432,19 @@ class IndexPage extends React.Component {
             style={{ display: 'none' }}
             type='password'
             name='fakepasswordremembered'
+          />
+          <Warnings
+            values={this.state.warnings}
+            defaultValues={{
+              language: this.state.language,
+              project: this.state.project,
+              boot: this.state.boot,
+              meta: this.state.meta,
+            }}
+            lists={this.lists}
+            hide={() => {
+              this.setState({ warnings: null })
+            }}
           />
           <div className='colset'>
             <div className='left'>Project</div>
@@ -373,10 +489,18 @@ class IndexPage extends React.Component {
                     name='boot'
                     selected={this.state.boot}
                     options={this.lists.boot}
+                    error={
+                      get(this.state, 'errors.boot.code') === 'invalid'
+                        ? get(this.state, 'errors.boot.value')
+                        : ''
+                    }
                     onChange={value => {
-                      this.update({ boot: value })
+                      this.update({ boot: value, errors: { boot: null } })
                     }}
                   />
+                  {get(this.state, 'errors.boot.code') === 'invalid' && (
+                    <BootError value={get(this.state, 'errors.boot.value')} />
+                  )}
                 </>
               ) : (
                 <Placeholder type='radios' count={5} width='105px' />
@@ -632,7 +756,7 @@ class IndexPage extends React.Component {
                       >
                         Generate{' '}
                         <span className='desktop-only'>
-                          the project - {this.state.symb} + ⏎
+                          - {this.state.symb} + ⏎
                         </span>
                       </button>
                       <button
@@ -642,15 +766,40 @@ class IndexPage extends React.Component {
                         id='explore-project'
                       >
                         Explore{' '}
-                        <span className='desktop-only'>
-                          the project - Ctrl + Space
-                        </span>
+                        <span className='desktop-only'>- Ctrl + Space</span>
                       </button>
+
+                      <span className='share-area'>
+                        <button
+                          className={`button  ${
+                            this.state.share ? 'primary' : ''
+                          }`}
+                          type='button'
+                          onClick={this.onShare}
+                          id='share-project'
+                        >
+                          Share
+                        </button>
+                        <SharePopup
+                          open={this.state.share}
+                          onClose={this.onShareClose}
+                          rootValues={this.state.rootValues}
+                          properties={{
+                            language: this.state.language,
+                            project: this.state.project,
+                            boot: this.state.boot,
+                            meta: this.state.meta,
+                            dependencies: this.state.dependencies,
+                          }}
+                        />
+                        <ShareOverlay open={this.state.share} />
+                      </span>
                     </>
                   ) : (
                     <>
                       <Placeholder type='button' width='267px' />
-                      <Placeholder type='button' width='281px' />
+                      <Placeholder type='button' width='291px' />
+                      <Placeholder type='button' width='161px' />
                     </>
                   )}
                 </div>
