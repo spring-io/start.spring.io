@@ -778,7 +778,7 @@ class IndexPage extends React.Component {
                           onClick={this.onShare}
                           id='share-project'
                         >
-                          Share
+                          Share ...
                         </button>
                         <SharePopup
                           open={this.state.share}
