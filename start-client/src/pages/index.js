@@ -778,7 +778,7 @@ class IndexPage extends React.Component {
                           onClick={this.onShare}
                           id='share-project'
                         >
-                          Share ...
+                          Share...
                         </button>
                         <SharePopup
                           open={this.state.share}
@@ -797,9 +797,9 @@ class IndexPage extends React.Component {
                     </>
                   ) : (
                     <>
-                      <Placeholder type='button' width='267px' />
-                      <Placeholder type='button' width='291px' />
-                      <Placeholder type='button' width='161px' />
+                      <Placeholder type='button' width='189px' />
+                      <Placeholder type='button' width='212px' />
+                      <Placeholder type='button' width='110px' />
                     </>
                   )}
                 </div>

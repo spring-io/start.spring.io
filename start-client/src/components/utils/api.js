@@ -104,7 +104,7 @@ export const isValidParams = params => {
     Object.keys(params)
       .map(entry => {
         const key = get(PROPERTIES_MAPPING_URL, entry, null)
-        return key !== null
+        return key !== null || entry === 'dependencies'
       })
       .filter(item => !!item).length > 0
   )
