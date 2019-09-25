@@ -266,7 +266,6 @@ initializr:
              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
         - name: Vaadin
           id: vaadin
-          compatibilityRange: "[2.0.0.M1,2.2.0.M1)"
           facets:
            - web
           groupId: com.vaadin
