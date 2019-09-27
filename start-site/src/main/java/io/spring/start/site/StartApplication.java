@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
 import io.spring.start.site.project.ProjectDescriptionCustomizerConfiguration;
+import io.spring.start.site.support.CacheableDependencyManagementVersionResolver;
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 import io.spring.start.site.web.HomeController;
 
@@ -75,8 +76,8 @@ public class StartApplication {
 
 	@Bean
 	public DependencyManagementVersionResolver dependencyManagementVersionResolver() throws IOException {
-		return DependencyManagementVersionResolver
-				.withCacheLocation(Files.createTempDirectory("version-resolver-cache-"));
+		return new CacheableDependencyManagementVersionResolver(DependencyManagementVersionResolver
+				.withCacheLocation(Files.createTempDirectory("version-resolver-cache-")));
 	}
 
 }
