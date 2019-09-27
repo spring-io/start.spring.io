@@ -36,6 +36,7 @@ import org.springframework.context.annotation.Bean;
  * Cloud.
  *
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
 public class SpringCloudProjectGenerationConfiguration {
@@ -105,6 +106,13 @@ public class SpringCloudProjectGenerationConfiguration {
 			MustacheTemplateRenderer templateRenderer, SpringCloudProjectVersionResolver versionResolver) {
 		return new SpringCloudFunctionHelpDocumentCustomizer(build, this.description, templateRenderer,
 				versionResolver);
+	}
+
+	@Bean
+	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	@ConditionalOnRequestedDependency("cloud-contract-stub-runner")
+	SpringCloudContractStubRunnerMavenBuildCustomizer springCloudContractStubRunnerMavenBuildCustomizer() {
+		return new SpringCloudContractStubRunnerMavenBuildCustomizer(this.description);
 	}
 
 }
