@@ -41,8 +41,7 @@ class SpringCloudGcpBomBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		if (isSpringBootVersionBefore() && this.description.getRequestedDependencies().keySet().stream()
-				.anyMatch((id) -> id.startsWith("cloud-gcp"))) {
+		if (isSpringBootVersionBefore() && build.dependencies().ids().anyMatch((id) -> id.startsWith("cloud-gcp"))) {
 			build.boms().add("spring-cloud-gcp", "org.springframework.cloud", "spring-cloud-gcp-dependencies",
 					VersionReference.ofValue("1.0.0.RELEASE"));
 		}
