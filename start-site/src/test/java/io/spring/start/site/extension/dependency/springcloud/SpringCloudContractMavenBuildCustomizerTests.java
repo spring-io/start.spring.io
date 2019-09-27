@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Olga Maciaszek-Sharma
  * @author Madhura Bhave
+ * @author Eddú Meléndez
  */
 class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -37,6 +38,23 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 				.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud")
 				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
 				.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
+	}
+
+	@Test
+	void kotlinAndSpringCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
+		projectRequest.setLanguage("kotlin");
+		projectRequest.setBootVersion("2.2.0.M2");
+		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("cloud-contract-verifier"))
+				.hasText("/project/dependencies/dependency[4]/groupId", "org.springframework.cloud")
+				.hasText("/project/dependencies/dependency[4]/artifactId", "spring-cloud-contract-spec-kotlin")
+				.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud")
+				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+				.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true))
+				.hasText("/project/build/plugins/plugin[1]/dependencies[1]/dependency/groupId",
+						"org.springframework.cloud")
+				.hasText("/project/build/plugins/plugin[1]/dependencies[1]/dependency/artifactId",
+						"spring-cloud-contract-spec-kotlin");
 	}
 
 	@Test
