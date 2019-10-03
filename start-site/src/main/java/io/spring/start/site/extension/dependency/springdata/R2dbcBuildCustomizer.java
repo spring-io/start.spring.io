@@ -19,6 +19,7 @@ package io.spring.start.site.extension.dependency.springdata;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
+import io.spring.initializr.generator.buildsystem.MavenRepository;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
@@ -28,6 +29,10 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  * @author Stephane Nicoll
  */
 public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
+
+	private static final MavenRepository SONATYPE_OSS_SNAPSHOTS = MavenRepository
+			.withIdAndUrl("sonatype-oss-snapshots", "https://oss.sonatype.org/content/repositories/snapshots")
+			.name("Sonatype OSS Snapshots").snapshotsEnabled(true).build();
 
 	@Override
 	public void customize(Build build) {
@@ -39,8 +44,7 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 		if (build.dependencies().has("mysql")) {
 			build.dependencies().add("r2dbc-mysql",
 					Dependency.withCoordinates("dev.miku", "r2dbc-mysql").scope(DependencyScope.RUNTIME));
-			build.repositories().add("sonatype-oss-snapshots", "Sonatype OSS Snapshots",
-					"https://oss.sonatype.org/content/repositories/snapshots", true);
+			build.repositories().add(SONATYPE_OSS_SNAPSHOTS);
 		}
 		if (build.dependencies().has("postgresql")) {
 			build.dependencies().add("r2dbc-postgresql",

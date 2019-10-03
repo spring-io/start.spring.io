@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.springcloud;
 
+import io.spring.initializr.generator.buildsystem.BillOfMaterials;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -42,8 +43,9 @@ class SpringCloudGcpBomBuildCustomizer implements BuildCustomizer<Build> {
 	@Override
 	public void customize(Build build) {
 		if (isSpringBootVersionBefore() && build.dependencies().ids().anyMatch((id) -> id.startsWith("cloud-gcp"))) {
-			build.boms().add("spring-cloud-gcp", "org.springframework.cloud", "spring-cloud-gcp-dependencies",
-					VersionReference.ofValue("1.0.0.RELEASE"));
+			build.boms().add("spring-cloud-gcp",
+					BillOfMaterials.withCoordinates("org.springframework.cloud", "spring-cloud-gcp-dependencies")
+							.version(VersionReference.ofValue("1.0.0.RELEASE")));
 		}
 	}
 
