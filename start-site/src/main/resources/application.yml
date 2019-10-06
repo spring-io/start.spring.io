@@ -376,6 +376,18 @@ initializr:
               href: https://github.com/okta/okta-spring-boot/blob/master/README.md
     - name: SQL
       content:
+        - name: JDBC API
+          id: jdbc
+          description: Database Connectivity API that defines how a client may connect and query a database.
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/relational-data-access/
+              description: Accessing Relational Data using JDBC with Spring
+            - rel: guide
+              href: https://spring.io/guides/gs/managing-transactions/
+              description: Managing Transactions
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-sql
         - name: Spring Data JPA
           id: data-jpa
           description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
@@ -436,18 +448,6 @@ initializr:
           artifactId: h2
           scope: runtime
           starter: false
-        - name: JDBC API
-          id: jdbc
-          description: Database Connectivity API that defines how a client may connect and query a database.
-          links:
-            - rel: guide
-              href: https://spring.io/guides/gs/relational-data-access/
-              description: Accessing Relational Data using JDBC with Spring
-            - rel: guide
-              href: https://spring.io/guides/gs/managing-transactions/
-              description: Managing Transactions
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-sql
         - name: MyBatis Framework
           id: mybatis
           description: Persistence framework with support for custom SQL, stored procedures and advanced mappings. MyBatis couples objects with stored procedures or SQL statements using a XML descriptor or annotations.
