@@ -114,7 +114,10 @@ initializr:
         groupId: org.springframework.boot.experimental
         artifactId: spring-boot-bom-r2dbc
         mappings:
-          - compatibilityRange: "2.0.0.M6"
+          - compatibilityRange: "[2.2.0.M6,2.2.x.BUILD-SNAPSHOT)"
+            version: 0.1.0.M2
+            repositories: spring-milestones
+          - compatibilityRange: "2.2.x.BUILD-SNAPSHOT"
             version: 0.1.0.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-statemachine:
