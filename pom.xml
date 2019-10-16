@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.9.RELEASE</version>
+		<version>2.2.0.RELEASE</version>
 	</parent>
 	<groupId>io.spring.start</groupId>
 	<artifactId>start-parent</artifactId>
@@ -17,7 +17,6 @@
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
-		<junit-jupiter.version>5.5.2</junit-jupiter.version>
 		<spring-initializr.version>0.9.0.BUILD-SNAPSHOT</spring-initializr.version>
 		<spring-javaformat.version>0.0.15</spring-javaformat.version>
 	</properties>

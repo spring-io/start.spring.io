@@ -29,7 +29,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
  * Tests for {@link ManagedDependenciesKotlinVersionResolver}.
@@ -48,7 +48,7 @@ class ManagedDependenciesKotlinVersionResolverTests {
 				DependencyManagementVersionResolver.withCacheLocation(temp), fallback)
 						.resolveKotlinVersion(description);
 		assertThat(version).isEqualTo("1.2.71");
-		verifyZeroInteractions(fallback);
+		verifyNoInteractions(fallback);
 	}
 
 }

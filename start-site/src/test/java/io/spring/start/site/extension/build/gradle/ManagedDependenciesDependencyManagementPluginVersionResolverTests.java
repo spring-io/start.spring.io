@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
  * Tests for {@link ManagedDependenciesDependencyManagementPluginVersionResolver}.
@@ -56,7 +56,7 @@ class ManagedDependenciesDependencyManagementPluginVersionResolverTests {
 		String version = new ManagedDependenciesDependencyManagementPluginVersionResolver(
 				dependencyManagementVersionResolver, fallback).resolveDependencyManagementPluginVersion(description);
 		assertThat(version).isEqualTo("1.0.8.RELEASE");
-		verifyZeroInteractions(fallback);
+		verifyNoInteractions(fallback);
 	}
 
 	@Test
