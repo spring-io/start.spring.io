@@ -433,24 +433,6 @@ initializr:
             - rel: home
               href: https://r2dbc.io
               description: R2DBC Homepage
-        - name: MySQL Driver
-          id: mysql
-          description: MySQL JDBC and R2DBC driver.
-          groupId: mysql
-          artifactId: mysql-connector-java
-          scope: runtime
-          starter: false
-          links:
-            - rel: guide
-              href: https://spring.io/guides/gs/accessing-data-mysql/
-              description: Accessing data with MySQL
-        - name: H2 Database
-          id: h2
-          description: Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
-          groupId: com.h2database
-          artifactId: h2
-          scope: runtime
-          starter: false
         - name: MyBatis Framework
           id: mybatis
           description: Persistence framework with support for custom SQL, stored procedures and advanced mappings. MyBatis couples objects with stored procedures or SQL statements using a XML descriptor or annotations.
@@ -467,34 +449,6 @@ initializr:
               version: 2.0.1
             - compatibilityRange: "2.1.0.RELEASE"
               version: 2.1.0
-        - name: PostgreSQL Driver
-          id: postgresql
-          description: A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
-          groupId: org.postgresql
-          artifactId: postgresql
-          scope: runtime
-          starter: false
-        - name: MS SQL Server Driver
-          id: sqlserver
-          description: A JDBC and R2DBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application.
-          groupId: com.microsoft.sqlserver
-          artifactId: mssql-jdbc
-          scope: runtime
-          starter: false
-        - name: HyperSQL Database
-          id: hsql
-          description: Lightweight 100% Java SQL Database Engine.
-          groupId: org.hsqldb
-          artifactId: hsqldb
-          scope: runtime
-          starter: false
-        - name: Apache Derby Database
-          id: derby
-          description: An open source relational database implemented entirely in Java.
-          groupId: org.apache.derby
-          artifactId: derby
-          scope: runtime
-          starter: false
         - name: Liquibase Migration
           id: liquibase
           description: Liquibase database migration and source control library.
@@ -519,6 +473,52 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jooq
+        - name: Apache Derby Database
+          id: derby
+          description: An open source relational database implemented entirely in Java.
+          groupId: org.apache.derby
+          artifactId: derby
+          scope: runtime
+          starter: false
+        - name: H2 Database
+          id: h2
+          description: Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
+          groupId: com.h2database
+          artifactId: h2
+          scope: runtime
+          starter: false
+        - name: HyperSQL Database
+          id: hsql
+          description: Lightweight 100% Java SQL Database Engine.
+          groupId: org.hsqldb
+          artifactId: hsqldb
+          scope: runtime
+          starter: false
+        - name: MS SQL Server Driver
+          id: sqlserver
+          description: A JDBC and R2DBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application.
+          groupId: com.microsoft.sqlserver
+          artifactId: mssql-jdbc
+          scope: runtime
+          starter: false
+        - name: MySQL Driver
+          id: mysql
+          description: MySQL JDBC and R2DBC driver.
+          groupId: mysql
+          artifactId: mysql-connector-java
+          scope: runtime
+          starter: false
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/accessing-data-mysql/
+              description: Accessing data with MySQL
+        - name: PostgreSQL Driver
+          id: postgresql
+          description: A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
+          groupId: org.postgresql
+          artifactId: postgresql
+          scope: runtime
+          starter: false
     - name: NoSQL
       content:
         - name: Spring Data Redis (Access+Driver)
