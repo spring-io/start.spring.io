@@ -473,6 +473,14 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jooq
+        - name: IBM DB2 Driver
+          id: db2
+          compatibilityRange: 2.2.0.M6
+          description: A JDBC driver that provides access to IBM DB2
+          groupId: com.ibm.db2
+          artifactId: jcc
+          scope: runtime
+          starter: false
         - name: Apache Derby Database
           id: derby
           description: An open source relational database implemented entirely in Java.
@@ -512,6 +520,14 @@ initializr:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-mysql/
               description: Accessing data with MySQL
+        - name: Oracle Driver
+          id: oracle
+          compatibilityRange: 2.2.0.RC1
+          description: A JDBC driver that provides access to Oracle
+          groupId: com.oracle.ojdbc
+          artifactId: ojdbc8
+          scope: runtime
+          starter: false
         - name: PostgreSQL Driver
           id: postgresql
           description: A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
