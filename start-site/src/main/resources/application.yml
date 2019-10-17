@@ -15,7 +15,7 @@ server:
   error:
     whitelabel:
       enabled: false
-  use-forward-headers: true
+  forward-headers-strategy: native
 
 spring:
   jackson:
