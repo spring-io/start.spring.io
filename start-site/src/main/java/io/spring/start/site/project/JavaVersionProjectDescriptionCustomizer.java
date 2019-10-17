@@ -19,6 +19,7 @@ package io.spring.start.site.project;
 import java.util.Arrays;
 import java.util.List;
 
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
@@ -38,6 +39,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private static final Version VERSION_2_0_1 = Version.parse("2.0.1.RELEASE");
 
 	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
+
+	private static final Version VERSION_2_2_0_M1 = Version.parse("2.2.0.M1");
 
 	private static final List<String> UNSUPPORTED_LANGUAGES = Arrays.asList("groovy", "kotlin");
 
@@ -64,6 +67,11 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 				&& isSpringBootVersionBefore(description, VERSION_2_1_0_M1)) {
 			updateTo(description, "1.8");
 		}
+		// 13 support only as of 2.2.x - does not work with Gradle
+		if (javaGeneration == 13 && (isSpringBootVersionBefore(description, VERSION_2_2_0_M1)
+				|| description.getBuildSystem() instanceof GradleBuildSystem)) {
+			updateTo(description, "11");
+		}
 	}
 
 	private void updateTo(MutableProjectDescription description, String jvmVersion) {
@@ -74,7 +82,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private Integer determineJavaGeneration(String javaVersion) {
 		try {
 			int generation = Integer.valueOf(javaVersion);
-			return ((generation > 8 && generation <= 12) ? generation : null);
+			return ((generation > 8 && generation <= 13) ? generation : null);
 		}
 		catch (NumberFormatException ex) {
 			return null;
