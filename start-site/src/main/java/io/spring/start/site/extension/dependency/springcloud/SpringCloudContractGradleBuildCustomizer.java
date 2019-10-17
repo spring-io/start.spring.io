@@ -28,10 +28,13 @@ import org.apache.commons.logging.LogFactory;
  * with Gradle.
  *
  * @author Olga Maciaszek-Sharma
+ * @author Eddú Meléndez
  */
 class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	private static final Log logger = LogFactory.getLog(SpringCloudContractGradleBuildCustomizer.class);
+
+	private static final Version VERSION_2_2_0 = Version.parse("2.2.0.RELEASE");
 
 	private final ProjectDescription description;
 
@@ -57,6 +60,14 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 		build.buildscript((buildscript) -> buildscript
 				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion));
 		build.plugins().apply("spring-cloud-contract");
+		if (isSpringBootVersionAtLeastAfter()) {
+			build.tasks().customize("contracts", (task) -> task.attribute("targetFramework",
+					"org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5"));
+		}
+	}
+
+	private boolean isSpringBootVersionAtLeastAfter() {
+		return (VERSION_2_2_0.compareTo(this.description.getPlatformVersion()) <= 0);
 	}
 
 }

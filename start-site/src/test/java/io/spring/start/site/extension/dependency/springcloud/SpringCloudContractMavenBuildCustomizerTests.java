@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Olga Maciaszek-Sharma
  * @author Madhura Bhave
+ * @author Eddú Meléndez
  */
 class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -43,6 +44,24 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
 		ProjectRequest projectRequest = createProjectRequest();
 		assertThat(mavenPom(projectRequest)).doesNotContain("spring-cloud-contract-maven-plugin");
+	}
+
+	@Test
+	void springCloudContractVerifierPluginForSpringBoot21WithNoAdditionalConfiguration() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
+		projectRequest.setBootVersion("2.1.0.RELEASE");
+		assertThat(mavenPom(projectRequest))
+				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+				.doesNotContain("testFramework");
+	}
+
+	@Test
+	void springCloudContractVerifierPluginForSpringBoot220WithJUnit5ByDefault() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
+		projectRequest.setBootVersion("2.2.0.RELEASE");
+		assertThat(mavenPom(projectRequest))
+				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+				.hasText("/project/build/plugins/plugin[1]/configuration/testFramework", "JUNIT5");
 	}
 
 }
