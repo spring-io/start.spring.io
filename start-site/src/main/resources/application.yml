@@ -1,7 +1,3 @@
-local:
-  gcp:
-    version: 1.1.0.M3
-
 logging:
   level:
     org.springframework.core.env: warn
@@ -1194,7 +1190,7 @@ initializr:
           artifactId: spring-cloud-gcp-starter
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-gcp/docs/${local.gcp.version}/reference/htmlsingle/
+              href: https://cloud.spring.io/spring-cloud-gcp/reference/html/
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples
               description: GCP Samples
@@ -1205,7 +1201,7 @@ initializr:
           artifactId: spring-cloud-gcp-starter-pubsub
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-gcp/docs/${local.gcp.version}/reference/htmlsingle/#_spring_cloud_gcp_for_pub_sub
+              href: https://cloud.spring.io/spring-cloud-gcp/reference/html/#spring-integration
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-pubsub-sample
               description: GCP Pub/Sub Sample
@@ -1216,7 +1212,7 @@ initializr:
           artifactId: spring-cloud-gcp-starter-storage
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-gcp/docs/${local.gcp.version}/reference/htmlsingle/#_spring_resources
+              href: https://cloud.spring.io/spring-cloud-gcp/reference/html/#spring-resources
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
               description: GCP Storage Sample
