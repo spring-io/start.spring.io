@@ -315,7 +315,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
         - name: Groovy Templates
           id: groovy-templates
-          description: Groovy templating engine
+          description: Groovy templating engine.
           facets:
             - web
           links:
@@ -476,7 +476,7 @@ initializr:
         - name: IBM DB2 Driver
           id: db2
           compatibilityRange: 2.2.0.M6
-          description: A JDBC driver that provides access to IBM DB2
+          description: A JDBC driver that provides access to IBM DB2.
           groupId: com.ibm.db2
           artifactId: jcc
           scope: runtime
@@ -523,7 +523,7 @@ initializr:
         - name: Oracle Driver
           id: oracle
           compatibilityRange: 2.2.0.RC1
-          description: A JDBC driver that provides access to Oracle
+          description: A JDBC driver that provides access to Oracle.
           groupId: com.oracle.ojdbc
           artifactId: ojdbc8
           scope: runtime
@@ -599,7 +599,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
         - name: Spring Data Reactive for Apache Cassandra
           id: data-cassandra-reactive
-          description: Access Cassandra NoSQL Database in a reactive fashion
+          description: Access Cassandra NoSQL Database in a reactive fashion.
           facets:
             - reactive
           links:
@@ -697,7 +697,7 @@ initializr:
               description: Apache Kafka Streams Binding Capabilities of Spring Cloud Stream
         - name: Spring for Apache ActiveMQ 5
           id: activemq
-          description: Spring JMS support with Apache ActiveMQ 'Classic'
+          description: Spring JMS support with Apache ActiveMQ 'Classic'.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-jms/
@@ -706,7 +706,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-activemq
         - name: Spring for Apache ActiveMQ Artemis
           id: artemis
-          description: Spring JMS support with Apache ActiveMQ Artemis
+          description: Spring JMS support with Apache ActiveMQ Artemis.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-jms/
@@ -867,7 +867,7 @@ initializr:
       content:
         - name: Cloud Bootstrap
           id: cloud-starter
-          description: Non-specific Spring Cloud features, unrelated to external libraries or integrations (e.g. Bootstrap context and @RefreshScope)
+          description: Non-specific Spring Cloud features, unrelated to external libraries or integrations (e.g. Bootstrap context and @RefreshScope).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter
           links:
@@ -972,7 +972,7 @@ initializr:
           weight: 100
         - name: Eureka Server
           id: cloud-eureka-server
-          description: spring-cloud-netflix Eureka Server
+          description: spring-cloud-netflix Eureka Server.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-server
           links:
@@ -981,17 +981,17 @@ initializr:
               description: Service Registration and Discovery
         - name: Apache Zookeeper Discovery
           id: cloud-starter-zookeeper-discovery
-          description: Service discovery with Apache Zookeeper
+          description: Service discovery with Apache Zookeeper.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-discovery
         - name: Cloud Foundry Discovery
           id: cloud-cloudfoundry-discovery
-          description: Service discovery with Cloud Foundry
+          description: Service discovery with Cloud Foundry.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-cloudfoundry-discovery
         - name: Consul Discovery
           id: cloud-starter-consul-discovery
-          description: Service discovery with Hashicorp Consul
+          description: Service discovery with Hashicorp Consul.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-discovery
     - name: Spring Cloud Routing
@@ -1048,12 +1048,12 @@ initializr:
           artifactId: spring-cloud-starter-netflix-hystrix-dashboard
         - name: Turbine
           id: cloud-turbine
-          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and server-sent events
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and server-sent events.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine
         - name: Turbine Stream
           id: cloud-turbine-stream
-          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ)
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine-stream
           weight: -1
@@ -1096,7 +1096,7 @@ initializr:
       content:
         - name: Config Client (PCF)
           id: scs-config-client
-          description: Config client on Pivotal Cloud Foundry
+          description: Config client on Pivotal Cloud Foundry.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-config-client
           starter: false
@@ -1105,7 +1105,7 @@ initializr:
               href: https://docs.pivotal.io/spring-cloud-services/
         - name: Service Registry (PCF)
           id: scs-service-registry
-          description: Eureka service discovery client on Pivotal Cloud Foundry
+          description: Eureka service discovery client on Pivotal Cloud Foundry.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-service-registry
           links:
@@ -1113,7 +1113,7 @@ initializr:
               href: https://docs.pivotal.io/spring-cloud-services/
         - name: Circuit Breaker (PCF)
           id: scs-circuit-breaker
-          description: Hystrix circuit breaker client on Pivotal Cloud Foundry
+          description: Hystrix circuit breaker client on Pivotal Cloud Foundry.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-circuit-breaker
           links:
@@ -1124,19 +1124,19 @@ initializr:
       content:
         - name: AWS Core
           id: cloud-aws
-          description: AWS native services from Spring Cloud for AWS
+          description: AWS native services from Spring Cloud for AWS.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws
           starter: false
         - name: AWS RDS
           id: cloud-aws-jdbc
-          description: Relational databases on AWS with RDS and Spring Cloud AWS JDBC
+          description: Relational databases on AWS with RDS and Spring Cloud AWS JDBC.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws-jdbc
           starter: false
         - name: AWS Simple Queue Service
           id: cloud-aws-messaging
-          description: Messaging on AWS with SQS and Spring Cloud AWS Messaging
+          description: Messaging on AWS with SQS and Spring Cloud AWS Messaging.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-aws-messaging
           starter: false
@@ -1223,7 +1223,7 @@ initializr:
   types:
     - name: Maven Project
       id: maven-project
-      description: Generate a Maven based project archive
+      description: Generate a Maven based project archive.
       tags:
         build: maven
         format: project
@@ -1231,7 +1231,7 @@ initializr:
       action: /starter.zip
     - name: Maven POM
       id: maven-build
-      description: Generate a Maven pom.xml
+      description: Generate a Maven pom.xml.
       tags:
         build: maven
         format: build
@@ -1239,7 +1239,7 @@ initializr:
       action: /pom.xml
     - name: Gradle Project
       id: gradle-project
-      description: Generate a Gradle based project archive
+      description: Generate a Gradle based project archive.
       tags:
         build: gradle
         format: project
@@ -1247,7 +1247,7 @@ initializr:
       action: /starter.zip
     - name: Gradle Config
       id: gradle-build
-      description: Generate a Gradle build file
+      description: Generate a Gradle build file.
       tags:
         build: gradle
         format: build
