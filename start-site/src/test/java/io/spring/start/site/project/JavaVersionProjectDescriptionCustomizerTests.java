@@ -30,22 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void java9CannotBeUsedWithSpringBoot1Maven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("1.5.8.RELEASE");
-		request.setJavaVersion("9");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java9CannotBeUsedWithSpringBoot1Gradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("1.99.99.BUILD-SNAPSHOT");
-		request.setJavaVersion("9");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
-	}
-
-	@Test
 	void java9CannotBeUsedWithGroovyMaven() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.1.RELEASE");
@@ -98,22 +82,6 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java10CannotBeUsedWithSpringBoot1Maven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("1.5.8.RELEASE");
-		request.setJavaVersion("10");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java10CannotBeUsedWithSpringBoot1Gradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("1.99.99.BUILD-SNAPSHOT");
-		request.setJavaVersion("10");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
-	}
-
-	@Test
 	void java10CannotBeUsedWithSpringBoot200Maven() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.0.RELEASE");
@@ -146,22 +114,6 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java11CannotBeUsedWithSpringBoot1Maven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("1.5.8.RELEASE");
-		request.setJavaVersion("11");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java11CannotBeUsedWithSpringBoot1Gradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("1.99.99.BUILD-SNAPSHOT");
-		request.setJavaVersion("11");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
-	}
-
-	@Test
 	void java11CannotBeUsedWithSpringBoot20Maven() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.5.RELEASE");
@@ -191,22 +143,6 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		request.setBootVersion("2.1.1.RELEASE");
 		request.setJavaVersion("11");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("11");
-	}
-
-	@Test
-	void java12CannotBeUsedWithSpringBoot1Maven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("1.5.8.RELEASE");
-		request.setJavaVersion("12");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java12CannotBeUsedWithSpringBoot1Gradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("1.99.99.BUILD-SNAPSHOT");
-		request.setJavaVersion("12");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
 	}
 
 	@Test
