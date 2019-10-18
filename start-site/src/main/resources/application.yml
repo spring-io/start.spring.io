@@ -606,8 +606,7 @@ initializr:
           compatibilityRange: 2.2.0.M5
           groupId: org.springframework.geode
           artifactId: spring-geode-starter
-          version: 1.2.0.RC1
-          repository: spring-milestones
+          version: 1.2.0.RELEASE
           description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale.
           links:
             - rel: reference
