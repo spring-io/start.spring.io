@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.springcloud;
 
+import io.spring.initializr.generator.buildsystem.MavenRepository;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -35,6 +36,13 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 	private static final Log logger = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
 
 	private static final Version VERSION_2_2_0 = Version.parse("2.2.0.RELEASE");
+
+	private static final MavenRepository SPRING_MILESTONES = MavenRepository
+			.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone").name("Spring Milestones").build();
+
+	private static final MavenRepository SPRING_SNAPSHOTS = MavenRepository
+			.withIdAndUrl("spring-snapshots", "https://repo.spring.io/snapshot").name("Spring Snapshots")
+			.snapshotsEnabled(true).build();
 
 	private final ProjectDescription description;
 
@@ -63,6 +71,17 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 				plugin.configuration((builder) -> builder.add("testFramework", "JUNIT5"));
 			}
 		});
+		configurePluginRepositories(mavenBuild, sccPluginVersion);
+	}
+
+	private void configurePluginRepositories(MavenBuild mavenBuild, String sccPluginVersion) {
+		String qualifier = Version.parse(sccPluginVersion).getQualifier().getQualifier();
+		if (!"RELEASE".equals(qualifier)) {
+			mavenBuild.pluginRepositories().add(SPRING_MILESTONES);
+			if ("BUILD-SNAPSHOT".equals(qualifier)) {
+				mavenBuild.pluginRepositories().add(SPRING_SNAPSHOTS);
+			}
+		}
 	}
 
 	private boolean isSpringBootVersionAtLeastAfter() {
