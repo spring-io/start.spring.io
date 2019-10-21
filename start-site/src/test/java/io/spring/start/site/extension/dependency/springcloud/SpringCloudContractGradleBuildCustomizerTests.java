@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Olga Maciaszek-Sharma
  * @author Madhura Bhave
+ * @author Eddú Meléndez
  */
 class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -48,6 +49,23 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 				.doesNotContain("buildscript {",
 						"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:")
 				.doesNotContain("apply plugin: 'spring-cloud-contract'");
+	}
+
+	@Test
+	void springCloudContractVerifierPluginForSpringBoot21WithNoAdditionalConfiguration() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
+		projectRequest.setType("gradle-project");
+		projectRequest.setBootVersion("2.1.0.RELEASE");
+		assertThat(gradleBuild(projectRequest)).doesNotContain("testFramework");
+	}
+
+	@Test
+	void springCloudContractVerifierPluginForSpringBoot22WithJUnit5ByDefault() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
+		projectRequest.setType("gradle-project");
+		projectRequest.setBootVersion("2.2.0.RELEASE");
+		assertThat(gradleBuild(projectRequest)).containsSubsequence("contracts {",
+				"targetFramework = org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
 	}
 
 }

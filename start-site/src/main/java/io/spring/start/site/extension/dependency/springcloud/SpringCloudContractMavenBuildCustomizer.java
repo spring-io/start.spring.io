@@ -28,10 +28,13 @@ import org.apache.commons.logging.LogFactory;
  * with Maven.
  *
  * @author Olga Maciaszek-Sharma
+ * @author Eddú Meléndez
  */
 class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
 	private static final Log logger = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
+
+	private static final Version VERSION_2_2_0 = Version.parse("2.2.0.RELEASE");
 
 	private final ProjectDescription description;
 
@@ -54,8 +57,16 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 							+ bootVersion.toString());
 			return;
 		}
-		mavenBuild.plugins().add("org.springframework.cloud", "spring-cloud-contract-maven-plugin",
-				(plugin) -> plugin.extensions(true).version(sccPluginVersion));
+		mavenBuild.plugins().add("org.springframework.cloud", "spring-cloud-contract-maven-plugin", (plugin) -> {
+			plugin.extensions(true).version(sccPluginVersion);
+			if (isSpringBootVersionAtLeastAfter()) {
+				plugin.configuration((builder) -> builder.add("testFramework", "JUNIT5"));
+			}
+		});
+	}
+
+	private boolean isSpringBootVersionAtLeastAfter() {
+		return (VERSION_2_2_0.compareTo(this.description.getPlatformVersion()) <= 0);
 	}
 
 }
