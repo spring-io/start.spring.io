@@ -1030,7 +1030,7 @@ initializr:
           artifactId: spring-cloud-starter-openfeign
         - name: Spring Cloud LoadBalancer
           id: cloud-loadbalancer
-          compatibilityRange: "[2.2.0.M4,2.2.x.BUILD-SNAPSHOT)"
+          compatibilityRange: "2.2.0.M4"
           description: Client-side load-balancing with Spring Cloud LoadBalancer.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-loadbalancer
