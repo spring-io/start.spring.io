@@ -60,7 +60,7 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	}
 
 	@Test
-	void springCloudContractVerifierPluginForSpringBoot220WithJUnit5ByDefault() {
+	void springCloudContractVerifierPluginForSpringBoot22WithJUnit5ByDefault() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		projectRequest.setType("gradle-project");
 		projectRequest.setBootVersion("2.2.0.RELEASE");

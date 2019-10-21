@@ -56,7 +56,7 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void springCloudContractVerifierPluginForSpringBoot220WithJUnit5ByDefault() {
+	void springCloudContractVerifierPluginForSpringBoot22WithJUnit5ByDefault() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		projectRequest.setBootVersion("2.2.0.RELEASE");
 		assertThat(mavenPom(projectRequest))
