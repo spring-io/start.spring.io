@@ -52,7 +52,7 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 		projectRequest.setBootVersion("2.1.0.RELEASE");
 		assertThat(mavenPom(projectRequest))
 				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
-				.doesNotContain("testFramework");
+				.doesNotContain("testFramework").doesNotContain("testMode");
 	}
 
 	@Test
@@ -62,6 +62,14 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 		assertThat(mavenPom(projectRequest))
 				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
 				.hasText("/project/build/plugins/plugin[1]/configuration/testFramework", "JUNIT5");
+	}
+
+	@Test
+	void springCloudContractVerifierPluginWithTestModeSetWhenWebFluxIsPresent() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
+		assertThat(mavenPom(projectRequest))
+				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+				.hasText("/project/build/plugins/plugin[1]/configuration/testMode", "WEBTESTCLIENT");
 	}
 
 }

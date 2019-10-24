@@ -70,6 +70,9 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 			if (isSpringBootVersionAtLeastAfter()) {
 				plugin.configuration((builder) -> builder.add("testFramework", "JUNIT5"));
 			}
+			if (mavenBuild.dependencies().has("webflux")) {
+				plugin.configuration((builder) -> builder.add("testMode", "WEBTESTCLIENT"));
+			}
 		});
 		configurePluginRepositories(mavenBuild, sccPluginVersion);
 	}
