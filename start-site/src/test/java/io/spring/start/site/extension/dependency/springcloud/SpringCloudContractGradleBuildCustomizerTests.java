@@ -34,7 +34,6 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		projectRequest.setType("gradle-project");
 		assertThat(gradleBuild(projectRequest))
 				.containsSubsequence("buildscript {", "dependencies {",
 						"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:")
@@ -44,7 +43,6 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
 		ProjectRequest projectRequest = createProjectRequest();
-		projectRequest.setType("gradle-project");
 		assertThat(gradleBuild(projectRequest))
 				.doesNotContain("buildscript {",
 						"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:")
@@ -54,7 +52,6 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void springCloudContractVerifierPluginForSpringBoot21WithNoAdditionalConfiguration() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		projectRequest.setType("gradle-project");
 		projectRequest.setBootVersion("2.1.0.RELEASE");
 		assertThat(gradleBuild(projectRequest)).doesNotContain("testFramework").doesNotContain("testMode");
 	}
@@ -62,7 +59,6 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void springCloudContractVerifierPluginForSpringBoot22WithJUnit5ByDefault() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		projectRequest.setType("gradle-project");
 		projectRequest.setBootVersion("2.2.0.RELEASE");
 		assertThat(gradleBuild(projectRequest)).containsSubsequence("contracts {",
 				"targetFramework = org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
@@ -71,7 +67,6 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void springCloudContractVerifierPluginWithTestModeSetWhenWebFluxIsPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
-		projectRequest.setType("gradle-project");
 		assertThat(gradleBuild(projectRequest)).containsSubsequence("contracts {", "testMode = 'WebTestClient'");
 	}
 
