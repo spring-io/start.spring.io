@@ -30,6 +30,7 @@ import io.spring.start.site.extension.dependency.lombok.LombokGradleBuildCustomi
 import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springbatch.SpringBatchTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springkafka.SpringKafkaBuildCustomizer;
+import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityRSocketBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsession.SpringSessionBuildCustomizer;
 
@@ -65,6 +66,12 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("security")
 	public SpringSecurityTestBuildCustomizer securityTestBuildCustomizer() {
 		return new SpringSecurityTestBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("security")
+	public SpringSecurityRSocketBuildCustomizer securityRSocketBuildCustomizer() {
+		return new SpringSecurityRSocketBuildCustomizer();
 	}
 
 	@Bean
