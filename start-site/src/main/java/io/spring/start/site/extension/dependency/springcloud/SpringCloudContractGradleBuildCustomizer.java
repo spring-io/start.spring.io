@@ -68,13 +68,15 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 		build.buildscript((buildscript) -> buildscript
 				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion));
 		build.plugins().apply("spring-cloud-contract");
-		if (isSpringBootVersionAtLeastAfter()) {
-			build.tasks().customize("contracts", (task) -> task.attribute("targetFramework",
-					"org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5"));
-		}
-		if (build.dependencies().has("webflux")) {
-			build.tasks().customize("contracts", (task) -> task.attribute("testMode", "'WebTestClient'"));
-		}
+		build.tasks().customize("contracts", (task) -> {
+			if (isSpringBootVersionAtLeastAfter()) {
+				task.attribute("targetFramework",
+						"org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
+			}
+			if (build.dependencies().has("webflux")) {
+				task.attribute("testMode", "'WebTestClient'");
+			}
+		});
 		configurePluginRepositories(build, sccPluginVersion);
 	}
 
