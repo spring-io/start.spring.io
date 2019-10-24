@@ -56,7 +56,7 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		projectRequest.setType("gradle-project");
 		projectRequest.setBootVersion("2.1.0.RELEASE");
-		assertThat(gradleBuild(projectRequest)).doesNotContain("testFramework");
+		assertThat(gradleBuild(projectRequest)).doesNotContain("testFramework").doesNotContain("testMode");
 	}
 
 	@Test
@@ -66,6 +66,13 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 		projectRequest.setBootVersion("2.2.0.RELEASE");
 		assertThat(gradleBuild(projectRequest)).containsSubsequence("contracts {",
 				"targetFramework = org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
+	}
+
+	@Test
+	void springCloudContractVerifierPluginWithTestModeSetWhenWebFluxIsPresent() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
+		projectRequest.setType("gradle-project");
+		assertThat(gradleBuild(projectRequest)).containsSubsequence("contracts {", "testMode = 'WebTestClient'");
 	}
 
 }
