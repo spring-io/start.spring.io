@@ -72,6 +72,9 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 			build.tasks().customize("contracts", (task) -> task.attribute("targetFramework",
 					"org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5"));
 		}
+		if (build.dependencies().has("webflux")) {
+			build.tasks().customize("contracts", (task) -> task.attribute("testMode", "'WebTestClient'"));
+		}
 		configurePluginRepositories(build, sccPluginVersion);
 	}
 
