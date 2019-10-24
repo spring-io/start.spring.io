@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -55,8 +56,9 @@ public class DependencyProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnPlatformVersion("2.0.0.M2")
 	public ReactorTestBuildCustomizer reactorTestBuildCustomizer() {
-		return new ReactorTestBuildCustomizer(this.metadata, this.description);
+		return new ReactorTestBuildCustomizer(this.metadata);
 	}
 
 	@Bean

@@ -21,7 +21,8 @@ import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * {@link BuildCustomizer} for Spring Session that provides explicit handling for the
@@ -32,7 +33,7 @@ import io.spring.initializr.generator.version.Version;
  */
 public class SpringSessionBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final Version VERSION_2_0_0_M3 = Version.parse("2.0.0.M3");
+	private static final VersionRange SPRING_BOOT_2_0_0_M3_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.0.M3");
 
 	private final ProjectDescription description;
 
@@ -43,7 +44,7 @@ public class SpringSessionBuildCustomizer implements BuildCustomizer<Build> {
 	@Override
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
-		if (isSpringBootVersionAtLeastAfter()) {
+		if (SPRING_BOOT_2_0_0_M3_OR_LATER.match(this.description.getPlatformVersion())) {
 			if (dependencies.has("data-redis") || dependencies.has("data-redis-reactive")) {
 				dependencies.add("session-data-redis", "org.springframework.session", "spring-session-data-redis",
 						DependencyScope.COMPILE);
@@ -55,10 +56,6 @@ public class SpringSessionBuildCustomizer implements BuildCustomizer<Build> {
 				dependencies.remove("session");
 			}
 		}
-	}
-
-	private boolean isSpringBootVersionAtLeastAfter() {
-		return (VERSION_2_0_0_M3.compareTo(this.description.getPlatformVersion()) <= 0);
 	}
 
 }

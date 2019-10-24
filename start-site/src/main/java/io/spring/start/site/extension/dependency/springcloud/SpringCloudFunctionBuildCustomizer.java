@@ -22,6 +22,8 @@ import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
@@ -36,7 +38,7 @@ import io.spring.initializr.metadata.InitializrMetadata;
  */
 class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
+	private static final VersionRange SPRING_BOOT_2_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.1.0.M1");
 
 	private final InitializrMetadata metadata;
 
@@ -49,10 +51,11 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
+		Version platformVersion = this.description.getPlatformVersion();
 		DependencyContainer dependencies = build.dependencies();
 		if (dependencies.has("cloud-function")) {
 			if ((dependencies.has("cloud-stream") || dependencies.has("reactive-cloud-stream"))
-					&& isSpringBootVersionBefore()) {
+					&& !SPRING_BOOT_2_1_OR_LATER.match(platformVersion)) {
 				dependencies.add("cloud-function-stream", "org.springframework.cloud", "spring-cloud-function-stream",
 						DependencyScope.COMPILE);
 				removeCloudFunction(build);
@@ -62,7 +65,7 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 						DependencyScope.COMPILE);
 				removeCloudFunction(build);
 			}
-			if (dependencies.has("webflux") && isSpringBootVersionAtLeastAfter()) {
+			if (dependencies.has("webflux") && SPRING_BOOT_2_1_OR_LATER.match(platformVersion)) {
 				dependencies.add("cloud-function-web", "org.springframework.cloud", "spring-cloud-function-web",
 						DependencyScope.COMPILE);
 				removeCloudFunction(build);
@@ -99,14 +102,6 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 			return bom.resolve(this.description.getPlatformVersion());
 		}
 		return null;
-	}
-
-	private boolean isSpringBootVersionAtLeastAfter() {
-		return (VERSION_2_1_0_M1.compareTo(this.description.getPlatformVersion()) <= 0);
-	}
-
-	private boolean isSpringBootVersionBefore() {
-		return (VERSION_2_1_0_M1.compareTo(this.description.getPlatformVersion()) > 0);
 	}
 
 }

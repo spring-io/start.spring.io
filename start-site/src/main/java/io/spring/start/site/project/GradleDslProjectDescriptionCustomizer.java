@@ -21,7 +21,8 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
-import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link ProjectDescriptionCustomizer} that enables the Kotlin DSL for a Gradle project
@@ -31,19 +32,16 @@ import io.spring.initializr.generator.version.Version;
  */
 public class GradleDslProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
+	private static final VersionRange SPRING_BOOT_2_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.1.0.M1");
 
 	@Override
 	public void customize(MutableProjectDescription description) {
-		if (isCompatibleSpringBootVersion(description) && description.getLanguage() instanceof KotlinLanguage
+		if (SPRING_BOOT_2_1_OR_LATER.match(description.getPlatformVersion())
+				&& description.getLanguage() instanceof KotlinLanguage
 				&& description.getBuildSystem() instanceof GradleBuildSystem) {
 			description.setBuildSystem(
 					BuildSystem.forIdAndDialect(GradleBuildSystem.ID, GradleBuildSystem.DIALECT_KOTLIN));
 		}
-	}
-
-	protected boolean isCompatibleSpringBootVersion(MutableProjectDescription description) {
-		return VERSION_2_1_0_M1.compareTo(description.getPlatformVersion()) <= 0;
 	}
 
 }

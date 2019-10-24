@@ -21,8 +21,9 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionProperty;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link BuildCustomizer} that automatically adds "spring-kafka-test" when kafka is
@@ -34,7 +35,7 @@ import io.spring.initializr.generator.version.VersionProperty;
  */
 public class SpringKafkaBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final Version VERSION_2_0_0 = Version.parse("2.0.0.M1");
+	private static final VersionRange SPRING_BOOT_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.0.M1");
 
 	private final ProjectDescription description;
 
@@ -49,14 +50,10 @@ public class SpringKafkaBuildCustomizer implements BuildCustomizer<Build> {
 					Dependency.withCoordinates("org.springframework.kafka", "spring-kafka-test")
 							.scope(DependencyScope.TEST_COMPILE));
 			// Override to a more recent version
-			if (isSpringBootVersionBefore()) {
+			if (!SPRING_BOOT_2_0_OR_LATER.match(this.description.getPlatformVersion())) {
 				build.properties().version(VersionProperty.of("spring-kafka.version", false), "1.3.10.RELEASE");
 			}
 		}
-	}
-
-	protected boolean isSpringBootVersionBefore() {
-		return (VERSION_2_0_0.compareTo(this.description.getPlatformVersion()) > 0);
 	}
 
 }

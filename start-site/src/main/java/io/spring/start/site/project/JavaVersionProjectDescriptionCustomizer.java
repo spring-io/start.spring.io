@@ -24,6 +24,8 @@ import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Validate that the requested java version is compatible with the chosen Spring Boot
@@ -34,13 +36,13 @@ import io.spring.initializr.generator.version.Version;
  */
 public class JavaVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final Version VERSION_2_0_0_M1 = Version.parse("2.0.0.M1");
+	private static final VersionRange SPRING_BOOT_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.0.M1");
 
-	private static final Version VERSION_2_0_1 = Version.parse("2.0.1.RELEASE");
+	private static final VersionRange SPRING_BOOT_2_0_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.1.RELEASE");
 
-	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
+	private static final VersionRange SPRING_BOOT_2_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.1.0.M1");
 
-	private static final Version VERSION_2_2_0_M1 = Version.parse("2.2.0.M1");
+	private static final VersionRange SPRING_BOOT_2_2_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.0.M1");
 
 	private static final List<String> UNSUPPORTED_LANGUAGES = Arrays.asList("groovy", "kotlin");
 
@@ -50,8 +52,9 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		if (javaGeneration == null) {
 			return;
 		}
+		Version platformVersion = description.getPlatformVersion();
 		// Not supported for Spring Boot 1.x
-		if (isSpringBootVersionBefore(description, VERSION_2_0_0_M1)) {
+		if (!SPRING_BOOT_2_0_OR_LATER.match(platformVersion)) {
 			updateTo(description, "1.8");
 		}
 		// Not supported for Kotlin & Groovy
@@ -59,16 +62,15 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			updateTo(description, "1.8");
 		}
 		// 10 support only as of 2.0.1
-		if (javaGeneration == 10 && isSpringBootVersionBefore(description, VERSION_2_0_1)) {
+		if (javaGeneration == 10 && !SPRING_BOOT_2_0_1_OR_LATER.match(platformVersion)) {
 			updateTo(description, "1.8");
 		}
 		// 11 and 12 support only as of 2.1.x
-		if ((javaGeneration == 11 || javaGeneration == 12)
-				&& isSpringBootVersionBefore(description, VERSION_2_1_0_M1)) {
+		if ((javaGeneration == 11 || javaGeneration == 12) && !SPRING_BOOT_2_1_OR_LATER.match(platformVersion)) {
 			updateTo(description, "1.8");
 		}
 		// 13 support only as of 2.2.x - does not work with Gradle
-		if (javaGeneration == 13 && (isSpringBootVersionBefore(description, VERSION_2_2_0_M1)
+		if (javaGeneration == 13 && (!SPRING_BOOT_2_2_OR_LATER.match(platformVersion)
 				|| description.getBuildSystem() instanceof GradleBuildSystem)) {
 			updateTo(description, "11");
 		}
@@ -81,16 +83,12 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private Integer determineJavaGeneration(String javaVersion) {
 		try {
-			int generation = Integer.valueOf(javaVersion);
+			int generation = Integer.parseInt(javaVersion);
 			return ((generation > 8 && generation <= 13) ? generation : null);
 		}
 		catch (NumberFormatException ex) {
 			return null;
 		}
-	}
-
-	protected boolean isSpringBootVersionBefore(MutableProjectDescription description, Version version) {
-		return version.compareTo(description.getPlatformVersion()) > 0;
 	}
 
 }

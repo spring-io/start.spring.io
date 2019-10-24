@@ -19,10 +19,8 @@ package io.spring.start.site.extension.dependency.reactor;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.spring.build.BuildMetadataResolver;
-import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.InitializrMetadata;
 
 /**
@@ -34,27 +32,18 @@ import io.spring.initializr.metadata.InitializrMetadata;
  */
 public class ReactorTestBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final Version VERSION_2_0_0_M2 = Version.parse("2.0.0.M2");
-
-	private final ProjectDescription description;
-
 	private final BuildMetadataResolver buildResolver;
 
-	public ReactorTestBuildCustomizer(InitializrMetadata metadata, ProjectDescription description) {
+	public ReactorTestBuildCustomizer(InitializrMetadata metadata) {
 		this.buildResolver = new BuildMetadataResolver(metadata);
-		this.description = description;
 	}
 
 	@Override
 	public void customize(Build build) {
-		if (this.buildResolver.hasFacet(build, "reactive") && isSpringBootVersionAtLeastAfter()) {
+		if (this.buildResolver.hasFacet(build, "reactive")) {
 			build.dependencies().add("reactor-test", Dependency.withCoordinates("io.projectreactor", "reactor-test")
 					.scope(DependencyScope.TEST_COMPILE));
 		}
-	}
-
-	protected boolean isSpringBootVersionAtLeastAfter() {
-		return VERSION_2_0_0_M2.compareTo(this.description.getPlatformVersion()) <= 0;
 	}
 
 }

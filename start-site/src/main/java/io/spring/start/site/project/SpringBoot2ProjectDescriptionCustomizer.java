@@ -22,7 +22,8 @@ import java.util.List;
 import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
-import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * As of Spring Boot 2.0, Java8 is mandatory so this extension makes sure that the java
@@ -33,20 +34,16 @@ import io.spring.initializr.generator.version.Version;
  */
 class SpringBoot2ProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final Version VERSION_2_0_0_M1 = Version.parse("2.0.0.M1");
+	private static final VersionRange SPRING_BOOT_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.0.M1");
 
 	private static final List<String> VALID_VERSIONS = Arrays.asList("1.8", "9", "10", "11", "12", "13");
 
 	@Override
 	public void customize(MutableProjectDescription description) {
 		if (!VALID_VERSIONS.contains(description.getLanguage().jvmVersion())
-				&& isSpringBootVersionAtLeastAfter(description)) {
+				&& SPRING_BOOT_2_0_OR_LATER.match(description.getPlatformVersion())) {
 			description.setLanguage(Language.forId(description.getLanguage().id(), "1.8"));
 		}
-	}
-
-	private boolean isSpringBootVersionAtLeastAfter(MutableProjectDescription description) {
-		return (VERSION_2_0_0_M1.compareTo(description.getPlatformVersion()) <= 0);
 	}
 
 }

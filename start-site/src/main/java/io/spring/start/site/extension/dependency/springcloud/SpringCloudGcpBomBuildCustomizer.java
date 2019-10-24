@@ -20,7 +20,8 @@ import io.spring.initializr.generator.buildsystem.BillOfMaterials;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.generator.version.VersionReference;
 
 /**
@@ -32,7 +33,7 @@ import io.spring.initializr.generator.version.VersionReference;
  */
 class SpringCloudGcpBomBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final Version VERSION_2_1_0_M1 = Version.parse("2.1.0.M1");
+	private static final VersionRange SPRING_BOOT_2_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.1.0.M1");
 
 	private final ProjectDescription description;
 
@@ -42,15 +43,12 @@ class SpringCloudGcpBomBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		if (isSpringBootVersionBefore() && build.dependencies().ids().anyMatch((id) -> id.startsWith("cloud-gcp"))) {
+		if (!SPRING_BOOT_2_1_OR_LATER.match(this.description.getPlatformVersion())
+				&& build.dependencies().ids().anyMatch((id) -> id.startsWith("cloud-gcp"))) {
 			build.boms().add("spring-cloud-gcp",
 					BillOfMaterials.withCoordinates("org.springframework.cloud", "spring-cloud-gcp-dependencies")
 							.version(VersionReference.ofValue("1.0.0.RELEASE")));
 		}
-	}
-
-	private boolean isSpringBootVersionBefore() {
-		return VERSION_2_1_0_M1.compareTo(this.description.getPlatformVersion()) > 0;
 	}
 
 }

@@ -21,6 +21,8 @@ import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,7 +37,7 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 
 	private static final Log logger = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
 
-	private static final Version VERSION_2_2_0 = Version.parse("2.2.0.RELEASE");
+	private static final VersionRange SPRING_BOOT_2_2_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.0.M1");
 
 	private static final MavenRepository SPRING_MILESTONES = MavenRepository
 			.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone").name("Spring Milestones").build();
@@ -56,18 +58,18 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 
 	@Override
 	public void customize(MavenBuild mavenBuild) {
-		Version bootVersion = this.description.getPlatformVersion();
-		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(bootVersion,
+		Version platformVersion = this.description.getPlatformVersion();
+		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(platformVersion,
 				"org.springframework.cloud:spring-cloud-contract-verifier");
 		if (sccPluginVersion == null) {
 			logger.warn(
 					"Spring Cloud Contract Verifier Maven plugin version could not be resolved for Spring Boot version: "
-							+ bootVersion.toString());
+							+ platformVersion.toString());
 			return;
 		}
 		mavenBuild.plugins().add("org.springframework.cloud", "spring-cloud-contract-maven-plugin", (plugin) -> {
 			plugin.extensions(true).version(sccPluginVersion);
-			if (isSpringBootVersionAtLeastAfter()) {
+			if (SPRING_BOOT_2_2_OR_LATER.match(platformVersion)) {
 				plugin.configuration((builder) -> builder.add("testFramework", "JUNIT5"));
 			}
 			if (mavenBuild.dependencies().has("webflux")) {
@@ -85,10 +87,6 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 				mavenBuild.pluginRepositories().add(SPRING_SNAPSHOTS);
 			}
 		}
-	}
-
-	private boolean isSpringBootVersionAtLeastAfter() {
-		return (VERSION_2_2_0.compareTo(this.description.getPlatformVersion()) <= 0);
 	}
 
 }
