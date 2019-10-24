@@ -611,13 +611,16 @@ initializr:
           groupId: org.springframework.geode
           artifactId: spring-geode-starter
           version: 1.2.0.RELEASE
-          description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale.
+          description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale that is compatible with Pivotal Cloud Cache.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot-data-geode-build/current/reference/html5/
             - rel: guide
               href: https://github.com/spring-projects/spring-boot-data-geode/tree/master/spring-geode-samples
               description: Using Spring for Apache Geode
+            - rel: other
+              href: https://docs.spring.io/spring-boot-data-geode-build/current/reference/html5/#geode-gemfire-switch
+              description: Switch from Apache Geode to Pivotal Cloud Cache
         - name: Spring Data Couchbase
           id: data-couchbase
           description: NoSQL document-oriented database that offers in memory-first architecture, geo-distributed deployments, and workload isolation.
