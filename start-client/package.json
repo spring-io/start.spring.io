@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "file-saver": "^2.0.1",
+    "fuse.js": "^3.4.5",
     "gatsby": "^2.3.2",
     "gatsby-plugin-google-tagmanager": "^2.0.15",
     "gatsby-plugin-manifest": "^2.0.24",
@@ -34,7 +35,6 @@
     "gatsby-source-filesystem": "^2.0.28",
     "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-sharp": "^2.2.13",
-    "js-search": "^1.4.2",
     "jszip": "^3.2.1",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",

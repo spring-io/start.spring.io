@@ -1,4 +1,4 @@
-import * as JsSearch from 'js-search'
+import Fuse from 'fuse.js'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -14,12 +14,32 @@ class Typehead extends React.Component {
       search: '',
       selected: 0,
     }
-    this.search = new JsSearch.Search('name')
-    this.search.addIndex('name')
-    this.search.addIndex('id')
-    this.search.addIndex('description')
-    this.search.addIndex('group')
-    this.search.addDocuments(this.props.options)
+    this.search = new Fuse(this.props.options, {
+      shouldSort: true,
+      threshold: 0,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [
+        {
+          name: 'name',
+          weight: 1,
+        },
+        {
+          name: 'id',
+          weight: 1,
+        },
+        {
+          name: 'description',
+          weight: 0.5,
+        },
+        {
+          name: 'group',
+          weight: 0.3,
+        },
+      ],
+    })
   }
 
   onChange = event => {
