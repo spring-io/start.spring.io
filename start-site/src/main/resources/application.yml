@@ -746,19 +746,23 @@ initializr:
         - name: Solace PubSub+
           id: solace
           compatibilityRange: 2.1.0.RELEASE
-          description: Connect to a Solace PubSub+ Advanced Event Broker using the Solace Java API to send and receive messages.
+          description: Connect to a Solace PubSub+ Advanced Event Broker using the Solace JMS support to send and receive messages.
           groupId: com.solace.spring.boot
-          artifactId: solace-java-spring-boot-starter
-          version: 3.1.0
+          artifactId: solace-jms-spring-boot-starter
+          mappings:
+            - compatibilityRange: "[2.1.0.RELEASE,2.2.0.M1)"
+              version: 3.1.0
+            - compatibilityRange: "2.2.0.M1"
+              version: 3.2.0
           links:
             - rel: reference
               href: https://solace.dev
               description: Solace Developer Portal
             - rel: reference
-              href: https://github.com/SolaceProducts/solace-java-spring-boot
+              href: https://github.com/SolaceProducts/solace-jms-spring-boot
             - rel: guide
-              href: https://github.com/SolaceProducts/solace-java-spring-boot/tree/master/solace-java-sample-app
-              description: Solace sample application using Java API.
+              href: https://github.com/SolaceProducts/solace-jms-spring-boot/tree/master/solace-jms-sample-app
+              description: Solace sample application using JMS.
     - name: I/O
       content:
         - name: Spring Batch
