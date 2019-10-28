@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'gatsby'
 
-import Logo from './Logo'
+import { Logo, Spider } from '../../halloween'
 
 const Header = ({ children }) => (
   <div className='header'>
@@ -15,6 +15,7 @@ const Header = ({ children }) => (
         <span className='description'>Bootstrap your application</span>
       </Link>
     </h1>
+    <Spider />
     {children}
   </div>
 )

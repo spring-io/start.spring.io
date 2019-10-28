@@ -1,0 +1,658 @@
+$spring-background: #1b1f23;
+$spring-background-light: #262a2d;
+$spring-background-lighter: lighten($spring-background-light, 5);
+$spring-background-disabled: #23282b;
+
+$spring-outline-color: #76797a;
+$spring-color: #d1d2d3;
+$spring-color-medium: #8d8f91;
+$spring-color-light: #494c4e;
+$spring-color-white: #fff;
+
+$spring-border-color: #323638;
+$spring-border-color-hover: lighten($spring-border-color, 10);
+
+$spring-primary-color: #ee652b;
+
+body.halloween {
+  background-color: $spring-background;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAocAAAAeCAIAAADRgCMXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MzQzNTdFN0RFNDZEMTFFOUFGMzdERDc2NjFCNTE5OTEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MzQzNTdFN0VFNDZEMTFFOUFGMzdERDc2NjFCNTE5OTEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozNDM1N0U3QkU0NkQxMUU5QUYzN0RENzY2MUI1MTk5MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozNDM1N0U3Q0U0NkQxMUU5QUYzN0RENzY2MUI1MTk5MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PiL/SxkAAAD9SURBVHja7NexDcIwAERRQElWoWIhpmadxEFgiS4glCb2Fe9VJ8uVmy+fX/fTT9fH7QQANFFKWZZy8RAA0DvJa01yHaoMAN2TvHy2KgNARJJVGQBSkqzKANDHum6TrMoA0CfJ87x8n6syAEQkWZUBICXJqgwAKUlWZQBISbIqA0BKklUZABok+bknyaoMAA2SPO+8rMoAcKD9SVZlAAiiygBwoGmaVBkAIozjsD/MqgwAKWFWZQBICbMqA0CzMI+qDAAhYR7/h1mVASAlzKoMAClhVmUASAmzKgNAnzBXqgwAEep3eRNmVQaAlDCrMgCkhFmVASAhzEMdbwEGACEBWZYXH+xlAAAAAElFTkSuQmCC');
+  color: $spring-color;
+  background-size: 323px 15px;
+  background-attachment: fixed;
+
+  .switch-mode {
+    display: none;
+  }
+
+  .header h1.logo a {
+    color: white;
+    strong {
+      color: $spring-primary-color;
+    }
+  }
+
+  h1.logo {
+    a svg {
+      width: 65px;
+      top: -2px;
+      left: -2px;
+    }
+    .st0 {
+      fill: #ef7029;
+    }
+    .st1 {
+      fill: #ed902b;
+    }
+    .st2 {
+      fill: #cc5411;
+    }
+    .st3 {
+      fill: #cc6017;
+    }
+    .st4 {
+      fill: #ed792b;
+    }
+    .st5 {
+      fill: #e88b2e;
+    }
+    .st6 {
+      fill: #ea7e2d;
+    }
+    .st7 {
+      fill: #e5852e;
+    }
+    .st8 {
+      fill: #bc481b;
+    }
+    .st9 {
+      fill: #e56628;
+    }
+    .st10 {
+      fill: #898029;
+    }
+    .st11 {
+      fill: #9b9240;
+    }
+    .st12 {
+      fill: #ffffff;
+    }
+  }
+
+  .radio {
+    color: $spring-color-medium;
+    border-color: $spring-border-color;
+    &:hover {
+      color: $spring-color;
+      border-color: $spring-border-color-hover;
+    }
+    &.checked {
+      color: $spring-color-white;
+      border-bottom-color: $spring-primary-color;
+    }
+
+    &:hover {
+      border-bottom-color: $spring-primary-color;
+    }
+  }
+
+  .colset-submit .right.nopadding {
+    background: $spring-background;
+  }
+
+  .submit {
+    background: $spring-background;
+    border-color: $spring-border-color-hover;
+  }
+
+  .tab {
+    background: $spring-background;
+    .tab-container {
+      border-color: $spring-border-color;
+    }
+    a {
+      color: $spring-color-medium;
+      border-color: $spring-border-color;
+      &:hover {
+        color: $spring-color;
+        border-bottom-color: $spring-border-color-hover;
+      }
+      &.active {
+        color: $spring-color-white;
+        border-bottom-color: $spring-primary-color;
+        &:hover {
+          border-bottom-color: $spring-primary-color;
+        }
+      }
+    }
+  }
+
+  .control-input {
+    background: $spring-background;
+    color: $spring-color-white;
+    border-color: $spring-border-color;
+    &:hover {
+      border-color: $spring-border-color-hover;
+    }
+    &:focus {
+      border-bottom-color: $spring-primary-color;
+      &:hover {
+        border-bottom-color: $spring-primary-color;
+      }
+    }
+  }
+
+  .panel .panel-wrap {
+    border-color: $spring-border-color;
+  }
+
+  .more div.wrap {
+    border-color: $spring-border-color;
+    a {
+      color: $spring-color;
+      &:hover {
+        color: $spring-color;
+        svg {
+          color: $spring-primary-color;
+        }
+      }
+      svg {
+        color: $spring-color;
+      }
+    }
+  }
+
+  .button {
+    background: $spring-background-light;
+    border-color: $spring-background-light;
+    color: $spring-color-white;
+    &:hover {
+      background: $spring-background-lighter;
+      border-color: $spring-background-lighter;
+    }
+    &.primary {
+      border-color: $spring-primary-color;
+      background-color: $spring-primary-color;
+      &:hover {
+        border-color: darken($spring-primary-color, 5);
+        background-color: darken($spring-primary-color, 5);
+      }
+    }
+  }
+
+  .footer {
+    background: $spring-background-light;
+    color: $spring-color-medium;
+  }
+
+  label {
+    color: $spring-color-light;
+  }
+
+  .search-no-selected {
+    color: $spring-color;
+  }
+
+  .groups .group a {
+    background: $spring-background-light;
+    color: $spring-color;
+    strong {
+      color: $spring-color-white;
+    }
+    .icon {
+      border: 2px solid $spring-border-color-hover;
+      color: $spring-color;
+    }
+    &:hover {
+      background: $spring-background-lighter;
+      .icon {
+        color: $spring-color;
+      }
+    }
+  }
+
+  .groups .group .group-title {
+    border-color: $spring-border-color;
+  }
+
+  .quick-links li a {
+    color: $spring-color;
+    &:hover {
+      color: $spring-primary-color;
+    }
+  }
+
+  .groups .group a.invalid,
+  .groups .group a.checked.invalid {
+    background: $spring-background-disabled;
+    strong {
+      color: $spring-color-medium;
+    }
+    &:hover {
+      background: $spring-background-disabled;
+    }
+  }
+
+  .groups .group a.checked,
+  .groups .group a.selected {
+    $c: #363e44;
+    background: $c;
+    &:hover {
+      background: lighten($c, 6);
+    }
+  }
+
+  .groups .group a.checked .icon,
+  .groups .group a .selected .icon {
+    border-color: $spring-border-color-hover;
+    &:hover {
+      border-color: $spring-border-color-hover;
+    }
+  }
+
+  .groups .group a.checked,
+  .groups .group a .selected {
+    &:hover {
+      .icon {
+        border-color: lighten($spring-border-color, 20);
+      }
+    }
+  }
+
+  .tab strong {
+    color: $spring-color-medium;
+    span {
+      color: $spring-color-white;
+    }
+    background: $spring-background-lighter;
+  }
+
+  .dependencies-list .dependency-item.checked,
+  .dependencies-list .dependency-item .selected,
+  ul.dependencies-list .dependency-item.checked,
+  ul.dependencies-list .dependency-item .selected {
+    background: $spring-background-light;
+    color: $spring-color;
+    strong {
+      color: $spring-color-white;
+    }
+
+    .icon {
+      border-color: $spring-border-color-hover;
+      color: $spring-color;
+    }
+    &:hover {
+      background: $spring-background-lighter;
+      .icon {
+        color: $spring-color;
+      }
+    }
+  }
+
+  .groups .group a .icon-check {
+    color: #6db33f;
+  }
+
+  .dependencies-list .dependency-item,
+  ul.dependencies-list .dependency-item {
+    background: $spring-background-light;
+    color: $spring-color;
+    strong {
+      color: $spring-color-white;
+    }
+
+    .icon {
+      border: 2px solid $spring-border-color-hover;
+      color: $spring-primary-color;
+    }
+    &:hover {
+      background: $spring-background-lighter;
+      .icon {
+        color: $spring-color;
+      }
+    }
+
+    &.invalid,
+    &.checked.invalid {
+      background: $spring-background-disabled;
+      &:hover {
+        background: $spring-background-disabled;
+      }
+      .warning {
+        color: #ff7676;
+      }
+    }
+  }
+
+  .search-more-warning,
+  .search-no-result {
+    color: $spring-color-medium;
+  }
+
+  .dependencies-list .dependency-item.selected,
+  ul.dependencies-list .dependency-item.selected {
+    background: $spring-background-lighter;
+    .icon {
+      color: $spring-color;
+    }
+  }
+
+  .dependencies-list-checked .dependency-item.checked,
+  ul.dependencies-list-checked .dependency-item.checked {
+    .icon {
+      color: #6db33f;
+    }
+  }
+
+  .quick-links ul.dropdown-menu {
+    background: $spring-background-lighter;
+    li {
+      a {
+        color: $spring-color-white;
+        &:hover {
+          background: $spring-background-light;
+        }
+      }
+    }
+  }
+
+  .share-area {
+    .popup-share {
+      background: $spring-background-lighter;
+      .popup-header {
+        border-color: $spring-border-color-hover;
+        .close {
+          color: $spring-color-medium;
+        }
+      }
+      .popup-content {
+        label {
+          color: $spring-color;
+        }
+      }
+      .control-input {
+        background: $spring-background-lighter;
+        border-color: $spring-border-color-hover;
+        &:focus {
+          border-color: $spring-primary-color;
+        }
+      }
+    }
+    .popup-share-overlay {
+      background: rgba($spring-background, 0.95);
+    }
+    .popup-content .link {
+    }
+  }
+
+  .placeholder-radios .placeholder-radio {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .placeholder-input,
+  .placeholder-dropdown {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    &::after {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  .placeholder-button {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .placeholder-tabs .placeholder-header {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .placeholder-tabs .placeholder-tab {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .placeholder-text {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .overlay {
+    background: rgba($spring-background, 0.95);
+  }
+
+  .modal-explorer {
+    background: $spring-background-lighter;
+    box-shadow: 0 0 0 black;
+  }
+
+  .modal-explorer {
+    .colset-explorer {
+      .head,
+      .foot,
+      .left,
+      .right {
+        color: $spring-color;
+        border-color: $spring-border-color-hover;
+        .placeholder-text {
+          background: rgba(255, 255, 255, 0.05);
+        }
+      }
+    }
+    .close {
+      color: $spring-color-medium;
+    }
+  }
+
+  .modal-explorer .colset-explorer .head .actions {
+    color: $spring-color-medium;
+  }
+
+  .explorer-ul .file.selected,
+  .explorer-ul .folder.selected {
+    color: $spring-color-white;
+    background: $spring-background-light;
+    &:hover {
+      color: $spring-color-white;
+      background: $spring-background-light;
+    }
+  }
+
+  .explorer-ul .file,
+  .explorer-ul .folder {
+    color: $spring-color;
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: $spring-color-white;
+    }
+  }
+
+  pre.prism-code {
+    span.explorer-number {
+      color: rgba($spring-color, 0.5);
+      &:before {
+        background-color: $spring-background-light;
+        color: rgba($spring-color, 0.5);
+      }
+    }
+    &:before {
+      color: rgba($spring-color, 0.5);
+      background-color: $spring-background-light;
+    }
+  }
+
+  .explorer-ul .file.disabled,
+  .explorer-ul .folder.disabled {
+    color: $spring-color;
+    &:hover {
+      color: $spring-color;
+    }
+  }
+
+  .token.cdata,
+  .token.comment,
+  .token.doctype,
+  .token.prolog {
+    color: $spring-color-medium;
+  }
+
+  code[class*='language-'],
+  pre[class*='language-'],
+  .token.operator,
+  .token.punctuation,
+  .token.operator {
+    color: $spring-color;
+  }
+
+  .switch-label {
+    &::after {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .warnings {
+    background: #ffe09c;
+  }
+
+  .radio.err {
+    background: $spring-background-lighter;
+    border-color: #f30808;
+  }
+
+  .switch-label .switch-button,
+  .switch-checkbox:checked + .switch-label .switch-button {
+    background: $spring-color-white;
+  }
+
+  // Outline
+  .modal-explorer .colset-explorer .foot .action,
+  .modal-explorer .colset-explorer .head a,
+  .modal-explorer .close,
+  .header h1.logo a,
+  .radio,
+  .tab a,
+  .more div.wrap a,
+  .button,
+  .groups .group a,
+  .groups .group .group-title span,
+  .dependencies-list .dependency-item,
+  ul.dependencies-list .dependency-item,
+  .explorer-ul .file,
+  .explorer-ul .folder {
+    &:focus {
+      outline-color: $spring-outline-color;
+    }
+  }
+
+  .groups .group a.invalid .warning,
+  .groups .group a.checked.invalid .warning {
+    color: #ff7676;
+  }
+
+  .footer a,
+  .share-area .popup-share .popup-content .link,
+  .modal-explorer .colset-explorer .action,
+  .markdown-source a,
+  .markdown a {
+    color: #70eaa8;
+  }
+
+  .colset-submit .right.nopadding {
+    margin-left: 10px;
+    padding-left: 18px;
+  }
+
+  .spider {
+    width: 40px;
+    position: absolute;
+    top: -30px;
+    left: 298px;
+    .st0 {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-miterlimit: 10;
+    }
+    .st1 {
+      fill: #fff;
+    }
+  }
+  #generate-project {
+    position: relative;
+  }
+  .ghost-wrapper {
+    position: absolute;
+    bottom: 42px;
+    left: 50%;
+    margin-left: -40px;
+    overflow: hidden;
+    height: 0;
+    width: 80px;
+    opacity: 0;
+    @include transition(all $spring-transition-duration);
+    &.in {
+      height: 54px;
+      opacity: 1;
+    }
+  }
+  .ghost {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    .st0 {
+      fill: #fff;
+    }
+    .st1 {
+      fill: #272a2d;
+    }
+  }
+  .dead {
+    .st0 {
+      fill: #fff;
+    }
+  }
+  .bat {
+    position: absolute;
+    width: 20px;
+    fill: #000;
+  }
+
+  .bats-wrapper {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    bottom: -30px;
+    left: -50px;
+  }
+  .bats {
+    position: relative;
+    width: 600px;
+    height: 400px;
+  }
+  .icon-folder {
+    .st0 {
+      fill: #e88b2e;
+    }
+    .st1 {
+      fill: #dd5b28;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  body.halloween {
+    background: $spring-background;
+    .quick-links {
+      border-color: $spring-border-color;
+      background: $spring-background;
+    }
+    .colset-submit .right.nopadding {
+      margin-left: 0;
+      padding-left: 0;
+    }
+    .header {
+      border-top-color: $spring-primary-color;
+    }
+    .spider {
+      left: 60px;
+    }
+  }
+}

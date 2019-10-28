@@ -4,6 +4,7 @@ import get from 'lodash.get'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
+import { Bats } from '../../halloween'
 import { IconTimes } from './../icons'
 import { getShareUrl } from '../../utils/api'
 
@@ -73,6 +74,9 @@ class SharePopup extends React.Component {
             timeout={500}
           >
             <div className='popup-share'>
+              <div className='bats-wrapper'>
+                <Bats />
+              </div>
               <div ref={this.setWrapperRef}>
                 <div className='popup-header'>
                   <h1>Share your configuration</h1>

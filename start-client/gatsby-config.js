@@ -49,10 +49,10 @@ const plugins = [
       name: `initializr`,
       short_name: `start`,
       start_url: `/`,
-      background_color: `#6db33f`,
-      theme_color: `#6db33f`,
+      background_color: `#ee652b`,
+      theme_color: `#ee652b`,
       display: `minimal-ui`,
-      icon: `src/images/initializr-icon.png`,
+      icon: `src/images/initializr-icon-halloween.png`,
     },
   },
 ]
