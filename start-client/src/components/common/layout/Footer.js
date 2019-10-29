@@ -5,8 +5,7 @@ const Footer = () => (
     <div className='footer-container'>
       © 2013-{new Date().getFullYear()} Pivotal Software
       <br />
-      start.spring.io is powered by
-      <br />
+      Powered by{` `}
       <span>
         <a
           tabIndex='-1'
@@ -27,9 +26,18 @@ const Footer = () => (
           rel='noopener noreferrer'
           href='https://run.pivotal.io/'
         >
-          Pivotal Web Services
+          PWS
         </a>
       </span>
+      <br />
+      <a
+        tabIndex='-1'
+        target='_blank'
+        rel='noopener noreferrer'
+        href='https://github.com/spring-io/start.spring.io/tree/master/start-client/src/components/halloween/readme.md'
+      >
+        Halloween Theme Credits
+      </a>
     </div>
   </footer>
 )
