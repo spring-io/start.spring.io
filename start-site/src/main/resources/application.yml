@@ -279,6 +279,37 @@ initializr:
              description: Creating CRUD UI with Vaadin
            - rel: reference
              href: https://vaadin.com/spring
+        - name: Springfox
+          id: springfox
+          groupId: io.springfox
+          artifactId: springfox-swagger2
+          version: 2.9.2
+          starter: false
+          description: Automated JSON API documentation for API's built with Spring and Swagger.
+          weight: 10
+          facets:
+            - web
+            - json
+          links:
+            - rel: guide
+              href: https://springfox.github.io/springfox/
+              description: Springfox Reference Documentation
+            - rel: reference
+              href: https://github.com/springfox/springfox
+        - name: Springfox Swagger UI
+          id: springfox-ui
+          groupId: io.springfox
+          artifactId: springfox-swagger-ui
+          version: 2.9.2
+          starter: false
+          description: UI for springfox.
+          weight: 10
+          facets:
+            - web
+            - json
+          links:
+            - rel: reference
+              href: https://springfox.github.io/springfox/docs/current/#springfox-swagger-ui
     - name: Template Engines
       content:
         - name: Thymeleaf
