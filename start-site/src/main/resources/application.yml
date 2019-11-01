@@ -735,7 +735,7 @@ initializr:
             - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
               version: 2.22.4
             - compatibilityRange: "2.1.0.M1"
-              version: 2.24.0
+              version: 2.24.2
           description: Apache Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
           groupId: org.apache.camel
           artifactId: camel-spring-boot-starter
