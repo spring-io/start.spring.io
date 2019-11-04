@@ -34,7 +34,6 @@
     "gatsby-source-filesystem": "^2.0.28",
     "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-sharp": "^2.2.13",
-    "gsap": "^2.1.3",
     "js-search": "^1.4.2",
     "jszip": "^3.2.1",
     "lodash.get": "^4.4.2",

@@ -14,7 +14,6 @@ import { BootError, ErrorPage, Warnings } from '../components/common/error'
 import { CheckboxList } from '../components/common/checkbox-list'
 import { ExploreModal } from '../components/common/explore'
 import { Footer, Layout } from '../components/common/layout'
-import { Ghost } from '../components/halloween'
 import {
   IconChevronRight,
   IconList,
@@ -423,7 +422,6 @@ class IndexPage extends React.Component {
           hideProgressBar
         />
         <HashChangeHandler onChange={this.hashChange} />
-
         <form onSubmit={this.onSubmit} autoComplete='off'>
           <input
             style={{ display: 'none' }}
@@ -755,25 +753,10 @@ class IndexPage extends React.Component {
                         className='button primary'
                         type='submit'
                         id='generate-project'
-                        onMouseMove={() => {
-                          this.setState({ generateHover: true })
-                        }}
-                        onMouseOut={() => {
-                          this.setState({ generateHover: false })
-                        }}
                       >
                         Generate{' '}
                         <span className='desktop-only'>
                           - {this.state.symb} + ⏎
-                        </span>
-                        <span
-                          className={
-                            this.state.generateHover
-                              ? 'ghost-wrapper in'
-                              : 'ghost-wrapper'
-                          }
-                        >
-                          <Ghost />
                         </span>
                       </button>
                       <button
