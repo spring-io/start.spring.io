@@ -997,18 +997,30 @@ initializr:
               description: Using Spring Cloud Gateway
         - name: Ribbon
           id: cloud-ribbon
-          description: Client side load balancing with Spring Cloud Netflix and Ribbon.
+          description: Client-side load-balancing with Spring Cloud Netflix and Ribbon.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-ribbon
           links:
             - rel: guide
               href: https://spring.io/guides/gs/client-side-load-balancing/
-              description: Client Side Load Balancing with Ribbon and Spring Cloud
+              description: Client-side load-balancing with Ribbon and Spring Cloud
         - name: OpenFeign
           id: cloud-feign
           description: Declarative REST Client. OpenFeign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-openfeign
+        - name: Cloud LoadBalancer
+          id: cloud-loadbalancer
+          compatibilityRange: "2.2.0.M4"
+          description: Client-side load-balancing with Spring Cloud LoadBalancer.
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-loadbalancer
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/spring-cloud-loadbalancer/
+              description: Client-side load-balancing with Spring Cloud LoadBalancer
+            - rel: reference
+              href: https://cloud.spring.io/spring-cloud-static/spring-cloud-commons/2.2.0.RC1/reference/html/#spring-cloud-loadbalancer
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
       content:
