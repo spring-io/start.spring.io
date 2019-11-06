@@ -184,7 +184,6 @@ initializr:
         - name: Spring Web
           id: web
           description: Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container.
-          weight: 100
           facets:
             - web
             - json
@@ -203,13 +202,11 @@ initializr:
         - name: Spring Reactive Web
           id: webflux
           description: Build reactive web applications with Spring WebFlux and Netty.
-          weight: 90
           facets:
             - json
             - reactive
         - name: Rest Repositories
           id: data-rest
-          weight: 10
           facets:
             - json
           description: Exposing Spring Data repositories over REST via Spring Data REST.
@@ -284,9 +281,6 @@ initializr:
         - name: Thymeleaf
           id: thymeleaf
           description: A modern server-side Java template engine for both web and standalone environments. Allows HTML to be correctly displayed in browsers and as static prototypes.
-          weight: 90
-          keywords:
-            - template
           links:
             - rel: guide
               href: https://spring.io/guides/gs/handling-form-submission/
@@ -296,16 +290,12 @@ initializr:
         - name: Apache Freemarker
           id: freemarker
           description: Java library to generate text output (HTML web pages, e-mails, configuration files, source code, etc.) based on templates and changing data.
-          keywords:
-            - template
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
         - name: Mustache
           id: mustache
           description: Logic-less Templates. There are no if statements, else clauses, or for loops. Instead there are only tags.
-          keywords:
-            - template
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
@@ -322,7 +312,6 @@ initializr:
         - name: Spring Security
           id: security
           description: Highly customizable authentication and access-control framework for Spring applications.
-          weight: 100
           links:
             - rel: guide
               href: https://spring.io/guides/gs/securing-web/
@@ -394,7 +383,6 @@ initializr:
         - name: Spring Data JPA
           id: data-jpa
           description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
-          weight: 100
           facets:
             - jpa
           aliases:
@@ -562,7 +550,6 @@ initializr:
         - name: Spring Data MongoDB
           id: data-mongodb
           description: Store data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time.
-          weight: 50
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-mongodb/
@@ -574,14 +561,12 @@ initializr:
           description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB.
           facets:
             - reactive
-          weight: 50
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
         - name: Spring Data Elasticsearch (Access+Driver)
           id: data-elasticsearch
           description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
-          weight: 10
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-elasticsearch
@@ -649,7 +634,6 @@ initializr:
         - name: Spring Integration
           id: integration
           description: Adds support for Enterprise Integration Patterns. Enables lightweight messaging and supports integration with external systems via declarative adapters.
-          weight: 100
           links:
             - rel: guide
               href: https://spring.io/guides/gs/integration/
@@ -659,9 +643,6 @@ initializr:
         - name: Spring for RabbitMQ
           id: amqp
           description: Gives your applications a common platform to send and receive messages, and your messages a safe place to live until received.
-          weight: 100
-          keywords:
-            - messaging
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-rabbitmq/
@@ -670,19 +651,15 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-amqp
         - name: Spring for Apache Kafka
           id: kafka
-          weight: 100
           description: Publish, subscribe, store, and process streams of records.
           groupId: org.springframework.kafka
           artifactId: spring-kafka
           starter: false
-          keywords:
-            - messaging
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-kafka
         - name: Spring for Apache Kafka Streams
           id: kafka-streams
-          weight: 90
           description: Building stream processing applications with Apache Kafka Streams.
           groupId: org.apache.kafka
           artifactId: kafka-streams
@@ -768,7 +745,6 @@ initializr:
         - name: Spring Batch
           id: batch
           description: Batch applications with transactions, retry/skip and chunk based processing.
-          weight: 100
           links:
             - rel: guide
               href: https://spring.io/guides/gs/batch-processing/
@@ -940,7 +916,6 @@ initializr:
           description: Client that connects to a Spring Cloud Config Server to fetch the application's configuration.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-config
-          weight: 100
         - name: Config Server
           id: cloud-config-server
           description: Central management for configuration via Git, SVN, or HashiCorp Vault.
@@ -975,7 +950,6 @@ initializr:
           description: a REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-client
-          weight: 100
         - name: Eureka Server
           id: cloud-eureka-server
           description: spring-cloud-netflix Eureka Server.
@@ -1062,7 +1036,6 @@ initializr:
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine-stream
-          weight: -1
     - name: Spring Cloud Tracing
       bom: spring-cloud
       content:
@@ -1087,14 +1060,12 @@ initializr:
         - name: Cloud Stream
           id: cloud-stream
           description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka or RabbitMQ).
-          weight: 90
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
         - name: Reactive Cloud Stream
           id: reactive-cloud-stream
           compatibilityRange: "[2.0.0.RELEASE,2.2.0.M1)"
           description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
-          weight: 90
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream-reactive
     - name: Pivotal Cloud Foundry
