@@ -28,6 +28,8 @@ import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 
+import org.springframework.util.ObjectUtils;
+
 /**
  * Determine the appropriate Spring Cloud function dependency according to the messaging
  * and/or platform dependencies requested.
@@ -87,6 +89,9 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 				build.boms().add(cloudFunction.getBom());
 				if (bom.getVersionProperty() != null) {
 					build.properties().version(bom.getVersionProperty(), bom.getVersion());
+				}
+				if (!ObjectUtils.isEmpty(bom.getRepositories())) {
+					bom.getRepositories().forEach((repository) -> build.repositories().add(repository));
 				}
 			}
 		}
