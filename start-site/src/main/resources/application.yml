@@ -704,9 +704,9 @@ initializr:
         - name: RSocket
           id: rsocket
           description: RSocket.io applications with Spring Messaging and Netty.
+          compatibilityRange: 2.2.0.M2
           facets:
             - reactive
-          compatibilityRange: 2.2.0.M2
         - name: Apache Camel
           id: camel
           compatibilityRange: "[2.0.0.M1,2.2.0.M1)"
