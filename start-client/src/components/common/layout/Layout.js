@@ -1,5 +1,3 @@
-import '../../../styles/app.scss'
-
 import PropTypes from 'prop-types'
 import React from 'react'
 

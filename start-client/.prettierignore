@@ -1,9 +1,9 @@
 .env
 .cache/
-node_modules/
 yarn-error.log
 
-public/
-content/
-target/
+analysis/
 node/
+node_modules/
+public/
+target/
