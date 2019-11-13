@@ -3,46 +3,44 @@ import React from 'react'
 
 import Radio from './Radio'
 
-class RadioGroup extends React.Component {
-  onChange = value => {
-    if (this.props.onChange) {
-      this.props.onChange(value)
+function RadioGroup({ onChange, options, error, selected, disabled }) {
+  const onChangeHandler = value => {
+    if (onChange) {
+      onChange(value)
     }
   }
-
-  render() {
-    const { options, error } = this.props
-    const allOptions = options.map((option, i) => {
-      return (
-        <Radio
-          key={i}
-          checked={!error && this.props.selected === option.key}
-          text={option.text}
-          value={option.key}
-          disabled={this.props.disabled}
-          handler={this.onChange}
-        />
-      )
-    })
-    if (error) {
-      allOptions.push(
-        <Radio
-          key={allOptions.length + 1}
-          checked={true}
-          text={error}
-          value={error}
-          disabled={this.props.disabled}
-          handler={this.onChange}
-          error={true}
-        />
-      )
-    }
-
-    return <div className='group-radio'>{allOptions}</div>
+  const allOptions = options.map(option => {
+    return (
+      <Radio
+        key={option.key}
+        checked={!error && selected === option.key}
+        text={option.text}
+        value={option.key}
+        disabled={disabled}
+        handler={onChangeHandler}
+      />
+    )
+  })
+  if (error) {
+    allOptions.push(
+      <Radio
+        key={allOptions.length + 1}
+        checked
+        text={error}
+        value={error}
+        disabled={disabled}
+        handler={onChangeHandler}
+        error
+      />
+    )
   }
+  return <div className='group-radio'>{allOptions}</div>
 }
 
 RadioGroup.defaultProps = {
+  selected: '',
+  error: null,
+  onChange: null,
   disabled: false,
   options: {
     error: '',
@@ -50,7 +48,6 @@ RadioGroup.defaultProps = {
 }
 
 RadioGroup.propTypes = {
-  name: PropTypes.string.isRequired,
   selected: PropTypes.string,
   error: PropTypes.string,
   options: PropTypes.arrayOf(

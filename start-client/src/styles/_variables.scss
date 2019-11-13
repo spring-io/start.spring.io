@@ -1,25 +1,41 @@
+// Theme Light
+
+$light-background: #fff;
+$light-background-dark: #f7f7f7;
+$light-background-darker: #e4e4e4;
+$light-background-disabled: #23282b;
+$light-color: #222;
+$light-color-light: #d1d2d3;
+$light-color-medium: #8d8f91;
+$light-color-dark: #494c4e;
+$light-border: #e4e4e4;
+$light-border-dark: darken($light-border, 10);
+$light-outline: rgba(0, 0, 0, 0.2);
+$light-primary: #6db33f;
+$light-link: #0188ff;
+
+// Theme Dark
+
+$dark-background: #1b1f23;
+$dark-background-light: #262a2d;
+$dark-background-lighter: lighten($dark-background-light, 5);
+$dark-background-disabled: #23282b;
+$dark-color: #fff;
+$dark-color-light: #d1d2d3;
+$dark-color-medium: #8d8f91;
+$dark-color-dark: #494c4e;
+$dark-border: #323638;
+$dark-border-dark: lighten($dark-border, 10);
+$dark-outline: #76797a;
+$dark-primary: #6db33f;
+$dark-link: #0188ff;
+
+// Global
+
 $spring-8points: 8px;
-
-$spring-background: #fff;
-
-$spring-color: #222;
-$spring-primary-color: #6db33f;
-$spring-link-color: #6db33f;
-$spring-gray-color: #f7f7f7;
-$spring-dark-color: #e4e4e4;
-
-$spring-border-color: #e4e4e4;
-$spring-border-color-hover: darken($spring-border-color, 5);
-
 $spring-font-size: 15px;
 $spring-font-size-sm: 14px;
-
-$spring-font-family: Karla, sans-serif;
-$spring-font-family-special: 'Source Sans Pro', Arial;
-
+$spring-font-family: Karla, Arial, sans-serif;
 $spring-radius: 4px;
 $spring-transition-duration: 0.15s;
-
 $spring-sidebar-width: 316px;
-
-$spring-outline-color: rgba(0, 0, 0, 0.2);
