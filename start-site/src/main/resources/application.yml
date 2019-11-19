@@ -86,7 +86,7 @@ initializr:
             version: Greenwich.M1
             repositories: spring-milestones
           - compatibilityRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
-            version: Greenwich.SR3
+            version: Greenwich.SR4
           - compatibilityRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
