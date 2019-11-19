@@ -23,22 +23,12 @@ const sortResult = dependencies => {
 const QuickSearch = ({ submit, input }) => {
   const { values, dispatch } = useContext(InitializrContext)
   const { dependencies: dependenciesContext } = useContext(AppContext)
-
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState(0)
   const [dependencies, setDependencies] = useState([])
-
   const [result, setResult] = useState([])
   const [count, setCount] = useState(0)
-
-  const jsSearch = new JsSearch.Search('name')
-  jsSearch.addIndex('name')
-  jsSearch.addIndex('id')
-  jsSearch.addIndex('description')
-  jsSearch.addIndex('group')
-  jsSearch.addDocuments(get(dependenciesContext, 'list'))
-
-  const [search, setSearch] = useState(jsSearch)
+  const [search, setSearch] = useState(null)
 
   const add = id => {
     dispatch({
@@ -52,14 +42,12 @@ const QuickSearch = ({ submit, input }) => {
       return get(dependenciesContext, 'list', []).find(d => d.id === item)
     })
     setDependencies(newDeps)
-
     const jsSearchUp = new JsSearch.Search('name')
     jsSearchUp.addIndex('name')
     jsSearchUp.addIndex('id')
     jsSearchUp.addIndex('description')
     jsSearchUp.addIndex('group')
     jsSearchUp.addDocuments(get(dependenciesContext, 'list'))
-
     setSearch(jsSearchUp)
   }, [values, dependenciesContext, values.dependencies])
 
@@ -105,6 +93,9 @@ const QuickSearch = ({ submit, input }) => {
 
   useEffect(() => {
     const onSearch = () => {
+      if (!search) {
+        return
+      }
       let vals = search
         .search(query)
         .filter(

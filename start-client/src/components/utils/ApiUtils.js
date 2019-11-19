@@ -2,6 +2,7 @@ import get from 'lodash.get'
 import querystring from 'querystring'
 import set from 'lodash.set'
 
+import Extend from '../../Extend.json'
 import { parseReleases, parseVersion } from './Version'
 
 const PROPERTIES_MAPPING_URL = {
@@ -188,6 +189,7 @@ export const getLists = json => {
   const deps = []
   get(json, 'dependencies.values', []).forEach(group => {
     group.values.forEach(item => {
+      const extend = Extend.find(it => it.id === get(item, 'id', ''))
       const val = {
         id: `${get(item, 'id', '')}`,
         name: `${get(item, 'name', '')}`,
@@ -195,6 +197,7 @@ export const getLists = json => {
         description: `${get(item, 'description', '')}`,
         versionRange: `${get(item, 'versionRange', '')}`,
         versionRequirement: `${get(item, 'versionRange', '')}`,
+        weight: get(extend, 'weight', 50),
       }
       deps.push(val)
     })
