@@ -1,4 +1,4 @@
-import Fuse from 'fuse.js'
+import * as JsSearch from 'js-search'
 import PropTypes from 'prop-types'
 import get from 'lodash.get'
 import React, { useContext, useEffect, useState } from 'react'
@@ -7,33 +7,6 @@ import Dependencies from './Dependencies'
 import Result from './Result'
 import { AppContext } from '../../../reducer/App'
 import { InitializrContext } from '../../../reducer/Initializr'
-
-const FuseConfig = {
-  shouldSort: true,
-  threshold: 0,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: [
-    {
-      name: 'name',
-      weight: 1,
-    },
-    {
-      name: 'id',
-      weight: 1,
-    },
-    {
-      name: 'description',
-      weight: 0.5,
-    },
-    {
-      name: 'group',
-      weight: 0.3,
-    },
-  ],
-}
 
 const sortResult = dependencies => {
   return dependencies.sort((a, b) => {
@@ -55,13 +28,17 @@ const QuickSearch = ({ submit, input }) => {
   const [selected, setSelected] = useState(0)
   const [dependencies, setDependencies] = useState([])
 
-  // const [dep, setDeps] = useState(false)
-
   const [result, setResult] = useState([])
   const [count, setCount] = useState(0)
-  const [search, setSearch] = useState(
-    new Fuse(get(dependenciesContext, 'list'), FuseConfig)
-  )
+
+  const jsSearch = new JsSearch.Search('name')
+  jsSearch.addIndex('name')
+  jsSearch.addIndex('id')
+  jsSearch.addIndex('description')
+  jsSearch.addIndex('group')
+  jsSearch.addDocuments(get(dependenciesContext, 'list'))
+
+  const [search, setSearch] = useState(jsSearch)
 
   const add = id => {
     dispatch({
@@ -75,7 +52,15 @@ const QuickSearch = ({ submit, input }) => {
       return get(dependenciesContext, 'list', []).find(d => d.id === item)
     })
     setDependencies(newDeps)
-    setSearch(new Fuse(get(dependenciesContext, 'list'), FuseConfig))
+
+    const jsSearchUp = new JsSearch.Search('name')
+    jsSearchUp.addIndex('name')
+    jsSearchUp.addIndex('id')
+    jsSearchUp.addIndex('description')
+    jsSearchUp.addIndex('group')
+    jsSearchUp.addDocuments(get(dependenciesContext, 'list'))
+
+    setSearch(jsSearchUp)
   }, [values, dependenciesContext, values.dependencies])
 
   const onFocus = () => {

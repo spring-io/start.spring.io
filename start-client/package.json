@@ -82,8 +82,8 @@
   "dependencies": {
     "@babel/runtime": "^7.6.3",
     "file-saver": "^2.0.2",
-    "fuse.js": "^3.4.5",
     "immutable": "^4.0.0-rc.12",
+    "js-search": "^1.4.3",
     "jszip": "^3.2.2",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
