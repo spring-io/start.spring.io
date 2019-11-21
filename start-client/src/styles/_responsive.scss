@@ -38,7 +38,7 @@
 
   .header {
     padding: 0;
-    border-top: 4px solid $light-primary;
+    border-top: 4px solid $spring-primary-color;
     width: auto;
     h1.logo {
       a {
@@ -55,7 +55,7 @@
     right: 0;
     border-top: 1px solid #e4e4e4;
     border-bottom: 1px solid #e4e4e4;
-    background: $light-background-dark;
+    background: $spring-gray-color;
     padding: 0.5rem 0;
     width: auto;
   }

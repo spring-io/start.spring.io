@@ -1,5 +1,3 @@
-import get from 'lodash.get'
-
 const FILE_EXTENSION = {
   js: 'javascript',
   md: 'markdown',
@@ -18,17 +16,20 @@ const getLanguage = file => {
     return null
   }
   const extension = file.split(`.`).pop()
-  return get(FILE_EXTENSION, extension, null)
+  if (FILE_EXTENSION.hasOwnProperty(extension)) {
+    return FILE_EXTENSION[extension]
+  }
+  return null
 }
 
-export const createTree = (files, path, fileName, zip) => {
-  return new Promise(resolve => {
+export const createTree = (files, path, fileName, zip, onInitialLoad) => {
+  return new Promise((resolve, reject) => {
     const recursive = (pfiles, ppath, pfileName, pzip, pdepth) => {
       const type = pfiles[ppath].dir ? 'folder' : 'file'
       const item = {
-        type,
+        type: type,
         filename: pfileName,
-        path: `/${ppath}`,
+        path: '/' + ppath,
         hidden: pdepth === 1 && type === 'folder' ? true : null,
       }
       if (type === 'folder') {
@@ -47,7 +48,7 @@ export const createTree = (files, path, fileName, zip) => {
             )
           }
         })
-        item.children = children.sort((a, b) => (a.path > b.path ? 1 : -1))
+        item.children = children
         item.filename = pfileName.substring(0, pfileName.length - 1)
       } else {
         item.language = getLanguage(item.filename)
@@ -68,17 +69,17 @@ export const createTree = (files, path, fileName, zip) => {
     if (selected) {
       files[selected.path.substring(1)].async('string').then(content => {
         selected.content = content
-        resolve({ tree, selected })
+        resolve({ tree: tree, selected: selected })
       })
     } else {
-      resolve({ tree, selected: null })
+      resolve({ tree: tree, selected: null })
     }
   })
 }
 
 export const findRoot = zip => {
-  const root = Object.keys(zip.files).filter(filename => {
-    const pathArray = filename.split('/')
+  let root = Object.keys(zip.files).filter(filename => {
+    let pathArray = filename.split('/')
     if (zip.files[filename].dir && pathArray.length === 2) {
       return true
     }

@@ -1,181 +1,177 @@
+$spring-background: #1b1f23;
+$spring-background-light: #262a2d;
+$spring-background-lighter: lighten($spring-background-light, 5);
+$spring-background-disabled: #23282b;
+
+$spring-outline-color: #76797a;
+$spring-color: #d1d2d3;
+$spring-color-medium: #8d8f91;
+$spring-color-light: #494c4e;
+$spring-color-white: #fff;
+
+$spring-border-color: #323638;
+$spring-border-color-hover: lighten($spring-border-color, 10);
+
 body.dark {
-  background-color: $dark-background;
-
-  background: linear-gradient(
-    to right,
-    $dark-primary 4px,
-    $dark-background-light 4px $spring-sidebar-width,
-    $dark-background $spring-sidebar-width
-  );
-
-  color: $dark-color-light;
+  background-color: $spring-background;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAngAAAACCAIAAABE0zbjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkFCNzgzRTJDQzQ3MTFFOTk2RDhBNTg1MTFFNTBCNzIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkFCNzgzRTNDQzQ3MTFFOTk2RDhBNTg1MTFFNTBCNzIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDMTU0OUZGRkNDNDExMUU5OTZEOEE1ODUxMUU1MEI3MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDMTU0QTAwMENDNDExMUU5OTZEOEE1ODUxMUU1MEI3MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmEzECMAAAAwSURBVHja7NAxDQAgDACwwT0TeMIJ4vCBohngI3ythLa5R9yclQEAvOkKAOCfEmAA64MCgZf4b0IAAAAASUVORK5CYII=');
+  color: $spring-color;
 
   .header h1.logo a {
-    color: $dark-color;
-    span.title {
-      strong {
-        color: $dark-primary;
-      }
-    }
-    svg {
-      color: $dark-primary;
-    }
+    color: white;
   }
 
   .radio {
-    color: $dark-color-medium;
-    border-color: $dark-border;
+    color: $spring-color-medium;
+    border-color: $spring-border-color;
     &:hover {
-      color: $dark-color-light;
-      border-color: $dark-border-dark;
+      color: $spring-color;
+      border-color: $spring-border-color-hover;
     }
     &.checked {
-      color: $dark-color;
-      border-bottom-color: $dark-primary;
+      color: $spring-color-white;
+      border-bottom-color: $spring-primary-color;
     }
 
     &:hover {
-      border-bottom-color: $dark-primary;
+      border-bottom-color: $spring-primary-color;
     }
   }
 
   .colset-submit .right.nopadding {
-    background: $dark-background;
+    background: $spring-background;
   }
 
   .submit {
-    background: $dark-background;
-    border-color: $dark-border-dark;
+    background: $spring-background;
+    border-color: $spring-border-color-hover;
   }
 
   .tab {
-    background: $dark-background;
+    background: $spring-background;
     .tab-container {
-      border-color: $dark-border;
+      border-color: $spring-border-color;
     }
     a {
-      color: $dark-color-medium;
-      border-color: $dark-border;
+      color: $spring-color-medium;
+      border-color: $spring-border-color;
       &:hover {
-        color: $dark-color-light;
-        border-bottom-color: $dark-border-dark;
+        color: $spring-color;
+        border-bottom-color: $spring-border-color-hover;
       }
       &.active {
-        color: $dark-color;
-        border-bottom-color: $dark-primary;
+        color: $spring-color-white;
+        border-bottom-color: $spring-primary-color;
         &:hover {
-          border-bottom-color: $dark-primary;
+          border-bottom-color: $spring-primary-color;
         }
       }
     }
   }
 
   .control-input {
-    background: $dark-background;
-    color: $dark-color;
-    border-color: $dark-border;
+    background: $spring-background;
+    color: $spring-color-white;
+    border-color: $spring-border-color;
     &:hover {
-      border-color: $dark-border-dark;
+      border-color: $spring-border-color-hover;
     }
     &:focus {
-      border-bottom-color: $dark-primary;
+      border-bottom-color: $spring-primary-color;
       &:hover {
-        border-bottom-color: $dark-primary;
+        border-bottom-color: $spring-primary-color;
       }
     }
   }
 
   .panel .panel-wrap {
-    border-color: $dark-border;
+    border-color: $spring-border-color;
   }
 
   .more div.wrap {
-    border-color: $dark-border;
+    border-color: $spring-border-color;
     a {
-      color: $dark-color-light;
+      color: $spring-color;
       &:hover {
-        color: $dark-color-light;
+        color: $spring-color;
         svg {
-          color: $dark-primary;
+          color: $spring-primary-color;
         }
       }
       svg {
-        color: $dark-color-light;
+        color: $spring-color;
       }
     }
   }
 
   .button {
-    background: $dark-background-light;
-    border-color: $dark-background-light;
-    color: $dark-color;
+    background: $spring-background-light;
+    border-color: $spring-background-light;
+    color: $spring-color-white;
     &:hover {
-      background: $dark-background-lighter;
-      border-color: $dark-background-lighter;
+      background: $spring-background-lighter;
+      border-color: $spring-background-lighter;
     }
     &.primary {
-      border-color: $dark-primary;
-      background-color: $dark-primary;
+      border-color: $spring-primary-color;
+      background-color: $spring-primary-color;
       &:hover {
-        border-color: darken($dark-primary, 5);
-        background-color: darken($dark-primary, 5);
+        border-color: darken($spring-primary-color, 5);
+        background-color: darken($spring-primary-color, 5);
       }
     }
   }
 
   .footer {
-    background: $dark-background-light;
-    color: $dark-color-medium;
+    background: $spring-background-light;
+    color: $spring-color-medium;
   }
 
   label {
-    color: $dark-color-dark;
+    color: $spring-color-light;
   }
 
   .search-no-selected {
-    color: $dark-color-light;
+    color: $spring-color;
   }
 
   .groups .group a {
-    background: $dark-background-light;
-    color: $dark-color-light;
+    background: $spring-background-light;
+    color: $spring-color;
     strong {
-      color: $dark-color;
+      color: $spring-color-white;
     }
     .icon {
-      border: 2px solid $dark-border-dark;
-      color: $dark-color-light;
+      border: 2px solid $spring-border-color-hover;
+      color: $spring-color;
     }
     &:hover {
-      background: $dark-background-lighter;
+      background: $spring-background-lighter;
       .icon {
-        color: $dark-color-light;
+        color: $spring-color;
       }
     }
   }
 
   .groups .group .group-title {
-    border-color: $dark-border;
-    a {
-      background: $dark-background;
-    }
+    border-color: $spring-border-color;
   }
 
   .quick-links li a {
-    color: $dark-color-light;
+    color: $spring-color;
     &:hover {
-      color: $dark-primary;
+      color: $spring-primary-color;
     }
   }
 
   .groups .group a.invalid,
   .groups .group a.checked.invalid {
-    background: $dark-background-disabled;
+    background: $spring-background-disabled;
     strong {
-      color: $dark-color-medium;
+      color: $spring-color-medium;
     }
     &:hover {
-      background: $dark-background-disabled;
+      background: $spring-background-disabled;
     }
   }
 
@@ -190,9 +186,9 @@ body.dark {
 
   .groups .group a.checked .icon,
   .groups .group a .selected .icon {
-    border-color: $dark-border-dark;
+    border-color: $spring-border-color-hover;
     &:hover {
-      border-color: $dark-border-dark;
+      border-color: $spring-border-color-hover;
     }
   }
 
@@ -200,65 +196,69 @@ body.dark {
   .groups .group a .selected {
     &:hover {
       .icon {
-        border-color: lighten($dark-border, 20);
+        border-color: lighten($spring-border-color, 20);
       }
     }
   }
 
   .tab strong {
-    color: $dark-color-medium;
+    color: $spring-color-medium;
     span {
-      color: $dark-color;
+      color: $spring-color-white;
     }
-    background: $dark-background-lighter;
+    background: $spring-background-lighter;
   }
 
   .dependencies-list .dependency-item.checked,
   .dependencies-list .dependency-item .selected,
   ul.dependencies-list .dependency-item.checked,
   ul.dependencies-list .dependency-item .selected {
-    background: $dark-background-light;
-    color: $dark-color-light;
+    background: $spring-background-light;
+    color: $spring-color;
     strong {
-      color: $dark-color;
+      color: $spring-color-white;
     }
 
     .icon {
-      border-color: $dark-border-dark;
-      color: $dark-color-light;
+      border-color: $spring-border-color-hover;
+      color: $spring-color;
     }
     &:hover {
-      background: $dark-background-lighter;
+      background: $spring-background-lighter;
       .icon {
-        color: $dark-color-light;
+        color: $spring-color;
       }
     }
   }
 
+  .groups .group a .icon-check {
+    color: $spring-primary-color;
+  }
+
   .dependencies-list .dependency-item,
   ul.dependencies-list .dependency-item {
-    background: $dark-background-light;
-    color: $dark-color-light;
+    background: $spring-background-light;
+    color: $spring-color;
     strong {
-      color: $dark-color;
+      color: $spring-color-white;
     }
 
     .icon {
-      border: 2px solid $dark-border-dark;
-      color: $dark-primary;
+      border: 2px solid $spring-border-color-hover;
+      color: $spring-primary-color;
     }
     &:hover {
-      background: $dark-background-lighter;
+      background: $spring-background-lighter;
       .icon {
-        color: $dark-color-light;
+        color: $spring-color;
       }
     }
 
     &.invalid,
     &.checked.invalid {
-      background: $dark-background-disabled;
+      background: $spring-background-disabled;
       &:hover {
-        background: $dark-background-disabled;
+        background: $spring-background-disabled;
       }
       .warning {
         color: #ff7676;
@@ -268,61 +268,63 @@ body.dark {
 
   .search-more-warning,
   .search-no-result {
-    color: $dark-color-medium;
+    color: $spring-color-medium;
   }
 
   .dependencies-list .dependency-item.selected,
   ul.dependencies-list .dependency-item.selected {
-    background: $dark-background-lighter;
+    background: $spring-background-lighter;
     .icon {
-      color: $dark-color-light;
+      color: $spring-color;
     }
   }
 
   .dependencies-list-checked .dependency-item.checked,
   ul.dependencies-list-checked .dependency-item.checked {
     .icon {
-      color: $dark-primary;
+      color: $spring-primary-color;
     }
   }
 
   .quick-links ul.dropdown-menu {
-    background: $dark-background-lighter;
+    background: $spring-background-lighter;
     li {
       a {
-        color: $dark-color;
+        color: $spring-color-white;
         &:hover {
-          background: $dark-background-light;
+          background: $spring-background-light;
         }
       }
     }
   }
 
-  .popup-share {
-    background: $dark-background-lighter;
-    .popup-header {
-      border-color: $dark-border-dark;
-      .close {
-        color: $dark-color-medium;
+  .share-area {
+    .popup-share {
+      background: $spring-background-lighter;
+      .popup-header {
+        border-color: $spring-border-color-hover;
+        .close {
+          color: $spring-color-medium;
+        }
+      }
+      .popup-content {
+        label {
+          color: $spring-color;
+        }
+      }
+      .control-input {
+        background: $spring-background-lighter;
+        border-color: $spring-border-color-hover;
+        &:focus {
+          border-color: $spring-primary-color;
+        }
       }
     }
-    .popup-content {
-      label {
-        color: $dark-color-light;
-      }
+    .popup-share-overlay {
+      background: rgba($spring-background, 0.95);
     }
-    .control-input {
-      background: $dark-background-lighter;
-      border-color: $dark-border-dark;
-      &:focus {
-        border-color: $dark-primary;
-      }
+    .popup-content .link {
     }
-  }
-  .popup-share-overlay {
-    background: rgba($dark-background, 0.95);
-  }
-  .popup-content .link {
   }
 
   .placeholder-radios .placeholder-radio {
@@ -354,11 +356,11 @@ body.dark {
   }
 
   .overlay {
-    background: rgba($dark-background, 0.95);
+    background: rgba($spring-background, 0.95);
   }
 
   .modal-explorer {
-    background: $dark-background-lighter;
+    background: $spring-background-lighter;
     box-shadow: 0 0 0 black;
   }
 
@@ -368,60 +370,60 @@ body.dark {
       .foot,
       .left,
       .right {
-        color: $dark-color-light;
-        border-color: $dark-border-dark;
+        color: $spring-color;
+        border-color: $spring-border-color-hover;
         .placeholder-text {
           background: rgba(255, 255, 255, 0.05);
         }
       }
     }
     .close {
-      color: $dark-color-medium;
+      color: $spring-color-medium;
     }
   }
 
   .modal-explorer .colset-explorer .head .actions {
-    color: $dark-color-medium;
+    color: $spring-color-medium;
   }
 
   .explorer-ul .file.selected,
   .explorer-ul .folder.selected {
-    color: $dark-color;
-    background: $dark-background-light;
+    color: $spring-color-white;
+    background: $spring-background-light;
     &:hover {
-      color: $dark-color;
-      background: $dark-background-light;
+      color: $spring-color-white;
+      background: $spring-background-light;
     }
   }
 
   .explorer-ul .file,
   .explorer-ul .folder {
-    color: $dark-color-light;
+    color: $spring-color;
     &:hover {
       background: rgba(255, 255, 255, 0.05);
-      color: $dark-color;
+      color: $spring-color-white;
     }
   }
 
   pre.prism-code {
     span.explorer-number {
-      color: rgba($dark-color, 0.5);
+      color: rgba($spring-color, 0.5);
       &:before {
-        background-color: $dark-background-light;
-        color: rgba($dark-color, 0.5);
+        background-color: $spring-background-light;
+        color: rgba($spring-color, 0.5);
       }
     }
     &:before {
-      color: rgba($dark-color, 0.5);
-      background-color: $dark-background-light;
+      color: rgba($spring-color, 0.5);
+      background-color: $spring-background-light;
     }
   }
 
   .explorer-ul .file.disabled,
   .explorer-ul .folder.disabled {
-    color: $dark-color-light;
+    color: $spring-color;
     &:hover {
-      color: $dark-color-light;
+      color: $spring-color;
     }
   }
 
@@ -429,7 +431,7 @@ body.dark {
   .token.comment,
   .token.doctype,
   .token.prolog {
-    color: $dark-color-medium;
+    color: $spring-color-medium;
   }
 
   code[class*='language-'],
@@ -437,7 +439,7 @@ body.dark {
   .token.operator,
   .token.punctuation,
   .token.operator {
-    color: $dark-color-light;
+    color: $spring-color;
   }
 
   .switch-label {
@@ -451,13 +453,13 @@ body.dark {
   }
 
   .radio.err {
-    background: $dark-background-lighter;
+    background: $spring-background-lighter;
     border-color: #f30808;
   }
 
   .switch-label .switch-button,
   .switch-checkbox:checked + .switch-label .switch-button {
-    background: $dark-color;
+    background: $spring-color-white;
   }
 
   // Outline
@@ -476,7 +478,7 @@ body.dark {
   .explorer-ul .file,
   .explorer-ul .folder {
     &:focus {
-      outline-color: $dark-outline;
+      outline-color: $spring-outline-color;
     }
   }
 
@@ -484,21 +486,14 @@ body.dark {
   .groups .group a.checked.invalid .warning {
     color: #ff7676;
   }
-  .footer a,
-  .popup-share .popup-content .link,
-  .modal-explorer .colset-explorer .action,
-  .markdown a,
-  .markdown-source a {
-    color: $dark-link;
-  }
 }
 
 @media (max-width: 900px) {
   body.dark {
-    background: $dark-background;
+    background: $spring-background;
     .quick-links {
-      border-color: $dark-border;
-      background: $dark-background;
+      border-color: $spring-border-color;
+      background: $spring-background;
     }
   }
 }
