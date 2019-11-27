@@ -44,6 +44,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final VersionRange SPRING_BOOT_2_2_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.0.M1");
 
+	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.BUILD-SNAPSHOT");
+
 	private static final List<String> UNSUPPORTED_LANGUAGES = Arrays.asList("groovy", "kotlin");
 
 	@Override
@@ -69,9 +71,13 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		if ((javaGeneration == 11 || javaGeneration == 12) && !SPRING_BOOT_2_1_OR_LATER.match(platformVersion)) {
 			updateTo(description, "1.8");
 		}
-		// 13 support only as of 2.2.x - does not work with Gradle
-		if (javaGeneration == 13 && (!SPRING_BOOT_2_2_OR_LATER.match(platformVersion)
-				|| description.getBuildSystem() instanceof GradleBuildSystem)) {
+		// 13 support only as of 2.2.x
+		if (javaGeneration == 13 && !SPRING_BOOT_2_2_OR_LATER.match(platformVersion)) {
+			updateTo(description, "11");
+		}
+		// 13 support only as of Gradle 6
+		if (javaGeneration == 13 && description.getBuildSystem() instanceof GradleBuildSystem
+				&& !GRADLE_6.match(platformVersion)) {
 			updateTo(description, "11");
 		}
 	}

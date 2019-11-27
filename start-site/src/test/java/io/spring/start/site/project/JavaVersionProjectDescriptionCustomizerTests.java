@@ -202,11 +202,19 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test // Gradle 5.x does not work with Java 13
-	void java13CannotBeUsedWithSpringBoot23Gradle() {
+	void java13CannotBeUsedWithSpringBoot220Gradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
 		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("13");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("11");
+	}
+
+	@Test // Gradle 6.x works with Java 13
+	void java13CanBeUsedWithSpringBoot223Gradle() {
+		ProjectRequest request = createProjectRequest("data-jpa");
+		request.setBootVersion("2.2.2.BUILD-SNAPSHOT");
+		request.setJavaVersion("13");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("13");
 	}
 
 }
