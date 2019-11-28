@@ -1021,7 +1021,7 @@ initializr:
               href: https://spring.io/guides/gs/spring-cloud-loadbalancer/
               description: Client-side load-balancing with Spring Cloud LoadBalancer
             - rel: reference
-              href: https://cloud.spring.io/spring-cloud-static/spring-cloud-commons/2.2.0.RC1/reference/html/#spring-cloud-loadbalancer
+              href: https://cloud.spring.io/spring-cloud-static/spring-cloud-commons/current/reference/html/#spring-cloud-loadbalancer
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
       content:
