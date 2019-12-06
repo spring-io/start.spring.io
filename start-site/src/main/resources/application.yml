@@ -110,7 +110,7 @@ initializr:
         artifactId: spring-boot-bom-r2dbc
         mappings:
           - compatibilityRange: "[2.2.0.M6,2.2.x.BUILD-SNAPSHOT)"
-            version: 0.1.0.M2
+            version: 0.1.0.M3
             repositories: spring-milestones
           - compatibilityRange: "2.2.x.BUILD-SNAPSHOT"
             version: 0.1.0.BUILD-SNAPSHOT
