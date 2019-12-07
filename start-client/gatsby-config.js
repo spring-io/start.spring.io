@@ -28,17 +28,6 @@ const plugins = [
       path: `${__dirname}/src/images/`,
     },
   },
-  {
-    resolve: `gatsby-plugin-prefetch-google-fonts`,
-    options: {
-      fonts: [
-        {
-          family: `Karla`,
-          variants: [`400`, `700`],
-        },
-      ],
-    },
-  },
   `gatsby-transformer-json`,
   `gatsby-plugin-sass`,
   `gatsby-transformer-sharp`,
