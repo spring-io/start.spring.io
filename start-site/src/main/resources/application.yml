@@ -708,14 +708,18 @@ initializr:
             - reactive
         - name: Apache Camel
           id: camel
-          compatibilityRange: "[2.0.0.M1,2.2.0.M1)"
+          compatibilityRange: "2.0.0.M1"
           mappings:
             - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
               version: 2.22.4
-            - compatibilityRange: "2.1.0.M1"
+              groupId: org.apache.camel
+            - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
               version: 2.24.2
+              groupId: org.apache.camel
+            - compatibilityRange: "2.2.0.M1"
+              version: 3.0.0
           description: Apache Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
-          groupId: org.apache.camel
+          groupId: org.apache.camel.springboot
           artifactId: camel-spring-boot-starter
           links:
             - rel: guide
