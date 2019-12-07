@@ -26,7 +26,6 @@
     "gatsby": "^2.3.2",
     "gatsby-plugin-google-tagmanager": "^2.0.15",
     "gatsby-plugin-manifest": "^2.0.24",
-    "gatsby-plugin-prefetch-google-fonts": "^1.4.1",
     "gatsby-plugin-react-helmet": "^3.0.11",
     "gatsby-plugin-sass": "^2.0.11",
     "gatsby-plugin-sharp": "^2.2.19",
@@ -56,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@types/react": "^16.0.0",
     "@typescript-eslint/eslint-plugin": "^1.0.0",
     "@typescript-eslint/parser": "^1.0.0",
     "babel-eslint": "^10.0.3",
