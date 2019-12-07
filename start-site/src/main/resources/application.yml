@@ -708,29 +708,22 @@ initializr:
             - reactive
         - name: Apache Camel
           id: camel
-          compatibilityRange: "[2.0.0.M1,2.2.0.M1)"
+          artifactId: camel-spring-boot-starter
           mappings:
             - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
               version: 2.22.4
+              groupId: org.apache.camel
             - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
               version: 2.24.2
-          description: Apache Camel is the Swiss knife of integration.
-          groupId: org.apache.camel
-          artifactId: camel-spring-boot-starter
+              groupId: org.apache.camel
+            - compatibilityRange: "2.2.0.M1"
+              version: 3.0.0
+              groupId: org.apache.camel.sprinboot
+          description: Apache Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
           links:
             - rel: reference
               href: https://camel.apache.org/spring-boot
         - name: Apache Camel
-          id: camel3
-          mappings:
-            - compatibilityRange: "2.2.0.M1"
-              version: 3.0.0
-          description: Apache Camel is the Swiss knife of integration
-          groupId: org.apache.camel.springboot
-          artifactId: camel-spring-boot-starter
-          links:
-            - rel: reference
-              href: https://camel.apache.org/spring-boot
         - name: Solace PubSub+
           id: solace
           compatibilityRange: 2.1.0.RELEASE
