@@ -718,7 +718,7 @@ initializr:
               groupId: org.apache.camel
             - compatibilityRange: "2.2.0.M1"
               version: 3.0.0
-              groupId: org.apache.camel.sprinboot
+              groupId: org.apache.camel.springboot
           description: Apache Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
           links:
             - rel: reference
