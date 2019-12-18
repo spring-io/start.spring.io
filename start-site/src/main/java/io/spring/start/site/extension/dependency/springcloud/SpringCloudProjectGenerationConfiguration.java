@@ -107,4 +107,10 @@ public class SpringCloudProjectGenerationConfiguration {
 				versionResolver);
 	}
 
+	@Bean
+	@ConditionalOnPlatformVersion("2.2.0.RELEASE")
+	public SpringCloudCircuitBreakerBuildCustomizer springCloudCircuitBreakerBuildCustomizer() {
+		return new SpringCloudCircuitBreakerBuildCustomizer(this.metadata, this.description);
+	}
+
 }

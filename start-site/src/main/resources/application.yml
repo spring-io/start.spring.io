@@ -1031,6 +1031,15 @@ initializr:
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
       content:
+        - name: Resilience4J
+          id: cloud-resilience4j
+          compatibilityRange: "2.2.0.RELEASE"
+          description: Spring Cloud Circuit breaker with Resilience4j as the underlying implementation.
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-circuitbreaker-resilience4j
+          links:
+            - rel: reference
+              href: https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/current/reference/html
         - name: Hystrix
           id: cloud-hystrix
           description: Circuit breaker with Spring Cloud Netflix Hystrix.
