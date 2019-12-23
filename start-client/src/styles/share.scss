@@ -1,0 +1,141 @@
+@import 'variables';
+@import 'mixins';
+
+$w_arrow: 12px;
+$w: 500px;
+
+.popup-share {
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $w;
+  background: white;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  @include transition(all $spring-transition-duration);
+  &:before {
+    $h: 60px;
+    content: ' ';
+    height: $h;
+    width: $w;
+    position: absolute;
+    bottom: -$h;
+    left: 0;
+  }
+  .popup-content {
+    padding: $spring-8points * 3;
+    padding-top: $spring-8points;
+    label {
+      display: block;
+      font-size: $spring-font-size;
+      color: $light-color;
+      line-height: $spring-8points * 3;
+      padding-top: $spring-8points;
+    }
+    .control {
+      position: relative;
+      padding-bottom: $spring-8points;
+    }
+    .control-input {
+      padding-right: 70px;
+      &.padding-lg {
+        padding-right: 88px;
+      }
+    }
+    .button {
+    }
+    .link {
+      position: absolute;
+      top: 0;
+      padding: 0 $spring-8points * 2;
+      height: 38px;
+      line-height: 43px;
+      right: 0;
+      @include link;
+    }
+  }
+  .popup-header {
+    position: relative;
+    padding: 4px $spring-8points * 2 2px;
+    border-bottom: 1px solid #ebebeb;
+    h1 {
+      font-size: $spring-8points * 2;
+      line-height: $spring-8points * 2;
+    }
+    .close {
+      display: block;
+      position: absolute;
+      top: 8px;
+      right: 4px;
+      padding: 4px 8px;
+      height: 22px;
+      cursor: pointer;
+      opacity: 0.7;
+      color: $light-color;
+      svg {
+        width: 14px;
+      }
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+.button.share-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: none;
+  z-index: 99000;
+}
+
+// }
+.popup-share-overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.popup-enter {
+  opacity: 0.01;
+  transform: scale(0.95);
+}
+
+.popup-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 300ms;
+}
+
+.popup-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.popup-exit-active {
+  opacity: 0.01;
+  transform: scale(0.95);
+  transition: all 300ms;
+}
+
+.overlay-enter {
+  opacity: 0.01;
+}
+
+.overlay-enter-active {
+  opacity: 1;
+  transition: all 300ms;
+}
+
+.overlay-exit {
+  opacity: 1;
+}
+
+.overlay-exit-active {
+  opacity: 0.01;
+  transition: all 300ms;
+}

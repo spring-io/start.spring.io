@@ -1,1 +1,1 @@
-export { default as ExploreModal } from './ExploreModal'
+export { default as Explore } from './Explore'

@@ -16,7 +16,7 @@
 
 @mixin outline {
   &:focus {
-    outline: 1px dotted $spring-outline-color;
+    outline: 1px dotted $light-outline;
   }
 }
 
@@ -33,7 +33,7 @@
 }
 
 @mixin link {
-  color: #097dff;
+  color: $light-link;
   text-decoration: underline;
   &:hover {
     text-decoration: none;
@@ -46,8 +46,8 @@
   text-decoration: none;
   padding: $spring-8points * 2;
   padding-right: 60px;
-  color: rgba($spring-color, 0.8);
-  background: $spring-gray-color;
+  color: rgba($light-color, 0.8);
+  background: $light-background-dark;
   cursor: pointer;
   font-size: $spring-font-size-sm;
   display: flex;
@@ -55,7 +55,7 @@
   line-height: 24px;
   @include outline();
   strong {
-    color: $spring-color;
+    color: $light-color;
   }
   input {
     display: none;
@@ -71,14 +71,14 @@
     $s: 24px;
     position: absolute;
     display: block;
-    border: 2px solid $spring-border-color;
+    border: 2px solid $light-border;
     height: $s;
     width: $s;
     margin-top: -$s/2;
     top: 50%;
     right: 16px;
     border-radius: $s/2 + 2;
-    color: $spring-color;
+    color: $light-color;
   }
   .icon-times,
   .icon-check,
@@ -115,7 +115,7 @@
     box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.1);
     .icon {
       border-color: rgba(0, 0, 0, 0.1);
-      color: $spring-primary-color;
+      color: #6db33f;
     }
     .icon-check {
       opacity: 1;
@@ -136,9 +136,9 @@
   &.checked.invalid {
     opacity: 0.6;
     cursor: not-allowed;
-    background: $spring-gray-color;
+    background: $light-background-dark;
     &:hover {
-      background: $spring-gray-color;
+      background: $light-background-dark;
     }
     .warning {
       color: #f30808;

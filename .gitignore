@@ -33,3 +33,4 @@ target
 /start-client/.cache/
 /start-client/package-lock.json
 /start-client/yarn-error.log
+/start-client/analysis

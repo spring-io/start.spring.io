@@ -1,34 +1,31 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Radio extends React.Component {
-  onClick = event => {
+function Radio({ handler, value, disabled, error, checked, text }) {
+  const onClick = event => {
     event.preventDefault()
-    this.props.handler(this.props.value)
+    handler(value)
   }
-
-  render() {
-    if (this.props.disabled || this.props.error) {
-      return (
-        <span
-          className={`radio disabled ${this.props.checked ? 'checked' : ''} ${
-            this.props.error ? 'err' : ''
-          }`}
-        >
-          {this.props.text}
-        </span>
-      )
-    }
+  if (disabled || error) {
     return (
-      <a
-        href='/'
-        className={`radio ${this.props.checked ? 'checked' : ''}`}
-        onClick={this.onClick}
+      <span
+        className={`radio disabled ${checked ? 'checked' : ''} ${
+          error ? 'err' : ''
+        }`}
       >
-        {this.props.text}
-      </a>
+        {text}
+      </span>
     )
   }
+  return (
+    <a
+      href='/'
+      className={`radio ${checked ? 'checked' : ''}`}
+      onClick={onClick}
+    >
+      {text}
+    </a>
+  )
 }
 
 Radio.defaultProps = {
