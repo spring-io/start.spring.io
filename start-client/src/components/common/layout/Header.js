@@ -1,23 +1,26 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Link } from 'gatsby'
 
 import Logo from './Logo'
 
 const Header = ({ children }) => (
   <div className='header'>
     <h1 className='logo'>
-      <Link to='/'>
+      <a href='/'>
         <Logo />
         <span className='title'>
           Spring <strong>Initializr</strong>
         </span>
         <span className='description'>Bootstrap your application</span>
-      </Link>
+      </a>
     </h1>
     {children}
   </div>
 )
+
+Header.defaultProps = {
+  children: null,
+}
 
 Header.propTypes = {
   children: PropTypes.node,

@@ -1,10 +1,11 @@
 html,
 body {
   text-rendering: optimizeLegibility;
+  height: 100%;
 }
 
 body {
-  color: $spring-color;
+  color: $light-color;
   padding: 0;
   margin: 0;
   font-size: $spring-font-size;
@@ -15,14 +16,55 @@ body {
   line-height: 32px;
   background-repeat: repeat-y;
   background-size: 316px 1px;
+  background-color: $light-background;
 }
 
 body.light {
-  background-image: url(data:image/gif;base64,R0lGODlheAICAIAAAH2vUPf39yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowRjJERDYwM0ZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowRjJERDYwNEZBMkIxMUU4QkFDMEIyRkQzQjlGREMwMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjBGMkRENjAxRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjBGMkRENjAyRkEyQjExRThCQUMwQjJGRDNCOUZEQzAyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkEAAAAAAAsAAAAAHgCAgAAAiaEb6HL7Q+jnLTai7PevPsPhuJIluaJpmqJIOsLx/JM1/aN5/puFwA7);
+  background: linear-gradient(
+    to right,
+    $light-primary 4px,
+    $light-background-dark 4px $spring-sidebar-width,
+    $light-background $spring-sidebar-width
+  );
 }
 
 div {
   outline: none;
+}
+
+// -----------------
+// Fonts
+
+/* karla-regular - latin */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/karla-v8-latin-regular.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/karla-v8-latin-regular.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('../fonts/karla-v8-latin-regular.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('../fonts/karla-v8-latin-regular.woff')
+      format('woff'),
+    /* Modern Browsers */ url('../fonts/karla-v8-latin-regular.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */ url('../fonts/karla-v8-latin-regular.svg#Karla')
+      format('svg'); /* Legacy iOS */
+}
+/* karla-700 - latin */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/karla-v8-latin-700.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/karla-v8-latin-700.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('../fonts/karla-v8-latin-700.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('../fonts/karla-v8-latin-700.woff')
+      format('woff'),
+    /* Modern Browsers */ url('../fonts/karla-v8-latin-700.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */ url('../fonts/karla-v8-latin-700.svg#Karla')
+      format('svg'); /* Legacy iOS */
 }
 
 // -----------------
@@ -55,7 +97,7 @@ div {
         font-weight: normal;
         letter-spacing: -1px;
         strong {
-          color: $spring-primary-color;
+          color: $light-primary;
         }
       }
       svg {
@@ -63,9 +105,10 @@ div {
         position: absolute;
         left: 0;
         top: 6px;
+        color: $light-primary;
       }
       &:focus {
-        outline: 1px dotted $spring-outline-color;
+        outline: 1px dotted $light-outline;
       }
     }
   }
@@ -91,7 +134,7 @@ div {
       padding-left: 28px;
       padding-right: 4px;
       position: relative;
-      color: $spring-color;
+      color: $light-color;
       margin: 0px 12px;
       text-decoration: none;
       cursor: pointer;
@@ -104,7 +147,7 @@ div {
         height: 18px;
       }
       &:hover {
-        color: $spring-primary-color;
+        color: $light-primary;
       }
       &.dropdown {
         padding-right: 8px;
@@ -134,7 +177,7 @@ div {
       a {
         display: block;
         position: relative;
-        color: $spring-color;
+        color: $light-color;
         padding: 4px 12px;
         margin: 0px;
         text-decoration: none;
@@ -184,7 +227,7 @@ div {
 // Footer
 
 .footer {
-  background: $spring-gray-color;
+  background: $light-background-dark;
   line-height: 24px;
   padding: 0 40px 8px 8px;
   font-weight: 400;
@@ -208,15 +251,16 @@ div {
   display: flex;
   padding-right: 8px;
   .left {
+    $w: $spring-sidebar-width - 36px;
     font-weight: 700;
-    width: 280px;
+    width: $w;
     text-align: right;
     position: relative;
     padding: 8px 32px 8px 0px;
-    flex: 0 0 280px;
+    flex: 0 0 $w;
     &.nopadding {
       padding: 0;
-      flex: 0 0 310px;
+      flex: 0 0 $w + 30px;
       margin-left: 6px;
     }
   }
@@ -309,10 +353,10 @@ label {
   background: #fff;
   @include transition(border-color $spring-transition-duration);
   &:hover {
-    border-color: $spring-border-color-hover;
+    border-color: $light-border-dark;
   }
   &:focus {
-    border-color: $spring-primary-color;
+    border-color: $light-primary;
   }
 }
 
@@ -338,16 +382,16 @@ label {
     background-color: #e4e4e4;
   }
   &:focus {
-    outline: 1px dotted $spring-outline-color;
+    outline: 1px dotted $light-outline;
   }
   &.primary {
     color: #fff;
-    border: 2px solid $spring-primary-color;
-    background-color: $spring-primary-color;
+    border: 2px solid $light-primary;
+    background-color: $light-primary;
     @include transition(all $spring-transition-duration);
     &:hover {
-      border: 2px solid #5fa82f;
-      background-color: #5fa82f;
+      border: 2px solid darken($light-primary, 5);
+      background-color: darken($light-primary, 5);
     }
   }
   &.blue {
@@ -435,7 +479,7 @@ label {
 
 .radio {
   display: inline-block;
-  border-bottom: 3px solid $spring-border-color;
+  border-bottom: 3px solid $light-border;
   text-decoration: none;
   color: #888;
   line-height: 32px;
@@ -448,11 +492,11 @@ label {
   outline: 1px dotted transparent;
   @include outline();
   &:hover {
-    border-color: $spring-border-color-hover;
-    color: $spring-color;
+    border-color: $light-border-dark;
+    color: $light-color;
   }
   &.checked {
-    border-bottom-color: $spring-primary-color;
+    border-bottom-color: $light-primary;
     color: #000;
   }
   &.err {
@@ -476,8 +520,8 @@ ul.dependencies-list {
     .dependency-item-span {
       padding: 6px 0;
     }
-    .dependency-item {
-      //margin: $spring-8points * 2 0;
+    .dependency-item-span > a {
+      @include tile();
     }
   }
   .dependency-item-span {
@@ -524,16 +568,16 @@ ul.dependencies-list {
       line-height: 28px;
       margin-top: 4px;
       padding: 0 $spring-8points * 2 0 24px;
-      color: $spring-color;
+      color: $light-color;
       text-decoration: none;
       border-radius: $spring-radius;
       outline: 1px dotted transparent;
       @include transition(all $spring-transition-duration);
       @include outline();
       &:hover {
-        color: $spring-color;
+        color: $light-color;
         svg {
-          color: $spring-primary-color;
+          color: $light-primary;
         }
       }
       svg {
@@ -541,7 +585,7 @@ ul.dependencies-list {
         width: 8px;
         left: 8px;
         top: 8px;
-        color: $spring-color;
+        color: $light-color;
         @include transition(all $spring-transition-duration);
       }
       &.toggle {
@@ -583,18 +627,20 @@ $gw: 200px;
       @include tilehover();
     }
     .group-title {
-      border-bottom: 1px solid $spring-border-color;
+      border-bottom: 1px solid $light-border;
       //padding-top: $spring-8points;
       font-weight: bold;
       margin-top: $spring-8points;
       cursor: pointer;
-      span {
+      a {
         display: block;
         position: relative;
         margin: $spring-8points/2 0;
         padding: $spring-8points/2 0;
         padding-left: 26px;
+        line-height: 22px;
         font-size: 16px;
+        background: white;
         @include outline();
 
         svg {
@@ -611,7 +657,7 @@ $gw: 200px;
         }
         &:hover {
           svg {
-            color: $spring-primary-color;
+            color: $light-primary;
           }
         }
       }
@@ -673,14 +719,14 @@ $gw: 200px;
   margin: 0 -20px;
   margin-bottom: 10px;
   .tab-container {
-    border-bottom: 3px solid lighten($spring-border-color, 6);
+    border-bottom: 3px solid lighten($light-border, 6);
   }
   a {
     display: inline-block;
     margin-bottom: -3px;
     text-decoration: none;
-    color: rgba($spring-color, 0.6);
-    border-bottom: 3px solid lighten($spring-border-color, 6);
+    color: rgba($light-color, 0.6);
+    border-bottom: 3px solid lighten($light-border, 6);
     padding: 15px $spring-8points * 2 11px;
     font-weight: bold;
     line-height: 16px;
@@ -691,91 +737,27 @@ $gw: 200px;
       width: 16px;
     }
     &:hover {
-      color: $spring-color;
-      border-bottom: 3px solid $spring-border-color-hover;
+      color: $light-color;
+      border-bottom: 3px solid $light-border-dark;
     }
     &.active {
-      color: $spring-color;
-      border-bottom: 3px solid $spring-primary-color;
+      color: $light-color;
+      border-bottom: 3px solid $light-primary;
     }
   }
   strong {
     float: right;
     font-weight: normal;
-    background-color: $spring-gray-color;
+    background-color: $light-background-dark;
     padding: 0 $spring-8points;
     border-radius: $spring-radius;
     line-height: $spring-8points * 3;
     margin-top: 6px;
     font-weight: bold;
-    color: rgba($spring-color, 0.7);
+    color: rgba($light-color, 0.7);
     span {
-      color: $spring-color;
+      color: $light-color;
     }
-  }
-}
-
-.loading-page,
-.error-page {
-  .text {
-    position: absolute;
-    left: 340px;
-    top: 25px;
-    padding-left: 44px;
-    padding-top: 4px;
-    color: rgba(0, 0, 0, 0.4);
-    svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      color: $spring-primary-color;
-    }
-    p {
-      padding: 0;
-      margin: 0;
-    }
-  }
-}
-.error-page {
-  .text {
-    left: 320px;
-    line-height: 20px;
-  }
-}
-
-#gatsby-noscript {
-  background: white;
-  display: block;
-  position: fixed;
-  left: 330px;
-  top: 10px;
-  padding: 15px;
-  z-index: 1000;
-  line-height: 24px;
-}
-
-.error {
-  position: fixed;
-  background: white;
-  display: block;
-  left: 350px;
-  top: 10px;
-  line-height: 24px;
-  h1 {
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba($spring-color, 0.4);
-    padding: $spring-8points * 2 0 0;
-    span.title {
-      font-family: $spring-font-family-special;
-      font-size: 50px;
-      color: rgba($spring-color, 0.6);
-      padding-right: $spring-8points;
-    }
-  }
-
-  a {
-    @include link;
   }
 }
 
@@ -929,12 +911,12 @@ $placeholder-border: #e4e4e4;
   height: 16px;
   border-radius: 16px;
   transition: 0.2s left;
-  background: $spring-color;
+  background: $light-color;
 }
 
 .switch-checkbox:checked + .switch-label .switch-button {
   left: 9px;
-  background: $spring-color;
+  background: $light-color;
   width: 16px;
 }
 
