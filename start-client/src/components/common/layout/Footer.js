@@ -36,7 +36,7 @@ const Footer = ({ children }) => (
               tabIndex='-1'
               target='_blank'
               rel='noopener noreferrer'
-              href='https://github.com/spring-io/start.spring.io/tree/master/start-client/src/endofyear/readme.md'
+              href='https://github.com/spring-io/start.spring.io/tree/master/start-client/src/components/endofyear/readme.md'
             >
               End of Year Theme Credits
             </a>
