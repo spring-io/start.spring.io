@@ -1,7 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-function Button({ id, onClick, children, variant, hotkey }) {
+function Button({
+  id,
+  onClick,
+  children,
+  variant,
+  hotkey,
+  onMouseOut,
+  onMouseMove,
+  onBlur,
+  onFocus,
+}) {
   return (
     <button
       className={`button ${variant === 'primary' ? 'primary' : ''}`}
@@ -10,6 +20,26 @@ function Button({ id, onClick, children, variant, hotkey }) {
       onClick={event => {
         if (onClick) {
           onClick(event)
+        }
+      }}
+      onMouseOut={event => {
+        if (onMouseOut) {
+          onMouseOut(event)
+        }
+      }}
+      onMouseMove={event => {
+        if (onMouseMove) {
+          onMouseMove(event)
+        }
+      }}
+      onBlur={event => {
+        if (onBlur) {
+          onBlur(event)
+        }
+      }}
+      onFocus={event => {
+        if (onFocus) {
+          onFocus(event)
         }
       }}
     >
@@ -26,6 +56,10 @@ function Button({ id, onClick, children, variant, hotkey }) {
 
 Button.defaultProps = {
   onClick: null,
+  onMouseOut: null,
+  onMouseMove: null,
+  onBlur: null,
+  onFocus: null,
   children: null,
   variant: '',
   hotkey: '',
@@ -36,6 +70,10 @@ Button.propTypes = {
   variant: PropTypes.string,
   hotkey: PropTypes.string,
   onClick: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  onMouseMove: PropTypes.func,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   children: PropTypes.node,
 }
 

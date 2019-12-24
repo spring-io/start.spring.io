@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 
 import Code from './Code'
 import Loading from './Loading'
+import Mistletoe from '../../endofyear/Mistletoe'
 import Tree from './Tree'
 import { AppContext } from '../../reducer/App'
 import { IconFile, IconTimes } from '../icons'
@@ -104,6 +105,7 @@ function Explore({ open, onClose, projectName, blob }) {
               </div>
             </div>
             <div className='right'>
+              <Mistletoe />
               {selected && (
                 <>
                   <div className='head'>

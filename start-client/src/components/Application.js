@@ -34,6 +34,8 @@ import { getConfig, getInfo, getProject } from './utils/ApiUtils'
 const Explore = lazy(() => import('./common/explore/Explore.js'))
 const Share = lazy(() => import('./common/share/Share.js'))
 const HotKeys = lazy(() => import('./common/builder/HotKeys.js'))
+const Rudolph = lazy(() => import('./endofyear/Rudolph.js'))
+const Bell = lazy(() => import('./endofyear/Bell.js'))
 
 export default function Application() {
   const {
@@ -52,6 +54,7 @@ export default function Application() {
   )
 
   const [positionShare, setPositionShare] = useState({ x: 0, y: 0 })
+  const [hover, setHover] = useState(false)
 
   const [blob, setBlob] = useState(null)
 
@@ -236,6 +239,9 @@ export default function Application() {
               text='Dependencies'
               variant={tab === 'quicksearch' ? 'xl' : 'xxl'}
             >
+              <Suspense fallback=''>
+                <Bell />
+              </Suspense>
               <Tabs
                 changeTab={newTab => {
                   if (
@@ -252,7 +258,24 @@ export default function Application() {
               {tab === 'list' && <List />}
             </Control>
             <Footer>
+              <div className={`rudolph-wrapper ${hover ? 'active' : ''}`}>
+                <Suspense fallback=''>
+                  <Rudolph />
+                </Suspense>
+              </div>
               <Button
+                onMouseMove={() => {
+                  setHover(true)
+                }}
+                onMouseOut={() => {
+                  setHover(false)
+                }}
+                onBlur={() => {
+                  setHover(false)
+                }}
+                onFocus={() => {
+                  setHover(true)
+                }}
                 id='generate-project'
                 variant='primary'
                 onClick={onSubmit}
