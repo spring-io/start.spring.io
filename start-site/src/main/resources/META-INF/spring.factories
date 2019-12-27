@@ -8,4 +8,5 @@ io.spring.start.site.extension.dependency.springcloud.SpringCloudProjectGenerati
 io.spring.start.site.extension.dependency.springdata.SpringDataProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springintegration.SpringIntegrationProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springrestdocs.SpringRestDocsProjectGenerationConfiguration,\
+io.spring.start.site.extension.description.DescriptionProjectGenerationConfiguration,\
 io.spring.start.site.extension.code.kotin.KotlinProjectGenerationConfiguration
