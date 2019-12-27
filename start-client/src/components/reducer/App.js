@@ -37,10 +37,7 @@ export function reduceDependencies(boot, items) {
         group: dep.group,
         items: [],
       }
-      groups.push({
-        group: dep.group,
-        items: [],
-      })
+      groups.push(parent)
     }
     const valid = isValidDependency(boot, dep)
     if (!valid) {
