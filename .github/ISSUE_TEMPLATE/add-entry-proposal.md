@@ -1,7 +1,7 @@
 ---
-name: New entry proposal
-about: Suggest a new dependency on start.spring.io
-
+name: New Entry Proposal
+about: Suggest a new entry on start.spring.io.
+labels: 'type: entry-upgrade'
 ---
 
 # Requirements
