@@ -24,7 +24,7 @@ questions, etc.
 
 ## Ongoing maintenance
 To ensure that the Spring Boot community has a good experience with your starter,
-it should be kept up-to-date with the latest Spring Boot releases and maintenenace
+it should be kept up-to-date with the latest Spring Boot releases and maintenance
 releases should be shipped as needed. When a new release is made, a pull request
 should be made to this project to ensure that the Spring Boot community are using the
 latest version
@@ -71,4 +71,4 @@ Each entry can be associated with one or several links. Please provide at least 
 a sample and the reference documentation:
 
 * Reference documentation:
-* Sample: 
+* Sample:
