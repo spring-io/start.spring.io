@@ -37,4 +37,10 @@ public class DescriptionProjectGenerationConfiguration {
 		return new InvalidJvmVersionHelpDocumentCustomizer(diff, description);
 	}
 
+	@Bean
+	public InvalidPackageNameHelpDocumentCustomizer invalidPackageNameHelpDocumentCustomizer(
+			ProjectDescriptionDiff diff, ProjectDescription description) {
+		return new InvalidPackageNameHelpDocumentCustomizer(diff, description);
+	}
+
 }
