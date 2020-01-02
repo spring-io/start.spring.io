@@ -907,8 +907,10 @@ initializr:
             - compatibilityRange: "[2.0.0.RELEASE,2.1.0.M1)"
               version: 2.1.2.RELEASE
               artifactId: spring-cloud-starter-open-service-broker-webmvc
-            - compatibilityRange: "2.1.0.M1"
+            - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
               version: 3.0.4.RELEASE
+            - compatibilityRange: "2.2.0.M1"
+              version: 3.1.0.RELEASE
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/html5/
