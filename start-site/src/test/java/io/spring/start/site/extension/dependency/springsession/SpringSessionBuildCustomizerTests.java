@@ -39,7 +39,7 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void noSessionWithRedis() {
 		ProjectRequest request = createProjectRequest("data-redis");
-		request.setBootVersion("2.0.0.M3");
+		request.setBootVersion("2.0.0.RELEASE");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 				.hasDependenciesSize(2);
@@ -48,7 +48,7 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void sessionWithNoStore() {
 		ProjectRequest request = createProjectRequest("session", "data-jpa");
-		request.setBootVersion("2.0.0.M3");
+		request.setBootVersion("2.0.0.RELEASE");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.session", "spring-session-core")
 				.hasDependency(Dependency.createSpringBootStarter("data-jpa"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
@@ -58,7 +58,7 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void sessionWithRedis() {
 		ProjectRequest request = createProjectRequest("session", "data-redis");
-		request.setBootVersion("2.0.0.M3");
+		request.setBootVersion("2.0.0.RELEASE");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
 				.hasDependenciesSize(3);
@@ -67,7 +67,7 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void sessionWithRedisReactive() {
 		ProjectRequest request = createProjectRequest("session", "data-redis-reactive");
-		request.setBootVersion("2.0.0.M7");
+		request.setBootVersion("2.0.0.RELEASE");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis-reactive"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
 				.hasDependenciesSize(4); // TODO: side effect of `reactor-test`
@@ -76,7 +76,7 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void sessionWithJdbc() {
 		ProjectRequest request = createProjectRequest("session", "jdbc");
-		request.setBootVersion("2.0.0.M3");
+		request.setBootVersion("2.0.0.RELEASE");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("jdbc"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(JDBC)
 				.hasDependenciesSize(3);
@@ -85,7 +85,7 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void sessionWithRedisAndJdbc() {
 		ProjectRequest request = createProjectRequest("session", "data-redis", "jdbc");
-		request.setBootVersion("2.0.0.M3");
+		request.setBootVersion("2.0.0.RELEASE");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis"))
 				.hasDependency(Dependency.createSpringBootStarter("jdbc"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)

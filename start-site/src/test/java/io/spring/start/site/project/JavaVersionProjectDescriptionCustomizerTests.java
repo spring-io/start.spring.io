@@ -40,7 +40,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@Test
 	void java9CanBeUsedWithSpringBoot2Gradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.0.M3");
+		request.setBootVersion("2.0.0.RELEASE");
 		request.setJavaVersion("9");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("9");
 	}

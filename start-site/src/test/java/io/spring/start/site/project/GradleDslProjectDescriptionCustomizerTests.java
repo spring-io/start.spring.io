@@ -65,7 +65,7 @@ class GradleDslProjectDescriptionCustomizerTests extends AbstractExtensionTests 
 		ProjectRequest request = createProjectRequest();
 		request.setType("gradle-project");
 		request.setLanguage("kotlin");
-		request.setBootVersion("1.5.18.RELEASE");
+		request.setBootVersion("2.0.0.RELEASE");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).containsFiles("build.gradle").doesNotContainFiles("build.gradle.kts");
 	}

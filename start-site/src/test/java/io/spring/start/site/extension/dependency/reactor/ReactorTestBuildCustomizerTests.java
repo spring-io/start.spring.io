@@ -33,7 +33,7 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void reactorTestIsAdded() {
 		ProjectRequest request = createProjectRequest("webflux");
-		request.setBootVersion("2.0.0.M2");
+		request.setBootVersion("2.0.0.RELEASE");
 		Dependency reactorTest = Dependency.withId("reactor-test", "io.projectreactor", "reactor-test");
 		reactorTest.setScope(Dependency.SCOPE_TEST);
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webflux"))
@@ -42,18 +42,9 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void reactorTestIsNotAddedWithEarlierVersions() {
-		ProjectRequest request = createProjectRequest("webflux");
-		request.setBootVersion("2.0.0.M1");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webflux"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(2);
-	}
-
-	@Test
 	void reactorTestIsNotAddedWithoutReactiveFacet() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.0.M2");
+		request.setBootVersion("2.0.0.RELEASE");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 				.hasDependenciesSize(2);

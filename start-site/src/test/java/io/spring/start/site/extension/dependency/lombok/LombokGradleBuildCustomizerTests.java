@@ -42,11 +42,4 @@ class LombokGradleBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(gradleBuild(request)).doesNotContain("compileOnly 'org.projectlombok:lombok'");
 	}
 
-	@Test
-	void lombokNotConfiguredWithSpringBoot15() {
-		ProjectRequest request = createProjectRequest("lombok");
-		request.setBootVersion("1.5.18.RELEASE");
-		assertThat(gradleBuild(request)).containsOnlyOnce("compileOnly 'org.projectlombok:lombok'");
-	}
-
 }

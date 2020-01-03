@@ -32,7 +32,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@Test
 	void java8IsMandatoryMaven() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
+		request.setBootVersion("2.0.0.RELEASE");
 		request.setJavaVersion("1.7");
 		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
 	}
@@ -40,7 +40,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@Test
 	void java8IsMandatoryGradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.0.M3");
+		request.setBootVersion("2.0.0.RELEASE");
 		request.setJavaVersion("1.7");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
 	}
@@ -48,7 +48,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@Test
 	void java9CanBeUsedMaven() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.0.BUILD-SNAPSHOT");
+		request.setBootVersion("2.0.0.RELEASE");
 		request.setJavaVersion("9");
 		assertThat(mavenPom(request)).hasProperty("java.version", "9");
 	}
@@ -56,7 +56,7 @@ class SpringBoot2ProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@Test
 	void java9CanBeUsedGradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.0.M3");
+		request.setBootVersion("2.0.0.RELEASE");
 		request.setJavaVersion("9");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("9");
 	}
