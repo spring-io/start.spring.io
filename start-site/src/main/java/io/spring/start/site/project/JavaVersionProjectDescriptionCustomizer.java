@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,9 @@
 
 package io.spring.start.site.project;
 
-import java.util.Arrays;
-import java.util.List;
-
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.Language;
+import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
@@ -46,8 +44,6 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.BUILD-SNAPSHOT");
 
-	private static final List<String> UNSUPPORTED_LANGUAGES = Arrays.asList("groovy", "kotlin");
-
 	@Override
 	public void customize(MutableProjectDescription description) {
 		Integer javaGeneration = determineJavaGeneration(description.getLanguage().jvmVersion());
@@ -59,9 +55,9 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		if (!SPRING_BOOT_2_0_OR_LATER.match(platformVersion)) {
 			updateTo(description, "1.8");
 		}
-		// Not supported for Kotlin & Groovy
-		if (UNSUPPORTED_LANGUAGES.contains(description.getLanguage().id())) {
-			updateTo(description, "1.8");
+		// Kotlin supports up to 12
+		if (javaGeneration > 12 && description.getLanguage() instanceof KotlinLanguage) {
+			updateTo(description, "11");
 		}
 		// 10 support only as of 2.0.1
 		if (javaGeneration == 10 && !SPRING_BOOT_2_0_1_OR_LATER.match(platformVersion)) {

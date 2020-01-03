@@ -30,42 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void java9CannotBeUsedWithGroovyMaven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.1.RELEASE");
-		request.setLanguage("groovy");
-		request.setJavaVersion("9");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java9CannotBeUsedWithKotlinMaven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.1.RELEASE");
-		request.setLanguage("kotlin");
-		request.setJavaVersion("9");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java9CannotBeUsedWithGroovyGradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.1.RELEASE");
-		request.setLanguage("groovy");
-		request.setJavaVersion("9");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
-	}
-
-	@Test
-	void java9CannotBeUsedWithKotlinGradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.1.RELEASE");
-		request.setLanguage("kotlin");
-		request.setJavaVersion("9");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
-	}
-
-	@Test
 	void java9CanBeUsedWithSpringBoot2Maven() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.0.1.RELEASE");
@@ -178,6 +142,15 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
+	void java12CanBeUsedWithSpringBoot22Kotlin() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.0.RELEASE");
+		request.setLanguage("kotlin");
+		request.setJavaVersion("12");
+		assertThat(mavenPom(request)).hasProperty("java.version", "12");
+	}
+
+	@Test
 	void java13CannotBeUsedWithSpringBoot21Maven() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.1.5.RELEASE");
@@ -215,6 +188,24 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		request.setBootVersion("2.2.2.BUILD-SNAPSHOT");
 		request.setJavaVersion("13");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("13");
+	}
+
+	@Test
+	void java13CanBeUsedWithSpringBoot22Groovy() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.0.RELEASE");
+		request.setLanguage("groovy");
+		request.setJavaVersion("13");
+		assertThat(mavenPom(request)).hasProperty("java.version", "13");
+	}
+
+	@Test
+	void java13CannotBeUsedWithKotlinMaven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.0.RELEASE");
+		request.setLanguage("kotlin");
+		request.setJavaVersion("13");
+		assertThat(mavenPom(request)).hasProperty("java.version", "11");
 	}
 
 }
