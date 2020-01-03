@@ -986,7 +986,7 @@ initializr:
     - name: Spring Cloud Routing
       bom: spring-cloud
       content:
-        - name: Zuul
+        - name: Zuul [Maintenance]
           id: cloud-zuul
           description: Intelligent and programmable routing with Spring Cloud Netflix Zuul.
           groupId: org.springframework.cloud
@@ -1004,7 +1004,7 @@ initializr:
             - rel: guide
               href: https://github.com/spring-cloud-samples/spring-cloud-gateway-sample
               description: Using Spring Cloud Gateway
-        - name: Ribbon
+        - name: Ribbon [Maintenance]
           id: cloud-ribbon
           description: Client-side load-balancing with Spring Cloud Netflix and Ribbon.
           groupId: org.springframework.cloud
@@ -1042,7 +1042,7 @@ initializr:
           links:
             - rel: reference
               href: https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/current/reference/html
-        - name: Hystrix
+        - name: Hystrix [Maintenance]
           id: cloud-hystrix
           description: Circuit breaker with Spring Cloud Netflix Hystrix.
           groupId: org.springframework.cloud
@@ -1051,17 +1051,17 @@ initializr:
             - rel: guide
               href: https://spring.io/guides/gs/circuit-breaker/
               description: Circuit Breaker
-        - name: Hystrix Dashboard
+        - name: Hystrix Dashboard [Maintenance]
           id: cloud-hystrix-dashboard
           description: Circuit breaker dashboard with Spring Cloud Netflix Hystrix.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-hystrix-dashboard
-        - name: Turbine
+        - name: Turbine [Maintenance]
           id: cloud-turbine
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and server-sent events.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine
-        - name: Turbine Stream
+        - name: Turbine Stream [Maintenance]
           id: cloud-turbine-stream
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
           groupId: org.springframework.cloud
