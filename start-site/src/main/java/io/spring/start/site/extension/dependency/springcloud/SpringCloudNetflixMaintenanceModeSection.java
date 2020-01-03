@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import io.spring.initializr.generator.io.template.TemplateRenderer;
 import io.spring.initializr.generator.io.text.BulletedSection;
 import io.spring.initializr.generator.io.text.Section;
 import io.spring.initializr.generator.spring.documentation.PreDefinedSection;
-import io.spring.initializr.metadata.Dependency;
 
 /**
  * A {@link Section} that provides information about Spring Cloud Netflix maintenance mode
@@ -32,10 +31,10 @@ import io.spring.initializr.metadata.Dependency;
  */
 class SpringCloudNetflixMaintenanceModeSection extends PreDefinedSection {
 
-	SpringCloudNetflixMaintenanceModeSection(Set<Dependency> maintenanceModeDependencies,
+	SpringCloudNetflixMaintenanceModeSection(Set<String> maintenanceModeDependencies,
 			TemplateRenderer templateRenderer) {
 		super("Spring Cloud Netflix Maintenance Mode");
-		BulletedSection<Dependency> dependencies = new BulletedSection<>(templateRenderer,
+		BulletedSection<String> dependencies = new BulletedSection<>(templateRenderer,
 				"spring-cloud-netflix-maintenance-mode");
 		maintenanceModeDependencies.forEach(dependencies::addItem);
 		addSection(dependencies);

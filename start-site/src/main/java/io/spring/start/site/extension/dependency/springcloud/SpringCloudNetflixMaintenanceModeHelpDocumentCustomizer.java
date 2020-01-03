@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,8 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer implements HelpDoc
 	private static final Set<String> maintenanceModuleIds = new HashSet<>(Arrays.asList("cloud-ribbon", "cloud-hystrix",
 			"cloud-hystrix-dashboard", "cloud-turbine", "cloud-turbine-stream", "cloud-zuul"));
 
+	private static final String NAME_SUFFIX = " [Maintenance]";
+
 	private final InitializrMetadata metadata;
 
 	private final Build build;
@@ -58,13 +60,18 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer implements HelpDoc
 	@Override
 	public void customize(HelpDocument helpDocument) {
 		DependenciesCapability availableDependencies = this.metadata.getDependencies();
-		Set<Dependency> maintenanceModeDependencies = this.build.dependencies().ids()
-				.filter(maintenanceModuleIds::contains).map(availableDependencies::get).filter(Objects::nonNull)
+		Set<String> maintenanceModeDependencies = this.build.dependencies().ids().filter(maintenanceModuleIds::contains)
+				.map(availableDependencies::get).filter(Objects::nonNull).map(this::extractDependencyName)
 				.collect(Collectors.toSet());
 		if (!maintenanceModeDependencies.isEmpty()) {
 			helpDocument.addSection(
 					new SpringCloudNetflixMaintenanceModeSection(maintenanceModeDependencies, this.templateRenderer));
 		}
+	}
+
+	private String extractDependencyName(Dependency dependency) {
+		String name = dependency.getName();
+		return (name.endsWith(NAME_SUFFIX)) ? name.substring(0, name.length() - NAME_SUFFIX.length()) : name;
 	}
 
 }
