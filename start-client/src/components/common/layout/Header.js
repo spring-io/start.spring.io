@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Logo from '../../endofyear/Logo'
+import Logo from './Logo'
 
 const Header = ({ children }) => (
   <div className='header'>

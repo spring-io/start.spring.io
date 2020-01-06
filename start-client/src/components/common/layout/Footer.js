@@ -9,7 +9,8 @@ const Footer = ({ children }) => (
           <div className='footer-container'>
             © 2013-{new Date().getFullYear()} Pivotal Software
             <br />
-            Powered by&nbsp;
+            start.spring.io is powered by
+            <br />
             <span>
               <a
                 tabIndex='-1'
@@ -19,8 +20,8 @@ const Footer = ({ children }) => (
               >
                 Spring Initializr
               </a>
-            </span>
-            <span>&nbsp;and&nbsp;</span>
+            </span>{' '}
+            <span>and</span>{' '}
             <span>
               <a
                 tabIndex='-1'
@@ -28,18 +29,9 @@ const Footer = ({ children }) => (
                 rel='noopener noreferrer'
                 href='https://run.pivotal.io/'
               >
-                PWS
+                Pivotal Web Services
               </a>
             </span>
-            <br />
-            <a
-              tabIndex='-1'
-              target='_blank'
-              rel='noopener noreferrer'
-              href='https://github.com/spring-io/start.spring.io/tree/master/start-client/src/components/endofyear/readme.md'
-            >
-              End of Year Theme Credits
-            </a>
           </div>
         </footer>
       </div>
