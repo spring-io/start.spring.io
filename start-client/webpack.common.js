@@ -87,6 +87,7 @@ const config = {
       url: 'https://start.spring.io',
       twitter: '@springboot',
       image: `https://start.spring.io/images/initializr-card.jpg`,
+      theme: `#6db33f`,
     }),
     new WebpackGoogleTagManager(process.env.GOOGLE_TAGMANAGER_ID),
     new WebpackPwaManifest({
@@ -97,6 +98,7 @@ const config = {
       inject: true,
       fingerprints: true,
       ios: true,
+      start_url: '/',
       crossorigin: null,
       icons: [
         {
