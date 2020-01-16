@@ -105,8 +105,12 @@ initializr:
         mappings:
           - compatibilityRange: "[2.0.0.RELEASE,2.0.x.BUILD-SNAPSHOT]"
             version: 2.0.3.RELEASE
-          - compatibilityRange: "2.1.0.RELEASE"
+          - compatibilityRange: "[2.1.0.RELEASE,2.1.10.RELEASE]"
             version: 2.1.4.RELEASE
+          - compatibilityRange: "[2.1.10.RELEASE,2.2.0.RELEASE]"
+            version: 3.0.1.RELEASE
+          - compatibilityRange: "[2.2.0.RELEASE,2.2.x.BUILD-SNAPSHOT]"
+            version: 3.1.1.RELEASE
       spring-data-r2dbc:
         groupId: org.springframework.boot.experimental
         artifactId: spring-boot-bom-r2dbc
