@@ -898,6 +898,7 @@ initializr:
         - name: Cloud Connectors
           id: cloud-connectors
           description: Simplifies the process of connecting to services and gaining operating environment awareness in cloud platforms such as Cloud Foundry and Heroku.
+          compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
         - name: Open Service Broker
           bom: spring-cloud
           id: open-service-broker
