@@ -176,7 +176,7 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-configuration-processor
           scope: annotationProcessor
-          description: Generate metadata for developers to offer contextual help and “code completion” when working with custom configuration keys (ex.application.properties/.yml files).
+          description: Generate metadata for developers to offer contextual help and "code completion" when working with custom configuration keys (ex.application.properties/.yml files).
           starter: false
           links:
             - rel: reference
