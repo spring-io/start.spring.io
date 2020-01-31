@@ -103,11 +103,11 @@ initializr:
         versionProperty: spring-cloud-services.version
         additionalBoms: [spring-cloud]
         mappings:
-          - compatibilityRange: "[2.0.0.RELEASE,2.0.x.BUILD-SNAPSHOT]"
+          - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
             version: 2.0.3.RELEASE
-          - compatibilityRange: "[2.1.0.RELEASE,2.2.0.RELEASE]"
+          - compatibilityRange: "[2.1.0.RELEASE,2.2.0.RELEASE)"
             version: 2.1.6.RELEASE
-          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1]"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
             version: 2.2.1.RELEASE
       spring-data-r2dbc:
         groupId: org.springframework.boot.experimental
