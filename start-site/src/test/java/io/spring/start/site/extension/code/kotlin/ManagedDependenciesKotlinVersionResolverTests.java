@@ -23,7 +23,6 @@ import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
-import io.spring.start.site.extension.code.kotin.ManagedDependenciesKotlinVersionResolver;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 

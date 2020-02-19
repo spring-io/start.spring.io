@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.code.kotin;
+package io.spring.start.site.extension.code.kotlin;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnLanguage;
