@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ import org.springframework.context.annotation.Configuration;
  * language.
  *
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
 @ConditionalOnLanguage(KotlinLanguage.ID)
@@ -69,6 +70,23 @@ class KotlinProjectGenerationConfiguration {
 		@Bean
 		HelpDocumentCustomizer kotlinCoroutinesHelpDocumentCustomizer(Build build) {
 			return (helpDocument) -> this.customizer.customize(helpDocument, build);
+		}
+
+	}
+
+	@Configuration
+	@ConditionalOnPlatformVersion("2.1.0.RELEASE")
+	static class ReactorKotlinExtensionCustomizerConfiguration {
+
+		private final ReactorKotlinExtensionsCustomizer customizer;
+
+		ReactorKotlinExtensionCustomizerConfiguration(InitializrMetadata metadata) {
+			this.customizer = new ReactorKotlinExtensionsCustomizer(metadata);
+		}
+
+		@Bean
+		BuildCustomizer<Build> reactorExtensionsBuildCustomizer() {
+			return this.customizer::customize;
 		}
 
 	}
