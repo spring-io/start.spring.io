@@ -19,7 +19,6 @@ package io.spring.start.site.extension.code.kotlin;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import io.spring.start.site.extension.code.kotin.KotlinCoroutinesCustomizer;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
