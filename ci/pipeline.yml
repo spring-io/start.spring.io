@@ -23,7 +23,7 @@ resources:
 - name: git-pull-request
   type: pull-request
   source:
-    access_token: ((github-access-token))
+    access_token: ((github-ci-pull-request-token))
     repo: spring-io/start.spring.io
     base: ((branch))
 - name: ci-images-git-repo
@@ -55,9 +55,12 @@ resources:
   type: github-status-resource
   source:
     repository: spring-io/start.spring.io
-    access_token: ((github-access-token))
+    access_token: ((github-ci-status-token))
     branch: ((branch))
     context: build
+- name: daily
+  type: time
+  source: { interval: "24h" }
 jobs:
 - name: build-start-site-ci-image
   plan:
@@ -65,7 +68,8 @@ jobs:
     trigger: true
   - put: start-site-ci-image
     params:
-      build: ci-images-git-repo/ci/images/start-site-ci-image
+      build: ci-images-git-repo/ci/images/
+      dockerfile: ci-images-git-repo/ci/images/start-site-ci-image/Dockerfile
 - name: build-and-deploy
   serial: true
   plan:
@@ -78,6 +82,8 @@ jobs:
     - task: build-service.yml
       image: start-site-ci-image
       file: git-repo/ci/tasks/build-service.yml
+      params:
+        GOOGLE_TAGMANAGER_ID: ((google-tagmanager-id))
       on_failure:
         do:
         - put: repo-status-build
@@ -90,12 +96,6 @@ jobs:
             username: concourse-ci
   - put: repo-status-build
     params: { state: "success", commit: "git-repo" }
-  - put: slack-alert
-    params:
-      text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|sucess: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
-      silent: true
-      icon_emoji: ":concourse:"
-      username: concourse-ci
   - put: cf-resource
     params:
       manifest: git-repo/ci/manifests/manifest.yml
@@ -103,8 +103,40 @@ jobs:
       current_app_name: start
       environment_variables:
         INITIALIZR_ENV_FORCESSL: "true"
-        INITIALIZR_ENV_GOOGLE_ANALYTICS_TRACKING_CODE: ((google-analytics-tracking-code))
         INITIALIZR_STATS_ELASTIC_URI: ((elastic-uri))
+  - put: slack-alert
+    params:
+      text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|sucess: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
+      silent: true
+      icon_emoji: ":concourse:"
+      username: concourse-ci
+- name: verify
+  serial: true
+  public: true
+  plan:
+  - get: start-site-ci-image
+  - get: daily
+    trigger: true
+  - get: git-repo
+    trigger: true
+  - do:
+    - task: verify-service.yml
+      image: start-site-ci-image
+      file: git-repo/ci/tasks/verify-service.yml
+      on_failure:
+        do:
+        - put: slack-alert
+          params:
+            text: ":concourse-failed: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|failure: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
+            silent: true
+            icon_emoji: ":concourse:"
+            username: concourse-ci
+  - put: slack-alert
+    params:
+      text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|sucess: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
+      silent: true
+      icon_emoji: ":concourse:"
+      username: concourse-ci
 - name: build-pull-requests
   serial: true
   public: true
@@ -136,6 +168,7 @@ groups:
 - name: "Build and Deploy"
   jobs:
   - build-and-deploy
+  - verify
 - name: "Build Pull Requests"
   jobs:
   - "build-pull-requests"

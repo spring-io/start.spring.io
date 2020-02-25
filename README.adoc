@@ -2,10 +2,11 @@
 :library: https://github.com/spring-io/initializr
 
 This repository configures a {library}[Spring Initializr] instance with a custom UI
-running at https://start.spring.io. The following defines are available:
+running at https://start.spring.io. The following modules are available:
 
 * `start-client`: client-side assets
 * `start-site`: server infrastructure and metadata configuration
+* `start-site-verification`: tests to verify the validity of the metadata
 
 [[build]]
 == Building from Source
@@ -22,21 +23,37 @@ Invoke the build at the root of the project
     $ ./mvnw clean install
 ----
 
-The project also has Selenium tests that instrument the client side. In order to run them
-you need first to install Firefox and the latest
-https://github.com/mozilla/geckodriver[geckodriver].
-
-Once those are installed you can run the smoke tests by enabling an extra profile:
+The project also includes a number of longer-running verification tests. They
+can be built and run using the `verification` profile:
 
 [indent=0]
 ----
-    $ ./mvnw verify -PsmokeTests
+    $ ./mvnw -Pverification clean install
 ----
+
+The project's other tests are not included in the `verification` profile. All of
+the project's tests can be run using the `full` profile:
+
+[indent=0]
+----
+    $ ./mvnw -Pfull clean install
+----
+
+If building `start-client` fails, you may have an outdated cache that can be deleted as
+follows:
+
+[indent=0]
+----
+    $ cd start-client
+    $ rm -rf .cache node_modules
+----
+
 
 
 [[run-app]]
 === Running the app locally
-You can easily start the app as any other Spring Boot app:
+As long as you've built the project beforehand (in particular `start-client`), you can
+easily start the app as any other Spring Boot app:
 
 [indent=0]
 ----
@@ -53,6 +70,14 @@ to reload the app whenever you make any change.
 
 This is the recommended way to operate while you are developing the application,
 especially the UI.
+
+## Reusing the Web UI
+This instance has a thin layer with our opinions about getting started with Spring Boot.
+You can reuse them but please keep in mind that this is not supported with the same
+level as the Spring Initializr library. The Web UI, in particular, is for our own
+purpose and is not particularly engineered to be easily extended.
+
+
 
 ## Deploying to Cloud Foundry
 
@@ -79,11 +104,13 @@ that the jar has been created:
     $ ../mvnw package
 ----
 
-Once the jar has been created, you can push the application:
+The project creates a regular library jar and a repackaged archive that can be used to
+start the application with the `exec` classifier. Once the build as completed, you can
+push the application:
 
 [indent=0]
 ----
-    $ cf push your-start -p target/start-site.jar
+    $ cf push your-start -p target/start-site-exec.jar
 ----
 
 

@@ -16,10 +16,14 @@
 
 package io.spring.start.site;
 
+import java.io.IOException;
+import java.nio.file.Files;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
-import io.spring.start.site.extension.ProjectDescriptionCustomizerConfiguration;
+import io.spring.start.site.project.ProjectDescriptionCustomizerConfiguration;
+import io.spring.start.site.support.CacheableDependencyManagementVersionResolver;
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 import io.spring.start.site.web.HomeController;
 
@@ -27,11 +31,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
 /**
  * Initializr website application.
@@ -50,16 +56,28 @@ public class StartApplication {
 	}
 
 	@Bean
-	public InitializrMetadataUpdateStrategy startMetadataUpdateStrategy(
-			RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
-		return new StartInitializrMetadataUpdateStrategy(restTemplateBuilder.build(),
-				objectMapper);
+	public InitializrMetadataUpdateStrategy startMetadataUpdateStrategy(RestTemplateBuilder restTemplateBuilder,
+			ObjectMapper objectMapper) {
+		return new StartInitializrMetadataUpdateStrategy(restTemplateBuilder.build(), objectMapper);
 	}
 
 	@Bean
-	public HomeController homeController(InitializrMetadataProvider metadataProvider,
-			ResourceUrlProvider resourceUrlProvider) {
-		return new HomeController(metadataProvider, resourceUrlProvider);
+	public HomeController homeController() {
+		return new HomeController();
+	}
+
+	@Bean
+	public ErrorPageRegistrar errorPageRegistrar() {
+		return (registry) -> {
+			registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
+			registry.addErrorPages(new ErrorPage("/error/index.html"));
+		};
+	}
+
+	@Bean
+	public DependencyManagementVersionResolver dependencyManagementVersionResolver() throws IOException {
+		return new CacheableDependencyManagementVersionResolver(DependencyManagementVersionResolver
+				.withCacheLocation(Files.createTempDirectory("version-resolver-cache-")));
 	}
 
 }

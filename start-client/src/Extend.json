@@ -1,0 +1,74 @@
+[
+  {
+    "id": "web",
+    "weight": 100
+  },
+  {
+    "id": "webflux",
+    "weight": 90
+  },
+  {
+    "id": "rest",
+    "weight": 60
+  },
+  {
+    "id": "thymeleaf",
+    "weight": 90
+  },
+  {
+    "id": "security",
+    "weight": 100
+  },
+  {
+    "id": "data-jpa",
+    "weight": 100
+  },
+  {
+    "id": "data-mongodb",
+    "weight": 50
+  },
+  {
+    "id": "data-mongodb-reactive",
+    "weight": 50
+  },
+  {
+    "id": "data-elasticsearch",
+    "weight": 60
+  },
+  {
+    "id": "integration",
+    "weight": 100
+  },
+  {
+    "id": "ampq",
+    "weight": 100
+  },
+  {
+    "id": "kafka",
+    "weight": 100
+  },
+  {
+    "id": "kafka-streams",
+    "weight": 90
+  },
+  {
+    "id": "batch",
+    "weight": 100
+  },
+  {
+    "id": "cloud-config-client",
+    "weight": 100
+  },
+  {
+    "id": "cloud-stream",
+    "weight": 90
+  },
+  {
+    "id": "reactive-cloud-stream",
+    "weight": 90
+  },
+  {
+    "id": "cloud-eureka",
+    "weight": 100
+  }
+]

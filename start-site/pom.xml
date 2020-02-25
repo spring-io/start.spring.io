@@ -27,6 +27,10 @@
 		</dependency>
 		<dependency>
 			<groupId>io.spring.initializr</groupId>
+			<artifactId>initializr-version-resolver</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.spring.initializr</groupId>
 			<artifactId>initializr-web</artifactId>
 		</dependency>
 		<dependency>
@@ -56,41 +60,19 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>io.spring.initializr</groupId>
-			<artifactId>initializr-generator</artifactId>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.spring.initializr</groupId>
-			<artifactId>initializr-generator-spring</artifactId>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-firefox-driver</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-support</artifactId>
+			<artifactId>initializr-generator-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -122,6 +104,12 @@
 							</additionalProperties>
 						</configuration>
 					</execution>
+					<execution>
+						<id>repackage</id>
+						<configuration>
+							<classifier>exec</classifier>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -130,39 +118,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>smokeTests</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>integration-test</id>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>test</goal>
-								</goals>
-								<configuration>
-									<systemProperties>
-										<smoke.test>true</smoke.test>
-									</systemProperties>
-									<includes>
-										<include>**/*SmokeTests.java</include>
-									</includes>
-									<excludes>
-										<exclude>**/Abstract*.java</exclude>
-									</excludes>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 </project>

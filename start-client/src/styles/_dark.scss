@@ -1,0 +1,504 @@
+body.dark {
+  background-color: $dark-background;
+
+  background: linear-gradient(
+    to right,
+    $dark-primary 4px,
+    $dark-background-light 4px $spring-sidebar-width,
+    $dark-background $spring-sidebar-width
+  );
+
+  color: $dark-color-light;
+
+  .header h1.logo a {
+    color: $dark-color;
+    span.title {
+      strong {
+        color: $dark-primary;
+      }
+    }
+    svg {
+      color: $dark-primary;
+    }
+  }
+
+  .radio {
+    color: $dark-color-medium;
+    border-color: $dark-border;
+    &:hover {
+      color: $dark-color-light;
+      border-color: $dark-border-dark;
+    }
+    &.checked {
+      color: $dark-color;
+      border-bottom-color: $dark-primary;
+    }
+
+    &:hover {
+      border-bottom-color: $dark-primary;
+    }
+  }
+
+  .colset-submit .right.nopadding {
+    background: $dark-background;
+  }
+
+  .submit {
+    background: $dark-background;
+    border-color: $dark-border-dark;
+  }
+
+  .tab {
+    background: $dark-background;
+    .tab-container {
+      border-color: $dark-border;
+    }
+    a {
+      color: $dark-color-medium;
+      border-color: $dark-border;
+      &:hover {
+        color: $dark-color-light;
+        border-bottom-color: $dark-border-dark;
+      }
+      &.active {
+        color: $dark-color;
+        border-bottom-color: $dark-primary;
+        &:hover {
+          border-bottom-color: $dark-primary;
+        }
+      }
+    }
+  }
+
+  .control-input {
+    background: $dark-background;
+    color: $dark-color;
+    border-color: $dark-border;
+    &:hover {
+      border-color: $dark-border-dark;
+    }
+    &:focus {
+      border-bottom-color: $dark-primary;
+      &:hover {
+        border-bottom-color: $dark-primary;
+      }
+    }
+  }
+
+  .panel .panel-wrap {
+    border-color: $dark-border;
+  }
+
+  .more div.wrap {
+    border-color: $dark-border;
+    a {
+      color: $dark-color-light;
+      &:hover {
+        color: $dark-color-light;
+        svg {
+          color: $dark-primary;
+        }
+      }
+      svg {
+        color: $dark-color-light;
+      }
+    }
+  }
+
+  .button {
+    background: $dark-background-light;
+    border-color: $dark-background-light;
+    color: $dark-color;
+    &:hover {
+      background: $dark-background-lighter;
+      border-color: $dark-background-lighter;
+    }
+    &.primary {
+      border-color: $dark-primary;
+      background-color: $dark-primary;
+      &:hover {
+        border-color: darken($dark-primary, 5);
+        background-color: darken($dark-primary, 5);
+      }
+    }
+  }
+
+  .footer {
+    background: $dark-background-light;
+    color: $dark-color-medium;
+  }
+
+  label {
+    color: $dark-color-dark;
+  }
+
+  .search-no-selected {
+    color: $dark-color-light;
+  }
+
+  .groups .group a {
+    background: $dark-background-light;
+    color: $dark-color-light;
+    strong {
+      color: $dark-color;
+    }
+    .icon {
+      border: 2px solid $dark-border-dark;
+      color: $dark-color-light;
+    }
+    &:hover {
+      background: $dark-background-lighter;
+      .icon {
+        color: $dark-color-light;
+      }
+    }
+  }
+
+  .groups .group .group-title {
+    border-color: $dark-border;
+    a {
+      background: $dark-background;
+    }
+  }
+
+  .quick-links li a {
+    color: $dark-color-light;
+    &:hover {
+      color: $dark-primary;
+    }
+  }
+
+  .groups .group a.invalid,
+  .groups .group a.checked.invalid {
+    background: $dark-background-disabled;
+    strong {
+      color: $dark-color-medium;
+    }
+    &:hover {
+      background: $dark-background-disabled;
+    }
+  }
+
+  .groups .group a.checked,
+  .groups .group a.selected {
+    $c: #363e44;
+    background: $c;
+    &:hover {
+      background: lighten($c, 6);
+    }
+  }
+
+  .groups .group a.checked .icon,
+  .groups .group a .selected .icon {
+    border-color: $dark-border-dark;
+    &:hover {
+      border-color: $dark-border-dark;
+    }
+  }
+
+  .groups .group a.checked,
+  .groups .group a .selected {
+    &:hover {
+      .icon {
+        border-color: lighten($dark-border, 20);
+      }
+    }
+  }
+
+  .tab strong {
+    color: $dark-color-medium;
+    span {
+      color: $dark-color;
+    }
+    background: $dark-background-lighter;
+  }
+
+  .dependencies-list .dependency-item.checked,
+  .dependencies-list .dependency-item .selected,
+  ul.dependencies-list .dependency-item.checked,
+  ul.dependencies-list .dependency-item .selected {
+    background: $dark-background-light;
+    color: $dark-color-light;
+    strong {
+      color: $dark-color;
+    }
+
+    .icon {
+      border-color: $dark-border-dark;
+      color: $dark-color-light;
+    }
+    &:hover {
+      background: $dark-background-lighter;
+      .icon {
+        color: $dark-color-light;
+      }
+    }
+  }
+
+  .dependencies-list .dependency-item,
+  ul.dependencies-list .dependency-item {
+    background: $dark-background-light;
+    color: $dark-color-light;
+    strong {
+      color: $dark-color;
+    }
+
+    .icon {
+      border: 2px solid $dark-border-dark;
+      color: $dark-primary;
+    }
+    &:hover {
+      background: $dark-background-lighter;
+      .icon {
+        color: $dark-color-light;
+      }
+    }
+
+    &.invalid,
+    &.checked.invalid {
+      background: $dark-background-disabled;
+      &:hover {
+        background: $dark-background-disabled;
+      }
+      .warning {
+        color: #ff7676;
+      }
+    }
+  }
+
+  .search-more-warning,
+  .search-no-result {
+    color: $dark-color-medium;
+  }
+
+  .dependencies-list .dependency-item.selected,
+  ul.dependencies-list .dependency-item.selected {
+    background: $dark-background-lighter;
+    .icon {
+      color: $dark-color-light;
+    }
+  }
+
+  .dependencies-list-checked .dependency-item.checked,
+  ul.dependencies-list-checked .dependency-item.checked {
+    .icon {
+      color: $dark-primary;
+    }
+  }
+
+  .quick-links ul.dropdown-menu {
+    background: $dark-background-lighter;
+    li {
+      a {
+        color: $dark-color;
+        &:hover {
+          background: $dark-background-light;
+        }
+      }
+    }
+  }
+
+  .popup-share {
+    background: $dark-background-lighter;
+    .popup-header {
+      border-color: $dark-border-dark;
+      .close {
+        color: $dark-color-medium;
+      }
+    }
+    .popup-content {
+      label {
+        color: $dark-color-light;
+      }
+    }
+    .control-input {
+      background: $dark-background-lighter;
+      border-color: $dark-border-dark;
+      &:focus {
+        border-color: $dark-primary;
+      }
+    }
+  }
+  .popup-share-overlay {
+    background: rgba($dark-background, 0.95);
+  }
+  .popup-content .link {
+  }
+
+  .placeholder-radios .placeholder-radio {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .placeholder-input,
+  .placeholder-dropdown {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    &::after {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  .placeholder-button {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .placeholder-tabs .placeholder-header {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .placeholder-tabs .placeholder-tab {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .placeholder-text {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .overlay {
+    background: rgba($dark-background, 0.95);
+  }
+
+  .modal-explorer {
+    background: $dark-background-lighter;
+    box-shadow: 0 0 0 black;
+  }
+
+  .modal-explorer {
+    .colset-explorer {
+      .head,
+      .foot,
+      .left,
+      .right {
+        color: $dark-color-light;
+        border-color: $dark-border-dark;
+        .placeholder-text {
+          background: rgba(255, 255, 255, 0.05);
+        }
+      }
+    }
+    .close {
+      color: $dark-color-medium;
+    }
+  }
+
+  .modal-explorer .colset-explorer .head .actions {
+    color: $dark-color-medium;
+  }
+
+  .explorer-ul .file.selected,
+  .explorer-ul .folder.selected {
+    color: $dark-color;
+    background: $dark-background-light;
+    &:hover {
+      color: $dark-color;
+      background: $dark-background-light;
+    }
+  }
+
+  .explorer-ul .file,
+  .explorer-ul .folder {
+    color: $dark-color-light;
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: $dark-color;
+    }
+  }
+
+  pre.prism-code {
+    span.explorer-number {
+      color: rgba($dark-color, 0.5);
+      &:before {
+        background-color: $dark-background-light;
+        color: rgba($dark-color, 0.5);
+      }
+    }
+    &:before {
+      color: rgba($dark-color, 0.5);
+      background-color: $dark-background-light;
+    }
+  }
+
+  .explorer-ul .file.disabled,
+  .explorer-ul .folder.disabled {
+    color: $dark-color-light;
+    &:hover {
+      color: $dark-color-light;
+    }
+  }
+
+  .token.cdata,
+  .token.comment,
+  .token.doctype,
+  .token.prolog {
+    color: $dark-color-medium;
+  }
+
+  code[class*='language-'],
+  pre[class*='language-'],
+  .token.operator,
+  .token.punctuation,
+  .token.operator {
+    color: $dark-color-light;
+  }
+
+  .switch-label {
+    &::after {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .warnings {
+    background: #ffe09c;
+  }
+
+  .radio.err {
+    background: $dark-background-lighter;
+    border-color: #f30808;
+  }
+
+  .switch-label .switch-button,
+  .switch-checkbox:checked + .switch-label .switch-button {
+    background: $dark-color;
+  }
+
+  // Outline
+  .modal-explorer .colset-explorer .foot .action,
+  .modal-explorer .colset-explorer .head a,
+  .modal-explorer .close,
+  .header h1.logo a,
+  .radio,
+  .tab a,
+  .more div.wrap a,
+  .button,
+  .groups .group a,
+  .groups .group .group-title span,
+  .dependencies-list .dependency-item,
+  ul.dependencies-list .dependency-item,
+  .explorer-ul .file,
+  .explorer-ul .folder {
+    &:focus {
+      outline-color: $dark-outline;
+    }
+  }
+
+  .groups .group a.invalid .warning,
+  .groups .group a.checked.invalid .warning {
+    color: #ff7676;
+  }
+  .footer a,
+  .popup-share .popup-content .link,
+  .modal-explorer .colset-explorer .action,
+  .markdown a,
+  .markdown-source a {
+    color: $dark-link;
+  }
+}
+
+@media (max-width: 900px) {
+  body.dark {
+    background: $dark-background;
+    .quick-links {
+      border-color: $dark-border;
+      background: $dark-background;
+    }
+  }
+}

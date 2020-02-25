@@ -18,20 +18,24 @@ package io.spring.start.site.extension;
 
 import java.util.Arrays;
 
-import io.spring.initializr.generator.spring.test.build.GradleBuildAssert;
-import io.spring.initializr.generator.spring.test.build.PomAssert;
+import io.spring.initializr.generator.test.buildsystem.gradle.GroovyDslGradleBuildAssert;
+import io.spring.initializr.generator.test.buildsystem.maven.MavenBuildAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.web.project.DefaultProjectRequestToDescriptionConverter;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.ProjectGenerationResult;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
+import org.assertj.core.api.AssertProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Base test class for extensions.
@@ -42,43 +46,55 @@ import org.springframework.boot.test.context.SpringBootTest;
 public abstract class AbstractExtensionTests {
 
 	@Autowired
-	private ProjectGenerationInvoker invoker;
+	private ApplicationContext applicationContext;
 
 	@Autowired
 	private InitializrMetadataProvider metadataProvider;
 
+	private ProjectGenerationInvoker<ProjectRequest> invoker;
+
+	private ProjectGenerationInvoker<ProjectRequest> getInvoker() {
+		if (this.invoker == null) {
+			this.invoker = new ProjectGenerationInvoker<>(this.applicationContext,
+					new DefaultProjectRequestToDescriptionConverter());
+		}
+		return this.invoker;
+	}
+
+	protected InitializrMetadata getMetadata() {
+		return this.metadataProvider.get();
+	}
+
 	protected Dependency getDependency(String id) {
-		return this.metadataProvider.get().getDependencies().get(id);
+		return getMetadata().getDependencies().get(id);
 	}
 
 	protected BillOfMaterials getBom(String id, String version) {
-		BillOfMaterials bom = this.metadataProvider.get().getConfiguration().getEnv()
-				.getBoms().get(id);
+		BillOfMaterials bom = getMetadata().getConfiguration().getEnv().getBoms().get(id);
 		return bom.resolve(Version.parse(version));
 	}
 
-	protected PomAssert generateMavenPom(ProjectRequest request) {
+	protected AssertProvider<MavenBuildAssert> mavenPom(ProjectRequest request) {
 		request.setType("maven-build");
-		String content = new String(this.invoker.invokeBuildGeneration(request));
-		return new PomAssert(content);
+		String content = new String(getInvoker().invokeBuildGeneration(request));
+		return () -> new MavenBuildAssert(content);
 	}
 
-	protected GradleBuildAssert generateGradleBuild(ProjectRequest request) {
+	protected AssertProvider<GroovyDslGradleBuildAssert> gradleBuild(ProjectRequest request) {
 		request.setType("gradle-build");
-		String content = new String(this.invoker.invokeBuildGeneration(request));
-		return new GradleBuildAssert(content);
+		String content = new String(getInvoker().invokeBuildGeneration(request));
+		return () -> new GroovyDslGradleBuildAssert(content);
 	}
 
 	protected ProjectStructure generateProject(ProjectRequest request) {
-		ProjectGenerationResult result = this.invoker
-				.invokeProjectStructureGeneration(request);
+		ProjectGenerationResult result = getInvoker().invokeProjectStructureGeneration(request);
 		return new ProjectStructure(result.getRootDirectory());
 	}
 
 	protected ProjectRequest createProjectRequest(String... styles) {
 		WebProjectRequest request = new WebProjectRequest();
 		request.initialize(this.metadataProvider.get());
-		request.getStyle().addAll(Arrays.asList(styles));
+		request.getDependencies().addAll(Arrays.asList(styles));
 		return request;
 	}
 

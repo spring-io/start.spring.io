@@ -1,0 +1,148 @@
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none;
+  }
+  body,
+  body.light {
+    background: none;
+    padding-bottom: 94px;
+    min-width: 0;
+  }
+
+  .colset {
+    display: block;
+    max-width: none;
+    min-width: 0;
+    padding: $spring-8points * 2;
+    .left {
+      text-align: left;
+      padding: 0;
+      max-width: none;
+      min-width: 0;
+      flex: none;
+    }
+    .right {
+      padding: 0;
+      max-width: none;
+      min-width: 0;
+      flex: none;
+    }
+
+    .right.right-md {
+      padding: 0;
+      max-width: none;
+      width: auto;
+      flex: 0;
+    }
+  }
+
+  .header {
+    padding: 0;
+    border-top: 4px solid $light-primary;
+    width: auto;
+    h1.logo {
+      a {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .quick-links {
+    position: relative;
+    text-align: center;
+    display: block;
+    top: 0;
+    right: 0;
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    background: $light-background-dark;
+    padding: 0.5rem 0;
+    width: auto;
+  }
+
+  // Colset
+
+  .colset-2 {
+    display: block;
+    flex-flow: wrap;
+    .column {
+      padding: 0;
+      margin: 0;
+      flex: none;
+      + .column {
+        margin: 0;
+        padding: 0;
+        padding-top: $spring-8points * 3;
+      }
+    }
+  }
+
+  .dependencies-box {
+    padding: $spring-8points 0;
+  }
+
+  .colset .left.nopadding {
+    margin-left: 0;
+    padding: 0px;
+    flex: none;
+    width: auto;
+    text-align: center;
+    display: none;
+  }
+  .sticky .colset {
+    padding: 0;
+  }
+  .colset .right.nopadding {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    min-width: 0;
+    flex: none;
+    .submit {
+      width: auto;
+      text-align: center;
+    }
+    .placeholder-button {
+      margin: 0 auto;
+    }
+  }
+
+  .groups .group {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .groups .group .group-title {
+    position: relative;
+    margin: 0;
+    float: none;
+    top: 0;
+  }
+
+  .submit {
+    margin-right: 0;
+  }
+
+  .tab {
+    padding: 0;
+    margin: 0;
+  }
+
+  .error {
+    position: relative;
+    left: auto;
+    top: auto;
+    padding: 0 40px;
+  }
+  .warnings {
+    margin-top: 0;
+  }
+
+  .button {
+    padding: 4px 18px;
+  }
+  .share-area > .button,
+  .share-area {
+    width: 90px;
+  }
+}

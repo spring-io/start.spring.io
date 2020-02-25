@@ -34,28 +34,27 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Stephane Nicoll
  */
-public class StartInitializrMetadataUpdateStrategy
-		extends DefaultInitializrMetadataUpdateStrategy {
+public class StartInitializrMetadataUpdateStrategy extends DefaultInitializrMetadataUpdateStrategy {
 
-	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate,
-			ObjectMapper objectMapper) {
+	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate, ObjectMapper objectMapper) {
 		super(restTemplate, objectMapper);
 	}
 
 	@Override
 	protected List<DefaultMetadataElement> fetchSpringBootVersions(String url) {
-		return super.fetchSpringBootVersions(url).stream()
-				.filter(this::isStartGenerationVersion).collect(Collectors.toList());
+		List<DefaultMetadataElement> versions = super.fetchSpringBootVersions(url);
+		if (versions != null) {
+			return versions.stream().filter(this::isStartGenerationVersion).collect(Collectors.toList());
+		}
+		return null;
 	}
 
 	private boolean isStartGenerationVersion(DefaultMetadataElement element) {
 		Version springBootVersion = Version.parse(element.getId());
-		if (springBootVersion.getMajor().equals(2)
-				&& springBootVersion.getMinor().equals(0)) {
+		if (springBootVersion.getMajor() < 2) {
 			return false;
 		}
-		if ("BUILD-SNAPSHOT".equals(springBootVersion.getQualifier().getQualifier())
-				&& springBootVersion.getMajor().equals(1)) {
+		if (springBootVersion.getMajor().equals(2) && springBootVersion.getMinor().equals(0)) {
 			return false;
 		}
 		return true;
