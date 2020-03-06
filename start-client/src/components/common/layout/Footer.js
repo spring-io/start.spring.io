@@ -7,7 +7,7 @@ const Footer = ({ children }) => (
       <div className='left nopadding'>
         <footer className='footer'>
           <div className='footer-container'>
-            © 2013-{new Date().getFullYear()} Pivotal Software
+            © 2013-{new Date().getFullYear()} VMware, Inc.
             <br />
             start.spring.io is powered by
             <br />
