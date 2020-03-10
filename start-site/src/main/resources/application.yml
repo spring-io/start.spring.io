@@ -93,7 +93,7 @@ initializr:
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
           - compatibilityRange: "[2.2.0.M4,2.2.x.BUILD-SNAPSHOT)"
-            version: Hoxton.SR1
+            version: Hoxton.SR3
           - compatibilityRange: "[2.2.x.BUILD-SNAPSHOT,2.3.0.M1)"
             version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
@@ -113,9 +113,9 @@ initializr:
           - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
             version: 2.0.3.RELEASE
           - compatibilityRange: "[2.1.0.RELEASE,2.2.0.RELEASE)"
-            version: 2.1.6.RELEASE
+            version: 2.1.7.RELEASE
           - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
-            version: 2.2.1.RELEASE
+            version: 2.2.3.RELEASE
       spring-data-r2dbc:
         groupId: org.springframework.boot.experimental
         artifactId: spring-boot-bom-r2dbc
@@ -147,7 +147,7 @@ initializr:
           - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
             version: 10.0.17
           - compatibilityRange: "2.1.0.M1"
-            version: 14.1.17
+            version: 14.1.19
     gradle:
       dependency-management-plugin-version: 1.0.9.RELEASE
     kotlin:
@@ -447,7 +447,7 @@ initializr:
             - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
               version: 2.0.1
             - compatibilityRange: "2.1.0.RELEASE"
-              version: 2.1.1
+              version: 2.1.2
         - name: Liquibase Migration
           id: liquibase
           description: Liquibase database migration and source control library.
@@ -609,7 +609,7 @@ initializr:
           description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale that is compatible with Pivotal Cloud Cache.
           mappings:
             - compatibilityRange: "[2.2.0.M5,2.3.0.M1)"
-              version: 1.2.4.RELEASE
+              version: 1.2.5.RELEASE
             - compatibilityRange: "[2.3.0.M1, 2.3.x.BUILD-SNAPSHOT)"
               version: 1.3.0.M2
               repositories: spring-milestones
@@ -737,7 +737,7 @@ initializr:
               version: 2.24.3
               groupId: org.apache.camel
             - compatibilityRange: "2.2.0.M1"
-              version: 3.0.1
+              version: 3.1.0
           description: Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
           groupId: org.apache.camel.springboot
           artifactId: camel-spring-boot-starter
