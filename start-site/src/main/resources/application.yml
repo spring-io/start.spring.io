@@ -92,9 +92,9 @@ initializr:
           - compatibilityRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
-          - compatibilityRange: "[2.2.0.M4,2.2.x.BUILD-SNAPSHOT)"
+          - compatibilityRange: "[2.2.0.M4,2.3.x.BUILD-SNAPSHOT)"
             version: Hoxton.SR3
-          - compatibilityRange: "[2.2.x.BUILD-SNAPSHOT,2.3.0.M1)"
+          - compatibilityRange: "2.3.x.BUILD-SNAPSHOT"
             version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-alibaba:
@@ -831,7 +831,6 @@ initializr:
           bom: spring-cloud
           id: cloud-contract-verifier
           description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
-          compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-contract-verifier
           scope: test
@@ -843,7 +842,6 @@ initializr:
           bom: spring-cloud
           id: cloud-contract-stub-runner
           description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
-          compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-contract-stub-runner
           scope: test
@@ -866,7 +864,6 @@ initializr:
           starter: false
     - name: Spring Cloud
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Cloud Bootstrap
           id: cloud-starter
@@ -895,7 +892,6 @@ initializr:
           artifactId: spring-cloud-starter-task
     - name: Spring Cloud Security
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Cloud Security
           id: cloud-security
@@ -917,7 +913,6 @@ initializr:
           bom: spring-cloud
           id: open-service-broker
           description: Framework for building Spring Boot apps that implement the Open Service Broker API, which can deliver services to applications running within cloud native platforms such as Cloud Foundry, Kubernetes and OpenShift.
-          compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-open-service-broker
           mappings:
@@ -936,7 +931,6 @@ initializr:
               description: Using Spring Cloud Open Service Broker
     - name: Spring Cloud Config
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Config Client
           id: cloud-config-client
@@ -971,7 +965,6 @@ initializr:
           starter: false
     - name: Spring Cloud Discovery
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
@@ -1004,7 +997,6 @@ initializr:
           artifactId: spring-cloud-starter-consul-discovery
     - name: Spring Cloud Routing
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Zuul [Maintenance]
           id: cloud-zuul
@@ -1040,7 +1032,7 @@ initializr:
           artifactId: spring-cloud-starter-openfeign
         - name: Cloud LoadBalancer
           id: cloud-loadbalancer
-          compatibilityRange: "[2.2.0.M4,2.3.0.M1)"
+          compatibilityRange: "2.2.0.M4"
           description: Client-side load-balancing with Spring Cloud LoadBalancer.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-loadbalancer
@@ -1052,11 +1044,10 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-static/spring-cloud-commons/current/reference/html/#spring-cloud-loadbalancer
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Resilience4J
           id: cloud-resilience4j
-          compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
+          compatibilityRange: "2.2.0.RELEASE"
           description: Spring Cloud Circuit breaker with Resilience4j as the underlying implementation.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-circuitbreaker-resilience4j
@@ -1089,7 +1080,6 @@ initializr:
           artifactId: spring-cloud-starter-netflix-turbine-stream
     - name: Spring Cloud Tracing
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Sleuth
           id: cloud-starter-sleuth
@@ -1103,7 +1093,6 @@ initializr:
           artifactId: spring-cloud-starter-zipkin
     - name: Spring Cloud Messaging
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Cloud Bus
           id: cloud-bus
@@ -1152,7 +1141,6 @@ initializr:
               href: https://docs.pivotal.io/spring-cloud-services/
     - name: Amazon Web Services
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: AWS Core
           id: cloud-aws
