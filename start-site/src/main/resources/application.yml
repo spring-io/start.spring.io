@@ -763,6 +763,12 @@ initializr:
               description: Creating a Batch Service
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-batch-applications
+        - name: Validation
+          id: validation
+          description: JSR-303 validation with Hibernate validator.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-validation
         - name: Java Mail Sender
           id: mail
           description: Send email using Java Mail and Spring Framework's JavaMailSender.
