@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,14 +28,15 @@ import io.spring.initializr.metadata.InitializrMetadata;
  *
  * @author Eddú Meléndez
  */
-public class ReactorKotlinExtensionsCustomizer {
+class ReactorKotlinExtensionsCustomizer implements BuildCustomizer<Build> {
 
 	private final BuildMetadataResolver buildResolver;
 
-	public ReactorKotlinExtensionsCustomizer(InitializrMetadata metadata) {
+	ReactorKotlinExtensionsCustomizer(InitializrMetadata metadata) {
 		this.buildResolver = new BuildMetadataResolver(metadata);
 	}
 
+	@Override
 	public void customize(Build build) {
 		if (this.buildResolver.hasFacet(build, "reactive")) {
 			build.dependencies().add("reactor-kotlin-extensions",

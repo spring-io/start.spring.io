@@ -51,6 +51,12 @@ class KotlinProjectGenerationConfiguration {
 						.resolveKotlinVersion(description));
 	}
 
+	@Bean
+	@ConditionalOnPlatformVersion("2.2.0.RELEASE")
+	ReactorKotlinExtensionsCustomizer reactorKotlinExtensionsCustomizer(InitializrMetadata metadata) {
+		return new ReactorKotlinExtensionsCustomizer(metadata);
+	}
+
 	@Configuration
 	@ConditionalOnPlatformVersion("2.2.0.M5")
 	static class KotlinCoroutinesCustomizerConfiguration {
@@ -70,23 +76,6 @@ class KotlinProjectGenerationConfiguration {
 		@Bean
 		HelpDocumentCustomizer kotlinCoroutinesHelpDocumentCustomizer(Build build) {
 			return (helpDocument) -> this.customizer.customize(helpDocument, build);
-		}
-
-	}
-
-	@Configuration
-	@ConditionalOnPlatformVersion("2.1.0.RELEASE")
-	static class ReactorKotlinExtensionCustomizerConfiguration {
-
-		private final ReactorKotlinExtensionsCustomizer customizer;
-
-		ReactorKotlinExtensionCustomizerConfiguration(InitializrMetadata metadata) {
-			this.customizer = new ReactorKotlinExtensionsCustomizer(metadata);
-		}
-
-		@Bean
-		BuildCustomizer<Build> reactorExtensionsBuildCustomizer() {
-			return this.customizer::customize;
 		}
 
 	}
