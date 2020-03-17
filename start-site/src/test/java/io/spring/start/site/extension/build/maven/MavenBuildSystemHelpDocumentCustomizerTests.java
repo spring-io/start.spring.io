@@ -42,7 +42,8 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 	void linksAddedToHelpDocumentForMavenBuild() {
 		assertHelpDocument("maven-build", "2.3.0.RELEASE").contains(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/html/)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/html/)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/html/#build-image)");
 	}
 
 	@Test

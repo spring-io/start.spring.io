@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.assertj.core.api.ListAssert;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -32,23 +33,35 @@ import org.junit.jupiter.api.Test;
 class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void linksAddedToHelpDocumentForGradleBuild() {
-		assertHelpDocument("gradle-build").contains("* [Official Gradle documentation](https://docs.gradle.org)",
+	void linksAddedToHelpDocumentForGradleBuildPreSpringBoot23() {
+		assertHelpDocument("gradle-build", "2.1.6.RELEASE").contains(
+				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
 				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/gradle-plugin/reference/html/)");
 	}
 
 	@Test
+	@Disabled("Spring Boot 2.3 GA not available yet")
+	void linksAddedToHelpDocumentForGradleBuild() {
+		assertHelpDocument("gradle-build", "2.3.0.RELEASE").contains(
+				"* [Official Gradle documentation](https://docs.gradle.org)",
+				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/gradle-plugin/reference/html/)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/gradle-plugin/reference/html/#build-image)");
+	}
+
+	@Test
 	void linksNotAddedToHelpDocumentForMavenBuild() {
-		assertHelpDocument("maven-build").doesNotContain("* [Official Gradle documentation](https://docs.gradle.org)",
+		assertHelpDocument("maven-build", "2.1.6.RELEASE").doesNotContain(
+				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
 				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/gradle-plugin/reference/html/)");
 	}
 
-	private ListAssert<String> assertHelpDocument(String type) {
+	private ListAssert<String> assertHelpDocument(String type, String version) {
 		ProjectRequest request = createProjectRequest("web");
 		request.setType(type);
-		request.setBootVersion("2.1.6.RELEASE");
+		request.setBootVersion(version);
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md")).lines();
 	}
