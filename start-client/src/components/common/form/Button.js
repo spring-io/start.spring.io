@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-function Button({ id, onClick, children, variant, hotkey }) {
+function Button({ id, onClick, children, variant, hotkey, buttonRef }) {
   return (
     <button
       className={`button ${variant === 'primary' ? 'primary' : ''}`}
@@ -12,6 +12,7 @@ function Button({ id, onClick, children, variant, hotkey }) {
           onClick(event)
         }
       }}
+      ref={buttonRef}
     >
       {children}
       {hotkey && (
@@ -29,6 +30,7 @@ Button.defaultProps = {
   children: null,
   variant: '',
   hotkey: '',
+  buttonRef: null,
 }
 
 Button.propTypes = {
@@ -37,6 +39,10 @@ Button.propTypes = {
   hotkey: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node,
+  buttonRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 }
 
 export default Button

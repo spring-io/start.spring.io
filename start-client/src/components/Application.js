@@ -58,6 +58,9 @@ export default function Application() {
   const inputMore = useRef(null)
   const inputQuickSearch = useRef(null)
 
+  const buttonExplore = useRef(null)
+  const buttonSubmit = useRef(null)
+
   const windowsUtils = useWindowsUtils()
   useHash()
 
@@ -111,7 +114,18 @@ export default function Application() {
     <Layout>
       <BodyClassName className={theme} />
       <Suspense fallback=''>
-        <HotKeys onSubmit={onSubmit} onExplore={onExplore} />
+        <HotKeys
+          onSubmit={() => {
+            if (get(buttonSubmit, 'current')) {
+              buttonSubmit.current.click()
+            }
+          }}
+          onExplore={() => {
+            if (get(buttonExplore, 'current')) {
+              buttonExplore.current.click()
+            }
+          }}
+        />
       </Suspense>
       <Form onSubmit={onSubmit}>
         {!complete ? (
@@ -257,6 +271,7 @@ export default function Application() {
                 variant='primary'
                 onClick={onSubmit}
                 hotkey={`${windowsUtils.symb} + ⏎`}
+                buttonRef={buttonSubmit}
               >
                 Generate
               </Button>
@@ -264,6 +279,7 @@ export default function Application() {
                 id='explore-project'
                 onClick={onExplore}
                 hotkey='Ctrl + Space'
+                buttonRef={buttonExplore}
               >
                 Explore
               </Button>
