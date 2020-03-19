@@ -39,11 +39,19 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 	}
 
 	@Test
+	void linksAddedToHelpDocumentForMavenBuildPreNewSpringBoot23Structure() {
+		assertHelpDocument("maven-build", "2.3.0.M3").contains(
+				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.M3/maven-plugin/html/)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.M3/maven-plugin/html/#build-image)");
+	}
+
+	@Test
 	void linksAddedToHelpDocumentForMavenBuild() {
 		assertHelpDocument("maven-build", "2.3.0.RELEASE").contains(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/html/)",
-				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/html/#build-image)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/#build-image)");
 	}
 
 	@Test

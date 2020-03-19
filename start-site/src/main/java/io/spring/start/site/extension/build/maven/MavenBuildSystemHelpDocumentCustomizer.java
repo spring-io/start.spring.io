@@ -33,13 +33,18 @@ class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	private static final VersionRange SPRING_BOOT_2_3_OR_LATER = VersionParser.DEFAULT.parseRange("2.3.0.M1");
 
+	private static final VersionRange NEW_DOC_STRUCTURE = VersionParser.DEFAULT.parseRange("2.3.0.M4");
+
 	private final Version springBootVersion;
 
 	private final boolean springBoot23;
 
+	private final boolean newDocStructure;
+
 	MavenBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
 		this.springBootVersion = description.getPlatformVersion();
 		this.springBoot23 = SPRING_BOOT_2_3_OR_LATER.match(this.springBootVersion);
+		this.newDocStructure = NEW_DOC_STRUCTURE.match(this.springBootVersion);
 	}
 
 	@Override
@@ -57,7 +62,8 @@ class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 	private String generateReferenceGuideUrl() {
 		String baseUrlFormat = "https://docs.spring.io/spring-boot/docs/%s/maven-plugin/";
 		if (this.springBoot23) {
-			baseUrlFormat = baseUrlFormat + "html/";
+			String location = (this.newDocStructure) ? "reference/html/" : "html/";
+			baseUrlFormat = baseUrlFormat + location;
 		}
 		return String.format(baseUrlFormat, this.springBootVersion);
 	}
