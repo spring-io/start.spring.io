@@ -33,21 +33,21 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 	@Override
 	public void customize(Build build) {
 		if (build.dependencies().has("h2")) {
-			addCoreDriver(build.dependencies(), "r2dbc-h2");
+			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-h2");
 		}
 		if (build.dependencies().has("mysql")) {
-			addCoreDriver(build.dependencies(), "r2dbc-mysql");
+			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
 		}
 		if (build.dependencies().has("postgresql")) {
-			addCoreDriver(build.dependencies(), "r2dbc-postgresql");
+			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-postgresql");
 		}
 		if (build.dependencies().has("sqlserver")) {
-			addCoreDriver(build.dependencies(), "r2dbc-mssql");
+			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql");
 		}
 	}
 
-	private void addCoreDriver(DependencyContainer dependencies, String id) {
-		dependencies.add(id, Dependency.withCoordinates("io.r2dbc", id).scope(DependencyScope.RUNTIME));
+	private void addManagedDriver(DependencyContainer dependencies, String groupId, String artifactId) {
+		dependencies.add(artifactId, Dependency.withCoordinates(groupId, artifactId).scope(DependencyScope.RUNTIME));
 	}
 
 }
