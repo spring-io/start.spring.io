@@ -415,7 +415,7 @@ initializr:
               href: https://spring.io/guides/gs/accessing-data-r2dbc/
               description: Acessing data with R2DBC
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/spring-boot-features.html#boot-features-r2dbc
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/spring-boot-features.html#boot-features-r2dbc
             - rel: home
               href: https://r2dbc.io
               description: R2DBC Homepage
@@ -768,7 +768,7 @@ initializr:
           description: JSR-303 validation with Hibernate validator.
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-validation
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-validation
         - name: Java Mail Sender
           id: mail
           description: Send email using Java Mail and Spring Framework's JavaMailSender.
