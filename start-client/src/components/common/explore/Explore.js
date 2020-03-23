@@ -2,18 +2,20 @@ import '../../../styles/explore.scss'
 
 import FileSaver from 'file-saver'
 import JSZip from 'jszip'
-import Modal from 'react-responsive-modal'
 import PropTypes from 'prop-types'
 import get from 'lodash.get'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import { toast } from 'react-toastify'
 
 import Code from './Code'
 import Loading from './Loading'
+import Select from './Select'
 import Tree from './Tree'
+import useWindowsUtils from '../../utils/WindowsUtils'
 import { AppContext } from '../../reducer/App'
-import { IconFile, IconTimes } from '../icons'
 import { createTree, findRoot } from '../../utils/Zip'
 
 function Explore({ open, onClose, projectName, blob }) {
@@ -21,6 +23,9 @@ function Explore({ open, onClose, projectName, blob }) {
   const [tree, setTree] = useState(null)
   const [selected, setSelected] = useState(null)
   const { dispatch, explore } = useContext(AppContext)
+  const wrapper = useRef(null)
+
+  const windowsUtils = useWindowsUtils()
 
   useEffect(() => {
     const load = async () => {
@@ -36,7 +41,7 @@ function Explore({ open, onClose, projectName, blob }) {
         setSelected(result.selected)
         setTree(result.tree)
       } catch (e) {
-        dispatch({ type: 'EXPLORE_UPDATE', payload: { open: false } })
+        dispatch({ type: 'UPDATE', payload: { explore: false } })
         toast.error(e.message)
       }
     }
@@ -44,6 +49,15 @@ function Explore({ open, onClose, projectName, blob }) {
       load()
     }
   }, [explore, blob, dispatch])
+
+  useEffect(() => {
+    if (get(wrapper, 'current') && open) {
+      disableBodyScroll(get(wrapper, 'current'))
+    }
+    return () => {
+      clearAllBodyScrollLocks()
+    }
+  }, [wrapper, open, selected, tree])
 
   const onCopy = () => {
     setButton('Copied!')
@@ -63,124 +77,149 @@ function Explore({ open, onClose, projectName, blob }) {
     FileSaver.saveAs(blob, projectName)
   }
 
+  const onEnded = () => {
+    setTimeout(() => {
+      setTree(null)
+      setSelected(null)
+      clearAllBodyScrollLocks()
+    }, 350)
+  }
+
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={() => {
-          setSelected(null)
-          onClose()
-        }}
-        showCloseIcon={false}
-        classNames={{ modal: 'modal-explorer', overlay: 'overlay' }}
-      >
-        {tree && selected ? (
-          <div className='colset-explorer'>
-            <div className='left'>
-              <div className='head'>
-                <strong>{projectName}</strong>
-              </div>
-              <div className='explorer-content'>
-                <Tree
-                  selected={selected}
-                  onClickItem={item => {
-                    setSelected(item)
-                    // onSelected(item)
-                  }}
-                  tree={tree}
-                />
-              </div>
-              <div className='foot'>
-                <a
-                  href='/#'
-                  onClick={e => {
-                    e.preventDefault()
-                    downloadZip()
-                  }}
-                  className='action'
-                >
-                  Download the ZIP
-                </a>
-              </div>
-            </div>
-            <div className='right'>
-              {selected && (
-                <>
+    <TransitionGroup component={null}>
+      {open && (
+        <CSSTransition onExit={onEnded} classNames='explorer' timeout={500}>
+          <div className='explorer'>
+            {tree && selected ? (
+              <div className='colset-explorer'>
+                <div className='left'>
                   <div className='head'>
-                    <strong>
-                      <IconFile />
-                      {get(selected, 'filename')}
-                    </strong>
-                    <div className='actions'>
-                      <span className='divider'>|</span>
-                      <a
-                        href='/#'
-                        onClick={e => {
-                          e.preventDefault()
-                          download(selected)
-                        }}
-                        className='action'
-                      >
-                        Download
-                      </a>
-                      <span className='divider'>|</span>
-                      <CopyToClipboard
-                        onCopy={onCopy}
-                        text={get(selected, 'content', '')}
-                      >
-                        <a
-                          href='/#'
-                          onClick={e => {
-                            e.preventDefault()
-                          }}
-                          className='action'
-                        >
-                          {button}
-                        </a>
-                      </CopyToClipboard>
-                      {get(selected, 'language') === 'markdown' && (
-                        <>
-                          <span className='divider'>|</span>
+                    <strong>{projectName}</strong>
+                  </div>
+                  <div className='explorer-content'>
+                    <Tree
+                      selected={selected}
+                      onClickItem={item => {
+                        setSelected(item)
+                      }}
+                      tree={tree}
+                    />
+                  </div>
+                </div>
+                <div className='is-mobile explorer-select'>
+                  <Select
+                    selected={selected}
+                    onClickItem={item => {
+                      setSelected(item)
+                    }}
+                    tree={tree}
+                  />
+                </div>
+                <div className='right'>
+                  {selected && (
+                    <>
+                      <div className='head'>
+                        <div className='actions-file'>
                           <a
                             href='/#'
                             onClick={e => {
                               e.preventDefault()
-                              const newSelected = { ...selected }
-                              newSelected.force = !get(selected, 'force', false)
-                              setSelected(newSelected)
+                              download(selected)
                             }}
-                            className='action'
+                            className='button'
                           >
-                            {get(selected, 'force', false)
-                              ? 'Preview'
-                              : 'View source'}
+                            <span className='button-content' tabIndex='-1'>
+                              <span>Download</span>
+                            </span>
                           </a>
-                        </>
-                      )}
-                    </div>
-                    <a
-                      href='/#'
-                      onClick={e => {
-                        e.preventDefault()
-                        onClose()
-                      }}
-                      className='close'
-                    >
-                      <IconTimes />
-                    </a>
-                  </div>
-                  <div className='explorer-content'>
-                    <Code item={selected} onChange={() => {}} />
-                  </div>
-                </>
-              )}
-            </div>
+                          <CopyToClipboard
+                            onCopy={onCopy}
+                            text={get(selected, 'content', '')}
+                          >
+                            <a
+                              href='/#'
+                              onClick={e => {
+                                e.preventDefault()
+                              }}
+                              className='button'
+                            >
+                              <span className='button-content' tabIndex='-1'>
+                                <span>{button}</span>
+                              </span>
+                            </a>
+                          </CopyToClipboard>
+                          {get(selected, 'language') === 'markdown' && (
+                            <>
+                              <a
+                                href='/#'
+                                onClick={e => {
+                                  e.preventDefault()
+                                  const newSelected = { ...selected }
+                                  newSelected.force = !get(
+                                    selected,
+                                    'force',
+                                    false
+                                  )
+                                  setSelected(newSelected)
+                                }}
+                                className='button'
+                              >
+                                <span className='button-content' tabIndex='-1'>
+                                  <span>
+                                    {get(selected, 'force', false)
+                                      ? 'Preview'
+                                      : 'View source'}
+                                  </span>
+                                </span>
+                              </a>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                      <div className='explorer-content' ref={wrapper}>
+                        <Code item={selected} onChange={() => {}} />
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className='explorer-actions'>
+                  <a
+                    href='/#'
+                    onClick={e => {
+                      e.preventDefault()
+                      downloadZip()
+                    }}
+                    className='button'
+                  >
+                    <span className='button-content' tabIndex='-1'>
+                      <span>Download</span>
+                      <span className='secondary desktop-only'>
+                        {windowsUtils.symb} + ⏎
+                      </span>
+                    </span>
+                  </a>
+                  <a
+                    href='/#'
+                    onClick={e => {
+                      e.preventDefault()
+                      onClose()
+                    }}
+                    className='button'
+                  >
+                    <span className='button-content' tabIndex='-1'>
+                      <span>Close</span>
+                      <span className='secondary desktop-only'>ESC</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <Loading onClose={onClose} />
+            )}
           </div>
-        ) : (
-          <Loading onClose={onClose} />
-        )}
-      </Modal>
-    </div>
+        </CSSTransition>
+      )}
+    </TransitionGroup>
   )
 }
 

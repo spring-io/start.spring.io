@@ -1,0 +1,44 @@
+/*!
+ * Hamburgers
+ * @description Tasty CSS-animated hamburgers
+ * @author Jonathan Suh @jonsuh
+ * @site https://jonsuh.com/hamburgers
+ * @link https://github.com/jonsuh/hamburgers
+ */
+
+// Settings
+// ==================================================
+
+$hamburger-padding-x: 8px;
+$hamburger-padding-y: 8px;
+$hamburger-layer-width: 26px;
+$hamburger-layer-height: 3px;
+$hamburger-layer-spacing: 6px;
+$hamburger-layer-color: $light-color;
+$hamburger-layer-border-radius: 4px;
+$hamburger-hover-opacity: 0.7;
+$hamburger-active-layer-color: white;
+$hamburger-active-hover-opacity: $hamburger-hover-opacity;
+
+$hamburger-hover-use-filter: false;
+$hamburger-hover-filter: opacity(50%);
+$hamburger-active-hover-filter: $hamburger-hover-filter;
+
+$hamburger-types: (spin);
+
+@import '../../node_modules/hamburgers/_sass/hamburgers/hamburgers';
+
+.hamburger {
+  margin-top: 16px;
+  height: 38px;
+  padding: 0;
+  &:focus {
+    @include outline;
+  }
+  span.hamburger-box {
+    padding: 8px;
+    display: block;
+    outline: none;
+    box-shadow: none;
+  }
+}

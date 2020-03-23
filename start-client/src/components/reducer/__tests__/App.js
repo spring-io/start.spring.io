@@ -5,11 +5,11 @@ import { reducer } from '../App'
 let state = {}
 beforeEach(() => {
   state = {
-    more: false,
     complete: false,
     explore: false,
     share: false,
-    tab: 'quicksearch',
+    nav: false,
+    list: false,
     theme: 'light',
     config: {},
     groupsClosed: [],
@@ -22,9 +22,10 @@ beforeEach(() => {
 
 describe('UPDATE action', () => {
   it('should reduce the state', () => {
-    let result = reducer(state, { type: 'UPDATE', payload: { more: true } })
-    expect(get(result, 'more')).toBe(true)
-    result = reducer(state, { type: 'UPDATE', payload: { theme: 'dark' } })
+    const result = reducer(state, {
+      type: 'UPDATE',
+      payload: { theme: 'dark' },
+    })
     expect(get(result, 'theme')).toBe('dark')
   })
   it('should throw an error', () => {
@@ -85,28 +86,58 @@ describe('UPDATE_DEPENDENCIES action', () => {
   })
 })
 
-describe('SHARE_UPDATE/EXPLORE_UPDATE action', () => {
+describe('share/explore/nav/list action', () => {
   it('should add/remove a group', () => {
     let result = reducer(state, {
-      type: 'SHARE_UPDATE',
-      payload: { open: true },
+      type: 'UPDATE',
+      payload: { share: true },
     })
     expect(get(result, 'share')).toBe(true)
     result = reducer(result, {
-      type: 'SHARE_UPDATE',
-      payload: { open: false },
+      type: 'UPDATE',
+      payload: { share: false },
     })
     expect(get(result, 'share')).toBe(false)
     result = reducer(result, {
-      type: 'EXPLORE_UPDATE',
-      payload: { open: true },
+      type: 'UPDATE',
+      payload: { explore: true },
     })
     expect(get(result, 'explore')).toBe(true)
     result = reducer(result, {
-      type: 'EXPLORE_UPDATE',
-      payload: { open: false },
+      type: 'UPDATE',
+      payload: { explore: false },
     })
     expect(get(result, 'explore')).toBe(false)
+    result = reducer(result, {
+      type: 'UPDATE',
+      payload: { explore: true },
+    })
+    expect(get(result, 'explore')).toBe(true)
+    result = reducer(result, {
+      type: 'UPDATE',
+      payload: { explore: false },
+    })
+    expect(get(result, 'explore')).toBe(false)
+    result = reducer(result, {
+      type: 'UPDATE',
+      payload: { nav: true },
+    })
+    expect(get(result, 'nav')).toBe(true)
+    result = reducer(result, {
+      type: 'UPDATE',
+      payload: { nav: false },
+    })
+    expect(get(result, 'nav')).toBe(false)
+    result = reducer(result, {
+      type: 'UPDATE',
+      payload: { list: true },
+    })
+    expect(get(result, 'list')).toBe(true)
+    result = reducer(result, {
+      type: 'UPDATE',
+      payload: { list: false },
+    })
+    expect(get(result, 'list')).toBe(false)
   })
 })
 

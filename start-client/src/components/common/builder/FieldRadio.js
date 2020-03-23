@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { RadioGroup } from '../form'
+import { Radio } from '../form'
 
 const FieldRadio = ({ id, text, value, onChange, disabled, options }) => (
-  <div className='control'>
+  <div className='control control-inline'>
     <label htmlFor={id}>{text}</label>
-    <RadioGroup
+    <Radio
       name='packaging'
       disabled={disabled}
       selected={value}

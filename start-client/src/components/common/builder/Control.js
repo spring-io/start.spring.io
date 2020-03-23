@@ -1,42 +1,25 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Control = ({ text, children, variant }) => {
-  if (variant === 'xl' || variant === 'xxl') {
-    return (
-      <div className='colset'>
-        <div className='left'>
-          <div className='sticky-label'>{text}</div>
-        </div>
-        <div
-          className={`dependencies-box ${variant === 'xl' ? 'list' : 'large'}`}
-        >
-          {children}
-        </div>
-      </div>
-    )
-  }
-
+const Control = ({ text, children, labelFor }) => {
   return (
-    <div className='colset'>
-      <div className='left'>
-        <>{text}</>
-      </div>
-      <div className={`right ${variant === 'md' ? 'right-md' : ''}`}>
-        {children}
-      </div>
+    <div className='control'>
+      <label className='label' htmlFor={labelFor}>
+        {text}
+      </label>
+      <div className='control-element'>{children}</div>
     </div>
   )
 }
 
 Control.defaultProps = {
   children: null,
-  variant: '',
+  labelFor: '',
 }
 
 Control.propTypes = {
   children: PropTypes.node,
-  variant: PropTypes.string,
+  labelFor: PropTypes.string,
   text: PropTypes.string.isRequired,
 }
 
