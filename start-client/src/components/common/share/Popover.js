@@ -3,11 +3,11 @@ import get from 'lodash.get'
 import React, { useEffect, useRef, useState } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 
 import useWindowsUtils from '../../utils/WindowsUtils'
-import { IconTimes } from '../icons'
 
-function Popover({ shareUrl, open, onClose, position }) {
+function Popover({ shareUrl, open, onClose }) {
   const [button, setButton] = useState('Copy')
   const wrapper = useRef(null)
   const input = useRef(null)
@@ -33,6 +33,15 @@ function Popover({ shareUrl, open, onClose, position }) {
     setButton('Copy')
   }
 
+  useEffect(() => {
+    if (get(wrapper, 'current') && open) {
+      disableBodyScroll(get(wrapper, 'current'))
+    }
+    return () => {
+      clearAllBodyScrollLocks()
+    }
+  }, [wrapper, open])
+
   const onCopy = () => {
     setButton('Copied!')
     input.current.focus()
@@ -46,27 +55,11 @@ function Popover({ shareUrl, open, onClose, position }) {
     <>
       <TransitionGroup component={null}>
         {open && (
-          <CSSTransition onEnter={onEnter} classNames='popup' timeout={500}>
-            <div
-              className='popup-share'
-              style={{
-                top: `${position.y - 200}px`,
-                left: `${position.x - 200}px`,
-              }}
-            >
-              <div ref={wrapper}>
+          <CSSTransition onEnter={onEnter} classNames='popup' timeout={300}>
+            <div className='popup-share'>
+              <div className='popop-share-container' ref={wrapper}>
                 <div className='popup-header'>
                   <h1>Share your configuration</h1>
-                  <a
-                    href='/#'
-                    onClick={e => {
-                      e.preventDefault()
-                      onClose()
-                    }}
-                    className='close'
-                  >
-                    <IconTimes />
-                  </a>
                 </div>
                 <div className='popup-content'>
                   {/* eslint-disable-next-line */}
@@ -81,9 +74,14 @@ function Popover({ shareUrl, open, onClose, position }) {
                         event.target.select()
                       }}
                       id='input-share'
-                      className={`control-input ${
+                      className={`input ${
                         button === 'Copied!' ? 'padding-lg' : ''
                       }`}
+                      onKeyDown={event => {
+                        if (event.key === 'Escape') {
+                          onClose()
+                        }
+                      }}
                       readOnly
                       value={urlToShare}
                       ref={input}
@@ -94,31 +92,36 @@ function Popover({ shareUrl, open, onClose, position }) {
                         onClick={e => {
                           e.preventDefault()
                         }}
-                        className='link'
+                        className='button'
                         ref={link}
                       >
-                        {button}
+                        <span className='button-content' tabIndex='-1'>
+                          <span>{button}</span>
+                        </span>
                       </a>
                     </CopyToClipboard>
                   </div>
+                </div>
+                <div className='popup-action'>
+                  <a
+                    href='/#'
+                    onClick={e => {
+                      e.preventDefault()
+                      onClose()
+                    }}
+                    className='button'
+                  >
+                    <span className='button-content' tabIndex='-1'>
+                      <span>Close</span>
+                      <span className='secondary desktop-only'>ESC</span>
+                    </span>
+                  </a>
                 </div>
               </div>
             </div>
           </CSSTransition>
         )}
       </TransitionGroup>
-      {open && (
-        <button
-          className='button primary share-ghost'
-          type='button'
-          style={{
-            top: `${position.y}px`,
-            left: `${position.x}px`,
-          }}
-        >
-          Share...
-        </button>
-      )}
     </>
   )
 }
@@ -127,10 +130,6 @@ Popover.propTypes = {
   shareUrl: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  position: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  }).isRequired,
 }
 
 export default Popover

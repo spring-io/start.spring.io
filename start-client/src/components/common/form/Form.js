@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const Form = ({ onSubmit, children }) => (
-  <form onSubmit={onSubmit} autoComplete='off'>
+  <form className='form' onSubmit={onSubmit} autoComplete='off'>
     <input
       style={{ display: 'none' }}
       type='text'

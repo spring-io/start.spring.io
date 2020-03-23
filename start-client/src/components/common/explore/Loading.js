@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { IconTimes } from '../icons'
-import { Placeholder } from '../form'
+import { Placeholder } from '../builder'
 
 function Loading({ onClose }) {
   return (
@@ -46,31 +45,36 @@ function Loading({ onClose }) {
               </li>
             </ul>
           </div>
-          <div className='foot'>
-            <Placeholder type='text' width='120px' />
-          </div>
         </div>
         <div className='right'>
-          <>
-            <div className='head'>
-              <Placeholder width='86px' type='text' />
-              <div className='actions'>
-                <Placeholder width='74px' type='text' />
-                <Placeholder width='43px' type='text' />
-              </div>
-              <a
-                href='/#'
-                onClick={e => {
-                  e.preventDefault()
-                  onClose()
-                }}
-                className='close'
-              >
-                <IconTimes />
-              </a>
+          <div className='head'>
+            <div className='actions-file'>
+              <Placeholder width='120px' type='button' />
+              <Placeholder width='78px' type='button' />
             </div>
-            <div className='content' />
-          </>
+          </div>
+
+          <div className='is-mobile explorer-select placeholder-explorer-select'>
+            <div className='placeholder-select' />
+          </div>
+          <div className='explorer-content' />
+        </div>
+
+        <div className='explorer-actions'>
+          <Placeholder className='placeholder-button-download' type='button' />
+          <a
+            href='/#'
+            onClick={e => {
+              e.preventDefault()
+              onClose()
+            }}
+            className='button'
+          >
+            <span className='button-content'>
+              <span>Close</span>
+              <span className='secondary desktop-only'>ESC</span>
+            </span>
+          </a>
         </div>
       </div>
     </>

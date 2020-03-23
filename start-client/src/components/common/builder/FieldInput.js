@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const FieldInput = ({ id, text, value, onChange, disabled, inputRef }) => (
-  <div className='control'>
+  <div className='control control-inline'>
     <label htmlFor={id}>{text}</label>
     <input
       type='text'
       id={id}
-      className='control-input'
+      className='input'
       disabled={disabled}
       value={value}
       onChange={onChange}

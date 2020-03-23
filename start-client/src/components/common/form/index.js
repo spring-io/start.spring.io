@@ -1,7 +1,4 @@
 export { default as Radio } from './Radio'
-export { default as RadioGroup } from './RadioGroup'
-export { default as Switch } from './Switch'
-export { default as Close } from './Close'
-export { default as Placeholder } from './Placeholder'
 export { default as Form } from './Form'
 export { default as Button } from './Button'
+export { default as Overlay } from './Overlay'
