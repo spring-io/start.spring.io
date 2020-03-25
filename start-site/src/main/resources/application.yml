@@ -46,6 +46,13 @@ initializr:
             version: 2.1.6
           - compatibilityRange: "2.2.0.M1"
             version: 2.2.1
+      solace-spring-boot:
+        groupId: com.solace.spring.boot
+        artifactId: solace-spring-boot-bom
+        versionProperty: solace-spring-boot.version
+        mappings:
+          - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
+            version: 1.0.0
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -733,25 +740,19 @@ initializr:
               href: https://camel.apache.org/spring-boot
               description: Using Apache Camel with Spring Boot
         - name: Solace PubSub+
+          bom: solace-spring-boot
           id: solace
-          compatibilityRange: 2.1.0.RELEASE
-          description: Connect to a Solace PubSub+ Advanced Event Broker using the Solace JMS support to send and receive messages.
+          compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
+          description: Connect to a Solace PubSub+ Advanced Event Broker to publish, subscribe, request/reply and store/replay messages
           groupId: com.solace.spring.boot
-          artifactId: solace-jms-spring-boot-starter
-          mappings:
-            - compatibilityRange: "[2.1.0.RELEASE,2.2.0.M1)"
-              version: 3.1.0
-            - compatibilityRange: "2.2.0.M1"
-              version: 3.2.0
+          artifactId: solace-spring-boot-starter
           links:
+            - rel: reference
+              href: https://www.solace.dev/start-spring-io-help/
+              description: Getting started with Solace and Spring
             - rel: reference
               href: https://solace.dev
               description: Solace Developer Portal
-            - rel: reference
-              href: https://github.com/SolaceProducts/solace-jms-spring-boot
-            - rel: guide
-              href: https://github.com/SolaceProducts/solace-jms-spring-boot/tree/master/solace-jms-sample-app
-              description: Solace sample application using JMS.
     - name: I/O
       content:
         - name: Spring Batch
