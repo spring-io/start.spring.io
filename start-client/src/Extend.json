@@ -70,5 +70,9 @@
   {
     "id": "cloud-eureka",
     "weight": 100
+  },
+  {
+    "id": "solace",
+    "weight": 100
   }
 ]

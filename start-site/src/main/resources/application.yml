@@ -53,6 +53,13 @@ initializr:
         mappings:
           - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
             version: 1.0.0
+      solace-spring-cloud:
+        groupId: com.solace.spring.cloud
+        artifactId: solace-spring-cloud-bom
+        versionProperty: solace-spring-cloud.version
+        mappings:
+          - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
+            version: 1.0.0
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1104,7 +1111,7 @@ initializr:
           artifactId: spring-cloud-bus
         - name: Cloud Stream
           id: cloud-stream
-          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka or RabbitMQ).
+          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, RabbitMQ or Solace PubSub+).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
         - name: Reactive Cloud Stream
