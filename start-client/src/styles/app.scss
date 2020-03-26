@@ -1,32 +1,8 @@
-@font-face {
-  font-family: 'Karla';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/karla-v12-latin-regular.eot');
-  src: local(''),
-    url('../fonts/karla-v12-latin-regular.eot?#iefix')
-      format('embedded-opentype'),
-    url('../fonts/karla-v12-latin-regular.woff2') format('woff2'),
-    url('../fonts/karla-v12-latin-regular.woff') format('woff'),
-    url('../fonts/karla-v12-latin-regular.ttf') format('truetype'),
-    url('../fonts/karla-v12-latin-regular.svg#Karla') format('svg');
-}
-@font-face {
-  font-family: 'Karla';
-  font-style: normal;
-  font-weight: 700;
-  src: url('../fonts/karla-v12-latin-700.eot');
-  src: local(''),
-    url('../fonts/karla-v12-latin-700.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/karla-v12-latin-700.woff2') format('woff2'),
-    url('../fonts/karla-v12-latin-700.woff') format('woff'),
-    url('../fonts/karla-v12-latin-700.ttf') format('truetype'),
-    url('../fonts/karla-v12-latin-700.svg#Karla') format('svg');
-}
-
 @import 'variables';
+@import 'fonts';
 @import 'mixins';
+@import 'hamburgers';
 @import 'main';
 @import 'toast';
-@import 'responsive';
 @import 'dark';
+@import 'responsive';

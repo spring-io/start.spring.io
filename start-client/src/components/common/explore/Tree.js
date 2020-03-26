@@ -52,12 +52,14 @@ function Tree({ tree, selected, onClickItem }) {
               }
             }}
           >
-            <span key={`s2${item.path}`} className='text'>
-              {get(item, 'children.length', 0) > 0 && <IconCaretDown />}
-              <span key={`s3${item.path}`} className='icon'>
-                <IconFolder key={`s4${item.path}`} />
+            <span className='item-content' tabIndex='-1'>
+              <span key={`s2${item.path}`} className='text'>
+                {get(item, 'children.length', 0) > 0 && <IconCaretDown />}
+                <span key={`s3${item.path}`} className='icon'>
+                  <IconFolder key={`s4${item.path}`} />
+                </span>
+                {item.filename}
               </span>
-              {item.filename}
             </span>
           </a>
           {get(item, 'children') && (
@@ -87,11 +89,13 @@ function Tree({ tree, selected, onClickItem }) {
             }
           }}
         >
-          <span key={`s2${item.path}`} className='text'>
-            <span key={`s3${item.path}`} className='icon'>
-              <IconFile key={`s4${item.path}`} />
+          <span className='item-content' tabIndex='-1'>
+            <span key={`s2${item.path}`} className='text'>
+              <span key={`s3${item.path}`} className='icon'>
+                <IconFile key={`s4${item.path}`} />
+              </span>
+              {item.filename}
             </span>
-            {item.filename}
           </span>
         </a>
       </li>

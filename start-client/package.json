@@ -55,7 +55,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "fibers": "^3.1.1",
+    "fibers": "^4.0.2",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "import-sort-cli": "^6.0.0",
@@ -82,7 +82,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.6.3",
+    "body-scroll-lock": "^3.0.1",
     "file-saver": "^2.0.2",
+    "hamburgers": "^1.1.3",
     "immutable": "^4.0.0-rc.12",
     "js-search": "^1.4.3",
     "jszip": "^3.2.2",
@@ -98,7 +100,6 @@
     "react-dom": "^16.11.0",
     "react-hotkeys": "^2.0.0",
     "react-markdown": "^4.2.2",
-    "react-responsive-modal": "^4.0.1",
     "react-toastify": "^5.4.0",
     "react-transition-group": "^4.3.0"
   },

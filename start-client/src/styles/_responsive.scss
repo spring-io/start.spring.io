@@ -1,148 +1,295 @@
-@media (max-width: 900px) {
-  .desktop-only {
-    display: none;
-  }
-  body,
-  body.light {
-    background: none;
-    padding-bottom: 94px;
-    min-width: 0;
-  }
-
-  .colset {
-    display: block;
-    max-width: none;
-    min-width: 0;
-    padding: $spring-8points * 2;
-    .left {
-      text-align: left;
-      padding: 0;
-      max-width: none;
-      min-width: 0;
-      flex: none;
+@media (min-width: 1650px) {
+  #header {
+    // h2 {
+    //   strong {
+    //     font-size: 50px;
+    //     line-height: 3rem;
+    //   }
+    //   span {
+    //     font-size: 35px;
+    //     line-height: 2.3rem;
+    //   }
+    // }
+    p {
+      font-size: 20px;
+      line-height: 2rem;
+      margin-top: 1rem;
     }
-    .right {
-      padding: 0;
-      max-width: none;
-      min-width: 0;
-      flex: none;
-    }
+  }
+}
 
-    .right.right-md {
-      padding: 0;
-      max-width: none;
+@media (max-width: 1000px) {
+  body.light,
+  body.dark {
+    #header {
       width: auto;
-      flex: 0;
     }
-  }
-
-  .header {
-    padding: 0;
-    border-top: 4px solid $light-primary;
-    width: auto;
-    h1.logo {
-      a {
-        margin: 0 auto;
+    .colset-main {
+      background: none;
+    }
+    .colset-main {
+      > .right {
+        padding-bottom: 2rem;
       }
     }
+    .colset {
+      display: block;
+      > .left,
+      > .right {
+        flex: none;
+        padding-right: 0;
+      }
+    }
+    .desktop-only {
+      display: none !important;
+    }
   }
+  .placeholder-button {
+    &-explore {
+      width: 125px;
+    }
+    &-submit {
+      width: 136px;
+    }
+    &-dep {
+      width: 85.45px;
+    }
+    &-download {
+      width: 148.13px;
+    }
+  }
+}
 
-  .quick-links {
-    position: relative;
-    text-align: center;
-    display: block;
-    top: 0;
+@media (max-width: 1200px) {
+  .dependency-header {
+    .button span span .desktop-only {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1000px) {
+  .placeholder-button-dep {
+    width: 87.45px;
+  }
+}
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .placeholder-button-dep {
+    width: 162.44px;
+  }
+  .placeholder-button-download {
+    width: 144.13px;
+  }
+}
+
+.not-mobile {
+  display: block;
+}
+.is-mobile {
+  display: none;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  #side-left,
+  #side-right {
+    display: none;
+  }
+  .control-inline input {
+    max-width: none;
+  }
+  .control-placeholder .placeholder-input {
+    max-width: none;
+  }
+  #main {
+    padding: 0 12px;
+  }
+  .actions,
+  .explorer-actions {
+    left: 0;
     right: 0;
-    border-top: 1px solid #e4e4e4;
-    border-bottom: 1px solid #e4e4e4;
-    background: $light-background-dark;
-    padding: 0.5rem 0;
-    width: auto;
+    padding-left: 0;
+    padding-right: 0;
+    .actions-container {
+      padding: 8px 0;
+      height: 44px;
+    }
+    .button > span > span {
+      padding: 0.7rem 0.6rem 0.6rem;
+    }
+    .button {
+      font-size: 14px;
+    }
   }
 
-  // Colset
+  .explorer-actions {
+    padding: 8px 0;
+    height: 44px;
+  }
 
-  .colset-2 {
-    display: block;
-    flex-flow: wrap;
-    .column {
-      padding: 0;
-      margin: 0;
-      flex: none;
-      + .column {
-        margin: 0;
-        padding: 0;
-        padding-top: $spring-8points * 3;
+  a.button,
+  button.button {
+    margin-right: 6px;
+    font-size: 14px;
+    &:last-child {
+      margin-right: 0;
+    }
+    > span > span {
+      padding: 0.7rem 0.6rem 0.6rem;
+    }
+  }
+
+  .popup-share .popop-share-container {
+    width: auto;
+  }
+  .explorer {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .colset-explorer {
+      padding: 0 5px;
+      .left {
+        display: none;
+      }
+      .right {
+        .head {
+          display: none;
+        }
+        .explorer-content {
+          top: 45px;
+          right: 0;
+          left: 0;
+          bottom: 65px;
+          margin: 0;
+        }
       }
     }
   }
-
-  .dependencies-box {
-    padding: $spring-8points 0;
+  .more {
+    padding: 1rem 0;
+    text-align: center;
   }
 
-  .colset .left.nopadding {
-    margin-left: 0;
-    padding: 0px;
-    flex: none;
-    width: auto;
-    text-align: center;
+  .not-mobile {
     display: none;
   }
-  .sticky .colset {
-    padding: 0;
+  .is-mobile {
+    display: block;
   }
-  .colset .right.nopadding {
-    padding: 0;
-    margin: 0;
-    max-width: none;
-    min-width: 0;
-    flex: none;
-    .submit {
-      width: auto;
-      text-align: center;
+  .navigation .navigation-content {
+    padding: 0 10px;
+    margin: 0 auto;
+    .navigation-content-wrap {
+      margin: 0;
     }
-    .placeholder-button {
-      margin: 0 auto;
+    #header {
+      h2,
+      .header-mobile {
+        margin-bottom: 0.4rem;
+        border-bottom: 1px solid rgba(#fff, 0.4);
+      }
+    }
+    ul {
+      margin: 0 -10px;
+      padding: 0;
+      li {
+        border-bottom: 1px solid rgba(#fff, 0.2);
+        a {
+          display: block;
+          font-size: 16px;
+          line-height: 1.5rem;
+          padding: 16px;
+        }
+      }
     }
   }
-
-  .groups .group {
-    padding-right: 0;
-    padding-left: 0;
-  }
-
-  .groups .group .group-title {
-    position: relative;
-    margin: 0;
-    float: none;
+  .dialog-dependencies {
     top: 0;
-  }
-
-  .submit {
-    margin-right: 0;
-  }
-
-  .tab {
-    padding: 0;
+    left: 0;
+    right: 0;
     margin: 0;
+    bottom: 0;
+    width: auto;
+    .control-input {
+      .input {
+        padding: 7px 10px 3px;
+        padding-right: 45px;
+        &::placeholder {
+          font-size: $spring-font-size - 2;
+        }
+      }
+      .help {
+        display: none;
+      }
+    }
+
+    ul li a.dependency.selected .icon-enter {
+      display: none;
+    }
+    ul li a.dependency {
+      padding: 13px 10px;
+    }
+  }
+  .actions .placeholder-button,
+  .explorer-actions .placeholder-button {
+    height: 41.5px;
+    margin-right: 6px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .placeholder-button-submit {
+    width: 98.39px;
+  }
+  .placeholder-button-explore {
+    width: 88.55px;
+  }
+  .placeholder-button-share {
+    width: 82.77px;
+  }
+  .placeholder-button-download {
+    width: 108.73px;
+  }
+  .placeholder-button-dep {
+    width: 87.45px;
+  }
+  .explorer-select .placeholder-select {
+    margin: 0 -5px;
+    height: 33px;
+  }
+  ul.dependencies-list li a {
+    opacity: 1;
   }
 
-  .error {
-    position: relative;
-    left: auto;
-    top: auto;
-    padding: 0 40px;
+  #header {
+    h2 {
+      text-align: center;
+      padding: 0.5rem 0;
+      strong {
+        font-size: 32px;
+        line-height: 2rem;
+      }
+      span {
+        font-size: 22px;
+        line-height: 2rem;
+        font-weight: 600;
+      }
+    }
   }
-  .warnings {
-    margin-top: 0;
+  hr.divider {
+    display: none;
   }
-
-  .button {
-    padding: 4px 18px;
-  }
-  .share-area > .button,
-  .share-area {
-    width: 90px;
+  .control-inline,
+  .control-placeholder {
+    display: block;
+    label,
+    .placeholder-label {
+      flex: none;
+      text-align: left;
+    }
+    input,
+    .group-radio,
+    .placeholder-input {
+      margin-left: 0;
+    }
   }
 }
