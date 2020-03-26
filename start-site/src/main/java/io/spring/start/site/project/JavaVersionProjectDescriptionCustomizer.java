@@ -42,6 +42,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final VersionRange SPRING_BOOT_2_2_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.0.M1");
 
+	private static final VersionRange SPRING_BOOT_2_2_6_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.6.RELEASE");
+
 	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.BUILD-SNAPSHOT");
 
 	@Override
@@ -76,6 +78,10 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 				&& !GRADLE_6.match(platformVersion)) {
 			updateTo(description, "11");
 		}
+		// 14 support only as of 2.2.6
+		if (javaGeneration == 14 && !SPRING_BOOT_2_2_6_OR_LATER.match(platformVersion)) {
+			updateTo(description, "11");
+		}
 	}
 
 	private void updateTo(MutableProjectDescription description, String jvmVersion) {
@@ -86,7 +92,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private Integer determineJavaGeneration(String javaVersion) {
 		try {
 			int generation = Integer.parseInt(javaVersion);
-			return ((generation > 8 && generation <= 13) ? generation : null);
+			return ((generation > 8 && generation <= 14) ? generation : null);
 		}
 		catch (NumberFormatException ex) {
 			return null;
