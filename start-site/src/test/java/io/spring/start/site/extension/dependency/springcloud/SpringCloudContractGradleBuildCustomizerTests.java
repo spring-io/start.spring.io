@@ -70,4 +70,10 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 		assertThat(gradleBuild(projectRequest)).containsSubsequence("contracts {", "testMode = 'WebTestClient'");
 	}
 
+	@Test
+	void springWebTestClientDependencyAddedWhenWebFluxIsPresent() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
+		assertThat(gradleBuild(projectRequest)).contains("testImplementation 'io.rest-assured:spring-web-test-client'");
+	}
+
 }
