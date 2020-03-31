@@ -25,11 +25,14 @@ const Explore = lazy(() => import('./common/explore/Explore.js'))
 const Share = lazy(() => import('./common/share/Share.js'))
 const HotKeys = lazy(() => import('./common/builder/HotKeys.js'))
 
+const ErrorScreen = lazy(() => import('./fools/ErrorScreen.js'))
+
 export default function Application() {
   const {
     complete,
     dispatch,
     theme,
+    error,
     share: shareOpen,
     explore: exploreOpen,
     dependencies,
@@ -70,6 +73,8 @@ export default function Application() {
       toast.error(`Could not connect to server. Please check your network.`)
     })
     FileSaver.saveAs(project, `${get(values, 'meta.artifact')}.zip`)
+
+    dispatch({ type: 'UPDATE', payload: { error: true } })
   }
 
   const onExplore = async () => {
@@ -93,7 +98,13 @@ export default function Application() {
     setBlob(null)
     dispatch({
       type: 'UPDATE',
-      payload: { list: false, share: false, explore: false, nav: false },
+      payload: {
+        list: false,
+        share: false,
+        explore: false,
+        nav: false,
+        error: false,
+      },
     })
   }
 
@@ -119,6 +130,9 @@ export default function Application() {
           }}
           onEscape={onEscape}
         />
+      </Suspense>
+      <Suspense fallback=''>
+        <ErrorScreen open={error} onClose={onEscape} />
       </Suspense>
       <SideLeft />
       <div id='main'>
