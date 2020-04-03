@@ -152,6 +152,17 @@ initializr:
             version: 10.0.17
           - compatibilityRange: "2.1.0.M1"
             version: 14.1.27
+      wavefront:
+        groupId: com.wavefront
+        artifactId: wavefront-spring-boot-bom
+        versionProperty: wavefront.version
+        mappings:
+          - compatibilityRange: "[2.1.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
+            version: 2.0.0-RC1
+            repositories: spring-milestones
+          - compatibilityRange: "2.3.x.BUILD-SNAPSHOT"
+            version: 2.0.0-SNAPSHOT
+            repositories: spring-snapshots
     gradle:
       dependency-management-plugin-version: 1.0.9.RELEASE
     kotlin:
@@ -826,6 +837,67 @@ initializr:
           links:
             - rel: reference
               href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
+    - name: Observability
+      content:
+        - name: Datadog
+          id: datadog
+          groupId: io.micrometer
+          artifactId: micrometer-registry-datadog
+          scope: runtime
+          starter: false
+          description: Datadog is a dimensional time-series SAAS with built-in dashboarding and alerting.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-datadog
+        - name: Influx
+          id: influx
+          groupId: io.micrometer
+          artifactId: micrometer-registry-influx
+          scope: runtime
+          starter: false
+          description: Support real-time stream processing and storage of time-series data.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-influx
+        - name: Graphite
+          id: graphite
+          groupId: io.micrometer
+          artifactId: micrometer-registry-graphite
+          scope: runtime
+          starter: false
+          description: Hierarchical metrics systems backed by a fixed-size database.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-graphite
+        - name: New Relic
+          id: new-relic
+          groupId: io.micrometer
+          artifactId: micrometer-registry-new-relic
+          scope: runtime
+          starter: false
+          description: SaaS offering with a full UI and a query language called NRQL.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-new-relic
+        - name: Prometheus
+          id: prometheus
+          groupId: io.micrometer
+          artifactId: micrometer-registry-prometheus
+          scope: runtime
+          starter: false
+          description: An in-memory dimensional time series database with a simple built-in UI, a custom query language, and math operations.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-prometheus
+        - name: Wavefront
+          id: wavefront
+          groupId: com.wavefront
+          artifactId: wavefront-spring-boot-starter
+          bom: wavefront
+          description: Tanzu Observability by Wavefront is a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack (infrastructure, network, custom app metrics, business KPIs, etc.)
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-wavefront
     - name: Testing
       content:
         - name: Spring REST Docs

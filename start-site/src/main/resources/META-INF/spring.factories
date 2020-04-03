@@ -2,6 +2,7 @@ io.spring.initializr.generator.project.ProjectGenerationConfiguration=\
 io.spring.start.site.extension.build.gradle.GradleProjectGenerationConfiguration,\
 io.spring.start.site.extension.build.maven.MavenProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.DependencyProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.observability.ObservabilityProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.solace.SolaceProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springamqp.SpringAmqpProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springboot.SpringBootProjectGenerationConfiguration,\
