@@ -99,7 +99,11 @@ function Dialog({ onClose }) {
   useEffect(() => {
     const clickOutside = event => {
       const children = get(wrapper, 'current')
-      if (children && !children.contains(event.target)) {
+      if (
+        children &&
+        !children.contains(event.target) &&
+        event.target.id !== 'input-quicksearch'
+      ) {
         onClose()
       }
     }
