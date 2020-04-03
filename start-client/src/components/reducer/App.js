@@ -13,7 +13,6 @@ export const defaultAppContext = {
   share: false,
   nav: false,
   list: false,
-  error: false,
   theme: 'light',
   config: {},
   groupsClosed: [],
