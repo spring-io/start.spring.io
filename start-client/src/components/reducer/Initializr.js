@@ -52,14 +52,14 @@ export function reducer(state, action) {
         const { boot, ...err } = errors
         errors = err
       }
-      if (get(changes, 'meta.group')) {
+      if (get(changes, 'meta.group') !== undefined) {
         set(
           meta,
           'packageName',
           `${get(meta, 'group')}.${get(meta, 'artifact')}`
         )
       }
-      if (get(changes, 'meta.artifact')) {
+      if (get(changes, 'meta.artifact') !== undefined) {
         set(
           meta,
           'packageName',
