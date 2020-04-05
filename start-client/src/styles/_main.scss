@@ -439,7 +439,8 @@ button.button {
     @include transition(all $spring-transition-duration * 1.5);
     z-index: -1;
   }
-  &:hover {
+  &:hover,
+  &:disabled {
     color: white;
     &:before {
       width: 100%;

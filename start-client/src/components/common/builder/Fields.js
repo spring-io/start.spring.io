@@ -21,6 +21,7 @@ const Fields = ({
   refExplore,
   refSubmit,
   refDependency,
+  generating,
 }) => {
   const windowsUtils = useWindowsUtils()
   const { config, dispatch, dependencies } = useContext(AppContext)
@@ -162,8 +163,9 @@ const Fields = ({
           onClick={onSubmit}
           hotkey={`${windowsUtils.symb} + ⏎`}
           refButton={refSubmit}
+          disabled={generating}
         >
-          Generate
+          {generating ? 'Generating...' : 'Generate'}
         </Button>
         <Button
           id='explore-project'
@@ -182,6 +184,7 @@ const Fields = ({
 }
 
 Fields.propTypes = {
+  generating: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onExplore: PropTypes.func.isRequired,
   onShare: PropTypes.func.isRequired,

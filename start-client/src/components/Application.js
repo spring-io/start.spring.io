@@ -39,6 +39,7 @@ export default function Application() {
   )
 
   const [blob, setBlob] = useState(null)
+  const [generating, setGenerating] = useState(false)
 
   const buttonExplore = useRef(null)
   const buttonDependency = useRef(null)
@@ -61,6 +62,10 @@ export default function Application() {
   }, [dispatch, dispatchInitializr, windowsUtils.origin])
 
   const onSubmit = async () => {
+    if (generating) {
+      return
+    }
+    setGenerating(true)
     const url = `${windowsUtils.origin}/starter.zip`
     const project = await getProject(
       url,
@@ -68,7 +73,9 @@ export default function Application() {
       get(dependencies, 'list')
     ).catch(() => {
       toast.error(`Could not connect to server. Please check your network.`)
+      setGenerating(false)
     })
+    setGenerating(false)
     FileSaver.saveAs(project, `${get(values, 'meta.artifact')}.zip`)
   }
 
@@ -136,6 +143,7 @@ export default function Application() {
                 refExplore={buttonExplore}
                 refSubmit={buttonSubmit}
                 refDependency={buttonDependency}
+                generating={generating}
               />
               <DependencyDialog onClose={onEscape} />
             </>
