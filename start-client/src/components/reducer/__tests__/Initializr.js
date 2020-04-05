@@ -132,6 +132,33 @@ describe('UPDATE action', () => {
     expect(get(result, 'values.meta.artifact')).toBe('demo2')
     expect(get(result, 'values.meta.packageName')).toBe('com.example3.demo2')
   })
+
+  it('should reduce the state (meta artifact, empty value)', () => {
+    state.values.meta.group = 'com.example3'
+    let result = reducer(state, {
+      type: 'UPDATE',
+      payload: {
+        meta: {
+          artifact: '',
+        },
+      },
+    })
+    expect(get(result, 'values.meta.artifact')).toBe('')
+    expect(get(result, 'values.meta.name')).toBe('')
+    expect(get(result, 'values.meta.packageName')).toBe('com.example3.')
+    result = reducer(result, {
+      type: 'UPDATE',
+      payload: {
+        meta: {
+          name: 'demo',
+        },
+      },
+    })
+    expect(get(result, 'values.meta.artifact')).toBe('')
+    expect(get(result, 'values.meta.name')).toBe('demo')
+    expect(get(result, 'values.meta.packageName')).toBe('com.example3.')
+  })
+
   it('should reduce the state (meta description)', () => {
     const result = reducer(state, {
       type: 'UPDATE',
