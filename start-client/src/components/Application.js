@@ -53,10 +53,8 @@ export default function Application() {
       const url = `${windowsUtils.origin}/metadata/client`
       getInfo(url).then(jsonConfig => {
         const response = getConfig(jsonConfig)
-        setTimeout(() => {
-          dispatchInitializr({ type: 'COMPLETE', payload: { ...response } })
-          dispatch({ type: 'COMPLETE', payload: response })
-        }, 1000)
+        dispatchInitializr({ type: 'COMPLETE', payload: { ...response } })
+        dispatch({ type: 'COMPLETE', payload: response })
       })
     }
   }, [dispatch, dispatchInitializr, windowsUtils.origin])
