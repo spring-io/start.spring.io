@@ -157,16 +157,22 @@ const Fields = ({
         </div>
       </div>
       <Actions>
-        <Button
-          id='generate-project'
-          variant='primary'
-          onClick={onSubmit}
-          hotkey={`${windowsUtils.symb} + ⏎`}
-          refButton={refSubmit}
-          disabled={generating}
-        >
-          {generating ? 'Generating...' : 'Generate'}
-        </Button>
+        {generating ? (
+          <span className='placeholder-button placeholder-button-submit placeholder-button-special'>
+            Generating...
+          </span>
+        ) : (
+          <Button
+            id='generate-project'
+            variant='primary'
+            onClick={onSubmit}
+            hotkey={`${windowsUtils.symb} + ⏎`}
+            refButton={refSubmit}
+            disabled={generating}
+          >
+            Generate
+          </Button>
+        )}
         <Button
           id='explore-project'
           onClick={onExplore}

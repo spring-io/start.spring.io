@@ -11,7 +11,6 @@ html {
 body {
   font-family: $spring-font-family;
   background-color: $light-background;
-  //min-height: 100vh;
   margin: 0;
 }
 
@@ -39,7 +38,6 @@ body {
   .side-container {
     border-right: 1px solid rgba(darken($light-border, 15), 0.4);
   }
-  //left: 0;
   a {
     $size: 30px;
     display: block;
@@ -92,7 +90,6 @@ body {
 #side-right {
   right: 75px;
   .side-container {
-    //right: 0;
     margin-left: auto;
     background: $light-background;
     padding: 20px 0;
@@ -185,7 +182,6 @@ body {
       padding-bottom: 0.4rem;
     }
     span {
-      //color: $light-primary;
       font-weight: 400;
       font-size: 22px;
       line-height: 2rem;
@@ -355,10 +351,6 @@ hr.divider {
   border-radius: 0;
   background: #fff;
   font-weight: 300;
-  // @include transition(border-color $spring-transition-duration);
-  &:hover {
-    // border-color: $light-border-dark;
-  }
   &:focus {
     border-color: $light-primary;
   }
@@ -402,11 +394,10 @@ button.button {
   margin-right: 1rem;
   cursor: pointer;
   background: transparent;
-  @include transition(all $spring-transition-duration * 1.5);
+  @include transition(all $spring-transition-duration / 2);
   z-index: 1;
   background: $light-background;
   font-family: $spring-font-family;
-  // @include outline;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 4px $light-border;
@@ -416,9 +407,9 @@ button.button {
     z-index: 1;
     padding: 0.7rem 1.2rem 0.6rem;
     &.secondary {
-      background: $light-background-seconday;
-      color: $light-color;
-      @include transition(all $spring-transition-duration * 1.5);
+      font-weight: 400;
+      margin-left: -10px;
+      padding-left: 0;
     }
     span span {
       padding: 0;
@@ -436,19 +427,16 @@ button.button {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 0;
-    @include transition(all $spring-transition-duration * 1.5);
+    width: 100%;
+    opacity: 0;
+    @include transition(all $spring-transition-duration / 2);
     z-index: -1;
   }
   &:hover,
   &:disabled {
     color: white;
     &:before {
-      width: 100%;
-    }
-    span.secondary {
-      background: rgba(255, 255, 255, 0.25);
-      color: white;
+      opacity: 1;
     }
   }
   &.active {
@@ -459,26 +447,25 @@ button.button {
   }
   &.inverse {
     &:before {
-      bottom: auto;
-      height: 0;
-      width: auto;
+      bottom: 0;
+      width: 100%;
       right: 0;
+      top: 0;
+      height: 100%;
     }
     &:hover {
       &:before {
-        height: 100%;
+        opacity: 1;
       }
     }
     &.top {
       &:before {
-        top: auto;
-        bottom: 0;
       }
     }
     &.active {
       color: white;
       &:before {
-        height: 100%;
+        opacity: 1;
       }
     }
   }
@@ -544,9 +531,7 @@ button.button {
 
 .actions {
   display: block;
-  //margin: 0 -35px;
   text-align: center;
-  //background: $light-background-seconday;
   bottom: 0;
   z-index: 3;
   position: fixed;
@@ -570,7 +555,6 @@ button.button {
     &:last-child {
       margin-right: 0;
     }
-    // padding: 0.8rem 2rem 0.7rem;
   }
 }
 
@@ -613,9 +597,7 @@ button.button {
   $color: #e8ba00;
   position: relative;
   margin-bottom: $spring-8points;
-  // background: #fff0d0;
   padding: $spring-8points * 2;
-  // color: #8f2500;
   line-height: 26px;
   margin: 0 auto;
   margin-bottom: 1rem;
@@ -803,29 +785,22 @@ button.button {
 // Explore dependencies
 
 .dialog-dependencies {
-  // background: $light-background;
   position: fixed;
   z-index: 501;
   $width: 800px;
-  //left: 0%;
   width: $width;
   margin-left: -($width/2);
   left: 50%;
   top: 40px;
   bottom: 40px;
-  //bottom: 0;
   &-enter {
-    //left: 100%;
     opacity: 0;
-    //transform: translateX(100%);
   }
   &-enter-active {
-    //transform: translateX(-100%);
     opacity: 1;
     @include transition(all 300ms);
   }
   &-exit {
-    //left: 0;
     opacity: 1;
   }
   &-exit-active {
@@ -913,9 +888,6 @@ button.button {
           padding: 13px 1rem;
           padding-right: 45px;
           box-shadow: inset 0 1px 0 rgba(white, 0.2);
-          strong {
-            //color: $light-primary;
-          }
           &:hover {
             strong {
               color: white;
@@ -1280,6 +1252,7 @@ ul.dependencies-list {
   border-radius: 4px;
   box-shadow: inset 0 0 0 2px $light-placeholder;
   background: $light-background;
+  vertical-align: top;
   &:after {
     content: ' ';
     height: 16px;
@@ -1307,20 +1280,35 @@ ul.dependencies-list {
 }
 
 .placeholder-button {
-  &-explore {
-    width: 283px;
-  }
   &-submit {
-    width: 230px;
+    width: 200.44px;
   }
-  &-dep {
-    width: 273.5px;
+  &-explore {
+    width: 249.42px;
   }
   &-share {
     width: 119px;
   }
+  &-dep {
+    width: 241.8px;
+  }
   &-download {
-    width: 120px;
+    width: 212.27px;
+  }
+}
+
+.actions {
+  .placeholder-button-special {
+    line-height: 51px;
+    font-size: $spring-font-size + 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-color: $light-color;
+    box-shadow: inset 0 0 0 2px $light-color;
+    &:after {
+      display: none;
+    }
   }
 }
 

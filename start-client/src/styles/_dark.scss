@@ -66,19 +66,11 @@ body.dark {
     border-color: $dark-color;
     background: $dark-background;
     color: $dark-color;
-    span.secondary {
-      color: $dark-color;
-      background: rgba(#fff, 0.2);
-    }
     &:before {
       background: $dark-color;
     }
     &:hover {
       color: $dark-background;
-      span.secondary {
-        color: $dark-background;
-        background: rgba(#000, 0.1);
-      }
     }
   }
   a.button.inverse.active,
@@ -390,5 +382,10 @@ body.dark {
     a:hover {
       color: $dark-link;
     }
+  }
+
+  .actions .placeholder-button-special {
+    box-shadow: inset 0 0 0 2px $dark-color;
+    background: $dark-background;
   }
 }
