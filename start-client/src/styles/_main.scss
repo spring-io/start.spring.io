@@ -314,6 +314,7 @@ hr.divider {
     border: 2px solid $light-color;
     box-shadow: none;
     outline: none;
+    border-radius: 10px;
   }
   &:hover {
     .caret {
@@ -1220,6 +1221,7 @@ ul.dependencies-list {
     background: $light-placeholder;
     left: -24px;
     top: 0;
+    border-radius: 10px;
   }
   &:last-child {
     margin-right: 0;
