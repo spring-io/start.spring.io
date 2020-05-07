@@ -45,8 +45,8 @@ class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void wavefrontAddGeneralSection() {
 		assertHelpDocument("2.2.0.RELEASE", "wavefront").contains("## Observability with Wavefront", "",
-				"If you are a first time users, an account will be auto-negotiated for you and restored on the same machine and user.",
-				"A single-use login URL to your Wavefront dashboard is logged on startup.");
+				"If you don't have a Wavefront account, the starter will create a freemium account for you.",
+				"The URL to access the Wavefront Service dashboard is logged on startup.");
 	}
 
 	@Test
