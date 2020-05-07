@@ -50,8 +50,8 @@ class WavefrontHelpDocumentCustomizer implements HelpDocumentCustomizer {
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("## Observability with Wavefront%n%n"));
 		sb.append(String.format(
-				"If you are a first time users, an account will be auto-negotiated for you and restored on the same machine and user.%n"));
-		sb.append(String.format("A single-use login URL to your Wavefront dashboard is logged on startup.%n"));
+				"If you don't have a Wavefront account, the starter will create a freemium account for you.%n"));
+		sb.append(String.format("The URL to access the Wavefront Service dashboard is logged on startup.%n"));
 
 		if (this.build.dependencies().has("web") || this.build.dependencies().has("webflux")) {
 			sb.append(

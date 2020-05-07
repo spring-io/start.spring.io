@@ -898,6 +898,12 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-wavefront
+            - rel: guide
+              href: https://docs.wavefront.com/wavefront_springboot.html
+              description: Documentation on Wavefront for Spring Boot 
+            - rel: reference
+              href: https://github.com/wavefrontHQ/wavefront-spring-boot#wavefront-spring-boot-starter
+              description: Wavefront for Spring Boot on GitHub
     - name: Testing
       content:
         - name: Spring REST Docs
