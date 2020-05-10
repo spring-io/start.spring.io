@@ -117,7 +117,7 @@ initializr:
         versionProperty: spring-cloud-alibaba.version
         mappings:
           - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
-            version: 2.2.0.RELEASE
+            version: 2.2.1.RELEASE
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
@@ -1337,6 +1337,7 @@ initializr:
           description: Support for externalized configuration in a distributed system, auto refresh when configuration changes.
           groupId: com.alibaba.cloud
           artifactId: spring-cloud-starter-alibaba-nacos-config
+          starter: false
           links:
             - rel: reference
               href: https://spring-cloud-alibaba-group.github.io/github-pages/hoxton/en-us/index.html#_spring_cloud_alibaba_nacos_config
@@ -1359,6 +1360,7 @@ initializr:
           description: Flow control and circuit breaking with Alibaba Sentinel.
           groupId: com.alibaba.cloud
           artifactId: spring-cloud-starter-alibaba-sentinel
+          starter: false
           links:
             - rel: reference
               href: https://spring-cloud-alibaba-group.github.io/github-pages/hoxton/en-us/index.html#_spring_cloud_alibaba_sentinel
