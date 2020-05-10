@@ -36,7 +36,7 @@ class TestcontainersHelpCustomizerTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = { "postgresql", "mysql", "sqlserver", "oracle" })
-	void jdbcWithNoMatchingDriver(String driver) {
+	void addsLinkToJdbcModuleWhenR2dbcIsNotPresent(String driver) {
 		HelpDocument helpDocument = createHelpDocument("testcontainers", driver);
 		assertThat(helpDocument.gettingStarted().referenceDocs().getItems()).hasSize(1);
 		assertThat(helpDocument.gettingStarted().referenceDocs().getItems().get(0).getHref())
@@ -45,7 +45,7 @@ class TestcontainersHelpCustomizerTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = { "postgresql", "mysql", "sqlserver", "oracle" })
-	void r2dbcWithNoMatchingDriver(String driver) {
+	void addsLinkToR2dbcModuleWhenR2dbcIsPresent(String driver) {
 		HelpDocument helpDocument = createHelpDocument("testcontainers", "data-r2dbc", driver);
 		assertThat(helpDocument.gettingStarted().referenceDocs().getItems()).hasSize(1);
 		assertThat(helpDocument.gettingStarted().referenceDocs().getItems().get(0).getHref())
