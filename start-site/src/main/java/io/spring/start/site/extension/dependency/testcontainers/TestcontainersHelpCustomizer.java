@@ -25,7 +25,7 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
 
 /**
  * A {@link HelpDocumentCustomizer} that adds a reference links when Testcontainers and
- * one of JDBC or R2DBC drivers is selected.
+ * one of supported NoSQL databases, JDBC or R2DBC drivers is selected.
  *
  * @author Maciej Walkowiak
  */
@@ -50,6 +50,23 @@ public class TestcontainersHelpCustomizer implements HelpDocumentCustomizer {
 				document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/jdbc/",
 						"Testcontainers JDBC support reference");
 			}
+		}
+
+		if (this.build.dependencies().has("data-neo4j")) {
+			document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/neo4j/",
+					"Testcontainers Neo4j support reference");
+		}
+
+		if (this.build.dependencies().has("data-cassandra")
+				|| this.build.dependencies().has("data-cassandra-reactive")) {
+			document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/cassandra/",
+					"Testcontainers Cassandra support reference");
+		}
+
+		if (this.build.dependencies().has("data-couchbase")
+				|| this.build.dependencies().has("data-couchbase-reactive")) {
+			document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/couchbase/",
+					"Testcontainers Couchbase support reference");
 		}
 	}
 

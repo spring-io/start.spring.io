@@ -22,6 +22,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,6 +51,16 @@ class TestcontainersHelpCustomizerTest {
 		assertThat(helpDocument.gettingStarted().referenceDocs().getItems()).hasSize(1);
 		assertThat(helpDocument.gettingStarted().referenceDocs().getItems().get(0).getHref())
 				.isEqualTo("https://www.testcontainers.org/modules/databases/r2dbc/");
+	}
+
+	@ParameterizedTest
+	@CsvSource({ "data-neo4j,neo4j", "data-cassandra,cassandra", "data-cassandra-reactive,cassandra",
+			"data-couchbase,couchbase", "data-couchbase-reactive,couchbase" })
+	void addsLinkToNoSQlModule(String noSqlModule, String testcontainersModule) {
+		HelpDocument helpDocument = createHelpDocument("testcontainers", noSqlModule);
+		assertThat(helpDocument.gettingStarted().referenceDocs().getItems()).hasSize(1);
+		assertThat(helpDocument.gettingStarted().referenceDocs().getItems().get(0).getHref())
+				.isEqualTo("https://www.testcontainers.org/modules/databases/" + testcontainersModule + "/");
 	}
 
 	private HelpDocument createHelpDocument(String... dependencyIds) {
