@@ -39,20 +39,26 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void binderNotAddedWhenCloudStreamNotSelected() {
-		ProjectStructure project = generateProject(createProjectRequest("solace"));
+		ProjectRequest request = createProjectRequest("solace");
+		request.setBootVersion("2.2.6.RELEASE");
+		ProjectStructure project = generateProject(request);
 		assertNoBinder(project);
 		assertThat(project).mavenBuild().hasDependency(getDependency("solace"));
 	}
 
 	@Test
 	void binderAddedWhenSolaceAndCloudStreamSelected() {
-		ProjectStructure project = generateProject(createProjectRequest("solace", "cloud-stream"));
+		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
+		request.setBootVersion("2.2.6.RELEASE");
+		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasDependency("com.solace.spring.cloud", "spring-cloud-starter-stream-solace");
 	}
 
 	@Test
 	void bomAddedWhenSolaceAndCloudStreamSelected() {
-		ProjectStructure project = generateProject(createProjectRequest("solace", "cloud-stream"));
+		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
+		request.setBootVersion("2.2.6.RELEASE");
+		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasBom("com.solace.spring.cloud", "solace-spring-cloud-bom",
 				"${solace-spring-cloud.version}");
 	}
@@ -69,7 +75,9 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void solaceStarterRemovedWhenSolaceAndCloudStreamSelected() {
-		ProjectStructure project = generateProject(createProjectRequest("solace", "cloud-stream"));
+		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
+		request.setBootVersion("2.2.6.RELEASE");
+		ProjectStructure project = generateProject(request);
 		Dependency solace = getDependency("solace");
 		assertThat(project).mavenBuild().doesNotHaveDependency(solace.getGroupId(), solace.getArtifactId());
 	}
