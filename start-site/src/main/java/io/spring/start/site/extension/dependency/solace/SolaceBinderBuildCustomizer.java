@@ -22,6 +22,7 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.initializr.metadata.InvalidInitializrMetadataException;
 
 /**
  * A {@link BuildCustomizer} that automatically adds
@@ -37,17 +38,28 @@ class SolaceBinderBuildCustomizer implements BuildCustomizer<Build> {
 	private final BillOfMaterials bom;
 
 	SolaceBinderBuildCustomizer(InitializrMetadata metadata, ProjectDescription description) {
-		this.bom = metadata.getConfiguration().getEnv().getBoms().get(BOM_ID).resolve(description.getPlatformVersion());
+		this.bom = resolveBom(metadata, description);
+	}
+
+	private static BillOfMaterials resolveBom(InitializrMetadata metadata, ProjectDescription description) {
+		try {
+			return metadata.getConfiguration().getEnv().getBoms().get(BOM_ID).resolve(description.getPlatformVersion());
+		}
+		catch (InvalidInitializrMetadataException ex) {
+			return null;
+		}
 	}
 
 	@Override
 	public void customize(Build build) {
-		build.properties().version(this.bom.getVersionProperty(), this.bom.getVersion());
-		build.boms().add(BOM_ID);
-		build.dependencies().add("solace-binder",
-				Dependency.withCoordinates("com.solace.spring.cloud", "spring-cloud-starter-stream-solace"));
-		// The low-level API is likely not going to be used in such arrangement
-		build.dependencies().remove("solace");
+		if (this.bom != null) {
+			build.properties().version(this.bom.getVersionProperty(), this.bom.getVersion());
+			build.boms().add(BOM_ID);
+			build.dependencies().add("solace-binder",
+					Dependency.withCoordinates("com.solace.spring.cloud", "spring-cloud-starter-stream-solace"));
+			// The low-level API is likely not going to be used in such arrangement
+			build.dependencies().remove("solace");
+		}
 	}
 
 }

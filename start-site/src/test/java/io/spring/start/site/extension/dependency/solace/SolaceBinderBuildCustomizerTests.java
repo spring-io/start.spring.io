@@ -82,6 +82,16 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(project).mavenBuild().doesNotHaveDependency(solace.getGroupId(), solace.getArtifactId());
 	}
 
+	@Test
+	void binderNotAddedWhenNoAvailableCloudMappingIsAvailable() {
+		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
+		request.setBootVersion("2.3.0.RELEASE");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).mavenBuild()
+				.doesNotHaveDependency("com.solace.spring.cloud", "spring-cloud-starter-stream-solace")
+				.doesNotHaveProperty("solace-spring-cloud.version");
+	}
+
 	private void assertNoBinder(ProjectStructure project) {
 		assertThat(project).mavenBuild()
 				.doesNotHaveDependency("com.solace.spring.cloud", "spring-cloud-starter-stream-solace")
