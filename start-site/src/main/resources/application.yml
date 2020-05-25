@@ -1285,17 +1285,6 @@ initializr:
               description: Using Key Vault
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-keyvault-secrets-spring-boot-starter
-        - name: Azure Storage
-          id: azure-storage
-          groupId: com.microsoft.azure
-          artifactId: azure-storage-spring-boot-starter
-          description: Azure Storage service integration.
-          links:
-            - rel: guide
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-samples/azure-storage-spring-boot-sample
-              description: Using Azure Storage
-            - rel: reference
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-storage-spring-boot-starter
     - name: Google Cloud Platform
       bom: spring-cloud
       compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
