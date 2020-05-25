@@ -117,10 +117,11 @@ export default function Application() {
               buttonExplore.current.click()
             }
           }}
-          onDependency={() => {
+          onDependency={event => {
             if (get(buttonDependency, 'current')) {
               buttonDependency.current.click()
             }
+            event.preventDefault()
           }}
           onEscape={onEscape}
         />

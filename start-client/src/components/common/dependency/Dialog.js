@@ -166,6 +166,7 @@ function Dialog({ onClose }) {
         break
       case 91: // Command
       case 93: // Command
+      case 224: // Command
       case 17: // Ctrl
         setMultiple(true)
         break
