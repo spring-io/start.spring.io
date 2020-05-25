@@ -113,12 +113,17 @@ function Dialog({ onClose }) {
     }
   }, [onClose, input])
 
+  const textFocus = () => {
+    if (get(input, 'current')) {
+      get(input, 'current').focus()
+      get(input, 'current').select()
+    }
+  }
+
   const onEnter = () => {
     setSelected(0)
     setQuery('')
-    if (get(input, 'current')) {
-      get(input, 'current').focus()
-    }
+    textFocus()
   }
 
   const onKeyUp = event => {
@@ -151,7 +156,7 @@ function Dialog({ onClose }) {
         if (!multiple) {
           onClose()
         } else {
-          get(input, 'current').focus()
+          textFocus()
         }
         break
       case 27: // Escape
@@ -233,9 +238,7 @@ function Dialog({ onClose }) {
                         index={index}
                         key={item.id}
                         onAdd={() => {
-                          if (get(input, 'current')) {
-                            get(input, 'current').focus()
-                          }
+                          textFocus()
                           if (item.valid && !multiple) {
                             onClose()
                           }
@@ -260,9 +263,7 @@ function Dialog({ onClose }) {
                               index={currentIndex}
                               group={false}
                               onAdd={() => {
-                                if (get(input, 'current')) {
-                                  get(input, 'current').focus()
-                                }
+                                textFocus()
                                 if (itemGroup.valid && !multiple) {
                                   onClose()
                                 }
