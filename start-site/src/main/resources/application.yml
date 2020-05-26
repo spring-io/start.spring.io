@@ -34,8 +34,10 @@ initializr:
             version: 2.0.10
           - compatibilityRange: "[2.1.0.RELEASE, 2.2.0.M1)"
             version: 2.1.10
-          - compatibilityRange: "2.2.0.M1"
+          - compatibilityRange: "[2.2.0.M1, 2.3.0.M1)"
             version: 2.2.4
+          - compatibilityRange: "2.3.0.M1"
+            version: 2.3.1
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
@@ -1251,7 +1253,6 @@ initializr:
           starter: false
     - name: Microsoft Azure
       bom: azure
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
       content:
         - name: Azure Support
           id: azure-support
@@ -1287,6 +1288,7 @@ initializr:
           id: azure-storage
           groupId: com.microsoft.azure
           artifactId: azure-storage-spring-boot-starter
+          compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
           description: Azure Storage service integration.
           links:
             - rel: guide
