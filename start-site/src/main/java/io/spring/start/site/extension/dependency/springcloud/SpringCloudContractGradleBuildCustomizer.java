@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,7 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 	}
 
 	private void configurePluginRepositories(GradleBuild mavenBuild, String sccPluginVersion) {
-		String qualifier = Version.parse(sccPluginVersion).getQualifier().getQualifier();
+		String qualifier = Version.parse(sccPluginVersion).getQualifier().getId();
 		if (!"RELEASE".equals(qualifier)) {
 			mavenBuild.pluginRepositories().add(SPRING_MILESTONES);
 			if ("BUILD-SNAPSHOT".equals(qualifier)) {
