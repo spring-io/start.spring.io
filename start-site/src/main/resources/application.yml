@@ -111,8 +111,10 @@ initializr:
           - compatibilityRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
-          - compatibilityRange: "[2.2.0.M4,2.3.x.BUILD-SNAPSHOT)"
+          - compatibilityRange: "[2.2.0.M4,2.3.0.M1)"
             version: Hoxton.SR4
+          - compatibilityRange: "[2.3.0.M1,2.3.x.BUILD-SNAPSHOT)"
+            version: Hoxton.SR5
           - compatibilityRange: "2.3.x.BUILD-SNAPSHOT"
             version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
@@ -1052,7 +1054,7 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-config
           mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
+            - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
               starter: false
     - name: Spring Cloud Discovery
       bom: spring-cloud
