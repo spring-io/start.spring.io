@@ -80,11 +80,14 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 	}
 
 	private void configurePluginRepositories(MavenBuild mavenBuild, String sccPluginVersion) {
-		String qualifier = Version.parse(sccPluginVersion).getQualifier().getId();
-		if (!"RELEASE".equals(qualifier)) {
-			mavenBuild.pluginRepositories().add(SPRING_MILESTONES);
-			if ("BUILD-SNAPSHOT".equals(qualifier)) {
-				mavenBuild.pluginRepositories().add(SPRING_SNAPSHOTS);
+		Version pluginVersion = Version.parse(sccPluginVersion);
+		if (pluginVersion.getQualifier() != null) {
+			String qualifier = pluginVersion.getQualifier().getId();
+			if (!qualifier.equals("RELEASE")) {
+				mavenBuild.pluginRepositories().add(SPRING_MILESTONES);
+				if (qualifier.contains("SNAPSHOT")) {
+					mavenBuild.pluginRepositories().add(SPRING_SNAPSHOTS);
+				}
 			}
 		}
 	}
