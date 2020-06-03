@@ -174,7 +174,10 @@ initializr:
       mappings:
         - compatibilityRange: "[1.5.0.RELEASE,2.0.0.M1)"
           version: 1.2.51
-    platform-compatibility-range: "2.0.0.RELEASE"
+    platform:
+      compatibility-range: "2.0.0.RELEASE"
+      v1-format-compatibility-range: "[2.0.0.RELEASE,2.4.0-M1)"
+      v2-format-compatibility-range: "2.4.0-M1"
     repositories:
       sonatype-snapshots:
         name: Sonatype Snapshots
