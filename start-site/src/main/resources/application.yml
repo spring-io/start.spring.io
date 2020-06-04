@@ -165,10 +165,7 @@ initializr:
         artifactId: wavefront-spring-boot-bom
         versionProperty: wavefront.version
         mappings:
-          - compatibilityRange: "[2.1.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
-            version: 2.0.0-RC1
-            repositories: spring-milestones
-          - compatibilityRange: "2.3.x.BUILD-SNAPSHOT"
+          - compatibilityRange: "2.1.0.RELEASE"
             version: 2.0.0-SNAPSHOT
             repositories: spring-snapshots
     gradle:
