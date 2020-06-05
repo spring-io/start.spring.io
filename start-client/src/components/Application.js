@@ -71,10 +71,11 @@ export default function Application() {
       get(dependencies, 'list')
     ).catch(() => {
       toast.error(`Could not connect to server. Please check your network.`)
-      setGenerating(false)
     })
     setGenerating(false)
-    FileSaver.saveAs(project, `${get(values, 'meta.artifact')}.zip`)
+    if (project) {
+      FileSaver.saveAs(project, `${get(values, 'meta.artifact')}.zip`)
+    }
   }
 
   const onExplore = async () => {
