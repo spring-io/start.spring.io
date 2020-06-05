@@ -107,14 +107,17 @@ initializr:
             version: Greenwich.M1
             repositories: spring-milestones
           - compatibilityRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
-            version: Greenwich.SR5
+            version: Greenwich.SR6
           - compatibilityRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
             version: Greenwich.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
           - compatibilityRange: "[2.2.0.M4,2.3.x.BUILD-SNAPSHOT)"
-            version: Hoxton.SR4
-          - compatibilityRange: "2.3.x.BUILD-SNAPSHOT"
+            version: Hoxton.SR5
+          - compatibilityRange: "[2.3.x.BUILD-SNAPSHOT, 2.4.0.M1)"
             version: Hoxton.BUILD-SNAPSHOT
+            repositories: spring-snapshots,spring-milestones
+          - compatibilityRange: "2.4.0.M1"
+            version: 2020.0.0-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-alibaba:
         groupId: com.alibaba.cloud
@@ -162,10 +165,7 @@ initializr:
         artifactId: wavefront-spring-boot-bom
         versionProperty: wavefront.version
         mappings:
-          - compatibilityRange: "[2.1.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
-            version: 2.0.0-RC1
-            repositories: spring-milestones
-          - compatibilityRange: "2.3.x.BUILD-SNAPSHOT"
+          - compatibilityRange: "2.1.0.RELEASE"
             version: 2.0.0-SNAPSHOT
             repositories: spring-snapshots
     gradle:
@@ -174,7 +174,10 @@ initializr:
       mappings:
         - compatibilityRange: "[1.5.0.RELEASE,2.0.0.M1)"
           version: 1.2.51
-    platform-compatibility-range: "2.0.0.RELEASE"
+    platform:
+      compatibility-range: "2.0.0.RELEASE"
+      v1-format-compatibility-range: "[2.0.0.RELEASE,2.4.0-M1)"
+      v2-format-compatibility-range: "2.4.0-M1"
     repositories:
       sonatype-snapshots:
         name: Sonatype Snapshots
@@ -1045,14 +1048,16 @@ initializr:
           description: Enable and configure common patterns inside your application and build large distributed systems with Apache Zookeeper based components. The provided patterns include Service Discovery and Configuration.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-config
-          starter: false
+          mappings:
+            - compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+              starter: false
         - name: Consul Configuration
           id: cloud-starter-consul-config
           description: Enable and configure the common patterns inside your application and build large distributed systems with Hashicorp’s Consul. The patterns provided include Service Discovery, Distributed Configuration and Control Bus.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-config
           mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
+            - compatibilityRange: "[2.0.0.RELEASE,2.2.0.M4)"
               starter: false
     - name: Spring Cloud Discovery
       bom: spring-cloud
@@ -1094,6 +1099,7 @@ initializr:
           description: Intelligent and programmable routing with Spring Cloud Netflix Zuul.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-zuul
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           links:
             - rel: guide
               href: https://spring.io/guides/gs/routing-and-filtering/
@@ -1112,6 +1118,7 @@ initializr:
           description: Client-side load-balancing with Spring Cloud Netflix and Ribbon.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-ribbon
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           links:
             - rel: guide
               href: https://spring.io/guides/gs/client-side-load-balancing/
@@ -1150,6 +1157,7 @@ initializr:
           description: Circuit breaker with Spring Cloud Netflix Hystrix.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-hystrix
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           links:
             - rel: guide
               href: https://spring.io/guides/gs/circuit-breaker/
@@ -1159,16 +1167,19 @@ initializr:
           description: Circuit breaker dashboard with Spring Cloud Netflix Hystrix.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-hystrix-dashboard
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
         - name: Turbine [Maintenance]
           id: cloud-turbine
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and server-sent events.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
         - name: Turbine Stream [Maintenance]
           id: cloud-turbine-stream
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine-stream
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
     - name: Spring Cloud Tracing
       bom: spring-cloud
       content:
@@ -1232,6 +1243,7 @@ initializr:
               href: https://docs.pivotal.io/spring-cloud-services/
     - name: Amazon Web Services
       bom: spring-cloud
+      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
       content:
         - name: AWS Core
           id: cloud-aws
