@@ -158,7 +158,7 @@ initializr:
         mappings:
           - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
             version: 10.0.17
-          - compatibilityRange: "2.1.0.M1"
+          - compatibilityRange: "[2.1.0.M1,2.4.0-M1)"
             version: 14.2.0
       wavefront:
         groupId: com.wavefront
@@ -304,6 +304,7 @@ initializr:
           artifactId: vaadin-spring-boot-starter
           description: Java framework for building rich client apps based on Web components.
           bom: vaadin
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           links:
            - rel: guide
              href: https://spring.io/guides/gs/crud-with-vaadin/
@@ -386,7 +387,7 @@ initializr:
           mappings:
             - compatibilityRange: "[2.1.2.RELEASE,2.2.0.M1)"
               version: 1.2.1
-            - compatibilityRange: "2.2.0.M1"
+            - compatibilityRange: "[2.2.0.M1,2.4.0-M1)"
               version: 1.4.0
           links:
             - rel: guide
@@ -466,7 +467,7 @@ initializr:
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
               version: 2.0.1
-            - compatibilityRange: "2.1.0.RELEASE"
+            - compatibilityRange: "[2.1.0.RELEASE,2.4.0-M1)"
               version: 2.1.3
         - name: Liquibase Migration
           id: liquibase
@@ -756,7 +757,7 @@ initializr:
             - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
               version: 2.25.1
               groupId: org.apache.camel
-            - compatibilityRange: "2.2.0.M1"
+            - compatibilityRange: "[2.2.0.M1,2.4.0-M1)"
               version: 3.3.0
           description: Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
           groupId: org.apache.camel.springboot
@@ -768,7 +769,7 @@ initializr:
         - name: Solace PubSub+
           bom: solace-spring-boot
           id: solace
-          compatibilityRange: "2.2.0.RELEASE"
+          compatibilityRange: "[2.2.0.RELEASE,2.4.0-M1)"
           description: Connect to a Solace PubSub+ Advanced Event Broker to publish, subscribe, request/reply and store/replay messages
           groupId: com.solace.spring.boot
           artifactId: solace-spring-boot-starter
@@ -830,7 +831,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Required for your application to register with a Spring Boot Admin Server instance.
-          compatibilityRange: "2.0.0.RELEASE"
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -840,7 +841,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
-          compatibilityRange: "2.0.0.RELEASE"
+          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1013,7 +1014,7 @@ initializr:
               artifactId: spring-cloud-starter-open-service-broker-webmvc
             - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
               version: 3.0.4.RELEASE
-            - compatibilityRange: "2.2.0.M1"
+            - compatibilityRange: "[2.2.0.M1,2.4.0-M1)"
               version: 3.1.0.RELEASE
           links:
             - rel: reference
@@ -1265,6 +1266,7 @@ initializr:
           starter: false
     - name: Microsoft Azure
       bom: azure
+      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
