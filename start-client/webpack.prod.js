@@ -18,6 +18,9 @@ const config = {
       chunks: 'all',
     },
   },
+  output: {
+    publicPath: './',
+  },
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
