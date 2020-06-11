@@ -1000,7 +1000,6 @@ initializr:
           description: Simplifies the process of connecting to services and gaining operating environment awareness in cloud platforms such as Cloud Foundry and Heroku.
           compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
         - name: Open Service Broker
-          bom: spring-cloud
           id: open-service-broker
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           description: Framework for building Spring Boot apps that implement the Open Service Broker API, which can deliver services to applications running within cloud native platforms such as Cloud Foundry, Kubernetes and OpenShift.
@@ -1008,12 +1007,12 @@ initializr:
           artifactId: spring-cloud-starter-open-service-broker
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.1.0.M1)"
-              version: 2.1.2.RELEASE
+              version: 2.1.3.RELEASE
               artifactId: spring-cloud-starter-open-service-broker-webmvc
             - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
               version: 3.0.4.RELEASE
             - compatibilityRange: "[2.2.0.M1,2.4.0-M1)"
-              version: 3.1.0.RELEASE
+              version: 3.1.1.RELEASE
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/html5/
