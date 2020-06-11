@@ -1310,7 +1310,7 @@ initializr:
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-storage-spring-boot-starter
     - name: Google Cloud Platform
       bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
+      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
       content:
         - name: GCP Support
           id: cloud-gcp
