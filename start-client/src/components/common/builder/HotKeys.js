@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { GlobalHotKeys } from 'react-hotkeys'
+import { GlobalHotKeys, configure } from 'react-hotkeys'
+
+configure({
+  ignoreTags: ['textarea'],
+})
 
 function HotKeys({ onSubmit, onExplore, onEscape, onDependency }) {
   return (
