@@ -30,6 +30,7 @@ function Dialog({ onClose }) {
   const windowsUtils = useWindowsUtils()
   const wrapper = useRef(null)
   const input = useRef(null)
+  const dialog = useRef(null)
 
   const { values, dispatch } = useContext(InitializrContext)
   const [query, setQuery] = useState('')
@@ -132,6 +133,18 @@ function Dialog({ onClose }) {
     }
   }
 
+  const updateScroll = () => {
+    const wrapperElement = get(wrapper, 'current')
+    const dialogElement = get(dialog, 'current')
+    const selectedElement = wrapperElement.querySelector('a.selected')
+      .parentElement
+    const position = selectedElement.offsetTop - wrapperElement.scrollTop
+    if (position - 50 < 0 || position > dialogElement.clientHeight - 160) {
+      const top = query.trim() === '' ? 50 : 10
+      wrapperElement.scrollTop = selectedElement.offsetTop - top
+    }
+  }
+
   const onKeyDown = event => {
     if (event.keyCode === 75 && (event.ctrlKey || event.metaKey)) {
       onClose()
@@ -143,10 +156,16 @@ function Dialog({ onClose }) {
         setSelected(
           Math.min(selected + 1, result.length - 1, result.length - 1)
         )
+        setTimeout(() => {
+          updateScroll()
+        })
         break
       case 38: // Up
         event.preventDefault()
         setSelected(Math.max(selected - 1, 0))
+        setTimeout(() => {
+          updateScroll()
+        })
         break
       case 13: // Enter
         event.preventDefault()
@@ -197,7 +216,7 @@ function Dialog({ onClose }) {
             classNames='dialog-dependencies'
             timeout={300}
           >
-            <div className='dialog-dependencies'>
+            <div className='dialog-dependencies' ref={dialog}>
               <div className='control-input'>
                 <input
                   className='input'
