@@ -32,6 +32,7 @@ export default function Application() {
     theme,
     share: shareOpen,
     explore: exploreOpen,
+    list,
     dependencies,
   } = useContext(AppContext)
   const { values, share, dispatch: dispatchInitializr } = useContext(
@@ -60,7 +61,7 @@ export default function Application() {
   }, [dispatch, dispatchInitializr, windowsUtils.origin])
 
   const onSubmit = async () => {
-    if (generating) {
+    if (generating || list) {
       return
     }
     setGenerating(true)
@@ -80,7 +81,7 @@ export default function Application() {
 
   const onExplore = async () => {
     const url = `${windowsUtils.origin}/starter.zip`
-    dispatch({ type: 'UPDATE', payload: { explore: true } })
+    dispatch({ type: 'UPDATE', payload: { explore: true, list: false } })
     const project = await getProject(
       url,
       values,
