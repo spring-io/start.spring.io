@@ -37,8 +37,10 @@ import io.spring.initializr.generator.packaging.Packaging;
 import io.spring.initializr.generator.packaging.jar.JarPackaging;
 import io.spring.initializr.generator.packaging.war.WarPackaging;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.metadata.DefaultMetadataElement;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.metadata.MetadataElement;
 import io.spring.initializr.web.project.DefaultProjectRequestToDescriptionConverter;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.ProjectRequest;
@@ -131,23 +133,28 @@ class ProjectGenerationIntegrationTests {
 	Stream<Arguments> parameters() {
 		List<Version> bootVersions = this.metadata.getBootVersions().getContent().stream()
 				.map((element) -> Version.parse(element.getId())).collect(Collectors.toList());
+		String defaultJvmVersion = this.metadata.getJavaVersions().getContent().stream()
+				.filter(DefaultMetadataElement::isDefault).map(MetadataElement::getId).findAny().orElse("1.8");
 		List<Packaging> packagings = Arrays.asList(new JarPackaging(), new WarPackaging());
-		List<Language> languages = Arrays.asList(new KotlinLanguage(), new JavaLanguage());
-		List<BuildSystem> buildSystems = Arrays.asList(new GradleBuildSystem(), new MavenBuildSystem());
+		List<Language> languages = Arrays.asList(Language.forId(KotlinLanguage.ID, defaultJvmVersion),
+				Language.forId(JavaLanguage.ID, defaultJvmVersion));
+		BuildSystem maven = BuildSystem.forId(MavenBuildSystem.ID);
+		BuildSystem gradleGroovy = BuildSystem.forIdAndDialect(GradleBuildSystem.ID, GradleBuildSystem.DIALECT_GROOVY);
+		BuildSystem gradleKotlin = BuildSystem.forIdAndDialect(GradleBuildSystem.ID, GradleBuildSystem.DIALECT_KOTLIN);
 		List<Arguments> configurations = new ArrayList<>();
 		for (Version bootVersion : bootVersions) {
 			for (Packaging packaging : packagings) {
 				for (Language language : languages) {
-					for (BuildSystem buildSystem : buildSystems) {
-						configurations.add(Arguments.arguments(bootVersion, packaging, language, buildSystem));
-					}
+					configurations.add(Arguments.arguments(bootVersion, packaging, language, maven));
+					configurations.add(Arguments.arguments(bootVersion, packaging, language,
+							(language.id().equals(KotlinLanguage.ID)) ? gradleKotlin : gradleGroovy));
 				}
 			}
 		}
 		return configurations.stream();
 	}
 
-	@ParameterizedTest(name = "{0} {1} {2} {3}")
+	@ParameterizedTest(name = "{0} - {1} - {2} - {3}")
 	@MethodSource("parameters")
 	void projectBuilds(Version bootVersion, Packaging packaging, Language language, BuildSystem buildSystem,
 			@TempDir Path directory) throws IOException, InterruptedException {
