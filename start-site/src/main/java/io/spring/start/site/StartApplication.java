@@ -19,7 +19,9 @@ package io.spring.start.site;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.web.support.SaganInitializrMetadataUpdateStrategy;
 import io.spring.start.site.project.ProjectDescriptionCustomizerConfiguration;
 import io.spring.start.site.support.CacheableDependencyManagementVersionResolver;
 import io.spring.start.site.web.HomeController;
@@ -27,6 +29,7 @@ import io.spring.start.site.web.HomeController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.cache.annotation.EnableCaching;
@@ -62,6 +65,12 @@ public class StartApplication {
 			registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
 			registry.addErrorPages(new ErrorPage("/error/index.html"));
 		};
+	}
+
+	@Bean
+	public SaganInitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy(
+			RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
+		return new SaganInitializrMetadataUpdateStrategy(restTemplateBuilder.build(), objectMapper);
 	}
 
 	@Bean
