@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: start-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: start
+  template:
+    metadata:
+      labels:
+        app: start
+    spec:
+      containers:
+        - name: start-app
+          image: ""
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 10"]
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+          env:
+            - name: SERVER_SHUTDOWN
+              value: graceful
+            - name: INITIALIZR_STATS_ELASTIC_URI
+              valueFrom:
+                secretKeyRef:
+                  name: elastic
+                  key: uri

@@ -1,0 +1,17 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: springci/spring-boot-ci-image
+    tag: master
+inputs:
+  - name: artifactory-repo
+  - name: git-repo
+outputs:
+  - name: blob-url
+params:
+  ARTIFACTORY_SERVER:
+  ARTIFACTORY_REPO:
+run:
+  path: git-repo/ci/scripts/get-blob-url.sh
