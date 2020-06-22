@@ -1,0 +1,9 @@
+---
+platform: linux
+inputs:
+  - name: git-repo
+  - name: kpack
+outputs:
+  - name: updated-git-repo
+run:
+  path: git-repo/ci/scripts/update-deployment.sh

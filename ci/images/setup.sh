@@ -6,7 +6,7 @@ set -ex
 ###########################################################
 
 apt-get update
-apt-get install -y curl
+apt-get install -y curl git
 
 curl https://raw.githubusercontent.com/spring-io/concourse-java-scripts/v0.0.2/concourse-java.sh > /opt/concourse-java.sh
 
