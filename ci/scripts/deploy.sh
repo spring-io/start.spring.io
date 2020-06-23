@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-CONFIG_DIR=git-repo/ci/k8s/config
+CONFIG_DIR=git-repo/ci/config
 echo $KEY > key.json
 export GOOGLE_APPLICATION_CREDENTIALS=key.json
 export KUBECONFIG=${CONFIG_DIR}/kubeconfig.yml
