@@ -172,7 +172,7 @@ jobs:
       file: git-repo/ci/tasks/deploy.yml
       params:
         KEY: ((developer-account-key))
-        ELASTIC_URI: ((elastic-uri))
+        ELASTIC_uri: ((elastic-uri))
     - put: slack-alert
       params:
         text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|sucess: ${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME}>"
