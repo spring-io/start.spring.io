@@ -1,9 +1,21 @@
 github-repo: "https://github.com/spring-io/start.spring.io.git"
 github-repo-name: "spring-io/start.spring.io"
-docker-hub-organization: "springci"
+branch: master
 artifactory-server: "https://repo.spring.io"
-branch: "master"
+artifactory-repo: "initializr-ci-local"
+docker-hub-organization: "springci"
 build-name: "initializr"
 pipeline-name: "start-site"
 concourse-url: "https://ci.spring.io"
+shipyard-kubeconfig: |
+  apiVersion: v1
+  kind: Config
+  current-context: shipyard-cluster
+  contexts: [{name: shipyard-cluster, context: {cluster: shipyard-cluster-1, user: user-1}}]
+  users: [{name: user-1, user: {auth-provider: {name: gcp}}}]
+  clusters:
+  - name: shipyard-cluster-1
+    cluster:
+      server: "https://34.74.9.197"
+      certificate-authority-data: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURERENDQWZTZ0F3SUJBZ0lSQVBVTHFhTFlhaGRWTDBxMHptb3lsQnd3RFFZSktvWklodmNOQVFFTEJRQXcKTHpFdE1Dc0dBMVVFQXhNa1ltUmpNR1V3TWpNdFlUSmtZeTAwTlRNeUxUZzBPVFl0WlRGaU1qTTJPVGMyTURSaQpNQjRYRFRJd01EUXhPREl5TkRNMU1Gb1hEVEkxTURReE56SXpORE0xTUZvd0x6RXRNQ3NHQTFVRUF4TWtZbVJqCk1HVXdNak10WVRKa1l5MDBOVE15TFRnME9UWXRaVEZpTWpNMk9UYzJNRFJpTUlJQklqQU5CZ2txaGtpRzl3MEIKQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBMjIwQlY3UUw5dVcyMGFCemJWYnJmNm5SRDZackxodWdtQzl4ZjlDUAplU09rQlZIT2thYVRWVWYrR1RwY0FGQTJ3NC9NU2Z1SWMvVWh5c01tcXl1OGY0ZXcrRFoyNUY2MEU1dHMyTVhLCkdZWVJLQmlrZU9JVHhadWdqbDRIYWJaOVU1b29KVE13UHpIeXJvNm5uOG5LM0pmdGkxa3VDaTRBbjFJOExheEoKQllqME5JdG1ZYTBjNTVaM3FwVE5YWlQrbVRpUGtmTVhEYnh0RkFGTlBLUmlOMGg0a2REWFVCZ290NFlScjZoVApRc1l6aGdETXZqVnBhdlZpZVlYaGEwaDhKNHdhZFM2V1VqYThLaWgvbkloL00rbTkzVVhpVG9tQjRFQTRlUTBiClVhZDFGdUJ6cXVFWHN1eDZhTnc5NTVuZ1hsUDF1eUxFRjNXWTl3OGJ3UUJuQlFJREFRQUJveU13SVRBT0JnTlYKSFE4QkFmOEVCQU1DQWdRd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQQplRFlOSUp2NEtlUERZeit3MDF1S0w0MWtZSmJqR3QvSis0a3AxYlpTR1BYcWJYL1ZSclA1Ritvb2g3bTRnRVNWCkQxMVYxeDFGMXBMNUhjNHZLUlcyVFJ1eE9ZQU8xYjZWY2ptRHBaOUpSRjc4MjRDR2xRMVVMSDk3ZE9MM3kwQjkKTWI3Qy9lSnVScDdpR2dRRlV4K3YyMjM1TWQ3UGEvYVZSTzhyZ3VYMDY2NXl5eTVnRUdwV2ZMdDgxd1laRGduSgptZTdpdTZ5WkhxbkxzdkFZVU1URUp1RnBtVnExNEhJamtiYXpjVjBKNlp3YndhL01nMTdHYjVWdS9qT1grRWNvCmNuSGp1d01DY25IczN3bmkrMHp2cUljUHJKSkZUQ3hZUk55c25wK1dlSkZnS2hXWXVxT0pKUHVhcit0cVVUNXkKYjZ4NU5MUHpCN0dtYmlNR2tZYTcwUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
 google-tagmanager-id: "GTM-KZM7GF6"
