@@ -41,7 +41,7 @@ resources:
 
 - name: build-source
   type: git
-  icon: github
+  icon: github-circle
   source:
     uri: ((github-repo))
     branch: ((branch))
@@ -59,7 +59,7 @@ resources:
 
 - name: ci-images
   type: git
-  icon: github
+  icon: github-circle
   source:
     uri: ((github-repo))
     branch: ((branch))
@@ -74,7 +74,7 @@ resources:
 
 - name: deploy-source
   type: git
-  icon: github
+  icon: github-circle
   source:
     uri: ((github-repo))
     branch: ((branch))
@@ -101,7 +101,7 @@ resources:
 
 - name: script-source
   type: git
-  icon: github
+  icon: github-circle
   source:
     uri: ((github-repo))
     username: ((github-username))
@@ -114,11 +114,11 @@ resources:
   source:
     url: ((slack-webhook-url))
 
-- name: springci/start-site-ci-image
+- name: start-site-ci-image
   type: docker-image
   icon: docker
   source:
-    repository: index.docker.io/springci/start-site-ci-image
+    repository: springci/start-site-ci-image
     username: ((docker-hub-username))
     password: ((docker-hub-password))
     tag: ((branch))
@@ -137,7 +137,7 @@ groups:
   - pull-requests
 - name: CI Images
   jobs:
-  - springci/start-site-ci-image
+  - build-start-site-ci-image
 
 
 jobs:
@@ -147,13 +147,13 @@ jobs:
     - get: git-repo
       resource: build-source
       trigger: true
-    - get: springci/start-site-ci-image
-    - put: build-status
-      params:
-        commit: git-repo
-        state: pending
+    - get: start-site-ci-image
+  - put: build-status
+    params:
+      commit: git-repo
+      state: pending
   - task: build
-    image: springci/start-site-ci-image
+    image: start-site-ci-image
     file: git-repo/ci/tasks/build-service.yml
     params:
       GOOGLE_TAGMANAGER_ID: ((google-tagmanager-id))
@@ -190,9 +190,9 @@ jobs:
       trigger: true
     - get: git-repo
       resource: script-source
-    - get: springci/start-site-ci-image
+    - get: start-site-ci-image
   - task: deploy
-    image: springci/start-site-ci-image
+    image: start-site-ci-image
     file: git-repo/ci/tasks/deploy.yml
     params:
       KEY: ((developer-account-key))
@@ -212,13 +212,13 @@ jobs:
       resource: pull-requests
       trigger: true
       version: every
-    - get: springci/start-site-ci-image
-    - put: pull-requests
-      params:
-        path: git-repo
-        status: pending
+    - get: start-site-ci-image
+  - put: pull-requests
+    params:
+      path: git-repo
+      status: pending
   - task: build-project
-    image: springci/start-site-ci-image
+    image: start-site-ci-image
     file: git-repo/ci/tasks/build-service.yml
     on_success:
       put: pull-requests
@@ -231,12 +231,12 @@ jobs:
         path: git-repo
         status: failure
 
-- name: springci/start-site-ci-image
+- name: build-start-site-ci-image
   plan:
     - get: source
       resource: ci-images
       trigger: true
-    - put: springci/start-site-ci-image
+    - put: start-site-ci-image
       params:
         build: source/ci/images
         dockerfile: source/ci/images/start-site-ci-image/Dockerfile
@@ -245,14 +245,15 @@ jobs:
   plan:
   - in_parallel:
     - get: git-repo
-      resource: deploy-source
+      resource: script-source
     - get: kpack
       trigger: true
-    - get: springci/start-site-ci-image
+    - get: start-site-ci-image
   - task: update-deployment
-    image: springci/start-site-ci-image
+    image: start-site-ci-image
     file: git-repo/ci/tasks/update-deployment.yml
-  - put: deploy-source
+  - put: git-repo
+    resource: script-source
     params:
       repository: updated-git-repo
 
@@ -263,9 +264,9 @@ jobs:
       resource: script-source
     - get: artifactory-repo
       trigger: true
-    - get: springci/start-site-ci-image
+    - get: start-site-ci-image
   - task: get-blob-url
-    image: springci/start-site-ci-image
+    image: start-site-ci-image
     file: git-repo/ci/tasks/get-blob-url.yml
     params:
       ARTIFACTORY_SERVER: ((artifactory-server))
@@ -284,9 +285,9 @@ jobs:
     - get: git-repo
       resource: script-source
       trigger: true
-    - get: springci/start-site-ci-image
+    - get: start-site-ci-image
   - task: verify-service.yml
-    image: springci/start-site-ci-image
+    image: start-site-ci-image
     file: git-repo/ci/tasks/verify-service.yml
     on_success:
       put: slack-alert
