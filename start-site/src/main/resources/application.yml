@@ -666,6 +666,12 @@ initializr:
               description: Accessing Data with Neo4j
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-neo4j
+        - name: Neo4j Bolt driver
+          id: neo4j
+          description: A Neo4j Java driver that connects to a Neo4j instance or cluster using the Bolt protocol.
+          groupId: org.neo4j.driver
+          artifactId: neo4j-java-driver
+          starter: false
     - name: Messaging
       content:
         - name: Spring Integration

@@ -646,6 +646,11 @@
                 "templated": true
               }
             }
+          },
+          {
+            "id": "neo4j",
+            "name": "Neo4j Bolt driver",
+            "description": "A Neo4j Java driver that connects to a Neo4j instance or cluster using the Bolt protocol."
           }
         ]
       },
