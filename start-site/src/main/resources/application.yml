@@ -545,10 +545,13 @@ initializr:
           id: oracle
           compatibilityRange: 2.2.0.RC1
           description: A JDBC driver that provides access to Oracle.
-          groupId: com.oracle.ojdbc
+          groupId: com.oracle.database.jdbc
           artifactId: ojdbc8
           scope: runtime
           starter: false
+          mappings:
+            - compatibilityRange: "[2.2.0.RC1,2.2.8.RELEASE)"
+              groupId: com.oracle.ojdbc
         - name: PostgreSQL Driver
           id: postgresql
           description: A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
