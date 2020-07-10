@@ -11,7 +11,7 @@ running at https://start.spring.io. The following modules are available:
 [[build]]
 == Building from Source
 
-You need Java 1.8 and a bash-like shell.
+You need Java 11 and a bash-like shell.
 
 [[building]]
 === Building

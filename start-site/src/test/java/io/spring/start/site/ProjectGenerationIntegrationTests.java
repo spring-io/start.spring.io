@@ -134,7 +134,7 @@ class ProjectGenerationIntegrationTests {
 		List<Version> bootVersions = this.metadata.getBootVersions().getContent().stream()
 				.map((element) -> Version.parse(element.getId())).collect(Collectors.toList());
 		String defaultJvmVersion = this.metadata.getJavaVersions().getContent().stream()
-				.filter(DefaultMetadataElement::isDefault).map(MetadataElement::getId).findAny().orElse("1.8");
+				.filter(DefaultMetadataElement::isDefault).map(MetadataElement::getId).findAny().orElse("11");
 		List<Packaging> packagings = Arrays.asList(new JarPackaging(), new WarPackaging());
 		List<Language> languages = Arrays.asList(Language.forId(KotlinLanguage.ID, defaultJvmVersion),
 				Language.forId(JavaLanguage.ID, defaultJvmVersion));
