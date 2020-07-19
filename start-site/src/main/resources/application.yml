@@ -766,7 +766,7 @@ initializr:
           artifactId: camel-spring-boot-starter
           links:
             - rel: guide
-              href: https://camel.apache.org/spring-boot
+              href: https://camel.apache.org/camel-spring-boot/latest/spring-boot.html
               description: Using Apache Camel with Spring Boot
         - name: Solace PubSub+
           bom: solace-spring-boot
