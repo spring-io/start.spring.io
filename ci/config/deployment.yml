@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: start-app
-          image: gcr.io/cf-spring-boot/initializr-k8s-image@sha256:7774032b4b79e3cbe25b277bced4ed7a6ae8b84baa42b8b409057556097d17a9
+          image: gcr.io/cf-spring-boot/initializr-k8s-image@sha256:78b00da9147f576397d30e57827e94cc0051a5268ca888d1c895d6867f8f8255
           lifecycle:
             preStop:
               exec:
