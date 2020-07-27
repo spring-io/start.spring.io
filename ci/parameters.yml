@@ -4,7 +4,7 @@ branch: master
 artifactory-server: "https://repo.spring.io"
 artifactory-repo: "initializr-ci-local"
 docker-hub-organization: "springci"
-build-name: "initializr"
+build-name: "start-site"
 pipeline-name: "start-site"
 concourse-url: "https://ci.spring.io"
 shipyard-kubeconfig: |
