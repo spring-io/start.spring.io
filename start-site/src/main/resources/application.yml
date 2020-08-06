@@ -1057,7 +1057,7 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-config
           mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
+            - compatibilityRange: "[2.0.0.RELEASE,2.2.0.M4)"
               starter: false
         - name: Consul Configuration
           id: cloud-starter-consul-config
