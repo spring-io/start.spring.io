@@ -49,7 +49,7 @@ initializr:
             version: 2.1.6
           - compatibilityRange: "[2.2.0.M1,2.3.0.M1)"
             version: 2.2.4
-          - compatibilityRange: "2.3.0.M1"
+          - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
             version: 2.3.0
       solace-spring-boot:
         groupId: com.solace.spring.boot
