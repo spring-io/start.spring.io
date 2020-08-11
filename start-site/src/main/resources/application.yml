@@ -68,7 +68,7 @@ initializr:
           - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
             version: 1.0.0
           - compatibilityRange: "2.3.0.M1"
-            version: 1.1.0
+            version: 1.1.1
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
