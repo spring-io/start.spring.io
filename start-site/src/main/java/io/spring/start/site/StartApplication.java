@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,9 @@ import java.nio.file.Files;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
-import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
+import io.spring.initializr.web.support.SaganInitializrMetadataUpdateStrategy;
 import io.spring.start.site.project.ProjectDescriptionCustomizerConfiguration;
 import io.spring.start.site.support.CacheableDependencyManagementVersionResolver;
-import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 import io.spring.start.site.web.HomeController;
 
 import org.springframework.boot.SpringApplication;
@@ -56,12 +55,6 @@ public class StartApplication {
 	}
 
 	@Bean
-	public InitializrMetadataUpdateStrategy startMetadataUpdateStrategy(RestTemplateBuilder restTemplateBuilder,
-			ObjectMapper objectMapper) {
-		return new StartInitializrMetadataUpdateStrategy(restTemplateBuilder.build(), objectMapper);
-	}
-
-	@Bean
 	public HomeController homeController() {
 		return new HomeController();
 	}
@@ -72,6 +65,12 @@ public class StartApplication {
 			registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
 			registry.addErrorPages(new ErrorPage("/error/index.html"));
 		};
+	}
+
+	@Bean
+	public SaganInitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy(
+			RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
+		return new SaganInitializrMetadataUpdateStrategy(restTemplateBuilder.build(), objectMapper);
 	}
 
 	@Bean

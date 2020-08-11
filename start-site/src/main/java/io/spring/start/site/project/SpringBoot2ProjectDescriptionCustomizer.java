@@ -36,7 +36,7 @@ class SpringBoot2ProjectDescriptionCustomizer implements ProjectDescriptionCusto
 
 	private static final VersionRange SPRING_BOOT_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.0.M1");
 
-	private static final List<String> VALID_VERSIONS = Arrays.asList("1.8", "9", "10", "11", "12", "13");
+	private static final List<String> VALID_VERSIONS = Arrays.asList("1.8", "9", "10", "11", "12", "13", "14");
 
 	@Override
 	public void customize(MutableProjectDescription description) {

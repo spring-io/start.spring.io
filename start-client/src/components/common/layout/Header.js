@@ -1,29 +1,21 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 
+import HeaderMobile from './HeaderMobile'
 import Logo from './Logo'
 
-const Header = ({ children }) => (
-  <div className='header'>
-    <h1 className='logo'>
-      <a href='/'>
-        <Logo />
-        <span className='title'>
-          Spring <strong>Initializr</strong>
-        </span>
-        <span className='description'>Bootstrap your application</span>
-      </a>
-    </h1>
-    {children}
-  </div>
+const Header = () => (
+  <header id='header'>
+    <div className='not-mobile'>
+      <h1 className='logo'>
+        <a href='/'>
+          <span className='logo-content' tabIndex='-1'>
+            <Logo />
+          </span>
+        </a>
+      </h1>
+    </div>
+    <HeaderMobile />
+  </header>
 )
-
-Header.defaultProps = {
-  children: null,
-}
-
-Header.propTypes = {
-  children: PropTypes.node,
-}
 
 export default Header

@@ -17,12 +17,16 @@ const config = {
     open: false,
     before: function(app, server, compiler) {
       app.get('/metadata/client', function(req, res) {
-        res.json(mock)
+        setTimeout(() => {
+          res.json(mock)
+        }, 800)
       })
       app.get('/starter.zip', function(req, res) {
         fs.readFile(path.resolve('./dev/starter.zip'), (err, data) => {
           if (err) return sendError(err, res)
-          res.send(data)
+          setTimeout(() => {
+            res.send(data)
+          }, 800)
         })
       })
     },

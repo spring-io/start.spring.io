@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,16 +30,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DevToolsGradleBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void gradleWithDevtoolsCreatesDevelopmentOnlyConfiguration() {
+	void gradleWithDevtoolsAndSpringBootPriorTo23RC1CreatesDevelopmentOnlyConfiguration() {
 		ProjectRequest request = createProjectRequest("devtools");
+		request.setBootVersion("2.3.0.M4");
 		assertThat(gradleBuild(request)).contains("configurations {", "\tdevelopmentOnly", "\truntimeClasspath {",
 				"\t\textendsFrom developmentOnly", "\t}", "}",
 				"\tdevelopmentOnly 'org.springframework.boot:spring-boot-devtools'");
 	}
 
 	@Test
-	void gradleWithoutDevtoolsDoesNotChangeOptional() {
+	void gradleWithDevtoolsAndSpringBoot23SnapshotsDoesNotCreateDevelopmentOnlyConfiguration() {
+		ProjectRequest request = createProjectRequest("devtools");
+		request.setBootVersion("2.3.0.BUILD-SNAPSHOT");
+		assertThat(gradleBuild(request)).lines().doesNotContain("configurations {")
+				.contains("\tdevelopmentOnly 'org.springframework.boot:spring-boot-devtools'");
+	}
+
+	@Test
+	void gradleWithoutDevtoolsAndSpringBootPriorTo23RC1DoesNotCreateDevelopmentOnlyConfiguration() {
 		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.3.0.M4");
 		assertThat(gradleBuild(request)).doesNotContain("developmentOnly");
 	}
 

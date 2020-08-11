@@ -208,4 +208,54 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		assertThat(mavenPom(request)).hasProperty("java.version", "11");
 	}
 
+	@Test
+	void java14CannotBeUsedWithSpringBoot225Maven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.5.RELEASE");
+		request.setJavaVersion("14");
+		assertThat(mavenPom(request)).hasProperty("java.version", "11");
+	}
+
+	@Test
+	void java14CannotBeUsedWithSpringBoot225Gradle() {
+		ProjectRequest request = createProjectRequest("data-jpa");
+		request.setBootVersion("2.2.5.RELEASE");
+		request.setJavaVersion("14");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("11");
+	}
+
+	@Test
+	void java14CanBeUsedWithSpringBoot226Maven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.6.RELEASE");
+		request.setJavaVersion("14");
+		assertThat(mavenPom(request)).hasProperty("java.version", "14");
+	}
+
+	@Test
+	void java14CanBeUsedWithSpringBoot226Gradle() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.6.RELEASE");
+		request.setJavaVersion("14");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("14");
+	}
+
+	@Test
+	void java14CanBeUsedWithSpringBoot22Groovy() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.6.RELEASE");
+		request.setLanguage("groovy");
+		request.setJavaVersion("14");
+		assertThat(mavenPom(request)).hasProperty("java.version", "14");
+	}
+
+	@Test
+	void java14CannotBeUsedWithKotlinMaven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.0.RELEASE");
+		request.setLanguage("kotlin");
+		request.setJavaVersion("14");
+		assertThat(mavenPom(request)).hasProperty("java.version", "11");
+	}
+
 }

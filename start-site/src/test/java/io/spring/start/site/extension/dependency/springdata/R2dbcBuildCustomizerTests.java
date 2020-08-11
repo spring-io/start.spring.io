@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,61 +33,39 @@ import static org.assertj.core.api.Assertions.assertThat;
 class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void r2dbcWithoutDriverAddsTestUtility() {
-		Build build = createBuild("2.2.0.M6");
-		build.dependencies().add("data-r2dbc");
-		customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "r2dbc-test-autoconfigure");
-	}
-
-	@Test
 	void r2dbcWithH2() {
-		Build build = createBuild("2.2.0.M6");
+		Build build = createBuild("2.3.0.RELEASE");
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("h2");
 		customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "h2", "r2dbc-h2", "r2dbc-test-autoconfigure");
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "h2", "r2dbc-h2");
 	}
 
 	@Test
 	void r2dbcWithMysql() {
-		Build build = createBuild("2.2.0.M6");
+		Build build = createBuild("2.3.0.RELEASE");
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("mysql");
 		customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql", "r2dbc-mysql",
-				"r2dbc-test-autoconfigure");
-		assertThat(build.repositories().ids()).contains("sonatype-oss-snapshots");
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql", "r2dbc-mysql");
 	}
 
 	@Test
 	void r2dbcWithPostgresql() {
-		Build build = createBuild("2.2.0.M6");
+		Build build = createBuild("2.3.0.RELEASE");
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("postgresql");
 		customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "postgresql", "r2dbc-postgresql",
-				"r2dbc-test-autoconfigure");
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "postgresql", "r2dbc-postgresql");
 	}
 
 	@Test
 	void r2dbcWithSqlserver() {
-		Build build = createBuild("2.2.0.M6");
+		Build build = createBuild("2.3.0.RELEASE");
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("sqlserver");
 		customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "sqlserver", "r2dbc-mssql",
-				"r2dbc-test-autoconfigure");
-	}
-
-	@Test
-	void r2dbcWithActuator() {
-		Build build = createBuild("2.2.0.M6");
-		build.dependencies().add("data-r2dbc");
-		build.dependencies().add("actuator");
-		customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "actuator", "r2dbc-actuator-autoconfigure",
-				"r2dbc-test-autoconfigure");
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "sqlserver", "r2dbc-mssql");
 	}
 
 	private Build createBuild(String platformVersion) {

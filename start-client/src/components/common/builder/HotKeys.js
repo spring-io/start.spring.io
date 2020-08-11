@@ -1,17 +1,25 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { GlobalHotKeys } from 'react-hotkeys'
+import { GlobalHotKeys, configure } from 'react-hotkeys'
 
-function HotKeys({ onSubmit, onExplore }) {
+configure({
+  ignoreTags: ['textarea'],
+})
+
+function HotKeys({ onSubmit, onExplore, onEscape, onDependency }) {
   return (
     <GlobalHotKeys
       keyMap={{
         SUBMIT: ['command+enter', 'ctrl+enter'],
         EXPLORE: ['ctrl+space'],
+        DEPENDENCY: ['command+b', 'ctrl+b'],
+        ESCAPE: ['esc'],
       }}
       handlers={{
         SUBMIT: onSubmit,
         EXPLORE: onExplore,
+        ESCAPE: onEscape,
+        DEPENDENCY: onDependency,
       }}
       global
     />
@@ -21,6 +29,8 @@ function HotKeys({ onSubmit, onExplore }) {
 HotKeys.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onExplore: PropTypes.func.isRequired,
+  onEscape: PropTypes.func.isRequired,
+  onDependency: PropTypes.func.isRequired,
 }
 
 export default HotKeys

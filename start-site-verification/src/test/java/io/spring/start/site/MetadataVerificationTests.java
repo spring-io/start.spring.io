@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,13 +75,32 @@ class MetadataVerificationTests {
 	@MethodSource("parameters")
 	void dependencyStarterConfigurationIsCorrect(Dependency dependency, List<BillOfMaterials> boms,
 			List<RemoteRepository> repositories, String description) {
-		List<String> dependencies = DependencyResolver.resolveDependencies(dependency.getGroupId(),
-				dependency.getArtifactId(), dependency.getVersion(), boms, repositories);
-		if (dependency.isStarter()) {
-			assertThat(dependencies).anyMatch("org.springframework.boot:spring-boot-starter"::equals);
+		List<String> dependencies = collectDependencies(dependency, boms, repositories);
+		if (dependencies != null) {
+			if (dependency.isStarter()) {
+				assertThat(dependencies).anyMatch("org.springframework.boot:spring-boot-starter"::equals);
+			}
+			else {
+				assertThat(dependencies).noneMatch("org.springframework.boot:spring-boot-starter"::equals);
+			}
 		}
-		else {
-			assertThat(dependencies).noneMatch("org.springframework.boot:spring-boot-starter"::equals);
+	}
+
+	private List<String> collectDependencies(Dependency dependency, List<BillOfMaterials> boms,
+			List<RemoteRepository> repositories) {
+		try {
+			return DependencyResolver.resolveDependencies(dependency.getGroupId(), dependency.getArtifactId(),
+					dependency.getVersion(), boms, repositories);
+		}
+		catch (RuntimeException ex) {
+			// Known issue with Spring Cloud Contract to be fixed in the next release
+			// See
+			// https://github.com/spring-cloud/spring-cloud-contract/commit/13c7d477fbbc856b319600874a11aabcef283df7
+			if (ex.getMessage()
+					.contains("org.springframework.cloud:spring-cloud-starter-contract-verifier:pom:2.2.3.RELEASE")) {
+				return null;
+			}
+			throw ex;
 		}
 	}
 
@@ -134,9 +153,9 @@ class MetadataVerificationTests {
 				repositories.computeIfAbsent(repository, this::repositoryForId);
 			}
 		}
-		if (!bootVersion.getQualifier().getQualifier().equals("RELEASE")) {
+		if (!bootVersion.getQualifier().getId().equals("RELEASE")) {
 			repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
-			if (bootVersion.getQualifier().getQualifier().contains("SNAPSHOT")) {
+			if (bootVersion.getQualifier().getId().contains("SNAPSHOT")) {
 				repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
 			}
 		}

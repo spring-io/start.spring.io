@@ -8,11 +8,11 @@ import { isValidDependency } from '../utils/ApiUtils'
 import { rangeToText } from '../utils/Version'
 
 export const defaultAppContext = {
-  more: false,
   complete: false,
   explore: false,
   share: false,
-  tab: 'quicksearch',
+  nav: false,
+  list: false,
   theme: 'light',
   config: {},
   groupsClosed: [],
@@ -89,14 +89,6 @@ export function reducer(state, action) {
         get(state, 'config.lists.dependencies')
       )
       return { ...state, dependencies }
-    }
-    case 'SHARE_UPDATE': {
-      const share = get(action, 'payload.open', false)
-      return { ...state, share }
-    }
-    case 'EXPLORE_UPDATE': {
-      const explore = get(action, 'payload.open', false)
-      return { ...state, explore }
     }
     case 'COMPLETE': {
       const json = get(action, 'payload', {})

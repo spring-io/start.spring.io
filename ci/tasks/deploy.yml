@@ -1,0 +1,9 @@
+---
+platform: linux
+inputs:
+  - name: git-repo
+params:
+  KEY:
+  ELASTIC_uri:
+run:
+  path: git-repo/ci/scripts/deploy.sh
