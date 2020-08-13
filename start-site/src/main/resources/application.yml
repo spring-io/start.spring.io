@@ -265,10 +265,18 @@ initializr:
           artifactId: spring-session-core
           description: Provides an API and implementations for managing user session information.
           starter: false
+        - name: Rest Repositories HAL Explorer
+          id: data-rest-explorer
+          description: Browsing Spring Data REST repositories in your browser.
+          starter: false
+          compatibilityRange: "2.2.0-M1"
+          groupId: org.springframework.data
+          artifactId: spring-data-rest-hal-explorer
         - name: Rest Repositories HAL Browser
           id: data-rest-hal
           description: Browsing Spring Data REST repositories in your browser.
           starter: false
+          compatibilityRange: "[2.0.0.RELEASE,2.2.0-M1)"
           groupId: org.springframework.data
           artifactId: spring-data-rest-hal-browser
         - name: Spring HATEOAS
