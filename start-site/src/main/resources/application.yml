@@ -834,17 +834,17 @@ initializr:
               description: Building a RESTful Web Service with Spring Boot Actuator
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready
-        - name: Spring Boot Admin (Client)
+        - name: Codecentric's Spring Boot Admin (Client)
           id: codecentric-spring-boot-admin-client
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
-          description: Required for your application to register with a Spring Boot Admin Server instance.
+          description: Required for your application to register with a Codecentric's Spring Boot Admin Server instance.
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
               href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
-        - name: Spring Boot Admin (Server)
+        - name: Codecentric's Spring Boot Admin (Server)
           id: codecentric-spring-boot-admin-server
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
