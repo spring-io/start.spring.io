@@ -16,6 +16,8 @@
 
 package io.spring.start.site.extension.dependency.springcloud;
 
+import io.spring.initializr.generator.buildsystem.Dependency;
+import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.buildsystem.MavenRepository;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
@@ -74,6 +76,9 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 			}
 			if (mavenBuild.dependencies().has("webflux")) {
 				plugin.configuration((builder) -> builder.add("testMode", "WEBTESTCLIENT"));
+				mavenBuild.dependencies().add("rest-assured-spring-web-test-client",
+						Dependency.withCoordinates("io.rest-assured", "spring-web-test-client")
+								.scope(DependencyScope.TEST_COMPILE));
 			}
 		});
 		configurePluginRepositories(mavenBuild, sccPluginVersion);
