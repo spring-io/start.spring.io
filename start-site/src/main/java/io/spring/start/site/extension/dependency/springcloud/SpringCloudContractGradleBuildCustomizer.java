@@ -69,10 +69,6 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 							+ platformVersion.toString());
 			return;
 		}
-		if (hasWebflux(build)) {
-			build.dependencies().add("spring-web-test-client", Dependency
-					.withCoordinates("io.rest-assured", "spring-web-test-client").scope(DependencyScope.TEST_COMPILE));
-		}
 		build.buildscript((buildscript) -> buildscript
 				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion));
 		build.plugins().apply("spring-cloud-contract");
@@ -81,15 +77,14 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 				task.attribute("targetFramework",
 						"org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
 			}
-			if (hasWebflux(build)) {
+			if (build.dependencies().has("webflux")) {
 				task.attribute("testMode", "'WebTestClient'");
+				build.dependencies().add("rest-assured-spring-web-test-client",
+						Dependency.withCoordinates("io.rest-assured", "spring-web-test-client")
+								.scope(DependencyScope.TEST_COMPILE));
 			}
 		});
 		configurePluginRepositories(build, sccPluginVersion);
-	}
-
-	private boolean hasWebflux(GradleBuild build) {
-		return build.dependencies().has("webflux");
 	}
 
 	private void configurePluginRepositories(GradleBuild mavenBuild, String sccPluginVersion) {

@@ -69,24 +69,19 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 							+ platformVersion.toString());
 			return;
 		}
-		if (hasWebflux(mavenBuild)) {
-			mavenBuild.dependencies().add("spring-web-test-client", Dependency
-					.withCoordinates("io.rest-assured", "spring-web-test-client").scope(DependencyScope.TEST_COMPILE));
-		}
 		mavenBuild.plugins().add("org.springframework.cloud", "spring-cloud-contract-maven-plugin", (plugin) -> {
 			plugin.extensions(true).version(sccPluginVersion);
 			if (SPRING_BOOT_2_2_OR_LATER.match(platformVersion)) {
 				plugin.configuration((builder) -> builder.add("testFramework", "JUNIT5"));
 			}
-			if (hasWebflux(mavenBuild)) {
+			if (mavenBuild.dependencies().has("webflux")) {
 				plugin.configuration((builder) -> builder.add("testMode", "WEBTESTCLIENT"));
+				mavenBuild.dependencies().add("rest-assured-spring-web-test-client",
+						Dependency.withCoordinates("io.rest-assured", "spring-web-test-client")
+								.scope(DependencyScope.TEST_COMPILE));
 			}
 		});
 		configurePluginRepositories(mavenBuild, sccPluginVersion);
-	}
-
-	private boolean hasWebflux(MavenBuild build) {
-		return build.dependencies().has("webflux");
 	}
 
 	private void configurePluginRepositories(MavenBuild mavenBuild, String sccPluginVersion) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	@Test
 	void springWebTestClientDependencyAddedWhenWebFluxIsPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
-		Dependency springWebTestClientDep = Dependency.withId("spring-web-test-client", "io.rest-assured",
+		Dependency springWebTestClientDep = Dependency.withId("rest-assured-spring-web-test-client", "io.rest-assured",
 				"spring-web-test-client");
 		springWebTestClientDep.setScope(Dependency.SCOPE_TEST);
 		assertThat(mavenPom(projectRequest)).hasDependency(springWebTestClientDep);
