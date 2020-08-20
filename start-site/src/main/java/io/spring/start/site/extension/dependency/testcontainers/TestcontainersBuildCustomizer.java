@@ -16,126 +16,59 @@
 
 package io.spring.start.site.extension.dependency.testcontainers;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.Dependency;
-import io.spring.initializr.generator.buildsystem.DependencyContainer;
-import io.spring.initializr.generator.buildsystem.DependencyScope;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.initializr.metadata.InvalidInitializrMetadataException;
 
 /**
- * {@link BuildCustomizer} for Testcontainers that adds Testcontainers database specific
- * modules if database drivers are added as dependency.
+ * {@link BuildCustomizer} for Testcontainers that add a module-specific module if a
+ * supported entry is selected.
  *
  * @author Maciej Walkowiak
+ * @author Stephane Nicoll
  */
-public class TestcontainersBuildCustomizer implements BuildCustomizer<Build> {
+class TestcontainersBuildCustomizer implements BuildCustomizer<Build> {
 
-	/**
-	 * Supported Testcontainers modules with a mapping to Initializr dependency id.
-	 */
-	private final List<TestcontainersModule> supportedModules = Arrays.asList(
-			TestcontainersModule.rdbms("postgresql", "postgresql"), TestcontainersModule.rdbms("mysql", "mysql"),
-			TestcontainersModule.rdbms("mssqlserver", "sqlserver"), TestcontainersModule.rdbms("oracle-xe", "oracle"),
-			TestcontainersModule.noSql("neo4j", "data-neo4j"),
-			TestcontainersModule.noSql("cassandra", "data-cassandra"),
-			TestcontainersModule.noSql("cassandra", "data-cassandra-reactive"),
-			TestcontainersModule.noSql("couchbase", "data-couchbase"),
-			TestcontainersModule.noSql("couchbase", "data-couchbase-reactive"));
+	private static final String BOM_ID = "testcontainers";
 
-	private final InitializrMetadata metadata;
+	private final List<TestContainersModule> testcontainersModules;
 
-	public TestcontainersBuildCustomizer(InitializrMetadata metadata) {
-		this.metadata = metadata;
+	private final BillOfMaterials testContainersBom;
+
+	TestcontainersBuildCustomizer(List<TestContainersModule> testcontainersModules, InitializrMetadata metadata,
+			ProjectDescription description) {
+		this.testcontainersModules = testcontainersModules;
+		this.testContainersBom = resolveBom(metadata, description);
+	}
+
+	private static BillOfMaterials resolveBom(InitializrMetadata metadata, ProjectDescription description) {
+		try {
+			return metadata.getConfiguration().getEnv().getBoms().get(BOM_ID).resolve(description.getPlatformVersion());
+		}
+		catch (InvalidInitializrMetadataException ex) {
+			return null;
+		}
 	}
 
 	@Override
 	public void customize(Build build) {
-		DependencyContainer dependencies = build.dependencies();
-
-		Map<Type, Long> addedDependencies = this.supportedModules.stream()
-				.filter((module) -> dependencies.has(module.getInitializrDependencyName()))
-				.peek((module) -> addTestcontainersDriverDependency(dependencies, module.getName()))
-				.collect(Collectors.groupingBy(TestcontainersModule::getType, Collectors.counting()));
-
-		if (addedDependencies.containsKey(Type.RDBMS) && addedDependencies.get(Type.RDBMS) > 0) {
-			if (dependencies.has("data-r2dbc")) {
-				addTestcontainersDriverDependency(dependencies, "r2dbc");
-			}
+		for (TestContainersModule testcontainersModule : this.testcontainersModules) {
+			testcontainersModule.customize(build);
 		}
-
-		if (!addedDependencies.isEmpty()) {
-			this.removeTestcontainers(build);
+		List<String> testContainerDependencies = build.dependencies().ids()
+				.filter((id) -> id.startsWith("testcontainers")).collect(Collectors.toList());
+		if (this.testContainersBom != null && testContainerDependencies.size() > 1) {
+			build.dependencies().remove("testcontainers");
+			build.properties().version(this.testContainersBom.getVersionProperty(),
+					this.testContainersBom.getVersion());
+			build.boms().add(BOM_ID);
 		}
-	}
-
-	private void addTestcontainersDriverDependency(DependencyContainer dependencies, String testcontainersArtifactId) {
-		dependencies.add("testcontainers-" + testcontainersArtifactId,
-				Dependency.withCoordinates("org.testcontainers", testcontainersArtifactId)
-						.scope(DependencyScope.TEST_COMPILE).build());
-	}
-
-	/**
-	 * Removes Testcontainers core dependency which is not needed as it is a transient
-	 * dependency for database specific Testcontainers modules.
-	 * @param build - build configuration for the project
-	 */
-	private void removeTestcontainers(Build build) {
-		io.spring.initializr.metadata.Dependency testcontainers = this.metadata.getDependencies().get("testcontainers");
-		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get(testcontainers.getBom());
-		if (bom.getVersionProperty() != null) {
-			build.properties().version(bom.getVersionProperty(), bom.getVersion());
-		}
-		build.boms().add(testcontainers.getBom());
-		build.dependencies().remove("testcontainers");
-	}
-
-	private static final class TestcontainersModule {
-
-		private final String name;
-
-		private final String initializrDependencyName;
-
-		private final Type type;
-
-		static TestcontainersModule rdbms(String name, String initializrDependencyName) {
-			return new TestcontainersModule(name, initializrDependencyName, Type.RDBMS);
-		}
-
-		static TestcontainersModule noSql(String name, String initializrDependencyName) {
-			return new TestcontainersModule(name, initializrDependencyName, Type.NO_SQL);
-		}
-
-		private TestcontainersModule(String name, String initializrDependencyName, Type type) {
-			this.name = name;
-			this.initializrDependencyName = initializrDependencyName;
-			this.type = type;
-		}
-
-		String getName() {
-			return this.name;
-		}
-
-		String getInitializrDependencyName() {
-			return this.initializrDependencyName;
-		}
-
-		Type getType() {
-			return this.type;
-		}
-
-	}
-
-	private enum Type {
-
-		RDBMS, NO_SQL;
-
 	}
 
 }

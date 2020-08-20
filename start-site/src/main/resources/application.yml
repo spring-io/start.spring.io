@@ -155,6 +155,11 @@ initializr:
             repositories: spring-milestones
           - compatibilityRange: "2.0.0.RELEASE"
             version: 2.0.1.RELEASE
+      testcontainers:
+        groupId: org.testcontainers
+        artifactId: testcontainers-bom
+        version: 1.14.3
+        versionProperty: testcontainers.version
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
@@ -171,11 +176,6 @@ initializr:
         mappings:
           - compatibilityRange: "2.1.0.RELEASE"
             version: 2.0.0
-      testcontainers:
-        groupId: org.testcontainers
-        artifactId: testcontainers-bom
-        version: 1.14.1
-        versionProperty: testcontainers.version
     gradle:
       dependency-management-plugin-version: 1.0.9.RELEASE
     kotlin:
@@ -941,6 +941,17 @@ initializr:
           artifactId: spring-restdocs-mockmvc
           scope: test
           starter: false
+        - name: Testcontainers
+          id: testcontainers
+          description: Provide lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
+          groupId: org.testcontainers
+          artifactId: testcontainers
+          bom: testcontainers
+          scope: test
+          starter: false
+          links:
+            - rel: reference
+              href: https://www.testcontainers.org/
         - name: Contract Verifier
           bom: spring-cloud
           id: cloud-contract-verifier
@@ -976,18 +987,6 @@ initializr:
           artifactId: de.flapdoodle.embed.mongo
           scope: test
           starter: false
-        - name: Testcontainers
-          id: testcontainers
-          description: Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
-          groupId: org.testcontainers
-          artifactId: testcontainers
-          bom: testcontainers
-          scope: test
-          starter: false
-          links:
-            - rel: reference
-              href: https://www.testcontainers.org/
-              description: Testcontainers official documentation
     - name: Spring Cloud
       bom: spring-cloud
       content:

@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.dependency.testcontainers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import io.spring.initializr.generator.buildsystem.Build;
@@ -24,49 +23,27 @@ import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 
 /**
- * A {@link HelpDocumentCustomizer} that adds a reference links when Testcontainers and
- * one of supported NoSQL databases, JDBC or R2DBC drivers is selected.
+ * A {@link HelpDocumentCustomizer} that adds a reference link for each supported
+ * Testcontainers entry when Testcontainers is selected.
  *
  * @author Maciej Walkowiak
+ * @author Stephane Nicoll
  */
-public class TestcontainersHelpCustomizer implements HelpDocumentCustomizer {
-
-	private static final List<String> DRIVERS = Arrays.asList("mysql", "postgresql", "sqlserver", "oracle");
+class TestcontainersHelpCustomizer implements HelpDocumentCustomizer {
 
 	private final Build build;
 
-	public TestcontainersHelpCustomizer(Build build) {
+	private final List<TestContainersModule> testContainersModules;
+
+	TestcontainersHelpCustomizer(List<TestContainersModule> testContainersModules, Build build) {
+		this.testContainersModules = testContainersModules;
 		this.build = build;
 	}
 
 	@Override
 	public void customize(HelpDocument document) {
-		if (this.build.dependencies().ids().anyMatch(DRIVERS::contains)) {
-			if (this.build.dependencies().has("data-r2dbc")) {
-				document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/r2dbc/",
-						"Testcontainers R2DBC support reference");
-			}
-			else {
-				document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/jdbc/",
-						"Testcontainers JDBC support reference");
-			}
-		}
-
-		if (this.build.dependencies().has("data-neo4j")) {
-			document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/neo4j/",
-					"Testcontainers Neo4j support reference");
-		}
-
-		if (this.build.dependencies().has("data-cassandra")
-				|| this.build.dependencies().has("data-cassandra-reactive")) {
-			document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/cassandra/",
-					"Testcontainers Cassandra support reference");
-		}
-
-		if (this.build.dependencies().has("data-couchbase")
-				|| this.build.dependencies().has("data-couchbase-reactive")) {
-			document.gettingStarted().addReferenceDocLink("https://www.testcontainers.org/modules/databases/couchbase/",
-					"Testcontainers Couchbase support reference");
+		for (TestContainersModule testContainersModule : this.testContainersModules) {
+			testContainersModule.customizeHelpDocument(this.build, document);
 		}
 	}
 

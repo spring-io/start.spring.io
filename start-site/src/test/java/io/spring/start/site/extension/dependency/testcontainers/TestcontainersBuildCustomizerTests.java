@@ -33,94 +33,46 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link TestcontainersBuildCustomizer}.
  *
  * @author Maciej Walkowiak
+ * @author Stephane Nicoll
  */
 class TestcontainersBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void onlyTestContainersWithoutDrivers() {
+	void buildWithOnlyTestContainersDoesNotRemoveTestContainers() {
 		assertThat(generateProject("testcontainers")).mavenBuild()
 				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
 				.hasDependency(getDependency("testcontainers"));
 	}
 
 	@ParameterizedTest
-	@MethodSource("rdbmsDependencies")
-	void testcontainersWithJdbcDatabaseDriver(String springBootDependencyId, String testcontainersArtifactId) {
+	@MethodSource("supportedEntries")
+	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
 		Dependency testcontainers = getDependency("testcontainers");
-
 		assertThat(generateProject("testcontainers", springBootDependencyId)).mavenBuild()
 				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
 				.hasDependency(getDependency(springBootDependencyId))
-				.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
-				.doesNotHaveDependency(testcontainers.getGroupId(), testcontainers.getArtifactId())
-				.doesNotHaveDependency("org.testcontainers", "r2dbc");
-	}
-
-	@ParameterizedTest
-	@MethodSource("noSqlDependencies")
-	void testcontainersWithNoSqlWithoutR2dbc(String springBootDependencyId, String testcontainersArtifactId) {
-		Dependency testcontainers = getDependency("testcontainers");
-
-		assertThat(generateProject("testcontainers", springBootDependencyId)).mavenBuild()
-				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-				.hasDependency(getDependency(springBootDependencyId))
-				.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
-				.doesNotHaveDependency(testcontainers.getGroupId(), testcontainers.getArtifactId())
-				.doesNotHaveDependency("org.testcontainers", "r2dbc");
-	}
-
-	@ParameterizedTest
-	@MethodSource("noSqlDependencies")
-	void testcontainersWithNoSqlWithR2dbc(String springBootDependencyId, String testcontainersArtifactId) {
-		Dependency testcontainers = getDependency("testcontainers");
-
-		assertThat(generateProject("testcontainers", "data-r2dbc", springBootDependencyId)).mavenBuild()
-				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-				.hasDependency(getDependency(springBootDependencyId))
-				.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
-				.doesNotHaveDependency(testcontainers.getGroupId(), testcontainers.getArtifactId())
-				.doesNotHaveDependency("org.testcontainers", "r2dbc");
-	}
-
-	@ParameterizedTest
-	@MethodSource("rdbmsDependencies")
-	void testcontainersWithR2dbcDatabaseDriver(String springBootDependencyId, String testcontainersArtifactId) {
-		Dependency testcontainers = getDependency("testcontainers");
-
-		assertThat(generateProject("testcontainers", "data-r2dbc", springBootDependencyId)).mavenBuild()
-				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-				.hasDependency(getDependency(springBootDependencyId))
-				.hasDependency("org.testcontainers", "r2dbc", null, "test")
 				.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
 				.doesNotHaveDependency(testcontainers.getGroupId(), testcontainers.getArtifactId());
 	}
 
-	@Test
-	void testcontainersWithR2dbcNoDatabaseDriver() {
-		Dependency testcontainers = getDependency("testcontainers");
-
-		assertThat(generateProject("testcontainers", "data-r2dbc")).mavenBuild()
-				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-				.hasDependency(getDependency("testcontainers")).doesNotHaveDependency("org.testcontainers", "r2dbc");
-	}
-
 	private ProjectStructure generateProject(String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
-		request.setBootVersion("2.3.0.BUILD-SNAPSHOT");
 		request.setType("maven-build");
 		return generateProject(request);
 	}
 
-	static Stream<Arguments> rdbmsDependencies() {
-		return Stream.of(Arguments.arguments("postgresql", "postgresql"), Arguments.arguments("mysql", "mysql"),
-				Arguments.arguments("sqlserver", "mssqlserver"), Arguments.arguments("oracle", "oracle-xe"));
-	}
-
-	static Stream<Arguments> noSqlDependencies() {
-		return Stream.of(Arguments.arguments("data-neo4j", "neo4j"), Arguments.arguments("data-cassandra", "cassandra"),
+	static Stream<Arguments> supportedEntries() {
+		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.arguments("data-cassandra", "cassandra"),
 				Arguments.arguments("data-cassandra-reactive", "cassandra"),
 				Arguments.arguments("data-couchbase", "couchbase"),
-				Arguments.arguments("data-couchbase-reactive", "couchbase"));
+				Arguments.arguments("data-couchbase-reactive", "couchbase"),
+				Arguments.arguments("data-elasticsearch", "elasticsearch"),
+				Arguments.arguments("data-mongodb", "mongodb"), Arguments.arguments("data-mongodb-reactive", "mongodb"),
+				Arguments.arguments("data-neo4j", "neo4j"), Arguments.arguments("data-r2dbc", "r2dbc"),
+				Arguments.arguments("data-solr", "solr"), Arguments.arguments("db2", "db2"),
+				Arguments.arguments("kafka", "kafka"), Arguments.arguments("kafka-streams", "kafka"),
+				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
+				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("sqlserver", "mssqlserver"));
 	}
 
 }
