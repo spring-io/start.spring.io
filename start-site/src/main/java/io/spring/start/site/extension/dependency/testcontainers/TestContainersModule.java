@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.spring.documentation.HelpDocument;
 
 /**
  * Represent a Testcontainers module and how it should affect a generated project that
@@ -33,38 +32,42 @@ import io.spring.initializr.generator.spring.documentation.HelpDocument;
  */
 class TestContainersModule {
 
+	private final String name;
+
+	private final String documentationUrl;
+
 	private final List<String> triggeredDependencyIds;
 
 	private final Consumer<Build> buildCustomizer;
 
-	private final Consumer<HelpDocument> helpDocumentCustomizer;
-
-	TestContainersModule(String triggeredDependencyId, Consumer<Build> buildCustomizer,
-			Consumer<HelpDocument> helpDocumentCustomizer) {
-		this(Collections.singleton(triggeredDependencyId), buildCustomizer, helpDocumentCustomizer);
+	TestContainersModule(String name, String documentationUrl, Collection<String> triggeredDependencyIds,
+			Consumer<Build> buildCustomizer) {
+		this.name = name;
+		this.documentationUrl = documentationUrl;
+		this.triggeredDependencyIds = new ArrayList<>(triggeredDependencyIds);
+		this.buildCustomizer = buildCustomizer;
 	}
 
-	TestContainersModule(Collection<String> triggeredDependencyId, Consumer<Build> buildCustomizer,
-			Consumer<HelpDocument> helpDocumentCustomizer) {
-		this.triggeredDependencyIds = new ArrayList<>(triggeredDependencyId);
-		this.buildCustomizer = buildCustomizer;
-		this.helpDocumentCustomizer = helpDocumentCustomizer;
+	TestContainersModule(String name, String documentationUrl, String triggerDependencyId,
+			Consumer<Build> buildCustomizer) {
+		this(name, documentationUrl, Collections.singleton(triggerDependencyId), buildCustomizer);
+	}
+
+	String getName() {
+		return this.name;
+	}
+
+	String getDocumentationUrl() {
+		return this.documentationUrl;
 	}
 
 	void customize(Build build) {
-		if (hasMatchingDependency(build)) {
+		if (match(build)) {
 			this.buildCustomizer.accept(build);
 		}
 	}
 
-	void customizeHelpDocument(Build build, HelpDocument document) {
-		if (hasMatchingDependency(build)) {
-			this.helpDocumentCustomizer.accept(document);
-		}
-
-	}
-
-	boolean hasMatchingDependency(Build build) {
+	boolean match(Build build) {
 		for (String triggeredDependencyId : this.triggeredDependencyIds) {
 			if (build.dependencies().has(triggeredDependencyId)) {
 				return true;

@@ -37,13 +37,13 @@ class TestcontainersBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final String BOM_ID = "testcontainers";
 
-	private final List<TestContainersModule> testcontainersModules;
+	private final TestContainerModuleRegistry modulesRegistry;
 
 	private final BillOfMaterials testContainersBom;
 
-	TestcontainersBuildCustomizer(List<TestContainersModule> testcontainersModules, InitializrMetadata metadata,
+	TestcontainersBuildCustomizer(TestContainerModuleRegistry modulesRegistry, InitializrMetadata metadata,
 			ProjectDescription description) {
-		this.testcontainersModules = testcontainersModules;
+		this.modulesRegistry = modulesRegistry;
 		this.testContainersBom = resolveBom(metadata, description);
 	}
 
@@ -58,9 +58,7 @@ class TestcontainersBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		for (TestContainersModule testcontainersModule : this.testcontainersModules) {
-			testcontainersModule.customize(build);
-		}
+		this.modulesRegistry.modules().forEach((module) -> module.customize(build));
 		List<String> testContainerDependencies = build.dependencies().ids()
 				.filter((id) -> id.startsWith("testcontainers")).collect(Collectors.toList());
 		if (this.testContainersBom != null && testContainerDependencies.size() > 1) {

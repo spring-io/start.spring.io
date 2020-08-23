@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.testcontainers;
 
-import java.util.List;
-
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
@@ -31,20 +29,23 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  */
 class TestcontainersHelpCustomizer implements HelpDocumentCustomizer {
 
+	private final TestContainerModuleRegistry modulesRegistry;
+
 	private final Build build;
 
-	private final List<TestContainersModule> testContainersModules;
-
-	TestcontainersHelpCustomizer(List<TestContainersModule> testContainersModules, Build build) {
-		this.testContainersModules = testContainersModules;
+	TestcontainersHelpCustomizer(TestContainerModuleRegistry modulesRegistry, Build build) {
+		this.modulesRegistry = modulesRegistry;
 		this.build = build;
 	}
 
 	@Override
 	public void customize(HelpDocument document) {
-		for (TestContainersModule testContainersModule : this.testContainersModules) {
-			testContainersModule.customizeHelpDocument(this.build, document);
-		}
+		this.modulesRegistry.modules().forEach((module) -> {
+			if (module.match(this.build)) {
+				document.gettingStarted().addReferenceDocLink(module.getDocumentationUrl(),
+						String.format("Testcontainers %s Reference Guide", module.getName()));
+			}
+		});
 	}
 
 }
