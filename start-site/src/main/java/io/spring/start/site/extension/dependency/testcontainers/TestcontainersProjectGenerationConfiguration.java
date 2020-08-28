@@ -17,9 +17,7 @@ package io.spring.start.site.extension.dependency.testcontainers;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
 
@@ -39,9 +37,8 @@ public class TestcontainersProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	public TestcontainersBuildCustomizer testContainersBuildCustomizer(TestContainerModuleRegistry modulesRegistry,
-			InitializrMetadata metadata, ProjectDescription description) {
-		return new TestcontainersBuildCustomizer(modulesRegistry, metadata, description);
+	public TestcontainersBuildCustomizer testContainersBuildCustomizer(TestContainerModuleRegistry modulesRegistry) {
+		return new TestcontainersBuildCustomizer(modulesRegistry);
 	}
 
 	@Bean

@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.testcontainers;
 import java.util.stream.Stream;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
-import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TestcontainersBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void buildWithOnlyTestContainersDoesNotRemoveTestContainers() {
+	void buildWithOnlyTestContainers() {
 		assertThat(generateProject("testcontainers")).mavenBuild()
 				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
 				.hasDependency(getDependency("testcontainers"));
@@ -47,12 +46,11 @@ class TestcontainersBuildCustomizerTests extends AbstractExtensionTests {
 	@ParameterizedTest
 	@MethodSource("supportedEntries")
 	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
-		Dependency testcontainers = getDependency("testcontainers");
 		assertThat(generateProject("testcontainers", springBootDependencyId)).mavenBuild()
 				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
 				.hasDependency(getDependency(springBootDependencyId))
 				.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
-				.doesNotHaveDependency(testcontainers.getGroupId(), testcontainers.getArtifactId());
+				.hasDependency(getDependency("testcontainers"));
 	}
 
 	private ProjectStructure generateProject(String... dependencies) {

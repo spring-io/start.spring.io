@@ -945,7 +945,7 @@ initializr:
           id: testcontainers
           description: Provide lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
           groupId: org.testcontainers
-          artifactId: testcontainers
+          artifactId: junit-jupiter
           bom: testcontainers
           scope: test
           starter: false
