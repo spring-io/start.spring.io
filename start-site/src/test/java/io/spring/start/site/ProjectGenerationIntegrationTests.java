@@ -99,14 +99,13 @@ class ProjectGenerationIntegrationTests {
 		}
 	});
 
-	private final ProjectGenerationInvoker<ProjectRequest> invoker;
+	private final ApplicationContext applicationContext;
 
 	private final InitializrMetadata metadata;
 
 	ProjectGenerationIntegrationTests(@Autowired ApplicationContext applicationContext,
 			@Autowired InitializrMetadataProvider metadataProvider) {
-		this.invoker = new ProjectGenerationInvoker<>(applicationContext,
-				new DefaultProjectRequestToDescriptionConverter());
+		this.applicationContext = applicationContext;
 		this.metadata = metadataProvider.get();
 	}
 
@@ -167,7 +166,9 @@ class ProjectGenerationIntegrationTests {
 		request.setArtifactId("demo");
 		request.setApplicationName("DemoApplication");
 		request.setDependencies(Arrays.asList("devtools", "configuration-processor"));
-		Path project = this.invoker.invokeProjectStructureGeneration(request).getRootDirectory();
+		ProjectGenerationInvoker<ProjectRequest> invoker = new ProjectGenerationInvoker<>(this.applicationContext,
+				new DefaultProjectRequestToDescriptionConverter());
+		Path project = invoker.invokeProjectStructureGeneration(request).getRootDirectory();
 		ProcessBuilder processBuilder = createProcessBuilder(buildSystem);
 		processBuilder.directory(project.toFile());
 		Path output = Files.createTempFile(directory, "output-", ".log");
