@@ -126,17 +126,17 @@ resources:
 
 
 groups:
-- name: Site
+- name: site
   jobs:
   - build
   - deploy
   - update-deployment
   - update-image
   - verify
-- name: Build Pull Requests
+- name: pull-requests
   jobs:
   - pull-requests
-- name: CI Images
+- name: ci-images
   jobs:
   - build-start-site-ci-image
 
