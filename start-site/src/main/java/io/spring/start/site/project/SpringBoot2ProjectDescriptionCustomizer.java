@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ class SpringBoot2ProjectDescriptionCustomizer implements ProjectDescriptionCusto
 
 	private static final VersionRange SPRING_BOOT_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.0.M1");
 
-	private static final List<String> VALID_VERSIONS = Arrays.asList("1.8", "9", "10", "11", "12", "13", "14");
+	private static final List<String> VALID_VERSIONS = Arrays.asList("1.8", "9", "10", "11", "12", "13", "14", "15");
 
 	@Override
 	public void customize(MutableProjectDescription description) {

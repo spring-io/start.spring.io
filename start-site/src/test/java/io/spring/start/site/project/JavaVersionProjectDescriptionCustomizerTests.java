@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -255,6 +255,56 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		request.setBootVersion("2.2.0.RELEASE");
 		request.setLanguage("kotlin");
 		request.setJavaVersion("14");
+		assertThat(mavenPom(request)).hasProperty("java.version", "11");
+	}
+
+	@Test
+	void java15CannotBeUsedWithSpringBoot2210Maven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.10.RELEASE");
+		request.setJavaVersion("15");
+		assertThat(mavenPom(request)).hasProperty("java.version", "11");
+	}
+
+	@Test
+	void java15CannotBeUsedWithSpringBoot2210Gradle() {
+		ProjectRequest request = createProjectRequest("data-jpa");
+		request.setBootVersion("2.2.10.RELEASE");
+		request.setJavaVersion("15");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("11");
+	}
+
+	@Test
+	void java145anBeUsedWithSpringBoot2211Maven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.3.4.RELEASE");
+		request.setJavaVersion("15");
+		assertThat(mavenPom(request)).hasProperty("java.version", "15");
+	}
+
+	@Test
+	void java15CanBeUsedWithSpringBoot2211Gradle() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.3.4.RELEASE");
+		request.setJavaVersion("15");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("15");
+	}
+
+	@Test
+	void java15CanBeUsedWithSpringBoot22Groovy() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.3.4.RELEASE");
+		request.setLanguage("groovy");
+		request.setJavaVersion("15");
+		assertThat(mavenPom(request)).hasProperty("java.version", "15");
+	}
+
+	@Test
+	void java15CannotBeUsedWithKotlinMaven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.3.4.RELEASE");
+		request.setLanguage("kotlin");
+		request.setJavaVersion("15");
 		assertThat(mavenPom(request)).hasProperty("java.version", "11");
 	}
 
