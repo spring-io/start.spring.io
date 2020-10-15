@@ -12,4 +12,5 @@ io.spring.start.site.extension.dependency.springintegration.SpringIntegrationPro
 io.spring.start.site.extension.dependency.springrestdocs.SpringRestDocsProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.testcontainers.TestcontainersProjectGenerationConfiguration,\
 io.spring.start.site.extension.description.DescriptionProjectGenerationConfiguration,\
+io.spring.start.site.extension.code.groovy.GroovyProjectGenerationConfiguration,\
 io.spring.start.site.extension.code.kotlin.KotlinProjectGenerationConfiguration
