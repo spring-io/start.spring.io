@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ class SpringRestDocsMavenBuildCustomizerTests {
 	void customizesGradleBuild() {
 		MavenBuild build = new MavenBuild();
 		this.customizer.customize(build);
-		assertThat(build.plugins().values()).hasOnlyOneElementSatisfying((plugin) -> {
+		assertThat(build.plugins().values()).singleElement().satisfies((plugin) -> {
 			assertThat(plugin.getGroupId()).isEqualTo("org.asciidoctor");
 			assertThat(plugin.getArtifactId()).isEqualTo("asciidoctor-maven-plugin");
 			assertThat(plugin.getVersion()).isEqualTo("1.5.8");

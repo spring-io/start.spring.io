@@ -1504,12 +1504,15 @@ initializr:
 ---
 
 spring:
-  profiles: dev
-  resources:
-    static_locations:
-      - file:start-client/public/
+  config:
+    activate:
+      on-profile: dev
   devtools:
     restart:
       additional_paths:
         - start-client/public/
       additional_exclude: "**/*.js,**/*.css,**/*.html"
+  web:
+    resources:
+      static-locations:
+        - file:start-client/public/
