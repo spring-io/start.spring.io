@@ -33,6 +33,7 @@ import io.spring.start.site.extension.dependency.springkafka.SpringKafkaBuildCus
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityRSocketBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsession.SpringSessionBuildCustomizer;
+import io.spring.start.site.extension.dependency.thymeleaf.ThymeleafBuildCustomizer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -97,6 +98,12 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("session")
 	public SpringSessionBuildCustomizer springSessionBuildCustomizer() {
 		return new SpringSessionBuildCustomizer(this.description);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("thymeleaf")
+	public ThymeleafBuildCustomizer thymeleafBuildCustomizer() {
+		return new ThymeleafBuildCustomizer();
 	}
 
 	@Bean
