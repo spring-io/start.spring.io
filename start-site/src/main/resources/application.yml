@@ -146,9 +146,9 @@ initializr:
             version: 2.0.3.RELEASE
           - compatibilityRange: "[2.1.0.RELEASE,2.2.0.RELEASE)"
             version: 2.1.8.RELEASE
-          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.RELEASE)"
             version: 2.2.6.RELEASE
-          - compatibilityRange: "[2.3.0.RELEASE,2.3.x.RELEASE]"
+          - compatibilityRange: "[2.3.0.RELEASE,2.4.0-M1)"
             version: 2.3.0.RELEASE
       spring-statemachine:
         groupId: org.springframework.statemachine
@@ -1255,7 +1255,7 @@ initializr:
           artifactId: spring-cloud-stream-reactive
     - name: Pivotal Cloud Foundry
       bom: spring-cloud-services
-      compatibilityRange: "[2.0.0.RELEASE,2.3.x.RELEASE]"
+      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
       content:
         - name: Config Client (PCF)
           id: scs-config-client
