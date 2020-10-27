@@ -182,7 +182,7 @@ initializr:
         artifactId: wavefront-spring-boot-bom
         versionProperty: wavefront.version
         mappings:
-          - compatibilityRange: "2.1.0.RELEASE"
+          - compatibilityRange: "[2.1.0.RELEASE,2.4.0-M1)"
             version: 2.0.2
     gradle:
       dependency-management-plugin-version: 1.0.9.RELEASE
@@ -933,6 +933,7 @@ initializr:
           artifactId: wavefront-spring-boot-starter
           bom: wavefront
           description: Tanzu Observability by Wavefront is a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack (infrastructure, network, custom app metrics, business KPIs, etc.)
+          compatibilityRange: "[2.1.0.RELEASE,2.4.0-M1)"
           links:
             - rel: reference
               href: https://docs.wavefront.com/wavefront_springboot.html
