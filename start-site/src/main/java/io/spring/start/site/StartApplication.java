@@ -21,9 +21,9 @@ import java.nio.file.Files;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
-import io.spring.initializr.web.support.SaganInitializrMetadataUpdateStrategy;
 import io.spring.start.site.project.ProjectDescriptionCustomizerConfiguration;
 import io.spring.start.site.support.CacheableDependencyManagementVersionResolver;
+import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 import io.spring.start.site.web.HomeController;
 
 import org.springframework.boot.SpringApplication;
@@ -68,9 +68,9 @@ public class StartApplication {
 	}
 
 	@Bean
-	public SaganInitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy(
+	public StartInitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy(
 			RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
-		return new SaganInitializrMetadataUpdateStrategy(restTemplateBuilder.build(), objectMapper);
+		return new StartInitializrMetadataUpdateStrategy(restTemplateBuilder.build(), objectMapper);
 	}
 
 	@Bean
