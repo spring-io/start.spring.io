@@ -21,6 +21,10 @@ spring:
   task:
     execution:
       thread-name-prefix: initializr-
+  web:
+    resources:
+      cache:
+        use-last-modified: false
 
 initializr:
   env:
