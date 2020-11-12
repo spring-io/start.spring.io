@@ -49,7 +49,7 @@ initializr:
             version: 2.1.6
           - compatibilityRange: "[2.2.0.M1,2.3.0.M1)"
             version: 2.2.4
-          - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
+          - compatibilityRange: "[2.3.0.M1,2.5.0-M1)"
             version: 2.3.1
       solace-spring-boot:
         groupId: com.solace.spring.boot
@@ -868,7 +868,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Required for your application to register with a Codecentric's Spring Boot Admin Server instance.
-          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+          compatibilityRange: "[2.0.0.RELEASE,2.5.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -878,7 +878,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
-          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+          compatibilityRange: "[2.0.0.RELEASE,2.5.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
