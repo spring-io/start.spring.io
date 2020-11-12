@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,8 +39,7 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 	private static final Dependency RABBIT_BINDER = Dependency.withId("cloud-stream-binder-rabbit",
 			"org.springframework.cloud", "spring-cloud-stream-binder-rabbit");
 
-	private static final Dependency SCS_TEST = Dependency.withId("cloud-stream-test", "org.springframework.cloud",
-			"spring-cloud-stream-test-support", null, Dependency.SCOPE_TEST);
+	private static final Dependency SCS_TEST = springCloudStreamTestDependency();
 
 	@Test
 	void springCloudStreamWithRabbit() {
@@ -179,6 +178,14 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 				.hasDependency(getDependency("kafka-streams")).hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
 				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 				.hasDependenciesSize(9);
+	}
+
+	private static Dependency springCloudStreamTestDependency() {
+		Dependency scsTest = Dependency.withId("cloud-stream-test", "org.springframework.cloud", "spring-cloud-stream",
+				null, Dependency.SCOPE_TEST);
+		scsTest.setClassifier("test-binder");
+		scsTest.setType("test-jar");
+		return scsTest;
 	}
 
 }
