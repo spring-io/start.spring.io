@@ -153,10 +153,13 @@ class MetadataVerificationTests {
 				repositories.computeIfAbsent(repository, this::repositoryForId);
 			}
 		}
-		if (!bootVersion.getQualifier().getId().equals("RELEASE")) {
-			repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
-			if (bootVersion.getQualifier().getId().contains("SNAPSHOT")) {
-				repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
+		if (bootVersion.getQualifier() != null) {
+			String qualifier = bootVersion.getQualifier().getId();
+			if (!qualifier.equals("RELEASE")) {
+				repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
+				if (qualifier.contains("SNAPSHOT")) {
+					repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
+				}
 			}
 		}
 		return new ArrayList<>(repositories.values());
