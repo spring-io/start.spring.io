@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,26 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DevToolsMavenBuildCustomizer}.
+ * Tests for {@link SpringBootProjectGenerationConfiguration}.
  *
  * @author Stephane Nicoll
  */
-class DevToolsMavenBuildCustomizerTests extends AbstractExtensionTests {
+class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTests {
+
+	@Test
+	void gradleWithDevtoolsConfigureBuild() {
+		ProjectRequest request = createProjectRequest("devtools");
+		request.setBootVersion("2.4.0");
+		assertThat(gradleBuild(request)).lines().doesNotContain("configurations {")
+				.contains("\tdevelopmentOnly 'org.springframework.boot:spring-boot-devtools'");
+	}
+
+	@Test
+	void gradleWithoutDevtoolsDoesNotCreateDevelopmentOnlyConfiguration() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.3.0.M4");
+		assertThat(gradleBuild(request)).doesNotContain("developmentOnly");
+	}
 
 	@Test
 	void mavenWithDevtoolsIsOptional() {

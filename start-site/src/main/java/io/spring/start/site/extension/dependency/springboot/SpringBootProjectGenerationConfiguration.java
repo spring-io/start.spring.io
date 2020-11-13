@@ -22,6 +22,8 @@ import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.generator.spring.dependency.devtools.DevToolsGradleBuildCustomizer;
+import io.spring.initializr.generator.spring.dependency.devtools.DevToolsMavenBuildCustomizer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -33,18 +35,20 @@ import org.springframework.context.annotation.Bean;
 @ProjectGenerationConfiguration
 public class SpringBootProjectGenerationConfiguration {
 
+	private static final String DEVTOOLS_ID = "devtools";
+
 	@Bean
-	@ConditionalOnRequestedDependency("devtools")
+	@ConditionalOnRequestedDependency(DEVTOOLS_ID)
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
 	public DevToolsMavenBuildCustomizer devToolsMavenBuildCustomizer() {
-		return new DevToolsMavenBuildCustomizer();
+		return new DevToolsMavenBuildCustomizer(DEVTOOLS_ID);
 	}
 
 	@Bean
-	@ConditionalOnRequestedDependency("devtools")
+	@ConditionalOnRequestedDependency(DEVTOOLS_ID)
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	public DevToolsGradleBuildCustomizer devToolsGradleBuildCustomizer(ProjectDescription projectDescription) {
-		return new DevToolsGradleBuildCustomizer(projectDescription);
+		return new DevToolsGradleBuildCustomizer(projectDescription.getPlatformVersion(), DEVTOOLS_ID);
 	}
 
 }
