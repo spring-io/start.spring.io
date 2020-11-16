@@ -8,6 +8,13 @@ running at https://start.spring.io. The following modules are available:
 * `start-site`: server infrastructure and metadata configuration
 * `start-site-verification`: tests to verify the validity of the metadata
 
+[[using]]
+== Using
+There is a link:USING.adoc[dedicated page] that describes how you can interact with the
+service.
+
+
+
 [[build]]
 == Building from Source
 
