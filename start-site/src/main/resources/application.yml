@@ -157,6 +157,14 @@ initializr:
             version: 2.2.6.RELEASE
           - compatibilityRange: "[2.3.0.RELEASE,2.4.0-M1)"
             version: 2.3.0.RELEASE
+      spring-cloud-gcp:
+        groupId: com.google.cloud
+        artifactId: spring-cloud-gcp-dependencies
+        versionProperty: spring-cloud-gcp.version
+        additionalBoms: [spring-cloud]
+        mappings:
+          - compatibilityRange: "[2.4.0,2.4.1)"
+            version: 2.0.0-RC2-SNAPSHOT
       spring-geode:
         groupId: org.springframework.geode
         artifactId: spring-geode-bom
@@ -1409,6 +1417,43 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-gcp/reference/html/#spring-resources
             - rel: guide
               href: https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
+              description: GCP Storage Sample
+    - name: Google Cloud Platform 2.0
+      bom: spring-cloud-gcp
+      compatibilityRange: "[2.4.0,2.4.1)"
+      content:
+        - name: GCP Support 2.0
+          id: cloud-gcp-2.x
+          description: Contains auto-configuration support for every Spring Cloud GCP integration. Most of the auto-configuration code is only enabled if other dependencies are added to the classpath.
+          groupId: com.google.cloud
+          artifactId: spring-cloud-gcp-starter
+          links:
+            - rel: reference
+              href: https://cloud.spring.io/spring-cloud-gcp/reference/html/
+            - rel: guide
+              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples
+              description: GCP Samples
+        - name: GCP Messaging 2.0
+          id: cloud-gcp-pubsub-2.x
+          description: Adds the GCP Support entry and all the required dependencies so that the Google Cloud Pub/Sub integration work out of the box.
+          groupId: com.google.cloud
+          artifactId: spring-cloud-gcp-starter-pubsub
+          links:
+            - rel: reference
+              href: https://cloud.spring.io/spring-cloud-gcp/reference/html/#spring-integration
+            - rel: guide
+              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-pubsub-sample
+              description: GCP Pub/Sub Sample
+        - name: GCP Storage 2.0
+          id: cloud-gcp-storage-2.x
+          description: Adds the GCP Support entry and all the required dependencies so that the Google Cloud Storage integration work out of the box.
+          groupId: com.google.cloud
+          artifactId: spring-cloud-gcp-starter-storage
+          links:
+            - rel: reference
+              href: https://cloud.spring.io/spring-cloud-gcp/reference/html/#spring-resources
+            - rel: guide
+              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
               description: GCP Storage Sample
     - name: Alibaba
       bom: spring-cloud-alibaba
