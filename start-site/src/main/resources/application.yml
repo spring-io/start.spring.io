@@ -1249,7 +1249,12 @@ initializr:
           id: cloud-starter-zipkin
           description: Distributed tracing with an existing Zipkin installation and Spring Cloud Sleuth Zipkin.
           groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-zipkin
+          artifactId: spring-cloud-sleuth-zipkin
+          starter: false
+          mappings:
+            - compatibilityRange: "[2.0.0.RELEASE,2.4.0.M3]"
+              artifactId: spring-cloud-starter-zipkin
+              starter: true
     - name: Spring Cloud Messaging
       bom: spring-cloud
       content:
