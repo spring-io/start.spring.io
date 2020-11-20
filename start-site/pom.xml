@@ -119,4 +119,13 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+
+			</properties>
+		</profile>
+	</profiles>
+
 </project>
