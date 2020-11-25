@@ -20,6 +20,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
@@ -27,6 +28,7 @@ import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.dependency.flyway.FlywayProjectContributor;
 import io.spring.start.site.extension.dependency.liquibase.LiquibaseProjectContributor;
 import io.spring.start.site.extension.dependency.lombok.LombokGradleBuildCustomizer;
+import io.spring.start.site.extension.dependency.okta.OktaHelpDocumentCustomizer;
 import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springbatch.SpringBatchTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springkafka.SpringKafkaBuildCustomizer;
@@ -116,6 +118,12 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("liquibase")
 	public LiquibaseProjectContributor liquibaseProjectContributor() {
 		return new LiquibaseProjectContributor();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("okta")
+	public OktaHelpDocumentCustomizer oktaHelpDocumentCustomizer(MustacheTemplateRenderer templateRenderer) {
+		return new OktaHelpDocumentCustomizer(templateRenderer);
 	}
 
 }

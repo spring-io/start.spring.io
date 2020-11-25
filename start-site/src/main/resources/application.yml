@@ -448,7 +448,8 @@ initializr:
               href: https://github.com/okta/samples-java-spring/tree/master/resource-server
               description: Okta Spring Security Resource Server Example
             - rel: reference
-              href: https://github.com/okta/okta-spring-boot/blob/master/README.md
+              href: https://github.com/okta/okta-spring-boot#readme
+              description: Okta Spring Boot documentation
     - name: SQL
       content:
         - name: JDBC API
