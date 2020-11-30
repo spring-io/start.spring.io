@@ -18,7 +18,6 @@ package io.spring.start.site.project;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.Language;
-import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
@@ -58,10 +57,6 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		// Not supported for Spring Boot 1.x
 		if (!SPRING_BOOT_2_0_OR_LATER.match(platformVersion)) {
 			updateTo(description, "1.8");
-		}
-		// Kotlin supports up to 12
-		if (javaGeneration > 12 && description.getLanguage() instanceof KotlinLanguage) {
-			updateTo(description, "11");
 		}
 		// 10 support only as of 2.0.1
 		if (javaGeneration == 10 && !SPRING_BOOT_2_0_1_OR_LATER.match(platformVersion)) {

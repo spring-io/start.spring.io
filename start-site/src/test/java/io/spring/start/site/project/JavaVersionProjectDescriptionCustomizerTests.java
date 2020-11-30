@@ -200,12 +200,12 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java13CannotBeUsedWithKotlinMaven() {
+	void java13CanBeUsedWithKotlinMaven() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.2.0.RELEASE");
 		request.setLanguage("kotlin");
 		request.setJavaVersion("13");
-		assertThat(mavenPom(request)).hasProperty("java.version", "11");
+		assertThat(mavenPom(request)).hasProperty("java.version", "13");
 	}
 
 	@Test
@@ -250,12 +250,12 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java14CannotBeUsedWithKotlinMaven() {
+	void java14CanBeUsedWithKotlinMaven() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.2.0.RELEASE");
+		request.setBootVersion("2.2.6.RELEASE");
 		request.setLanguage("kotlin");
 		request.setJavaVersion("14");
-		assertThat(mavenPom(request)).hasProperty("java.version", "11");
+		assertThat(mavenPom(request)).hasProperty("java.version", "14");
 	}
 
 	@Test
@@ -300,12 +300,12 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java15CannotBeUsedWithKotlinMaven() {
+	void java15CantBeUsedWithKotlinMaven() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.3.4.RELEASE");
 		request.setLanguage("kotlin");
 		request.setJavaVersion("15");
-		assertThat(mavenPom(request)).hasProperty("java.version", "11");
+		assertThat(mavenPom(request)).hasProperty("java.version", "15");
 	}
 
 }
