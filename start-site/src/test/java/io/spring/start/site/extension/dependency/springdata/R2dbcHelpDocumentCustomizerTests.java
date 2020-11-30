@@ -46,6 +46,12 @@ class R2dbcHelpDocumentCustomizerTests {
 	}
 
 	@Test
+	void r2dbcWithMariadb() {
+		HelpDocument helpDocument = createHelpDocument("mariadb");
+		assertThat(helpDocument.getSections()).isEmpty();
+	}
+
+	@Test
 	void r2dbcWithMysql() {
 		HelpDocument helpDocument = createHelpDocument("mysql");
 		assertThat(helpDocument.getSections()).isEmpty();

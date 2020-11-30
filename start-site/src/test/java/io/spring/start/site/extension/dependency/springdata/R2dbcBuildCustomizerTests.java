@@ -51,6 +51,15 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
+	void r2dbcWithMariadb() {
+		Build build = createBuild("2.3.0.RELEASE");
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("mariadb");
+		customize(build);
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mariadb", "r2dbc-mariadb");
+	}
+
+	@Test
 	void r2dbcWithPostgresql() {
 		Build build = createBuild("2.3.0.RELEASE");
 		build.dependencies().add("data-r2dbc");
