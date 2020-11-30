@@ -62,6 +62,8 @@ public final class TestContainerModuleRegistry {
 				new TestContainersModule("DB2 Module", referenceLink("databases/db2/"), "db2", addDependency("db2")),
 				new TestContainersModule("Kafka Modules", referenceLink("kafka/"),
 						Arrays.asList("kafka", "kafka-streams"), addDependency("kafka")),
+				new TestContainersModule("MariaDB Module", referenceLink("databases/mariadb/"), "mariadb",
+						addDependency("mariadb")),
 				new TestContainersModule("MySQL Module", referenceLink("databases/mysql/"), "mysql",
 						addDependency("mysql")),
 				new TestContainersModule("Postgres Module", referenceLink("databases/postgres/"), "postgresql",

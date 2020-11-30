@@ -35,6 +35,9 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 		if (build.dependencies().has("h2")) {
 			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-h2");
 		}
+		if (build.dependencies().has("mariadb")) {
+			addManagedDriver(build.dependencies(), "org.mariadb", "r2dbc-mariadb");
+		}
 		if (build.dependencies().has("mysql")) {
 			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
 		}

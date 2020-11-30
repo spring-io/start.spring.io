@@ -460,6 +460,11 @@
             "description": "Lightweight 100% Java SQL Database Engine."
           },
           {
+            "id": "mariadb",
+            "name": "MariaDB Database",
+            "description": "MariaDB JDBC and R2DBC driver."
+          },
+          {
             "id": "sqlserver",
             "name": "MS SQL Server Driver",
             "description": "A JDBC and R2DBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application."

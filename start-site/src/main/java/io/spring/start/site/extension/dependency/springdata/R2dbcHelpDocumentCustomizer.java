@@ -31,7 +31,7 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  */
 public class R2dbcHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final List<String> DRIVERS = Arrays.asList("h2", "mysql", "postgresql", "sqlserver");
+	private static final List<String> DRIVERS = Arrays.asList("h2", "mariadb", "mysql", "postgresql", "sqlserver");
 
 	private final Build build;
 

@@ -69,8 +69,9 @@ class TestcontainersBuildCustomizerTests extends AbstractExtensionTests {
 				Arguments.arguments("data-neo4j", "neo4j"), Arguments.arguments("data-r2dbc", "r2dbc"),
 				Arguments.arguments("data-solr", "solr"), Arguments.arguments("db2", "db2"),
 				Arguments.arguments("kafka", "kafka"), Arguments.arguments("kafka-streams", "kafka"),
-				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
-				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("sqlserver", "mssqlserver"));
+				Arguments.arguments("mariadb", "mariadb"), Arguments.arguments("mysql", "mysql"),
+				Arguments.arguments("postgresql", "postgresql"), Arguments.arguments("oracle", "oracle-xe"),
+				Arguments.arguments("sqlserver", "mssqlserver"));
 	}
 
 }
