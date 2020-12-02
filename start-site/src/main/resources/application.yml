@@ -131,7 +131,7 @@ initializr:
             version: 2020.0.0-M4
             repositories: spring-milestones
           - compatibilityRange: "[2.4.0.M4,2.4.x-SNAPSHOT)"
-            version: 2020.0.0-M5
+            version: 2020.0.0-M6
             repositories: spring-milestones
           - compatibilityRange: "2.4.x-SNAPSHOT"
             version: 2020.0.0-SNAPSHOT
