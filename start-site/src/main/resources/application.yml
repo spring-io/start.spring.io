@@ -444,7 +444,7 @@ initializr:
             - compatibilityRange: "[2.2.0.M1,2.4.0-M1)"
               version: 1.4.0
             - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
-              version: 1.5.0
+              version: 1.5.1
           links:
             - rel: guide
               href: https://github.com/okta/samples-java-spring/tree/master/okta-hosted-login
