@@ -19,9 +19,10 @@ resource_types:
     tag: "1.0"
 
 - name: pull-request
-  type: docker-image
+  type: registry-image
   source:
-    repository: jtarchie/pr
+    repository: teliaoss/github-pr-resource
+    tag: v0.21.0
 
 - name: slack-notification
   type: registry-image
