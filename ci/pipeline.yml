@@ -1,13 +1,13 @@
 ---
 resource_types:
 - name: artifactory-resource
-  type: docker-image
+  type: registry-image
   source:
     repository: springio/artifactory-resource
     tag: 0.0.13-SNAPSHOT
 
 - name: github-status-resource
-  type: docker-image
+  type: registry-image
   source:
     repository: dpb587/github-status-resource
     tag: master
@@ -24,7 +24,7 @@ resource_types:
     repository: jtarchie/pr
 
 - name: slack-notification
-  type: docker-image
+  type: registry-image
   source:
     repository: cfcommunity/slack-notification-resource
     tag: latest
@@ -116,7 +116,7 @@ resources:
     url: ((slack-webhook-url))
 
 - name: start-site-ci-image
-  type: docker-image
+  type: registry-image
   icon: docker
   source:
     repository: springci/start-site-ci-image
