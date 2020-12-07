@@ -19,6 +19,7 @@ package io.spring.start.site.extension.dependency.springcloud;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
+import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
@@ -53,9 +54,12 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 				build.dependencies().add("cloud-stream-binder-kafka-streams", "org.springframework.cloud",
 						"spring-cloud-stream-binder-kafka-streams", DependencyScope.COMPILE);
 			}
-			build.dependencies().add("cloud-stream-test",
-					Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream")
-							.classifier("test-binder").type("test-jar").scope(DependencyScope.TEST_COMPILE));
+			// TODO: https://github.com/spring-io/initializr/issues/1159
+			if (build instanceof MavenBuild) {
+				build.dependencies().add("cloud-stream-test",
+						Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream")
+								.classifier("test-binder").type("test-jar").scope(DependencyScope.TEST_COMPILE));
+			}
 		}
 	}
 

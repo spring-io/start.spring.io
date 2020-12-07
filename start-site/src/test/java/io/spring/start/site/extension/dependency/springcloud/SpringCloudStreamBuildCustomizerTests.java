@@ -180,6 +180,12 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 				.hasDependenciesSize(9);
 	}
 
+	@Test
+	void springCloudStreamWithGradleBuildDoesNotAddTestDependency() {
+		ProjectRequest request = createProjectRequest("cloud-stream", "amqp");
+		assertThat(gradleBuild(request)).doesNotContain("test-binder");
+	}
+
 	private static Dependency springCloudStreamTestDependency() {
 		Dependency scsTest = Dependency.withId("cloud-stream-test", "org.springframework.cloud", "spring-cloud-stream",
 				null, Dependency.SCOPE_TEST);
