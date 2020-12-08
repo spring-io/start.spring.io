@@ -186,9 +186,9 @@ const SideLeft = () => {
                       <a
                         target='_blank'
                         rel='noopener noreferrer'
-                        href='https://run.pivotal.io/'
+                        href='https://buildpacks.io/'
                       >
-                        Pivotal Web Services
+                        Cloud Native Buildpacks
                       </a>
                     </span>
                   </div>
