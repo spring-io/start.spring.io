@@ -175,8 +175,7 @@ initializr:
           - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
             version: 1.3.6.RELEASE
           - compatibilityRange: "2.4.0-M1"
-            version: 1.4.0-RC1
-            repositories: spring-milestones
+            version: 1.4.0
       spring-statemachine:
         groupId: org.springframework.statemachine
         artifactId: spring-statemachine-bom
