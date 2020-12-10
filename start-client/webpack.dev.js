@@ -4,7 +4,7 @@ const merge = require('webpack-merge')
 const common = require('./webpack.common.js')
 const path = require('path')
 
-const mock = require('./dev/api.json')
+const mock = require('./dev/api.mock.json')
 const fs = require('fs')
 
 const config = {
@@ -22,7 +22,7 @@ const config = {
         }, 800)
       })
       app.get('/starter.zip', function(req, res) {
-        fs.readFile(path.resolve('./dev/starter.zip'), (err, data) => {
+        fs.readFile(path.resolve('./dev/starter.mock.zip'), (err, data) => {
           if (err) return sendError(err, res)
           setTimeout(() => {
             res.send(data)
