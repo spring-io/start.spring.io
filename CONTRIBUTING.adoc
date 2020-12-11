@@ -8,6 +8,14 @@ This project adheres to the Contributor Covenant link:CODE_OF_CONDUCT.adoc[code 
 conduct]. By participating, you are expected to uphold this code. Please report
 unacceptable behavior to spring-code-of-conduct@pivotal.io.
 
+== Proposal for New Entries
+If you are maintaining an open source component, you can suggest the addition of a new
+entry using a dedicated issue (Make sure to choose "New Entry Proposal"). If you are a
+user of the component, please reach out to the team maintaining it.
+
+New entries have to be discussed first via the dedicated template so please do not open a
+Pull Request as a first step.
+
 == Using GitHub issues
 We use GitHub issues to track bugs and enhancements. If you have a general usage question
 please ask on https://stackoverflow.com[Stack Overflow] or join us on the
