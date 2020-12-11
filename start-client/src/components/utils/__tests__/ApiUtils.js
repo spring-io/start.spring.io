@@ -1,6 +1,6 @@
 import get from 'lodash.get'
 
-import MockClient from '../../../../dev/api.json'
+import MockClient from '../../../../dev/api.mock.json'
 import {
   getDefaultValues,
   getLists,

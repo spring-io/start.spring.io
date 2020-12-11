@@ -39,7 +39,7 @@ describe('createTree', () => {
   // eslint-disable-next-line
   it('should create a tree', async done => {
     const zipJs = new JSZip()
-    await fs.readFile(path.resolve('./dev/starter.zip'), async (err, blob) => {
+    await fs.readFile(path.resolve('./dev/starter.mock.zip'), async (err, blob) => {
       const { files } = await zipJs.loadAsync(blob).catch(() => {
         throw Error(`Could not load the ZIP project.`)
       })
@@ -69,7 +69,7 @@ describe('findRoot', () => {
   // eslint-disable-next-line
   it('should return the right value', async done => {
     const zipJs = new JSZip()
-    await fs.readFile(path.resolve('./dev/starter.zip'), async (err, blob) => {
+    await fs.readFile(path.resolve('./dev/starter.mock.zip'), async (err, blob) => {
       const { files } = await zipJs.loadAsync(blob).catch(() => {
         throw Error(`Could not load the ZIP project.`)
       })
