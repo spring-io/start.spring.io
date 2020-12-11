@@ -579,6 +579,13 @@ initializr:
           artifactId: hsqldb
           scope: runtime
           starter: false
+        - name: MariaDB Driver
+          id: mariadb
+          description: MariaDB JDBC and R2DBC driver.
+          groupId: org.mariadb.jdbc
+          artifactId: mariadb-java-client
+          scope: runtime
+          starter: false
         - name: MS SQL Server Driver
           id: sqlserver
           description: A JDBC and R2DBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application.
