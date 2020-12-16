@@ -808,7 +808,7 @@ initializr:
             - reactive
         - name: Apache Camel
           id: camel
-          compatibilityRange: "[2.0.0.M1,2.4.0-M1)"
+          compatibilityRange: "[2.0.0.M1,2.5.0-M1)"
           mappings:
             - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
               version: 2.22.4
