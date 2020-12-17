@@ -47,7 +47,7 @@ public class StartInitializrMetadataUpdateStrategy extends SaganInitializrMetada
 
 	private boolean isCompatibleVersion(DefaultMetadataElement versionMetadata) {
 		Version version = Version.parse(versionMetadata.getId());
-		return (version.getMajor() >= 2 && version.getMinor() > 1);
+		return (version.getMajor() >= 2 && version.getMinor() > 2);
 	}
 
 }
