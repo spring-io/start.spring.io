@@ -1063,6 +1063,7 @@ initializr:
           artifactId: spring-cloud-starter-task
     - name: Spring Cloud Security
       bom: spring-cloud
+      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
       content:
         - name: Cloud Security
           id: cloud-security
