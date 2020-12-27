@@ -859,7 +859,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-batch-applications
         - name: Validation
           id: validation
-          description: JSR-303 validation with Hibernate validator.
+          description: Bean Validation with Hibernate validator.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-validation
