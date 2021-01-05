@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,19 +23,22 @@ import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 /**
  * Tests for {@link SpringIntegrationTestBuildCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Artem Bilan
  */
 class SpringIntegrationTestBuildCustomizerTests {
 
 	@Test
-	void customizeAddsSpringRabbitTest() {
+	void customizeAddsSpringIntegrationTest() {
 		Build build = new MavenBuild();
+		build.dependencies().add("integration", mock(Dependency.class));
 		new SpringIntegrationTestBuildCustomizer().customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("spring-integration-test");
+		assertThat(build.dependencies().ids()).contains("integration", "spring-integration-test");
 		Dependency springIntegrationTest = build.dependencies().get("spring-integration-test");
 		assertThat(springIntegrationTest.getGroupId()).isEqualTo("org.springframework.integration");
 		assertThat(springIntegrationTest.getArtifactId()).isEqualTo("spring-integration-test");
