@@ -33,7 +33,7 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  *
  * @author Stephane Nicoll
  */
-abstract class TestContainerModuleRegistry {
+abstract class TestcontainersModuleRegistry {
 
 	static Iterable<ImplicitDependency> create() {
 		return create(

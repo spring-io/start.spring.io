@@ -37,7 +37,7 @@ public class TestcontainersProjectGenerationConfiguration {
 	private final Iterable<ImplicitDependency> dependencies;
 
 	public TestcontainersProjectGenerationConfiguration() {
-		this.dependencies = TestContainerModuleRegistry.create();
+		this.dependencies = TestcontainersModuleRegistry.create();
 	}
 
 	@Bean
