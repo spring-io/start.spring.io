@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,38 +14,34 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.testcontainers;
+package io.spring.start.site.support.implicit;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 
 /**
- * A {@link HelpDocumentCustomizer} that adds a reference link for each supported
- * Testcontainers entry when Testcontainers is selected.
+ * A {@link HelpDocumentCustomizer} that customize the help document if necessary based on
+ * {@link ImplicitDependency implicit dependencies}.
  *
- * @author Maciej Walkowiak
  * @author Stephane Nicoll
  */
-class TestcontainersHelpCustomizer implements HelpDocumentCustomizer {
+public class ImplicitDependencyHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private final TestContainerModuleRegistry modulesRegistry;
+	private final Iterable<ImplicitDependency> dependencies;
 
 	private final Build build;
 
-	TestcontainersHelpCustomizer(TestContainerModuleRegistry modulesRegistry, Build build) {
-		this.modulesRegistry = modulesRegistry;
+	public ImplicitDependencyHelpDocumentCustomizer(Iterable<ImplicitDependency> dependencies, Build build) {
+		this.dependencies = dependencies;
 		this.build = build;
 	}
 
 	@Override
 	public void customize(HelpDocument document) {
-		this.modulesRegistry.modules().forEach((module) -> {
-			if (module.match(this.build)) {
-				document.gettingStarted().addReferenceDocLink(module.getDocumentationUrl(),
-						String.format("Testcontainers %s Reference Guide", module.getName()));
-			}
-		});
+		for (ImplicitDependency dependency : this.dependencies) {
+			dependency.customize(document, this.build);
+		}
 	}
 
 }

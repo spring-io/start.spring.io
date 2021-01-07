@@ -19,72 +19,75 @@ package io.spring.start.site.extension.dependency.testcontainers;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
+import io.spring.initializr.generator.spring.documentation.HelpDocument;
+import io.spring.start.site.support.implicit.ImplicitDependency;
+import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
 
 /**
- * A registry of available {@link TestContainersModule Testcontainers modules}.
+ * A registry of available Testcontainers modules.
  *
  * @author Stephane Nicoll
  */
-public final class TestContainerModuleRegistry {
+abstract class TestContainerModuleRegistry {
 
-	private final List<TestContainersModule> modules;
-
-	private TestContainerModuleRegistry(List<TestContainersModule> modules) {
-		this.modules = modules;
-	}
-
-	static TestContainerModuleRegistry create(TestContainersModule... modules) {
-		return new TestContainerModuleRegistry(Arrays.asList(modules));
-	}
-
-	static TestContainerModuleRegistry create() {
+	static Iterable<ImplicitDependency> create() {
 		return create(
-				new TestContainersModule("RabbitMQ Module", referenceLink("rabbitmq/"), "amqp",
-						addDependency("rabbitmq")),
-				new TestContainersModule("Cassandra Module", referenceLink("databases/cassandra/"),
-						Arrays.asList("data-cassandra", "data-cassandra-reactive"), addDependency("cassandra")),
-				new TestContainersModule("Couchbase Module", referenceLink("databases/couchbase/"),
-						Arrays.asList("data-couchbase", "data-couchbase-reactive"), addDependency("couchbase")),
-				new TestContainersModule("Elasticsearch Container", referenceLink("elasticsearch/"),
-						"data-elasticsearch", addDependency("elasticsearch")),
-				new TestContainersModule("MongoDB Module", referenceLink("databases/mongodb/"),
-						Arrays.asList("data-mongodb", "data-mongodb-reactive"), addDependency("mongodb")),
-				new TestContainersModule("Neo4j Module", referenceLink("databases/neo4j/"), "data-neo4j",
-						addDependency("neo4j")),
-				new TestContainersModule("R2DBC support", referenceLink("databases/r2dbc/"), "data-r2dbc",
-						addDependency("r2dbc")),
-				new TestContainersModule("Solr Container", referenceLink("solr/"), "data-solr", addDependency("solr")),
-				new TestContainersModule("DB2 Module", referenceLink("databases/db2/"), "db2", addDependency("db2")),
-				new TestContainersModule("Kafka Modules", referenceLink("kafka/"),
-						Arrays.asList("kafka", "kafka-streams"), addDependency("kafka")),
-				new TestContainersModule("MariaDB Module", referenceLink("databases/mariadb/"), "mariadb",
-						addDependency("mariadb")),
-				new TestContainersModule("MySQL Module", referenceLink("databases/mysql/"), "mysql",
-						addDependency("mysql")),
-				new TestContainersModule("Postgres Module", referenceLink("databases/postgres/"), "postgresql",
-						addDependency("postgresql")),
-				new TestContainersModule("Oracle-XE Module", referenceLink("databases/oraclexe/"), "oracle",
-						addDependency("oracle-xe")),
-				new TestContainersModule("MS SQL Server Module", referenceLink("databases/mssqlserver/"), "sqlserver",
-						addDependency("mssqlserver")));
+				onDependencies("amqp").customizeBuild(addModule("rabbitmq"))
+						.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")),
+				onDependencies("data-cassandra", "data-cassandra-reactive").customizeBuild(addModule("cassandra"))
+						.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")),
+				onDependencies("data-couchbase", "data-couchbase-reactive").customizeBuild(addModule("couchbase"))
+						.customizeHelpDocument(addReferenceLink("Couchbase Module", "databases/couchbase/")),
+				onDependencies("data-elasticsearch").customizeBuild(addModule("elasticsearch"))
+						.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")),
+				onDependencies("data-mongodb", "data-mongodb-reactive").customizeBuild(addModule("mongodb"))
+						.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")),
+				onDependencies("data-neo4j").customizeBuild(addModule("neo4j"))
+						.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")),
+				onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc"))
+						.customizeHelpDocument(addReferenceLink("R2DBC support", "databases/r2dbc/")),
+				onDependencies("data-solr").customizeBuild(addModule("solr"))
+						.customizeHelpDocument(addReferenceLink("Solr Container", "solr/")),
+				onDependencies("db2").customizeBuild(addModule("db2"))
+						.customizeHelpDocument(addReferenceLink("DB2 Module", "databases/db2/")),
+				onDependencies("kafka", "kafka-streams").customizeBuild(addModule("kafka"))
+						.customizeHelpDocument(addReferenceLink("Kafka Modules", "kafka/")),
+				onDependencies("mariadb").customizeBuild(addModule("mariadb"))
+						.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")),
+				onDependencies("mysql").customizeBuild(addModule("mysql"))
+						.customizeHelpDocument(addReferenceLink("MySQL Module", "databases/mysql/")),
+				onDependencies("postgresql").customizeBuild(addModule("postgresql"))
+						.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")),
+				onDependencies("oracle").customizeBuild(addModule("oracle-xe"))
+						.customizeHelpDocument(addReferenceLink("Oracle-XE Module", "databases/oraclexe/")),
+				onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
+						.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
 	}
 
-	private static Consumer<Build> addDependency(String id) {
+	private static List<ImplicitDependency> create(ImplicitDependency.Builder... dependencies) {
+		return Arrays.stream(dependencies).map(Builder::build).collect(Collectors.toList());
+	}
+
+	private static ImplicitDependency.Builder onDependencies(String... dependencyIds) {
+		return new Builder().matchAnyDependencyIds(dependencyIds);
+	}
+
+	private static Consumer<Build> addModule(String id) {
 		return (build) -> build.dependencies().add("testcontainers-" + id,
 				Dependency.withCoordinates("org.testcontainers", id).scope(DependencyScope.TEST_COMPILE));
 	}
 
-	private static String referenceLink(String href) {
-		return String.format("https://www.testcontainers.org/modules/%s", href);
-	}
-
-	Stream<TestContainersModule> modules() {
-		return this.modules.stream();
+	private static Consumer<HelpDocument> addReferenceLink(String name, String modulePath) {
+		return (helpDocument) -> {
+			String href = String.format("https://www.testcontainers.org/modules/%s", modulePath);
+			String description = String.format("Testcontainers %s Reference Guide", name);
+			helpDocument.gettingStarted().addReferenceDocLink(href, description);
+		};
 	}
 
 }

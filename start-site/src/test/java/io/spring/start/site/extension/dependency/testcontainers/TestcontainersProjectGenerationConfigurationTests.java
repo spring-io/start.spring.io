@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.testcontainers;
 
 import java.util.stream.Stream;
 
+import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
@@ -29,12 +30,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link TestcontainersBuildCustomizer}.
+ * Tests for {@link TestcontainersProjectGenerationConfiguration}.
  *
  * @author Maciej Walkowiak
  * @author Stephane Nicoll
  */
-class TestcontainersBuildCustomizerTests extends AbstractExtensionTests {
+class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void buildWithOnlyTestContainers() {
@@ -44,7 +45,7 @@ class TestcontainersBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("supportedEntries")
+	@MethodSource("supportedEntriesBuild")
 	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
 		assertThat(generateProject("testcontainers", springBootDependencyId)).mavenBuild()
 				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
@@ -53,13 +54,7 @@ class TestcontainersBuildCustomizerTests extends AbstractExtensionTests {
 				.hasDependency(getDependency("testcontainers"));
 	}
 
-	private ProjectStructure generateProject(String... dependencies) {
-		ProjectRequest request = createProjectRequest(dependencies);
-		request.setType("maven-build");
-		return generateProject(request);
-	}
-
-	static Stream<Arguments> supportedEntries() {
+	static Stream<Arguments> supportedEntriesBuild() {
 		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.arguments("data-cassandra", "cassandra"),
 				Arguments.arguments("data-cassandra-reactive", "cassandra"),
 				Arguments.arguments("data-couchbase", "couchbase"),
@@ -72,6 +67,56 @@ class TestcontainersBuildCustomizerTests extends AbstractExtensionTests {
 				Arguments.arguments("mariadb", "mariadb"), Arguments.arguments("mysql", "mysql"),
 				Arguments.arguments("postgresql", "postgresql"), Arguments.arguments("oracle", "oracle-xe"),
 				Arguments.arguments("sqlserver", "mssqlserver"));
+	}
+
+	@ParameterizedTest
+	@MethodSource("supportedEntriesHelpDocument")
+	void linkToSupportedEntriesWhenTestContainerIsPresentIsAdded(String dependencyId, String docHref) {
+		assertHelpDocument("testcontainers", dependencyId)
+				.contains("https://www.testcontainers.org/modules/" + docHref);
+	}
+
+	@ParameterizedTest
+	@MethodSource("supportedEntriesHelpDocument")
+	void linkToSupportedEntriesWhenTestContainerIsNotPresentIsNotAdded(String dependencyId, String docHref) {
+		assertHelpDocument(dependencyId).doesNotContain("https://www.testcontainers.org/modules/" + docHref);
+	}
+
+	static Stream<Arguments> supportedEntriesHelpDocument() {
+		return Stream.of(Arguments.arguments("amqp", "rabbitmq/"),
+				Arguments.arguments("data-cassandra", "databases/cassandra/"),
+				Arguments.arguments("data-cassandra-reactive", "databases/cassandra/"),
+				Arguments.arguments("data-couchbase", "databases/couchbase/"),
+				Arguments.arguments("data-couchbase-reactive", "databases/couchbase/"),
+				Arguments.arguments("data-elasticsearch", "elasticsearch/"),
+				Arguments.arguments("data-mongodb", "databases/mongodb/"),
+				Arguments.arguments("data-mongodb-reactive", "databases/mongodb/"),
+				Arguments.arguments("data-neo4j", "databases/neo4j/"),
+				Arguments.arguments("data-r2dbc", "databases/r2dbc/"), Arguments.arguments("data-solr", "solr/"),
+				Arguments.arguments("db2", "databases/db2"), Arguments.arguments("kafka", "kafka/"),
+				Arguments.arguments("kafka-streams", "kafka/"), Arguments.arguments("mariadb", "databases/mariadb/"),
+				Arguments.arguments("mysql", "databases/mysql/"),
+				Arguments.arguments("postgresql", "databases/postgres/"),
+				Arguments.arguments("oracle", "databases/oraclexe/"),
+				Arguments.arguments("sqlserver", "databases/mssqlserver/"));
+	}
+
+	@Test
+	void linkToSupportedEntriesWhenTwoMatchesArePresentOnlyAddLinkOnce() {
+		assertHelpDocument("testcontainers", "data-mongodb", "data-mongodb-reactive")
+				.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
+	}
+
+	private ProjectStructure generateProject(String... dependencies) {
+		ProjectRequest request = createProjectRequest(dependencies);
+		request.setType("maven-build");
+		return generateProject(request);
+	}
+
+	private TextAssert assertHelpDocument(String... dependencyIds) {
+		ProjectRequest request = createProjectRequest(dependencyIds);
+		ProjectStructure project = generateProject(request);
+		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
 	}
 
 }

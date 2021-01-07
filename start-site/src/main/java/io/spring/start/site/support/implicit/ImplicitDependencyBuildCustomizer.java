@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.testcontainers;
+package io.spring.start.site.support.implicit;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * {@link BuildCustomizer} for Testcontainers that adds a module-specific module if a
- * supported entry is selected.
+ * A {@link BuildCustomizer} that customize the build if necessary based on
+ * {@link ImplicitDependency implicit dependencies}.
  *
- * @author Maciej Walkowiak
  * @author Stephane Nicoll
  */
-class TestcontainersBuildCustomizer implements BuildCustomizer<Build> {
+public class ImplicitDependencyBuildCustomizer implements BuildCustomizer<Build> {
 
-	private final TestContainerModuleRegistry modulesRegistry;
+	private final Iterable<ImplicitDependency> dependencies;
 
-	TestcontainersBuildCustomizer(TestContainerModuleRegistry modulesRegistry) {
-		this.modulesRegistry = modulesRegistry;
+	public ImplicitDependencyBuildCustomizer(Iterable<ImplicitDependency> dependencies) {
+		this.dependencies = dependencies;
 	}
 
 	@Override
 	public void customize(Build build) {
-		this.modulesRegistry.modules().forEach((module) -> module.customize(build));
+		for (ImplicitDependency dependency : this.dependencies) {
+			dependency.customize(build);
+		}
 	}
 
 }
