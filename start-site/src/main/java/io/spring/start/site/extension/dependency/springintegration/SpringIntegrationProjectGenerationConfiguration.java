@@ -16,10 +16,12 @@
 
 package io.spring.start.site.extension.dependency.springintegration;
 
-
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.start.site.support.implicit.ImplicitDependency;
+import io.spring.start.site.support.implicit.ImplicitDependencyBuildCustomizer;
+import io.spring.start.site.support.implicit.ImplicitDependencyHelpDocumentCustomizer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -33,28 +35,20 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("integration")
 class SpringIntegrationProjectGenerationConfiguration {
 
-	@Bean
-	public SpringIntegrationModuleRegistry springIntegrationModuleRegistry() {
-		return SpringIntegrationModuleRegistry.create();
+	private final Iterable<ImplicitDependency> dependencies;
+
+	SpringIntegrationProjectGenerationConfiguration() {
+		this.dependencies = SpringIntegrationModuleRegistry.create();
 	}
 
 	@Bean
-	public SpringIntegrationBuildCustomizer springIntegrationBuildCustomizer(
-			SpringIntegrationModuleRegistry moduleRegistry) {
-
-		return new SpringIntegrationBuildCustomizer(moduleRegistry);
+	ImplicitDependencyBuildCustomizer springIntegrationBuildCustomizer() {
+		return new ImplicitDependencyBuildCustomizer(this.dependencies);
 	}
 
 	@Bean
-	public SpringIntegrationHelpCustomizer springIntegrationHelpCustomizer(
-			SpringIntegrationModuleRegistry moduleRegistry, Build build) {
-
-		return new SpringIntegrationHelpCustomizer(moduleRegistry, build);
-	}
-
-	@Bean
-	SpringIntegrationTestBuildCustomizer springIntegrationTestBuildCustomizer() {
-		return new SpringIntegrationTestBuildCustomizer();
+	ImplicitDependencyHelpDocumentCustomizer springIntegrationHelpCustomizer(Build build) {
+		return new ImplicitDependencyHelpDocumentCustomizer(this.dependencies, build);
 	}
 
 }

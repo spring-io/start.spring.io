@@ -17,70 +17,86 @@
 package io.spring.start.site.extension.dependency.springintegration;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
+import io.spring.initializr.generator.spring.documentation.HelpDocument;
+import io.spring.start.site.support.implicit.ImplicitDependency;
+import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
 
 /**
- * A registry of available {@link SpringIntegrationModule modules}.
+ * A registry of available Spring Integration modules.
  *
- * @author Artem  Bilan
+ * @author Artem Bilan
  * @author Stephane Nicoll
  */
-public final class SpringIntegrationModuleRegistry {
+abstract class SpringIntegrationModuleRegistry {
 
-	private final List<SpringIntegrationModule> modules;
-
-	private SpringIntegrationModuleRegistry(List<SpringIntegrationModule> modules) {
-		this.modules = modules;
-	}
-
-	static SpringIntegrationModuleRegistry create(SpringIntegrationModule... modules) {
-		return new SpringIntegrationModuleRegistry(Arrays.asList(modules));
-	}
-
-	static SpringIntegrationModuleRegistry create() {
+	static Iterable<ImplicitDependency> create() {
 		return create(
-				moduleFor("AMQP Module", "amqp", "amqp"),
-				moduleFor("Apache Geode Module", "gemfire", "geode"),
-				moduleFor("HTTP Module", "http", "web"),
-				moduleFor("JDBC Module", "jdbc", "jdbc"),
-				moduleFor("JPA Module", "jpa", "data-jpa"),
-				moduleFor("JMS Module", "jms", "activemq", "artemis"),
-				moduleFor("Apache Kafka Module", "kafka", "kafka"),
-				moduleFor("Mail Module", "mail", "mail"),
-				moduleFor("MongoDB Module", "mongodb", "data-mongodb", "data-mongodb-reactive"),
-				moduleFor("R2DBC Module", "r2dbc", "data-r2dbc"),
-				moduleFor("Redis Module", "redis", "data-redis", "data-redis-reactive"),
-				moduleFor("RSocket Module", "rsocket", "rsocket"),
-				moduleFor("STOMP Module", "stomp", "websocket"),
-				moduleFor("WebSocket Module", "websocket", "websocket"),
-				moduleFor("WebFlux Module", "webflux", "webflux"),
-				moduleFor("Security Module", "security", "security"),
-				moduleFor("Web Services Module", "ws", "web-services"));
+				onDependencies("activemq", "artemis").customizeBuild(addDependency("jms"))
+						.customizeHelpDocument(addReferenceLink("JMS Module", "jms")),
+				onDependencies("amqp").customizeBuild(addDependency("amqp"))
+						.customizeHelpDocument(addReferenceLink("AMQP Module", "amqp")),
+				onDependencies("data-jdbc", "jdbc").customizeBuild(addDependency("jdbc"))
+						.customizeHelpDocument(addReferenceLink("JDBC Module", "jdbc")),
+				onDependencies("data-jpa").customizeBuild(addDependency("jpa"))
+						.customizeHelpDocument(addReferenceLink("JPA Module", "jpa")),
+				onDependencies("data-mongodb", "data-mongodb-reactive").customizeBuild(addDependency("mongodb"))
+						.customizeHelpDocument(addReferenceLink("MongoDB Module", "mongodb")),
+				onDependencies("data-r2dbc").customizeBuild(addDependency("r2dbc"))
+						.customizeHelpDocument(addReferenceLink("R2DBC Module", "r2dbc")),
+				onDependencies("data-redis", "data-redis-reactive").customizeBuild(addDependency("redis"))
+						.customizeHelpDocument(addReferenceLink("Redis Module", "redis")),
+				onDependencies("geode").customizeBuild(addDependency("gemfire"))
+						.customizeHelpDocument(addReferenceLink("Apache Geode Module", "gemfire")),
+				onDependencies("integration").customizeBuild(addDependency("test", DependencyScope.TEST_COMPILE))
+						.customizeHelpDocument(addReferenceLink("Test Module", "testing")),
+				onDependencies("kafka", "kafka-streams").customizeBuild(addDependency("kafka"))
+						.customizeHelpDocument(addReferenceLink("Apache Kafka Module", "kafka")),
+				onDependencies("mail").customizeBuild(addDependency("mail"))
+						.customizeHelpDocument(addReferenceLink("Mail Module", "mail")),
+				onDependencies("rsocket").customizeBuild(addDependency("rsocket"))
+						.customizeHelpDocument(addReferenceLink("RSocket Module", "rsocket")),
+				onDependencies("security").customizeBuild(addDependency("security"))
+						.customizeHelpDocument(addReferenceLink("Security Module", "security")),
+				onDependencies("web").customizeBuild(addDependency("http"))
+						.customizeHelpDocument(addReferenceLink("HTTP Module", "http")),
+				onDependencies("webflux").customizeBuild(addDependency("webflux"))
+						.customizeHelpDocument(addReferenceLink("WebFlux Module", "webflux")),
+				onDependencies("websocket").customizeBuild(addDependency("stomp").andThen(addDependency("websocket")))
+						.customizeHelpDocument(addReferenceLink("STOMP Module", "stomp")
+								.andThen(addReferenceLink("WebSocket Module", "websocket"))),
+				onDependencies("web-services").customizeBuild(addDependency("ws"))
+						.customizeHelpDocument(addReferenceLink("Web Services Module", "ws")));
 	}
 
-	private static SpringIntegrationModule moduleFor(String name, String id, String... triggerDependencyIds) {
-		return new SpringIntegrationModule(name, referenceLink(id), addDependency(id), triggerDependencyIds);
+	private static Iterable<ImplicitDependency> create(ImplicitDependency.Builder... dependencies) {
+		return Arrays.stream(dependencies).map(Builder::build).collect(Collectors.toList());
+	}
+
+	private static ImplicitDependency.Builder onDependencies(String... dependencyIds) {
+		return new Builder().matchAnyDependencyIds(dependencyIds);
 	}
 
 	private static Consumer<Build> addDependency(String id) {
-		String module = "spring-integration-" + id;
-		return (build) -> build.dependencies()
-				.add(module, Dependency.withCoordinates("org.springframework.integration", module)
-						.scope(DependencyScope.COMPILE));
+		return addDependency(id, DependencyScope.COMPILE);
 	}
 
-	private static String referenceLink(String href) {
-		return String.format("https://docs.spring.io/spring-integration/reference/html/%s.html", href);
+	private static Consumer<Build> addDependency(String id, DependencyScope scope) {
+		return (build) -> build.dependencies().add("integration-" + id,
+				Dependency.withCoordinates("org.springframework.integration", "spring-integration-" + id).scope(scope));
 	}
 
-	Stream<SpringIntegrationModule> modules() {
-		return this.modules.stream();
+	private static Consumer<HelpDocument> addReferenceLink(String name, String id) {
+		return (helpDocument) -> {
+			String href = String.format("https://docs.spring.io/spring-integration/reference/html/%s.html", id);
+			String description = String.format("Spring Integration %s Reference Guide", name);
+			helpDocument.gettingStarted().addReferenceDocLink(href, description);
+		};
 	}
 
 }
