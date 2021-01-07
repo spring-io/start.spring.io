@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,12 @@
 
 package io.spring.start.site.extension.dependency.springintegration;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.start.site.support.implicit.ImplicitDependency;
+import io.spring.start.site.support.implicit.ImplicitDependencyBuildCustomizer;
+import io.spring.start.site.support.implicit.ImplicitDependencyHelpDocumentCustomizer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -25,14 +29,26 @@ import org.springframework.context.annotation.Bean;
  * Configuration for generation of projects that depend on Spring Integration.
  *
  * @author Stephane Nicoll
+ * @author Artem Bilan
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("integration")
 class SpringIntegrationProjectGenerationConfiguration {
 
+	private final Iterable<ImplicitDependency> dependencies;
+
+	SpringIntegrationProjectGenerationConfiguration() {
+		this.dependencies = SpringIntegrationModuleRegistry.create();
+	}
+
 	@Bean
-	SpringIntegrationTestBuildCustomizer springIntegrationTestBuildCustomizer() {
-		return new SpringIntegrationTestBuildCustomizer();
+	ImplicitDependencyBuildCustomizer springIntegrationBuildCustomizer() {
+		return new ImplicitDependencyBuildCustomizer(this.dependencies);
+	}
+
+	@Bean
+	ImplicitDependencyHelpDocumentCustomizer springIntegrationHelpCustomizer(Build build) {
+		return new ImplicitDependencyHelpDocumentCustomizer(this.dependencies, build);
 	}
 
 }
