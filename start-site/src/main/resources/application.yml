@@ -30,18 +30,21 @@ initializr:
   env:
     boms:
       azure:
-        groupId: com.microsoft.azure
+        groupId: com.azure.spring
         artifactId: azure-spring-boot-bom
         versionProperty: azure.version
         mappings:
           - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
+            groupId: com.microsoft.azure
             version: 2.0.10
           - compatibilityRange: "[2.1.0.RELEASE, 2.2.0.M1)"
+            groupId: com.microsoft.azure
             version: 2.1.10
           - compatibilityRange: "[2.2.0.M1, 2.3.0.M1)"
+            groupId: com.microsoft.azure
             version: 2.2.4
-          - compatibilityRange: "2.3.0.M1"
-            version: 2.3.5
+          - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
+            version: 3.0.0
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
@@ -1356,16 +1359,19 @@ initializr:
       content:
         - name: Azure Support
           id: azure-support
-          groupId: com.microsoft.azure
+          groupId: com.azure.spring
           artifactId: azure-spring-boot-starter
           description: Auto-configuration for Azure Services (Service Bus, Storage, Active Directory, Cosmos DB, Key Vault, and more).
           links:
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot
+          mappings:
+            - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
+              groupId: com.microsoft.azure
         - name: Azure Active Directory
           id: azure-active-directory
-          groupId: com.microsoft.azure
-          artifactId: azure-active-directory-spring-boot-starter
+          groupId: com.azure.spring
+          artifactId: azure-spring-boot-starter-active-directory
           description: Spring Security integration with Azure Active Directory for authentication.
           links:
             - rel: guide
@@ -1373,10 +1379,14 @@ initializr:
               description: Using Active Directory
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-active-directory-spring-boot-starter
+          mappings:
+            - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
+              groupId: com.microsoft.azure
+              artifactId: azure-active-directory-spring-boot-starter
         - name: Azure Key Vault
           id: azure-keyvault-secrets
-          groupId: com.microsoft.azure
-          artifactId: azure-keyvault-secrets-spring-boot-starter
+          groupId: com.azure.spring
+          artifactId: azure-spring-boot-starter-keyvault-secrets
           description: Manage application secrets and keys.
           links:
             - rel: guide
@@ -1384,11 +1394,14 @@ initializr:
               description: Using Key Vault
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-keyvault-secrets-spring-boot-starter
+          mappings:
+            - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
+              groupId: com.microsoft.azure
+              artifactId: azure-keyvault-secrets-spring-boot-starter
         - name: Azure Storage
           id: azure-storage
-          groupId: com.microsoft.azure
-          artifactId: azure-storage-spring-boot-starter
-          compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
+          groupId: com.azure.spring
+          artifactId: azure-spring-boot-starter-storage
           description: Azure Storage service integration.
           links:
             - rel: guide
@@ -1396,6 +1409,10 @@ initializr:
               description: Using Azure Storage
             - rel: reference
               href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-storage-spring-boot-starter
+          mappings:
+            - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
+              groupId: com.microsoft.azure
+              artifactId: azure-storage-spring-boot-starter
     - name: Google Cloud Platform
       bom: spring-cloud-gcp
       compatibilityRange: "[2.0.0.RELEASE,2.5.0-M1)"
