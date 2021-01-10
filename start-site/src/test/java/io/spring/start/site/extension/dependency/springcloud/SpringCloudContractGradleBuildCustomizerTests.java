@@ -61,7 +61,21 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		projectRequest.setBootVersion("2.2.0.RELEASE");
 		assertThat(gradleBuild(projectRequest)).containsSubsequence("contracts {",
-				"targetFramework = org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
+				"testFramework = org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
+	}
+
+	@Test
+	void springCloudContractVerifierPlugin2WithNoContractTestConfiguration() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
+		projectRequest.setBootVersion("2.3.7.RELEASE");
+		assertThat(gradleBuild(projectRequest)).doesNotContain("contractTest {");
+	}
+
+	@Test
+	void springCloudContractVerifierPlugin30ContractTestWithJUnit5ByDefault() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
+		projectRequest.setBootVersion("2.4.1");
+		assertThat(gradleBuild(projectRequest)).containsSubsequence("contractTest {", "useJUnitPlatform()");
 	}
 
 	@Test

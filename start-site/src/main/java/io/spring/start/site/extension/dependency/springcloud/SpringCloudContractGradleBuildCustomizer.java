@@ -41,6 +41,8 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 
 	private static final VersionRange SPRING_BOOT_2_2_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.0.M1");
 
+	private static final VersionRange SPRING_CLOUD_CONTRACT_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0.M4");
+
 	private static final MavenRepository SPRING_MILESTONES = MavenRepository
 			.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone").name("Spring Milestones").build();
 
@@ -74,7 +76,7 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 		build.plugins().apply("spring-cloud-contract");
 		build.tasks().customize("contracts", (task) -> {
 			if (SPRING_BOOT_2_2_OR_LATER.match(platformVersion)) {
-				task.attribute("targetFramework",
+				task.attribute("testFramework",
 						"org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
 			}
 			if (build.dependencies().has("webflux")) {
@@ -84,6 +86,9 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 								.scope(DependencyScope.TEST_COMPILE));
 			}
 		});
+		if (SPRING_CLOUD_CONTRACT_3_0_OR_LATER.match(VersionParser.DEFAULT.parse(sccPluginVersion))) {
+			build.tasks().customize("contractTest", (task) -> task.invoke("useJUnitPlatform"));
+		}
 		configurePluginRepositories(build, sccPluginVersion);
 	}
 
