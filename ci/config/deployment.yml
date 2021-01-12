@@ -30,11 +30,16 @@ spec:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
+          volumeMounts:
+            - name: elastic
+              mountPath: "/etc/config/initializr/stats/elastic"
+              readOnly: true
           env:
             - name: SERVER_SHUTDOWN
               value: graceful
-            - name: INITIALIZR_STATS_ELASTIC_URI
-              valueFrom:
-                secretKeyRef:
-                  name: elastic
-                  key: uri
+            - name: SPRING_CONFIG_IMPORT
+              value: configtree:/etc/config/
+      volumes:
+        - name: elastic
+          secret:
+            secretName: elastic
