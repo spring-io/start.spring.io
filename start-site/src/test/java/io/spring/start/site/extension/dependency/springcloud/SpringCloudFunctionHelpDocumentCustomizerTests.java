@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForMaven() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.2.0.M4");
+		request.setBootVersion("2.3.0.RELEASE");
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE);
@@ -47,35 +47,15 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForGradle() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.2.0.M4");
+		request.setBootVersion("2.3.0.RELEASE");
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE);
 	}
 
 	@Test
-	void functionBuildSetupInfoSectionNotAddedWhenRelevantVersionIsNotSelected() {
-		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.1.0.RELEASE");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws", "azure-support"));
-		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AWS_SECTION_TITLE)
-				.doesNotContain(AZURE_SECTION_TITLE);
-	}
-
-	@Test
 	void functionBuildSetupInfoSectionNotAddedWhenFunctionAndCloudDependenciesAbsent() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.2.0.M4");
-		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AWS_SECTION_TITLE)
-				.doesNotContain(AZURE_SECTION_TITLE);
-	}
-
-	@Test
-	void functionBuildSetupInfoSectionNotAddedForFunctionSnapshot() {
-		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.2.0.BUILD_SNAPSHOT");
-		request.setType("maven-build");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
 		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AWS_SECTION_TITLE)
 				.doesNotContain(AZURE_SECTION_TITLE);
 	}

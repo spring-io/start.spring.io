@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  */
 
 package io.spring.start.site.project;
+
+import java.util.Arrays;
+import java.util.List;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.Language;
@@ -33,43 +36,26 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 public class JavaVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final VersionRange SPRING_BOOT_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.0.M1");
-
-	private static final VersionRange SPRING_BOOT_2_0_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.1.RELEASE");
-
-	private static final VersionRange SPRING_BOOT_2_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.1.0.M1");
-
-	private static final VersionRange SPRING_BOOT_2_2_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.0.M1");
+	private static final List<String> UNSUPPORTED_VERSIONS = Arrays.asList("1.6", "1.7");
 
 	private static final VersionRange SPRING_BOOT_2_2_6_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.6.RELEASE");
 
 	private static final VersionRange SPRING_BOOT_2_2_11_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.11.RELEASE");
 
-	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.BUILD-SNAPSHOT");
+	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.RELEASE");
 
 	@Override
 	public void customize(MutableProjectDescription description) {
-		Integer javaGeneration = determineJavaGeneration(description.getLanguage().jvmVersion());
+		String javaVersion = description.getLanguage().jvmVersion();
+		if (UNSUPPORTED_VERSIONS.contains(javaVersion)) {
+			updateTo(description, "1.8");
+			return;
+		}
+		Integer javaGeneration = determineJavaGeneration(javaVersion);
 		if (javaGeneration == null) {
 			return;
 		}
 		Version platformVersion = description.getPlatformVersion();
-		// Not supported for Spring Boot 1.x
-		if (!SPRING_BOOT_2_0_OR_LATER.match(platformVersion)) {
-			updateTo(description, "1.8");
-		}
-		// 10 support only as of 2.0.1
-		if (javaGeneration == 10 && !SPRING_BOOT_2_0_1_OR_LATER.match(platformVersion)) {
-			updateTo(description, "1.8");
-		}
-		// 11 and 12 support only as of 2.1.x
-		if ((javaGeneration == 11 || javaGeneration == 12) && !SPRING_BOOT_2_1_OR_LATER.match(platformVersion)) {
-			updateTo(description, "1.8");
-		}
-		// 13 support only as of 2.2.x
-		if (javaGeneration == 13 && !SPRING_BOOT_2_2_OR_LATER.match(platformVersion)) {
-			updateTo(description, "11");
-		}
 		// 13 support only as of Gradle 6
 		if (javaGeneration == 13 && description.getBuildSystem() instanceof GradleBuildSystem
 				&& !GRADLE_6.match(platformVersion)) {

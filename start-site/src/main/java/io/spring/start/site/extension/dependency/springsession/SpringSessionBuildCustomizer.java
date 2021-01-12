@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,7 @@ package io.spring.start.site.extension.dependency.springsession;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * {@link BuildCustomizer} for Spring Session that provides explicit handling for the
@@ -33,29 +30,20 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 public class SpringSessionBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final VersionRange SPRING_BOOT_2_0_0_M3_OR_LATER = VersionParser.DEFAULT.parseRange("2.0.0.M3");
-
-	private final ProjectDescription description;
-
-	public SpringSessionBuildCustomizer(ProjectDescription description) {
-		this.description = description;
-	}
-
 	@Override
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
-		if (SPRING_BOOT_2_0_0_M3_OR_LATER.match(this.description.getPlatformVersion())) {
-			if (dependencies.has("data-redis") || dependencies.has("data-redis-reactive")) {
-				dependencies.add("session-data-redis", "org.springframework.session", "spring-session-data-redis",
-						DependencyScope.COMPILE);
-				dependencies.remove("session");
-			}
-			if (dependencies.has("jdbc")) {
-				dependencies.add("session-jdbc", "org.springframework.session", "spring-session-jdbc",
-						DependencyScope.COMPILE);
-				dependencies.remove("session");
-			}
+		if (dependencies.has("data-redis") || dependencies.has("data-redis-reactive")) {
+			dependencies.add("session-data-redis", "org.springframework.session", "spring-session-data-redis",
+					DependencyScope.COMPILE);
+			dependencies.remove("session");
 		}
+		if (dependencies.has("jdbc")) {
+			dependencies.add("session-jdbc", "org.springframework.session", "spring-session-jdbc",
+					DependencyScope.COMPILE);
+			dependencies.remove("session");
+		}
+
 	}
 
 }

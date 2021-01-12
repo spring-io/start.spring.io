@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,6 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -38,8 +36,6 @@ import org.apache.commons.logging.LogFactory;
 class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	private static final Log logger = LogFactory.getLog(SpringCloudContractGradleBuildCustomizer.class);
-
-	private static final VersionRange SPRING_BOOT_2_2_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.0.M1");
 
 	private static final MavenRepository SPRING_MILESTONES = MavenRepository
 			.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone").name("Spring Milestones").build();
@@ -73,10 +69,8 @@ class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<Gradle
 				.dependency("org.springframework.cloud:spring-cloud-contract-gradle-plugin:" + sccPluginVersion));
 		build.plugins().apply("spring-cloud-contract");
 		build.tasks().customize("contracts", (task) -> {
-			if (SPRING_BOOT_2_2_OR_LATER.match(platformVersion)) {
-				task.attribute("targetFramework",
-						"org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
-			}
+			task.attribute("targetFramework",
+					"org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
 			if (build.dependencies().has("webflux")) {
 				task.attribute("testMode", "'WebTestClient'");
 				build.dependencies().add("rest-assured-spring-web-test-client",

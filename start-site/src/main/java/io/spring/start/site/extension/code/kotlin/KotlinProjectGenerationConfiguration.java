@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package io.spring.start.site.extension.code.kotlin;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnLanguage;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -52,13 +51,11 @@ class KotlinProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("2.2.0.RELEASE")
 	ReactorKotlinExtensionsCustomizer reactorKotlinExtensionsCustomizer(InitializrMetadata metadata) {
 		return new ReactorKotlinExtensionsCustomizer(metadata);
 	}
 
 	@Configuration
-	@ConditionalOnPlatformVersion("2.2.0.M5")
 	static class KotlinCoroutinesCustomizerConfiguration {
 
 		private final KotlinCoroutinesCustomizer customizer;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,6 @@ import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
@@ -40,8 +37,6 @@ import org.springframework.util.ObjectUtils;
  */
 class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final VersionRange SPRING_BOOT_2_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.1.0.M1");
-
 	private final InitializrMetadata metadata;
 
 	private final ProjectDescription description;
@@ -53,21 +48,14 @@ class SpringCloudFunctionBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		Version platformVersion = this.description.getPlatformVersion();
 		DependencyContainer dependencies = build.dependencies();
 		if (dependencies.has("cloud-function")) {
-			if ((dependencies.has("cloud-stream") || dependencies.has("reactive-cloud-stream"))
-					&& !SPRING_BOOT_2_1_OR_LATER.match(platformVersion)) {
-				dependencies.add("cloud-function-stream", "org.springframework.cloud", "spring-cloud-function-stream",
-						DependencyScope.COMPILE);
-				removeCloudFunction(build);
-			}
 			if (dependencies.has("web")) {
 				dependencies.add("cloud-function-web", "org.springframework.cloud", "spring-cloud-function-web",
 						DependencyScope.COMPILE);
 				removeCloudFunction(build);
 			}
-			if (dependencies.has("webflux") && SPRING_BOOT_2_1_OR_LATER.match(platformVersion)) {
+			if (dependencies.has("webflux")) {
 				dependencies.add("cloud-function-web", "org.springframework.cloud", "spring-cloud-function-web",
 						DependencyScope.COMPILE);
 				removeCloudFunction(build);

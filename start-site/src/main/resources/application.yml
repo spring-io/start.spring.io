@@ -34,13 +34,7 @@ initializr:
         artifactId: azure-spring-boot-bom
         versionProperty: azure.version
         mappings:
-          - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
-            groupId: com.microsoft.azure
-            version: 2.0.10
-          - compatibilityRange: "[2.1.0.RELEASE, 2.2.0.M1)"
-            groupId: com.microsoft.azure
-            version: 2.1.10
-          - compatibilityRange: "[2.2.0.M1, 2.3.0.M1)"
+          - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
             groupId: com.microsoft.azure
             version: 2.2.4
           - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
@@ -50,11 +44,7 @@ initializr:
         artifactId: spring-boot-admin-dependencies
         versionProperty: spring-boot-admin.version
         mappings:
-          - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
-            version: 2.0.6
-          - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
-            version: 2.1.6
-          - compatibilityRange: "[2.2.0.M1,2.3.0.M1)"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
             version: 2.2.4
           - compatibilityRange: "[2.3.0.M1,2.5.0-M1)"
             version: 2.3.1
@@ -82,47 +72,7 @@ initializr:
         versionProperty: spring-cloud.version
         order: 50
         mappings:
-          - compatibilityRange: "[2.0.0.M3, 2.0.0.M5)"
-            version: Finchley.M2
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.0.M5, 2.0.0.M5]"
-            version: Finchley.M3
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.0.M6, 2.0.0.M6]"
-            version: Finchley.M4
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.0.M7, 2.0.0.M7]"
-            version: Finchley.M5
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.0.RC1, 2.0.0.RC1]"
-            version: Finchley.M6
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.0.RC2,2.0.0.RC2]"
-            version: Finchley.M7
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.0.RELEASE,2.0.0.RELEASE]"
-            version: Finchley.M9
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.1.RELEASE,2.0.2.RELEASE)"
-            version: Finchley.RC1
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.2.RELEASE,2.0.3.RELEASE)"
-            version: Finchley.RC2
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.3.RELEASE,2.0.x.BUILD-SNAPSHOT)"
-            version: Finchley.SR4
-          - compatibilityRange: "[2.0.x.BUILD-SNAPSHOT,2.1.0.M3)"
-            version: Finchley.BUILD-SNAPSHOT
-            repositories: spring-snapshots,spring-milestones
-          - compatibilityRange: "[2.1.0.M3,2.1.0.RELEASE)"
-            version: Greenwich.M1
-            repositories: spring-milestones
-          - compatibilityRange: "[2.1.0.RELEASE,2.1.x.BUILD-SNAPSHOT)"
-            version: Greenwich.SR6
-          - compatibilityRange: "[2.1.x.BUILD-SNAPSHOT,2.2.0.M4)"
-            version: Greenwich.BUILD-SNAPSHOT
-            repositories: spring-snapshots,spring-milestones
-          - compatibilityRange: "[2.2.0.M4,2.3.x.BUILD-SNAPSHOT)"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
             version: Hoxton.SR9
           - compatibilityRange: "[2.3.x.BUILD-SNAPSHOT, 2.4.0.M1)"
             version: Hoxton.BUILD-SNAPSHOT
@@ -160,10 +110,6 @@ initializr:
         versionProperty: spring-cloud-services.version
         additionalBoms: [spring-cloud]
         mappings:
-          - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
-            version: 2.0.3.RELEASE
-          - compatibilityRange: "[2.1.0.RELEASE,2.2.0.RELEASE)"
-            version: 2.1.8.RELEASE
           - compatibilityRange: "[2.2.0.RELEASE,2.3.0.RELEASE)"
             version: 2.2.6.RELEASE
           - compatibilityRange: "[2.3.0.RELEASE,2.4.0-M1)"
@@ -173,7 +119,7 @@ initializr:
         artifactId: spring-geode-bom
         versionProperty: spring-geode.version
         mappings:
-          - compatibilityRange: "[2.2.0.M5,2.3.0.M1)"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
             version: 1.2.12.RELEASE
           - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
             version: 1.3.7.RELEASE
@@ -184,12 +130,6 @@ initializr:
         artifactId: spring-statemachine-bom
         versionProperty: spring-statemachine.version
         mappings:
-          - compatibilityRange: "[2.0.0.RC1,2.0.0.RC1]"
-            version: 2.0.0.M4
-            repositories: spring-milestones
-          - compatibilityRange: "[2.0.0.RC2,2.0.0.RC2]"
-            version: 2.0.0.M5
-            repositories: spring-milestones
           - compatibilityRange: "2.0.0.RELEASE"
             version: 2.0.1.RELEASE
       testcontainers:
@@ -202,9 +142,7 @@ initializr:
         artifactId: vaadin-bom
         versionProperty: vaadin.version
         mappings:
-          - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
-            version: 10.0.17
-          - compatibilityRange: "[2.1.0.M1,2.5.0-M1)"
+          - compatibilityRange: "[2.1.0.RELEASE,2.5.0-M1)"
             version: 14.4.5
       wavefront:
         groupId: com.wavefront
@@ -226,7 +164,7 @@ initializr:
         - compatibilityRange: "[1.5.0.RELEASE,2.0.0.M1)"
           version: 1.2.51
     platform:
-      compatibility-range: "2.0.0.RELEASE"
+      compatibility-range: "2.2.0.RELEASE"
       v1-format-compatibility-range: "[2.0.0.RELEASE,2.4.0-M1)"
       v2-format-compatibility-range: "2.4.0-M1"
     repositories:
@@ -317,16 +255,8 @@ initializr:
           id: data-rest-explorer
           description: Browsing Spring Data REST repositories in your browser.
           starter: false
-          compatibilityRange: "2.2.0-M1"
           groupId: org.springframework.data
           artifactId: spring-data-rest-hal-explorer
-        - name: Rest Repositories HAL Browser
-          id: data-rest-hal
-          description: Browsing Spring Data REST repositories in your browser.
-          starter: false
-          compatibilityRange: "[2.0.0.RELEASE,2.2.0-M1)"
-          groupId: org.springframework.data
-          artifactId: spring-data-rest-hal-browser
         - name: Spring HATEOAS
           id: hateoas
           description: Eases the creation of RESTful APIs that follow the HATEOAS principle when working with Spring / Spring MVC.
@@ -444,9 +374,7 @@ initializr:
           artifactId: okta-spring-boot-starter
           compatibilityRange: "[2.1.2.RELEASE,2.5.0-M1)"
           mappings:
-            - compatibilityRange: "[2.1.2.RELEASE,2.2.0.M1)"
-              version: 1.2.1
-            - compatibilityRange: "[2.2.0.M1,2.4.0-M1)"
+            - compatibilityRange: "[2.2.0.RELEASE,2.4.0-M1)"
               version: 1.4.0
             - compatibilityRange: "[2.4.0-M1,2.4.1)"
               version: 1.5.1
@@ -494,7 +422,6 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jpa-and-spring-data
         - name: Spring Data JDBC
           id: data-jdbc
-          compatibilityRange: "2.1.0.RELEASE"
           description: Persist data in SQL stores with plain JDBC using Spring Data.
           links:
             - rel: guide
@@ -530,8 +457,6 @@ initializr:
           groupId: org.mybatis.spring.boot
           artifactId: mybatis-spring-boot-starter
           mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.1.0.RELEASE)"
-              version: 2.0.1
             - compatibilityRange: "[2.1.0.RELEASE,2.5.0-M1)"
               version: 2.1.4
         - name: Liquibase Migration
@@ -614,14 +539,13 @@ initializr:
               description: Accessing data with MySQL
         - name: Oracle Driver
           id: oracle
-          compatibilityRange: 2.2.0.RC1
           description: A JDBC driver that provides access to Oracle.
           groupId: com.oracle.database.jdbc
           artifactId: ojdbc8
           scope: runtime
           starter: false
           mappings:
-            - compatibilityRange: "[2.2.0.RC1,2.2.8.RELEASE)"
+            - compatibilityRange: "[2.2.0.RELEASE,2.2.8.RELEASE)"
               groupId: com.oracle.ojdbc
         - name: PostgreSQL Driver
           id: postgresql
@@ -700,7 +624,6 @@ initializr:
         - name: Spring for Apache Geode
           bom: spring-geode
           id: geode
-          compatibilityRange: "2.2.0.M5"
           groupId: org.springframework.geode
           artifactId: spring-geode-starter
           description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale that is compatible with Pivotal Cloud Cache.
@@ -818,13 +741,7 @@ initializr:
           id: camel
           compatibilityRange: "[2.0.0.M1,2.5.0-M1)"
           mappings:
-            - compatibilityRange: "[2.0.0.M1,2.1.0.M1)"
-              version: 2.22.4
-              groupId: org.apache.camel
-            - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
-              version: 2.25.2
-              groupId: org.apache.camel
-            - compatibilityRange: "[2.2.0.M1,2.3.0.M1)"
+            - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
               version: 3.3.0
             - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
               version: 3.5.0
@@ -975,7 +892,6 @@ initializr:
           artifactId: wavefront-spring-boot-starter
           bom: wavefront
           description: Tanzu Observability by Wavefront is a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack (infrastructure, network, custom app metrics, business KPIs, etc.)
-          compatibilityRange: "2.1.0.RELEASE"
           links:
             - rel: reference
               href: https://docs.wavefront.com/wavefront_springboot.html
@@ -1093,12 +1009,7 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-open-service-broker
           mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.1.0.M1)"
-              version: 2.1.3.RELEASE
-              artifactId: spring-cloud-starter-open-service-broker-webmvc
-            - compatibilityRange: "[2.1.0.M1,2.2.0.M1)"
-              version: 3.0.4.RELEASE
-            - compatibilityRange: "[2.2.0.M1,2.4.0-M1)"
+            - compatibilityRange: "[2.2.0.RELEASE,2.4.0-M1)"
               version: 3.1.1.RELEASE
           links:
             - rel: reference
@@ -1133,17 +1044,11 @@ initializr:
           description: Enable and configure common patterns inside your application and build large distributed systems with Apache Zookeeper based components. The provided patterns include Service Discovery and Configuration.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-config
-          mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.2.0.M4)"
-              starter: false
         - name: Consul Configuration
           id: cloud-starter-consul-config
           description: Enable and configure the common patterns inside your application and build large distributed systems with Hashicorp’s Consul. The patterns provided include Service Discovery, Distributed Configuration and Control Bus.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-config
-          mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.2.0.M4)"
-              starter: false
     - name: Spring Cloud Discovery
       bom: spring-cloud
       content:
@@ -1215,7 +1120,6 @@ initializr:
           artifactId: spring-cloud-starter-openfeign
         - name: Cloud LoadBalancer
           id: cloud-loadbalancer
-          compatibilityRange: "2.2.0.M4"
           description: Client-side load-balancing with Spring Cloud LoadBalancer.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-loadbalancer
@@ -1230,7 +1134,6 @@ initializr:
       content:
         - name: Resilience4J
           id: cloud-resilience4j
-          compatibilityRange: "2.2.0.RELEASE"
           description: Spring Cloud Circuit breaker with Resilience4j as the underlying implementation.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-circuitbreaker-resilience4j
@@ -1296,12 +1199,6 @@ initializr:
           description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, RabbitMQ or Solace PubSub+).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
-        - name: Reactive Cloud Stream
-          id: reactive-cloud-stream
-          compatibilityRange: "[2.0.0.RELEASE,2.2.0.M1)"
-          description: Reactive messaging microservices with Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-stream-reactive
     - name: Pivotal Cloud Foundry
       bom: spring-cloud-services
       compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"

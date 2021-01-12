@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,13 +31,13 @@ class InvalidJvmVersionHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void warningAddedWithSpringBoot21AndJava13() {
-		assertHelpDocument("2.1.0.RELEASE", "13").lines().containsSubsequence("# Read Me First",
-				"* The JVM level was changed from '13' to '11', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
+		assertHelpDocument("2.2.0.RELEASE", "14").lines().containsSubsequence("# Read Me First",
+				"* The JVM level was changed from '14' to '11', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
 	}
 
 	@Test
 	void warningNotAddedWithCompatibleVersion() {
-		assertHelpDocument("2.1.0.RELEASE", "11").doesNotContain("# Read Me First");
+		assertHelpDocument("2.3.0.RELEASE", "11").doesNotContain("# Read Me First");
 	}
 
 	private TextAssert assertHelpDocument(String platformVersion, String jvmVersion) {

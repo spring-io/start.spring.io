@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link ProjectDescriptionCustomizer} that enables the Kotlin DSL for a Gradle project
@@ -32,12 +30,9 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 public class GradleDslProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final VersionRange SPRING_BOOT_2_1_OR_LATER = VersionParser.DEFAULT.parseRange("2.1.0.M1");
-
 	@Override
 	public void customize(MutableProjectDescription description) {
-		if (SPRING_BOOT_2_1_OR_LATER.match(description.getPlatformVersion())
-				&& description.getLanguage() instanceof KotlinLanguage
+		if (description.getLanguage() instanceof KotlinLanguage
 				&& description.getBuildSystem() instanceof GradleBuildSystem) {
 			description.setBuildSystem(
 					BuildSystem.forIdAndDialect(GradleBuildSystem.ID, GradleBuildSystem.DIALECT_KOTLIN));

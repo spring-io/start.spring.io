@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.io.template.TemplateRenderer;
@@ -55,17 +54,11 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
-	public SpringCloudGcpBomBuildCustomizer springCloudGcpBomBuildCustomizer() {
-		return new SpringCloudGcpBomBuildCustomizer(this.description);
-	}
-
-	@Bean
 	public SpringCloudStreamBuildCustomizer springCloudStreamBuildCustomizer() {
 		return new SpringCloudStreamBuildCustomizer();
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("2.1.0.RELEASE")
 	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(Build build,
 			TemplateRenderer templateRenderer) {
 		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata, build, templateRenderer);
@@ -100,7 +93,6 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("2.2.0.M4")
 	public SpringCloudFunctionHelpDocumentCustomizer springCloudFunctionHelpDocumentCustomizer(Build build,
 			MustacheTemplateRenderer templateRenderer, SpringCloudProjectVersionResolver versionResolver) {
 		return new SpringCloudFunctionHelpDocumentCustomizer(build, this.description, templateRenderer,
@@ -108,7 +100,6 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("2.2.0.RELEASE")
 	public SpringCloudCircuitBreakerBuildCustomizer springCloudCircuitBreakerBuildCustomizer() {
 		return new SpringCloudCircuitBreakerBuildCustomizer(this.metadata, this.description);
 	}

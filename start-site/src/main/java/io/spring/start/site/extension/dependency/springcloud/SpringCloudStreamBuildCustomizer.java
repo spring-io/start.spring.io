@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +37,8 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		if (hasDependency("cloud-stream", build) || hasDependency("reactive-cloud-stream", build)
-				|| hasDependency("cloud-bus", build) || hasDependency("cloud-turbine-stream", build)) {
+		if (hasDependency("cloud-stream", build) || hasDependency("cloud-bus", build)
+				|| hasDependency("cloud-turbine-stream", build)) {
 			if (hasDependency("amqp", build)) {
 				build.dependencies().add("cloud-stream-binder-rabbit", "org.springframework.cloud",
 						"spring-cloud-stream-binder-rabbit", DependencyScope.COMPILE);
@@ -49,7 +49,7 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 			}
 		}
 		// Spring Cloud Stream specific
-		if (hasDependency("cloud-stream", build) || hasDependency("reactive-cloud-stream", build)) {
+		if (hasDependency("cloud-stream", build)) {
 			if (hasDependency("kafka-streams", build)) {
 				build.dependencies().add("cloud-stream-binder-kafka-streams", "org.springframework.cloud",
 						"spring-cloud-stream-binder-kafka-streams", DependencyScope.COMPILE);

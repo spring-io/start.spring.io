@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,11 @@
 
 package io.spring.start.site.extension.dependency.springcloud;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.BuildSystem;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
+import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.test.project.ProjectAssetTester;
 import io.spring.initializr.metadata.InitializrMetadata;
@@ -49,7 +51,7 @@ class SpringCloudProjectGenerationConfigurationTests {
 	private final ProjectAssetTester projectTester = new ProjectAssetTester()
 			.withContextInitializer((context) -> context.setParent(this.applicationContext))
 			.withBean(InitializrMetadata.class, () -> this.metadataProvider.get())
-			.withConfiguration(SpringCloudProjectGenerationConfiguration.class);
+			.withBean(Build.class, MavenBuild::new).withConfiguration(SpringCloudProjectGenerationConfiguration.class);
 
 	@Test
 	void springCloudContractGradleBuildCustomizerWithGroovyDsl() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,119 +30,87 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void java9CanBeUsedWithSpringBoot2Maven() {
+	void java8IsMandatoryMaven() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.1.RELEASE");
+		request.setBootVersion("2.2.0.RELEASE");
+		request.setJavaVersion("1.7");
+		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
+	}
+
+	@Test
+	void java8IsMandatoryGradle() {
+		ProjectRequest request = createProjectRequest("data-jpa");
+		request.setBootVersion("2.2.0.RELEASE");
+		request.setJavaVersion("1.7");
+		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
+	}
+
+	@Test
+	void java9CanBeUsedMaven() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("9");
 		assertThat(mavenPom(request)).hasProperty("java.version", "9");
 	}
 
 	@Test
-	void java9CanBeUsedWithSpringBoot2Gradle() {
+	void java9CanBeUsedGradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.0.RELEASE");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("9");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("9");
 	}
 
 	@Test
-	void java10CannotBeUsedWithSpringBoot200Maven() {
+	void java10CanBeUsedMaven() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.0.RELEASE");
-		request.setJavaVersion("10");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java10CannotBeUsedWithSpringBoot200Gradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.0.RELEASE");
-		request.setJavaVersion("10");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
-	}
-
-	@Test
-	void java10CanBeUsedWithSpringBoot2Maven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.1.RELEASE");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("10");
 		assertThat(mavenPom(request)).hasProperty("java.version", "10");
 	}
 
 	@Test
-	void java10CanBeUsedWithSpringBoot2Gradle() {
+	void java10CanBeUsedGradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.2.RELEASE");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("10");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("10");
 	}
 
 	@Test
-	void java11CannotBeUsedWithSpringBoot20Maven() {
+	void java11CanBeUsedWithSpringBootMaven() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.5.RELEASE");
-		request.setJavaVersion("11");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java11CannotBeUsedWithSpringBoot20Gradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.5.RELEASE");
-		request.setJavaVersion("11");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
-	}
-
-	@Test
-	void java11CanBeUsedWithSpringBoot21Maven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.1.0.M1");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("11");
 		assertThat(mavenPom(request)).hasProperty("java.version", "11");
 	}
 
 	@Test
-	void java11CanBeUsedWithSpringBoot21Gradle() {
+	void java11CanBeUsedWithSpringBootGradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.1.1.RELEASE");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("11");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("11");
 	}
 
 	@Test
-	void java12CannotBeUsedWithSpringBoot20Maven() {
+	void java12CanBeUsedWithSpringBootMaven() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.0.5.RELEASE");
-		request.setJavaVersion("12");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java12CannotBeUsedWithSpringBoot20Gradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.0.5.RELEASE");
-		request.setJavaVersion("12");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("1.8");
-	}
-
-	@Test
-	void java12CanBeUsedWithSpringBoot21Maven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.1.0.M1");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("12");
 		assertThat(mavenPom(request)).hasProperty("java.version", "12");
 	}
 
 	@Test
-	void java12CanBeUsedWithSpringBoot21Gradle() {
+	void java12CanBeUsedWithSpringBootGradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.1.1.RELEASE");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("12");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("12");
 	}
 
 	@Test
-	void java12CanBeUsedWithSpringBoot22Kotlin() {
+	void java12CanBeUsedWithSpringBootKotlin() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.2.0.RELEASE");
 		request.setLanguage("kotlin");
@@ -151,23 +119,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java13CannotBeUsedWithSpringBoot21Maven() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.1.5.RELEASE");
-		request.setJavaVersion("13");
-		assertThat(mavenPom(request)).hasProperty("java.version", "11");
-	}
-
-	@Test
-	void java13CannotBeUsedWithSpringBoot21Gradle() {
-		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.1.5.RELEASE");
-		request.setJavaVersion("13");
-		assertThat(gradleBuild(request)).hasSourceCompatibility("11");
-	}
-
-	@Test
-	void java13CanBeUsedWithSpringBoot22Maven() {
+	void java13CanBeUsedWithSpringBootMaven() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.2.0.RELEASE");
 		request.setJavaVersion("13");
@@ -185,13 +137,13 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@Test // Gradle 6.x works with Java 13
 	void java13CanBeUsedWithSpringBoot223Gradle() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("2.2.2.BUILD-SNAPSHOT");
+		request.setBootVersion("2.2.2.RELEASE");
 		request.setJavaVersion("13");
 		assertThat(gradleBuild(request)).hasSourceCompatibility("13");
 	}
 
 	@Test
-	void java13CanBeUsedWithSpringBoot22Groovy() {
+	void java13CanBeUsedWithSpringBootGroovy() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.2.0.RELEASE");
 		request.setLanguage("groovy");

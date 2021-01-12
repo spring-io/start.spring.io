@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,15 +45,6 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
 		ProjectRequest projectRequest = createProjectRequest();
 		assertThat(mavenPom(projectRequest)).doesNotContain("spring-cloud-contract-maven-plugin");
-	}
-
-	@Test
-	void springCloudContractVerifierPluginForSpringBoot21WithNoAdditionalConfiguration() {
-		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		projectRequest.setBootVersion("2.1.0.RELEASE");
-		assertThat(mavenPom(projectRequest))
-				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
-				.doesNotContain("testFramework").doesNotContain("testMode");
 	}
 
 	@Test

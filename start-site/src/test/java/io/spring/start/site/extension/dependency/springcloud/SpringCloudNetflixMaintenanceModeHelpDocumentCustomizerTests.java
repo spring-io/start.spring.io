@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizerTests extends Abstr
 	@Test
 	void sectionAddedWhenMaintenanceModeDependenciesPresent() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.1.5.RELEASE");
+		request.setBootVersion("2.3.0.RELEASE");
 		request.setDependencies(Arrays.asList("cloud-ribbon", "cloud-eureka"));
 		assertHelpDocument(request).containsSequence("# Spring Cloud Netflix Maintenance Mode", "",
 				"The dependencies listed below are in maintenance mode. We do not recommend adding them to",
@@ -45,17 +45,9 @@ class SpringCloudNetflixMaintenanceModeHelpDocumentCustomizerTests extends Abstr
 	}
 
 	@Test
-	void sectionNotAddedWhenRelevantVersionIsNotSelected() {
-		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.0.7.RELEASE");
-		request.setDependencies(Arrays.asList("cloud-ribbon", "cloud-eureka"));
-		assertHelpDocument(request).doesNotContain("# Spring Cloud Netflix Maintenance Mode");
-	}
-
-	@Test
 	void sectionNotAddedWhenNoMaintenanceModeDependencies() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.1.5.RELEASE");
+		request.setBootVersion("2.3.0.RELEASE");
 		request.setDependencies(Collections.singletonList("cloud-eureka"));
 		assertHelpDocument(request).doesNotContain("# Spring Cloud Netflix Maintenance Mode");
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,26 +33,18 @@ class KotlinCoroutinesCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void kotlinCoroutinesIsAdded() {
 		ProjectRequest request = createProjectRequest("webflux");
-		request.setBootVersion("2.2.0.M5");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setLanguage("kotlin");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
 		assertThat(project).textFile("HELP.md").contains(
-				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring/docs/5.2.0.RC1/spring-framework-reference/languages.html#coroutines)");
-	}
-
-	@Test
-	void kotlinCoroutinesIsNotAddedWithEarlierVersions() {
-		ProjectRequest request = createProjectRequest("webflux");
-		request.setBootVersion("2.2.0.M4");
-		request.setLanguage("kotlin");
-		assertThat(mavenPom(request)).doesNotHaveDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
+				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/languages.html#coroutines)");
 	}
 
 	@Test
 	void kotlinCoroutinesIsNotAddedWithNonKotlinApp() {
 		ProjectRequest request = createProjectRequest("webflux");
-		request.setBootVersion("2.2.0.M5");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setLanguage("java");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
 	}
@@ -60,7 +52,7 @@ class KotlinCoroutinesCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void kotlinCoroutinesIsNotAddedWithoutReactiveFacet() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.2.0.M5");
+		request.setBootVersion("2.2.0.RELEASE");
 		request.setLanguage("kotlin");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
 	}
