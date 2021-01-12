@@ -59,13 +59,14 @@ resources:
     branch: ((branch))
     context: build
 
-- name: ci-images-git-repo
+- name: ci-images
   type: git
   icon: github-circle
   source:
     uri: ((github-repo))
     branch: ((branch))
-    paths: ["ci/images/*"]
+    paths:
+    - ci/images/*
 
 - name: daily
   type: time
@@ -234,20 +235,13 @@ jobs:
 
 - name: build-start-site-ci-image
   plan:
-    - get: ci-images-git-repo
+    - get: source
+      resource: ci-images
       trigger: true
-    - get: git-repo
-    - do:
-        - task: build-ci-image
-          privileged: true
-          file: git-repo/ci/tasks/build-ci-image.yml
-          output_mapping:
-            image: ci-image
-          vars:
-            ci-image-name: start-site-ci-image
-    - put: ci-image
+    - put: start-site-ci-image
       params:
-        image: ci-image/image.tar
+        build: source/ci/images
+        dockerfile: source/ci/images/start-site-ci-image/Dockerfile
 
 - name: update-deployment
   plan:
