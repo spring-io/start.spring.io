@@ -842,7 +842,7 @@ initializr:
           artifactId: micrometer-registry-datadog
           scope: runtime
           starter: false
-          description: Datadog is a dimensional time-series SAAS with built-in dashboarding and alerting.
+          description: Publish Micrometer metrics to Datadog, a dimensional time-series SaaS with built-in dashboarding and alerting.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-datadog
@@ -852,7 +852,7 @@ initializr:
           artifactId: micrometer-registry-influx
           scope: runtime
           starter: false
-          description: Support real-time stream processing and storage of time-series data.
+          description: Publish Micrometer metrics to InfluxDB, a dimensional time-series server that support real-time stream processing of data.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-influx
@@ -862,7 +862,7 @@ initializr:
           artifactId: micrometer-registry-graphite
           scope: runtime
           starter: false
-          description: Hierarchical metrics systems backed by a fixed-size database.
+          description: Publish Micrometer metrics to Graphite, a hierarchical metrics system backed by a fixed-size database.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-graphite
@@ -872,7 +872,7 @@ initializr:
           artifactId: micrometer-registry-new-relic
           scope: runtime
           starter: false
-          description: SaaS offering with a full UI and a query language called NRQL.
+          description: Publish Micrometer metrics to New Relic, a SaaS offering with a full UI and a query language called NRQL.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-new-relic
@@ -882,7 +882,7 @@ initializr:
           artifactId: micrometer-registry-prometheus
           scope: runtime
           starter: false
-          description: An in-memory dimensional time series database with a simple built-in UI, a custom query language, and math operations.
+          description: Expose Micrometer metrics in Prometheus format, an in-memory dimensional time series database with a simple built-in UI, a custom query language, and math operations.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-prometheus
@@ -897,7 +897,7 @@ initializr:
           groupId: com.wavefront
           artifactId: wavefront-spring-boot-starter
           bom: wavefront
-          description: Tanzu Observability by Wavefront is a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack (infrastructure, network, custom app metrics, business KPIs, etc.)
+          description: Publish Micrometer metrics to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
           links:
             - rel: reference
               href: https://docs.wavefront.com/wavefront_springboot.html
