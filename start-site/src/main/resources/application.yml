@@ -1054,9 +1054,15 @@ initializr:
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
-          description: a REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
+          description: A REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-client
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/service-registration-and-discovery/
+              description: Service Registration and Discovery with Eureka and Spring Cloud
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/#service-discovery-eureka-clients
         - name: Eureka Server
           id: cloud-eureka-server
           description: spring-cloud-netflix Eureka Server.
@@ -1065,7 +1071,9 @@ initializr:
           links:
             - rel: guide
               href: https://spring.io/guides/gs/service-registration-and-discovery/
-              description: Service Registration and Discovery
+              description: Service Registration and Discovery with Eureka and Spring Cloud
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/#spring-cloud-eureka-server
         - name: Apache Zookeeper Discovery
           id: cloud-starter-zookeeper-discovery
           description: Service discovery with Apache Zookeeper.
@@ -1086,7 +1094,7 @@ initializr:
       content:
         - name: Zuul [Maintenance]
           id: cloud-zuul
-          description: Intelligent and programmable routing with Spring Cloud Netflix Zuul.
+          description: "Intelligent and programmable routing with Spring Cloud Netflix Zuul. Maintenance mode, suggested replacement: Spring Cloud Gateway."
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-zuul
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
@@ -1094,6 +1102,8 @@ initializr:
             - rel: guide
               href: https://spring.io/guides/gs/routing-and-filtering/
               description: Routing and Filtering
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#router-and-filter-zuul
         - name: Gateway
           id: cloud-gateway
           groupId: org.springframework.cloud
@@ -1105,7 +1115,7 @@ initializr:
               description: Using Spring Cloud Gateway
         - name: Ribbon [Maintenance]
           id: cloud-ribbon
-          description: Client-side load-balancing with Spring Cloud Netflix and Ribbon.
+          description: "Client-side load-balancing with Spring Cloud Netflix and Ribbon. Maintenance mode, suggested replacement: Spring Cloud LoadBalancer."
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-ribbon
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
@@ -1113,11 +1123,19 @@ initializr:
             - rel: guide
               href: https://spring.io/guides/gs/client-side-load-balancing/
               description: Client-side load-balancing with Ribbon and Spring Cloud
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#spring-cloud-ribbon
         - name: OpenFeign
           id: cloud-feign
           description: Declarative REST Client. OpenFeign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-openfeign
+          links:
+            - rel: sample
+              href: https://github.com/spring-cloud-samples/feign-eureka
+              description: Declarative REST calls with Spring Cloud OpenFeign sample
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/
         - name: Cloud LoadBalancer
           id: cloud-loadbalancer
           description: Client-side load-balancing with Spring Cloud LoadBalancer.
@@ -1128,7 +1146,7 @@ initializr:
               href: https://spring.io/guides/gs/spring-cloud-loadbalancer/
               description: Client-side load-balancing with Spring Cloud LoadBalancer
             - rel: reference
-              href: https://cloud.spring.io/spring-cloud-static/spring-cloud-commons/current/reference/html/#spring-cloud-loadbalancer
+              href: https://docs.spring.io/spring-cloud-commons/docs/current/reference/html/#spring-cloud-loadbalancer
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
       content:
@@ -1142,7 +1160,7 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/current/reference/html
         - name: Hystrix [Maintenance]
           id: cloud-hystrix
-          description: Circuit breaker with Spring Cloud Netflix Hystrix.
+          description: "Circuit breaker with Spring Cloud Netflix Hystrix. Maintenance mode, suggested replacement: Spring Cloud CircuitBreaker."
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-hystrix
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
@@ -1150,24 +1168,41 @@ initializr:
             - rel: guide
               href: https://spring.io/guides/gs/circuit-breaker/
               description: Circuit Breaker
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#circuit-breaker-hystrix-clients
         - name: Hystrix Dashboard [Maintenance]
           id: cloud-hystrix-dashboard
-          description: Circuit breaker dashboard with Spring Cloud Netflix Hystrix.
+          description: Circuit breaker dashboard with Spring Cloud Netflix Hystrix
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-hystrix-dashboard
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+          links:
+            - rel: sample
+              href: https://github.com/spring-cloud-samples/hystrix-dashboard
+              description: Sample of circuit-breaker metrics with Spring Cloud and Hystrix Dashboard
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#circuit-breaker-hystrix-dashboard
         - name: Turbine [Maintenance]
           id: cloud-turbine
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and server-sent events.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#turbine
         - name: Turbine Stream [Maintenance]
           id: cloud-turbine-stream
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-turbine-stream
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+          links:
+            - rel: sample
+              href: https://github.com/spring-cloud-samples/turbine
+              description: Turbine Stream with Spring Cloud sample
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#turbine-stream
     - name: Spring Cloud Tracing
       bom: spring-cloud
       content:
