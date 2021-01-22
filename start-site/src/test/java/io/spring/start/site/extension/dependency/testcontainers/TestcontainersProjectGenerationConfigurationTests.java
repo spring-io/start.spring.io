@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,11 +62,10 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("data-elasticsearch", "elasticsearch"),
 				Arguments.arguments("data-mongodb", "mongodb"), Arguments.arguments("data-mongodb-reactive", "mongodb"),
 				Arguments.arguments("data-neo4j", "neo4j"), Arguments.arguments("data-r2dbc", "r2dbc"),
-				Arguments.arguments("data-solr", "solr"), Arguments.arguments("db2", "db2"),
-				Arguments.arguments("kafka", "kafka"), Arguments.arguments("kafka-streams", "kafka"),
-				Arguments.arguments("mariadb", "mariadb"), Arguments.arguments("mysql", "mysql"),
-				Arguments.arguments("postgresql", "postgresql"), Arguments.arguments("oracle", "oracle-xe"),
-				Arguments.arguments("sqlserver", "mssqlserver"));
+				Arguments.arguments("db2", "db2"), Arguments.arguments("kafka", "kafka"),
+				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
+				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
+				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("sqlserver", "mssqlserver"));
 	}
 
 	@ParameterizedTest
@@ -92,10 +91,9 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("data-mongodb", "databases/mongodb/"),
 				Arguments.arguments("data-mongodb-reactive", "databases/mongodb/"),
 				Arguments.arguments("data-neo4j", "databases/neo4j/"),
-				Arguments.arguments("data-r2dbc", "databases/r2dbc/"), Arguments.arguments("data-solr", "solr/"),
-				Arguments.arguments("db2", "databases/db2"), Arguments.arguments("kafka", "kafka/"),
-				Arguments.arguments("kafka-streams", "kafka/"), Arguments.arguments("mariadb", "databases/mariadb/"),
-				Arguments.arguments("mysql", "databases/mysql/"),
+				Arguments.arguments("data-r2dbc", "databases/r2dbc/"), Arguments.arguments("db2", "databases/db2"),
+				Arguments.arguments("kafka", "kafka/"), Arguments.arguments("kafka-streams", "kafka/"),
+				Arguments.arguments("mariadb", "databases/mariadb/"), Arguments.arguments("mysql", "databases/mysql/"),
 				Arguments.arguments("postgresql", "databases/postgres/"),
 				Arguments.arguments("oracle", "databases/oraclexe/"),
 				Arguments.arguments("sqlserver", "databases/mssqlserver/"));
