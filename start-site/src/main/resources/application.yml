@@ -147,12 +147,8 @@ initializr:
         mappings:
           - compatibilityRange: "[2.1.0.RELEASE,2.4.0-M1)"
             version: 2.0.2
-          - compatibilityRange: "[2.4.0-M1,2.4.x-SNAPSHOT)"
-            version: 2.1.0-RC1
-            repositories: spring-milestones
-          - compatibilityRange: "2.4.x-SNAPSHOT"
-            version: 2.1.0-SNAPSHOT
-            repositories: spring-snapshots
+          - compatibilityRange: "2.4.0-M1"
+            version: 2.1.0
     gradle:
       dependency-management-plugin-version: 1.0.11.RELEASE
     kotlin:
