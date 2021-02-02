@@ -1103,7 +1103,7 @@ initializr:
               href: https://spring.io/guides/gs/routing-and-filtering/
               description: Routing and Filtering
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#router-and-filter-zuul
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.x/reference/html/#router-and-filter-zuul
         - name: Gateway
           id: cloud-gateway
           groupId: org.springframework.cloud
@@ -1124,7 +1124,7 @@ initializr:
               href: https://spring.io/guides/gs/client-side-load-balancing/
               description: Client-side load-balancing with Ribbon and Spring Cloud
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#spring-cloud-ribbon
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.x/reference/html/#spring-cloud-ribbon
         - name: OpenFeign
           id: cloud-feign
           description: Declarative REST Client. OpenFeign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.
@@ -1169,7 +1169,7 @@ initializr:
               href: https://spring.io/guides/gs/circuit-breaker/
               description: Circuit Breaker
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#circuit-breaker-hystrix-clients
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.x/reference/html/#circuit-breaker-hystrix-clients
         - name: Hystrix Dashboard [Maintenance]
           id: cloud-hystrix-dashboard
           description: Circuit breaker dashboard with Spring Cloud Netflix Hystrix. In maintenance mode with no direct replacement.
@@ -1181,7 +1181,7 @@ initializr:
               href: https://github.com/spring-cloud-samples/hystrix-dashboard
               description: Sample of circuit-breaker metrics with Spring Cloud and Hystrix Dashboard
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#circuit-breaker-hystrix-dashboard
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.x/reference/html/#circuit-breaker-hystrix-dashboard
         - name: Turbine [Maintenance]
           id: cloud-turbine
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and server-sent events. In maintenance mode with no direct replacement.
@@ -1190,7 +1190,7 @@ initializr:
           compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#turbine
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.x/reference/html/#turbine
         - name: Turbine Stream [Maintenance]
           id: cloud-turbine-stream
           description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder, e.g. Apache Kafka or RabbitMQ). In maintenance mode with no direct replacement.
@@ -1202,7 +1202,7 @@ initializr:
               href: https://github.com/spring-cloud-samples/turbine
               description: Turbine Stream with Spring Cloud sample
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.6.RELEASE/reference/html/#turbine-stream
+              href: https://docs.spring.io/spring-cloud-netflix/docs/2.2.x/reference/html/#turbine-stream
     - name: Spring Cloud Tracing
       bom: spring-cloud
       content:
