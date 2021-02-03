@@ -83,11 +83,14 @@ initializr:
           - compatibilityRange: "[2.4.0.M2,2.4.0-M3]"
             version: 2020.0.0-M4
             repositories: spring-milestones
-          - compatibilityRange: "[2.4.0.M4,2.4.x-SNAPSHOT)"
+          - compatibilityRange: "2.4.0.M4"
             version: 2020.0.0
             repositories: spring-milestones
+          - compatibilityRange: "[2.4.0,2.5.0-M1)"
+            version: 2020.0.1
+            repositories: spring-milestones            
           - compatibilityRange: "2.4.x-SNAPSHOT"
-            version: 2020.0.1-SNAPSHOT
+            version: 2020.0.2-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-alibaba:
         groupId: com.alibaba.cloud
