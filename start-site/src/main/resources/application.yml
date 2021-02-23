@@ -621,7 +621,6 @@ initializr:
           groupId: org.springframework.geode
           artifactId: spring-geode-starter
           description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale that is compatible with Pivotal Cloud Cache.
-          compatibilityRange: "[2.2.0.RELEASE,2.5.0-M1)"
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot-data-geode-build/current/reference/html5/
