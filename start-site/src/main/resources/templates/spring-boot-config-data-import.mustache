@@ -1,0 +1,11 @@
+Spring Boot 2.4 introduced a new way to import configuration data via the `spring.config.import` property. This is now the default way to get configuration.
+
+{{#items}}
+
+You might want to optionally connect to {{name}} running at a default `localhost:{{defaultPort}}` location for configuration by setting the following in `application.properties`:
+
+`spring.config.import=optional:{{key}}:`
+
+{{/items}}
+
+You can find more information in the `SpringBoot Config Data Import` and `Spring Boot External Application Properties` documentation sections linked above.

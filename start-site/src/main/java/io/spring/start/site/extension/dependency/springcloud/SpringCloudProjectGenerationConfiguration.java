@@ -104,4 +104,10 @@ public class SpringCloudProjectGenerationConfiguration {
 		return new SpringCloudCircuitBreakerBuildCustomizer(this.metadata, this.description);
 	}
 
+	@Bean
+	public SpringCloudSpringBootConfigImportHelpDocumentCustomizer springCloudConfigGradleBuildCustomizer(
+			TemplateRenderer templateRenderer) {
+		return new SpringCloudSpringBootConfigImportHelpDocumentCustomizer(this.description, templateRenderer);
+	}
+
 }
