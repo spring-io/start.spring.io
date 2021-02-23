@@ -32,9 +32,9 @@ import io.spring.initializr.generator.spring.documentation.PreDefinedSection;
 class SpringBootConfigImportSection extends PreDefinedSection {
 
 	SpringBootConfigImportSection(TemplateRenderer templateRenderer,
-			Set<SpringCloudSpringBootConfigImportHelpDocumentCustomizer.ConfigSource> configSources) {
+			Set<SpringCloudConfigImportHelpDocumentCustomizer.ConfigSource> configSources) {
 		super("Spring Boot Config Data Import");
-		BulletedSection<SpringCloudSpringBootConfigImportHelpDocumentCustomizer.ConfigSource> configSourcesSection = new BulletedSection<>(
+		BulletedSection<SpringCloudConfigImportHelpDocumentCustomizer.ConfigSource> configSourcesSection = new BulletedSection<>(
 				templateRenderer, "spring-boot-config-data-import");
 		configSources.forEach(configSourcesSection::addItem);
 		addSection(configSourcesSection);

@@ -34,7 +34,7 @@ import io.spring.initializr.generator.version.VersionRange;
  *
  * @author Olga Maciaszek-Sharma
  */
-class SpringCloudSpringBootConfigImportHelpDocumentCustomizer implements HelpDocumentCustomizer {
+class SpringCloudConfigImportHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	private static final VersionRange SPRING_BOOT_2_4_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.4.0");
 
@@ -42,8 +42,7 @@ class SpringCloudSpringBootConfigImportHelpDocumentCustomizer implements HelpDoc
 
 	private final TemplateRenderer templateRenderer;
 
-	SpringCloudSpringBootConfigImportHelpDocumentCustomizer(ProjectDescription description,
-			TemplateRenderer templateRenderer) {
+	SpringCloudConfigImportHelpDocumentCustomizer(ProjectDescription description, TemplateRenderer templateRenderer) {
 		this.description = description;
 		this.templateRenderer = templateRenderer;
 	}
@@ -58,8 +57,8 @@ class SpringCloudSpringBootConfigImportHelpDocumentCustomizer implements HelpDoc
 				.collect(Collectors.toMap((data) -> data[0], (data) -> new ConfigSource(data[1], data[2], data[3])));
 
 		return configSources.entrySet().stream()
-				.filter((configSourceEntry) -> buildDependencies.contains(configSourceEntry.getKey())).map(Map.Entry::getValue)
-				.collect(Collectors.toSet());
+				.filter((configSourceEntry) -> buildDependencies.contains(configSourceEntry.getKey()))
+				.map(Map.Entry::getValue).collect(Collectors.toSet());
 	}
 
 	@Override

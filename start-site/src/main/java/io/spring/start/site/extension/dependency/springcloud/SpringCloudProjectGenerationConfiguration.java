@@ -105,9 +105,9 @@ public class SpringCloudProjectGenerationConfiguration {
 	}
 
 	@Bean
-	public SpringCloudSpringBootConfigImportHelpDocumentCustomizer springCloudConfigGradleBuildCustomizer(
+	public SpringCloudConfigImportHelpDocumentCustomizer springCloudConfigGradleBuildCustomizer(
 			TemplateRenderer templateRenderer) {
-		return new SpringCloudSpringBootConfigImportHelpDocumentCustomizer(this.description, templateRenderer);
+		return new SpringCloudConfigImportHelpDocumentCustomizer(this.description, templateRenderer);
 	}
 
 }
