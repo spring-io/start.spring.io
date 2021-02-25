@@ -1128,6 +1128,10 @@ initializr:
             - native
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-config
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#client_side_usage
+              description: Config Server Client
         - name: Config Server
           id: cloud-config-server
           description: Central management for configuration via Git, SVN, or HashiCorp Vault.
@@ -1144,16 +1148,28 @@ initializr:
           description: Provides client-side support for externalized configuration in a distributed system. Using HashiCorp's Vault you have a central place to manage external secret properties for applications across all environments.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-vault-config
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#quick-start
+              description: Spring Cloud Vault
         - name: Apache Zookeeper Configuration
           id: cloud-starter-zookeeper-config
           description: Enable and configure common patterns inside your application and build large distributed systems with Apache Zookeeper based components. The provided patterns include Service Discovery and Configuration.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-config
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#distributed-configuration-usage
+              description: Distributed Configuration with Zookeeper
         - name: Consul Configuration
           id: cloud-starter-consul-config
           description: Enable and configure the common patterns inside your application and build large distributed systems with Hashicorp’s Consul. The patterns provided include Service Discovery, Distributed Configuration and Control Bus.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-config
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/#distributed-configuration-usage
+              description: Distributed Configuration With Spring Cloud Consul
     - name: Spring Cloud Discovery
       bom: spring-cloud
       content:
