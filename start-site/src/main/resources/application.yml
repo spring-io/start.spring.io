@@ -1062,7 +1062,7 @@ initializr:
           artifactId: spring-cloud-starter-vault-config
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#_quick_start
+              href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#quick_start
               description: Spring Cloud Vault
             - rel: reference
               href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#vault.configdata.locations
