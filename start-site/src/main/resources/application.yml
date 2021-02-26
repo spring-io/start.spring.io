@@ -53,7 +53,7 @@ initializr:
         artifactId: solace-spring-boot-bom
         versionProperty: solace-spring-boot.version
         mappings:
-          - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
             version: 1.0.0
           - compatibilityRange: "[2.3.0.M1,2.5.0-M1)"
             version: 1.1.0
@@ -62,7 +62,7 @@ initializr:
         artifactId: solace-spring-cloud-bom
         versionProperty: solace-spring-cloud.version
         mappings:
-          - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
             version: 1.0.0
           - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
             version: 1.1.1
