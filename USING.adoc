@@ -262,8 +262,8 @@ $ http https://start.spring.io/starter.zip dependencies==web,devtools \
            bootVersion==2.3.5.RELEASE -d
 ----
 
-NOTE: `HTTPie` reads the same hint as the browser so it will store a `demo.zip` file in
-the current directory, with the same differences discussed above.
+NOTE: `HTTPie` reads the same hint as the browser, so it will store a `demo.zip` file in
+the current directory with the same differences as discussed above.
 
 
 
