@@ -1191,12 +1191,12 @@
         ]
       },
       {
-        "name": "Pivotal Cloud Foundry",
+        "name": "VMware Tanzu Application Service",
         "values": [
           {
             "id": "scs-config-client",
-            "name": "Config Client (PCF)",
-            "description": "Config client on Pivotal Cloud Foundry.",
+            "name": "Config Client (TAS)",
+            "description": "Config client on VMware Tanzu Application Service.",
             "_links": {
               "reference": {
                 "href": "https://docs.pivotal.io/spring-cloud-services/"
@@ -1205,8 +1205,8 @@
           },
           {
             "id": "scs-service-registry",
-            "name": "Service Registry (PCF)",
-            "description": "Eureka service discovery client on Pivotal Cloud Foundry.",
+            "name": "Service Registry (TAS)",
+            "description": "Eureka service discovery client on VMware Tanzu Application Service.",
             "_links": {
               "reference": {
                 "href": "https://docs.pivotal.io/spring-cloud-services/"
@@ -1215,8 +1215,8 @@
           },
           {
             "id": "scs-circuit-breaker",
-            "name": "Circuit Breaker (PCF)",
-            "description": "Hystrix circuit breaker client on Pivotal Cloud Foundry.",
+            "name": "Circuit Breaker (TAS)",
+            "description": "Hystrix circuit breaker client on VMware Tanzu Application Service.",
             "_links": {
               "reference": {
                 "href": "https://docs.pivotal.io/spring-cloud-services/"
