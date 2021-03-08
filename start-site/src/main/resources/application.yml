@@ -1233,30 +1233,30 @@ initializr:
           description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, RabbitMQ or Solace PubSub+).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
-    - name: Pivotal Cloud Foundry
+    - name: VMware Tanzu Application Service
       bom: spring-cloud-services
       compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
       content:
-        - name: Config Client (PCF)
+        - name: Config Client (TAS)
           id: scs-config-client
-          description: Config client on Pivotal Cloud Foundry.
+          description: Config client on VMware Tanzu Application Service.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-config-client
           starter: false
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
-        - name: Service Registry (PCF)
+        - name: Service Registry (TAS)
           id: scs-service-registry
-          description: Eureka service discovery client on Pivotal Cloud Foundry.
+          description: Eureka service discovery client on VMware Tanzu Application Service.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-service-registry
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
-        - name: Circuit Breaker (PCF)
+        - name: Circuit Breaker (TAS)
           id: scs-circuit-breaker
-          description: Hystrix circuit breaker client on Pivotal Cloud Foundry.
+          description: Hystrix circuit breaker client on VMware Tanzu Application Service.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-circuit-breaker
           links:
