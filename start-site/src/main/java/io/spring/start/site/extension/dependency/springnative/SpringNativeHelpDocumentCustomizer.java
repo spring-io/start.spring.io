@@ -75,8 +75,7 @@ class SpringNativeHelpDocumentCustomizer implements HelpDocumentCustomizer {
 		if (hasWeb) {
 			sb.append(" -p 8080:8080");
 		}
-		sb.append(" docker.io/library/").append(this.description.getArtifactId()).append(":")
-				.append(this.description.getVersion());
+		sb.append(" ").append(this.description.getArtifactId()).append(":").append(this.description.getVersion());
 		return sb.toString();
 	}
 

@@ -98,7 +98,7 @@ class SpringNativeHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("native");
 		request.setArtifactId("my-project");
 		request.setVersion("1.0.0-SNAPSHOT");
-		assertHelpDocument(request).contains("$ docker run --rm docker.io/library/my-project:1.0.0-SNAPSHOT");
+		assertHelpDocument(request).contains("$ docker run --rm my-project:1.0.0-SNAPSHOT");
 	}
 
 	@Test
@@ -106,8 +106,7 @@ class SpringNativeHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("native", "web");
 		request.setArtifactId("another-project");
 		request.setVersion("2.0.0-SNAPSHOT");
-		assertHelpDocument(request)
-				.contains("$ docker run --rm -p 8080:8080 docker.io/library/another-project:2.0.0-SNAPSHOT");
+		assertHelpDocument(request).contains("$ docker run --rm -p 8080:8080 another-project:2.0.0-SNAPSHOT");
 	}
 
 	@Test
