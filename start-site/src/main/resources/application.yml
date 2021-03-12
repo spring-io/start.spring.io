@@ -10,8 +10,6 @@ server:
     min-response-size: 2048
   error:
     include-message: always
-    whitelabel:
-      enabled: false
   forward-headers-strategy: native
 
 spring:
