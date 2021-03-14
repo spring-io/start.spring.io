@@ -1324,10 +1324,12 @@ initializr:
           description: Config client on VMware Tanzu Application Service.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-config-client
-          starter: false
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
+          mappings:
+            - compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+              starter: false
         - name: Service Registry (TAS)
           id: scs-service-registry
           description: Eureka service discovery client on VMware Tanzu Application Service.
