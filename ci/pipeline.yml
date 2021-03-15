@@ -117,7 +117,7 @@ resources:
     url: ((slack-webhook-url))
 
 - name: start-site-ci-image
-  type: registry-image
+  type: docker-image
   icon: docker
   source:
     repository: springci/start-site-ci-image
