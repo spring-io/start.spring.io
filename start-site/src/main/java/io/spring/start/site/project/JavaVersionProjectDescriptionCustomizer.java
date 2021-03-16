@@ -21,6 +21,8 @@ import java.util.List;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.Language;
+import io.spring.initializr.generator.language.groovy.GroovyLanguage;
+import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
@@ -41,6 +43,10 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private static final VersionRange SPRING_BOOT_2_2_6_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.6.RELEASE");
 
 	private static final VersionRange SPRING_BOOT_2_2_11_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.11.RELEASE");
+
+	private static final VersionRange SPRING_BOOT_2_4_4_OR_LATER = VersionParser.DEFAULT.parseRange("2.4.4");
+
+	private static final VersionRange SPRING_BOOT_2_5_OR_LATER = VersionParser.DEFAULT.parseRange("2.5.0-M1");
 
 	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.RELEASE");
 
@@ -69,6 +75,25 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		if (javaGeneration == 15 && !SPRING_BOOT_2_2_11_OR_LATER.match(platformVersion)) {
 			updateTo(description, "11");
 		}
+		if (javaGeneration == 16) {
+			// Kotlin does not support Java 16 yet
+			if (description.getLanguage() instanceof KotlinLanguage) {
+				updateTo(description, "11");
+			}
+			// 16 support only as of Gradle 7
+			if (description.getBuildSystem() instanceof GradleBuildSystem) {
+				updateTo(description, "11");
+			}
+			// Groovy 3 only available as of 2.5
+			if (description.getLanguage() instanceof GroovyLanguage
+					&& !SPRING_BOOT_2_5_OR_LATER.match(platformVersion)) {
+				updateTo(description, "11");
+			}
+			// 16 support only as of 2.4.4
+			if (!SPRING_BOOT_2_4_4_OR_LATER.match(platformVersion)) {
+				updateTo(description, "11");
+			}
+		}
 	}
 
 	private void updateTo(MutableProjectDescription description, String jvmVersion) {
@@ -79,7 +104,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private Integer determineJavaGeneration(String javaVersion) {
 		try {
 			int generation = Integer.parseInt(javaVersion);
-			return ((generation > 8 && generation <= 15) ? generation : null);
+			return ((generation > 8 && generation <= 16) ? generation : null);
 		}
 		catch (NumberFormatException ex) {
 			return null;
