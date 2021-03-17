@@ -99,7 +99,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	private static Stream<Arguments> supportedGroovyParameters() {
 		return Stream.of(groovy("9", "2.2.0.RELEASE"), groovy("10", "2.2.0.RELEASE"), groovy("11", "2.2.0.RELEASE"),
 				groovy("12", "2.2.0.RELEASE"), groovy("13", "2.2.2.RELEASE"), groovy("14", "2.2.6.RELEASE"),
-				groovy("14", "2.2.6.RELEASE"));
+				groovy("15", "2.3.4.RELEASE"));
 	}
 
 	@ParameterizedTest(name = "{0} - Java {1} - Spring Boot {2}")
