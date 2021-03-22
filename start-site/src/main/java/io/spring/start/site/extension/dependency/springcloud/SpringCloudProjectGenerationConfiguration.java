@@ -24,6 +24,7 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.io.template.TemplateRenderer;
 import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.ProjectDescriptionDiff;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
@@ -102,6 +103,13 @@ public class SpringCloudProjectGenerationConfiguration {
 	@Bean
 	public SpringCloudCircuitBreakerBuildCustomizer springCloudCircuitBreakerBuildCustomizer() {
 		return new SpringCloudCircuitBreakerBuildCustomizer(this.metadata, this.description);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("cloud-gateway")
+	public SpringCloudGatewayHelpDocumentCustomizer springCloudGatewayHelpDocumentCustomizer(
+			ProjectDescriptionDiff diff) {
+		return new SpringCloudGatewayHelpDocumentCustomizer(diff);
 	}
 
 }

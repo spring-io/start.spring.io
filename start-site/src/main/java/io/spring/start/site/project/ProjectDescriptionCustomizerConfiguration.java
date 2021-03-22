@@ -17,6 +17,7 @@
 package io.spring.start.site.project;
 
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
+import io.spring.start.site.project.dependency.springcloud.SpringCloudGatewayProjectDescriptionCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +38,11 @@ public class ProjectDescriptionCustomizerConfiguration {
 	@Bean
 	public GradleDslProjectDescriptionCustomizer gradleDslProjectDescriptionCustomizer() {
 		return new GradleDslProjectDescriptionCustomizer();
+	}
+
+	@Bean
+	public SpringCloudGatewayProjectDescriptionCustomizer springCloudGatewayProjectDescriptionCustomizer() {
+		return new SpringCloudGatewayProjectDescriptionCustomizer();
 	}
 
 }
