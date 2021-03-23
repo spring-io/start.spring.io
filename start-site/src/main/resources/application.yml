@@ -963,6 +963,8 @@ initializr:
           description: Distributed tracing via logs with Spring Cloud Sleuth.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-sleuth
+          facets:
+            - native
           bom: spring-cloud
         - name: Wavefront
           id: wavefront
