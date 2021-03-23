@@ -1128,14 +1128,8 @@ initializr:
           artifactId: spring-cloud-starter-config
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_spring_cloud_config_client
+              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_client_side_usage
               description: Config Server Client
-            - rel: reference
-              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#config-data-import
-              description: SpringBoot Config Data Import
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-files
-              description: Spring Boot External Application Properties
         - name: Config Server
           id: cloud-config-server
           description: Central management for configuration via Git, SVN, or HashiCorp Vault.
@@ -1154,14 +1148,8 @@ initializr:
           artifactId: spring-cloud-starter-vault-config
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#quick_start
+              href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#quick-start
               description: Spring Cloud Vault
-            - rel: reference
-              href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#vault.configdata.locations
-              description: ConfigData Locations
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-files
-              description: Spring Boot External Application Properties
         - name: Apache Zookeeper Configuration
           id: cloud-starter-zookeeper-config
           description: Enable and configure common patterns inside your application and build large distributed systems with Apache Zookeeper based components. The provided patterns include Service Discovery and Configuration.
@@ -1169,14 +1157,8 @@ initializr:
           artifactId: spring-cloud-starter-zookeeper-config
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#spring-cloud-zookeeper-config
+              href: https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#distributed-configuration-usage
               description: Distributed Configuration with Zookeeper
-            - rel: reference
-              href: https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#config-data-import
-              description: Spring Boot Config Data Import
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-files
-              description: Spring Boot External Application Properties
         - name: Consul Configuration
           id: cloud-starter-consul-config
           description: Enable and configure the common patterns inside your application and build large distributed systems with Hashicorp’s Consul. The patterns provided include Service Discovery, Distributed Configuration and Control Bus.
@@ -1184,14 +1166,8 @@ initializr:
           artifactId: spring-cloud-starter-consul-config
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/#spring-cloud-consul-config
+              href: https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/#distributed-configuration-usage
               description: Distributed Configuration With Spring Cloud Consul
-            - rel: reference
-              href: https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/#config-data-import
-              description: Spring Boot Config Data Import
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-files
-              description: Spring Boot External Application Properties
     - name: Spring Cloud Discovery
       bom: spring-cloud
       content:
