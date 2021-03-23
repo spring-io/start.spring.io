@@ -10,8 +10,6 @@ server:
     min-response-size: 2048
   error:
     include-message: always
-    whitelabel:
-      enabled: false
   forward-headers-strategy: native
 
 spring:
@@ -38,7 +36,7 @@ initializr:
             groupId: com.microsoft.azure
             version: 2.2.4
           - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
-            version: 3.1.0
+            version: 3.2.0
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
@@ -53,7 +51,7 @@ initializr:
         artifactId: solace-spring-boot-bom
         versionProperty: solace-spring-boot.version
         mappings:
-          - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
             version: 1.0.0
           - compatibilityRange: "[2.3.0.M1,2.5.0-M1)"
             version: 1.1.0
@@ -62,10 +60,12 @@ initializr:
         artifactId: solace-spring-cloud-bom
         versionProperty: solace-spring-cloud.version
         mappings:
-          - compatibilityRange: "[2.2.0.RELEASE, 2.3.0.M1)"
+          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
             version: 1.0.0
-          - compatibilityRange: "[2.3.0.M1,2.5.0-M1)"
+          - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
             version: 1.1.1
+          - compatibilityRange: "[2.4.0.M1,2.5.0-M1)"
+            version: 2.0.0
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -86,9 +86,9 @@ initializr:
           - compatibilityRange: "[2.4.0.M4,2.4.0]"
             version: 2020.0.0
           - compatibilityRange: "[2.4.1,2.5.0-M1)"
-            version: 2020.0.1
+            version: 2020.0.2
           - compatibilityRange: "2.4.x-SNAPSHOT"
-            version: 2020.0.2-SNAPSHOT
+            version: 2020.0.3-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-alibaba:
         groupId: com.alibaba.cloud
@@ -115,6 +115,8 @@ initializr:
             version: 2.2.6.RELEASE
           - compatibilityRange: "[2.3.0.RELEASE,2.4.0-M1)"
             version: 2.3.0.RELEASE
+          - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
+            version: 2.4.1
       spring-geode:
         groupId: org.springframework.geode
         artifactId: spring-geode-bom
@@ -132,7 +134,7 @@ initializr:
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
-        version: 1.15.1
+        version: 1.15.2
         versionProperty: testcontainers.version
       vaadin:
         groupId: com.vaadin
@@ -140,7 +142,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[2.1.0.RELEASE,2.5.0-M1)"
-            version: 14.4.8
+            version: 14.4.10
       wavefront:
         groupId: com.wavefront
         artifactId: wavefront-spring-boot-bom
@@ -161,6 +163,9 @@ initializr:
       v1-format-compatibility-range: "[2.0.0.RELEASE,2.4.0-M1)"
       v2-format-compatibility-range: "2.4.0-M1"
     repositories:
+      spring-releases:
+        name: Spring Releases
+        url: https://repo.spring.io/release
       sonatype-snapshots:
         name: Sonatype Snapshots
         url: https://oss.sonatype.org/content/repositories/snapshots/
@@ -168,6 +173,28 @@ initializr:
   dependencies:
     - name: Developer Tools
       content:
+        - name: Spring Native [Experimental]
+          id: native
+          compatibilityRange: "[2.4.3,2.5.0-M1)"
+          groupId: org.springframework.experimental
+          artifactId: spring-native
+          description: Incubating support for compiling Spring applications to native executables using the GraalVM native-image compiler.
+          facets:
+            - native
+          starter: false
+          repository: spring-releases
+          mappings:
+            - compatibilityRange: "[2.4.3,2.4.4)"
+              version: 0.9.0
+            - compatibilityRange: "[2.4.4,2.4.5-SNAPSHOT)"
+              version: 0.9.1
+            - compatibilityRange: "[2.4.5-SNAPSHOT,2.5.0-M1)"
+              version: 0.9.2-SNAPSHOT
+              repository: spring-snapshots
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
+              description: Spring Native Reference Guide
         - name: Spring Boot DevTools
           id: devtools
           groupId: org.springframework.boot
@@ -184,6 +211,8 @@ initializr:
           artifactId: lombok
           scope: annotationProcessor
           description: Java annotation library which helps to reduce boilerplate code.
+          facets:
+            - native
           starter: false
         - name: Spring Configuration Processor
           id: configuration-processor
@@ -203,6 +232,7 @@ initializr:
           facets:
             - web
             - json
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/rest-service/
@@ -221,6 +251,7 @@ initializr:
           facets:
             - json
             - reactive
+            - native
         - name: Rest Repositories
           id: data-rest
           facets:
@@ -298,6 +329,8 @@ initializr:
         - name: Thymeleaf
           id: thymeleaf
           description: A modern server-side Java template engine for both web and standalone environments. Allows HTML to be correctly displayed in browsers and as static prototypes.
+          facets:
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/handling-form-submission/
@@ -313,6 +346,8 @@ initializr:
         - name: Mustache
           id: mustache
           description: Logic-less Templates. There are no if statements, else clauses, or for loops. Instead there are only tags.
+          facets:
+            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-mvc-template-engines
@@ -329,6 +364,8 @@ initializr:
         - name: Spring Security
           id: security
           description: Highly customizable authentication and access-control framework for Spring applications.
+          facets:
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/securing-web/
@@ -344,12 +381,16 @@ initializr:
         - name: OAuth2 Client
           id: oauth2-client
           description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features.
+          facets:
+            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security-oauth2-client
         - name: OAuth2 Resource Server
           id: oauth2-resource-server
           description: Spring Boot integration for Spring Security's OAuth2 resource server features.
+          facets:
+            - native
           compatibilityRange: 2.1.0.M2
           links:
             - rel: reference
@@ -391,6 +432,8 @@ initializr:
         - name: JDBC API
           id: jdbc
           description: Database Connectivity API that defines how a client may connect and query a database.
+          facets:
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/relational-data-access/
@@ -405,6 +448,7 @@ initializr:
           description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
           facets:
             - jpa
+            - native
           aliases:
             - jpa
           links:
@@ -416,6 +460,8 @@ initializr:
         - name: Spring Data JDBC
           id: data-jdbc
           description: Persist data in SQL stores with plain JDBC using Spring Data.
+          facets:
+            - native
           links:
             - rel: guide
               href: https://github.com/spring-projects/spring-data-examples/tree/master/jdbc/basics
@@ -428,6 +474,7 @@ initializr:
           description: Provides Reactive Relational Database Connectivity to persist data in SQL stores using Spring Data in reactive applications.
           facets:
             - reactive
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-r2dbc/
@@ -494,6 +541,8 @@ initializr:
         - name: H2 Database
           id: h2
           description: Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
+          facets:
+            - native
           groupId: com.h2database
           artifactId: h2
           scope: runtime
@@ -501,6 +550,8 @@ initializr:
         - name: HyperSQL Database
           id: hsql
           description: Lightweight 100% Java SQL Database Engine.
+          facets:
+            - native
           groupId: org.hsqldb
           artifactId: hsqldb
           scope: runtime
@@ -522,6 +573,8 @@ initializr:
         - name: MySQL Driver
           id: mysql
           description: MySQL JDBC and R2DBC driver.
+          facets:
+            - native
           groupId: mysql
           artifactId: mysql-connector-java
           scope: runtime
@@ -543,6 +596,8 @@ initializr:
         - name: PostgreSQL Driver
           id: postgresql
           description: A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
+          facets:
+            - native
           groupId: org.postgresql
           artifactId: postgresql
           scope: runtime
@@ -552,6 +607,8 @@ initializr:
         - name: Spring Data Redis (Access+Driver)
           id: data-redis
           description: Advanced and thread-safe Java Redis client for synchronous, asynchronous, and reactive usage. Supports Cluster, Sentinel, Pipelining, Auto-Reconnect, Codecs and much more.
+          facets:
+            - native
           aliases:
             - redis
           links:
@@ -565,6 +622,7 @@ initializr:
           description: Access Redis key-value data stores in a reactive fashion with Spring Data Redis.
           facets:
             - reactive
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-redis/
@@ -574,6 +632,8 @@ initializr:
         - name: Spring Data MongoDB
           id: data-mongodb
           description: Store data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time.
+          facets:
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-mongodb/
@@ -585,12 +645,15 @@ initializr:
           description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB.
           facets:
             - reactive
+            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
         - name: Spring Data Elasticsearch (Access+Driver)
           id: data-elasticsearch
           description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
+          facets:
+            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-elasticsearch
@@ -647,6 +710,8 @@ initializr:
         - name: Spring Data Neo4j
           id: data-neo4j
           description: An open source NoSQL database that stores data structured as graphs consisting of nodes, connected by relationships.
+          facets:
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-neo4j/
@@ -676,6 +741,8 @@ initializr:
         - name: Spring for Apache Kafka
           id: kafka
           description: Publish, subscribe, store, and process streams of records.
+          facets:
+            - native
           groupId: org.springframework.kafka
           artifactId: spring-kafka
           starter: false
@@ -685,6 +752,8 @@ initializr:
         - name: Spring for Apache Kafka Streams
           id: kafka-streams
           description: Building stream processing applications with Apache Kafka Streams.
+          facets:
+            - native
           groupId: org.apache.kafka
           artifactId: kafka-streams
           starter: false
@@ -719,6 +788,8 @@ initializr:
         - name: WebSocket
           id: websocket
           description: Build WebSocket applications with SockJS and STOMP.
+          facets:
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-stomp-websocket/
@@ -731,6 +802,7 @@ initializr:
           compatibilityRange: 2.2.0.M2
           facets:
             - reactive
+            - native
         - name: Apache Camel
           id: camel
           compatibilityRange: "[2.0.0.M1,2.5.0-M1)"
@@ -776,12 +848,16 @@ initializr:
         - name: Validation
           id: validation
           description: Bean Validation with Hibernate validator.
+          facets:
+            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-validation
         - name: Java Mail Sender
           id: mail
           description: Send email using Java Mail and Spring Framework's JavaMailSender.
+          facets:
+            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-email
@@ -802,6 +878,8 @@ initializr:
         - name: Spring Boot Actuator
           id: actuator
           description: Supports built in (or custom) endpoints that let you monitor and manage your application - such as application health, metrics, sessions, etc.
+          facets:
+            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/actuator-service/
@@ -885,6 +963,8 @@ initializr:
           description: Distributed tracing via logs with Spring Cloud Sleuth.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-sleuth
+          facets:
+            - native
           bom: spring-cloud
         - name: Wavefront
           id: wavefront
@@ -892,6 +972,8 @@ initializr:
           artifactId: wavefront-spring-boot-starter
           bom: wavefront
           description: Publish Micrometer metrics to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
+          facets:
+            - native
           links:
             - rel: reference
               href: https://docs.wavefront.com/wavefront_springboot.html
@@ -982,6 +1064,8 @@ initializr:
           artifactId: spring-cloud-function-context
           starter: false
           description: Promotes the implementation of business logic via functions and supports a uniform programming model across serverless providers, as well as the ability to run standalone (locally or in a PaaS).
+          facets:
+            - native
           links:
             - rel: reference
               href: https://cloud.spring.io/spring-cloud-function/
@@ -1015,16 +1099,20 @@ initializr:
           compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
         - name: Open Service Broker
           id: open-service-broker
-          compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+          compatibilityRange: "[2.0.0.RELEASE,2.5.0-M1)"
           description: Framework for building Spring Boot apps that implement the Open Service Broker API, which can deliver services to applications running within cloud native platforms such as Cloud Foundry, Kubernetes and OpenShift.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-open-service-broker
           mappings:
-            - compatibilityRange: "[2.2.0.RELEASE,2.4.0-M1)"
+            - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
               version: 3.1.1.RELEASE
+            - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
+              version: 3.2.0
+            - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
+              version: 3.3.0
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/html5/
+              href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/
             - rel: guide
               href: https://github.com/spring-cloud-samples/bookstore-service-broker
               description: Using Spring Cloud Open Service Broker
@@ -1034,6 +1122,8 @@ initializr:
         - name: Config Client
           id: cloud-config-client
           description: Client that connects to a Spring Cloud Config Server to fetch the application's configuration.
+          facets:
+            - native
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-config
           links:
@@ -1049,6 +1139,8 @@ initializr:
         - name: Config Server
           id: cloud-config-server
           description: Central management for configuration via Git, SVN, or HashiCorp Vault.
+          facets:
+            - native
           groupId: org.springframework.cloud
           artifactId: spring-cloud-config-server
           links:
@@ -1267,30 +1359,32 @@ initializr:
           description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, RabbitMQ or Solace PubSub+).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
-    - name: Pivotal Cloud Foundry
+    - name: VMware Tanzu Application Service
       bom: spring-cloud-services
-      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+      compatibilityRange: "[2.0.0.RELEASE,2.5.0-M1)"
       content:
-        - name: Config Client (PCF)
+        - name: Config Client (TAS)
           id: scs-config-client
-          description: Config client on Pivotal Cloud Foundry.
+          description: Config client on VMware Tanzu Application Service.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-config-client
-          starter: false
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
-        - name: Service Registry (PCF)
+          mappings:
+            - compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+              starter: false
+        - name: Service Registry (TAS)
           id: scs-service-registry
-          description: Eureka service discovery client on Pivotal Cloud Foundry.
+          description: Eureka service discovery client on VMware Tanzu Application Service.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-service-registry
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
-        - name: Circuit Breaker (PCF)
+        - name: Circuit Breaker (TAS)
           id: scs-circuit-breaker
-          description: Hystrix circuit breaker client on Pivotal Cloud Foundry.
+          description: Hystrix circuit breaker client on VMware Tanzu Application Service.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-circuit-breaker
           links:
@@ -1320,7 +1414,7 @@ initializr:
           starter: false
     - name: Microsoft Azure
       bom: azure
-      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
+      compatibilityRange: "[2.2.11.RELEASE,2.4.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
@@ -1506,7 +1600,7 @@ initializr:
       id: war
       default: false
   javaVersions:
-    - id: 15
+    - id: 16
       default: false
     - id: 11
       default: true

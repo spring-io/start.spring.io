@@ -116,11 +116,11 @@ version:
 
 [source]
 ----
-Requires Spring Boot >=2.0.0.RELEASE and <2.3.0.RELEASE
+Requires Spring Boot >=2.4.0 and <2.5.0-M1
 ----
 
 Concretely, this defines a "version range" that states the dependency is deprecated and is
-no longer available as of Spring Boot 2.3. You may want to check the release notes of the
+no longer available as of Spring Boot 2.5. You may want to check the release notes of the
 related project to understand what your migration path can be. Alternatively, the message
 could be:
 
@@ -237,13 +237,13 @@ understand how you can generate a project. These are obviously tailored to the c
 you are using.
 
 Let's assume that you want to generate a "my-project.zip" project based on Spring Boot
-`2.3.5.RELEASE`, using the `web` and `devtools` dependencies (remember, those two ids are
+`2.4.2`, using the `web` and `devtools` dependencies (remember, those two ids are
 displayed in the capabilities of the service):
 
 [source]
 ----
 $ curl https://start.spring.io/starter.zip -d dependencies=web,devtools \
-           -d bootVersion=2.3.5.RELEASE -o my-project.zip
+           -d bootVersion=2.4.2 -o my-project.zip
 ----
 
 If you extract `my-project.zip`, you'll notice a few differences compared to what happens
@@ -259,11 +259,11 @@ The exact same project can be generated using the `http` command as well:
 [source]
 ----
 $ http https://start.spring.io/starter.zip dependencies==web,devtools \
-           bootVersion==2.3.5.RELEASE -d
+           bootVersion==2.4.2 -d
 ----
 
-NOTE: `HTTPie` reads the same hint as the browser so it will store a `demo.zip` file in
-the current directory, with the same differences discussed above.
+NOTE: `HTTPie` reads the same hint as the browser, so it will store a `demo.zip` file in
+the current directory with the same differences as discussed above.
 
 
 
