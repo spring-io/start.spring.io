@@ -1128,7 +1128,7 @@ initializr:
           artifactId: spring-cloud-starter-config
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_client_side_usage
+              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#client_side_usage
               description: Config Server Client
         - name: Config Server
           id: cloud-config-server
