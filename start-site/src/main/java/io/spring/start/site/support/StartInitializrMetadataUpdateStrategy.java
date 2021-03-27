@@ -16,7 +16,9 @@
 
 package io.spring.start.site.support;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +44,8 @@ public class StartInitializrMetadataUpdateStrategy extends SaganInitializrMetada
 	@Override
 	protected List<DefaultMetadataElement> fetchSpringBootVersions(String url) {
 		List<DefaultMetadataElement> versions = super.fetchSpringBootVersions(url);
-		return versions.stream().filter(this::isCompatibleVersion).collect(Collectors.toList());
+		return Optional.ofNullable(versions).orElse(Collections.emptyList()).stream().filter(this::isCompatibleVersion)
+				.collect(Collectors.toList());
 	}
 
 	private boolean isCompatibleVersion(DefaultMetadataElement versionMetadata) {
