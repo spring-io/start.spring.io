@@ -1,6 +1,6 @@
 github-repo: "https://github.com/spring-io/start.spring.io.git"
 github-repo-name: "spring-io/start.spring.io"
-branch: master
+branch: main
 artifactory-server: "https://repo.spring.io"
 artifactory-repo: "initializr-ci-local"
 docker-hub-organization: "springci"
