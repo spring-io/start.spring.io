@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,8 @@ public class StartInitializrMetadataUpdateStrategy extends SaganInitializrMetada
 	@Override
 	protected List<DefaultMetadataElement> fetchSpringBootVersions(String url) {
 		List<DefaultMetadataElement> versions = super.fetchSpringBootVersions(url);
-		return versions.stream().filter(this::isCompatibleVersion).collect(Collectors.toList());
+		return (versions != null) ? versions.stream().filter(this::isCompatibleVersion).collect(Collectors.toList())
+				: null;
 	}
 
 	private boolean isCompatibleVersion(DefaultMetadataElement versionMetadata) {
