@@ -1130,8 +1130,8 @@ initializr:
           artifactId: spring-cloud-starter-config
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#client_side_usage
-              description: Config Server Client
+              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_client_side_usage
+              description: Config Client Quick Start
         - name: Config Server
           id: cloud-config-server
           description: Central management for configuration via Git, SVN, or HashiCorp Vault.
@@ -1150,8 +1150,8 @@ initializr:
           artifactId: spring-cloud-starter-vault-config
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#quick-start
-              description: Spring Cloud Vault
+              href: https://docs.spring.io/spring-cloud-vault/docs/current/reference/html/#client-side-usage
+              description: Vault Client Quick Start
         - name: Apache Zookeeper Configuration
           id: cloud-starter-zookeeper-config
           description: Enable and configure common patterns inside your application and build large distributed systems with Apache Zookeeper based components. The provided patterns include Service Discovery and Configuration.
@@ -1160,7 +1160,7 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#distributed-configuration-usage
-              description: Distributed Configuration with Zookeeper
+              description: Apache Zookeeper Quick Start
         - name: Consul Configuration
           id: cloud-starter-consul-config
           description: Enable and configure the common patterns inside your application and build large distributed systems with Hashicorp’s Consul. The patterns provided include Service Discovery, Distributed Configuration and Control Bus.
@@ -1169,7 +1169,7 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/#distributed-configuration-usage
-              description: Distributed Configuration With Spring Cloud Consul
+              description: Spring Cloud Consul Quick Start
     - name: Spring Cloud Discovery
       bom: spring-cloud
       content:
