@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ abstract class AbstractSpringCloudContractPluginTests<T extends Build> {
 	@BeforeEach
 	void setup() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("2.2.0.RELEASE"));
+		description.setPlatformVersion(Version.parse("2.2.2.RELEASE"));
 		this.resolver = mock(SpringCloudProjectVersionResolver.class);
 		this.customizer = getCustomizer(description, this.resolver);
 	}
@@ -79,7 +79,7 @@ abstract class AbstractSpringCloudContractPluginTests<T extends Build> {
 
 	@Test
 	void customizerShouldNotConfigurePluginsRepoWhenVersionRelease() {
-		given(this.resolver.resolveVersion(any(), any())).willReturn("2.2.0.RELEASE");
+		given(this.resolver.resolveVersion(any(), any())).willReturn("2.2.2.RELEASE");
 		T build = getBuild();
 		this.customizer.customize(build);
 		assertThat(build.pluginRepositories().isEmpty()).isTrue();

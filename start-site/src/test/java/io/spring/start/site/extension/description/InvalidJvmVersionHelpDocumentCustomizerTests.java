@@ -31,7 +31,7 @@ class InvalidJvmVersionHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void warningAddedWithSpringBoot21AndJava13() {
-		assertHelpDocument("2.2.0.RELEASE", "14").lines().containsSubsequence("# Read Me First",
+		assertHelpDocument("2.2.2.RELEASE", "14").lines().containsSubsequence("# Read Me First",
 				"* The JVM level was changed from '14' to '11', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
 	}
 

@@ -33,9 +33,9 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 
 	@Test
 	void linksAddedToHelpDocumentForMavenBuildPreSpringBoot23() {
-		assertHelpDocument("maven-build", "2.2.0.RELEASE").contains(
+		assertHelpDocument("maven-build", "2.2.2.RELEASE").contains(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.0.RELEASE/maven-plugin/)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/maven-plugin/)");
 	}
 
 	@Test
@@ -56,9 +56,9 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 
 	@Test
 	void linksNotAddedToHelpDocumentForGradleBuild() {
-		assertHelpDocument("gradle-build", "2.2.0.RELEASE").doesNotContain(
+		assertHelpDocument("gradle-build", "2.2.2.RELEASE").doesNotContain(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.0.RELEASE/maven-plugin/)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/maven-plugin/)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String type, String version) {

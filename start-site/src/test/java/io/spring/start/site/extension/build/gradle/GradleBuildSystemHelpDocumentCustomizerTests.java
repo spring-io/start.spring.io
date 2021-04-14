@@ -33,10 +33,10 @@ class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void linksAddedToHelpDocumentForGradleBuildPreSpringBoot23() {
-		assertHelpDocument("gradle-build", "2.2.0.RELEASE").contains(
+		assertHelpDocument("gradle-build", "2.2.2.RELEASE").contains(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
-				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.0.RELEASE/gradle-plugin/reference/html/)");
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/gradle-plugin/reference/html/)");
 	}
 
 	@Test
@@ -50,10 +50,10 @@ class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void linksNotAddedToHelpDocumentForMavenBuild() {
-		assertHelpDocument("maven-build", "2.2.0.RELEASE").doesNotContain(
+		assertHelpDocument("maven-build", "2.2.2.RELEASE").doesNotContain(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
-				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.0.RELEASE/gradle-plugin/reference/html/)");
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/gradle-plugin/reference/html/)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String type, String version) {

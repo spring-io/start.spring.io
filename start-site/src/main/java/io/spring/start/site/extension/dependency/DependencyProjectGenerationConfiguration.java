@@ -78,7 +78,7 @@ public class DependencyProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnGradleVersion({ "4", "5", "6" })
+	@ConditionalOnGradleVersion({ "6", "7" })
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	@ConditionalOnRequestedDependency("lombok")
 	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer() {

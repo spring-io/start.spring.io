@@ -36,27 +36,22 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void java8IsMandatoryMaven() {
-		assertThat(mavenPom(javaProject("1.7", "2.2.0.RELEASE"))).hasProperty("java.version", "1.8");
+		assertThat(mavenPom(javaProject("1.7", "2.2.2.RELEASE"))).hasProperty("java.version", "1.8");
 	}
 
 	@Test
 	void java8IsMandatoryGradle() {
-		assertThat(gradleBuild(javaProject("1.7", "2.2.0.RELEASE"))).hasSourceCompatibility("1.8");
-	}
-
-	@Test // Gradle 5.x does not work with Java 13
-	void java13CannotBeUsedWithSpringBoot220Gradle() {
-		assertThat(gradleBuild(javaProject("13", "2.2.0.RELEASE"))).hasSourceCompatibility("11");
+		assertThat(gradleBuild(javaProject("1.7", "2.2.2.RELEASE"))).hasSourceCompatibility("1.8");
 	}
 
 	@Test
 	void javaUnknownVersionIsLeftAsIs() {
-		assertThat(mavenPom(javaProject("9999999", "2.2.0.RELEASE"))).hasProperty("java.version", "9999999");
+		assertThat(mavenPom(javaProject("9999999", "2.2.2.RELEASE"))).hasProperty("java.version", "9999999");
 	}
 
 	@Test
 	void javaInvalidVersionIsLeftAsIs() {
-		assertThat(mavenPom(javaProject("${another.version}", "2.2.0.RELEASE"))).hasProperty("java.version",
+		assertThat(mavenPom(javaProject("${another.version}", "2.2.2.RELEASE"))).hasProperty("java.version",
 				"${another.version}");
 	}
 
@@ -95,20 +90,20 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedJavaParameters() {
-		return Stream.of(java("9", "2.2.0.RELEASE"), java("10", "2.2.0.RELEASE"), java("11", "2.2.0.RELEASE"),
-				java("12", "2.2.0.RELEASE"), java("13", "2.2.2.RELEASE"), java("14", "2.2.6.RELEASE"),
+		return Stream.of(java("9", "2.2.2.RELEASE"), java("10", "2.2.2.RELEASE"), java("11", "2.2.2.RELEASE"),
+				java("12", "2.2.2.RELEASE"), java("13", "2.2.2.RELEASE"), java("14", "2.2.6.RELEASE"),
 				java("15", "2.3.4.RELEASE"));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
-		return Stream.of(kotlin("9", "2.2.0.RELEASE"), kotlin("10", "2.2.0.RELEASE"), kotlin("11", "2.2.0.RELEASE"),
-				kotlin("12", "2.2.0.RELEASE"), kotlin("13", "2.2.2.RELEASE"), kotlin("14", "2.2.6.RELEASE"),
+		return Stream.of(kotlin("9", "2.2.2.RELEASE"), kotlin("10", "2.2.2.RELEASE"), kotlin("11", "2.2.2.RELEASE"),
+				kotlin("12", "2.2.2.RELEASE"), kotlin("13", "2.2.2.RELEASE"), kotlin("14", "2.2.6.RELEASE"),
 				kotlin("15", "2.3.4.RELEASE"));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {
-		return Stream.of(groovy("9", "2.2.0.RELEASE"), groovy("10", "2.2.0.RELEASE"), groovy("11", "2.2.0.RELEASE"),
-				groovy("12", "2.2.0.RELEASE"), groovy("13", "2.2.2.RELEASE"), groovy("14", "2.2.6.RELEASE"),
+		return Stream.of(groovy("9", "2.2.2.RELEASE"), groovy("10", "2.2.2.RELEASE"), groovy("11", "2.2.2.RELEASE"),
+				groovy("12", "2.2.2.RELEASE"), groovy("13", "2.2.2.RELEASE"), groovy("14", "2.2.6.RELEASE"),
 				groovy("15", "2.3.4.RELEASE"));
 	}
 

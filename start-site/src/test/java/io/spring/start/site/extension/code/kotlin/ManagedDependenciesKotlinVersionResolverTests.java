@@ -41,12 +41,12 @@ class ManagedDependenciesKotlinVersionResolverTests {
 	@SuppressWarnings("unchecked")
 	void kotlinVersionCanBeResolved(@TempDir Path temp) {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("2.1.6.RELEASE"));
+		description.setPlatformVersion(Version.parse("2.2.2.RELEASE"));
 		Function<ProjectDescription, String> fallback = mock(Function.class);
 		String version = new ManagedDependenciesKotlinVersionResolver(
 				DependencyManagementVersionResolver.withCacheLocation(temp), fallback)
 						.resolveKotlinVersion(description);
-		assertThat(version).isEqualTo("1.2.71");
+		assertThat(version).isEqualTo("1.3.61");
 		verifyNoInteractions(fallback);
 	}
 

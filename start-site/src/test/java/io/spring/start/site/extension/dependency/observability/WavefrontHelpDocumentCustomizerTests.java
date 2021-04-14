@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void wavefrontWithSpringBoot22AddsWarning() {
-		assertHelpDocument("2.2.0.RELEASE", "wavefront")
+		assertHelpDocument("2.2.2.RELEASE", "wavefront")
 				.contains("* Distributed tracing with Wavefront requires Spring Boot 2.3 or later.");
 	}
 
@@ -44,7 +44,7 @@ class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void wavefrontAddGeneralSection() {
-		assertHelpDocument("2.2.0.RELEASE", "wavefront").contains("## Observability with Wavefront", "",
+		assertHelpDocument("2.2.2.RELEASE", "wavefront").contains("## Observability with Wavefront", "",
 				"If you don't have a Wavefront account, the starter will create a freemium account for you.",
 				"The URL to access the Wavefront Service dashboard is logged on startup.");
 	}
@@ -63,7 +63,7 @@ class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void wavefrontWithSpringBoot22DoesNotAddTracingNote() {
-		assertHelpDocument("2.2.0.RELEASE", "wavefront").doesNotContain(
+		assertHelpDocument("2.2.2.RELEASE", "wavefront").doesNotContain(
 				"Finally, you can opt-in for distributed tracing by adding the Spring Cloud Sleuth starter.");
 	}
 
