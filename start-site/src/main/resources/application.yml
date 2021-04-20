@@ -171,6 +171,7 @@ initializr:
       sonatype-snapshots:
         name: Sonatype Snapshots
         url: https://oss.sonatype.org/content/repositories/snapshots/
+        releasesEnabled: false
         snapshotsEnabled: true
   dependencies:
     - name: Developer Tools
