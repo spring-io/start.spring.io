@@ -55,16 +55,6 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 				"${another.version}");
 	}
 
-	@Test
-	void java16CanBeUsedWithMavenAndSpringBoot24() {
-		assertThat(mavenPom(project("java", "16", "2.4.4"))).hasProperty("java.version", "16");
-	}
-
-	@Test
-	void java16CanBeUsedWithGroovyAndSpringBoot25() {
-		assertThat(mavenPom(project("groovy", "16", "2.5.0-M1"))).hasProperty("java.version", "16");
-	}
-
 	@ParameterizedTest(name = "{0} - Java {1} - Spring Boot {2}")
 	@MethodSource("supportedMavenParameters")
 	void mavenBuildWithSupportedOptionsDoesNotDowngradeJavaVersion(String language, String javaVersion,
@@ -92,19 +82,19 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	private static Stream<Arguments> supportedJavaParameters() {
 		return Stream.of(java("9", "2.2.2.RELEASE"), java("10", "2.2.2.RELEASE"), java("11", "2.2.2.RELEASE"),
 				java("12", "2.2.2.RELEASE"), java("13", "2.2.2.RELEASE"), java("14", "2.2.6.RELEASE"),
-				java("15", "2.3.4.RELEASE"));
+				java("15", "2.3.4.RELEASE"), java("16", "2.5.0-RC1"));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
 		return Stream.of(kotlin("9", "2.2.2.RELEASE"), kotlin("10", "2.2.2.RELEASE"), kotlin("11", "2.2.2.RELEASE"),
 				kotlin("12", "2.2.2.RELEASE"), kotlin("13", "2.2.2.RELEASE"), kotlin("14", "2.2.6.RELEASE"),
-				kotlin("15", "2.3.4.RELEASE"));
+				kotlin("15", "2.3.4.RELEASE"), kotlin("16", "2.5.0-RC1"));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {
 		return Stream.of(groovy("9", "2.2.2.RELEASE"), groovy("10", "2.2.2.RELEASE"), groovy("11", "2.2.2.RELEASE"),
 				groovy("12", "2.2.2.RELEASE"), groovy("13", "2.2.2.RELEASE"), groovy("14", "2.2.6.RELEASE"),
-				groovy("15", "2.3.4.RELEASE"));
+				groovy("15", "2.3.4.RELEASE"), groovy("16", "2.5.0-RC1"));
 	}
 
 	@ParameterizedTest(name = "{0} - Java {1} - Spring Boot {2}")

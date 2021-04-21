@@ -46,7 +46,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final VersionRange SPRING_BOOT_2_4_4_OR_LATER = VersionParser.DEFAULT.parseRange("2.4.4");
 
-	private static final VersionRange SPRING_BOOT_2_5_OR_LATER = VersionParser.DEFAULT.parseRange("2.5.0-M1");
+	private static final VersionRange SPRING_BOOT_2_5_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.5.0-RC1");
 
 	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.RELEASE");
 
@@ -76,17 +76,20 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			updateTo(description, "11");
 		}
 		if (javaGeneration == 16) {
-			// Kotlin does not support Java 16 yet
-			if (description.getLanguage() instanceof KotlinLanguage) {
+			// Full Support as of Spring Boot 2.5 only.
+			// 16 support as of Kotlin 1.5
+			if (description.getLanguage() instanceof KotlinLanguage
+					&& !SPRING_BOOT_2_5_0_OR_LATER.match(platformVersion)) {
 				updateTo(description, "11");
 			}
-			// 16 support only as of Gradle 7
-			if (description.getBuildSystem() instanceof GradleBuildSystem) {
+			// 16 support as of Gradle 7
+			if (description.getBuildSystem() instanceof GradleBuildSystem
+					&& !SPRING_BOOT_2_5_0_OR_LATER.match(platformVersion)) {
 				updateTo(description, "11");
 			}
 			// Groovy 3 only available as of 2.5
 			if (description.getLanguage() instanceof GroovyLanguage
-					&& !SPRING_BOOT_2_5_OR_LATER.match(platformVersion)) {
+					&& !SPRING_BOOT_2_5_0_OR_LATER.match(platformVersion)) {
 				updateTo(description, "11");
 			}
 			// 16 support only as of 2.4.4
