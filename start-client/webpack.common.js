@@ -3,7 +3,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
-const CopyPlugin = require('copy-webpack-plugin')
 const isDev = process.env.NODE_ENV === 'development'
 
 const CODE = `<script defer src="https://www.googletagmanager.com/gtag/js?id={{ID}}"></script><script>window.dataLayer=window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date()); gtag('config', '{{ID}}');</script>`
@@ -14,18 +13,16 @@ class WebpackGoogleTagManager {
   }
   apply(compiler) {
     compiler.hooks.compilation.tap('gtag', compilation => {
-      compilation.hooks.htmlWebpackPluginAfterHtmlProcessing.tap(
+      HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
         'gtag',
-        ({ html }) => {
+        (htmlPlugin, callback) => {
           if (this.id) {
-            html = html.replace(
+            htmlPlugin.html = htmlPlugin.html.replace(
               '</body>',
               CODE.replace(new RegExp('{{ID}}', 'g'), this.id) + '</body>'
             )
-            return {
-              html,
-            }
           }
+          callback(null, htmlPlugin)
         }
       )
     })
@@ -37,8 +34,8 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'public'),
     publicPath: '/',
-    filename: 'main-[hash].js',
-    chunkFilename: 'chunk-[chunkhash].js',
+    filename: 'main.[id].[fullhash].js',
+    chunkFilename: '[id].[chunkhash].js',
   },
   module: {
     rules: [
@@ -66,12 +63,6 @@ const config = {
     ],
   },
   plugins: [
-    new CopyPlugin([
-      {
-        from: path.resolve(__dirname, 'static'),
-        to: path.resolve(__dirname, 'public'),
-      },
-    ]),
     new HtmlWebpackPlugin({
       minify: isDev
         ? false
