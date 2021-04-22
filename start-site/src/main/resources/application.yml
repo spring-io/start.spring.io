@@ -75,7 +75,7 @@ initializr:
         order: 50
         mappings:
           - compatibilityRange: "[2.2.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
-            version: Hoxton.SR10
+            version: Hoxton.SR11
           - compatibilityRange: "[2.3.x.BUILD-SNAPSHOT, 2.4.0.M1)"
             version: Hoxton.BUILD-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
