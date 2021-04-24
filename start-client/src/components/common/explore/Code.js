@@ -3,8 +3,7 @@ import Prism from 'prism-react-renderer/prism'
 import PropTypes from 'prop-types'
 import React from 'react'
 import get from 'lodash.get'
-
-const ReactMarkdown = require('react-markdown')
+import ReactMarkdown from 'react-markdown'
 
 if (typeof global !== 'undefined') {
   global.Prism = Prism
@@ -21,7 +20,7 @@ function Code({ item }) {
   if (language === 'markdown' && !get(item, 'force', false)) {
     return (
       <div className='markdown'>
-        <ReactMarkdown linkTarget='_blank' source={code} />
+        <ReactMarkdown linkTarget='_blank'>{code}</ReactMarkdown>
       </div>
     )
   }
