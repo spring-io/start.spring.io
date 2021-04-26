@@ -4,6 +4,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const isDev = process.env.NODE_ENV === 'development'
+const CopyPlugin = require('copy-webpack-plugin')
 
 const CODE = `<script defer src="https://www.googletagmanager.com/gtag/js?id={{ID}}"></script><script>window.dataLayer=window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date()); gtag('config', '{{ID}}');</script>`
 
@@ -63,6 +64,14 @@ const config = {
     ],
   },
   plugins: [
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'static/images'),
+          to: path.resolve(__dirname, 'public/images'),
+        },
+      ],
+    }),
     new HtmlWebpackPlugin({
       minify: isDev
         ? false
