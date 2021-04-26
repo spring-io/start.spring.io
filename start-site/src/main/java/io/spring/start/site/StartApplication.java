@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package io.spring.start.site;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
@@ -26,6 +28,8 @@ import io.spring.start.site.support.CacheableDependencyManagementVersionResolver
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
 import io.spring.start.site.web.HomeController;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -34,6 +38,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 /**
  * Initializr website application.
@@ -66,6 +72,34 @@ public class StartApplication {
 	public DependencyManagementVersionResolver dependencyManagementVersionResolver() throws IOException {
 		return new CacheableDependencyManagementVersionResolver(DependencyManagementVersionResolver
 				.withCacheLocation(Files.createTempDirectory("version-resolver-cache-")));
+	}
+
+	// Workaround for gh-682
+	@Bean
+	static BeanPostProcessor disableUseSetLastModifiedBeanPostProcessor() {
+		return new DisableUseSetLastModifiedBeanPostProcessor();
+	}
+
+	private static class DisableUseSetLastModifiedBeanPostProcessor implements BeanPostProcessor {
+
+		private static final List<String> VALID_PATTERNS = Arrays.asList("/webjars/**", "/**");
+
+		@Override
+		public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+			if (bean instanceof SimpleUrlHandlerMapping) {
+				SimpleUrlHandlerMapping urlHandlerMapping = (SimpleUrlHandlerMapping) bean;
+				urlHandlerMapping.getUrlMap().forEach(this::disableUseSetLastModified);
+			}
+			return bean;
+		}
+
+		private void disableUseSetLastModified(String pattern, Object handler) {
+			if (VALID_PATTERNS.contains(pattern) && handler instanceof ResourceHttpRequestHandler) {
+				ResourceHttpRequestHandler resourceHandler = (ResourceHttpRequestHandler) handler;
+				resourceHandler.setUseLastModified(false);
+			}
+		}
+
 	}
 
 }
