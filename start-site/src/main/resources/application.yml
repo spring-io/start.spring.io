@@ -1404,7 +1404,7 @@ initializr:
           description: Auto-configuration for Azure Services (Service Bus, Storage, Active Directory, Cosmos DB, Key Vault, and more).
           links:
             - rel: reference
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot
+              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
               groupId: com.microsoft.azure
@@ -1415,10 +1415,10 @@ initializr:
           description: Spring Security integration with Azure Active Directory for authentication.
           links:
             - rel: guide
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-samples/azure-active-directory-spring-boot-sample
+              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-active-directory-webapp
               description: Using Active Directory
             - rel: reference
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-active-directory-spring-boot-starter
+              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-starter-active-directory
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
               groupId: com.microsoft.azure
@@ -1430,10 +1430,10 @@ initializr:
           description: Manage application secrets and keys.
           links:
             - rel: guide
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-samples/azure-keyvault-secrets-spring-boot-sample
+              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-keyvault-secrets
               description: Using Key Vault
             - rel: reference
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-keyvault-secrets-spring-boot-starter
+              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-starter-keyvault-secrets
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
               groupId: com.microsoft.azure
@@ -1445,10 +1445,10 @@ initializr:
           description: Azure Storage service integration.
           links:
             - rel: guide
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-samples/azure-storage-spring-boot-sample
+              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-storage-resource
               description: Using Azure Storage
             - rel: reference
-              href: https://github.com/Microsoft/azure-spring-boot/tree/master/azure-spring-boot-starters/azure-storage-spring-boot-starter
+              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-starter-storage
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
               groupId: com.microsoft.azure
