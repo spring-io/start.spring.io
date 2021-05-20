@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	private TextAssert assertHelpDocument(String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
+		request.setBootVersion("2.4.6");
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
 	}

@@ -3,6 +3,14 @@ logging:
     org.springframework.core.env: warn
     org.springframework.jndi: warn
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+
 server:
   compression:
     enabled: true
