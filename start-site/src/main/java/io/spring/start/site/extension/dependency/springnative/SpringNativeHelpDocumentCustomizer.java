@@ -46,12 +46,16 @@ class SpringNativeHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	private final String springNativeVersion;
 
+	private final String nativeBuildToolsVersion;
+
 	SpringNativeHelpDocumentCustomizer(InitializrMetadata metadata, ProjectDescription description, Build build,
 			String springNativeVersion) {
 		this.metadata = metadata;
 		this.description = description;
 		this.build = build;
 		this.springNativeVersion = (springNativeVersion != null) ? springNativeVersion : "current";
+		this.nativeBuildToolsVersion = (springNativeVersion != null)
+				? SpringNativeBuildtoolsVersionResolver.resolve(springNativeVersion) : null;
 	}
 
 	@Override
@@ -64,9 +68,16 @@ class SpringNativeHelpDocumentCustomizer implements HelpDocumentCustomizer {
 		handleUnsupportedDependencies(document);
 		Map<String, Object> model = new HashMap<>();
 		model.put("version", this.springNativeVersion);
-		model.put("buildImageCommand", mavenBuild ? "./mvnw spring-boot:build-image" : "./gradlew bootBuildImage");
-		model.put("runImageCommand", createRunImageCommand());
-		document.addSection("spring-native", model);
+		// Cloud native buildpacks
+		model.put("cnbBuildImageCommand", mavenBuild ? "./mvnw spring-boot:build-image" : "./gradlew bootBuildImage");
+		model.put("cnbRunImageCommand", createRunImageCommand());
+		// Native buildtools plugin
+		model.put("nbtBuildImageCommand", mavenBuild ? "./mvnw package -Pnative" : "./gradlew nativeBuild");
+		model.put("nbtRunImageCommand", String.format("%s/%s", mavenBuild ? "target" : "build/native-image",
+				this.build.getSettings().getArtifact()));
+
+		String templateName = (this.nativeBuildToolsVersion != null) ? "spring-native" : "spring-native-0.9.x";
+		document.addSection(templateName, model);
 	}
 
 	private String createRunImageCommand() {

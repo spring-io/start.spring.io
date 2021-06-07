@@ -1,0 +1,16 @@
+## Spring Native
+
+This project has been configured to let you generate a lightweight container running a native executable.
+Docker should be installed and configured on your machine prior to creating the image, see [the Getting Started section of the reference guide](https://docs.spring.io/spring-native/docs/{{version}}/reference/htmlsingle/#getting-started-buildpacks).
+
+To create the image, run the following goal:
+
+```
+$ {{cnbBuildImageCommand}}
+```
+
+Then, you can run the app like any other container:
+
+```
+$ {{cnbRunImageCommand}}
+```

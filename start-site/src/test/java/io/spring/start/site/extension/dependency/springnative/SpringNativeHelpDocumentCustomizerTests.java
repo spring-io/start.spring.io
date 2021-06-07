@@ -127,6 +127,21 @@ class SpringNativeHelpDocumentCustomizerTests extends AbstractExtensionTests {
 				"The following dependencies are not known to work with Spring Native: 'Spring Web Services, Jersey'. As a result, your application may not work as expected.");
 	}
 
+	@Test
+	void nativeSectionWithNativeBuildtoolsAddsDedicatedSection() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setBootVersion("2.5.1");
+		assertHelpDocument(request).contains("Lightweight Container with Cloud Native Buildpacks",
+				"Executable with Native Build Tools");
+	}
+
+	@Test
+	void nativeSectionWithoutNativeBuildtoolsDoesNotAddDedicatedSection() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setBootVersion("2.4.5");
+		assertHelpDocument(request).doesNotContain("Executable with Native Build Tools");
+	}
+
 	private TextAssert assertHelpDocument(ProjectRequest request) {
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));

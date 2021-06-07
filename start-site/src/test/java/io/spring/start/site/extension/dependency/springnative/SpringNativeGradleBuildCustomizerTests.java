@@ -56,6 +56,42 @@ abstract class SpringNativeGradleBuildCustomizerTests {
 	}
 
 	@Test
+	void gradleBuildWithNative09xDoesNotAddMavenCentral() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.9.2");
+		customizer.customize(build);
+		assertThat(build.pluginRepositories().ids()).doesNotContain("maven-central");
+	}
+
+	@Test
+	void gradleBuildWithNative010AddMavenCentral() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.10.0");
+		customizer.customize(build);
+		assertThat(build.pluginRepositories().ids()).contains("maven-central");
+	}
+
+	@Test
+	void gradleBuildWithNative09xDoesNotNativeBuildtoolsPlugin() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.9.2");
+		customizer.customize(build);
+		assertThat(build.plugins().has("org.graalvm.buildtools.native")).isFalse();
+	}
+
+	@Test
+	void gradleBuildWithNative010AddNativeBuildtoolsPlugin() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.10.0");
+		customizer.customize(build);
+		GradlePlugin springAotPlugin = build.plugins().values()
+				.filter((plugin) -> plugin.getId().equals("org.graalvm.buildtools.native")).findAny().orElse(null);
+		assertThat(springAotPlugin).isNotNull();
+		assertThat(springAotPlugin).isInstanceOf(StandardGradlePlugin.class)
+				.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.0"));
+	}
+
+	@Test
 	abstract void gradleBuildCustomizeSpringBootPlugin();
 
 	protected GradleBuild createBuild(String springNativeVersion) {

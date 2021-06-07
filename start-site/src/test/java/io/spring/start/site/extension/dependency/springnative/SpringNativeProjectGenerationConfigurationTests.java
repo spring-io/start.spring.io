@@ -19,6 +19,7 @@ package io.spring.start.site.extension.dependency.springnative;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -70,6 +71,15 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 	void mavenBuildReusePropertyForSpringNativeDependency() {
 		assertThat(mavenPom(createProjectRequest("native"))).hasDependency("org.springframework.experimental",
 				"spring-native", "${spring-native.version}");
+	}
+
+	@Test
+	void gradleBuildConfigureMavenCentral() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setType("gradle-project");
+		assertThat(generateProject(request)).containsFiles("settings.gradle").textFile("settings.gradle")
+				.containsSubsequence("pluginManagement {", "repositories {", "mavenCentral()", "gradlePluginPortal()",
+						"}", "}");
 	}
 
 	@Test
@@ -136,13 +146,37 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 	}
 
 	@Test
-	void mavenBuildConfigureSpringBootPlugin() {
-		assertThat(mavenPom(createProjectRequest("native"))).lines().containsSequence(
+	void mavenBuildWithNative0Dot9ConfigureSpringBootPlugin() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setBootVersion("2.4.7");
+		assertThat(mavenPom(request)).lines().containsSequence(
 		// @formatter:off
 				"			<plugin>",
 				"				<groupId>org.springframework.boot</groupId>",
 				"				<artifactId>spring-boot-maven-plugin</artifactId>",
 				"				<configuration>",
+				"					<image>",
+				"						<builder>paketobuildpacks/builder:tiny</builder>",
+				"						<env>",
+				"							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>",
+				"						</env>",
+				"					</image>",
+				"				</configuration>",
+				"			</plugin>");
+		// @formatter:on
+	}
+
+	@Test
+	void mavenBuildWithNative0Dot10ConfigureSpringBootPlugin() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setBootVersion("2.5.0");
+		assertThat(mavenPom(request)).lines().containsSequence(
+		// @formatter:off
+				"			<plugin>",
+				"				<groupId>org.springframework.boot</groupId>",
+				"				<artifactId>spring-boot-maven-plugin</artifactId>",
+				"				<configuration>",
+				"					<classifier>${repackage.classifier}</classifier>",
 				"					<image>",
 				"						<builder>paketobuildpacks/builder:tiny</builder>",
 				"						<env>",

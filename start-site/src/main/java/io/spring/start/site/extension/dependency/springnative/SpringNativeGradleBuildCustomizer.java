@@ -35,6 +35,16 @@ abstract class SpringNativeGradleBuildCustomizer implements BuildCustomizer<Grad
 		// AOT plugin
 		build.plugins().add("org.springframework.experimental.aot", (plugin) -> plugin.setVersion(springNativeVersion));
 
+		// Native buildtools plugin
+		String nativeBuildtoolsVersion = SpringNativeBuildtoolsVersionResolver.resolve(springNativeVersion);
+		if (nativeBuildtoolsVersion != null) {
+			// Gradle plugin is not yet available on the Gradle portal
+			build.pluginRepositories().add("maven-central");
+
+			build.plugins().add("org.graalvm.buildtools.native",
+					(plugin) -> plugin.setVersion(nativeBuildtoolsVersion));
+		}
+
 		// The AOT plugin includes the native dependency automatically
 		build.dependencies().remove("native");
 
