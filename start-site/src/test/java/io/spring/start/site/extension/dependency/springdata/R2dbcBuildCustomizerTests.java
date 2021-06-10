@@ -23,6 +23,8 @@ import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.support.MetadataBuildItemResolver;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -76,6 +78,46 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		build.dependencies().add("sqlserver");
 		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "sqlserver", "r2dbc-mssql");
+	}
+
+	@Test
+	void r2dbcWithFlywayAddSpringJdbc() {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("flyway");
+		customize(build);
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "flyway", "spring-jdbc");
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "jdbc", "data-jdbc", "data-jpa" })
+	void r2dbcWithFlywayAndJdbcStaterDoesNotAddSpringJdbc(String jdbcStarter) {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("flyway");
+		build.dependencies().add(jdbcStarter);
+		customize(build);
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "flyway", jdbcStarter);
+	}
+
+	@Test
+	void r2dbcWithLiquibaseAddSpringJdbc() {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("liquibase");
+		customize(build);
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "liquibase", "spring-jdbc");
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "jdbc", "data-jdbc", "data-jpa" })
+	void r2dbcWithLiquibaseAndJdbcStaterDoesNotAddSpringJdbc(String jdbcStarter) {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("liquibase");
+		build.dependencies().add(jdbcStarter);
+		customize(build);
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "liquibase", jdbcStarter);
 	}
 
 	private Build createBuild() {
