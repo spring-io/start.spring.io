@@ -329,7 +329,7 @@ initializr:
            - web
           groupId: com.vaadin
           artifactId: vaadin-spring-boot-starter
-          description: Java framework for building rich client apps based on Web components.
+          description: A web framework that allows you to write UI in pure Java without getting bogged down in JS, HTML, and CSS.
           bom: vaadin
           compatibilityRange: "[2.0.0.RELEASE,2.6.0-M1)"
           links:
