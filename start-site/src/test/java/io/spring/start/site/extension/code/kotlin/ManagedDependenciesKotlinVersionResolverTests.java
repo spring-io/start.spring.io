@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,19 +36,6 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @author Andy Wilkinson
  */
 class ManagedDependenciesKotlinVersionResolverTests {
-
-	@Test
-	@SuppressWarnings("unchecked")
-	void kotlinVersionForSpringBoot250IsOverridden(@TempDir Path temp) {
-		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("2.5.0"));
-		Function<ProjectDescription, String> fallback = mock(Function.class);
-		String version = new ManagedDependenciesKotlinVersionResolver(
-				DependencyManagementVersionResolver.withCacheLocation(temp), fallback)
-						.resolveKotlinVersion(description);
-		assertThat(version).isEqualTo("1.5.10");
-		verifyNoInteractions(fallback);
-	}
 
 	@Test
 	@SuppressWarnings("unchecked")

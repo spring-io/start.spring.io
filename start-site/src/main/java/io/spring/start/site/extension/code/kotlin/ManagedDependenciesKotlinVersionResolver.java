@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import java.util.function.Function;
 
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.code.kotlin.KotlinVersionResolver;
-import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 
 /**
@@ -31,8 +30,6 @@ import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
  * @author Stephane Nicoll
  */
 public class ManagedDependenciesKotlinVersionResolver implements KotlinVersionResolver {
-
-	private static final Version SPRING_BOOT_2_5_0 = Version.parse("2.5.0");
 
 	private final DependencyManagementVersionResolver resolver;
 
@@ -46,10 +43,6 @@ public class ManagedDependenciesKotlinVersionResolver implements KotlinVersionRe
 
 	@Override
 	public String resolveKotlinVersion(ProjectDescription description) {
-		// TODO: temporary to let users on current GA to benefit from latest fix
-		if (description.getPlatformVersion().equals(SPRING_BOOT_2_5_0)) {
-			return "1.5.10";
-		}
 		String kotlinVersion = this.resolver.resolve("org.springframework.boot", "spring-boot-dependencies",
 				description.getPlatformVersion().toString()).get("org.jetbrains.kotlin:kotlin-reflect");
 		return (kotlinVersion != null) ? kotlinVersion : this.fallback.apply(description);
