@@ -81,7 +81,7 @@
     "workbox-webpack-plugin": "^6.1.5"
   },
   "dependencies": {
-    "@babel/runtime": "^7.13.17",
+    "@babel/runtime": "^7.14.0",
     "body-scroll-lock": "^3.1.5",
     "file-saver": "^2.0.5",
     "hamburgers": "^1.1.3",
