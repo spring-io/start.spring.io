@@ -90,7 +90,7 @@
     "jszip": "^3.6.0",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
-    "prism-react-renderer": "^1.2.0",
+    "prism-react-renderer": "^1.2.1",
     "prismjs": "^1.23.0",
     "prop-types": "^15.7.2",
     "query-string": "^7.0.0",
