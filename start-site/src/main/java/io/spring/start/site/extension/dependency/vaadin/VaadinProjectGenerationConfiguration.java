@@ -45,7 +45,7 @@ class VaadinProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	BuildCustomizer<GradleBuild> vaadinGradleBuildCustomizer() {
-		return (build) -> build.plugins().add("com.vaadin", (plugin) -> plugin.setVersion("0.14.3.7"));
+		return (build) -> build.plugins().add("com.vaadin", (plugin) -> plugin.setVersion("0.14.6.0"));
 	}
 
 	@Bean
