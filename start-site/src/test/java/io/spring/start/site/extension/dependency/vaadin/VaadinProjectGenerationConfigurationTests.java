@@ -57,7 +57,7 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void gradleBuildWithVaadinAddPlugin() {
-		assertThat(gradleBuild(createProjectRequest("vaadin", "data-jpa"))).hasPlugin("com.vaadin", "0.14.3.7");
+		assertThat(gradleBuild(createProjectRequest("vaadin", "data-jpa"))).hasPlugin("com.vaadin", "0.14.6.0");
 	}
 
 	@Test
