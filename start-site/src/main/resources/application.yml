@@ -139,7 +139,7 @@ initializr:
           - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
             version: 1.4.8
           - compatibilityRange: "2.5.0-M1"
-            version: 1.5.1
+            version: 1.5.2
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
