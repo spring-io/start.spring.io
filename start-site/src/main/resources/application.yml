@@ -204,8 +204,10 @@ initializr:
               version: 0.9.2
             - compatibilityRange: "[2.5.0-M1,2.5.2-M1)"
               version: 0.10.0
-            - compatibilityRange: "[2.5.2-M1,2.6.0-M1)"
-              version: 0.10.1-SNAPSHOT
+            - compatibilityRange: "[2.5.2-M1,2.5.3-M1)"
+              version: 0.10.1
+            - compatibilityRange: "[2.5.3-M1,2.6.0-M1)"
+              version: 0.10.2-SNAPSHOT
               repository: spring-snapshots
           links:
             - rel: reference
