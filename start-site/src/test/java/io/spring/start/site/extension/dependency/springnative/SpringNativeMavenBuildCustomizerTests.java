@@ -97,7 +97,7 @@ class SpringNativeMavenBuildCustomizerTests {
 		assertThat(build).satisfies(hasNativeProfile(
 				(profile) -> assertThat(profile.properties().versions(VersionProperty::toStandardFormat)
 						.filter((entry) -> entry.getKey().equals("native-buildtools.version"))).singleElement()
-								.satisfies((entry) -> assertThat(entry.getValue()).isEqualTo("0.9.0"))));
+								.satisfies((entry) -> assertThat(entry.getValue()).isEqualTo("0.9.1"))));
 	}
 
 	@Test

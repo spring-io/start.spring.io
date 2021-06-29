@@ -88,7 +88,7 @@ abstract class SpringNativeGradleBuildCustomizerTests {
 				.filter((plugin) -> plugin.getId().equals("org.graalvm.buildtools.native")).findAny().orElse(null);
 		assertThat(springAotPlugin).isNotNull();
 		assertThat(springAotPlugin).isInstanceOf(StandardGradlePlugin.class)
-				.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.0"));
+				.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.1"));
 	}
 
 	@Test
