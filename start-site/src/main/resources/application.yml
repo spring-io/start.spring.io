@@ -47,6 +47,8 @@ initializr:
             version: 3.2.0
           - compatibilityRange: "[2.4.0.M1,2.5.0-M1)"
             version: 3.5.0
+          - compatibilityRange: "[2.5.0.M1,2.6.0-M1)"
+            version: 3.6.0
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
@@ -1414,7 +1416,7 @@ initializr:
           starter: false
     - name: Microsoft Azure
       bom: azure
-      compatibilityRange: "[2.2.11.RELEASE,2.5.0-M1)"
+      compatibilityRange: "[2.2.11.RELEASE,2.6.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
