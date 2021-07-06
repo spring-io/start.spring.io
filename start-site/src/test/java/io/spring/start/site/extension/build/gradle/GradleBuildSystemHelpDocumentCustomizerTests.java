@@ -41,11 +41,11 @@ class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void linksAddedToHelpDocumentForGradleBuild() {
-		assertHelpDocument("gradle-build", "2.3.0.RELEASE").contains(
+		assertHelpDocument("gradle-build", "2.5.0").contains(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
-				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/gradle-plugin/reference/html/)",
-				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/gradle-plugin/reference/html/#build-image)");
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.0/gradle-plugin/reference/html/)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.0/gradle-plugin/reference/html/#build-image)");
 	}
 
 	@Test

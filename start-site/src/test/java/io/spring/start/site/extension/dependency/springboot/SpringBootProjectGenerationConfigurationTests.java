@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void gradleWithDevtoolsConfigureBuild() {
 		ProjectRequest request = createProjectRequest("devtools");
-		request.setBootVersion("2.4.0");
+		request.setBootVersion("2.4.8");
 		assertThat(gradleBuild(request)).lines().doesNotContain("configurations {")
 				.contains("\tdevelopmentOnly 'org.springframework.boot:spring-boot-devtools'");
 	}
@@ -40,7 +40,7 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void gradleWithoutDevtoolsDoesNotCreateDevelopmentOnlyConfiguration() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.3.0.M4");
+		request.setBootVersion("2.4.8");
 		assertThat(gradleBuild(request)).doesNotContain("developmentOnly");
 	}
 

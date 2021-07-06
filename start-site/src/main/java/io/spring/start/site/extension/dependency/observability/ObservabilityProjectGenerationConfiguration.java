@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.observability;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.language.Annotation;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.code.TestApplicationTypeCustomizer;
 
@@ -44,8 +43,8 @@ class ObservabilityProjectGenerationConfiguration {
 	static class Wavefront {
 
 		@Bean
-		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(ProjectDescription description, Build build) {
-			return new WavefrontHelpDocumentCustomizer(description.getPlatformVersion(), build);
+		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
+			return new WavefrontHelpDocumentCustomizer(build);
 		}
 
 		@Bean

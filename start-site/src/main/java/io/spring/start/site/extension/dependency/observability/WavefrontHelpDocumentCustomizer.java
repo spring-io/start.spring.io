@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,6 @@ package io.spring.start.site.extension.dependency.observability;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link HelpDocumentCustomizer} that provides additional references when Wavefront is
@@ -31,22 +28,14 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 class WavefrontHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final VersionRange SPRING_BOOT_2_3_0_RC1_OR_LATER = VersionParser.DEFAULT.parseRange("2.3.0.RC1");
-
-	private final boolean distributedTracingAvailable;
-
 	private final Build build;
 
-	WavefrontHelpDocumentCustomizer(Version platformVersion, Build build) {
-		this.distributedTracingAvailable = SPRING_BOOT_2_3_0_RC1_OR_LATER.match(platformVersion);
+	WavefrontHelpDocumentCustomizer(Build build) {
 		this.build = build;
 	}
 
 	@Override
 	public void customize(HelpDocument document) {
-		if (!this.distributedTracingAvailable) {
-			document.getWarnings().addItem("Distributed tracing with Wavefront requires Spring Boot 2.3 or later.");
-		}
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("## Observability with Wavefront%n%n"));
 		sb.append(String.format(
@@ -58,11 +47,11 @@ class WavefrontHelpDocumentCustomizer implements HelpDocumentCustomizer {
 					String.format("%nYou can also access your dashboard using the `/actuator/wavefront` endpoint.%n"));
 		}
 
-		if (this.distributedTracingAvailable && !this.build.dependencies().has("cloud-starter-sleuth")) {
+		if (!this.build.dependencies().has("cloud-starter-sleuth")) {
 			sb.append(String.format(
 					"%nFinally, you can opt-in for distributed tracing by adding the Spring Cloud Sleuth starter.%n"));
 		}
-		document.addSection((writer) -> writer.print(sb.toString()));
+		document.addSection((writer) -> writer.print(sb));
 	}
 
 }

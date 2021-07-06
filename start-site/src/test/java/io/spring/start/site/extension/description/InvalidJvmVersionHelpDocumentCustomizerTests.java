@@ -37,7 +37,7 @@ class InvalidJvmVersionHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void warningNotAddedWithCompatibleVersion() {
-		assertHelpDocument("2.3.0.RELEASE", "11").doesNotContain("# Read Me First");
+		assertHelpDocument("2.4.8", "11").doesNotContain("# Read Me First");
 	}
 
 	private TextAssert assertHelpDocument(String platformVersion, String jvmVersion) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ class GroovyProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	private ProjectRequest groovyProjectRequest() {
 		ProjectRequest request = createProjectRequest();
 		request.setLanguage("groovy");
-		request.setBootVersion("2.3.4.RELEASE");
+		request.setBootVersion("2.4.8");
 		return request;
 	}
 

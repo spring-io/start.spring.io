@@ -1,99 +1,55 @@
 {
   "id": "spring-boot",
   "name": "Spring Boot",
-  "repoUrl": "https://github.com/spring-projects/spring-boot",
-  "siteUrl": "https://projects.spring.io/spring-boot",
-  "category": "active",
-  "stackOverflowTags": "spring-boot",
   "projectReleases": [
     {
-      "releaseStatus": "GENERAL_AVAILABILITY",
-      "refDocUrl": "https://docs.spring.io/spring-boot/docs/2.4.4/reference/htmlsingle/",
-      "apiDocUrl": "https://docs.spring.io/spring-boot/docs/2.4.4/api/",
-      "groupId": "org.springframework.boot",
-      "artifactId": "spring-boot",
-      "repository": null,
-      "preRelease": false,
-      "generalAvailability": true,
-      "versionDisplayName": "2.4.4",
+      "current": false,
+      "releaseStatus": "SNAPSHOT",
+      "snapshot": true,
+      "version": "2.6.0-SNAPSHOT",
+      "versionDisplayName": "2.6.0-SNAPSHOT"
+    },
+    {
+      "current": false,
+      "releaseStatus": "SNAPSHOT",
+      "snapshot": true,
+      "version": "2.5.3-SNAPSHOT",
+      "versionDisplayName": "2.5.3-SNAPSHOT"
+    },
+    {
       "current": true,
-      "snapshot": false,
-      "version": "2.4.4"
-    },
-    {
-      "releaseStatus": "SNAPSHOT",
-      "refDocUrl": "https://docs.spring.io/spring-boot/docs/2.5.0-M1/reference/htmlsingle/",
-      "apiDocUrl": "https://docs.spring.io/spring-boot/docs/2.5.0-M1/api/",
-      "groupId": "org.springframework.boot",
-      "artifactId": "spring-boot",
-      "repository": {
-        "id": "spring-milestones",
-        "name": "Spring Milestones",
-        "url": "https://repo.spring.io/libs-milestone",
-        "snapshotsEnabled": false
-      },
-      "preRelease": true,
-      "generalAvailability": false,
-      "versionDisplayName": "2.5.0-M1",
-      "current": false,
-      "snapshot": false,
-      "version": "2.5.0-M1"
-    },
-    {
-      "releaseStatus": "SNAPSHOT",
-      "refDocUrl": "https://docs.spring.io/spring-boot/docs/2.4.5-SNAPSHOT/reference/htmlsingle/",
-      "apiDocUrl": "https://docs.spring.io/spring-boot/docs/2.4.5-SNAPSHOT/api/",
-      "groupId": "org.springframework.boot",
-      "artifactId": "spring-boot",
-      "repository": {
-        "id": "spring-snapshots",
-        "name": "Spring Snapshots",
-        "url": "https://repo.spring.io/libs-snapshot",
-        "snapshotsEnabled": true
-      },
-      "preRelease": false,
-      "generalAvailability": false,
-      "versionDisplayName": "2.4.5",
-      "current": false,
-      "snapshot": true,
-      "version": "2.4.5-SNAPSHOT"
-    },
-    {
-      "releaseStatus": "SNAPSHOT",
-      "refDocUrl": "https://docs.spring.io/spring-boot/docs/2.2.11.BUILD-SNAPSHOT/reference/htmlsingle/",
-      "apiDocUrl": "https://docs.spring.io/spring-boot/docs/2.2.11.BUILD-SNAPSHOT/api/",
-      "groupId": "org.springframework.boot",
-      "artifactId": "spring-boot",
-      "repository": {
-        "id": "spring-snapshots",
-        "name": "Spring Snapshots",
-        "url": "https://repo.spring.io/libs-snapshot",
-        "snapshotsEnabled": true
-      },
-      "preRelease": false,
-      "generalAvailability": false,
-      "versionDisplayName": "2.2.11",
-      "current": false,
-      "snapshot": true,
-      "version": "2.2.11.BUILD-SNAPSHOT"
-    },
-    {
       "releaseStatus": "GENERAL_AVAILABILITY",
-      "refDocUrl": "https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/",
-      "apiDocUrl": "https://docs.spring.io/spring-boot/docs/current/api/",
-      "groupId": "org.springframework.boot",
-      "artifactId": "spring-boot",
-      "repository": null,
-      "preRelease": false,
-      "generalAvailability": true,
-      "versionDisplayName": "2.2.10",
-      "current": false,
       "snapshot": false,
-      "version": "2.2.10.RELEASE"
+      "version": "2.5.2",
+      "versionDisplayName": "2.5.2"
+    },
+    {
+      "current": false,
+      "releaseStatus": "SNAPSHOT",
+      "snapshot": true,
+      "version": "2.4.9-SNAPSHOT",
+      "versionDisplayName": "2.4.9-SNAPSHOT"
+    },
+    {
+      "current": false,
+      "releaseStatus": "GENERAL_AVAILABILITY",
+      "snapshot": false,
+      "version": "2.4.8",
+      "versionDisplayName": "2.4.8"
+    },
+    {
+      "current": false,
+      "releaseStatus": "GENERAL_AVAILABILITY",
+      "snapshot": false,
+      "version": "2.3.12.RELEASE",
+      "versionDisplayName": "2.3.12.RELEASE"
+    },
+    {
+      "current": false,
+      "releaseStatus": "GENERAL_AVAILABILITY",
+      "snapshot": false,
+      "version": "2.2.13.RELEASE",
+      "versionDisplayName": "2.2.13.RELEASE"
     }
-  ],
-  "aggregator": false,
-  "stackOverflowTagList": [
-    "spring-boot"
   ]
 }
