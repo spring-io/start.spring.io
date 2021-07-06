@@ -22,7 +22,6 @@ import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
-import io.spring.initializr.generator.io.template.TemplateRenderer;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionDiff;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -57,12 +56,6 @@ public class SpringCloudProjectGenerationConfiguration {
 	@Bean
 	public SpringCloudStreamBuildCustomizer springCloudStreamBuildCustomizer() {
 		return new SpringCloudStreamBuildCustomizer();
-	}
-
-	@Bean
-	public SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer maintenanceModuleHelpDocumentCustomizer(Build build,
-			TemplateRenderer templateRenderer) {
-		return new SpringCloudNetflixMaintenanceModeHelpDocumentCustomizer(this.metadata, build, templateRenderer);
 	}
 
 	@Bean

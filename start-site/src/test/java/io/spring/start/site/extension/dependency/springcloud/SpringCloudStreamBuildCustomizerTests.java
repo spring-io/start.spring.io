@@ -107,37 +107,6 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void springCloudTurbineStreamWithRabbit() {
-		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp");
-		request.setBootVersion("2.3.0.RELEASE");
-		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-turbine-stream"))
-				.hasDependency(getDependency("amqp")).hasDependency(RABBIT_BINDER)
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(5);
-	}
-
-	@Test
-	void springCloudTurbineStreamWithKafka() {
-		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "kafka");
-		request.setBootVersion("2.3.0.RELEASE");
-		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-turbine-stream"))
-				.hasDependency(getDependency("kafka")).hasDependency(KAFKA_BINDER)
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(5);
-	}
-
-	@Test
-	void springCloudTurbineStreamWithAllBinders() {
-		ProjectRequest request = createProjectRequest("cloud-turbine-stream", "amqp", "kafka", "kafka-streams");
-		request.setBootVersion("2.3.0.RELEASE");
-		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-turbine-stream"))
-				.hasDependency(getDependency("amqp")).hasDependency(getDependency("kafka"))
-				.hasDependency(getDependency("kafka-streams")).hasDependency(RABBIT_BINDER).hasDependency(KAFKA_BINDER)
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(9);
-	}
-
-	@Test
 	void springCloudStreamWithGradleBuildDoesNotAddTestDependency() {
 		ProjectRequest request = createProjectRequest("cloud-stream", "amqp");
 		assertThat(gradleBuild(request)).doesNotContain("test-binder");
