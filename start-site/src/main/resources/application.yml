@@ -1089,20 +1089,6 @@ initializr:
           description: Allows a user to develop and run short lived microservices using Spring Cloud. Run them locally, in the cloud, and on Spring Cloud Data Flow.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-task
-    - name: Spring Cloud Security
-      bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
-      content:
-        - name: Cloud Security
-          id: cloud-security
-          description: A declarative model which can be heavily configured externally (or centrally) lends itself to the implementation of large systems of co-operating, remote components, usually with a central indentity management service.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-security
-        - name: Cloud OAuth2
-          id: cloud-oauth2
-          description: OAuth2 and distributed application patterns with spring-cloud-security.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-oauth2
     - name: Spring Cloud Tools
       content:
         - name: Cloud Connectors
