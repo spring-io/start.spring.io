@@ -674,13 +674,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-elasticsearch
-        - name: Spring Data for Apache Solr
-          id: data-solr
-          description: Apache Solr is an open source enterprise search platform built on Apache Lucene.
-          compatibilityRange: "[2.2.0.RELEASE,2.4.0-M1)"
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-solr
         - name: Spring Data for Apache Cassandra
           id: data-cassandra
           description: A free and open-source, distributed, NoSQL database management system that offers high-scalability and high-performance.

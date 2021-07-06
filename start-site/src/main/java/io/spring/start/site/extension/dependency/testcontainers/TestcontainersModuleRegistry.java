@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,8 +51,6 @@ abstract class TestcontainersModuleRegistry {
 						.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")),
 				onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc"))
 						.customizeHelpDocument(addReferenceLink("R2DBC support", "databases/r2dbc/")),
-				onDependencies("data-solr").customizeBuild(addModule("solr"))
-						.customizeHelpDocument(addReferenceLink("Solr Container", "solr/")),
 				onDependencies("db2").customizeBuild(addModule("db2"))
 						.customizeHelpDocument(addReferenceLink("DB2 Module", "databases/db2/")),
 				onDependencies("kafka", "kafka-streams").customizeBuild(addModule("kafka"))
