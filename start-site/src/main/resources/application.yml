@@ -1295,28 +1295,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
-    - name: Amazon Web Services
-      bom: spring-cloud
-      compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
-      content:
-        - name: AWS Core
-          id: cloud-aws
-          description: AWS native services from Spring Cloud for AWS.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-aws
-          starter: false
-        - name: AWS RDS
-          id: cloud-aws-jdbc
-          description: Relational databases on AWS with RDS and Spring Cloud AWS JDBC.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-aws-jdbc
-          starter: false
-        - name: AWS Simple Queue Service
-          id: cloud-aws-messaging
-          description: Messaging on AWS with SQS and Spring Cloud AWS Messaging.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-aws-messaging
-          starter: false
     - name: Microsoft Azure
       bom: azure
       compatibilityRange: "[2.2.11.RELEASE,2.6.0-M1)"

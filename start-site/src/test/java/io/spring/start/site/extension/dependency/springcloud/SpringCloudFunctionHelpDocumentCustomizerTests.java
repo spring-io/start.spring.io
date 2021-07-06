@@ -31,33 +31,30 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
-	private static final String AWS_SECTION_TITLE = "## Running Spring Cloud Function applications on AWS Lambda";
-
 	private static final String AZURE_SECTION_TITLE = "## Running Spring Cloud Function applications on Microsoft Azure";
 
 	@Test
 	void functionBuildSetupInfoSectionAddedForMaven() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.3.0.RELEASE");
+		request.setBootVersion("2.4.0");
 		request.setType("maven-build");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
-		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE);
+		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
+		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);
 	}
 
 	@Test
 	void functionBuildSetupInfoSectionAddedForGradle() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.3.0.RELEASE");
+		request.setBootVersion("2.4.0");
 		request.setType("gradle-build");
-		request.setDependencies(Arrays.asList("cloud-function", "cloud-aws"));
-		assertThat(generateProject(request)).textFile("HELP.md").contains(AWS_SECTION_TITLE);
+		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
+		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);
 	}
 
 	@Test
 	void functionBuildSetupInfoSectionNotAddedWhenFunctionAndCloudDependenciesAbsent() {
 		ProjectRequest request = createProjectRequest();
-		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AWS_SECTION_TITLE)
-				.doesNotContain(AZURE_SECTION_TITLE);
+		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AZURE_SECTION_TITLE);
 	}
 
 }
