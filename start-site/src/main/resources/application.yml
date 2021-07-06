@@ -102,13 +102,6 @@ initializr:
           - compatibilityRange: "2.5.x-SNAPSHOT"
             version: 2020.0.4-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
-      spring-cloud-alibaba:
-        groupId: com.alibaba.cloud
-        artifactId: spring-cloud-alibaba-dependencies
-        versionProperty: spring-cloud-alibaba.version
-        mappings:
-          - compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
-            version: 2.2.1.RELEASE
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
@@ -1522,45 +1515,6 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-gcp/reference/html/#spring-resources
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
-    - name: Alibaba
-      bom: spring-cloud-alibaba
-      compatibilityRange: "[2.2.0.RELEASE,2.3.0.M1)"
-      content:
-        - name: Nacos Configuration
-          id: alibaba-nacos-config
-          description: Support for externalized configuration in a distributed system, auto refresh when configuration changes.
-          groupId: com.alibaba.cloud
-          artifactId: spring-cloud-starter-alibaba-nacos-config
-          starter: false
-          links:
-            - rel: reference
-              href: https://spring-cloud-alibaba-group.github.io/github-pages/hoxton/en-us/index.html#_spring_cloud_alibaba_nacos_config
-            - rel: guide
-              href: https://github.com/alibaba/spring-cloud-alibaba/tree/master/spring-cloud-alibaba-examples/nacos-example/nacos-config-example
-              description: Nacos Configuration Example
-        - name: Nacos Service Discovery
-          id: alibaba-nacos-discovery
-          description: Service discovery with Alibaba Nacos.
-          groupId: com.alibaba.cloud
-          artifactId: spring-cloud-starter-alibaba-nacos-discovery
-          links:
-            - rel: reference
-              href: https://spring-cloud-alibaba-group.github.io/github-pages/hoxton/en-us/index.html#_spring_cloud_alibaba_nacos_discovery
-            - rel: guide
-              href: https://github.com/alibaba/spring-cloud-alibaba/blob/master/spring-cloud-alibaba-examples/nacos-example/nacos-discovery-example/readme.md
-              description: Nacos Service Discovery Example
-        - name: Sentinel
-          id: alibaba-sentinel
-          description: Flow control and circuit breaking with Alibaba Sentinel.
-          groupId: com.alibaba.cloud
-          artifactId: spring-cloud-starter-alibaba-sentinel
-          starter: false
-          links:
-            - rel: reference
-              href: https://spring-cloud-alibaba-group.github.io/github-pages/hoxton/en-us/index.html#_spring_cloud_alibaba_sentinel
-            - rel: guide
-              href: https://github.com/alibaba/spring-cloud-alibaba/tree/master/spring-cloud-alibaba-examples/sentinel-example/sentinel-core-example
-              description: Sentinel Example
   types:
     - name: Maven Project
       id: maven-project
