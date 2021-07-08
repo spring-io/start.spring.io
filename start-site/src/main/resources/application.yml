@@ -84,11 +84,8 @@ initializr:
         versionProperty: spring-cloud.version
         order: 50
         mappings:
-          - compatibilityRange: "[2.2.0.RELEASE,2.3.x.BUILD-SNAPSHOT)"
-            version: Hoxton.SR11
-          - compatibilityRange: "[2.3.x.BUILD-SNAPSHOT, 2.4.0.M1)"
-            version: Hoxton.BUILD-SNAPSHOT
-            repositories: spring-snapshots,spring-milestones
+          - compatibilityRange: "[2.2.0.RELEASE,2.4.0.M1)"
+            version: Hoxton.SR12
           - compatibilityRange: "[2.4.0.M1,2.4.0.M1]"
             version: 2020.0.0-M3
             repositories: spring-milestones
