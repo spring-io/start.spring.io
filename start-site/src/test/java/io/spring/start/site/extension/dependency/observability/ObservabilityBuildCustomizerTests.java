@@ -58,6 +58,11 @@ class ObservabilityBuildCustomizerTests extends AbstractExtensionTests {
 				actuator.getArtifactId());
 	}
 
+	@Test
+	void actuatorIsAddedWithDynatrace() {
+		assertThat(generateProject("dynatrace")).mavenBuild().hasDependency(getDependency("actuator"));
+	}
+
 	private ProjectStructure generateProject(String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
 		request.setType("maven-build");

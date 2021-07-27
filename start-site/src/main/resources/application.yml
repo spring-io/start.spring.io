@@ -1004,6 +1004,19 @@ initializr:
             - compatibilityRange: "[2.0.0.RELEASE,2.4.0.M3]"
               artifactId: spring-cloud-starter-zipkin
               starter: true
+        - name: Dynatrace
+          id: dynatrace
+          groupId: io.micrometer
+          artifactId: micrometer-registry-dynatrace
+          scope: runtime
+          starter: false
+          description: Publish Micrometer metrics to Dynatrace, a Software Intelligence Platform featuring application performance monitoring (APM), artificial intelligence for operations (AIOps), IT infrastructure monitoring, digital experience management (DEM), and digital business analytics capabilities.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/actuator.html#actuator.metrics.export.dynatrace
+            - rel: home
+              href: https://www.dynatrace.com/
+              description: Dynatrace Website
     - name: Testing
       content:
         - name: Spring REST Docs

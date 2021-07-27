@@ -30,7 +30,7 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
 class ObservabilityBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final List<String> MICROMETER_REGISTRY_IDS = Arrays.asList("datadog", "graphite", "influx",
-			"new-relic");
+			"new-relic", "dynatrace");
 
 	@Override
 	public void customize(Build build) {
