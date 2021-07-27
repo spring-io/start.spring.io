@@ -24,7 +24,7 @@ export const getInfo = function getInfo(url) {
     fetch(`${url}`, {
       method: 'GET',
       headers: {
-        Accept: 'application/vnd.initializr.v2.1+json',
+        Accept: 'application/vnd.initializr.v2.2+json',
       },
     })
       .then(
