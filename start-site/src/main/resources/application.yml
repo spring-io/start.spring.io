@@ -96,8 +96,14 @@ initializr:
             version: 2020.0.0
           - compatibilityRange: "[2.4.1,2.5.x-SNAPSHOT)"
             version: 2020.0.3
-          - compatibilityRange: "2.5.x-SNAPSHOT"
+          - compatibilityRange: "[2.5.x-SNAPSHOT,2.6.0-M1)"
             version: 2020.0.4-SNAPSHOT
+            repositories: spring-snapshots,spring-milestones
+          - compatibilityRange: "[2.6.0.M1,2.6.x-SNAPSHOT)"
+            version: 2021.0.0-M1
+            repositories: spring-milestones
+          - compatibilityRange: "2.6.x-SNAPSHOT"
+            version: 2021.0.0-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-gcp:
         groupId: com.google.cloud
