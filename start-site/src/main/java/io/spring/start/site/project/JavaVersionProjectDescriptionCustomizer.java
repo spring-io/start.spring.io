@@ -40,9 +40,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final List<String> UNSUPPORTED_VERSIONS = Arrays.asList("1.6", "1.7");
 
-	private static final VersionRange SPRING_BOOT_2_2_6_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.6.RELEASE");
-
-	private static final VersionRange SPRING_BOOT_2_2_11_OR_LATER = VersionParser.DEFAULT.parseRange("2.2.11.RELEASE");
+	private static final VersionRange SPRING_BOOT_2_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.3.0.RELEASE");
 
 	private static final VersionRange SPRING_BOOT_2_4_4_OR_LATER = VersionParser.DEFAULT.parseRange("2.4.4");
 
@@ -67,12 +65,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 				&& !GRADLE_6.match(platformVersion)) {
 			updateTo(description, "11");
 		}
-		// 14 support only as of 2.2.6
-		if (javaGeneration == 14 && !SPRING_BOOT_2_2_6_OR_LATER.match(platformVersion)) {
-			updateTo(description, "11");
-		}
 		// 15 support only as of 2.2.11
-		if (javaGeneration == 15 && !SPRING_BOOT_2_2_11_OR_LATER.match(platformVersion)) {
+		if (javaGeneration == 15 && !SPRING_BOOT_2_3_0_OR_LATER.match(platformVersion)) {
 			updateTo(description, "11");
 		}
 		if (javaGeneration == 16) {

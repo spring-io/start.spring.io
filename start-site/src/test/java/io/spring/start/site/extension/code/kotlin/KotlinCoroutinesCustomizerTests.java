@@ -33,18 +33,18 @@ class KotlinCoroutinesCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void kotlinCoroutinesIsAdded() {
 		ProjectRequest request = createProjectRequest("webflux");
-		request.setBootVersion("2.2.2.RELEASE");
+		request.setBootVersion("2.5.0");
 		request.setLanguage("kotlin");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
 		assertThat(project).textFile("HELP.md").contains(
-				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring/docs/5.2.2.RELEASE/spring-framework-reference/languages.html#coroutines)");
+				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring/docs/5.3.7/spring-framework-reference/languages.html#coroutines)");
 	}
 
 	@Test
 	void kotlinCoroutinesIsNotAddedWithNonKotlinApp() {
 		ProjectRequest request = createProjectRequest("webflux");
-		request.setBootVersion("2.2.2.RELEASE");
+		request.setBootVersion("2.5.0");
 		request.setLanguage("java");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
 	}
@@ -52,7 +52,7 @@ class KotlinCoroutinesCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void kotlinCoroutinesIsNotAddedWithoutReactiveFacet() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.2.2.RELEASE");
+		request.setBootVersion("2.5.0");
 		request.setLanguage("kotlin");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
 	}

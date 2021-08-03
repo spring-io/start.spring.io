@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,12 +41,12 @@ class ManagedDependenciesKotlinVersionResolverTests {
 	@SuppressWarnings("unchecked")
 	void kotlinVersionCanBeResolved(@TempDir Path temp) {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("2.2.2.RELEASE"));
+		description.setPlatformVersion(Version.parse("2.5.0"));
 		Function<ProjectDescription, String> fallback = mock(Function.class);
 		String version = new ManagedDependenciesKotlinVersionResolver(
 				DependencyManagementVersionResolver.withCacheLocation(temp), fallback)
 						.resolveKotlinVersion(description);
-		assertThat(version).isEqualTo("1.3.61");
+		assertThat(version).isEqualTo("1.5.0");
 		verifyNoInteractions(fallback);
 	}
 

@@ -32,33 +32,18 @@ import org.junit.jupiter.api.Test;
 class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void linksAddedToHelpDocumentForMavenBuildPreSpringBoot23() {
-		assertHelpDocument("maven-build", "2.2.2.RELEASE").contains(
-				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/maven-plugin/)");
-	}
-
-	@Test
-	void linksAddedToHelpDocumentForMavenBuildPreNewSpringBoot23Structure() {
-		assertHelpDocument("maven-build", "2.3.0.M3").contains(
-				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.M3/maven-plugin/html/)",
-				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.M3/maven-plugin/html/#build-image)");
-	}
-
-	@Test
 	void linksAddedToHelpDocumentForMavenBuild() {
-		assertHelpDocument("maven-build", "2.3.0.RELEASE").contains(
+		assertHelpDocument("maven-build", "2.5.0").contains(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/)",
-				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/#build-image)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.0/maven-plugin/reference/html/)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.0/maven-plugin/reference/html/#build-image)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForGradleBuild() {
-		assertHelpDocument("gradle-build", "2.2.2.RELEASE").doesNotContain(
+		assertHelpDocument("gradle-build", "2.5.0").doesNotContain(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/maven-plugin/)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.0/maven-plugin/)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String type, String version) {

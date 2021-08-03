@@ -32,14 +32,6 @@ import org.junit.jupiter.api.Test;
 class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void linksAddedToHelpDocumentForGradleBuildPreSpringBoot23() {
-		assertHelpDocument("gradle-build", "2.2.2.RELEASE").contains(
-				"* [Official Gradle documentation](https://docs.gradle.org)",
-				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
-				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/gradle-plugin/reference/html/)");
-	}
-
-	@Test
 	void linksAddedToHelpDocumentForGradleBuild() {
 		assertHelpDocument("gradle-build", "2.5.0").contains(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
@@ -50,10 +42,10 @@ class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void linksNotAddedToHelpDocumentForMavenBuild() {
-		assertHelpDocument("maven-build", "2.2.2.RELEASE").doesNotContain(
+		assertHelpDocument("maven-build", "2.5.0").doesNotContain(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
-				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/gradle-plugin/reference/html/)");
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.0/gradle-plugin/reference/html/)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String type, String version) {
