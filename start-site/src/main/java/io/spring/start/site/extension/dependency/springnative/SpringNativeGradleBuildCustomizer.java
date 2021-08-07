@@ -50,6 +50,12 @@ abstract class SpringNativeGradleBuildCustomizer implements BuildCustomizer<Grad
 
 		// Spring Boot plugin
 		customizeSpringBootPlugin(build);
+
+		// Native build
+		if (nativeBuildtoolsVersion != null) {
+			build.tasks().customize("nativeBuild",
+					(task) -> task.invoke("classpath", "\"$buildDir/resources/aot\", \"$buildDir/classes/java/aot\""));
+		}
 	}
 
 	@Override
