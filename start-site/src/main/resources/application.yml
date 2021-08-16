@@ -1304,7 +1304,7 @@ initializr:
           id: azure-keyvault-secrets
           groupId: com.azure.spring
           artifactId: azure-spring-boot-starter-keyvault-secrets
-          description: Manage application secrets and keys.
+          description: Manage application secrets.
           links:
             - rel: guide
               href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-keyvault-secrets
