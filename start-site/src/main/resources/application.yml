@@ -1280,6 +1280,9 @@ initializr:
           artifactId: azure-spring-boot-starter
           description: Auto-configuration for Azure Services (Service Bus, Storage, Active Directory, Cosmos DB, Key Vault, and more).
           links:
+            - rel: guide
+              href: https://spring.io/guides/gs/spring-boot-for-azure/
+              description: Deploying a Spring Boot app to Azure
             - rel: reference
               href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring
           mappings:
