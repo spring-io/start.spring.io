@@ -132,7 +132,6 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 						"}")
 				.containsSequence("nativeTest {",
 						"	classpath processAotTestResources.outputs, compileAotTestJava.outputs", "}");
-		;
 	}
 
 	@Test
