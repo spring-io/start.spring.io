@@ -63,7 +63,7 @@ class SpringNativeHelpDocumentCustomizer implements HelpDocumentCustomizer {
 	@Override
 	public void customize(HelpDocument document) {
 		BuildSystem buildSystem = this.description.getBuildSystem();
-		if (buildSystem.id().equals(GradleBuildSystem.ID)
+		if (buildSystem instanceof GradleBuildSystem
 				&& buildSystem.dialect().equals(GradleBuildSystem.DIALECT_KOTLIN)) {
 			handleKotlinDslWarning(document);
 		}

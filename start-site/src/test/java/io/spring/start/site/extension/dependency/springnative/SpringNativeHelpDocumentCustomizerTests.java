@@ -84,6 +84,22 @@ class SpringNativeHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
+	void gradleWithKotlinDslAddsWarning() {
+		ProjectRequest request = createProjectRequest("native", "web");
+		request.setType("gradle-project");
+		request.setLanguage("kotlin");
+		assertHelpDocument(request).contains("The native build tools is not configured with the Kotlin DSL");
+	}
+
+	@Test
+	void gradleWithGroovyDslAddsWarning() {
+		ProjectRequest request = createProjectRequest("native", "web");
+		request.setType("gradle-project");
+		request.setLanguage("java");
+		assertHelpDocument(request).doesNotContain("The native build tools is not configured with the Kotlin DSL");
+	}
+
+	@Test
 	void nativeSectionWithGradleUseGradleCommand() {
 		assertHelpDocument("gradle-project", "native").contains("$ ./gradlew bootBuildImage");
 	}
