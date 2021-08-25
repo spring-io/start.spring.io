@@ -38,8 +38,12 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 	}
 
 	@Override
-	public void customize(GradleBuild build) {
-		super.customize(build);
+	protected void customize(GradleBuild build, String springNativeVersion) {
+		// Native buildtools plugin
+		String nativeBuildtoolsVersion = SpringNativeBuildtoolsVersionResolver.resolve(springNativeVersion);
+		if (nativeBuildtoolsVersion != null) {
+			customizeNativeBuildToolsPlugin(build, nativeBuildtoolsVersion);
+		}
 
 		// Hibernate enhance plugin
 		if (build.dependencies().has("data-jpa")) {
@@ -53,6 +57,16 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 			task.attribute("builder", "'paketobuildpacks/builder:tiny'");
 			task.attribute("environment", "['BP_NATIVE_IMAGE': 'true']");
 		});
+	}
+
+	private void customizeNativeBuildToolsPlugin(GradleBuild build, String nativeBuildtoolsVersion) {
+		// Gradle plugin is not yet available on the Gradle portal
+		build.pluginRepositories().add("maven-central");
+		build.plugins().add("org.graalvm.buildtools.native", (plugin) -> plugin.setVersion(nativeBuildtoolsVersion));
+		build.tasks().customize("nativeBuild",
+				(task) -> task.invoke("classpath", "processAotResources.outputs", "compileAotJava.outputs"));
+		build.tasks().customize("nativeTest",
+				(task) -> task.invoke("classpath", "processAotTestResources.outputs", "compileAotTestJava.outputs"));
 	}
 
 	private void configureHibernateEnhancePlugin(GradleBuild build) {

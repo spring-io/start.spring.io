@@ -20,6 +20,8 @@ import java.util.function.Supplier;
 
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
+import io.spring.initializr.generator.buildsystem.gradle.GradlePlugin;
+import io.spring.initializr.generator.buildsystem.gradle.StandardGradlePlugin;
 import io.spring.initializr.generator.version.VersionReference;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +39,42 @@ public class SpringNativeGroovyDslGradleBuildCustomizerTests extends SpringNativ
 	@Override
 	protected SpringNativeGradleBuildCustomizer createCustomizer() {
 		return createCustomizer(() -> VersionReference.ofValue("1.0.0"));
+	}
+
+	@Test
+	void gradleBuildWithNative09xDoesNotAddMavenCentral() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.9.2");
+		customizer.customize(build);
+		assertThat(build.pluginRepositories().ids()).doesNotContain("maven-central");
+	}
+
+	@Test
+	void gradleBuildWithNative010AddMavenCentral() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.10.0");
+		customizer.customize(build);
+		assertThat(build.pluginRepositories().ids()).contains("maven-central");
+	}
+
+	@Test
+	void gradleBuildWithNative09xDoesNotNativeBuildtoolsPlugin() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.9.2");
+		customizer.customize(build);
+		assertThat(build.plugins().has("org.graalvm.buildtools.native")).isFalse();
+	}
+
+	@Test
+	void gradleBuildWithNative010AddNativeBuildtoolsPlugin() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.10.0");
+		customizer.customize(build);
+		GradlePlugin springAotPlugin = build.plugins().values()
+				.filter((plugin) -> plugin.getId().equals("org.graalvm.buildtools.native")).findAny().orElse(null);
+		assertThat(springAotPlugin).isNotNull();
+		assertThat(springAotPlugin).isInstanceOf(StandardGradlePlugin.class)
+				.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.3"));
 	}
 
 	@Test

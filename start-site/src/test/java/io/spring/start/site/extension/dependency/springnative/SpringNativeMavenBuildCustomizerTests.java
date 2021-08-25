@@ -73,7 +73,7 @@ class SpringNativeMavenBuildCustomizerTests {
 	void repackageClassifierPropertyAddedAsOf010() {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
-				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.0")));
+				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.3")));
 		new SpringNativeMavenBuildCustomizer().customize(build);
 		assertThat(build.properties().values().filter((entry) -> entry.getKey().equals("repackage.classifier")))
 				.singleElement().satisfies((entry) -> assertThat(entry.getValue()).isEqualTo(""));
@@ -93,18 +93,18 @@ class SpringNativeMavenBuildCustomizerTests {
 	void nativeProfileHasBuildToolsProperty() {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
-				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.0")));
+				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.3")));
 		assertThat(build).satisfies(hasNativeProfile(
 				(profile) -> assertThat(profile.properties().versions(VersionProperty::toStandardFormat)
 						.filter((entry) -> entry.getKey().equals("native-buildtools.version"))).singleElement()
-								.satisfies((entry) -> assertThat(entry.getValue()).isEqualTo("0.9.1"))));
+								.satisfies((entry) -> assertThat(entry.getValue()).isEqualTo("0.9.3"))));
 	}
 
 	@Test
 	void nativeProfileHasDependencyToJunitPlatformNative() {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
-				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.0")));
+				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.3")));
 		assertThat(build).satisfies(hasNativeProfile((profile) -> {
 			Dependency dependency = profile.dependencies().get("junit-platform-native");
 			assertThat(dependency).isNotNull();
@@ -119,7 +119,7 @@ class SpringNativeMavenBuildCustomizerTests {
 	void nativeProfileHasPluginConfigurationForNativeMavenPlugin() {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
-				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.0")));
+				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.3")));
 		assertThat(build).satisfies(hasNativeProfile((profile) -> {
 			assertThat(profile.plugins().values()).singleElement().satisfies((plugin) -> {
 				assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
