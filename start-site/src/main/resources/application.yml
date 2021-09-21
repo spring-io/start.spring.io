@@ -1416,10 +1416,10 @@ initializr:
       id: war
       default: false
   javaVersions:
-    - id: 16
-      default: false
-    - id: 11
+    - id: 17
       default: true
+    - id: 11
+      default: false
     - id: 1.8
       name: 8
       default: false
