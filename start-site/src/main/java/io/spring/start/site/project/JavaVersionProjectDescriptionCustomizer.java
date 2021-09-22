@@ -46,6 +46,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final VersionRange SPRING_BOOT_2_5_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.5.0-RC1");
 
+	private static final VersionRange SPRING_BOOT_2_5_5_OR_LATER = VersionParser.DEFAULT.parseRange("2.5.5");
+
 	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.RELEASE");
 
 	@Override
@@ -91,6 +93,16 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 				updateTo(description, "11");
 			}
 		}
+		if (javaGeneration == 17) {
+			// Java 17 support as of Spring Boot 2.5.5
+			if (!SPRING_BOOT_2_5_5_OR_LATER.match(platformVersion)) {
+				updateTo(description, "11");
+			}
+			// Kotlin is not supported yet
+			if (description.getLanguage() instanceof KotlinLanguage) {
+				updateTo(description, "11");
+			}
+		}
 	}
 
 	private void updateTo(MutableProjectDescription description, String jvmVersion) {
@@ -101,7 +113,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private Integer determineJavaGeneration(String javaVersion) {
 		try {
 			int generation = Integer.parseInt(javaVersion);
-			return ((generation > 8 && generation <= 16) ? generation : null);
+			return ((generation > 8 && generation <= 17) ? generation : null);
 		}
 		catch (NumberFormatException ex) {
 			return null;
