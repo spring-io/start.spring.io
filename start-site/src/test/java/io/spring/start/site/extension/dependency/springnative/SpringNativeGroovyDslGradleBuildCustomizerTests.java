@@ -78,6 +78,24 @@ public class SpringNativeGroovyDslGradleBuildCustomizerTests extends SpringNativ
 	}
 
 	@Test
+	void gradleBuildWithNative010AddNativeBuildAndTestTask() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.10.0");
+		customizer.customize(build);
+		assertThat(build.tasks().has("nativeBuild")).isTrue();
+		assertThat(build.tasks().has("nativeTest")).isTrue();
+	}
+
+	@Test
+	void gradleBuildWithNative011AddNativeBuildTaskOnly() {
+		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
+		GradleBuild build = createBuild("0.11.0-M1");
+		customizer.customize(build);
+		assertThat(build.tasks().has("nativeBuild")).isTrue();
+		assertThat(build.tasks().has("nativeTest")).isFalse();
+	}
+
+	@Test
 	@Override
 	void gradleBuildCustomizeSpringBootPlugin() {
 		SpringNativeGradleBuildCustomizer customizer = createCustomizer();

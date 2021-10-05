@@ -21,6 +21,9 @@ import java.util.function.Supplier;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.generator.version.VersionReference;
 
 /**
@@ -30,6 +33,8 @@ import io.spring.initializr.generator.version.VersionReference;
  * @author Stephane Nicoll
  */
 class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuildCustomizer {
+
+	private static final VersionRange NATIVE_0_11 = VersionParser.DEFAULT.parseRange("0.11.0-M1");
 
 	private final Supplier<VersionReference> hibernateVersion;
 
@@ -42,7 +47,8 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 		// Native buildtools plugin
 		String nativeBuildtoolsVersion = SpringNativeBuildtoolsVersionResolver.resolve(springNativeVersion);
 		if (nativeBuildtoolsVersion != null) {
-			customizeNativeBuildToolsPlugin(build, nativeBuildtoolsVersion);
+			customizeNativeBuildToolsPlugin(build, VersionParser.DEFAULT.parse(springNativeVersion),
+					nativeBuildtoolsVersion);
 		}
 
 		// Hibernate enhance plugin
@@ -59,14 +65,17 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 		});
 	}
 
-	private void customizeNativeBuildToolsPlugin(GradleBuild build, String nativeBuildtoolsVersion) {
+	private void customizeNativeBuildToolsPlugin(GradleBuild build, Version springNativeVersion,
+			String nativeBuildtoolsVersion) {
 		// Gradle plugin is not yet available on the Gradle portal
 		build.pluginRepositories().add("maven-central");
 		build.plugins().add("org.graalvm.buildtools.native", (plugin) -> plugin.setVersion(nativeBuildtoolsVersion));
 		build.tasks().customize("nativeBuild",
 				(task) -> task.invoke("classpath", "processAotResources.outputs", "compileAotJava.outputs"));
-		build.tasks().customize("nativeTest",
-				(task) -> task.invoke("classpath", "processAotTestResources.outputs", "compileAotTestJava.outputs"));
+		if (!NATIVE_0_11.match(springNativeVersion)) {
+			build.tasks().customize("nativeTest", (task) -> task.invoke("classpath", "processAotTestResources.outputs",
+					"compileAotTestJava.outputs"));
+		}
 	}
 
 	private void configureHibernateEnhancePlugin(GradleBuild build) {
