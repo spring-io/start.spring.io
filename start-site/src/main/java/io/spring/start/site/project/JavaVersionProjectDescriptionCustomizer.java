@@ -18,6 +18,7 @@ package io.spring.start.site.project;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.language.Language;
@@ -50,6 +51,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.RELEASE");
 
+	private static final VersionRange Spring_NATIVE_011 = VersionParser.DEFAULT.parseRange("2.6.0-M3");
+
 	@Override
 	public void customize(MutableProjectDescription description) {
 		String javaVersion = description.getLanguage().jvmVersion();
@@ -57,6 +60,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			updateTo(description, "1.8");
 			return;
 		}
+		springNativeHandler().accept(description);
 		Integer javaGeneration = determineJavaGeneration(javaVersion);
 		if (javaGeneration == null) {
 			return;
@@ -118,6 +122,18 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		catch (NumberFormatException ex) {
 			return null;
 		}
+	}
+
+	private Consumer<MutableProjectDescription> springNativeHandler() {
+		return (description) -> {
+			if (!description.getRequestedDependencies().containsKey("native")) {
+				return;
+			}
+			if ("1.8".equals(description.getLanguage().jvmVersion())
+					&& Spring_NATIVE_011.match(description.getPlatformVersion())) {
+				updateTo(description, "11");
+			}
+		};
 	}
 
 }
