@@ -34,7 +34,9 @@ import io.spring.initializr.generator.version.VersionReference;
  */
 class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuildCustomizer {
 
-	private static final VersionRange NATIVE_0_11 = VersionParser.DEFAULT.parseRange("0.11.0-M1");
+	private static final VersionRange NATIVE_0_11_M1 = VersionParser.DEFAULT.parseRange("0.11.0-M1");
+
+	private static final VersionRange NATIVE_0_11_M2 = VersionParser.DEFAULT.parseRange("0.11.0-M2");
 
 	private final Supplier<VersionReference> hibernateVersion;
 
@@ -45,10 +47,10 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 	@Override
 	protected void customize(GradleBuild build, String springNativeVersion) {
 		// Native buildtools plugin
+		Version springNative = VersionParser.DEFAULT.parse(springNativeVersion);
 		String nativeBuildtoolsVersion = SpringNativeBuildtoolsVersionResolver.resolve(springNativeVersion);
-		if (nativeBuildtoolsVersion != null) {
-			customizeNativeBuildToolsPlugin(build, VersionParser.DEFAULT.parse(springNativeVersion),
-					nativeBuildtoolsVersion);
+		if (nativeBuildtoolsVersion != null && !NATIVE_0_11_M2.match(springNative)) {
+			customizeNativeBuildToolsPlugin(build, springNative, nativeBuildtoolsVersion);
 		}
 
 		// Hibernate enhance plugin
@@ -72,7 +74,7 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 		build.plugins().add("org.graalvm.buildtools.native", (plugin) -> plugin.setVersion(nativeBuildtoolsVersion));
 		build.tasks().customize("nativeBuild",
 				(task) -> task.invoke("classpath", "processAotResources.outputs", "compileAotJava.outputs"));
-		if (!NATIVE_0_11.match(springNativeVersion)) {
+		if (!NATIVE_0_11_M1.match(springNativeVersion)) {
 			build.tasks().customize("nativeTest", (task) -> task.invoke("classpath", "processAotTestResources.outputs",
 					"compileAotTestJava.outputs"));
 		}
