@@ -36,7 +36,7 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 
 	private static final VersionRange NATIVE_0_11_M1 = VersionParser.DEFAULT.parseRange("0.11.0-M1");
 
-	private static final VersionRange NATIVE_0_11_M2 = VersionParser.DEFAULT.parseRange("[0.11.0-M2,0.11.0-SNAPSHOT)");
+	private static final VersionRange NATIVE_0_11_M2 = VersionParser.DEFAULT.parseRange("0.11.0-M2");
 
 	private final Supplier<VersionReference> hibernateVersion;
 

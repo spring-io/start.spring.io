@@ -198,6 +198,28 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 	}
 
 	@Test
+	void mavenBuildWithNative0Dot11ConfigureNativeMavenPlugin() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setBootVersion("2.6.0-M3");
+		assertThat(mavenPom(request)).lines().containsSequence(
+		// @formatter:off
+				"			<plugin>",
+				"				<groupId>org.springframework.experimental</groupId>",
+				"				<artifactId>spring-aot-maven-plugin</artifactId>",
+				"				<version>${spring-native.version}</version>",
+				"				<executions>",
+				"					<execution>",
+				"						<id>generate</id>",
+				"						<goals>",
+				"							<goal>generate</goal>",
+				"						</goals>",
+				"					</execution>",
+				"				</executions>",
+				"			</plugin>");
+		// @formatter:on
+	}
+
+	@Test
 	void mavenBuildWithoutJpaDoesNotConfigureHibernateEnhancePlugin() {
 		assertThat(mavenPom(createProjectRequest("native"))).doesNotContain("hibernate-enhance-maven-plugin");
 	}
