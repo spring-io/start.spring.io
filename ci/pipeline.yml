@@ -4,7 +4,7 @@ resource_types:
   type: registry-image
   source:
     repository: springio/artifactory-resource
-    tag: 0.0.13-SNAPSHOT
+    tag: 0.0.14
 
 - name: github-status-resource
   type: registry-image
