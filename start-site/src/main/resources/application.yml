@@ -1291,7 +1291,7 @@ initializr:
           id: azure-support
           groupId: com.azure.spring
           artifactId: azure-spring-boot-starter
-          description: Auto-configuration for Azure Services (Service Bus, Storage, Active Directory, Cosmos DB, Key Vault, and more).
+          description: Auto-configuration for Azure Services (Service Bus, Storage, Active Directory, Key Vault, and more).
           links:
             - rel: guide
               href: https://spring.io/guides/gs/spring-boot-for-azure/
@@ -1316,6 +1316,17 @@ initializr:
             - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
               groupId: com.microsoft.azure
               artifactId: azure-active-directory-spring-boot-starter
+        - name: Azure Cosmos DB
+          id: azure-cosmos-db
+          groupId: com.azure.spring
+          artifactId: azure-spring-boot-starter-cosmos
+          description: Fully managed NoSQL database service for modern app development, including Spring Data support.
+          links:
+            - rel: guide
+              href: https://github.com/Azure-Samples/azure-spring-boot-samples/tree/main/cosmos/azure-spring-boot-starter-cosmos/cosmos
+              description: Using Azure Cosmos DB with Spring Data
+            - rel: reference
+              href: https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-cosmos-db
         - name: Azure Key Vault
           id: azure-keyvault-secrets
           groupId: com.azure.spring
