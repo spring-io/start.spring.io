@@ -78,8 +78,8 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 		ProjectRequest request = createProjectRequest("native");
 		request.setType("gradle-project");
 		assertThat(generateProject(request)).containsFiles("settings.gradle").textFile("settings.gradle")
-				.containsSubsequence("pluginManagement {", "repositories {", "mavenCentral()", "gradlePluginPortal()",
-						"}", "}");
+				.containsSubsequence("pluginManagement {", "repositories {",
+						"maven { url 'https://repo.spring.io/milestone' }", "gradlePluginPortal()", "}", "}");
 	}
 
 	@Test
@@ -103,12 +103,6 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 				"				<version>${spring-native.version}</version>",
 				"				<executions>",
 				"					<execution>",
-				"						<id>test-generate</id>",
-				"						<goals>",
-				"							<goal>test-generate</goal>",
-				"						</goals>",
-				"					</execution>",
-				"					<execution>",
 				"						<id>generate</id>",
 				"						<goals>",
 				"							<goal>generate</goal>",
@@ -123,15 +117,6 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 	void gradleBuildConfigureSpringBootPlugin() {
 		assertThat(gradleBuild(createProjectRequest("native"))).lines().containsSequence("bootBuildImage {",
 				"	builder = 'paketobuildpacks/builder:tiny'", "	environment = ['BP_NATIVE_IMAGE': 'true']", "}");
-	}
-
-	@Test
-	void gradleBuildConfigureNativePlugin() {
-		assertThat(gradleBuild(createProjectRequest("native"))).lines()
-				.containsSequence("nativeBuild {", "	classpath processAotResources.outputs, compileAotJava.outputs",
-						"}")
-				.containsSequence("nativeTest {",
-						"	classpath processAotTestResources.outputs, compileAotTestJava.outputs", "}");
 	}
 
 	@Test

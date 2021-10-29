@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.6</version>
+		<version>2.6.0</version>
 	</parent>
 	<groupId>io.spring.start</groupId>
 	<artifactId>start-parent</artifactId>
@@ -17,7 +17,7 @@
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
-		<spring-initializr.version>0.11.2-SNAPSHOT</spring-initializr.version>
+		<spring-initializr.version>0.12.0-SNAPSHOT</spring-initializr.version>
 		<spring-javaformat.version>0.0.26</spring-javaformat.version>
 	</properties>
 

@@ -4,6 +4,9 @@ logging:
     org.springframework.jndi: warn
 
 management:
+  info:
+    env:
+      enabled: true
   endpoints:
     web:
       exposure:
