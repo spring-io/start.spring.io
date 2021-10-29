@@ -145,7 +145,7 @@ initializr:
           - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
             version: 2.1.1
           - compatibilityRange: "2.5.0-M1"
-            version: 2.2.0
+            version: 2.2.2
     gradle:
       dependency-management-plugin-version: 1.0.11.RELEASE
     kotlin:
