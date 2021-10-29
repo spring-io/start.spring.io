@@ -32,8 +32,8 @@ abstract class SpringNativeBuildtoolsVersionResolver {
 
 	private static final List<NativeBuildtoolsRange> ranges = Arrays.asList(
 			new NativeBuildtoolsRange("[0.9.0,0.10.0-M1)", null),
-			new NativeBuildtoolsRange("[0.10.0-M1, 0.11.0-M2)", "0.9.3"),
-			new NativeBuildtoolsRange("0.11.0-M2", "0.9.5"));
+			new NativeBuildtoolsRange("[0.10.0-M1, 0.10.5)", "0.9.3"),
+			new NativeBuildtoolsRange("[0.10.5, 0.11.0-M2)", "0.9.4"), new NativeBuildtoolsRange("0.11.0-M2", "0.9.5"));
 
 	static String resolve(String springNativeVersion) {
 		Version nativeVersion = VersionParser.DEFAULT.parse(springNativeVersion);
