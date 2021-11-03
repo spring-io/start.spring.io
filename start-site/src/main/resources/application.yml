@@ -200,8 +200,11 @@ initializr:
             - compatibilityRange: "[2.5.x-SNAPSHOT,2.6.0-M1)"
               version: 0.10.6-SNAPSHOT
               repository: spring-snapshots
-            - compatibilityRange: "[2.6.0-M1,2.6.x-SNAPSHOT)"
+            - compatibilityRange: "[2.6.0-M1,2.6.0-RC1)"
               version: 0.11.0-M1
+              repository: spring-milestones
+            - compatibilityRange: "[2.6.0-RC1,2.6.x-SNAPSHOT)"
+              version: 0.11.0-M2
               repository: spring-milestones
             - compatibilityRange: "[2.6.x-SNAPSHOT,2.7.0-M1)"
               version: 0.11.0-SNAPSHOT
