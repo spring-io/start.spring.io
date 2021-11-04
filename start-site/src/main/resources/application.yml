@@ -85,8 +85,11 @@ initializr:
           - compatibilityRange: "[2.6.0-M1,2.6.0-M3)"
             version: 2021.0.0-M1
             repositories: spring-milestones
-          - compatibilityRange: "[2.6.0-M3,2.6.x-SNAPSHOT)"
+          - compatibilityRange: "[2.6.0-M3,2.6.0-RC1)"
             version: 2021.0.0-M3
+            repositories: spring-milestones
+          - compatibilityRange: "[2.6.0-RC1,2.6.x-SNAPSHOT)"
+            version: 2021.0.0-RC1
             repositories: spring-milestones
           - compatibilityRange: "2.6.x-SNAPSHOT"
             version: 2021.0.0-SNAPSHOT
