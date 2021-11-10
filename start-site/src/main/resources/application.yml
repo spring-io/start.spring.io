@@ -891,6 +891,7 @@ initializr:
           id: picocli
           groupId: info.picocli
           artifactId: picocli-spring-boot-starter
+          compatibilityRange: "[2.4.0.RELEASE,2.6.0-SNAPSHOT)"
           description: Build command line applications with picocli.
           mappings:
             - compatibilityRange: "[2.4.0.RELEASE,2.6.0-SNAPSHOT)"
