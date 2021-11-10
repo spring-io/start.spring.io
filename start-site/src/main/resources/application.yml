@@ -887,6 +887,17 @@ initializr:
               description: Caching Data with Spring
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-caching
+        - name: Picocli
+          id: picocli
+          groupId: info.picocli
+          artifactId: picocli-spring-boot-starter
+          description: Build command line applications with picocli.
+          mappings:
+            - compatibilityRange: "[2.4.0.RELEASE,2.6.0-SNAPSHOT)"
+              version: 4.6.2
+          links:
+            - rel: reference
+              href: https://picocli.info/#_spring_boot_example
     - name: Ops
       content:
         - name: Spring Boot Actuator
