@@ -899,6 +899,21 @@ initializr:
           links:
             - rel: reference
               href: https://picocli.info/#_spring_boot_example
+        - name: OptaPlanner
+          id: optaplanner
+          groupId: org.optaplanner
+          artifactId: optaplanner-spring-boot-starter
+          compatibilityRange: "[2.4.0.RELEASE,2.6.0-SNAPSHOT)"
+          description: AI constraint solver for optimal planning/scheduling of vehicle routes, employee rosters, maintenance, tasks, lessons, conferences, ...
+          mappings:
+            - compatibilityRange: "[2.4.0.RELEASE,2.6.0-SNAPSHOT)"
+              version: 8.13.0.Final
+          links:
+            - rel: guide
+              href: https://www.optaplanner.org/docs/optaplanner/latest/quickstart/spring-boot/spring-boot-quickstart.html#springBootJavaQuickStart
+              description: OptaPlanner AI planning optimization with Spring
+            - rel: reference
+              href: https://www.optaplanner.org/docs/optaplanner/latest/integration/integration.html#integrationWithSpringBoot
     - name: Ops
       content:
         - name: Spring Boot Actuator
