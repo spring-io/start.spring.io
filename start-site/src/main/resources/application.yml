@@ -1287,7 +1287,7 @@ initializr:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
           mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.6.0-M1)"
+            - compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
               starter: false
         - name: Service Registry (TAS)
           id: scs-service-registry
