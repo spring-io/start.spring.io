@@ -1299,6 +1299,7 @@ initializr:
               href: https://docs.pivotal.io/spring-cloud-services/
         - name: Circuit Breaker (TAS)
           id: scs-circuit-breaker
+          compatibilityRange: "[2.0.0.RELEASE,2.5.0-M1)"
           description: Hystrix circuit breaker client on VMware Tanzu Application Service.
           groupId: io.pivotal.spring.cloud
           artifactId: spring-cloud-services-starter-circuit-breaker
