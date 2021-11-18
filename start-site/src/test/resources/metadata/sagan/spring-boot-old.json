@@ -11,31 +11,31 @@
     },
     {
       "current": false,
+      "releaseStatus": "RC",
+      "snapshot": true,
+      "version": "2.6.0-RC1",
+      "versionDisplayName": "2.6.0-RC1"
+    },
+    {
+      "current": false,
       "releaseStatus": "SNAPSHOT",
       "snapshot": true,
-      "version": "2.5.3-SNAPSHOT",
-      "versionDisplayName": "2.5.3-SNAPSHOT"
+      "version": "2.5.7-SNAPSHOT",
+      "versionDisplayName": "2.5.7-SNAPSHOT"
     },
     {
       "current": true,
       "releaseStatus": "GENERAL_AVAILABILITY",
       "snapshot": false,
-      "version": "2.5.2",
-      "versionDisplayName": "2.5.2"
-    },
-    {
-      "current": false,
-      "releaseStatus": "SNAPSHOT",
-      "snapshot": true,
-      "version": "2.4.9-SNAPSHOT",
-      "versionDisplayName": "2.4.9-SNAPSHOT"
+      "version": "2.5.6",
+      "versionDisplayName": "2.5.6"
     },
     {
       "current": false,
       "releaseStatus": "GENERAL_AVAILABILITY",
       "snapshot": false,
-      "version": "2.4.8",
-      "versionDisplayName": "2.4.8"
+      "version": "2.4.12",
+      "versionDisplayName": "2.4.12"
     },
     {
       "current": false,

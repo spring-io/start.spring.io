@@ -69,12 +69,11 @@ class StartInitializrMetadataUpdateStrategyTests {
 		InitializrMetadata updatedMetadata = provider.update(metadata);
 		assertThat(updatedMetadata.getBootVersions()).isNotNull();
 		List<DefaultMetadataElement> updatedBootVersions = updatedMetadata.getBootVersions().getContent();
-		assertThat(updatedBootVersions).hasSize(5);
+		assertThat(updatedBootVersions).hasSize(4);
 		assertBootVersion(updatedBootVersions.get(0), "2.6.0 (SNAPSHOT)", false);
-		assertBootVersion(updatedBootVersions.get(1), "2.5.3 (SNAPSHOT)", false);
-		assertBootVersion(updatedBootVersions.get(2), "2.5.2", true);
-		assertBootVersion(updatedBootVersions.get(3), "2.4.9 (SNAPSHOT)", false);
-		assertBootVersion(updatedBootVersions.get(4), "2.4.8", false);
+		assertBootVersion(updatedBootVersions.get(1), "2.6.0 (RC1)", false);
+		assertBootVersion(updatedBootVersions.get(2), "2.5.7 (SNAPSHOT)", false);
+		assertBootVersion(updatedBootVersions.get(3), "2.5.6", true);
 	}
 
 	@Test
