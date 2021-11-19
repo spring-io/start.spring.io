@@ -96,9 +96,9 @@ public class SpringNativeGroovyDslGradleBuildCustomizerTests extends SpringNativ
 	}
 
 	@Test
-	void gradleBuildWithNative011SnapshotDoesNotAddNativeBuildToolsPlugin() {
+	void gradleBuildWithNative011M2DoesNotAddNativeBuildToolsPlugin() {
 		SpringNativeGradleBuildCustomizer customizer = createCustomizer();
-		GradleBuild build = createBuild("0.11.0-SNAPSHOT");
+		GradleBuild build = createBuild("0.11.0-M2");
 		customizer.customize(build);
 		GradlePlugin springAotPlugin = build.plugins().values()
 				.filter((plugin) -> plugin.getId().equals("org.graalvm.buildtools.native")).findAny().orElse(null);
