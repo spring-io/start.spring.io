@@ -35,7 +35,8 @@ import org.springframework.core.Ordered;
  */
 class SpringNativeMavenBuildCustomizer implements BuildCustomizer<MavenBuild>, Ordered {
 
-	private static final VersionRange NATIVE_NO_TEST_SUPPORT = VersionParser.DEFAULT.parseRange("[0.11.0-M1,0.11.0-M2]");
+	private static final VersionRange NATIVE_NO_TEST_SUPPORT = VersionParser.DEFAULT
+			.parseRange("[0.11.0-M1,0.11.0-M2]");
 
 	@Override
 	public void customize(MavenBuild build) {
