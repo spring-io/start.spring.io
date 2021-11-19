@@ -16,11 +16,14 @@
 
 package io.spring.start.site.extension.dependency.springnative;
 
+import java.util.function.Supplier;
+
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.buildsystem.maven.MavenProfile;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionProperty;
 import io.spring.initializr.generator.version.VersionRange;
@@ -38,11 +41,15 @@ class SpringNativeMavenBuildCustomizer implements BuildCustomizer<MavenBuild>, O
 	private static final VersionRange NATIVE_NO_TEST_SUPPORT = VersionParser.DEFAULT
 			.parseRange("[0.11.0-M1,0.11.0-M2]");
 
+	private static final VersionRange NATIVE_011 = VersionParser.DEFAULT.parseRange("0.11.0-RC1");
+
 	@Override
 	public void customize(MavenBuild build) {
 		Dependency dependency = build.dependencies().get("native");
 		String springNativeVersion = dependency.getVersion().getValue();
 		boolean hasTestSupport = !NATIVE_NO_TEST_SUPPORT.match(VersionParser.DEFAULT.parse(springNativeVersion));
+		Supplier<Dependency> nativeTestDependency = () -> nativeTestDependency(
+				VersionParser.DEFAULT.parse(springNativeVersion));
 
 		// Native build tools
 		String nativeBuildToolsVersion = SpringNativeBuildtoolsVersionResolver.resolve(springNativeVersion);
@@ -83,7 +90,7 @@ class SpringNativeMavenBuildCustomizer implements BuildCustomizer<MavenBuild>, O
 		}
 
 		if (nativeBuildToolsVersion != null) {
-			configureNativeProfile(build, hasTestSupport, nativeBuildToolsVersion);
+			configureNativeProfile(build, hasTestSupport, nativeTestDependency, nativeBuildToolsVersion);
 		}
 	}
 
@@ -102,14 +109,14 @@ class SpringNativeMavenBuildCustomizer implements BuildCustomizer<MavenBuild>, O
 										.add("enableExtendedEnhancement", "false"))));
 	}
 
-	private void configureNativeProfile(MavenBuild build, boolean hasTestSupport, String nativeBuildToolsVersion) {
+	private void configureNativeProfile(MavenBuild build, boolean hasTestSupport,
+			Supplier<Dependency> nativeTestDependency, String nativeBuildToolsVersion) {
 		MavenProfile profile = build.profiles().id("native");
 		profile.properties().version("native-buildtools.version", nativeBuildToolsVersion);
 		profile.properties().property("repackage.classifier", "exec");
-		profile.dependencies().add("junit-platform-native",
-				Dependency.withCoordinates("org.graalvm.buildtools", "junit-platform-native")
-						.version(VersionReference.ofProperty("native-buildtools.version"))
-						.scope(DependencyScope.TEST_RUNTIME));
+		if (hasTestSupport) {
+			profile.dependencies().add("junit-platform-native", nativeTestDependency.get());
+		}
 		profile.plugins().add("org.graalvm.buildtools", "native-maven-plugin", (plugin) -> {
 			plugin.version("${native-buildtools.version}");
 			if (hasTestSupport) {
@@ -117,6 +124,18 @@ class SpringNativeMavenBuildCustomizer implements BuildCustomizer<MavenBuild>, O
 			}
 			plugin.execution("build-native", (execution) -> execution.goal("build").phase("package"));
 		});
+	}
+
+	private Dependency nativeTestDependency(Version springNativeVersion) {
+		if (NATIVE_011.match(springNativeVersion)) {
+			return Dependency.withCoordinates("org.junit.platform", "junit-platform-launcher")
+					.scope(DependencyScope.TEST_RUNTIME).build();
+		}
+		else {
+			return Dependency.withCoordinates("org.graalvm.buildtools", "junit-platform-native")
+					.version(VersionReference.ofProperty("native-buildtools.version"))
+					.scope(DependencyScope.TEST_RUNTIME).build();
+		}
 	}
 
 }

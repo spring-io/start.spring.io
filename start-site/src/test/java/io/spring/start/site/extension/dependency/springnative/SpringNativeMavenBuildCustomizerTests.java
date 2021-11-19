@@ -101,7 +101,7 @@ class SpringNativeMavenBuildCustomizerTests {
 	}
 
 	@Test
-	void native11HasAotPluginConfigurationWithBuilTaskOnly() {
+	void native11HasAotPluginConfigurationWithBuildTaskOnly() {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
 				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.11.0-M1")));
@@ -138,7 +138,7 @@ class SpringNativeMavenBuildCustomizerTests {
 	}
 
 	@Test
-	void nativeProfileHasDependencyToJunitPlatformNative() {
+	void native10ProfileHasDependencyToJunitPlatformNative() {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
 				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.3")));
@@ -148,6 +148,20 @@ class SpringNativeMavenBuildCustomizerTests {
 			assertThat(dependency.getGroupId()).isEqualTo("org.graalvm.buildtools");
 			assertThat(dependency.getArtifactId()).isEqualTo("junit-platform-native");
 			assertThat(dependency.getVersion()).isEqualTo(VersionReference.ofProperty("native-buildtools.version"));
+			assertThat(dependency.getScope()).isEqualTo(DependencyScope.TEST_RUNTIME);
+		}));
+	}
+
+	@Test
+	void native11ProfileHasDependencyToJunitPlatformLauncher() {
+		MavenBuild build = new MavenBuild();
+		build.dependencies().add("native",
+				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.11.0-RC1")));
+		assertThat(build).satisfies(hasNativeProfile((profile) -> {
+			Dependency dependency = profile.dependencies().get("junit-platform-native");
+			assertThat(dependency).isNotNull();
+			assertThat(dependency.getGroupId()).isEqualTo("org.junit.platform");
+			assertThat(dependency.getArtifactId()).isEqualTo("junit-platform-launcher");
 			assertThat(dependency.getScope()).isEqualTo(DependencyScope.TEST_RUNTIME);
 		}));
 	}
