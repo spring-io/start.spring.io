@@ -176,6 +176,7 @@ class SpringNativeMavenBuildCustomizerTests {
 				assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
 				assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
 				assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
+				assertThat(plugin.isExtensions()).isFalse();
 				assertThat(plugin.getExecutions()).hasSize(2);
 				Execution firstExecution = plugin.getExecutions().get(0);
 				assertThat(firstExecution.getId()).isEqualTo("test-native");
@@ -199,6 +200,7 @@ class SpringNativeMavenBuildCustomizerTests {
 				assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
 				assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
 				assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
+				assertThat(plugin.isExtensions()).isFalse();
 				assertThat(plugin.getExecutions()).hasSize(1);
 				Execution execution = plugin.getExecutions().get(0);
 				assertThat(execution.getId()).isEqualTo("build-native");
@@ -218,6 +220,7 @@ class SpringNativeMavenBuildCustomizerTests {
 				assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
 				assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
 				assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
+				assertThat(plugin.isExtensions()).isTrue();
 				assertThat(plugin.getExecutions()).hasSize(2);
 				Execution firstExecution = plugin.getExecutions().get(0);
 				assertThat(firstExecution.getId()).isEqualTo("test-native");
