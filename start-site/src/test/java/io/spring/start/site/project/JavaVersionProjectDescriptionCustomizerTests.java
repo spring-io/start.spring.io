@@ -109,7 +109,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	private static Stream<Arguments> supportedKotlinParameters() {
 		return Stream.of(kotlin("9", "2.3.0.RELEASE"), kotlin("10", "2.3.0.RELEASE"), kotlin("11", "2.3.0.RELEASE"),
 				kotlin("12", "2.3.0.RELEASE"), kotlin("13", "2.3.0.RELEASE"), kotlin("14", "2.3.0.RELEASE"),
-				kotlin("15", "2.3.4.RELEASE"), kotlin("16", "2.5.0-RC1"));
+				kotlin("15", "2.3.4.RELEASE"), kotlin("16", "2.5.0-RC1"), kotlin("17", "2.6.0"));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {

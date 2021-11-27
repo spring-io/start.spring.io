@@ -49,6 +49,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final VersionRange SPRING_BOOT_2_5_5_OR_LATER = VersionParser.DEFAULT.parseRange("2.5.5");
 
+	private static final VersionRange SPRING_BOOT_2_6_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.6.0");
+
 	private static final VersionRange GRADLE_6 = VersionParser.DEFAULT.parseRange("2.2.2.RELEASE");
 
 	private static final VersionRange Spring_NATIVE_011 = VersionParser.DEFAULT.parseRange("2.6.0-M3");
@@ -102,8 +104,9 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			if (!SPRING_BOOT_2_5_5_OR_LATER.match(platformVersion)) {
 				updateTo(description, "11");
 			}
-			// Kotlin is not supported yet
-			if (description.getLanguage() instanceof KotlinLanguage) {
+			// Kotlin 1.6 only
+			if (description.getLanguage() instanceof KotlinLanguage
+					&& !SPRING_BOOT_2_6_0_OR_LATER.match(platformVersion)) {
 				updateTo(description, "11");
 			}
 		}
