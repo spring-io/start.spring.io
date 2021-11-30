@@ -140,8 +140,8 @@ initializr:
         artifactId: vaadin-bom
         versionProperty: vaadin.version
         mappings:
-          - compatibilityRange: "[2.1.0.RELEASE,2.6.0-M1)"
-            version: 14.7.5
+          - compatibilityRange: "[2.1.0.RELEASE,2.7.0-M1)"
+            version: 14.7.7
       wavefront:
         groupId: com.wavefront
         artifactId: wavefront-spring-boot-bom
@@ -345,7 +345,7 @@ initializr:
           artifactId: vaadin-spring-boot-starter
           description: A web framework that allows you to write UI in pure Java without getting bogged down in JS, HTML, and CSS.
           bom: vaadin
-          compatibilityRange: "[2.0.0.RELEASE,2.6.0-M1)"
+          compatibilityRange: "[2.0.0.RELEASE,2.7.0-M1)"
           links:
            - rel: guide
              href: https://spring.io/guides/gs/crud-with-vaadin/
