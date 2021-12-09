@@ -215,11 +215,14 @@ initializr:
             - compatibilityRange: "[2.6.0-RC1,2.6.0)"
               version: 0.11.0-M2
               repository: spring-milestones
-            - compatibilityRange: "[2.6.0,2.6.x-SNAPSHOT)"
+            - compatibilityRange: "[2.6.0,2.6.1)"
               version: 0.11.0-RC1
               repository: spring-milestones
+            - compatibilityRange: "[2.6.1,2.6.x-SNAPSHOT)"
+              version: 0.11.0
+              repository: spring-releases
             - compatibilityRange: "[2.6.x-SNAPSHOT,2.7.0-M1)"
-              version: 0.11.0-SNAPSHOT
+              version: 0.11.1-SNAPSHOT
               repository: spring-snapshots
           links:
             - rel: reference
