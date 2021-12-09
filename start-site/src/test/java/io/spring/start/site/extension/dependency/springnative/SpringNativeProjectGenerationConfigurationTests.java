@@ -79,7 +79,8 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 		request.setType("gradle-project");
 		assertThat(generateProject(request)).containsFiles("settings.gradle").textFile("settings.gradle")
 				.containsSubsequence("pluginManagement {", "repositories {",
-						"maven { url 'https://repo.spring.io/milestone' }", "gradlePluginPortal()", "}", "}");
+						"maven { url 'https://repo.spring.io/release' }", "mavenCentral", "gradlePluginPortal()", "}",
+						"}");
 	}
 
 	@Test

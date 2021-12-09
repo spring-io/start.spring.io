@@ -49,8 +49,12 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 		// Native buildtools plugin
 		Version springNative = VersionParser.DEFAULT.parse(springNativeVersion);
 		String nativeBuildtoolsVersion = SpringNativeBuildtoolsVersionResolver.resolve(springNativeVersion);
-		if (nativeBuildtoolsVersion != null && !NATIVE_0_11_M2.match(springNative)) {
-			customizeNativeBuildToolsPlugin(build, springNative, nativeBuildtoolsVersion);
+		if (nativeBuildtoolsVersion != null) {
+			// Gradle Native buildtools plugin is not yet available on the Gradle portal
+			build.pluginRepositories().add("maven-central");
+			if (!NATIVE_0_11_M2.match(springNative)) {
+				customizeNativeBuildToolsPlugin(build, springNative, nativeBuildtoolsVersion);
+			}
 		}
 
 		// Hibernate enhance plugin
@@ -69,8 +73,6 @@ class SpringNativeGroovyDslGradleBuildCustomizer extends SpringNativeGradleBuild
 
 	private void customizeNativeBuildToolsPlugin(GradleBuild build, Version springNativeVersion,
 			String nativeBuildtoolsVersion) {
-		// Gradle plugin is not yet available on the Gradle portal
-		build.pluginRepositories().add("maven-central");
 		build.plugins().add("org.graalvm.buildtools.native", (plugin) -> plugin.setVersion(nativeBuildtoolsVersion));
 		build.tasks().customize("nativeBuild",
 				(task) -> task.invoke("classpath", "processAotResources.outputs", "compileAotJava.outputs"));
