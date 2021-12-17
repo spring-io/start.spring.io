@@ -81,9 +81,9 @@ initializr:
           - compatibilityRange: "[2.2.0.RELEASE,2.4.0.M1)"
             version: Hoxton.SR12
           - compatibilityRange: "[2.4.0.M1,2.5.x-SNAPSHOT)"
-            version: 2020.0.4
+            version: 2020.0.5
           - compatibilityRange: "[2.5.x-SNAPSHOT,2.6.0-M1)"
-            version: 2020.0.5-SNAPSHOT
+            version: 2020.0.6-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
           - compatibilityRange: "[2.6.0-M1,2.6.0-M3)"
             version: 2021.0.0-M1
