@@ -55,7 +55,7 @@ initializr:
         versionProperty: spring-boot-admin.version
         mappings:
           - compatibilityRange: "[2.3.0.M1,2.6.0-M1)"
-            version: 2.4.3
+            version: 2.5.5
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
