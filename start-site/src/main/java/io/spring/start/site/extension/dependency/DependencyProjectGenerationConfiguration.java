@@ -24,6 +24,7 @@ import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.dependency.flyway.FlywayProjectContributor;
+import io.spring.start.site.extension.dependency.graphql.SpringGraphQlBuildCustomizer;
 import io.spring.start.site.extension.dependency.liquibase.LiquibaseProjectContributor;
 import io.spring.start.site.extension.dependency.lombok.LombokGradleBuildCustomizer;
 import io.spring.start.site.extension.dependency.okta.OktaHelpDocumentCustomizer;
@@ -69,6 +70,12 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("security")
 	public SpringSecurityRSocketBuildCustomizer securityRSocketBuildCustomizer() {
 		return new SpringSecurityRSocketBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("graphql")
+	public SpringGraphQlBuildCustomizer graphQlBuildCustomizer() {
+		return new SpringGraphQlBuildCustomizer(this.metadata);
 	}
 
 	@Bean

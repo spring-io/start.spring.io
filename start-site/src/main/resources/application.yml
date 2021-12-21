@@ -284,6 +284,12 @@ initializr:
             - json
             - reactive
             - native
+        - name: Spring GraphQL
+          id: graphql
+          description: Build GraphQL applications with Spring GraphQL and GraphQL Java.
+          facets:
+            - json
+          compatibilityRange: 2.7.0.M1
         - name: Rest Repositories
           id: data-rest
           facets:
