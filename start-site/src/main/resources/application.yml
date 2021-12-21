@@ -98,7 +98,7 @@ initializr:
             repositories: spring-milestones
           - compatibilityRange: "[2.6.1,2.6.x-SNAPSHOT)"
             version: 2021.0.0
-          - compatibilityRange: "2.6.x-SNAPSHOT"
+          - compatibilityRange: "[2.6.x-SNAPSHOT,2.7.0-M1)"
             version: 2021.0.1-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
       spring-cloud-gcp:
@@ -132,7 +132,7 @@ initializr:
             version: 1.4.13
           - compatibilityRange: "[2.5.0-M1,2.6.0-M1)"
             version: 1.5.7
-          - compatibilityRange: "2.6.0-M1"
+          - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
             version: 1.6.1
       testcontainers:
         groupId: org.testcontainers
@@ -155,7 +155,7 @@ initializr:
             version: 2.0.2
           - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
             version: 2.1.1
-          - compatibilityRange: "2.5.0-M1"
+          - compatibilityRange: "[2.5.0-M1,2.7.0-M1)"
             version: 2.2.2
     gradle:
       dependency-management-plugin-version: 1.0.11.RELEASE
@@ -709,6 +709,7 @@ initializr:
         - name: Spring for Apache Geode
           bom: spring-geode
           id: geode
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           groupId: org.springframework.geode
           artifactId: spring-geode-starter
           description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale that is compatible with Pivotal Cloud Cache.
@@ -905,10 +906,10 @@ initializr:
           id: picocli
           groupId: info.picocli
           artifactId: picocli-spring-boot-starter
-          compatibilityRange: "[2.4.0.RELEASE,2.6.0-SNAPSHOT)"
+          compatibilityRange: "[2.4.0.RELEASE,2.6.0-M1)"
           description: Build command line applications with picocli.
           mappings:
-            - compatibilityRange: "[2.4.0.RELEASE,2.6.0-SNAPSHOT)"
+            - compatibilityRange: "[2.4.0.RELEASE,2.6.0-M1)"
               version: 4.6.2
           links:
             - rel: reference
@@ -1000,6 +1001,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-prometheus
         - name: Sleuth
           id: cloud-starter-sleuth
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           description: Distributed tracing via logs with Spring Cloud Sleuth.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-sleuth
@@ -1008,6 +1010,7 @@ initializr:
           bom: spring-cloud
         - name: Wavefront
           id: wavefront
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           groupId: com.wavefront
           artifactId: wavefront-spring-boot-starter
           bom: wavefront
@@ -1023,6 +1026,7 @@ initializr:
               description: Wavefront for Spring Boot repository
         - name: Zipkin Client
           id: cloud-starter-zipkin
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           description: Distributed tracing with an existing Zipkin installation and Spring Cloud Sleuth Zipkin.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-sleuth-zipkin
@@ -1054,6 +1058,7 @@ initializr:
               href: https://www.testcontainers.org/
         - name: Contract Verifier
           bom: spring-cloud
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           id: cloud-contract-verifier
           description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
           groupId: org.springframework.cloud
@@ -1065,6 +1070,7 @@ initializr:
               description: Spring Cloud Contract Verifier Setup
         - name: Contract Stub Runner
           bom: spring-cloud
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           id: cloud-contract-stub-runner
           description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
           groupId: org.springframework.cloud
@@ -1089,6 +1095,7 @@ initializr:
           starter: false
     - name: Spring Cloud
       bom: spring-cloud
+      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
       content:
         - name: Cloud Bootstrap
           id: cloud-starter
@@ -1141,6 +1148,7 @@ initializr:
               description: Using Spring Cloud Open Service Broker
     - name: Spring Cloud Config
       bom: spring-cloud
+      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
       content:
         - name: Config Client
           id: cloud-config-client
@@ -1193,6 +1201,7 @@ initializr:
               description: Spring Cloud Consul Quick Start
     - name: Spring Cloud Discovery
       bom: spring-cloud
+      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
@@ -1233,6 +1242,7 @@ initializr:
           artifactId: spring-cloud-starter-consul-discovery
     - name: Spring Cloud Routing
       bom: spring-cloud
+      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
       content:
         - name: Gateway
           id: cloud-gateway
@@ -1267,6 +1277,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-commons/docs/current/reference/html/#spring-cloud-loadbalancer
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
+      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
       content:
         - name: Resilience4J
           id: cloud-resilience4j
@@ -1278,6 +1289,7 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/current/reference/html
     - name: Spring Cloud Messaging
       bom: spring-cloud
+      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
       content:
         - name: Cloud Bus
           id: cloud-bus
