@@ -141,7 +141,7 @@ initializr:
         artifactId: vaadin-bom
         versionProperty: vaadin.version
         mappings:
-          - compatibilityRange: "[2.1.0.RELEASE,2.7.0-M1)"
+          - compatibilityRange: "[2.1.0.RELEASE,2.8.0-M1)"
             version: 14.8.0
       wavefront:
         groupId: com.wavefront
