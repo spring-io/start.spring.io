@@ -459,7 +459,7 @@ initializr:
               version: 1.5.1
             - compatibilityRange: "[2.4.1,2.5.0-M1)"
               version: 2.0.1
-            - compatibilityRange: "[2.5.0-M1,2.6.0-M1)"
+            - compatibilityRange: "[2.5.0-M1,2.6.2)"
               version: 2.1.4
           links:
             - rel: guide
