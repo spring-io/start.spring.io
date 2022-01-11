@@ -132,7 +132,7 @@ initializr:
           - compatibilityRange: "[2.5.0-M1,2.6.0-M1)"
             version: 1.5.8
           - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
-            version: 1.6.1
+            version: 1.6.2
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
