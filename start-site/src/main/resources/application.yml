@@ -47,7 +47,7 @@ initializr:
             version: 3.2.0
           - compatibilityRange: "[2.4.0.M1,2.5.0-M1)"
             version: 3.5.0
-          - compatibilityRange: "[2.5.0.M1,2.6.0-M1)"
+          - compatibilityRange: "[2.5.0.M1,2.7.0-M1)"
             version: 3.12.1
       codecentric-spring-boot-admin:
         groupId: de.codecentric
@@ -1338,7 +1338,7 @@ initializr:
               href: https://docs.pivotal.io/spring-cloud-services/
     - name: Microsoft Azure
       bom: azure
-      compatibilityRange: "[2.2.11.RELEASE,2.6.0-M1)"
+      compatibilityRange: "[2.2.11.RELEASE,2.7.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
