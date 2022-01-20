@@ -296,7 +296,7 @@ initializr:
           description: Build GraphQL applications with Spring GraphQL and GraphQL Java.
           facets:
             - json
-          compatibilityRange: 2.7.0.M1
+          compatibilityRange: "[2.7.0.M1,3.0.0-M1)"
         - name: Rest Repositories
           id: data-rest
           facets:
@@ -348,6 +348,7 @@ initializr:
              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-webservices
         - name: Jersey
           id: jersey
+          compatibilityRange: "[2.0.0.RELEASE,3.0.0-M1)"
           description: Framework for developing RESTful Web Services in Java that provides support for JAX-RS APIs.
           facets:
            - json
@@ -808,6 +809,7 @@ initializr:
               description: Apache Kafka Streams Binding Capabilities of Spring Cloud Stream
         - name: Spring for Apache ActiveMQ 5
           id: activemq
+          compatibilityRange: "[2.0.0.RELEASE,3.0.0-M1)"
           description: Spring JMS support with Apache ActiveMQ 'Classic'.
           links:
             - rel: guide
