@@ -18,7 +18,7 @@ service.
 [[build]]
 == Building from Source
 
-You need Java 11 and a bash-like shell.
+You need Java 17 and a bash-like shell.
 
 [[building]]
 === Building

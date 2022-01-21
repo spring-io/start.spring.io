@@ -132,8 +132,7 @@ class ProjectGenerationIntegrationTests {
 
 	Stream<Arguments> parameters() {
 		List<Version> bootVersions = this.metadata.getBootVersions().getContent().stream()
-				.map((element) -> Version.parse(element.getId())).filter(this::isTestableVersion)
-				.collect(Collectors.toList());
+				.map((element) -> Version.parse(element.getId())).collect(Collectors.toList());
 		String defaultJvmVersion = this.metadata.getJavaVersions().getContent().stream()
 				.filter(DefaultMetadataElement::isDefault).map(MetadataElement::getId).findAny().orElse("11");
 		List<Packaging> packagings = Arrays.asList(new JarPackaging(), new WarPackaging());
@@ -153,10 +152,6 @@ class ProjectGenerationIntegrationTests {
 			}
 		}
 		return configurations.stream();
-	}
-
-	private boolean isTestableVersion(Version version) {
-		return version.getMajor() < 3;
 	}
 
 	@ParameterizedTest(name = "{0} - {1} - {2} - {3}")
