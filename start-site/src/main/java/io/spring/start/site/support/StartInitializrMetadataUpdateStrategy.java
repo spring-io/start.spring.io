@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public class StartInitializrMetadataUpdateStrategy extends SaganInitializrMetada
 
 	private boolean isCompatibleVersion(DefaultMetadataElement versionMetadata) {
 		Version version = Version.parse(versionMetadata.getId());
-		return (version.getMajor() >= 2 && version.getMinor() > 4);
+		return (version.getMajor() == 2 && version.getMinor() > 4) || (version.getMajor() >= 3);
 	}
 
 }

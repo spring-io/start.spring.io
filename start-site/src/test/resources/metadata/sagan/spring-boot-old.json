@@ -6,6 +6,20 @@
       "current": false,
       "releaseStatus": "SNAPSHOT",
       "snapshot": true,
+      "version": "3.0.0-SNAPSHOT",
+      "versionDisplayName": "3.0.0-SNAPSHOT"
+    },
+    {
+      "current": false,
+      "releaseStatus": "SNAPSHOT",
+      "snapshot": true,
+      "version": "3.0.0-M1",
+      "versionDisplayName": "3.0.0-M1"
+    },
+    {
+      "current": false,
+      "releaseStatus": "SNAPSHOT",
+      "snapshot": true,
       "version": "2.6.0-SNAPSHOT",
       "versionDisplayName": "2.6.0-SNAPSHOT"
     },

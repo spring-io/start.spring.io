@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,11 +69,13 @@ class StartInitializrMetadataUpdateStrategyTests {
 		InitializrMetadata updatedMetadata = provider.update(metadata);
 		assertThat(updatedMetadata.getBootVersions()).isNotNull();
 		List<DefaultMetadataElement> updatedBootVersions = updatedMetadata.getBootVersions().getContent();
-		assertThat(updatedBootVersions).hasSize(4);
-		assertBootVersion(updatedBootVersions.get(0), "2.6.0 (SNAPSHOT)", false);
-		assertBootVersion(updatedBootVersions.get(1), "2.6.0 (RC1)", false);
-		assertBootVersion(updatedBootVersions.get(2), "2.5.7 (SNAPSHOT)", false);
-		assertBootVersion(updatedBootVersions.get(3), "2.5.6", true);
+		assertThat(updatedBootVersions).hasSize(6);
+		assertBootVersion(updatedBootVersions.get(0), "3.0.0 (SNAPSHOT)", false);
+		assertBootVersion(updatedBootVersions.get(1), "3.0.0 (M1)", false);
+		assertBootVersion(updatedBootVersions.get(2), "2.6.0 (SNAPSHOT)", false);
+		assertBootVersion(updatedBootVersions.get(3), "2.6.0 (RC1)", false);
+		assertBootVersion(updatedBootVersions.get(4), "2.5.7 (SNAPSHOT)", false);
+		assertBootVersion(updatedBootVersions.get(5), "2.5.6", true);
 	}
 
 	@Test
