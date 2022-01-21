@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,6 +74,18 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		ProjectRequest request = javaProject("1.8", "2.6.0-M3");
 		request.getDependencies().add("web");
 		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
+	}
+
+	@Test
+	void java8IsNotCompatibleWithSpringBoot3() {
+		ProjectRequest request = javaProject("1.8", "3.0.0-M1");
+		assertThat(mavenPom(request)).hasProperty("java.version", "17");
+	}
+
+	@Test
+	void java11IsNotCompatibleWithSpringBoot3() {
+		ProjectRequest request = javaProject("11", "3.0.0-M1");
+		assertThat(mavenPom(request)).hasProperty("java.version", "17");
 	}
 
 	@ParameterizedTest(name = "{0} - Java {1} - Spring Boot {2}")
