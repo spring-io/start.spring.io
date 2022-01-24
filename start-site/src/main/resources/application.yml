@@ -135,6 +135,9 @@ initializr:
             version: 1.5.9
           - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
             version: 1.6.3
+          - compatibilityRange: "[2.7.0-M1,2.8.0-M1)"
+            version: 1.7.0-M1
+            repository: spring-milestones
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
@@ -720,7 +723,7 @@ initializr:
         - name: Spring for Apache Geode
           bom: spring-geode
           id: geode
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,2.8.0-M1)"
           groupId: org.springframework.geode
           artifactId: spring-geode-starter
           description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale that is compatible with Pivotal Cloud Cache.
