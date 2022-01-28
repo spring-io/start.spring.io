@@ -210,11 +210,11 @@ initializr:
               version: 0.10.3
             - compatibilityRange: "[2.5.5,2.5.6)"
               version: 0.10.4
-            - compatibilityRange: "[2.5.6,2.5.x-SNAPSHOT)"
+            - compatibilityRange: "[2.5.6,2.5.9)"
               version: 0.10.5
-            - compatibilityRange: "[2.5.x-SNAPSHOT,2.6.0-M1)"
-              version: 0.10.6-SNAPSHOT
-              repository: spring-snapshots
+            - compatibilityRange: "[2.5.9,2.6.0-M1)"
+              version: 0.10.6
+              repository: spring-releases
             - compatibilityRange: "[2.6.0-M1,2.6.0-RC1)"
               version: 0.11.0-M1
               repository: spring-milestones
