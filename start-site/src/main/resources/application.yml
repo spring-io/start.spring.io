@@ -97,9 +97,12 @@ initializr:
             repositories: spring-milestones
           - compatibilityRange: "[2.6.1,2.6.x-SNAPSHOT)"
             version: 2021.0.0
-          - compatibilityRange: "[2.6.x-SNAPSHOT,2.7.0-M1)"
+          - compatibilityRange: "[2.6.x-SNAPSHOT,3.0.0-M1)"
             version: 2021.0.1-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
+          - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
+            version: 2022.0.0-M1
+            repositories: spring-milestones
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
@@ -1124,7 +1127,7 @@ initializr:
           starter: false
     - name: Spring Cloud
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Cloud Bootstrap
           id: cloud-starter
@@ -1177,7 +1180,7 @@ initializr:
               description: Using Spring Cloud Open Service Broker
     - name: Spring Cloud Config
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Config Client
           id: cloud-config-client
@@ -1230,10 +1233,11 @@ initializr:
               description: Spring Cloud Consul Quick Start
     - name: Spring Cloud Discovery
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           description: A REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-client
@@ -1245,6 +1249,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/#service-discovery-eureka-clients
         - name: Eureka Server
           id: cloud-eureka-server
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           description: spring-cloud-netflix Eureka Server.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-server
@@ -1261,6 +1266,7 @@ initializr:
           artifactId: spring-cloud-starter-zookeeper-discovery
         - name: Cloud Foundry Discovery
           id: cloud-cloudfoundry-discovery
+          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           description: Service discovery with Cloud Foundry.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-cloudfoundry-discovery
@@ -1271,7 +1277,7 @@ initializr:
           artifactId: spring-cloud-starter-consul-discovery
     - name: Spring Cloud Routing
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Gateway
           id: cloud-gateway
@@ -1306,7 +1312,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-commons/docs/current/reference/html/#spring-cloud-loadbalancer
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Resilience4J
           id: cloud-resilience4j
@@ -1318,7 +1324,7 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/current/reference/html
     - name: Spring Cloud Messaging
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Cloud Bus
           id: cloud-bus
