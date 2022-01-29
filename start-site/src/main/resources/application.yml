@@ -565,7 +565,7 @@ initializr:
             - compatibilityRange: "[2.1.0.RELEASE,2.5.0-M1)"
               version: 2.1.4
             - compatibilityRange: "2.5.0-M1"
-              version: 2.2.1
+              version: 2.2.2
         - name: Liquibase Migration
           id: liquibase
           description: Liquibase database migration and source control library.
