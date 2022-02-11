@@ -31,6 +31,7 @@ import io.spring.start.site.extension.dependency.okta.OktaHelpDocumentCustomizer
 import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springbatch.SpringBatchTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springkafka.SpringKafkaBuildCustomizer;
+import io.spring.start.site.extension.dependency.springnative.SpringNativeBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityRSocketBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsession.SpringSessionBuildCustomizer;
@@ -125,6 +126,12 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("okta")
 	public OktaHelpDocumentCustomizer oktaHelpDocumentCustomizer(MustacheTemplateRenderer templateRenderer) {
 		return new OktaHelpDocumentCustomizer(templateRenderer);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("native")
+	public SpringNativeBuildCustomizer nativeBuildCustomizer() {
+		return new SpringNativeBuildCustomizer();
 	}
 
 }
