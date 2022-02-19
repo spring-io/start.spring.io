@@ -18,7 +18,7 @@
 		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
 		<spring-initializr.version>0.13.0-SNAPSHOT</spring-initializr.version>
-		<spring-javaformat.version>0.0.26</spring-javaformat.version>
+		<spring-javaformat.version>0.0.31</spring-javaformat.version>
 	</properties>
 
 	<modules>
@@ -112,7 +112,7 @@
 						<dependency>
 							<groupId>com.puppycrawl.tools</groupId>
 							<artifactId>checkstyle</artifactId>
-							<version>8.32</version>
+							<version>8.45.1</version>
 						</dependency>
 						<dependency>
 							<groupId>io.spring.javaformat</groupId>
