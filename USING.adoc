@@ -116,21 +116,21 @@ version:
 
 [source]
 ----
-Requires Spring Boot >=2.4.0 and <2.5.0-M1
+Requires Spring Boot >=2.4.0 and <2.6.0-M1
 ----
 
 Concretely, this defines a "version range" that states the dependency is deprecated and is
-no longer available as of Spring Boot 2.5. You may want to check the release notes of the
+no longer available as of Spring Boot 2.6. You may want to check the release notes of the
 related project to understand what your migration path can be. Alternatively, the message
 could be:
 
 [source]
 ----
-Requires Spring Boot >=2.4.0
+Requires Spring Boot >=2.6.0
 ----
 
 That version range means the dependency is not available with the selected Spring Boot
-generation. If you select Spring Boot 2.4 (or later if available), you'll be
+generation. If you select Spring Boot 2.6 (or later if available), you'll be
 able to select that dependency.
 
 
@@ -237,13 +237,13 @@ understand how you can generate a project. These are obviously tailored to the c
 you are using.
 
 Let's assume that you want to generate a "my-project.zip" project based on Spring Boot
-`2.4.2`, using the `web` and `devtools` dependencies (remember, those two ids are
+`2.6.4`, using the `web` and `devtools` dependencies (remember, those two ids are
 displayed in the capabilities of the service):
 
 [source]
 ----
 $ curl https://start.spring.io/starter.zip -d dependencies=web,devtools \
-           -d bootVersion=2.4.2 -o my-project.zip
+           -d bootVersion=2.6.4 -o my-project.zip
 ----
 
 If you extract `my-project.zip`, you'll notice a few differences compared to what happens
@@ -259,7 +259,7 @@ The exact same project can be generated using the `http` command as well:
 [source]
 ----
 $ http https://start.spring.io/starter.zip dependencies==web,devtools \
-           bootVersion==2.4.2 -d
+           bootVersion==2.6.4 -d
 ----
 
 NOTE: `HTTPie` reads the same hint as the browser, so it will store a `demo.zip` file in
