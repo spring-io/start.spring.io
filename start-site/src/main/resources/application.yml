@@ -139,7 +139,7 @@ initializr:
           - compatibilityRange: "[2.5.0-M1,2.6.0-M1)"
             version: 1.5.10
           - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
-            version: 1.6.3
+            version: 1.6.4
           - compatibilityRange: "[2.7.0-M1,2.8.0-M1)"
             version: 1.7.0-M1
             repository: spring-milestones
