@@ -48,7 +48,7 @@ initializr:
           - compatibilityRange: "[2.4.0.M1,2.5.0-M1)"
             version: 3.5.0
           - compatibilityRange: "[2.5.0.M1,2.7.0-M1)"
-            version: 3.13.0
+            version: 3.14.0
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
