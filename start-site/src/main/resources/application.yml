@@ -124,7 +124,7 @@ initializr:
           - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
             version: 2.4.1
           - compatibilityRange: "[2.5.0-M1,2.6.0-M1)"
-            version: 3.3.0          
+            version: 3.3.0
           - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
             version: 3.4.0
       spring-geode:
@@ -1371,6 +1371,57 @@ initializr:
           links:
             - rel: reference
               href: https://docs.pivotal.io/spring-cloud-services/
+    - name: Amazon Web Services
+      compatibilityRange: "[2.4.0,2.7.0-M1)"
+      content:
+        - name: AWS Core
+          id: cloud-aws
+          description: Core module of Spring Cloud AWS providing basic services for security and configuration setup.
+          groupId: io.awspring.cloud
+          artifactId: spring-cloud-starter-aws
+          links:
+            - rel: reference
+              href: https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/index.html
+        - name: Amazon Relation Database Service (RDS)
+          id: cloud-aws-jdbc
+          description: Relational databases on AWS with RDS and Spring Cloud AWS JDBC.
+          groupId: io.awspring.cloud
+          artifactId: spring-cloud-starter-aws-jdbc
+          links:
+            - rel: reference
+              href: https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/index.html#data-access-with-jdbc
+        - name: AWS Messaging - Simple Queue Service (SQS) and Simple Notification Service (SNS)
+          id: cloud-aws-messaging
+          description: Messaging on AWS with SQS/ SNS and Spring Cloud AWS Messaging.
+          groupId: io.awspring.cloud
+          artifactId: spring-cloud-starter-aws-messaging
+          links:
+            - rel: reference
+              href: https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/index.html#messaging
+        - name: AWS Parameter Store
+          id: cloud-aws-parameter-store-config
+          description: Enables Spring Cloud applications to use the AWS Parameter Store as a Bootstrap Property Source.
+          groupId: io.awspring.cloud
+          artifactId: spring-cloud-starter-aws-parameter-store-config
+          links:
+            - rel: reference
+              href: https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/index.html#integrating-your-spring-cloud-application-with-the-aws-parameter-store
+        - name: AWS Secrets Manager
+          id: cloud-aws-secrets-manager-config
+          description: Enables Spring Cloud applications to use the AWS Secrets Manager as a Bootstrap Property Source.
+          groupId: io.awspring.cloud
+          artifactId: spring-cloud-starter-aws-secrets-manager-config
+          links:
+            - rel: reference
+              href: https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/index.html#integrating-your-spring-cloud-application-with-the-aws-secrets-manager
+        - name: Amazon Simple Email Service (SES)
+          id: cloud-aws-ses
+          description: Supports Amazon SES as an implementation of the Spring Mail abstraction.
+          groupId: io.awspring.cloud
+          artifactId: spring-cloud-starter-aws-ses
+          links:
+            - rel: reference
+              href: https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/index.html#sending-mails
     - name: Microsoft Azure
       bom: azure
       compatibilityRange: "[2.2.11.RELEASE,2.7.0-M1)"
