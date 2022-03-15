@@ -951,9 +951,7 @@ initializr:
           compatibilityRange: "[2.4.0.RELEASE,3.0.0-M1)"
           description: Build command line applications with picocli.
           mappings:
-            - compatibilityRange: "[2.4.0.RELEASE,2.6.0-M1)"
-              version: 4.6.2
-            - compatibilityRange: "[2.6.0.RELEASE,3.0.0-M1)"
+            - compatibilityRange: "[2.4.0.RELEASE,3.0.0-M1)"
               version: 4.6.3
           links:
             - rel: reference
