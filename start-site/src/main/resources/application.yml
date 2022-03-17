@@ -124,7 +124,7 @@ initializr:
           - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
             version: 2.4.1
           - compatibilityRange: "[2.5.0-M1,2.6.0-M1)"
-            version: 3.3.0          
+            version: 3.3.0
           - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
             version: 3.4.0
       spring-geode:
@@ -319,6 +319,12 @@ initializr:
             - json
             - reactive
             - native
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/reactive-rest-service/
+              description: Building a Reactive RESTful Web Service
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.reactive
         - name: Spring GraphQL
           id: graphql
           description: Build GraphQL applications with Spring GraphQL and GraphQL Java.
@@ -348,6 +354,9 @@ initializr:
           artifactId: spring-session-core
           description: Provides an API and implementations for managing user session information.
           starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-session/reference/
         - name: Rest Repositories HAL Explorer
           id: data-rest-explorer
           description: Browsing Spring Data REST repositories in your browser.
@@ -379,25 +388,25 @@ initializr:
           compatibilityRange: "[2.0.0.RELEASE,3.0.0-M1)"
           description: Framework for developing RESTful Web Services in Java that provides support for JAX-RS APIs.
           facets:
-           - json
+            - json
           links:
-           - rel: reference
-             href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
         - name: Vaadin
           id: vaadin
           facets:
-           - web
+            - web
           groupId: com.vaadin
           artifactId: vaadin-spring-boot-starter
           description: A web framework that allows you to write UI in pure Java without getting bogged down in JS, HTML, and CSS.
           bom: vaadin
           compatibilityRange: "[2.0.0.RELEASE,2.8.0-M1)"
           links:
-           - rel: guide
-             href: https://spring.io/guides/gs/crud-with-vaadin/
-             description: Creating CRUD UI with Vaadin
-           - rel: reference
-             href: https://vaadin.com/spring
+            - rel: guide
+              href: https://spring.io/guides/gs/crud-with-vaadin/
+              description: Creating CRUD UI with Vaadin
+            - rel: reference
+              href: https://vaadin.com/spring
     - name: Template Engines
       content:
         - name: Thymeleaf
@@ -543,7 +552,7 @@ initializr:
               href: https://github.com/spring-projects/spring-data-examples/tree/master/jdbc/basics
               description: Using Spring Data JDBC
             - rel: reference
-              href: https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#features.sql.jdbc
         - name: Spring Data R2DBC
           id: data-r2dbc
           description: Provides Reactive Relational Database Connectivity to persist data in SQL stores using Spring Data in reactive applications.
@@ -555,7 +564,7 @@ initializr:
               href: https://spring.io/guides/gs/accessing-data-r2dbc/
               description: Acessing data with R2DBC
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/spring-boot-features.html#boot-features-r2dbc
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-r2dbc
             - rel: home
               href: https://r2dbc.io
               description: R2DBC Homepage
@@ -723,6 +732,9 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb
+            - rel: guide
+              href: https://spring.io/guides/gs/accessing-data-mongodb/
+              description: Accessing Data with MongoDB
         - name: Spring Data Elasticsearch (Access+Driver)
           id: data-elasticsearch
           description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
@@ -737,6 +749,8 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
+            - rel: guide
+              href: https://spring.io/guides/gs/accessing-data-cassandra/
         - name: Spring Data Reactive for Apache Cassandra
           id: data-cassandra-reactive
           description: Access Cassandra NoSQL Database in a reactive fashion.
@@ -745,6 +759,8 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-cassandra
+            - rel: guide
+              href: https://spring.io/guides/gs/accessing-data-cassandra/
         - name: Spring for Apache Geode
           bom: spring-geode
           id: geode
@@ -830,7 +846,7 @@ initializr:
               href: https://github.com/spring-cloud/spring-cloud-stream-samples/tree/master/kafka-streams-samples
               description: Samples for using Apache Kafka Streams with Spring Cloud stream
             - rel: reference
-              href: https://docs.spring.io/spring-kafka/docs/current/reference/html/_reference.html#kafka-streams
+              href: https://docs.spring.io/spring-kafka/docs/current/reference/html/#streams-kafka-streams
               description: Apache Kafka Streams Support
             - rel: reference
               href: https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_kafka_streams_binding_capabilities_of_spring_cloud_stream
@@ -872,6 +888,9 @@ initializr:
           facets:
             - reactive
             - native
+          links:
+            - rel: reference
+              href: https://rsocket.io/
         - name: Apache Camel
           id: camel
           compatibilityRange: "[2.0.0.M1,2.7.0-M1)"
@@ -924,6 +943,8 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-validation
+            - rel: guide
+              href: https://spring.io/guides/gs/validating-form-input/
         - name: Java Mail Sender
           id: mail
           description: Send email using Java Mail and Spring Framework's JavaMailSender.
@@ -935,6 +956,9 @@ initializr:
         - name: Quartz Scheduler
           id: quartz
           description: Schedule jobs using Quartz.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-quartz
         - name: Spring cache abstraction
           id: cache
           description: Provides cache-related operations, such as the ability to update the content of the cache, but does not provide the actual data store.
@@ -1000,7 +1024,7 @@ initializr:
           description: Publish Micrometer metrics to Datadog, a dimensional time-series SaaS with built-in dashboarding and alerting.
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-datadog
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready-metrics-export-datadog
         - name: Influx
           id: influx
           groupId: io.micrometer
@@ -1010,7 +1034,7 @@ initializr:
           description: Publish Micrometer metrics to InfluxDB, a dimensional time-series server that support real-time stream processing of data.
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-influx
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready-metrics-export-influx
         - name: Graphite
           id: graphite
           groupId: io.micrometer
@@ -1020,7 +1044,7 @@ initializr:
           description: Publish Micrometer metrics to Graphite, a hierarchical metrics system backed by a fixed-size database.
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-graphite
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready-metrics-export-graphite
         - name: New Relic
           id: new-relic
           groupId: io.micrometer
@@ -1030,7 +1054,7 @@ initializr:
           description: Publish Micrometer metrics to New Relic, a SaaS offering with a full UI and a query language called NRQL.
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-new-relic
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready-metrics-export-newrelic
         - name: Prometheus
           id: prometheus
           groupId: io.micrometer
@@ -1040,7 +1064,7 @@ initializr:
           description: Expose Micrometer metrics in Prometheus format, an in-memory dimensional time series database with a simple built-in UI, a custom query language, and math operations.
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/production-ready-features.html#production-ready-metrics-export-prometheus
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready-metrics-export-prometheus
         - name: Sleuth
           id: cloud-starter-sleuth
           compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
@@ -1050,6 +1074,9 @@ initializr:
           facets:
             - native
           bom: spring-cloud
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/htmlsingle/spring-cloud-sleuth.html
         - name: Wavefront
           id: wavefront
           compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
@@ -1087,6 +1114,9 @@ initializr:
           artifactId: spring-restdocs-mockmvc
           scope: test
           starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-restdocs/docs/current/reference/html5/
         - name: Testcontainers
           id: testcontainers
           description: Provide lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
@@ -1107,9 +1137,8 @@ initializr:
           artifactId: spring-cloud-starter-contract-verifier
           scope: test
           links:
-            - rel: guide
-              href: https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_spring_cloud_contract_verifier_setup
-              description: Spring Cloud Contract Verifier Setup
+            - rel: reference
+              href: https://cloud.spring.io/spring-cloud-contract/reference/htmlsingle/
         - name: Contract Stub Runner
           bom: spring-cloud
           compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
@@ -1118,6 +1147,9 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-contract-stub-runner
           scope: test
+          links:
+            - rel: reference
+              href: https://cloud.spring.io/spring-cloud-contract/reference/htmlsingle/#features-stub-runner
         - name: Embedded LDAP Server
           id: unboundid-ldap
           description: Provides a platform neutral way for running a LDAP server in unit tests.
@@ -1127,7 +1159,7 @@ initializr:
           starter: false
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/boot-features-nosql.html#boot-features-ldap-embedded
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-ldap-embedded
         - name: Embedded MongoDB Database
           id: flapdoodle-mongo
           description: Provides a platform neutral way for running MongoDB in unit tests.
@@ -1135,6 +1167,9 @@ initializr:
           artifactId: de.flapdoodle.embed.mongo
           scope: test
           starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongo-embedded
     - name: Spring Cloud
       bom: spring-cloud
       compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
@@ -1146,7 +1181,7 @@ initializr:
           artifactId: spring-cloud-starter
           links:
             - rel: reference
-              href: https://spring.io/projects/spring-cloud-commons
+              href: https://docs.spring.io/spring-cloud-commons/docs/current/reference/html/
         - name: Function
           id: cloud-function
           groupId: org.springframework.cloud
@@ -1157,15 +1192,18 @@ initializr:
             - native
           links:
             - rel: reference
-              href: https://cloud.spring.io/spring-cloud-function/
+              href: https://docs.spring.io/spring-cloud-function/docs/current/reference/html/spring-cloud-function.html
             - rel: sample
-              href: https://github.com/spring-cloud/spring-cloud-function/tree/master/spring-cloud-function-samples
+              href: https://github.com/spring-cloud/spring-cloud-function/tree/main/spring-cloud-function-samples
               description: Various sample apps using Spring Cloud Function
         - name: Task
           id: cloud-task
           description: Allows a user to develop and run short lived microservices using Spring Cloud. Run them locally, in the cloud, and on Spring Cloud Data Flow.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-task
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-task/docs/current/reference/html/
     - name: Spring Cloud Tools
       content:
         - name: Open Service Broker
@@ -1211,6 +1249,8 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-config-server
           links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_spring_cloud_config_server
             - rel: guide
               href: https://spring.io/guides/gs/centralized-configuration/
               description: Centralized Configuration
@@ -1274,17 +1314,26 @@ initializr:
           description: Service discovery with Apache Zookeeper.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-zookeeper-discovery
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#spring-cloud-zookeeper-discovery
         - name: Cloud Foundry Discovery
           id: cloud-cloudfoundry-discovery
           compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
           description: Service discovery with Cloud Foundry.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-cloudfoundry-discovery
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-cloudfoundry/docs/current/reference/html/
         - name: Consul Discovery
           id: cloud-starter-consul-discovery
           description: Service discovery with Hashicorp Consul.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-consul-discovery
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/#spring-cloud-consul-discovery
     - name: Spring Cloud Routing
       bom: spring-cloud
       compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
@@ -1295,6 +1344,8 @@ initializr:
           artifactId: spring-cloud-starter-gateway
           description: Provides a simple, yet effective way to route to APIs and provide cross cutting concerns to them such as security, monitoring/metrics, and resiliency.
           links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/
             - rel: guide
               href: https://github.com/spring-cloud-samples/spring-cloud-gateway-sample
               description: Using Spring Cloud Gateway
@@ -1331,7 +1382,7 @@ initializr:
           artifactId: spring-cloud-starter-circuitbreaker-resilience4j
           links:
             - rel: reference
-              href: https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/current/reference/html
+              href: https://docs.spring.io/spring-cloud-circuitbreaker/docs/current/reference/html/#configuring-resilience4j-circuit-breakers
     - name: Spring Cloud Messaging
       bom: spring-cloud
       compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
@@ -1341,11 +1392,17 @@ initializr:
           description: Links nodes of a distributed system with a lightweight message broker which can used to broadcast state changes or other management instructions (requires a binder, e.g. Apache Kafka or RabbitMQ).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-bus
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-bus/docs/current/reference/html/
         - name: Cloud Stream
           id: cloud-stream
           description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, RabbitMQ or Solace PubSub+).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring-cloud-stream-overview-introducing
     - name: VMware Tanzu Application Service
       bom: spring-cloud-services
       compatibilityRange: "[2.0.0.RELEASE,2.7.0-M1)"
@@ -1357,7 +1414,7 @@ initializr:
           artifactId: spring-cloud-services-starter-config-client
           links:
             - rel: reference
-              href: https://docs.pivotal.io/spring-cloud-services/
+              href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.4.0-M1)"
               starter: false
@@ -1368,7 +1425,7 @@ initializr:
           artifactId: spring-cloud-services-starter-service-registry
           links:
             - rel: reference
-              href: https://docs.pivotal.io/spring-cloud-services/
+              href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
     - name: Microsoft Azure
       bom: azure
       compatibilityRange: "[2.2.11.RELEASE,2.7.0-M1)"
@@ -1383,7 +1440,7 @@ initializr:
               href: https://spring.io/guides/gs/spring-boot-for-azure/
               description: Deploying a Spring Boot app to Azure
             - rel: reference
-              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring
+              href: https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/spring
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
               groupId: com.microsoft.azure
@@ -1393,11 +1450,8 @@ initializr:
           artifactId: azure-spring-boot-starter-active-directory
           description: Spring Security integration with Azure Active Directory for authentication.
           links:
-            - rel: guide
-              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-active-directory-webapp
-              description: Using Active Directory
             - rel: reference
-              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-starter-active-directory
+              href: https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/spring/azure-spring-boot-starter-active-directory
           mappings:
             - compatibilityRange: "[2.0.0.RELEASE,2.3.0.M1)"
               groupId: com.microsoft.azure
@@ -1419,22 +1473,16 @@ initializr:
           artifactId: azure-spring-boot-starter-keyvault-secrets
           description: Manage application secrets.
           links:
-            - rel: guide
-              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-keyvault-secrets
-              description: Using Key Vault
             - rel: reference
-              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-starter-keyvault-secrets
+              href: https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/spring/azure-spring-boot-starter-keyvault-secrets
         - name: Azure Storage
           id: azure-storage
           groupId: com.azure.spring
           artifactId: azure-spring-boot-starter-storage
           description: Azure Storage service integration.
           links:
-            - rel: guide
-              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-storage-resource
-              description: Using Azure Storage
             - rel: reference
-              href: https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-starter-storage
+              href: https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/spring/azure-spring-boot-starter-storage
     - name: Google Cloud Platform
       bom: spring-cloud-gcp
       compatibilityRange: "[2.4.0-M1,2.7.0-M1)"
@@ -1448,7 +1496,7 @@ initializr:
             - rel: reference
               href: https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html
             - rel: guide
-              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples
+              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples
               description: GCP Samples
         - name: GCP Messaging
           id: cloud-gcp-pubsub
@@ -1459,7 +1507,7 @@ initializr:
             - rel: reference
               href: https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#cloud-pubsub
             - rel: guide
-              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-pubsub-sample
+              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-pubsub-sample
               description: GCP Pub/Sub Sample
         - name: GCP Storage
           id: cloud-gcp-storage
@@ -1470,7 +1518,7 @@ initializr:
             - rel: reference
               href: https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#cloud-storage
             - rel: guide
-              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
+              href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
   types:
     - name: Maven Project
       id: maven-project
