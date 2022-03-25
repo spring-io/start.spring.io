@@ -49,6 +49,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final VersionRange SPRING_BOOT_2_5_5_OR_LATER = VersionParser.DEFAULT.parseRange("2.5.5");
 
+	private static final VersionRange SPRING_BOOT_2_5_11_OR_LATER = VersionParser.DEFAULT.parseRange("2.5.11");
+
 	private static final VersionRange SPRING_BOOT_2_6_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.6.0");
 
 	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
@@ -118,6 +120,21 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 				updateTo(description, "11");
 			}
 		}
+		if (javaGeneration == 18) {
+			// Java 17 support as of Spring Boot 2.5.11
+			if (!SPRING_BOOT_2_5_11_OR_LATER.match(platformVersion)) {
+				updateTo(description, "17");
+			}
+			// Kotlin support to be determined
+			if (description.getLanguage() instanceof KotlinLanguage) {
+				if (!SPRING_BOOT_2_6_0_OR_LATER.match(platformVersion)) {
+					updateTo(description, "11");
+				}
+				else {
+					updateTo(description, "17");
+				}
+			}
+		}
 	}
 
 	private void updateTo(MutableProjectDescription description, String jvmVersion) {
@@ -131,7 +148,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 				return 8;
 			}
 			int generation = Integer.parseInt(javaVersion);
-			return ((generation > 8 && generation <= 17) ? generation : null);
+			return ((generation > 8 && generation <= 18) ? generation : null);
 		}
 		catch (NumberFormatException ex) {
 			return null;
