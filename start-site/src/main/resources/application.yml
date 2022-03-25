@@ -137,7 +137,7 @@ initializr:
           - compatibilityRange: "[2.4.0-M1,2.5.0-M1)"
             version: 1.4.13
           - compatibilityRange: "[2.5.0-M1,2.6.0-M1)"
-            version: 1.5.10
+            version: 1.5.11
           - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
             version: 1.6.4
           - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
