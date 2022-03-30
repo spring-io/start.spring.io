@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springdata;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
+import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.support.MetadataBuildItemResolver;
@@ -69,6 +70,17 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		build.dependencies().add("postgresql");
 		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "postgresql", "r2dbc-postgresql");
+		assertThat(build.dependencies().get("r2dbc-postgresql").getGroupId()).isEqualTo("io.r2dbc");
+	}
+
+	@Test
+	void r2dbcWithPostgresqlAfterSpringBoot3() {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("postgresql");
+		customize(build, Version.parse("3.0.0-M2"));
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "postgresql", "r2dbc-postgresql");
+		assertThat(build.dependencies().get("r2dbc-postgresql").getGroupId()).isEqualTo("org.postgresql");
 	}
 
 	@Test
@@ -127,7 +139,13 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	private void customize(Build build) {
-		new R2dbcBuildCustomizer().customize(build);
+		customize(build, Version.parse("2.6.5"));
+	}
+
+	private void customize(Build build, Version platformVersion) {
+		final MutableProjectDescription description = new MutableProjectDescription();
+		description.setPlatformVersion(platformVersion);
+		new R2dbcBuildCustomizer(description).customize(build);
 	}
 
 }
