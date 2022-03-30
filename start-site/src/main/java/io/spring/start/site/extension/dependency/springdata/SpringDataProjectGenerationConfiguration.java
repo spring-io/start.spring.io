@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springdata;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
@@ -32,8 +33,8 @@ public class SpringDataProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("data-r2dbc")
-	public R2dbcBuildCustomizer r2dbcBuildCustomizer() {
-		return new R2dbcBuildCustomizer();
+	public R2dbcBuildCustomizer r2dbcBuildCustomizer(ProjectDescription description) {
+		return new R2dbcBuildCustomizer(description);
 	}
 
 	@Bean

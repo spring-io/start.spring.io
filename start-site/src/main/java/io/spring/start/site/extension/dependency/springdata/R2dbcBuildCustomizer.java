@@ -16,6 +16,10 @@
 
 package io.spring.start.site.extension.dependency.springdata;
 
+import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,6 +40,14 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final List<String> JDBC_DEPENDENCY_IDS = Arrays.asList("jdbc", "data-jdbc", "data-jpa");
 
+	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
+
+	private final ProjectDescription description;
+
+	public R2dbcBuildCustomizer(ProjectDescription description) {
+		this.description = description;
+	}
+
 	@Override
 	public void customize(Build build) {
 		if (build.dependencies().has("h2")) {
@@ -48,7 +60,12 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
 		}
 		if (build.dependencies().has("postgresql")) {
-			addManagedDriver(build.dependencies(), "org.postgresql", "r2dbc-postgresql");
+			final Version platformVersion = description.getPlatformVersion();
+			if (SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion)) {
+				addManagedDriver(build.dependencies(), "org.postgresql", "r2dbc-postgresql");
+			} else {
+				addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-postgresql");
+			}
 		}
 		if (build.dependencies().has("sqlserver")) {
 			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql");
