@@ -48,7 +48,7 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
 		}
 		if (build.dependencies().has("postgresql")) {
-			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-postgresql");
+			addManagedDriver(build.dependencies(), "org.postgresql", "r2dbc-postgresql");
 		}
 		if (build.dependencies().has("sqlserver")) {
 			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql");
