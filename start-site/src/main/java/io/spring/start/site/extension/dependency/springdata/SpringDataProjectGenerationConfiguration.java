@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public class SpringDataProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnRequestedDependency("data-r2dbc")
 	public R2dbcBuildCustomizer r2dbcBuildCustomizer(ProjectDescription description) {
-		return new R2dbcBuildCustomizer(description);
+		return new R2dbcBuildCustomizer(description.getPlatformVersion());
 	}
 
 	@Bean

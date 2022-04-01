@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.springdata;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
-import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.support.MetadataBuildItemResolver;
@@ -134,18 +133,19 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 
 	private Build createBuild() {
 		InitializrMetadata metadata = getMetadata();
-		return new MavenBuild(new MetadataBuildItemResolver(metadata,
-				Version.parse(metadata.getBootVersions().getDefault().getId())));
+		return new MavenBuild(new MetadataBuildItemResolver(metadata, getDefaultPlatformVersion(metadata)));
 	}
 
 	private void customize(Build build) {
-		customize(build, Version.parse("2.6.5"));
+		customize(build, getDefaultPlatformVersion(getMetadata()));
 	}
 
 	private void customize(Build build, Version platformVersion) {
-		final MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(platformVersion);
-		new R2dbcBuildCustomizer(description).customize(build);
+		new R2dbcBuildCustomizer(platformVersion).customize(build);
+	}
+
+	private Version getDefaultPlatformVersion(InitializrMetadata metadata) {
+		return Version.parse(metadata.getBootVersions().getDefault().getId());
 	}
 
 }
