@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,9 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link BuildCustomizer} for R2DBC that adds the necessary extra dependencies based on
@@ -35,6 +38,14 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
 public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final List<String> JDBC_DEPENDENCY_IDS = Arrays.asList("jdbc", "data-jdbc", "data-jpa");
+
+	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
+
+	private final Version platformVersion;
+
+	public R2dbcBuildCustomizer(Version platformVersion) {
+		this.platformVersion = platformVersion;
+	}
 
 	@Override
 	public void customize(Build build) {
@@ -48,7 +59,8 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
 		}
 		if (build.dependencies().has("postgresql")) {
-			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-postgresql");
+			String groupId = (SPRING_BOOT_3_0_0_OR_LATER.match(this.platformVersion)) ? "org.postgresql" : "io.r2dbc";
+			addManagedDriver(build.dependencies(), groupId, "r2dbc-postgresql");
 		}
 		if (build.dependencies().has("sqlserver")) {
 			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql");
