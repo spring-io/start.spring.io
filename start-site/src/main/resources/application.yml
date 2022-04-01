@@ -1441,6 +1441,9 @@ initializr:
               description: Deploying a Spring Boot app to Azure
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html
+            - rel: sample
+              href: https://aka.ms/spring/samples
+              description: Azure Samples
         - name: Azure Active Directory
           id: azure-active-directory
           groupId: com.azure.spring
@@ -1449,17 +1452,20 @@ initializr:
           links:
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#authentication
+            - rel: sample
+              href: https://aka.ms/spring/samples/latest/aad
+              description: Azure Active Directory Sample
         - name: Azure Cosmos DB
           id: azure-cosmos-db
           groupId: com.azure.spring
           artifactId: spring-cloud-azure-starter-data-cosmos
           description: Fully managed NoSQL database service for modern app development, including Spring Data support.
           links:
-            - rel: guide
-              href: https://github.com/Azure-Samples/azure-spring-boot-samples/tree/spring-cloud-azure_v4.0.0/cosmos
-              description: Using Azure Cosmos DB with Spring Data
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#spring-data-support
+            - rel: sample
+              href: https://aka.ms/spring/samples/latest/cosmos
+              description: Azure Cosmos DB Sample
         - name: Azure Key Vault
           id: azure-keyvault-secrets
           groupId: com.azure.spring
@@ -1468,6 +1474,9 @@ initializr:
           links:
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#secret-management
+            - rel: sample
+              href: https://aka.ms/spring/samples/latest/keyvault
+              description: Azure Key Vault Sample
         - name: Azure Storage
           id: azure-storage
           groupId: com.azure.spring
@@ -1476,6 +1485,9 @@ initializr:
           links:
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#resource-handling
+            - rel: sample
+              href: https://aka.ms/spring/samples/latest/storage
+              description: Azure Storage Sample
     - name: Google Cloud Platform
       bom: spring-cloud-gcp
       compatibilityRange: "[2.4.0-M1,2.7.0-M1)"
