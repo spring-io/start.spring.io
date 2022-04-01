@@ -36,7 +36,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForMaven() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.4.0");
+		request.setBootVersion("2.5.0");
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);
@@ -45,7 +45,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForGradle() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.4.0");
+		request.setBootVersion("2.5.0");
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);
