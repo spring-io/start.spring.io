@@ -93,8 +93,11 @@ initializr:
           - compatibilityRange: "[2.6.x-SNAPSHOT,3.0.0-M1)"
             version: 2021.0.2-SNAPSHOT
             repositories: spring-snapshots,spring-milestones
-          - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
+          - compatibilityRange: "[3.0.0-M1,3.0.0-M2)"
             version: 2022.0.0-M1
+            repositories: spring-milestones
+          - compatibilityRange: "[3.0.0-M2,3.1.0-M1)"
+            version: 2022.0.0-M2
             repositories: spring-milestones
       spring-cloud-azure:
         groupId: com.azure.spring
