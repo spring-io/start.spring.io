@@ -1070,7 +1070,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready-metrics-export-prometheus
         - name: Sleuth
           id: cloud-starter-sleuth
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           description: Distributed tracing via logs with Spring Cloud Sleuth.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-sleuth
@@ -1098,7 +1098,7 @@ initializr:
               description: Wavefront for Spring Boot repository
         - name: Zipkin Client
           id: cloud-starter-zipkin
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           description: Distributed tracing with an existing Zipkin installation and Spring Cloud Sleuth Zipkin.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-sleuth-zipkin
@@ -1133,7 +1133,7 @@ initializr:
               href: https://www.testcontainers.org/
         - name: Contract Verifier
           bom: spring-cloud
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           id: cloud-contract-verifier
           description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
           groupId: org.springframework.cloud
@@ -1144,7 +1144,7 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-contract/reference/htmlsingle/
         - name: Contract Stub Runner
           bom: spring-cloud
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           id: cloud-contract-stub-runner
           description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
           groupId: org.springframework.cloud
@@ -1290,7 +1290,7 @@ initializr:
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           description: A REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-client
@@ -1302,7 +1302,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/#service-discovery-eureka-clients
         - name: Eureka Server
           id: cloud-eureka-server
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           description: spring-cloud-netflix Eureka Server.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-server
@@ -1322,7 +1322,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#spring-cloud-zookeeper-discovery
         - name: Cloud Foundry Discovery
           id: cloud-cloudfoundry-discovery
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           description: Service discovery with Cloud Foundry.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-cloudfoundry-discovery
