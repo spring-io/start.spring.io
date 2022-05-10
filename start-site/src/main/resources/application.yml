@@ -198,7 +198,7 @@ initializr:
       content:
         - name: Spring Native [Experimental]
           id: native
-          compatibilityRange: "[2.4.3,2.7.0-M1)"
+          compatibilityRange: "[2.4.3,2.7.1)"
           groupId: org.springframework.experimental
           artifactId: spring-native
           description: Incubating support for compiling Spring applications to native executables using the GraalVM native-image compiler.
@@ -259,8 +259,11 @@ initializr:
               version: 0.11.3
               repository: spring-releases
             - compatibilityRange: "[2.6.6,2.7.0-M1)"
-              version: 0.11.4
+              version: 0.11.5
               repository: spring-releases
+            - compatibilityRange: "[2.7.0-M1,2.7.1)"
+              version: 0.12.0-SNAPSHOT
+              repository: spring-snapshots
           links:
             - rel: reference
               href: https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
