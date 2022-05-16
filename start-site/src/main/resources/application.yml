@@ -1168,6 +1168,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-ldap-embedded
         - name: Embedded MongoDB Database
           id: flapdoodle-mongo
+          compatibilityRange: "[2.0.0.RELEASE,3.0.0-M1)"
           description: Provides a platform neutral way for running MongoDB in unit tests.
           groupId: de.flapdoodle.embed
           artifactId: de.flapdoodle.embed.mongo
