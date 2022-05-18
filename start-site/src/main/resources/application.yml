@@ -160,7 +160,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[2.1.0.RELEASE,2.6.0-M1)"
-            version: 14.8.10
+            version: 14.8.11
           - compatibilityRange: "[2.6.0-M1,2.8.0-M1)"
             version: 23.0.9
       wavefront:
