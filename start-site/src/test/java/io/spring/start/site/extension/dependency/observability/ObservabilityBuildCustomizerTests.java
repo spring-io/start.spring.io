@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,6 +60,7 @@ class ObservabilityBuildCustomizerTests extends AbstractExtensionTests {
 
 	private ProjectStructure generateProject(String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
+		request.setBootVersion("2.6.8");
 		request.setType("maven-build");
 		return generateProject(request);
 	}

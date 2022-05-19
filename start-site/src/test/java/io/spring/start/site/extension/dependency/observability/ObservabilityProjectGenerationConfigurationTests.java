@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ class ObservabilityProjectGenerationConfigurationTests extends AbstractExtension
 	@Test
 	void testClassWithWavefrontDisablesMetricsExport() {
 		ProjectRequest request = createProjectRequest("wavefront");
+		request.setBootVersion("2.6.8");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).asJvmModule(new JavaLanguage()).testSource("com.example.demo", "DemoApplicationTests")
 				.contains("import " + TestPropertySource.class.getName())

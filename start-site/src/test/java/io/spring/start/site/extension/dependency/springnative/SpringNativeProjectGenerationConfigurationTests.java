@@ -75,7 +75,7 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 
 	@Test
 	void gradleBuildConfigureMavenCentral() {
-		ProjectRequest request = createProjectRequest("native");
+		ProjectRequest request = createNativeProjectRequest();
 		request.setType("gradle-project");
 		assertThat(generateProject(request)).containsFiles("settings.gradle").textFile("settings.gradle")
 				.containsSubsequence("pluginManagement {", "repositories {",
@@ -242,6 +242,13 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 				"				</executions>",
 				"			</plugin>");
 		// @formatter:on
+	}
+
+	private ProjectRequest createNativeProjectRequest(String... dependencies) {
+		ProjectRequest projectRequest = createProjectRequest(dependencies);
+		projectRequest.getDependencies().add(0, "native");
+		projectRequest.setBootVersion("2.6.8");
+		return projectRequest;
 	}
 
 }
