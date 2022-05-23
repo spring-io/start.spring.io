@@ -39,12 +39,12 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final List<String> JDBC_DEPENDENCY_IDS = Arrays.asList("jdbc", "data-jdbc", "data-jpa");
 
-	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
+	private static final VersionRange SPRING_BOOT_2_7_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.7.0-M1");
 
-	private final Version platformVersion;
+	private final boolean borcaOrLater;
 
 	public R2dbcBuildCustomizer(Version platformVersion) {
-		this.platformVersion = platformVersion;
+		this.borcaOrLater = SPRING_BOOT_2_7_0_OR_LATER.match(platformVersion);
 	}
 
 	@Override
@@ -55,11 +55,11 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 		if (build.dependencies().has("mariadb")) {
 			addManagedDriver(build.dependencies(), "org.mariadb", "r2dbc-mariadb");
 		}
-		if (build.dependencies().has("mysql")) {
+		if (build.dependencies().has("mysql") && !this.borcaOrLater) {
 			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
 		}
 		if (build.dependencies().has("postgresql")) {
-			String groupId = (SPRING_BOOT_3_0_0_OR_LATER.match(this.platformVersion)) ? "org.postgresql" : "io.r2dbc";
+			String groupId = this.borcaOrLater ? "org.postgresql" : "io.r2dbc";
 			addManagedDriver(build.dependencies(), groupId, "r2dbc-postgresql");
 		}
 		if (build.dependencies().has("sqlserver")) {

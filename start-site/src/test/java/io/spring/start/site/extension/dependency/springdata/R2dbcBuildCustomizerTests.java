@@ -58,8 +58,17 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("mysql");
-		customize(build);
+		customize(build, Version.parse("2.6.8"));
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql", "r2dbc-mysql");
+	}
+
+	@Test
+	void r2dbcWithMysqlAndBorca() {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("mysql");
+		customize(build, Version.parse("2.7.0"));
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql");
 	}
 
 	@Test
@@ -67,13 +76,13 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("postgresql");
-		customize(build);
+		customize(build, Version.parse("2.6.8"));
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "postgresql", "r2dbc-postgresql");
 		assertThat(build.dependencies().get("r2dbc-postgresql").getGroupId()).isEqualTo("io.r2dbc");
 	}
 
 	@Test
-	void r2dbcWithPostgresqlAfterSpringBoot3() {
+	void r2dbcWithPostgresqlAndBorca() {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("postgresql");

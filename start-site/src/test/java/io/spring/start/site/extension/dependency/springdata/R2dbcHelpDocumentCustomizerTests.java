@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,12 +48,6 @@ class R2dbcHelpDocumentCustomizerTests {
 	@Test
 	void r2dbcWithMariadb() {
 		HelpDocument helpDocument = createHelpDocument("mariadb");
-		assertThat(helpDocument.getSections()).isEmpty();
-	}
-
-	@Test
-	void r2dbcWithMysql() {
-		HelpDocument helpDocument = createHelpDocument("mysql");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
