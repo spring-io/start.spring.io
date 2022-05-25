@@ -330,9 +330,9 @@ initializr:
               description: Building a Reactive RESTful Web Service
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.reactive
-        - name: Spring GraphQL
+        - name: Spring for GraphQL
           id: graphql
-          description: Build GraphQL applications with Spring GraphQL and GraphQL Java.
+          description: Build GraphQL applications with Spring for GraphQL and GraphQL Java.
           facets:
             - json
           compatibilityRange: "[2.7.0.M1,3.0.0-M1)"
