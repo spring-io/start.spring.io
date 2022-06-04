@@ -170,6 +170,8 @@ initializr:
             version: 2.1.1
           - compatibilityRange: "[2.5.0-M1,2.7.0-M1)"
             version: 2.2.2
+          - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
+            version: 2.3.0
     gradle:
       dependency-management-plugin-version: 1.0.11.RELEASE
     kotlin:
@@ -1080,7 +1082,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/htmlsingle/spring-cloud-sleuth.html
         - name: Wavefront
           id: wavefront
-          compatibilityRange: "[2.3.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           groupId: com.wavefront
           artifactId: wavefront-spring-boot-starter
           bom: wavefront
