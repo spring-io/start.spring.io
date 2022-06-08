@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.vaadin;
 
+import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
@@ -57,7 +58,10 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void gradleBuildWithVaadinAddPlugin() {
-		assertThat(gradleBuild(createProjectRequest("vaadin", "data-jpa"))).hasPlugin("com.vaadin", "0.14.6.0");
+		ProjectRequest request = createProjectRequest("vaadin", "data-jpa");
+		String vaadinVersion = getMetadata().getConfiguration().getEnv().getBoms().get("vaadin")
+				.resolve(Version.parse(request.getBootVersion())).getVersion();
+		assertThat(gradleBuild(request)).hasPlugin("com.vaadin", vaadinVersion);
 	}
 
 	@Test

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 
 package io.spring.start.site.extension.dependency.vaadin;
 
-import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.scm.git.GitIgnoreCustomizer;
+import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,8 +44,9 @@ class VaadinProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
-	BuildCustomizer<GradleBuild> vaadinGradleBuildCustomizer() {
-		return (build) -> build.plugins().add("com.vaadin", (plugin) -> plugin.setVersion("0.14.6.0"));
+	VaadinGradleBuildCustomizer vaadinGradleBuildCustomizer(InitializrMetadata metadata,
+			ProjectDescription description) {
+		return new VaadinGradleBuildCustomizer(metadata, description.getPlatformVersion());
 	}
 
 	@Bean
