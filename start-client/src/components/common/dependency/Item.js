@@ -5,7 +5,7 @@ import React, { useContext } from 'react'
 import { IconEnter } from '../icons'
 import { InitializrContext } from '../../reducer/Initializr'
 
-const Item = ({ item, selected, onSelect, onAdd, group, index }) => {
+function Item({ item, selected, onSelect, onAdd, group, index }) {
   const { dispatch } = useContext(InitializrContext)
 
   const onClick = event => {

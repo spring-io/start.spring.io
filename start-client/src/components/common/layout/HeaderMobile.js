@@ -4,7 +4,7 @@ import LogoMobile from './LogoMobile'
 import { AppContext } from '../../reducer/App'
 import { IconMoon, IconSun } from '../icons'
 
-const HeaderMobile = () => {
+function HeaderMobile() {
   const { nav, theme, dispatch } = useContext(AppContext)
   return (
     <div className='is-mobile header-mobile'>

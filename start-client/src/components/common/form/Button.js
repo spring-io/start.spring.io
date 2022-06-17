@@ -25,11 +25,7 @@ function Button({
     >
       <span className='button-content' tabIndex='-1'>
         <span>{children}</span>
-        {hotkey && (
-          <>
-            <span className='secondary desktop-only'>{hotkey}</span>
-          </>
-        )}
+        {hotkey && <span className='secondary desktop-only'>{hotkey}</span>}
       </span>
     </button>
   )

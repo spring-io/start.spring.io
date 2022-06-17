@@ -21,9 +21,9 @@ import { Header, SideLeft, SideRight } from './common/layout'
 import { InitializrContext } from './reducer/Initializr'
 import { getConfig, getInfo, getProject } from './utils/ApiUtils'
 
-const Explore = lazy(() => import('./common/explore/Explore.js'))
-const Share = lazy(() => import('./common/share/Share.js'))
-const HotKeys = lazy(() => import('./common/builder/HotKeys.js'))
+const Explore = lazy(() => import('./common/explore/Explore'))
+const Share = lazy(() => import('./common/share/Share'))
+const HotKeys = lazy(() => import('./common/builder/HotKeys'))
 
 export default function Application() {
   const {
@@ -35,9 +35,11 @@ export default function Application() {
     list,
     dependencies,
   } = useContext(AppContext)
-  const { values, share, dispatch: dispatchInitializr } = useContext(
-    InitializrContext
-  )
+  const {
+    values,
+    share,
+    dispatch: dispatchInitializr,
+  } = useContext(InitializrContext)
 
   const [blob, setBlob] = useState(null)
   const [generating, setGenerating] = useState(false)

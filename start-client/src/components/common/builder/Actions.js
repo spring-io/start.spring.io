@@ -1,8 +1,7 @@
-import BodyClassName from 'react-body-classname'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Actions = ({ children }) => {
+function Actions({ children }) {
   return (
     <div className='actions'>
       <div className='actions-container'>{children}</div>

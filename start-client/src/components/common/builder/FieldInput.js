@@ -1,20 +1,22 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const FieldInput = ({ id, text, value, onChange, disabled, inputRef }) => (
-  <div className='control control-inline'>
-    <label htmlFor={id}>{text}</label>
-    <input
-      type='text'
-      id={id}
-      className='input'
-      disabled={disabled}
-      value={value}
-      onChange={onChange}
-      ref={inputRef}
-    />
-  </div>
-)
+function FieldInput({ id, text, value, onChange, disabled, inputRef }) {
+  return (
+    <div className='control control-inline'>
+      <label htmlFor={id}>{text}</label>
+      <input
+        type='text'
+        id={id}
+        className='input'
+        disabled={disabled}
+        value={value}
+        onChange={onChange}
+        ref={inputRef}
+      />
+    </div>
+  )
+}
 
 FieldInput.defaultProps = {
   disabled: false,

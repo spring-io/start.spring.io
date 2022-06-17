@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Control = ({ text, children, labelFor }) => {
+function Control({ text, children, labelFor }) {
   return (
     <div className='control'>
       <label className='label' htmlFor={labelFor}>
