@@ -3,18 +3,20 @@ import React from 'react'
 
 import { Radio } from '../form'
 
-const FieldRadio = ({ id, text, value, onChange, disabled, options }) => (
-  <div className='control control-inline'>
-    <label htmlFor={id}>{text}</label>
-    <Radio
-      name='packaging'
-      disabled={disabled}
-      selected={value}
-      options={options}
-      onChange={onChange}
-    />
-  </div>
-)
+function FieldRadio({ id, text, value, onChange, disabled, options }) {
+  return (
+    <div className='control control-inline'>
+      <label htmlFor={id}>{text}</label>
+      <Radio
+        name='packaging'
+        disabled={disabled}
+        selected={value}
+        options={options}
+        onChange={onChange}
+      />
+    </div>
+  )
+}
 
 FieldRadio.defaultProps = {
   disabled: false,

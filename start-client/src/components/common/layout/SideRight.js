@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../../reducer/App'
 import { IconMoon, IconSun } from '../icons'
 
-const SideRight = () => {
+function SideRight() {
   const { dispatch, theme } = useContext(AppContext)
 
   return (

@@ -5,9 +5,8 @@
     "plugin:jest/recommended",
     "plugin:prettier/recommended",
     "prettier",
-    "prettier/react"
   ],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "env": {
     "browser": true,
     "jest": true
