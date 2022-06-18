@@ -74,7 +74,7 @@
                   "title": "Serving Web Content with Spring MVC"
                 },
                 {
-                  "href": "https://spring.io/guides/tutorials/bookmarks/",
+                  "href": "https://spring.io/guides/tutorials/rest/",
                   "title": "Building REST services with Spring"
                 }
               ],
