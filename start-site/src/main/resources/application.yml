@@ -320,7 +320,7 @@ initializr:
               href: https://spring.io/guides/gs/serving-web-content/
               description: Serving Web Content with Spring MVC
             - rel: guide
-              href: https://spring.io/guides/tutorials/bookmarks/
+              href: https://spring.io/guides/tutorials/rest/
               description: Building REST services with Spring
         - name: Spring Reactive Web
           id: webflux
