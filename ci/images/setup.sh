@@ -17,6 +17,6 @@ curl https://raw.githubusercontent.com/spring-io/concourse-java-scripts/v0.0.2/c
 
 mkdir -p /opt/openjdk
 cd /opt/openjdk
-curl -L https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.3%2B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.3_7.tar.gz | tar zx --strip-components=1
+curl -L https://github.com/bell-sw/Liberica/releases/download/17.0.3.1+2/bellsoft-jdk17.0.3.1+2-linux-amd64.tar.gz | tar zx --strip-components=1
 test -f /opt/openjdk/bin/java
 test -f /opt/openjdk/bin/javac

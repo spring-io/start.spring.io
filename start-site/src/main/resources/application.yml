@@ -48,7 +48,11 @@ initializr:
           - compatibilityRange: "[2.5.0.M1,2.6.0-M1)"
             version: 2.5.6
           - compatibilityRange: "[2.6.0.M1,2.7.0-M1)"
-            version: 2.6.5
+            version: 2.6.7
+          - compatibilityRange: "[2.7.0.M1,3.0.0-M1)"
+            version: 2.7.0
+          - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
+            version: 3.0.0-M2
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
@@ -93,8 +97,11 @@ initializr:
           - compatibilityRange: "[3.0.0-M1,3.0.0-M2)"
             version: 2022.0.0-M1
             repositories: spring-milestones
-          - compatibilityRange: "[3.0.0-M2,3.1.0-M1)"
+          - compatibilityRange: "[3.0.0-M2,3.0.0-M3)"
             version: 2022.0.0-M2
+            repositories: spring-milestones
+          - compatibilityRange: "[3.0.0-M3,3.1.0-M1)"
+            version: 2022.0.0-M3
             repositories: spring-milestones
       spring-cloud-azure:
         groupId: com.azure.spring
@@ -156,9 +163,9 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[2.1.0.RELEASE,2.6.0-M1)"
-            version: 14.8.12
+            version: 14.8.13
           - compatibilityRange: "[2.6.0-M1,2.8.0-M1)"
-            version: 23.1.0
+            version: 23.1.1
       wavefront:
         groupId: com.wavefront
         artifactId: wavefront-spring-boot-bom
@@ -313,7 +320,7 @@ initializr:
               href: https://spring.io/guides/gs/serving-web-content/
               description: Serving Web Content with Spring MVC
             - rel: guide
-              href: https://spring.io/guides/tutorials/bookmarks/
+              href: https://spring.io/guides/tutorials/rest/
               description: Building REST services with Spring
         - name: Spring Reactive Web
           id: webflux
@@ -1001,7 +1008,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Required for your application to register with a Codecentric's Spring Boot Admin Server instance.
-          compatibilityRange: "[2.0.0.RELEASE,2.7.0-M1)"
+          compatibilityRange: "[2.0.0.RELEASE,3.1.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1011,7 +1018,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
-          compatibilityRange: "[2.0.0.RELEASE,2.7.0-M1)"
+          compatibilityRange: "[2.0.0.RELEASE,3.1.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
