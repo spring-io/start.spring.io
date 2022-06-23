@@ -37,7 +37,7 @@ class SpringAzureKafkaBuildCustomizerTests extends AbstractExtensionTests {
 	void kafkaTestIsAddedWithCosmos() {
 		ProjectRequest request = createProjectRequest("kafka", "azure-cosmos-db");
 		assertThat(mavenPom(request)).hasDependency(getDependency("azure-cosmos-db")).hasDependency(Azure_ADAPTER)
-				.hasDependenciesSize(4)
+				.hasDependenciesSize(5)
 				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}");
 	}
 
@@ -45,7 +45,7 @@ class SpringAzureKafkaBuildCustomizerTests extends AbstractExtensionTests {
 	void kafkaTestIsAddedWithAzureSupport() {
 		ProjectRequest request = createProjectRequest("kafka", "azure-support");
 		assertThat(mavenPom(request)).hasDependency(getDependency("azure-support")).hasDependency(Azure_ADAPTER)
-				.hasDependenciesSize(3)
+				.hasDependenciesSize(4)
 				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}");
 	}
 

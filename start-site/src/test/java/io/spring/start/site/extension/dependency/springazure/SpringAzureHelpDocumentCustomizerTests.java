@@ -55,11 +55,6 @@ class SpringAzureHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void referenceSectionWithAzureNativeDependencyIsPresent() {
-		assertHelpDocument("azure-storage", "integration", "native").contains("Azure Native");
-	}
-
-	@Test
 	void referenceSectionWithAzureSleuthDependencyIsPresent() {
 		assertHelpDocument("azure-support", "cloud-starter-sleuth").contains("Azure Sleuth");
 	}

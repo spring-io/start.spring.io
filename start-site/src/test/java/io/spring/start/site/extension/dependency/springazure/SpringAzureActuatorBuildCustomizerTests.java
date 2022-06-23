@@ -37,7 +37,7 @@ class SpringAzureActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	void actuatorTestIsAddedWithActuator() {
 		ProjectRequest request = createProjectRequest("actuator", "azure-cosmos-db");
 		assertThat(mavenPom(request)).hasDependency(getDependency("azure-cosmos-db")).hasDependency(ACTUATOR_ADAPTER)
-				.hasDependenciesSize(4)
+				.hasDependenciesSize(5)
 				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}");
 	}
 

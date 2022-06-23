@@ -17,9 +17,6 @@
 package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
-import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -71,22 +68,6 @@ public class SpringAzureProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("cloud-starter-sleuth")
 	public SpringAzureSleuthBuildCustomizer springAzureSleuthBuildCustomizer() {
 		return new SpringAzureSleuthBuildCustomizer();
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("native")
-	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-	public SpringAzureNativeMavenBuildCustomizer springCloudAzureNativeMavenBuildCustomizer(
-			ProjectDescription description) {
-		return new SpringAzureNativeMavenBuildCustomizer(description.getPlatformVersion());
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("native")
-	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
-	public SpringAzureNativeGradleBuildCustomizer springCloudAzureNativeGradleBuildCustomizer(
-			ProjectDescription description) {
-		return new SpringAzureNativeGradleBuildCustomizer(description.getPlatformVersion());
 	}
 
 	@Bean
