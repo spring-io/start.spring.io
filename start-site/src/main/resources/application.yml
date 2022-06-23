@@ -102,7 +102,7 @@ initializr:
         versionProperty: spring-cloud-azure.version
         mappings:
           - compatibilityRange: "[2.5.0.M1,3.0.0-M1)"
-            version: 4.2.0
+            version: 4.3.0
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
@@ -1456,7 +1456,7 @@ initializr:
           description: Spring Security integration with Azure Active Directory for authentication.
           links:
             - rel: reference
-              href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#authentication
+              href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#spring-security-with-azure-active-directory
             - rel: sample
               href: https://aka.ms/spring/samples/latest/aad
               description: Azure Active Directory Sample
@@ -1472,10 +1472,10 @@ initializr:
               href: https://aka.ms/spring/samples/latest/cosmos
               description: Azure Cosmos DB Sample
         - name: Azure Key Vault
-          id: azure-keyvault-secrets
+          id: azure-keyvault
           groupId: com.azure.spring
-          artifactId: spring-cloud-azure-starter-keyvault-secrets
-          description: Manage application secrets.
+          artifactId: spring-cloud-azure-starter-keyvault
+          description: All key vault features are supported, e.g. manage application secrets and certificates.
           links:
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#secret-management
@@ -1485,8 +1485,8 @@ initializr:
         - name: Azure Storage
           id: azure-storage
           groupId: com.azure.spring
-          artifactId: spring-cloud-azure-starter-storage-blob
-          description: Azure Storage service integration.
+          artifactId: spring-cloud-azure-starter-storage
+          description: Azure Storage service integration,support all Storage features.
           links:
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#resource-handling

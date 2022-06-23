@@ -5,6 +5,7 @@ io.spring.start.site.extension.dependency.DependencyProjectGenerationConfigurati
 io.spring.start.site.extension.dependency.observability.ObservabilityProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.solace.SolaceProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springamqp.SpringAmqpProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springazure.SpringAzureProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springboot.SpringBootProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springcloud.SpringCloudProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springdata.SpringDataProjectGenerationConfiguration,\
