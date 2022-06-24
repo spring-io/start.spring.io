@@ -36,7 +36,7 @@ class SpringAzureIntegrationStorageQueueBuildCustomizerTests extends AbstractExt
 	@Test
 	void testIsAddedWithIntegration() {
 		ProjectRequest request = createProjectRequest("integration", "azure-storage");
-		assertThat(mavenPom(request)).hasDependency(STORAGE_ADAPTER).hasDependenciesSize(5).hasBom("com.azure.spring",
+		assertThat(mavenPom(request)).hasDependency(STORAGE_ADAPTER).hasDependenciesSize(6).hasBom("com.azure.spring",
 				"spring-cloud-azure-dependencies", "${spring-cloud-azure.version}");
 	}
 

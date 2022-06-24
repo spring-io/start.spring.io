@@ -53,34 +53,34 @@ public class SpringAzureHelpDocumentCustomizer implements HelpDocumentCustomizer
 	public void customize(HelpDocument document) {
 		if (this.build.dependencies().has(AZURE_DEPENDENCY_ID)) {
 			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/spring-boot-starters-for-azure",
+					"https://docs.microsoft.com/azure/developer/java/spring-framework/spring-boot-starters-for-azure",
 					"Spring Cloud on Azure");
 		}
 
 		if (this.build.dependencies().has(AZURE_ACTIVE_DIRECTORY_DEPENDENCY_ID)) {
 			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-active-directory",
+					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-active-directory",
 					"Azure Active Directory");
 		}
 
 		if (this.build.dependencies().has(AZURE_COSMOS_DEPENDENCY_ID)) {
 			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-cosmos-db",
+					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-cosmos-db",
 					"Azure Cosmos DB");
 		}
 
 		if (this.build.dependencies().has(AZURE_KEY_VAULT_DEPENDENCY_ID)) {
 			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault",
+					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault",
 					"Azure Key Vault secrets");
 			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault-certificates",
+					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault-certificates",
 					"Azure Key Vault certificates");
 		}
 
 		if (this.build.dependencies().has(AZURE_STORAGE_DEPENDENCY_ID)) {
 			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-storage",
+					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-storage",
 					"Azure Storage");
 		}
 

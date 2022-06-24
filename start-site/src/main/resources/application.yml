@@ -1493,7 +1493,7 @@ initializr:
           id: azure-storage
           groupId: com.azure.spring
           artifactId: spring-cloud-azure-starter-storage
-          description: Azure Storage service integration,support all Storage features.
+          description: All Storage features are supported, e.g. blob, fileshare and queue.
           links:
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#resource-handling

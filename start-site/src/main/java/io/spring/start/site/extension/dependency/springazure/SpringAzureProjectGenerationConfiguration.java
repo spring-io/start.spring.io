@@ -18,9 +18,7 @@ package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
 
@@ -32,15 +30,6 @@ import org.springframework.context.annotation.Bean;
  */
 @ProjectGenerationConfiguration
 public class SpringAzureProjectGenerationConfiguration {
-
-	private final InitializrMetadata metadata;
-
-	private final ProjectDescription description;
-
-	public SpringAzureProjectGenerationConfiguration(InitializrMetadata metadata, ProjectDescription description) {
-		this.metadata = metadata;
-		this.description = description;
-	}
 
 	@Bean
 	public SpringAzureDefaultBuildCustomizer springAzureBuildCustomizer() {
@@ -54,14 +43,8 @@ public class SpringAzureProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnRequestedDependency("kafka")
-	public SpringAzureKafkaBuildCustomizer springAzureKafkaBuildCustomizer() {
-		return new SpringAzureKafkaBuildCustomizer();
-	}
-
-	@Bean
 	public SpringAzureIntegrationStorageQueueBuildCustomizer springAzureMessagingBuildCustomizer() {
-		return new SpringAzureIntegrationStorageQueueBuildCustomizer(this.metadata, this.description);
+		return new SpringAzureIntegrationStorageQueueBuildCustomizer();
 	}
 
 	@Bean

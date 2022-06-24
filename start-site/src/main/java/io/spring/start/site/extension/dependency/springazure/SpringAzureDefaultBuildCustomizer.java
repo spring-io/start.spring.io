@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
@@ -32,8 +31,7 @@ public class SpringAzureDefaultBuildCustomizer implements BuildCustomizer<Build>
 	public void customize(Build build) {
 		if (build.dependencies().items().anyMatch((u) -> u.getGroupId().equals("com.azure.spring")) && !build
 				.dependencies().items().anyMatch((u) -> u.getArtifactId().equals("spring-cloud-azure-starter"))) {
-			build.dependencies().add("spring-cloud-azure-starter",
-					Dependency.withCoordinates("com.azure.spring", "spring-cloud-azure-starter"));
+			build.dependencies().add("azure-support");
 		}
 	}
 

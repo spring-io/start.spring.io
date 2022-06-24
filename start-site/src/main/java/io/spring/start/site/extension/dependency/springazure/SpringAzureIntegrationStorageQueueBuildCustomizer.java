@@ -18,10 +18,7 @@ package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.metadata.BillOfMaterials;
-import io.spring.initializr.metadata.InitializrMetadata;
 
 /**
  * A {@link BuildCustomizer} that follows some rules to add dependencies:<br>
@@ -37,16 +34,6 @@ public class SpringAzureIntegrationStorageQueueBuildCustomizer implements BuildC
 
 	private static final String AZURE_STORAGE_DEPENDENCY_ID = "azure-storage";
 
-	private final InitializrMetadata metadata;
-
-	private final ProjectDescription description;
-
-	public SpringAzureIntegrationStorageQueueBuildCustomizer(InitializrMetadata metadata,
-			ProjectDescription description) {
-		this.metadata = metadata;
-		this.description = description;
-	}
-
 	@Override
 	public void customize(Build build) {
 		customizeIntegrationDependency(build);
@@ -57,17 +44,6 @@ public class SpringAzureIntegrationStorageQueueBuildCustomizer implements BuildC
 				&& build.dependencies().has(AZURE_STORAGE_DEPENDENCY_ID)) {
 			build.dependencies().add("spring-cloud-azure-starter-integration-storage-queue", Dependency
 					.withCoordinates("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue"));
-			build.dependencies().remove(AZURE_STORAGE_DEPENDENCY_ID);
-			customizeBom(build);
-		}
-	}
-
-	private void customizeBom(Build build) {
-		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get("spring-cloud-azure")
-				.resolve(this.description.getPlatformVersion());
-		if (bom != null && build.boms().isEmpty()) {
-			build.properties().version(bom.getVersionProperty(), bom.getVersion());
-			build.boms().add("spring-cloud-azure");
 		}
 	}
 
