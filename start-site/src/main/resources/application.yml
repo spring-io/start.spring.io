@@ -155,7 +155,7 @@ initializr:
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
-        version: 1.17.2
+        version: 1.17.3
         versionProperty: testcontainers.version
       vaadin:
         groupId: com.vaadin
