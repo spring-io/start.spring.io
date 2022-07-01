@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Logo = ({ className }) => {
+function Logo({ className }) {
   return (
     <svg
       aria-hidden='true'

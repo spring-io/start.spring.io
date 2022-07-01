@@ -37,28 +37,32 @@ describe('getLanguage', () => {
  */
 describe('createTree', () => {
   // eslint-disable-next-line
-  it('should create a tree', async done => {
+  it('should create a tree', async() => {
     const zipJs = new JSZip()
-    await fs.readFile(path.resolve('./dev/starter.mock.zip'), async (err, blob) => {
-      const { files } = await zipJs.loadAsync(blob).catch(() => {
-        throw Error(`Could not load the ZIP project.`)
-      })
-      const pathZ = `${findRoot({ files })}/`
-      const result = await createTree(files, pathZ, pathZ, zipJs).catch(() => {
-        throw Error(`Could not read the ZIP project.`)
-      })
-      expect(get(result, 'tree', null) !== null).toBe(true)
-      expect(get(result, 'tree.type', null)).toBe('folder')
-      expect(get(result, 'tree.filename', null)).toBe('demo')
-      expect(get(result, 'tree.path', null)).toBe('/demo/')
-      expect(get(result, 'tree.hidden', null)).toBe(null)
-      expect(get(result, 'tree.children').length).toBe(7)
-      expect(get(result, 'selected.type')).toBe('file')
-      expect(get(result, 'selected.filename')).toBe('pom.xml')
-      expect(get(result, 'selected.path')).toBe('/demo/pom.xml')
-      expect(get(result, 'selected.language')).toBe('xml')
-      done()
-    })
+    await fs.readFile(
+      path.resolve('./dev/starter.mock.zip'),
+      async (err, blob) => {
+        const { files } = await zipJs.loadAsync(blob).catch(() => {
+          throw Error(`Could not load the ZIP project.`)
+        })
+        const pathZ = `${findRoot({ files })}/`
+        const result = await createTree(files, pathZ, pathZ, zipJs).catch(
+          () => {
+            throw Error(`Could not read the ZIP project.`)
+          }
+        )
+        expect(get(result, 'tree', null) !== null).toBe(true)
+        expect(get(result, 'tree.type', null)).toBe('folder')
+        expect(get(result, 'tree.filename', null)).toBe('demo')
+        expect(get(result, 'tree.path', null)).toBe('/demo/')
+        expect(get(result, 'tree.hidden', null)).toBe(null)
+        expect(get(result, 'tree.children').length).toBe(7)
+        expect(get(result, 'selected.type')).toBe('file')
+        expect(get(result, 'selected.filename')).toBe('pom.xml')
+        expect(get(result, 'selected.path')).toBe('/demo/pom.xml')
+        expect(get(result, 'selected.language')).toBe('xml')
+      }
+    )
   })
 })
 
@@ -67,15 +71,17 @@ describe('createTree', () => {
  */
 describe('findRoot', () => {
   // eslint-disable-next-line
-  it('should return the right value', async done => {
+  it('should return the right value', async() => {
     const zipJs = new JSZip()
-    await fs.readFile(path.resolve('./dev/starter.mock.zip'), async (err, blob) => {
-      const { files } = await zipJs.loadAsync(blob).catch(() => {
-        throw Error(`Could not load the ZIP project.`)
-      })
-      const pathZ = `${findRoot({ files })}/`
-      expect(pathZ).toBe('demo/')
-      done()
-    })
+    await fs.readFile(
+      path.resolve('./dev/starter.mock.zip'),
+      async (err, blob) => {
+        const { files } = await zipJs.loadAsync(blob).catch(() => {
+          throw Error(`Could not load the ZIP project.`)
+        })
+        const pathZ = `${findRoot({ files })}/`
+        expect(pathZ).toBe('demo/')
+      }
+    )
   })
 })

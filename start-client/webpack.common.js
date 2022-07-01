@@ -63,6 +63,9 @@ const config = {
       },
     ],
   },
+  resolve: {
+    fallback: { querystring: require.resolve('querystring-es3') },
+  },
   plugins: [
     new CopyPlugin({
       patterns: [

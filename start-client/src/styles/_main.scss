@@ -394,7 +394,7 @@ button.button {
   margin-right: 1rem;
   cursor: pointer;
   background: transparent;
-  @include transition(all $spring-transition-duration / 2);
+  @include transition(all calc($spring-transition-duration / 2));
   z-index: 1;
   background: $light-background;
   font-family: $spring-font-family;
@@ -429,7 +429,7 @@ button.button {
     bottom: 0;
     width: 100%;
     opacity: 0;
-    @include transition(all $spring-transition-duration / 2);
+    @include transition(all calc($spring-transition-duration / 2));
     z-index: -1;
   }
   &:hover,
@@ -789,7 +789,7 @@ button.button {
   z-index: 501;
   $width: 800px;
   width: $width;
-  margin-left: -($width/2);
+  margin-left: -(calc($width / 2));
   left: 50%;
   top: 40px;
   bottom: 40px;
@@ -876,7 +876,7 @@ button.button {
           fill: #fff;
           position: absolute;
           top: 50%;
-          margin-top: -($height/2);
+          margin-top: -(calc($height / 2));
           height: $height;
           right: 15px;
         }
@@ -1066,7 +1066,7 @@ ul.dependencies-list {
       width: $size;
       right: 0;
       top: 50%;
-      margin-top: -($size/2);
+      margin-top: -(calc($size / 2));
       opacity: 0;
       @include outline;
       @include transition(all 150ms);

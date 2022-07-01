@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const LogoMobile = ({ className }) => {
+function LogoMobile({ className }) {
   return (
     <svg
       aria-hidden='true'

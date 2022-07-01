@@ -7,7 +7,7 @@ import Header from './Header'
 import { AppContext } from '../../reducer/App'
 import { IconGithub, IconTwitter } from '../icons'
 
-const SideLeft = () => {
+function SideLeft() {
   const [isOpen, setIsOpen] = useState(false)
   const [lock, setLock] = useState(false)
   const wrapper = useRef(null)

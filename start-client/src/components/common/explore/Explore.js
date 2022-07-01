@@ -149,30 +149,28 @@ function Explore({ open, onClose, projectName, blob }) {
                             </a>
                           </CopyToClipboard>
                           {get(selected, 'language') === 'markdown' && (
-                            <>
-                              <a
-                                href='/#'
-                                onClick={e => {
-                                  e.preventDefault()
-                                  const newSelected = { ...selected }
-                                  newSelected.force = !get(
-                                    selected,
-                                    'force',
-                                    false
-                                  )
-                                  setSelected(newSelected)
-                                }}
-                                className='button'
-                              >
-                                <span className='button-content' tabIndex='-1'>
-                                  <span>
-                                    {get(selected, 'force', false)
-                                      ? 'Preview'
-                                      : 'View source'}
-                                  </span>
+                            <a
+                              href='/#'
+                              onClick={e => {
+                                e.preventDefault()
+                                const newSelected = { ...selected }
+                                newSelected.force = !get(
+                                  selected,
+                                  'force',
+                                  false
+                                )
+                                setSelected(newSelected)
+                              }}
+                              className='button'
+                            >
+                              <span className='button-content' tabIndex='-1'>
+                                <span>
+                                  {get(selected, 'force', false)
+                                    ? 'Preview'
+                                    : 'View source'}
                                 </span>
-                              </a>
-                            </>
+                              </span>
+                            </a>
                           )}
                         </div>
                       </div>

@@ -11,17 +11,20 @@ const config = {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, 'public'),
+    static: path.resolve(__dirname, 'public'),
     historyApiFallback: true,
     compress: true,
     open: false,
-    before: function(app, server, compiler) {
-      app.get('/metadata/client', function(req, res) {
+    onAfterSetupMiddleware: function (devServer) {
+      if (!devServer) {
+        throw new Error('webpack-dev-server is not defined')
+      }
+      devServer.app.get('/metadata/client', function (req, res) {
         setTimeout(() => {
           res.json(mock)
         }, 800)
       })
-      app.get('/starter.zip', function(req, res) {
+      devServer.app.get('/starter.zip', function (req, res) {
         fs.readFile(path.resolve('./dev/starter.mock.zip'), (err, data) => {
           if (err) return sendError(err, res)
           setTimeout(() => {
