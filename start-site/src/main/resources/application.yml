@@ -1003,7 +1003,7 @@ initializr:
           groupId: org.springframework.shell
           artifactId: spring-shell-starter
           description: Build command line applications with spring.
-          compatibilityRange: "[2.7.0,3.1.0-M1)"
+          compatibilityRange: "[2.7.0,3.0.0-M1)"
           bom: spring-shell
           links:
             - rel: reference
