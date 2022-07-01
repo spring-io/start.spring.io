@@ -151,6 +151,14 @@ initializr:
             version: 1.7.1
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
             version: 2.0.0-M3
+            repository: spring-milestones
+      spring-shell:
+        groupId: org.springframework.shell
+        artifactId: spring-shell-dependencies
+        versionProperty: spring-shell.version
+        mappings:
+          - compatibilityRange: "[2.7.0,3.0.0-M1)"
+            version: 2.1.0-M5
             repositories: spring-milestones
       testcontainers:
         groupId: org.testcontainers
@@ -990,6 +998,16 @@ initializr:
           links:
             - rel: reference
               href: https://picocli.info/#_spring_boot_example
+        - name: Spring Shell
+          id: spring-shell
+          groupId: org.springframework.shell
+          artifactId: spring-shell-starter
+          description: Build command line applications with spring.
+          compatibilityRange: "[2.7.0,3.1.0-M1)"
+          bom: spring-shell
+          links:
+            - rel: reference
+              href: https://spring.io/projects/spring-shell
     - name: Ops
       content:
         - name: Spring Boot Actuator
