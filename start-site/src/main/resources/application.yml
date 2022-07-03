@@ -82,7 +82,7 @@ initializr:
           - compatibilityRange: "[2.2.0.RELEASE,2.4.0.M1)"
             version: Hoxton.SR12
           - compatibilityRange: "[2.4.0.M1,2.6.0-M1)"
-            version: 2020.0.5
+            version: 2020.0.6
           - compatibilityRange: "[2.6.0-M1,2.6.0-M3)"
             version: 2021.0.0-M1
             repositories: spring-milestones
