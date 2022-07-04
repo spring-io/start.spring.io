@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ class SpringAzureActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	void actuatorTestIsAddedWithActuator() {
 		ProjectRequest request = createProjectRequest("actuator", "azure-cosmos-db");
 		assertThat(mavenPom(request)).hasDependency(getDependency("azure-cosmos-db")).hasDependency(ACTUATOR_ADAPTER)
-				.hasDependenciesSize(5)
+				.hasDependenciesSize(4)
 				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}");
 	}
 

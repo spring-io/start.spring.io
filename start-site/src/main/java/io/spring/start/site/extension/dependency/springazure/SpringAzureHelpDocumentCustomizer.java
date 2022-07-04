@@ -25,7 +25,7 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  *
  * @author Yonghui Ye
  */
-public class SpringAzureHelpDocumentCustomizer implements HelpDocumentCustomizer {
+class SpringAzureHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	private static final String AZURE_DEPENDENCY_ID = "azure-support";
 
@@ -45,7 +45,7 @@ public class SpringAzureHelpDocumentCustomizer implements HelpDocumentCustomizer
 
 	private final Build build;
 
-	public SpringAzureHelpDocumentCustomizer(Build build) {
+	SpringAzureHelpDocumentCustomizer(Build build) {
 		this.build = build;
 	}
 

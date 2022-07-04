@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ class SpringAzureSleuthBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void actuatorTestIsAddedWithActuator() {
 		ProjectRequest request = createProjectRequest("cloud-starter-sleuth", "azure-cosmos-db");
-		assertThat(mavenPom(request)).hasDependency(SLEUTH_ADAPTER).hasDependenciesSize(5).hasBom("com.azure.spring",
+		assertThat(mavenPom(request)).hasDependency(SLEUTH_ADAPTER).hasDependenciesSize(4).hasBom("com.azure.spring",
 				"spring-cloud-azure-dependencies", "${spring-cloud-azure.version}");
 	}
 

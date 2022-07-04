@@ -21,12 +21,12 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * A {@link BuildCustomizer}that automatically adds "spring-cloud-azure-trace-sleuth" when
- * any Spring Cloud Azure library and Sleuth are selected.
+ * A {@link BuildCustomizer} that automatically adds "spring-cloud-azure-trace-sleuth"
+ * when any Spring Cloud Azure library and Sleuth are selected.
  *
  * @author Yonghui Ye
  */
-public class SpringAzureSleuthBuildCustomizer implements BuildCustomizer<Build> {
+class SpringAzureSleuthBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final String SLEUTH_DEPENDENCY_ID = "cloud-starter-sleuth";
 

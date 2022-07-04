@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +25,12 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  *
  * @author Yonghui Ye
  */
-public class SpringAzureDefaultBuildCustomizer implements BuildCustomizer<Build> {
+class SpringAzureDefaultBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
 		if (build.dependencies().items().anyMatch((u) -> u.getGroupId().equals("com.azure.spring")) && !build
-				.dependencies().items().anyMatch((u) -> u.getArtifactId().equals("spring-cloud-azure-starter"))) {
+				.dependencies().items().anyMatch((u) -> u.getArtifactId().startsWith("spring-cloud-azure-starter"))) {
 			build.dependencies().add("azure-support");
 		}
 	}

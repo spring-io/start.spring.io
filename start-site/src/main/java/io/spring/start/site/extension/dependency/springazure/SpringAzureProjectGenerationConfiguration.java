@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,32 +29,32 @@ import org.springframework.context.annotation.Bean;
  * @author Yonghui Ye
  */
 @ProjectGenerationConfiguration
-public class SpringAzureProjectGenerationConfiguration {
+class SpringAzureProjectGenerationConfiguration {
 
 	@Bean
-	public SpringAzureDefaultBuildCustomizer springAzureBuildCustomizer() {
+	SpringAzureDefaultBuildCustomizer springAzureBuildCustomizer() {
 		return new SpringAzureDefaultBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("actuator")
-	public SpringAzureActuatorBuildCustomizer springAzureActuatorBuildCustomizer() {
+	SpringAzureActuatorBuildCustomizer springAzureActuatorBuildCustomizer() {
 		return new SpringAzureActuatorBuildCustomizer();
 	}
 
 	@Bean
-	public SpringAzureIntegrationStorageQueueBuildCustomizer springAzureMessagingBuildCustomizer() {
+	SpringAzureIntegrationStorageQueueBuildCustomizer springAzureMessagingBuildCustomizer() {
 		return new SpringAzureIntegrationStorageQueueBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("cloud-starter-sleuth")
-	public SpringAzureSleuthBuildCustomizer springAzureSleuthBuildCustomizer() {
+	SpringAzureSleuthBuildCustomizer springAzureSleuthBuildCustomizer() {
 		return new SpringAzureSleuthBuildCustomizer();
 	}
 
 	@Bean
-	public SpringAzureHelpDocumentCustomizer springAzureHelpDocumentCustomizer(Build build) {
+	SpringAzureHelpDocumentCustomizer springAzureHelpDocumentCustomizer(Build build) {
 		return new SpringAzureHelpDocumentCustomizer(build);
 	}
 
