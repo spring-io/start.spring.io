@@ -32,11 +32,6 @@ import org.springframework.context.annotation.Bean;
 class SpringAzureProjectGenerationConfiguration {
 
 	@Bean
-	SpringAzureDefaultBuildCustomizer springAzureBuildCustomizer() {
-		return new SpringAzureDefaultBuildCustomizer();
-	}
-
-	@Bean
 	@ConditionalOnRequestedDependency("actuator")
 	SpringAzureActuatorBuildCustomizer springAzureActuatorBuildCustomizer() {
 		return new SpringAzureActuatorBuildCustomizer();
