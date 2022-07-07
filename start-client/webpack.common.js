@@ -31,12 +31,17 @@ class WebpackGoogleTagManager {
 }
 
 const config = {
-  entry: path.resolve(__dirname, 'src/App.js'),
+  entry: {
+    index: [path.resolve(__dirname,  'src/App.js')],
+    errors: [path.resolve(__dirname,  'src/Errors.js')],
+    fourxx: [path.resolve(__dirname,  'src/Fourxx.js')],
+    fivexx: [path.resolve(__dirname,  'src/Fivexx.js')],
+  },
   output: {
     path: path.resolve(__dirname, 'public'),
     publicPath: '/',
-    filename: 'main.[id].[fullhash].js',
-    chunkFilename: '[id].[chunkhash].js',
+    filename: '[name].[id].[fullhash].js',
+    chunkFilename: '[name].[id].[chunkhash].js',
   },
   module: {
     rules: [
@@ -84,9 +89,68 @@ const config = {
             useShortDoctype: true,
             minifyCSS: true,
           },
+      filename: 'index.html', 
+      chunks: ["index"],
       template: './static/index.html',
       title: 'Spring Initializr',
       description: `Initializr generates spring boot project with just what you need to start quickly!`,
+      url: 'https://start.spring.io',
+      twitter: '@springboot',
+      image: `https://start.spring.io/images/initializr-card.jpg`,
+      theme: `#6db33f`,
+    }),
+    new HtmlWebpackPlugin({
+      minify: isDev
+        ? false
+        : {
+            collapseWhitespace: true,
+            removeComments: true,
+            useShortDoctype: true,
+            minifyCSS: true,
+          },
+      filename: 'error.html',
+      chunks: ["errors"],    
+      template: './static/error.html',
+      title: 'Error Pages',
+      description: `Errors!`,
+      url: 'https://start.spring.io',
+      twitter: '@springboot',
+      image: `https://start.spring.io/images/initializr-card.jpg`,
+      theme: `#6db33f`,
+    }),
+    new HtmlWebpackPlugin({
+      minify: isDev
+        ? false
+        : {
+            collapseWhitespace: true,
+            removeComments: true,
+            useShortDoctype: true,
+            minifyCSS: true,
+          },
+      filename: 'fourxx.html',
+      chunks: ["fourxx"],    
+      template: './static/fourxx.html',
+      title: 'Client Error!',
+      description: `Client error responses!`,
+      url: 'https://start.spring.io',
+      twitter: '@springboot',
+      image: `https://start.spring.io/images/initializr-card.jpg`,
+      theme: `#6db33f`,
+    }),
+    new HtmlWebpackPlugin({
+      minify: isDev
+        ? false
+        : {
+            collapseWhitespace: true,
+            removeComments: true,
+            useShortDoctype: true,
+            minifyCSS: true,
+          },
+      filename: 'fivexx.html',
+      chunks: ["fivexx"],    
+      template: './static/fivexx.html',
+      title: 'Server Error!',
+      description: `Server error responses!`,
       url: 'https://start.spring.io',
       twitter: '@springboot',
       image: `https://start.spring.io/images/initializr-card.jpg`,

@@ -24,6 +24,7 @@ import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 import io.spring.start.site.project.ProjectDescriptionCustomizerConfiguration;
 import io.spring.start.site.support.CacheableDependencyManagementVersionResolver;
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
+import io.spring.start.site.web.CustomErrorController;
 import io.spring.start.site.web.HomeController;
 
 import org.springframework.boot.SpringApplication;
@@ -54,6 +55,11 @@ public class StartApplication {
 	@Bean
 	public HomeController homeController() {
 		return new HomeController();
+	}
+
+	@Bean
+	public CustomErrorController customErrorController() {
+		return new CustomErrorController();
 	}
 
 	@Bean
