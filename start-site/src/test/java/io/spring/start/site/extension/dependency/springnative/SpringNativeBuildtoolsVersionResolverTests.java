@@ -42,7 +42,7 @@ class SpringNativeBuildtoolsVersionResolverTests {
 		return Stream.of(versions("0.9.2", null), versions("0.10.4", "0.9.3"), versions("0.10.5", "0.9.4"),
 				versions("0.11.0-M1", "0.9.4"), versions("0.11.0-M2", "0.9.7.1"), versions("0.11.0-RC1", "0.9.8"),
 				versions("0.11.0", "0.9.8"), versions("0.11.1", "0.9.9"), versions("0.11.3", "0.9.10"),
-				versions("0.11.5", "0.9.11"));
+				versions("0.11.5", "0.9.11"), versions("0.12.0", "0.9.11"), versions("0.12.1", "0.9.13"));
 	}
 
 	private static Arguments versions(String springNativeVersion, String nativeBuildToolsVersion) {

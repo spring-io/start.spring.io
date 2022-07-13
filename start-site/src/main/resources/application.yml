@@ -274,8 +274,10 @@ initializr:
             - compatibilityRange: "[2.6.6,2.7.0-M1)"
               version: 0.11.5
               repository: spring-releases
-            - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
+            - compatibilityRange: "[2.7.0-M1,2.7.1)"
               version: 0.12.0
+            - compatibilityRange: "[2.7.1,3.0.0-M1)"
+              version: 0.12.1
           links:
             - rel: reference
               href: https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/
