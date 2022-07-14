@@ -158,7 +158,7 @@ initializr:
         versionProperty: spring-shell.version
         mappings:
           - compatibilityRange: "[2.7.0,3.0.0-M1)"
-            version: 2.1.0-M5
+            version: 2.1.0-RC1
             repositories: spring-milestones
       testcontainers:
         groupId: org.testcontainers
