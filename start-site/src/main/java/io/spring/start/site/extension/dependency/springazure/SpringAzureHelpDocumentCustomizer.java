@@ -51,56 +51,31 @@ class SpringAzureHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	@Override
 	public void customize(HelpDocument document) {
-		if (this.build.dependencies().has(AZURE_DEPENDENCY_ID)) {
-			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/azure/developer/java/spring-framework/spring-boot-starters-for-azure",
-					"Spring Cloud on Azure");
-		}
+		addMsDocsLink(document, AZURE_DEPENDENCY_ID, "https://aka.ms/spring/msdocs", "Spring Cloud Azure");
+		addMsDocsLink(document, AZURE_ACTIVE_DIRECTORY_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/aad",
+				"Azure Active Directory");
+		addMsDocsLink(document, AZURE_COSMOS_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/cosmos", "Azure Cosmos DB");
+		addMsDocsLink(document, AZURE_KEY_VAULT_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/keyvault",
+				"Azure Key Vault secrets");
+		addMsDocsLink(document, AZURE_KEY_VAULT_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/keyvault/certificates",
+				"Azure Key Vault certificates");
+		addMsDocsLink(document, AZURE_STORAGE_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/storage", "Azure Storage");
+		addSpringDocsLink(document, AZURE_ACTUATOR_ARTIFACT_ID, "https://aka.ms/spring/docs/actuator",
+				"Azure Actuator");
+		addSpringDocsLink(document, AZURE_SLEUTH_ARTIFACT_ID, "https://aka.ms/spring/docs/sleuth", "Azure Sleuth");
+		addSpringDocsLink(document, AZURE_INTEGRATION_STORAGE_QUEUE_ARTIFACT_ID,
+				"https://aka.ms/spring/docs/spring-integration/storage-queue", "Azure Integration Storage Queue");
+	}
 
-		if (this.build.dependencies().has(AZURE_ACTIVE_DIRECTORY_DEPENDENCY_ID)) {
-			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-active-directory",
-					"Azure Active Directory");
+	private void addMsDocsLink(HelpDocument document, String dependencyId, String href, String description) {
+		if (this.build.dependencies().has(dependencyId)) {
+			document.gettingStarted().addGuideLink(href, description);
 		}
+	}
 
-		if (this.build.dependencies().has(AZURE_COSMOS_DEPENDENCY_ID)) {
-			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-cosmos-db",
-					"Azure Cosmos DB");
-		}
-
-		if (this.build.dependencies().has(AZURE_KEY_VAULT_DEPENDENCY_ID)) {
-			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault",
-					"Azure Key Vault secrets");
-			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault-certificates",
-					"Azure Key Vault certificates");
-		}
-
-		if (this.build.dependencies().has(AZURE_STORAGE_DEPENDENCY_ID)) {
-			document.gettingStarted().addGuideLink(
-					"https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-storage",
-					"Azure Storage");
-		}
-
-		if (this.build.dependencies().items().anyMatch((u) -> u.getArtifactId().equals(AZURE_ACTUATOR_ARTIFACT_ID))) {
-			document.gettingStarted().addReferenceDocLink(
-					"https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#enable-health-indicator",
-					"Azure Actuator");
-		}
-
-		if (this.build.dependencies().items().anyMatch((u) -> u.getArtifactId().equals(AZURE_SLEUTH_ARTIFACT_ID))) {
-			document.gettingStarted().addReferenceDocLink(
-					"https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#enable-sleuth",
-					"Azure Sleuth");
-		}
-
-		if (this.build.dependencies().items()
-				.anyMatch((u) -> u.getArtifactId().equals(AZURE_INTEGRATION_STORAGE_QUEUE_ARTIFACT_ID))) {
-			document.gettingStarted().addReferenceDocLink(
-					"https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#spring-integration-with-azure-storage-queue",
-					"Azure Integration Storage Queue");
+	private void addSpringDocsLink(HelpDocument document, String dependencyId, String href, String description) {
+		if (this.build.dependencies().items().anyMatch((u) -> u.getArtifactId().equals(dependencyId))) {
+			document.gettingStarted().addReferenceDocLink(href, description);
 		}
 	}
 
