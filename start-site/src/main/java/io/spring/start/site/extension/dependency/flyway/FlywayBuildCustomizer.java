@@ -28,25 +28,26 @@ import io.spring.initializr.generator.version.VersionRange;
  * Determine the appropriate Flyway dependency according to the database.
  *
  * @author Eddú Meléndez
+ * @author Stephane Nicoll
  */
-public class FlywayBuildCustomizer implements BuildCustomizer<Build> {
+class FlywayBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final VersionRange SPRING_BOOT_2_7_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.7.0");
 
-	private final ProjectDescription projectDescription;
+	private final boolean isSpringBoot27OrLater;
 
-	public FlywayBuildCustomizer(ProjectDescription projectDescription) {
-		this.projectDescription = projectDescription;
+	FlywayBuildCustomizer(ProjectDescription projectDescription) {
+		this.isSpringBoot27OrLater = SPRING_BOOT_2_7_0_OR_LATER.match(projectDescription.getPlatformVersion());
 	}
 
 	@Override
 	public void customize(Build build) {
-		if (SPRING_BOOT_2_7_0_OR_LATER.match(this.projectDescription.getPlatformVersion())) {
+		if (this.isSpringBoot27OrLater) {
 			DependencyContainer dependencies = build.dependencies();
-			if ((dependencies.has("mysql") || dependencies.has("mariadb")) && dependencies.has("flyway")) {
+			if ((dependencies.has("mysql") || dependencies.has("mariadb"))) {
 				dependencies.add("flyway-mysql", "org.flywaydb", "flyway-mysql", DependencyScope.COMPILE);
 			}
-			if (dependencies.has("sqlserver") && dependencies.has("flyway")) {
+			if (dependencies.has("sqlserver")) {
 				dependencies.add("flyway-sqlserver", "org.flywaydb", "flyway-sqlserver", DependencyScope.COMPILE);
 			}
 		}

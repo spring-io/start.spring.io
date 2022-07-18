@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Eddú Meléndez
  */
-class FlywayBuildCustomizerTest extends AbstractExtensionTests {
+class FlywayBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void mariadbOnly() {

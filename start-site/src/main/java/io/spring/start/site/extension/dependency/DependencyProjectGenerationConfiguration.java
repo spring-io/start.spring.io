@@ -20,12 +20,9 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.start.site.extension.dependency.flyway.FlywayBuildCustomizer;
-import io.spring.start.site.extension.dependency.flyway.FlywayProjectContributor;
 import io.spring.start.site.extension.dependency.graphql.SpringGraphQlBuildCustomizer;
 import io.spring.start.site.extension.dependency.liquibase.LiquibaseProjectContributor;
 import io.spring.start.site.extension.dependency.lombok.LombokGradleBuildCustomizer;
@@ -112,12 +109,6 @@ public class DependencyProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnRequestedDependency("flyway")
-	public FlywayProjectContributor flywayProjectContributor() {
-		return new FlywayProjectContributor();
-	}
-
-	@Bean
 	@ConditionalOnRequestedDependency("liquibase")
 	public LiquibaseProjectContributor liquibaseProjectContributor() {
 		return new LiquibaseProjectContributor();
@@ -127,12 +118,6 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("okta")
 	public OktaHelpDocumentCustomizer oktaHelpDocumentCustomizer(MustacheTemplateRenderer templateRenderer) {
 		return new OktaHelpDocumentCustomizer(templateRenderer);
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("flyway")
-	public FlywayBuildCustomizer flywayBuildCustomizer(ProjectDescription projectDescription) {
-		return new FlywayBuildCustomizer(projectDescription);
 	}
 
 }
