@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.start.site.extension.dependency.flyway.FlywayProjectContributor;
 import io.spring.start.site.extension.dependency.graphql.SpringGraphQlBuildCustomizer;
 import io.spring.start.site.extension.dependency.liquibase.LiquibaseProjectContributor;
 import io.spring.start.site.extension.dependency.lombok.LombokGradleBuildCustomizer;
@@ -107,12 +106,6 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("thymeleaf")
 	public ThymeleafBuildCustomizer thymeleafBuildCustomizer() {
 		return new ThymeleafBuildCustomizer();
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("flyway")
-	public FlywayProjectContributor flywayProjectContributor() {
-		return new FlywayProjectContributor();
 	}
 
 	@Bean
