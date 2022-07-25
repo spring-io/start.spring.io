@@ -152,7 +152,7 @@ initializr:
           - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
             version: 1.7.2
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
-            version: 2.0.0-M3
+            version: 2.0.0-M4
             repository: spring-milestones
       spring-shell:
         groupId: org.springframework.shell
