@@ -914,7 +914,7 @@ initializr:
               href: https://rsocket.io/
         - name: Apache Camel
           id: camel
-          compatibilityRange: "[2.0.0.M1,2.7.0-M1)"
+          compatibilityRange: "[2.0.0.M1,3.0.0-M1)"
           mappings:
             - compatibilityRange: "[2.3.0.M1,2.4.0-M1)"
               version: 3.5.0
@@ -924,7 +924,7 @@ initializr:
               version: 3.13.0
             - compatibilityRange: "[2.6.0.M1,2.7.0-M1)"
               version: 3.17.0
-            - compatibilityRange: "[2.7.0.M1,2.8.0-M1)"
+            - compatibilityRange: "[2.7.0.M1,3.0.0-M1)"
               version: 3.18.0
           description: Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
           groupId: org.apache.camel.springboot
