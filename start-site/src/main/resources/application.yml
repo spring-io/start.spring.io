@@ -100,8 +100,11 @@ initializr:
           - compatibilityRange: "[3.0.0-M2,3.0.0-M3)"
             version: 2022.0.0-M2
             repositories: spring-milestones
-          - compatibilityRange: "[3.0.0-M3,3.1.0-M1)"
+          - compatibilityRange: "[3.0.0-M3,3.0.0-M4)"
             version: 2022.0.0-M3
+            repositories: spring-milestones
+          - compatibilityRange: "[3.0.0-M4,3.1.0-M1)"
+            version: 2022.0.0-M4
             repositories: spring-milestones
       spring-cloud-azure:
         groupId: com.azure.spring
