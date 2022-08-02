@@ -30,26 +30,6 @@ import org.junit.jupiter.api.Test;
 class SpringAzureHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void referenceSectionWithAzureSupportDependencyIsPresent() {
-		assertHelpDocument("azure-support").contains("Azure Support");
-	}
-
-	@Test
-	void referenceSectionWithAzureActiveDirectoryDependencyIsPresent() {
-		assertHelpDocument("azure-active-directory").contains("Azure Active Directory");
-	}
-
-	@Test
-	void referenceSectionWithAzureCosmosDependencyIsPresent() {
-		assertHelpDocument("azure-cosmos-db").contains("Azure Cosmos DB");
-	}
-
-	@Test
-	void referenceSectionWithAzureKeyVaultDependencyIsPresent() {
-		assertHelpDocument("azure-keyvault").contains("Azure Key Vault secrets", "Azure Key Vault certificates");
-	}
-
-	@Test
 	void referenceSectionWithAzureActuatorDependencyIsPresent() {
 		assertHelpDocument("azure-support", "actuator").contains("Azure Actuator");
 	}

@@ -27,16 +27,6 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  */
 class SpringAzureHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final String AZURE_DEPENDENCY_ID = "azure-support";
-
-	private static final String AZURE_ACTIVE_DIRECTORY_DEPENDENCY_ID = "azure-active-directory";
-
-	private static final String AZURE_COSMOS_DEPENDENCY_ID = "azure-cosmos-db";
-
-	private static final String AZURE_KEY_VAULT_DEPENDENCY_ID = "azure-keyvault";
-
-	private static final String AZURE_STORAGE_DEPENDENCY_ID = "azure-storage";
-
 	private static final String AZURE_ACTUATOR_ARTIFACT_ID = "spring-cloud-azure-starter-actuator";
 
 	private static final String AZURE_SLEUTH_ARTIFACT_ID = "spring-cloud-azure-trace-sleuth";
@@ -51,26 +41,11 @@ class SpringAzureHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	@Override
 	public void customize(HelpDocument document) {
-		addMsDocsLink(document, AZURE_DEPENDENCY_ID, "https://aka.ms/spring/msdocs", "Spring Cloud Azure");
-		addMsDocsLink(document, AZURE_ACTIVE_DIRECTORY_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/aad",
-				"Azure Active Directory");
-		addMsDocsLink(document, AZURE_COSMOS_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/cosmos", "Azure Cosmos DB");
-		addMsDocsLink(document, AZURE_KEY_VAULT_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/keyvault",
-				"Azure Key Vault secrets");
-		addMsDocsLink(document, AZURE_KEY_VAULT_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/keyvault/certificates",
-				"Azure Key Vault certificates");
-		addMsDocsLink(document, AZURE_STORAGE_DEPENDENCY_ID, "https://aka.ms/spring/msdocs/storage", "Azure Storage");
 		addSpringDocsLink(document, AZURE_ACTUATOR_ARTIFACT_ID, "https://aka.ms/spring/docs/actuator",
 				"Azure Actuator");
 		addSpringDocsLink(document, AZURE_SLEUTH_ARTIFACT_ID, "https://aka.ms/spring/docs/sleuth", "Azure Sleuth");
 		addSpringDocsLink(document, AZURE_INTEGRATION_STORAGE_QUEUE_ARTIFACT_ID,
 				"https://aka.ms/spring/docs/spring-integration/storage-queue", "Azure Integration Storage Queue");
-	}
-
-	private void addMsDocsLink(HelpDocument document, String dependencyId, String href, String description) {
-		if (this.build.dependencies().has(dependencyId)) {
-			document.gettingStarted().addGuideLink(href, description);
-		}
 	}
 
 	private void addSpringDocsLink(HelpDocument document, String dependencyId, String href, String description) {
