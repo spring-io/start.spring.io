@@ -50,7 +50,7 @@ initializr:
           - compatibilityRange: "[2.6.0.M1,2.7.0-M1)"
             version: 2.6.8
           - compatibilityRange: "[2.7.0.M1,3.0.0-M1)"
-            version: 2.7.3
+            version: 2.7.4
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
             version: 3.0.0-M4
       solace-spring-boot:
@@ -1029,7 +1029,7 @@ initializr:
               description: Building a RESTful Web Service with Spring Boot Actuator
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#actuator
-        - name: Codecentric's Spring Boot Admin (Client)
+        - name: codecentric's Spring Boot Admin (Client)
           id: codecentric-spring-boot-admin-client
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
@@ -1039,7 +1039,7 @@ initializr:
           links:
             - rel: reference
               href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
-        - name: Codecentric's Spring Boot Admin (Server)
+        - name: codecentric's Spring Boot Admin (Server)
           id: codecentric-spring-boot-admin-server
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
