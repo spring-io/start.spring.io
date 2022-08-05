@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,9 @@ package io.spring.start.site.extension.dependency.thymeleaf;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link BuildCustomizer} for Thymeleaf.
@@ -27,11 +30,21 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 public class ThymeleafBuildCustomizer implements BuildCustomizer<Build> {
 
+	private static final VersionRange SPRING_BOOT_3_OR_ABOVE = VersionParser.DEFAULT.parseRange("3.0.0-M1");
+
+	private final boolean springBoot3OrAbove;
+
+	public ThymeleafBuildCustomizer(Version platformVersion) {
+		this.springBoot3OrAbove = SPRING_BOOT_3_OR_ABOVE.match(platformVersion);
+	}
+
 	@Override
 	public void customize(Build build) {
 		if (build.dependencies().has("security")) {
+			String artifactId = (this.springBoot3OrAbove) ? "thymeleaf-extras-springsecurity6"
+					: "thymeleaf-extras-springsecurity5";
 			build.dependencies().add("thymeleaf-extras-spring-security",
-					Dependency.withCoordinates("org.thymeleaf.extras", "thymeleaf-extras-springsecurity5"));
+					Dependency.withCoordinates("org.thymeleaf.extras", artifactId));
 		}
 	}
 
