@@ -32,11 +32,10 @@ class SpringAzureSleuthBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		if (build.dependencies().has(SLEUTH_DEPENDENCY_ID)) {
-			if (build.dependencies().items().anyMatch((u) -> u.getGroupId().equals("com.azure.spring"))) {
-				build.dependencies().add("spring-cloud-azure-trace-sleuth",
-						Dependency.withCoordinates("com.azure.spring", "spring-cloud-azure-trace-sleuth"));
-			}
+		if (build.dependencies().items().anyMatch((u) -> u.getGroupId().equals("com.azure.spring"))
+				&& build.dependencies().has(SLEUTH_DEPENDENCY_ID)) {
+			build.dependencies().add("spring-cloud-azure-trace-sleuth",
+					Dependency.withCoordinates("com.azure.spring", "spring-cloud-azure-trace-sleuth"));
 		}
 	}
 
