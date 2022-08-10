@@ -192,7 +192,7 @@ initializr:
           - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
             version: 2.3.0
     gradle:
-      dependency-management-plugin-version: 1.0.12.RELEASE
+      dependency-management-plugin-version: 1.0.13.RELEASE
     kotlin:
       mappings:
         - compatibilityRange: "[1.5.0.RELEASE,2.0.0.M1)"
