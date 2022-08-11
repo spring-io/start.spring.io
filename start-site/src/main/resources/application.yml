@@ -1453,10 +1453,10 @@ initializr:
               description: Deploying a Spring Boot app to Azure
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html
-              description: Azure Support
+              description: Spring Cloud Azure Reference Documentation
             - rel: reference
               href: https://aka.ms/spring/msdocs
-              description: Spring Cloud Azure documentation
+              description: Spring Cloud Azure documentation - Microsoft Docs
             - rel: sample
               href: https://aka.ms/spring/samples
               description: Azure Samples
