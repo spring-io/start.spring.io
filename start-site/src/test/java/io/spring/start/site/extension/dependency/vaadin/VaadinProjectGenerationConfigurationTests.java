@@ -42,7 +42,6 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 						"								<id>frontend</id>",
 						"								<phase>compile</phase>",
 						"								<goals>",
-						"									<goal>prepare-frontend</goal>",
 						"									<goal>build-frontend</goal>",
 						"								</goals>", "								<configuration>",
 						"									<productionMode>true</productionMode>",
