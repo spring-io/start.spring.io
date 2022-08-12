@@ -29,9 +29,12 @@ class VaadinMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
 	@Override
 	public void customize(MavenBuild build) {
+		build.plugins().add("com.vaadin", "vaadin-maven-plugin", (plugin) -> plugin.version("${vaadin.version}")
+				.execution("prepare-frontend", (execution) -> execution.goal("prepare-frontend")));
+
 		build.profiles().id("production").plugins().add("com.vaadin", "vaadin-maven-plugin",
 				(plugin) -> plugin.version("${vaadin.version}").execution("frontend",
-						(execution) -> execution.goal("prepare-frontend").goal("build-frontend").phase("compile")
+						(execution) -> execution.goal("build-frontend").phase("compile")
 								.configuration((configuration) -> configuration.add("productionMode", "true"))));
 	}
 
