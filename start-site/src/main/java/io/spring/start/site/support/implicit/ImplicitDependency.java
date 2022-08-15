@@ -82,7 +82,18 @@ public final class ImplicitDependency {
 		 * @see #match(Predicate)
 		 */
 		public Builder matchAnyDependencyIds(String... dependencies) {
-			return match((build) -> matchBuild(build, dependencies));
+			return match((build) -> matchAny(build, dependencies));
+		}
+
+		/**
+		 * Enable the implicit dependency created by this builder if all of the specified
+		 * {@code dependencies} are present in the build.
+		 * @param dependencies the dependencies to match
+		 * @return this for method chaining
+		 * @see #match(Predicate)
+		 */
+		public Builder matchAllDependencyIds(String... dependencies) {
+			return match((build) -> matchAll(build, dependencies));
 		}
 
 		/**
@@ -124,13 +135,22 @@ public final class ImplicitDependency {
 			return new ImplicitDependency(this);
 		}
 
-		private static boolean matchBuild(Build build, String... dependencies) {
+		private static boolean matchAny(Build build, String... dependencies) {
 			for (String dependency : dependencies) {
 				if (build.dependencies().has(dependency)) {
 					return true;
 				}
 			}
 			return false;
+		}
+
+		private static boolean matchAll(Build build, String... dependencies) {
+			for (String dependency : dependencies) {
+				if (!build.dependencies().has(dependency)) {
+					return false;
+				}
+			}
+			return true;
 		}
 
 	}

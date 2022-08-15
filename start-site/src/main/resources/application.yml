@@ -112,7 +112,7 @@ initializr:
         versionProperty: spring-cloud-azure.version
         mappings:
           - compatibilityRange: "[2.5.0.M1,3.0.0-M1)"
-            version: 4.3.0
+            version: 4.2.0
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
@@ -1479,6 +1479,7 @@ initializr:
               description: Deploying a Spring Boot app to Azure
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html
+              description: Spring Cloud Azure Reference Documentation
             - rel: sample
               href: https://aka.ms/spring/samples
               description: Azure Samples
@@ -1488,8 +1489,11 @@ initializr:
           artifactId: spring-cloud-azure-starter-active-directory
           description: Spring Security integration with Azure Active Directory for authentication.
           links:
+            - rel: guide
+              href: https://aka.ms/spring/msdocs/aad
+              description: Securing a Java Web App with the Spring Boot Starter for Azure Active Directory
             - rel: reference
-              href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#authentication
+              href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#spring-security-with-azure-active-directory
             - rel: sample
               href: https://aka.ms/spring/samples/latest/aad
               description: Azure Active Directory Sample
@@ -1499,17 +1503,26 @@ initializr:
           artifactId: spring-cloud-azure-starter-data-cosmos
           description: Fully managed NoSQL database service for modern app development, including Spring Data support.
           links:
+            - rel: guide
+              href: https://aka.ms/spring/msdocs/cosmos
+              description: How to use Spring Boot Starter with Azure Cosmos DB SQL API
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#spring-data-support
             - rel: sample
               href: https://aka.ms/spring/samples/latest/cosmos
               description: Azure Cosmos DB Sample
         - name: Azure Key Vault
-          id: azure-keyvault-secrets
+          id: azure-keyvault
           groupId: com.azure.spring
-          artifactId: spring-cloud-azure-starter-keyvault-secrets
-          description: Manage application secrets.
+          artifactId: spring-cloud-azure-starter-keyvault
+          description: All key vault features are supported, e.g. manage application secrets and certificates.
           links:
+            - rel: guide
+              href: https://aka.ms/spring/msdocs/keyvault
+              description: Read Secrets from Azure Key Vault in a Spring Boot Application
+            - rel: guide
+              href: https://aka.ms/spring/msdocs/keyvault/certificates
+              description: Securing Spring Boot Applications with Azure Key Vault Certificates
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#secret-management
             - rel: sample
@@ -1518,9 +1531,12 @@ initializr:
         - name: Azure Storage
           id: azure-storage
           groupId: com.azure.spring
-          artifactId: spring-cloud-azure-starter-storage-blob
-          description: Azure Storage service integration.
+          artifactId: spring-cloud-azure-starter-storage
+          description: All Storage features are supported, e.g. blob, fileshare and queue.
           links:
+            - rel: guide
+              href: https://aka.ms/spring/msdocs/storage
+              description: How to use the Spring Boot starter for Azure Storage
             - rel: reference
               href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#resource-handling
             - rel: sample
