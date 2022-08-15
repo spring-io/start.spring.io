@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * Tests for {@link ImplicitDependency}.
  *
  * @author Stephane Nicoll
+ * @author Andy Wilkinson
  */
 class ImplicitDependencyTests {
 
@@ -43,6 +44,26 @@ class ImplicitDependencyTests {
 		Build build = mock(Build.class);
 		dependency.customize(build);
 		verify(buildCustomizer).accept(build);
+	}
+
+	@Test
+	void customizeBuildWhenAllPredicatesAreTrueInvokesConsumer() {
+		Consumer<Build> buildCustomizer = mockBuildCustomizer();
+		ImplicitDependency dependency = new Builder().match((build) -> true).match((build) -> true)
+				.match((build) -> true).customizeBuild(buildCustomizer).build();
+		Build build = mock(Build.class);
+		dependency.customize(build);
+		verify(buildCustomizer).accept(build);
+	}
+
+	@Test
+	void customizeBuildWhenPredicatesAreNotAllTrueDoesNotInvokeConsumer() {
+		Consumer<Build> buildCustomizer = mockBuildCustomizer();
+		ImplicitDependency dependency = new Builder().match((build) -> false).match((build) -> true)
+				.customizeBuild(buildCustomizer).build();
+		Build build = mock(Build.class);
+		dependency.customize(build);
+		verifyNoInteractions(buildCustomizer);
 	}
 
 	@Test

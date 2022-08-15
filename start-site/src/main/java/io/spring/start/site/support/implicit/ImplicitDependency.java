@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import io.spring.initializr.generator.spring.documentation.HelpDocument;
  * A dependency that is added when a {@link Build} is in a certain state.
  *
  * @author Stephane Nicoll
+ * @author Andy Wilkinson
  */
 public final class ImplicitDependency {
 
@@ -68,15 +69,16 @@ public final class ImplicitDependency {
 	 */
 	public static class Builder {
 
-		private Predicate<Build> buildPredicate;
+		private Predicate<Build> buildPredicate = (build) -> true;
 
 		private Consumer<Build> buildCustomizer;
 
 		private Consumer<HelpDocument> helpDocumentCustomizer;
 
 		/**
-		 * Enable the implicit dependency created by this builder if any of the specified
-		 * {@code dependencies} are present in the build.
+		 * For the implicit dependency created by this builder to be enabled, any of the
+		 * specified {@code dependencies} must be present in the build. May be combined
+		 * with other matches.
 		 * @param dependencies the dependencies to match
 		 * @return this for method chaining
 		 * @see #match(Predicate)
@@ -86,8 +88,9 @@ public final class ImplicitDependency {
 		}
 
 		/**
-		 * Enable the implicit dependency created by this builder if all of the specified
-		 * {@code dependencies} are present in the build.
+		 * For the implicit dependency created by this builder to be enabled, all of the
+		 * specified {@code dependencies} must be present in the build. May be combined
+		 * with other matches.
 		 * @param dependencies the dependencies to match
 		 * @return this for method chaining
 		 * @see #match(Predicate)
@@ -97,13 +100,13 @@ public final class ImplicitDependency {
 		}
 
 		/**
-		 * Enable the implicit dependency created by this builder if the specified
-		 * {@link Predicate} passes.
+		 * For the implicit dependency created by this builder to be enabled, the
+		 * specified {@link Predicate} must pass. May be combined with other matches.
 		 * @param buildPredicate the predicate to use to enable the dependency
 		 * @return this for method chaining
 		 */
 		public Builder match(Predicate<Build> buildPredicate) {
-			this.buildPredicate = buildPredicate;
+			this.buildPredicate = this.buildPredicate.and(buildPredicate);
 			return this;
 		}
 

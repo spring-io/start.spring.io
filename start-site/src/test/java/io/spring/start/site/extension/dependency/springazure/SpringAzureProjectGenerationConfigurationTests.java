@@ -52,6 +52,14 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 				.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
 	}
 
+	@Test
+	void onlyActuator() {
+		ProjectStructure project = generateProject("actuator");
+		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
+				.hasDependenciesSize(2).hasDependency("org.springframework.boot", "spring-boot-starter-actuator")
+				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
+	}
+
 	@ParameterizedTest
 	@MethodSource("azureDependencies")
 	void azureDependencyWithActuator(String dependencyId) {
@@ -65,6 +73,14 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 				.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
 	}
 
+	@Test
+	void onlySleuth() {
+		ProjectStructure project = generateProject("cloud-starter-sleuth");
+		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
+				.hasDependenciesSize(2).hasDependency("org.springframework.cloud", "spring-cloud-starter-sleuth")
+				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
+	}
+
 	@ParameterizedTest
 	@MethodSource("azureDependencies")
 	void azureDependencyWithSleuth(String dependencyId) {
@@ -76,6 +92,15 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/docs/sleuth")
 				.doesNotContain("https://aka.ms/spring/docs/actuator")
 				.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
+	}
+
+	@Test
+	void onlyIntegration() {
+		ProjectStructure project = generateProject("integration");
+		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
+				.hasDependenciesSize(3).hasDependency("org.springframework.boot", "spring-boot-starter-integration")
+				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test")
+				.hasDependency("org.springframework.integration", "spring-integration-test", null, "test");
 	}
 
 	@Test
