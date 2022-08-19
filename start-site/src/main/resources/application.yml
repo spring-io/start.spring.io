@@ -513,7 +513,7 @@ initializr:
           description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features. Enable your Spring Boot application to work with Okta via OAuth 2.0/OIDC.
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
-          compatibilityRange: "[2.1.2.RELEASE,2.7.0-M1)"
+          compatibilityRange: "[2.1.2.RELEASE,3.0.0-M1)"
           mappings:
             - compatibilityRange: "[2.2.0.RELEASE,2.4.0-M1)"
               version: 1.4.0
@@ -521,8 +521,8 @@ initializr:
               version: 1.5.1
             - compatibilityRange: "[2.4.1,2.5.0-M1)"
               version: 2.0.1
-            - compatibilityRange: "[2.5.0-M1,2.7.0-M1)"
-              version: 2.1.5
+            - compatibilityRange: "[2.5.0-M1,3.0.0-M1)"
+              version: 2.1.6
           links:
             - rel: guide
               href: https://github.com/okta/samples-java-spring/tree/master/okta-hosted-login
