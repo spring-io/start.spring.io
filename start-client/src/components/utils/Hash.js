@@ -24,7 +24,7 @@ export default function useHash() {
   const [hash, setHash] = useState(getHash())
 
   const { dispatch } = useContext(InitializrContext)
-  const { config, complete } = useContext(AppContext)
+  const { config, complete, dispatch: dispatchApp } = useContext(AppContext)
 
   useEffect(() => {
     const handler = () => {
@@ -40,6 +40,12 @@ export default function useHash() {
     if (complete && hash) {
       const params = queryString.parse(`?${hash.substr(2)}`)
       dispatch({ type: 'LOAD', payload: { params, lists: config.lists } })
+      if (params?.platformVersion) {
+        dispatchApp({
+          type: 'UPDATE_DEPENDENCIES',
+          payload: { boot: params.platformVersion },
+        })
+      }
       clearHash()
       setHash('')
       if (isValidParams(params)) {

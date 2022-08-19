@@ -149,6 +149,9 @@ body.dark {
       color: lighten($dark-background, 0.6);
     }
   }
+  ul.dependencies-list li div.disabled strong {
+    color: rgba($dark-color, 0.5);
+  }
   .dialog-dependencies ul li a.dependency span.group,
   ul.dependencies-list li div span.group {
     color: $dark-background;
