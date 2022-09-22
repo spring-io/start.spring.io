@@ -1619,7 +1619,7 @@ initializr:
       id: war
       default: false
   javaVersions:
-    - id: 18
+    - id: 19
       default: false
     - id: 17
       default: true
