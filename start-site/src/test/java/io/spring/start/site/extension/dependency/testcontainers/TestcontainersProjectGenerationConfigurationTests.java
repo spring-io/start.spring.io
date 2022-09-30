@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.testcontainers;
 
-import java.util.stream.Stream;
-
 import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
@@ -27,6 +25,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -34,12 +34,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Maciej Walkowiak
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void buildWithOnlyTestContainers() {
-		assertThat(generateProject("testcontainers")).mavenBuild()
+		assertThat(generateMavenProject(createProjectRequest("testcontainers"))).mavenBuild()
 				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
 				.hasDependency(getDependency("testcontainers"));
 	}
@@ -47,11 +48,9 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@ParameterizedTest
 	@MethodSource("supportedEntriesBuild")
 	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
-		assertThat(generateProject("testcontainers", springBootDependencyId)).mavenBuild()
-				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-				.hasDependency(getDependency(springBootDependencyId))
-				.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
-				.hasDependency(getDependency("testcontainers"));
+		ProjectStructure projectStructure = generateMavenProject(
+				createProjectRequest("testcontainers", springBootDependencyId));
+		assertSupportedEntries(projectStructure, springBootDependencyId, testcontainersArtifactId);
 	}
 
 	static Stream<Arguments> supportedEntriesBuild() {
@@ -105,8 +104,24 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
 	}
 
-	private ProjectStructure generateProject(String... dependencies) {
-		ProjectRequest request = createProjectRequest(dependencies);
+	@Test
+	void buildWithPulsar() {
+		ProjectRequest request = createProjectRequest("testcontainers", "pulsar");
+		request.setBootVersion("3.0.0.M4");
+		ProjectStructure projectStructure = generateMavenProject(request);
+		assertSupportedEntries(projectStructure, "pulsar", "pulsar");
+	}
+
+	private void assertSupportedEntries(ProjectStructure projectStructure, String springBootDependencyId,
+			String testcontainersArtifactId) {
+		assertThat(projectStructure).mavenBuild()
+				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
+				.hasDependency(getDependency(springBootDependencyId))
+				.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
+				.hasDependency(getDependency("testcontainers"));
+	}
+
+	private ProjectStructure generateMavenProject(ProjectRequest request) {
 		request.setType("maven-build");
 		return generateProject(request);
 	}

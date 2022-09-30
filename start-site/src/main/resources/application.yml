@@ -830,6 +830,13 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#data.nosql.neo4j
     - name: Messaging
       content:
+        - name: Spring for Apache Pulsar
+          id: pulsar
+          description: Build messaging and stream processing platforms with Apache Pulsar.
+          compatibilityRange: 3.0.0.M4
+          groupId: org.springframework.pulsar
+          artifactId: spring-pulsar-spring-boot-starter
+          version: 0.1.0-M1
         - name: Spring Integration
           id: integration
           description: Adds support for Enterprise Integration Patterns. Enables lightweight messaging and supports integration with external systems via declarative adapters.
