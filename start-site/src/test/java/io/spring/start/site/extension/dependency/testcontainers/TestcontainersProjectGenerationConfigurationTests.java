@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Maciej Walkowiak
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -83,6 +84,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	static Stream<Arguments> supportedEntriesHelpDocument() {
 		return Stream.of(Arguments.arguments("amqp", "rabbitmq/"),
+				Arguments.arguments("cloud-starter-consul-config", "consul/"),
+				Arguments.arguments("cloud-starter-vault-config", "vault/"),
 				Arguments.arguments("data-cassandra", "databases/cassandra/"),
 				Arguments.arguments("data-cassandra-reactive", "databases/cassandra/"),
 				Arguments.arguments("data-couchbase", "databases/couchbase/"),
