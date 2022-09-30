@@ -32,6 +32,7 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  * A registry of available Testcontainers modules.
  *
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 abstract class TestcontainersModuleRegistry {
 
@@ -39,6 +40,10 @@ abstract class TestcontainersModuleRegistry {
 		return create(
 				onDependencies("amqp").customizeBuild(addModule("rabbitmq"))
 						.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")),
+				onDependencies("cloud-starter-consul-config").customizeBuild(addModule("consul"))
+						.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")),
+				onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault"))
+						.customizeHelpDocument(addReferenceLink("Vault Module", "vault/")),
 				onDependencies("data-cassandra", "data-cassandra-reactive").customizeBuild(addModule("cassandra"))
 						.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")),
 				onDependencies("data-couchbase", "data-couchbase-reactive").customizeBuild(addModule("couchbase"))

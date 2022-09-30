@@ -34,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Maciej Walkowiak
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -83,6 +84,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	static Stream<Arguments> supportedEntriesHelpDocument() {
 		return Stream.of(Arguments.arguments("amqp", "rabbitmq/"),
+				Arguments.arguments("cloud-starter-consul-config", "consul/"),
+				Arguments.arguments("cloud-starter-vault-config", "vault/"),
 				Arguments.arguments("data-cassandra", "databases/cassandra/"),
 				Arguments.arguments("data-cassandra-reactive", "databases/cassandra/"),
 				Arguments.arguments("data-couchbase", "databases/couchbase/"),
