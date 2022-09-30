@@ -111,8 +111,10 @@ initializr:
         artifactId: spring-cloud-azure-dependencies
         versionProperty: spring-cloud-azure.version
         mappings:
-          - compatibilityRange: "[2.5.0.M1,3.0.0-M1)"
+          - compatibilityRange: "[2.5.0.M1,2.7.0-M1)"
             version: 4.3.0
+          - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
+            version: 4.4.0
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
