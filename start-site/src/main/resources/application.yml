@@ -220,7 +220,7 @@ initializr:
           compatibilityRange: "[2.4.3,3.0.0-M1)"
           groupId: org.springframework.experimental
           artifactId: spring-native
-          description: Incubating support for compiling Spring applications to native executables using the GraalVM native-image compiler.
+          description: Incubating support for compiling Spring 2.x applications to native executables using the GraalVM native-image compiler. Not needed with Spring Boot 3.
           facets:
             - native
           starter: false
