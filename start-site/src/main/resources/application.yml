@@ -168,6 +168,7 @@ initializr:
             version: 2.1.2
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
             version: 3.0.0-M1
+            repositories: spring-milestones
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
