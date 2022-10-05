@@ -165,7 +165,10 @@ initializr:
         versionProperty: spring-shell.version
         mappings:
           - compatibilityRange: "[2.7.0,3.0.0-M1)"
-            version: 2.1.1
+            version: 2.1.2
+          - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
+            version: 3.0.0-M1
+            repositories: spring-milestones
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
@@ -1013,7 +1016,7 @@ initializr:
           groupId: org.springframework.shell
           artifactId: spring-shell-starter
           description: Build command line applications with spring.
-          compatibilityRange: "[2.7.0,3.0.0-M1)"
+          compatibilityRange: "[2.7.0,3.1.0-M1)"
           bom: spring-shell
           links:
             - rel: reference
