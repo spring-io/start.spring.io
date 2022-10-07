@@ -103,8 +103,11 @@ initializr:
           - compatibilityRange: "[3.0.0-M3,3.0.0-M4)"
             version: 2022.0.0-M3
             repositories: spring-milestones
-          - compatibilityRange: "[3.0.0-M4,3.1.0-M1)"
+          - compatibilityRange: "[3.0.0-M4,3.0.0-M5)"
             version: 2022.0.0-M4
+            repositories: spring-milestones
+          - compatibilityRange: "[3.0.0-M5,3.1.0-M1)"
+            version: 2022.0.0-M5
             repositories: spring-milestones
       spring-cloud-azure:
         groupId: com.azure.spring
@@ -1330,7 +1333,7 @@ initializr:
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
-          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
           description: A REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-client
@@ -1342,7 +1345,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/#service-discovery-eureka-clients
         - name: Eureka Server
           id: cloud-eureka-server
-          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
+          compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
           description: spring-cloud-netflix Eureka Server.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-server
