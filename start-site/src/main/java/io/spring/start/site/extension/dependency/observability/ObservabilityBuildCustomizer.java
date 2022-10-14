@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * Add the actuator dependency if necessary if an observability library has been selected.
+ * Add the actuator dependency if an observability library has been selected.
  *
  * @author Stephane Nicoll
  */

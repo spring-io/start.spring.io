@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package io.spring.start.site.extension.build.maven;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -58,7 +57,7 @@ class AnnotationProcessorExclusionBuildCustomizer implements BuildCustomizer<Mav
 		List<io.spring.initializr.generator.buildsystem.Dependency> dependencies = build.dependencies().ids()
 				.filter(this::isAnnotationProcessor)
 				.filter((id) -> !this.hasSmartExclude || !KNOWN_ANNOTATION_PROCESSORS.contains(id))
-				.map((id) -> build.dependencies().get(id)).collect(Collectors.toList());
+				.map((id) -> build.dependencies().get(id)).toList();
 		if (!dependencies.isEmpty()) {
 			build.plugins().add("org.springframework.boot", "spring-boot-maven-plugin", (plugin) -> plugin
 					.configuration((configuration) -> configuration.configure("excludes", (excludes) -> {

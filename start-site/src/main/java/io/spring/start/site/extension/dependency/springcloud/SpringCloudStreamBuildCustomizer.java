@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  * integration technology.
  * <p>
  * Does not replace the integration technology jar by the relevant binder. If more than
- * one tech is selected, it is far more easier to remove the unnecessary binder jar than
- * to figure out the name of the tech jar to add to keep support for that technology.
+ * one tech is selected, it is far easier to remove the unnecessary binder jar than to
+ * figure out the name of the tech jar to add to keep support for that technology.
  *
  * @author Stephane Nicoll
  * @author Madhura Bhave

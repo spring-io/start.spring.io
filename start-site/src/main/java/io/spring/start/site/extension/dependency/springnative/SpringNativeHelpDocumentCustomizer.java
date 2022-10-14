@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,7 +109,7 @@ class SpringNativeHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	private void handleUnsupportedDependencies(HelpDocument document) {
 		List<Dependency> unsupportedDependencies = buildDependencies()
-				.filter((candidate) -> !candidate.getFacets().contains("native")).collect(Collectors.toList());
+				.filter((candidate) -> !candidate.getFacets().contains("native")).toList();
 		if (!unsupportedDependencies.isEmpty()) {
 			StringBuilder sb = new StringBuilder("The following ");
 			sb.append((unsupportedDependencies.size() == 1) ? "dependency is " : "dependencies are ");

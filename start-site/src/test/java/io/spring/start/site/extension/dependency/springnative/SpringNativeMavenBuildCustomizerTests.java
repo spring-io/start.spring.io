@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -171,23 +171,22 @@ class SpringNativeMavenBuildCustomizerTests {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
 				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.10.3")));
-		assertThat(build).satisfies(hasNativeProfile((profile) -> {
-			assertThat(profile.plugins().values()).singleElement().satisfies((plugin) -> {
-				assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
-				assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
-				assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
-				assertThat(plugin.isExtensions()).isFalse();
-				assertThat(plugin.getExecutions()).hasSize(2);
-				Execution firstExecution = plugin.getExecutions().get(0);
-				assertThat(firstExecution.getId()).isEqualTo("test-native");
-				assertThat(firstExecution.getPhase()).isEqualTo("test");
-				assertThat(firstExecution.getGoals()).containsOnly("test");
-				Execution secondExecution = plugin.getExecutions().get(1);
-				assertThat(secondExecution.getId()).isEqualTo("build-native");
-				assertThat(secondExecution.getPhase()).isEqualTo("package");
-				assertThat(secondExecution.getGoals()).containsOnly("build");
-			});
-		}));
+		assertThat(build).satisfies(hasNativeProfile(
+				(profile) -> assertThat(profile.plugins().values()).singleElement().satisfies((plugin) -> {
+					assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
+					assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
+					assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
+					assertThat(plugin.isExtensions()).isFalse();
+					assertThat(plugin.getExecutions()).hasSize(2);
+					Execution firstExecution = plugin.getExecutions().get(0);
+					assertThat(firstExecution.getId()).isEqualTo("test-native");
+					assertThat(firstExecution.getPhase()).isEqualTo("test");
+					assertThat(firstExecution.getGoals()).containsOnly("test");
+					Execution secondExecution = plugin.getExecutions().get(1);
+					assertThat(secondExecution.getId()).isEqualTo("build-native");
+					assertThat(secondExecution.getPhase()).isEqualTo("package");
+					assertThat(secondExecution.getGoals()).containsOnly("build");
+				})));
 	}
 
 	@Test
@@ -195,19 +194,18 @@ class SpringNativeMavenBuildCustomizerTests {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
 				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.11.0-M2")));
-		assertThat(build).satisfies(hasNativeProfile((profile) -> {
-			assertThat(profile.plugins().values()).singleElement().satisfies((plugin) -> {
-				assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
-				assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
-				assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
-				assertThat(plugin.isExtensions()).isFalse();
-				assertThat(plugin.getExecutions()).hasSize(1);
-				Execution execution = plugin.getExecutions().get(0);
-				assertThat(execution.getId()).isEqualTo("build-native");
-				assertThat(execution.getPhase()).isEqualTo("package");
-				assertThat(execution.getGoals()).containsOnly("build");
-			});
-		}));
+		assertThat(build).satisfies(hasNativeProfile(
+				(profile) -> assertThat(profile.plugins().values()).singleElement().satisfies((plugin) -> {
+					assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
+					assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
+					assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
+					assertThat(plugin.isExtensions()).isFalse();
+					assertThat(plugin.getExecutions()).hasSize(1);
+					Execution execution = plugin.getExecutions().get(0);
+					assertThat(execution.getId()).isEqualTo("build-native");
+					assertThat(execution.getPhase()).isEqualTo("package");
+					assertThat(execution.getGoals()).containsOnly("build");
+				})));
 	}
 
 	@Test
@@ -215,23 +213,22 @@ class SpringNativeMavenBuildCustomizerTests {
 		MavenBuild build = new MavenBuild();
 		build.dependencies().add("native",
 				Dependency.withCoordinates("com.example", "native").version(VersionReference.ofValue("0.11.0-RC1")));
-		assertThat(build).satisfies(hasNativeProfile((profile) -> {
-			assertThat(profile.plugins().values()).singleElement().satisfies((plugin) -> {
-				assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
-				assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
-				assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
-				assertThat(plugin.isExtensions()).isTrue();
-				assertThat(plugin.getExecutions()).hasSize(2);
-				Execution firstExecution = plugin.getExecutions().get(0);
-				assertThat(firstExecution.getId()).isEqualTo("test-native");
-				assertThat(firstExecution.getPhase()).isEqualTo("test");
-				assertThat(firstExecution.getGoals()).containsOnly("test");
-				Execution secondExecution = plugin.getExecutions().get(1);
-				assertThat(secondExecution.getId()).isEqualTo("build-native");
-				assertThat(secondExecution.getPhase()).isEqualTo("package");
-				assertThat(secondExecution.getGoals()).containsOnly("build");
-			});
-		}));
+		assertThat(build).satisfies(hasNativeProfile(
+				(profile) -> assertThat(profile.plugins().values()).singleElement().satisfies((plugin) -> {
+					assertThat(plugin.getGroupId()).isEqualTo("org.graalvm.buildtools");
+					assertThat(plugin.getArtifactId()).isEqualTo("native-maven-plugin");
+					assertThat(plugin.getVersion()).isEqualTo("${native-buildtools.version}");
+					assertThat(plugin.isExtensions()).isTrue();
+					assertThat(plugin.getExecutions()).hasSize(2);
+					Execution firstExecution = plugin.getExecutions().get(0);
+					assertThat(firstExecution.getId()).isEqualTo("test-native");
+					assertThat(firstExecution.getPhase()).isEqualTo("test");
+					assertThat(firstExecution.getGoals()).containsOnly("test");
+					Execution secondExecution = plugin.getExecutions().get(1);
+					assertThat(secondExecution.getId()).isEqualTo("build-native");
+					assertThat(secondExecution.getPhase()).isEqualTo("package");
+					assertThat(secondExecution.getGoals()).containsOnly("build");
+				})));
 	}
 
 	private Consumer<MavenBuild> hasNativeProfile(Consumer<MavenProfile> profile) {
