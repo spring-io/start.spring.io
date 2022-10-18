@@ -158,6 +158,13 @@ class SpringNativeHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		assertHelpDocument(request).doesNotContain("Executable with Native Build Tools");
 	}
 
+	@Override
+	protected ProjectRequest createProjectRequest(String... styles) {
+		ProjectRequest request = super.createProjectRequest(styles);
+		request.setBootVersion("2.7.4");
+		return request;
+	}
+
 	private TextAssert assertHelpDocument(ProjectRequest request) {
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));

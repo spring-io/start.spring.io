@@ -34,6 +34,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final String CURRENT_SPRING_BOOT_VERSION = "2.7.4";
+
 	private final String springNativeVersion;
 
 	SpringNativeProjectGenerationConfigurationTests(@Autowired InitializrMetadataProvider metadataProvider) {
@@ -41,8 +43,8 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 	}
 
 	private static String determineSpringNativeVersion(InitializrMetadata metadata) {
-		return metadata.getDependencies().get("native")
-				.resolve(Version.parse(metadata.getBootVersions().getDefault().getId())).getVersion();
+		return metadata.getDependencies().get("native").resolve(Version.parse(CURRENT_SPRING_BOOT_VERSION))
+				.getVersion();
 	}
 
 	@Test
@@ -244,10 +246,17 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 		// @formatter:on
 	}
 
+	@Override
+	protected ProjectRequest createProjectRequest(String... styles) {
+		ProjectRequest projectRequest = super.createProjectRequest(styles);
+		projectRequest.setBootVersion(CURRENT_SPRING_BOOT_VERSION);
+		return projectRequest;
+	}
+
 	private ProjectRequest createNativeProjectRequest(String... dependencies) {
 		ProjectRequest projectRequest = createProjectRequest(dependencies);
 		projectRequest.getDependencies().add(0, "native");
-		projectRequest.setBootVersion("2.6.8");
+		projectRequest.setBootVersion(CURRENT_SPRING_BOOT_VERSION);
 		return projectRequest;
 	}
 

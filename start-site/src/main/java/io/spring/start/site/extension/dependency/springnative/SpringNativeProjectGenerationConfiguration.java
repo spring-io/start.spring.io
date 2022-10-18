@@ -24,6 +24,7 @@ import io.spring.initializr.generator.buildsystem.MavenRepository;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -44,6 +45,7 @@ import org.springframework.context.annotation.Bean;
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("native")
+@ConditionalOnPlatformVersion("[2.4.3,3.0.0-M1)")
 class SpringNativeProjectGenerationConfiguration {
 
 	@Bean
