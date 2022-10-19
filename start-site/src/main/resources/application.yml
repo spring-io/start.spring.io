@@ -1592,29 +1592,13 @@ initializr:
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
   types:
-    - name: Maven Project
-      id: maven-project
-      description: Generate a Maven based project archive.
-      tags:
-        build: maven
-        format: project
-      default: true
-      action: /starter.zip
-    - name: Maven POM
-      id: maven-build
-      description: Generate a Maven pom.xml.
-      tags:
-        build: maven
-        format: build
-      default: false
-      action: /pom.xml
     - name: Gradle Project
       id: gradle-project
       description: Generate a Gradle based project archive.
       tags:
         build: gradle
         format: project
-      default: false
+      default: true
       action: /starter.zip
     - name: Gradle Config
       id: gradle-build
@@ -1624,6 +1608,22 @@ initializr:
         format: build
       default: false
       action: /build.gradle
+    - name: Maven Project
+      id: maven-project
+      description: Generate a Maven based project archive.
+      tags:
+        build: maven
+        format: project
+      default: false
+      action: /starter.zip
+    - name: Maven POM
+      id: maven-build
+      description: Generate a Maven pom.xml.
+      tags:
+        build: maven
+        format: build
+      default: false
+      action: /pom.xml
   packagings:
     - name: Jar
       id: jar
