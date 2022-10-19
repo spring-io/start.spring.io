@@ -91,10 +91,16 @@ public abstract class AbstractExtensionTests {
 		return new ProjectStructure(result.getRootDirectory());
 	}
 
-	protected ProjectRequest createProjectRequest(String... styles) {
+	/**
+	 * Create a Maven-based {@link ProjectRequest} with the specified dependencies.
+	 * @param dependencies the dependency identifiers to add
+	 * @return a project request
+	 */
+	protected ProjectRequest createProjectRequest(String... dependencies) {
 		WebProjectRequest request = new WebProjectRequest();
 		request.initialize(this.metadataProvider.get());
-		request.getDependencies().addAll(Arrays.asList(styles));
+		request.setType("maven-project");
+		request.getDependencies().addAll(Arrays.asList(dependencies));
 		return request;
 	}
 

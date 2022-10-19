@@ -247,8 +247,8 @@ class SpringNativeProjectGenerationConfigurationTests extends AbstractExtensionT
 	}
 
 	@Override
-	protected ProjectRequest createProjectRequest(String... styles) {
-		ProjectRequest projectRequest = super.createProjectRequest(styles);
+	protected ProjectRequest createProjectRequest(String... dependencies) {
+		ProjectRequest projectRequest = super.createProjectRequest(dependencies);
 		projectRequest.setBootVersion(CURRENT_SPRING_BOOT_VERSION);
 		return projectRequest;
 	}

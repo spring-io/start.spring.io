@@ -82,8 +82,8 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	}
 
 	@Override
-	protected ProjectRequest createProjectRequest(String... styles) {
-		ProjectRequest request = super.createProjectRequest(styles);
+	protected ProjectRequest createProjectRequest(String... dependencies) {
+		ProjectRequest request = super.createProjectRequest(dependencies);
 		request.setBootVersion("2.4.6");
 		return request;
 	}

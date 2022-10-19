@@ -159,8 +159,8 @@ class SpringNativeHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Override
-	protected ProjectRequest createProjectRequest(String... styles) {
-		ProjectRequest request = super.createProjectRequest(styles);
+	protected ProjectRequest createProjectRequest(String... dependencies) {
+		ProjectRequest request = super.createProjectRequest(dependencies);
 		request.setBootVersion("2.7.4");
 		return request;
 	}
