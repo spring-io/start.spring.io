@@ -361,10 +361,10 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.reactive
         - name: Spring for GraphQL
           id: graphql
+          compatibilityRange: "2.7.0.M1"
           description: Build GraphQL applications with Spring for GraphQL and GraphQL Java.
           facets:
             - json
-          compatibilityRange: "[2.7.0.M1,3.0.0-M1)"
         - name: Rest Repositories
           id: data-rest
           facets:
