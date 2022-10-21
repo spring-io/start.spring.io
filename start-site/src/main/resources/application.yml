@@ -295,7 +295,7 @@ initializr:
               version: 0.12.1
             - compatibilityRange: "3.0.0-M1"
               groupId: org.springframework.boot
-              artifactId: spring-boot-starter
+              artifactId: spring-boot
         - name: Spring Boot DevTools
           id: devtools
           groupId: org.springframework.boot
