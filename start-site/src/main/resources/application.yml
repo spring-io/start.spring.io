@@ -596,7 +596,7 @@ initializr:
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-r2dbc/
-              description: Acessing data with R2DBC
+              description: Accessing data with R2DBC
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#data.sql.r2dbc
             - rel: home
