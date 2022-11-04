@@ -31,7 +31,7 @@ abstract class NativeBuildtoolsVersionResolver {
 
 	private static final List<NativeBuildtoolsRange> ranges = List.of(
 			new NativeBuildtoolsRange("[3.0.0-M1,3.0.0-RC1)", "0.9.14"),
-			new NativeBuildtoolsRange("[3.0.0-RC1,3.1.0-M1)", "0.9.16"));
+			new NativeBuildtoolsRange("[3.0.0-RC1,3.1.0-M1)", "0.9.17"));
 
 	static String resolve(Version platformVersion) {
 		return ranges.stream().filter((range) -> range.match(platformVersion)).findFirst()
