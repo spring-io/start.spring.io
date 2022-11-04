@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,8 +51,6 @@ abstract class SpringIntegrationModuleRegistry {
 						.customizeHelpDocument(addReferenceLink("R2DBC Module", "r2dbc")),
 				onDependencies("data-redis", "data-redis-reactive").customizeBuild(addDependency("redis"))
 						.customizeHelpDocument(addReferenceLink("Redis Module", "redis")),
-				onDependencies("geode").customizeBuild(addDependency("gemfire"))
-						.customizeHelpDocument(addReferenceLink("Apache Geode Module", "gemfire")),
 				onDependencies("integration").customizeBuild(addDependency("test", DependencyScope.TEST_COMPILE))
 						.customizeHelpDocument(addReferenceLink("Test Module", "testing")),
 				onDependencies("kafka", "kafka-streams").customizeBuild(addDependency("kafka"))

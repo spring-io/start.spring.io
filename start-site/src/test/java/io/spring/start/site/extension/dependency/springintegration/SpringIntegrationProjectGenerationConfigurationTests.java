@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,12 +76,12 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 				Arguments.arguments("jdbc", "jdbc"), Arguments.arguments("data-jpa", "jpa"),
 				Arguments.arguments("data-mongodb", "mongodb"), Arguments.arguments("data-mongodb-reactive", "mongodb"),
 				Arguments.arguments("data-r2dbc", "r2dbc"), Arguments.arguments("data-redis", "redis"),
-				Arguments.arguments("data-redis-reactive", "redis"), Arguments.arguments("geode", "gemfire"),
-				Arguments.arguments("kafka", "kafka"), Arguments.arguments("kafka-streams", "kafka"),
-				Arguments.arguments("mail", "mail"), Arguments.arguments("rsocket", "rsocket"),
-				Arguments.arguments("security", "security"), Arguments.arguments("web", "http"),
-				Arguments.arguments("webflux", "webflux"), Arguments.arguments("websocket", "websocket"),
-				Arguments.arguments("websocket", "stomp"), Arguments.arguments("web-services", "ws"));
+				Arguments.arguments("data-redis-reactive", "redis"), Arguments.arguments("kafka", "kafka"),
+				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mail", "mail"),
+				Arguments.arguments("rsocket", "rsocket"), Arguments.arguments("security", "security"),
+				Arguments.arguments("web", "http"), Arguments.arguments("webflux", "webflux"),
+				Arguments.arguments("websocket", "websocket"), Arguments.arguments("websocket", "stomp"),
+				Arguments.arguments("web-services", "ws"));
 	}
 
 	@Test
