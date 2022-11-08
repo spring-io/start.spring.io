@@ -43,7 +43,7 @@ abstract class GraalVmGradleBuildCustomizerTests {
 				.filter((plugin) -> plugin.getId().equals("org.graalvm.buildtools.native")).findAny().orElse(null);
 		assertThat(nbtPlugin).isNotNull();
 		assertThat(nbtPlugin).isInstanceOf(StandardGradlePlugin.class)
-				.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.17"));
+				.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.16"));
 	}
 
 	@Test
