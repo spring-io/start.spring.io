@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
-import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.version.Version;
 
 /**
@@ -26,16 +25,8 @@ import io.spring.initializr.generator.version.Version;
  */
 class GraalVmKotlinDslGradleBuildCustomizer extends GraalVmGradleBuildCustomizer {
 
-	private static final String BOOT_BUILD_IMAGE_TASK = "org.springframework.boot.gradle.tasks.bundling.BootBuildImage";
-
 	GraalVmKotlinDslGradleBuildCustomizer(Version platformVersion) {
 		super(platformVersion);
-	}
-
-	@Override
-	protected void customizeSpringBootPlugin(GradleBuild build) {
-		build.tasks().customizeWithType(BOOT_BUILD_IMAGE_TASK, (task) -> task.invoke("buildpacks.set",
-				"listOf(\"gcr.io/paketo-buildpacks/bellsoft-liberica:9.9.0-ea\", \"gcr.io/paketo-buildpacks/java-native-image\")"));
 	}
 
 }

@@ -46,9 +46,6 @@ abstract class GraalVmGradleBuildCustomizerTests {
 				.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.16"));
 	}
 
-	@Test
-	abstract void gradleBuildCustomizeSpringBootPlugin();
-
 	protected GradleBuild createBuild() {
 		GradleBuild build = new GradleBuild();
 		build.dependencies().add("native", Dependency.withCoordinates("com.example", "native")

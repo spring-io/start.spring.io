@@ -32,8 +32,7 @@ class GraalVmGroovyDslGradleBuildCustomizer extends GraalVmGradleBuildCustomizer
 
 	@Override
 	protected void customizeSpringBootPlugin(GradleBuild build) {
-		build.tasks().customize("bootBuildImage", (task) -> task.attribute("buildpacks",
-				" ['gcr.io/paketo-buildpacks/bellsoft-liberica:9.9.0-ea', 'gcr.io/paketo-buildpacks/java-native-image']"));
+
 	}
 
 }

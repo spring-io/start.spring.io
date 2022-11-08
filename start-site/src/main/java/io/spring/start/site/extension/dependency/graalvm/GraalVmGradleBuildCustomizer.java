@@ -25,7 +25,7 @@ import io.spring.initializr.generator.version.Version;
  *
  * @author Stephane Nicoll
  */
-abstract class GraalVmGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
+class GraalVmGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	private final String nbtVersion;
 
@@ -42,6 +42,8 @@ abstract class GraalVmGradleBuildCustomizer implements BuildCustomizer<GradleBui
 		customizeSpringBootPlugin(build);
 	}
 
-	protected abstract void customizeSpringBootPlugin(GradleBuild build);
+	protected void customizeSpringBootPlugin(GradleBuild build) {
+
+	}
 
 }

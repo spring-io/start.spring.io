@@ -16,11 +16,7 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
-import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.version.Version;
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link GraalVmGroovyDslGradleBuildCustomizer}.
@@ -32,15 +28,6 @@ class GraalVmGroovyDslGradleBuildCustomizerTests extends GraalVmGradleBuildCusto
 	@Override
 	protected GraalVmGroovyDslGradleBuildCustomizer createCustomizer(String platformVersion) {
 		return new GraalVmGroovyDslGradleBuildCustomizer(Version.parse(platformVersion));
-	}
-
-	@Test
-	@Override
-	void gradleBuildCustomizeSpringBootPlugin() {
-		GraalVmGroovyDslGradleBuildCustomizer customizer = createCustomizer("3.0.0-RC1");
-		GradleBuild build = createBuild();
-		customizer.customize(build);
-		assertThat(build.tasks().has("bootBuildImage")).isTrue();
 	}
 
 }
