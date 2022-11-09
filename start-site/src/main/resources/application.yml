@@ -121,6 +121,8 @@ initializr:
             version: 4.3.0
           - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
             version: 4.4.1
+          - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
+            version: 6.0.0-beta.3
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
@@ -1451,7 +1453,7 @@ initializr:
               href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
     - name: Microsoft Azure
       bom: spring-cloud-azure
-      compatibilityRange: "[2.5.0-M1,3.0.0-M1)"
+      compatibilityRange: "[2.5.0-M1,3.1.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
@@ -1484,6 +1486,7 @@ initializr:
               description: Azure Active Directory Sample
         - name: Azure Cosmos DB
           id: azure-cosmos-db
+          compatibilityRange: "[2.5.0-M1,3.0.0-M1)"
           groupId: com.azure.spring
           artifactId: spring-cloud-azure-starter-data-cosmos
           description: Fully managed NoSQL database service for modern app development, including Spring Data support.
