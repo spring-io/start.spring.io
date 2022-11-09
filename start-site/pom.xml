@@ -51,6 +51,7 @@
 		<dependency>
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
+			<classifier>jakarta</classifier>
 		</dependency>
 
 		<dependency>
@@ -107,8 +108,8 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
+				<groupId>io.github.git-commit-id</groupId>
+				<artifactId>git-commit-id-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
