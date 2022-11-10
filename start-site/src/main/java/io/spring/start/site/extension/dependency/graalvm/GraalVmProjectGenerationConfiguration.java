@@ -16,6 +16,8 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
+import java.util.Map;
+
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
@@ -25,9 +27,12 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionReference;
 import io.spring.initializr.metadata.InitializrMetadata;
+import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * {@link ProjectGenerationConfiguration} for generation of projects that use GraalVM.
@@ -72,6 +77,42 @@ class GraalVmProjectGenerationConfiguration {
 	GraalVmHelpDocumentCustomizer graalVmHelpDocumentCustomizer(InitializrMetadata metadata,
 			ProjectDescription description, Build build) {
 		return new GraalVmHelpDocumentCustomizer(metadata, description, build);
+	}
+
+	@Configuration(proxyBeanMethods = false)
+	@ConditionalOnRequestedDependency("data-jpa")
+	static class HibernateConfiguration {
+
+		private final Version platformVersion;
+
+		HibernateConfiguration(ProjectDescription description) {
+			this.platformVersion = description.getPlatformVersion();
+		}
+
+		@Bean
+		@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+		HibernatePluginMavenBuildCustomizer hibernatePluginMavenBuildCustomizer() {
+			return new HibernatePluginMavenBuildCustomizer();
+		}
+
+		@Bean
+		@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
+		HibernatePluginGroovyDslGradleBuildCustomizer hibernatePluginGroovyDslGradleBuildCustomizer(
+				DependencyManagementVersionResolver versionResolver) {
+			return new HibernatePluginGroovyDslGradleBuildCustomizer(determineHibernateVersion(versionResolver));
+		}
+
+		private VersionReference determineHibernateVersion(DependencyManagementVersionResolver versionResolver) {
+			Map<String, String> resolve = versionResolver.resolve("org.springframework.boot",
+					"spring-boot-dependencies", this.platformVersion.toString());
+			String hibernateVersion = resolve.get("org.hibernate.orm" + ":hibernate-core");
+			if (hibernateVersion == null) {
+				throw new IllegalStateException(
+						"Failed to determine Hibernate version for Spring Boot " + this.platformVersion);
+			}
+			return VersionReference.ofValue(hibernateVersion);
+		}
+
 	}
 
 }

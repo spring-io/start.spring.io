@@ -53,6 +53,26 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
+	void gradleBuildWithoutJpaDoesNotConfigureHibernateEnhancePlugin() {
+		assertThat(gradleBuild(createNativeProjectRequest())).doesNotContain("org.hibernate.orm");
+	}
+
+	@Test
+	void gradleBuildWithJpaConfiguresHibernateEnhancePlugin() {
+		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
+		// @formatter:off
+				"hibernate {",
+				"	enhancement {",
+				"		lazyInitialization true",
+				"		dirtyTracking true",
+				"		associationManagement true",
+				"	}",
+				"}");
+		// @formatter:on
+	}
+
+	@Test
 	void mavenBuildWithoutJpaDoesNotConfigureHibernateEnhancePlugin() {
 		assertThat(mavenPom(createNativeProjectRequest())).doesNotContain("hibernate-enhance-maven-plugin");
 	}
