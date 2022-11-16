@@ -68,12 +68,6 @@ class GraalVmProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-	GraalVmMavenBuildCustomizer graalVmMavenBuildCustomizer() {
-		return new GraalVmMavenBuildCustomizer();
-	}
-
-	@Bean
 	GraalVmHelpDocumentCustomizer graalVmHelpDocumentCustomizer(InitializrMetadata metadata,
 			ProjectDescription description, Build build) {
 		return new GraalVmHelpDocumentCustomizer(metadata, description, build);
