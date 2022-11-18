@@ -24,24 +24,44 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SpringCloudContractDirectoryProjectContributor}.
+ * Tests for Spring Cloud Contract configuration.
  *
  * @author Eddú Meléndez
+ * @author Stephane Nicoll
  */
-class SpringCloudContractDirectoryProjectContributorTests extends AbstractExtensionTests {
+class SpringCloudContractConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void contractsDirectoryIsCreatedWithSpringCloudContractVerifier() {
+	void contractsDirectoryWithMavenIsCreatedWithSpringCloudContractVerifier() {
 		ProjectRequest request = createProjectRequest("web", "cloud-contract-verifier");
+		request.setType("maven-project");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("src/test/resources/contracts")).exists().isDirectory();
 	}
 
 	@Test
-	void contractsDirectoryIsNotCreatedIfSpringCloudContractVerifierIsNotRequested() {
+	void contractsDirectoryWithMavenIsNotCreatedIfSpringCloudContractVerifierIsNotRequested() {
 		ProjectRequest request = createProjectRequest("web");
+		request.setType("maven-project");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("src/test/resources/contracts")).doesNotExist();
+	}
+
+	@Test
+	void contractsDirectoryWithGradleIsCreatedWithSpringCloudContractVerifier() {
+		ProjectRequest request = createProjectRequest("web", "cloud-contract-verifier");
+		request.setType("gradle-project");
+		ProjectStructure structure = generateProject(request);
+		assertThat(structure.getProjectDirectory().resolve("src/contractTest/resources/contracts")).exists()
+				.isDirectory();
+	}
+
+	@Test
+	void contractsDirectoryWithGradleIsNotCreatedIfSpringCloudContractVerifierIsNotRequested() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setType("gradle-project");
+		ProjectStructure structure = generateProject(request);
+		assertThat(structure.getProjectDirectory().resolve("src/contractTest/resources/contracts")).doesNotExist();
 	}
 
 }

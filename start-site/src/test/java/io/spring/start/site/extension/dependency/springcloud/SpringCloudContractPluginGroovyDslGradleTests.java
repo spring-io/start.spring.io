@@ -25,12 +25,12 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  *
  * @author Madhura Bhave
  */
-class SpringCloudContractPluginGradleTests extends AbstractSpringCloudContractPluginTests<GradleBuild> {
+class SpringCloudContractPluginGroovyDslGradleTests extends AbstractSpringCloudContractPluginTests<GradleBuild> {
 
 	@Override
 	protected BuildCustomizer<GradleBuild> getCustomizer(MutableProjectDescription description,
 			SpringCloudProjectVersionResolver resolver) {
-		return new SpringCloudContractGradleBuildCustomizer(description, resolver);
+		return new SpringCloudContractGroovyDslGradleBuildCustomizer(description, resolver);
 	}
 
 	@Override

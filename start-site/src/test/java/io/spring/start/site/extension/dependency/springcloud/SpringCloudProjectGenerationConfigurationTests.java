@@ -58,8 +58,8 @@ class SpringCloudProjectGenerationConfigurationTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setBuildSystem(BuildSystem.forIdAndDialect(GradleBuildSystem.ID, GradleBuildSystem.DIALECT_GROOVY));
 		description.addDependency("cloud-contract-verifier", mock(Dependency.class));
-		this.projectTester.configure(description,
-				(context) -> assertThat(context).hasSingleBean(SpringCloudContractGradleBuildCustomizer.class));
+		this.projectTester.configure(description, (context) -> assertThat(context)
+				.hasSingleBean(SpringCloudContractGroovyDslGradleBuildCustomizer.class));
 	}
 
 	@Test
@@ -67,8 +67,8 @@ class SpringCloudProjectGenerationConfigurationTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setBuildSystem(BuildSystem.forIdAndDialect(GradleBuildSystem.ID, GradleBuildSystem.DIALECT_KOTLIN));
 		description.addDependency("cloud-contract-verifier", mock(Dependency.class));
-		this.projectTester.configure(description,
-				(context) -> assertThat(context).doesNotHaveBean(SpringCloudContractGradleBuildCustomizer.class));
+		this.projectTester.configure(description, (context) -> assertThat(context)
+				.hasSingleBean(SpringCloudContractKotlinDslGradleBuildCustomizer.class));
 	}
 
 }

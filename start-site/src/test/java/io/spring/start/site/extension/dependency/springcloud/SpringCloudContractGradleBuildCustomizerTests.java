@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.springcloud;
 
+import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
@@ -34,49 +35,36 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		assertThat(gradleBuild(projectRequest))
-				.containsSubsequence("buildscript {", "dependencies {",
-						"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:")
-				.contains("apply plugin: 'spring-cloud-contract'");
+		assertThat(gradleBuild(projectRequest)).contains("id 'org.springframework.cloud.contract' version '");
 	}
 
 	@Test
 	void springCloudContractVerifierPluginNotAddedWhenSCCDependencyAbsent() {
 		ProjectRequest projectRequest = createProjectRequest();
-		assertThat(gradleBuild(projectRequest))
-				.doesNotContain("buildscript {",
-						"classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:")
-				.doesNotContain("apply plugin: 'spring-cloud-contract'");
-	}
-
-	@Test
-	void springCloudContractVerifierPluginForSpringBootWithJUnit5ByDefault() {
-		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		projectRequest.setBootVersion("2.4.0");
-		assertThat(gradleBuild(projectRequest)).containsSubsequence("tasks.named('contracts') {",
-				"testFramework = org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5");
-	}
-
-	@Test
-	void springCloudContractVerifierPlugin2WithNoContractTestConfiguration() {
-		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		projectRequest.setBootVersion("2.3.7.RELEASE");
-		assertThat(gradleBuild(projectRequest)).doesNotContain("tasks.named('contractTest') {");
+		assertThat(gradleBuild(projectRequest)).doesNotContain("org.springframework.cloud.contract");
 	}
 
 	@Test
 	void springCloudContractVerifierPlugin30ContractTestWithJUnit5ByDefault() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		projectRequest.setBootVersion("2.4.1");
+		projectRequest.setBootVersion("2.7.5");
 		assertThat(gradleBuild(projectRequest)).containsSubsequence("tasks.named('contractTest') {",
 				"useJUnitPlatform()");
 	}
 
 	@Test
-	void springCloudContractVerifierPluginWithTestModeSetWhenWebFluxIsPresent() {
+	void springCloudContractVerifierPluginWithGroovyDslAndWithTestModeSetWhenWebFluxIsPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
-		assertThat(gradleBuild(projectRequest)).containsSubsequence("tasks.named('contracts') {",
-				"testMode = 'WebTestClient'");
+		assertThat(gradleBuild(projectRequest)).containsSubsequence("contracts {", "testMode = 'WebTestClient'");
+	}
+
+	@Test
+	void springCloudContractVerifierPluginWithKotlinDslAndTestModeSetWhenWebFluxIsPresent() {
+		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
+		projectRequest.setLanguage(KotlinLanguage.ID);
+		assertThat(gradleBuild(projectRequest))
+				.contains("import org.springframework.cloud.contract.verifier.config.TestMode")
+				.containsSubsequence("contracts {", "testMode.set(TestMode.WEBTESTCLIENT)");
 	}
 
 	@Test
