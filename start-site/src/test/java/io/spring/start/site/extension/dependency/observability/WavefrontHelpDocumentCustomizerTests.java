@@ -32,33 +32,33 @@ class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void wavefrontAddGeneralSection() {
-		assertHelpDocument("2.4.8", "wavefront").contains("## Observability with Wavefront", "",
+		assertHelpDocument("2.7.5", "wavefront").contains("## Observability with Wavefront", "",
 				"If you don't have a Wavefront account, the starter will create a freemium account for you.",
 				"The URL to access the Wavefront Service dashboard is logged on startup.");
 	}
 
 	@Test
 	void wavefrontWithoutWebApplicationDoesNotAddActuatorSection() {
-		assertHelpDocument("2.4.8", "wavefront")
+		assertHelpDocument("2.7.5", "wavefront")
 				.doesNotContain("You can also access your dashboard using the `/actuator/wavefront` endpoint.");
 	}
 
 	@Test
 	void wavefrontWithWebApplicationAddActuatorSection() {
-		assertHelpDocument("2.4.8", "wavefront", "web")
+		assertHelpDocument("2.7.5", "wavefront", "web")
 				.contains("You can also access your dashboard using the `/actuator/wavefront` endpoint.");
 	}
 
 	@Test
 	void wavefrontWithoutSleuthAddTracingNote() {
-		assertHelpDocument("2.4.8", "wavefront")
-				.contains("Finally, you can opt-in for distributed tracing by adding the Spring Cloud Sleuth starter.");
+		assertHelpDocument("2.7.5", "wavefront")
+				.contains("Finally, you can opt-in for distributed tracing by adding the 'Distributed Tracing' entry.");
 	}
 
 	@Test
 	void wavefrontWithSleuthDoesNotAddTracingNote() {
-		assertHelpDocument("2.4.8", "wavefront", "cloud-starter-sleuth").doesNotContain(
-				"Finally, you can opt-in for distributed tracing by adding the Spring Cloud Sleuth starter.");
+		assertHelpDocument("2.7.5", "wavefront", "distributed-tracing").doesNotContain(
+				"Finally, you can opt-in for distributed tracing by adding the 'Distributed Tracing' entry.");
 	}
 
 	private ListAssert<String> assertHelpDocument(String version, String... dependencies) {

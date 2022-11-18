@@ -20,47 +20,42 @@ import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ObservabilityBuildCustomizer}.
+ * Tests for {@link ObservabilityActuatorBuildCustomizer}.
  *
  * @author Stephane Nicoll
  */
-class ObservabilityBuildCustomizerTests extends AbstractExtensionTests {
+class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 
-	@Test
-	void actuatorIsAddedWithDataDog() {
-		assertThat(generateProject("datadog")).mavenBuild().hasDependency(getDependency("actuator"));
+	@ParameterizedTest
+	@ValueSource(strings = { "datadog", "influx", "graphite", "new-relic" })
+	void actuatorIsAddedWith2xMicrometerRegistries(String dependency) {
+		assertThat(generateProject("2.7.5", dependency)).mavenBuild().hasDependency(getDependency("actuator"));
 	}
 
-	@Test
-	void actuatorIsAddedWithInflux() {
-		assertThat(generateProject("influx")).mavenBuild().hasDependency(getDependency("actuator"));
-	}
-
-	@Test
-	void actuatorIsAddedWithGraphite() {
-		assertThat(generateProject("graphite")).mavenBuild().hasDependency(getDependency("actuator"));
-	}
-
-	@Test
-	void actuatorIsAddedWithNewRelic() {
-		assertThat(generateProject("new-relic")).mavenBuild().hasDependency(getDependency("actuator"));
-	}
-
-	@Test
-	void actuatorIsNotAddedWithWavefrontStarter() {
+	@ParameterizedTest
+	@ValueSource(strings = { "distributed-tracing", "zipkin", "wavefront" })
+	void actuatorIsNotAddedWith2xStarters(String dependency) {
 		Dependency actuator = getDependency("actuator");
-		assertThat(generateProject("wavefront")).mavenBuild().doesNotHaveDependency(actuator.getGroupId(),
+		assertThat(generateProject("2.7.5", dependency)).mavenBuild().doesNotHaveDependency(actuator.getGroupId(),
 				actuator.getArtifactId());
 	}
 
-	private ProjectStructure generateProject(String... dependencies) {
+	@ParameterizedTest
+	@ValueSource(
+			strings = { "datadog", "influx", "graphite", "new-relic", "distributed-tracing", "zipkin", "wavefront" })
+	void actuatorIsAddedWithObservabilityEntries(String dependency) {
+		assertThat(generateProject("3.0.0", dependency)).mavenBuild().hasDependency(getDependency("actuator"));
+	}
+
+	private ProjectStructure generateProject(String bootVersion, String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
-		request.setBootVersion("2.6.8");
+		request.setBootVersion(bootVersion);
 		request.setType("maven-build");
 		return generateProject(request);
 	}

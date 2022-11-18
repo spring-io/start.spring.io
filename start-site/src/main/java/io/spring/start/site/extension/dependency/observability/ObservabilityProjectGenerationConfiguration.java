@@ -16,11 +16,14 @@
 
 package io.spring.start.site.extension.dependency.observability;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.language.Annotation;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.generator.spring.code.TestApplicationTypeCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,25 +36,48 @@ import org.springframework.context.annotation.Configuration;
 @ProjectGenerationConfiguration
 class ObservabilityProjectGenerationConfiguration {
 
-	@Bean
-	ObservabilityBuildCustomizer observabilityBuildCustomizer() {
-		return new ObservabilityBuildCustomizer();
-	}
-
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnRequestedDependency("wavefront")
-	static class Wavefront {
+	@ConditionalOnPlatformVersion("3.0.0-M1")
+	static class ObservabilityConfiguration {
 
 		@Bean
-		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
-			return new WavefrontHelpDocumentCustomizer(build);
+		ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer() {
+			List<String> dependencyIds = new ArrayList<>(ObservabilityActuatorBuildCustomizer.STANDARD_REGISTRY_IDS);
+			dependencyIds.addAll(List.of("distributed-tracing", "wavefront", "zipkin"));
+			return new ObservabilityActuatorBuildCustomizer(dependencyIds);
 		}
 
 		@Bean
-		TestApplicationTypeCustomizer<?> wavefrontTestApplicationTypeCustomizer() {
-			return (typeDeclaration) -> typeDeclaration.annotate(Annotation
-					.name("org.springframework.test.context.TestPropertySource", (ann) -> ann.attribute("properties",
-							String.class, "management.metrics.export.wavefront.enabled=false")));
+		ObservabilityDistributedTracingBuildCustomizer observabilityDistributedTracingBuildCustomizer() {
+			return new ObservabilityDistributedTracingBuildCustomizer();
+		}
+
+		@Bean
+		ObservabilityHelpDocumentCustomizer observabilityHelpDocumentCustomizer(ProjectDescription description,
+				Build build) {
+			return new ObservabilityHelpDocumentCustomizer(description, build);
+		}
+
+	}
+
+	@Configuration(proxyBeanMethods = false)
+	@ConditionalOnPlatformVersion("[2.0.0,3.0.0-M1)")
+	static class Observability2xConfiguration {
+
+		@Bean
+		ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer() {
+			return new ObservabilityActuatorBuildCustomizer(ObservabilityActuatorBuildCustomizer.STANDARD_REGISTRY_IDS);
+		}
+
+		@Bean
+		Observability2xHelpDocumentCustomizer observabilityHelpDocumentCustomizer(Build build) {
+			return new Observability2xHelpDocumentCustomizer(build);
+		}
+
+		@Bean
+		@ConditionalOnRequestedDependency("wavefront")
+		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
+			return new WavefrontHelpDocumentCustomizer(build);
 		}
 
 	}

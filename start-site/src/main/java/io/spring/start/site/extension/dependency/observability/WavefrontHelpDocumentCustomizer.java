@@ -47,9 +47,9 @@ class WavefrontHelpDocumentCustomizer implements HelpDocumentCustomizer {
 					String.format("%nYou can also access your dashboard using the `/actuator/wavefront` endpoint.%n"));
 		}
 
-		if (!this.build.dependencies().has("cloud-starter-sleuth")) {
+		if (!this.build.dependencies().has("distributed-tracing")) {
 			sb.append(String.format(
-					"%nFinally, you can opt-in for distributed tracing by adding the Spring Cloud Sleuth starter.%n"));
+					"%nFinally, you can opt-in for distributed tracing by adding the 'Distributed Tracing' entry.%n"));
 		}
 		document.addSection((writer) -> writer.print(sb));
 	}

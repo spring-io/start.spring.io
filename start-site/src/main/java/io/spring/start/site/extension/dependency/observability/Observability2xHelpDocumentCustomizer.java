@@ -16,27 +16,29 @@
 
 package io.spring.start.site.extension.dependency.observability;
 
-import java.util.Arrays;
-import java.util.List;
-
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.spring.documentation.HelpDocument;
+import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 
 /**
- * Add the actuator dependency if an observability library has been selected.
+ * {@link HelpDocumentCustomizer} implementation for Observability with Spring Boot 2.x.
  *
  * @author Stephane Nicoll
  */
-class ObservabilityBuildCustomizer implements BuildCustomizer<Build> {
+public class Observability2xHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final List<String> MICROMETER_REGISTRY_IDS = Arrays.asList("datadog", "graphite", "influx",
-			"new-relic");
+	private final Build build;
+
+	public Observability2xHelpDocumentCustomizer(Build build) {
+		this.build = build;
+	}
 
 	@Override
-	public void customize(Build build) {
-		if (!build.dependencies().has("actuator")
-				&& build.dependencies().ids().anyMatch(MICROMETER_REGISTRY_IDS::contains)) {
-			build.dependencies().add("actuator");
+	public void customize(HelpDocument document) {
+		if (this.build.dependencies().has("distributed-tracing")) {
+			document.gettingStarted().addReferenceDocLink(
+					"https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/htmlsingle/spring-cloud-sleuth.html",
+					"Spring Cloud Sleuth Reference Guide");
 		}
 	}
 

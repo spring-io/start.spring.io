@@ -32,14 +32,25 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  *
  * @author Andy Wilkinson
  * @author Yonghui Ye
+ * @author Stephane Nicoll
  */
 abstract class SpringAzureModuleRegistry {
 
-	static Iterable<ImplicitDependency> create() {
+	static Iterable<ImplicitDependency> createSpringBootRegistry() {
 		return create(
 				onDependencies("actuator").customizeBuild(addDependency("spring-cloud-azure-starter-actuator"))
 						.customizeHelpDocument(addReferenceLink("actuator", "Azure Actuator")),
-				onDependencies("cloud-starter-sleuth").customizeBuild(addDependency("spring-cloud-azure-trace-sleuth"))
+				onDependencies("integration", "azure-storage")
+						.customizeBuild(addDependency("spring-cloud-azure-starter-integration-storage-queue"))
+						.customizeHelpDocument(addReferenceLink("spring-integration/storage-queue",
+								"Azure Integration Storage Queue")));
+	}
+
+	static Iterable<ImplicitDependency> createSpringBoot2Registry() {
+		return create(
+				onDependencies("actuator").customizeBuild(addDependency("spring-cloud-azure-starter-actuator"))
+						.customizeHelpDocument(addReferenceLink("actuator", "Azure Actuator")),
+				onDependencies("distributed-tracing").customizeBuild(addDependency("spring-cloud-azure-trace-sleuth"))
 						.customizeHelpDocument(addReferenceLink("sleuth", "Azure Sleuth")),
 				onDependencies("integration", "azure-storage")
 						.customizeBuild(addDependency("spring-cloud-azure-starter-integration-storage-queue"))

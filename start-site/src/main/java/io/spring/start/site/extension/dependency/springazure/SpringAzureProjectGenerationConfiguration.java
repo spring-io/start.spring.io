@@ -17,7 +17,10 @@
 package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependencyBuildCustomizer;
 import io.spring.start.site.support.implicit.ImplicitDependencyHelpDocumentCustomizer;
@@ -34,7 +37,15 @@ import org.springframework.context.annotation.Bean;
 @ProjectGenerationConfiguration
 class SpringAzureProjectGenerationConfiguration {
 
-	private final Iterable<ImplicitDependency> azureDependencies = SpringAzureModuleRegistry.create();
+	private static final VersionRange SPRING_BOOT_2 = VersionParser.DEFAULT.parseRange("[2.0.0,3.0.0-M1)");
+
+	private final Iterable<ImplicitDependency> azureDependencies;
+
+	SpringAzureProjectGenerationConfiguration(ProjectDescription description) {
+		this.azureDependencies = SPRING_BOOT_2.match(description.getPlatformVersion())
+				? SpringAzureModuleRegistry.createSpringBoot2Registry()
+				: SpringAzureModuleRegistry.createSpringBootRegistry();
+	}
 
 	@Bean
 	ImplicitDependencyBuildCustomizer azureDependencyBuildCustomizer() {

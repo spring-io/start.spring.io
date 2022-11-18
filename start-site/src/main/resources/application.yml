@@ -1082,46 +1082,43 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#actuator.metrics.export.prometheus
-        - name: Sleuth
-          id: cloud-starter-sleuth
-          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
-          description: Distributed tracing via logs with Spring Cloud Sleuth.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-sleuth
-          facets:
-            - native
-          bom: spring-cloud
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/htmlsingle/spring-cloud-sleuth.html
+        - name: Distributed Tracing
+          id: distributed-tracing
+          description: Enable span and trace IDs in logs.
+          groupId: io.micrometer
+          artifactId: micrometer-tracing-bridge-brave
+          mappings:
+            - compatibility-range: "[2.3.0.M1,3.0.0-M1)"
+              groupId: org.springframework.cloud
+              artifactId: spring-cloud-starter-sleuth
+              bom: spring-cloud
         - name: Wavefront
           id: wavefront
-          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
-          groupId: com.wavefront
-          artifactId: wavefront-spring-boot-starter
-          bom: wavefront
-          description: Publish Micrometer metrics to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
-          facets:
-            - native
+          description: Publish metrics and optionally distributed traces to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
+          groupId: io.micrometer
+          artifactId: micrometer-registry-wavefront
+          scope: runtime
+          starter: false
+          mappings:
+            - compatibility-range: "[2.3.0.M1,3.0.0-M1)"
+              groupId: com.wavefront
+              artifactId: wavefront-spring-boot-starter
+              bom: wavefront
           links:
             - rel: reference
               href: https://docs.wavefront.com/wavefront_springboot.html
               description: Wavefront for Spring Boot documentation
-            - rel: reference
-              href: https://github.com/wavefrontHQ/wavefront-spring-boot
-              description: Wavefront for Spring Boot repository
-        - name: Zipkin Client
-          id: cloud-starter-zipkin
-          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
-          description: Distributed tracing with an existing Zipkin installation and Spring Cloud Sleuth Zipkin.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-sleuth-zipkin
-          bom: spring-cloud
+        - name: Zipkin
+          id: zipkin
+          description: Enable and expose span and trace IDs to Zipkin.
+          groupId: io.zipkin.reporter2
+          artifactId: zipkin-reporter-brave
           starter: false
           mappings:
-            - compatibilityRange: "[2.0.0.RELEASE,2.4.0.M3]"
-              artifactId: spring-cloud-starter-zipkin
-              starter: true
+            - compatibilityRange: "[2.0.0.RELEASE,3.0.0-M1)"
+              groupId: org.springframework.cloud
+              artifactId: spring-cloud-sleuth-zipkin
+              bom: spring-cloud
     - name: Testing
       content:
         - name: Spring REST Docs

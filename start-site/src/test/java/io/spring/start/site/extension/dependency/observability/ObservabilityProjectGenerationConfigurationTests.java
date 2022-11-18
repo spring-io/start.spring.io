@@ -16,13 +16,10 @@
 
 package io.spring.start.site.extension.dependency.observability;
 
-import io.spring.initializr.generator.language.java.JavaLanguage;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,22 +31,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ObservabilityProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void testClassWithWavefrontDisablesMetricsExport() {
-		ProjectRequest request = createProjectRequest("wavefront");
-		request.setBootVersion("2.6.8");
-		ProjectStructure project = generateProject(request);
-		assertThat(project).asJvmModule(new JavaLanguage()).testSource("com.example.demo", "DemoApplicationTests")
-				.contains("import " + TestPropertySource.class.getName())
-				.contains("@TestPropertySource(properties = \"management.metrics.export.wavefront.enabled=false\")");
+	void zipkinAddsDistributedTracingIfNecessary() {
+		assertThat(generateProject("3.0.0", "zipkin")).mavenBuild().hasDependency(getDependency("zipkin"))
+				.hasDependency(getDependency("distributed-tracing"));
 	}
 
 	@Test
-	void testClassWithoutWavefrontDoesNotDisableMetricsExport() {
-		ProjectRequest request = createProjectRequest("datadog");
-		ProjectStructure project = generateProject(request);
-		assertThat(project).asJvmModule(new JavaLanguage()).testSource("com.example.demo", "DemoApplicationTests")
-				.doesNotContain("import " + TestPropertySource.class.getName()).doesNotContain(
-						"@TestPropertySource(properties = \"management.metrics.export.wavefront.enabled=false\")");
+	void wavefrontDoesNotAddDistributedTracingByDefault() {
+		assertThat(generateProject("3.0.0", "wavefront")).mavenBuild().doesNotHaveDependency("io.micrometer",
+				"micrometer-tracing-reporter-wavefront");
+	}
+
+	@Test
+	void wavefrontWithDistributedTracingConfigureReport() {
+		assertThat(generateProject("3.0.0", "wavefront", "distributed-tracing")).mavenBuild()
+				.hasDependency("io.micrometer", "micrometer-tracing-reporter-wavefront", null, "runtime");
+	}
+
+	private ProjectStructure generateProject(String bootVersion, String... dependencies) {
+		ProjectRequest request = createProjectRequest(dependencies);
+		request.setBootVersion(bootVersion);
+		request.setType("maven-build");
+		return generateProject(request);
 	}
 
 }
