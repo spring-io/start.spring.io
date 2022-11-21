@@ -1087,11 +1087,13 @@ initializr:
           description: Enable span and trace IDs in logs.
           groupId: io.micrometer
           artifactId: micrometer-tracing-bridge-brave
+          starter: false
           mappings:
             - compatibility-range: "[2.3.0.M1,3.0.0-M1)"
               groupId: org.springframework.cloud
               artifactId: spring-cloud-starter-sleuth
               bom: spring-cloud
+              starter: true
         - name: Wavefront
           id: wavefront
           description: Publish metrics and optionally distributed traces to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
@@ -1104,6 +1106,7 @@ initializr:
               groupId: com.wavefront
               artifactId: wavefront-spring-boot-starter
               bom: wavefront
+              starter: true
           links:
             - rel: reference
               href: https://docs.wavefront.com/wavefront_springboot.html
