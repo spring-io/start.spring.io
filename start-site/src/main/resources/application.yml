@@ -1570,13 +1570,23 @@ initializr:
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
   types:
-    - name: Gradle Project
+    - name: Gradle - Groovy
       id: gradle-project
-      description: Generate a Gradle based project archive.
+      description: Generate a Gradle based project archive using the Groovy DSL.
       tags:
         build: gradle
+        dialect: groovy
         format: project
       default: true
+      action: /starter.zip
+    - name: Gradle - Kotlin
+      id: gradle-project-kotlin
+      description: Generate a Gradle based project archive using the Kotlin DSL.
+      tags:
+        build: gradle
+        dialect: kotlin
+        format: project
+      default: false
       action: /starter.zip
     - name: Gradle Config
       id: gradle-build
@@ -1586,7 +1596,7 @@ initializr:
         format: build
       default: false
       action: /build.gradle
-    - name: Maven Project
+    - name: Maven
       id: maven-project
       description: Generate a Maven based project archive.
       tags:

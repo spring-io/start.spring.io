@@ -86,8 +86,7 @@ class SpringNativeHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void gradleWithKotlinDslAddsWarning() {
 		ProjectRequest request = createProjectRequest("native", "web");
-		request.setType("gradle-project");
-		request.setLanguage("kotlin");
+		request.setType("gradle-project-kotlin");
 		assertHelpDocument(request).contains("The native build tools is not configured with the Kotlin DSL");
 	}
 
