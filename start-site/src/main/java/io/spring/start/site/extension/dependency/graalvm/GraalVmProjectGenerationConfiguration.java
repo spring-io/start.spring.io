@@ -56,6 +56,12 @@ class GraalVmProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	GraalVmMavenBuildCustomizer graalVmMavenBuildCustomizer() {
+		return new GraalVmMavenBuildCustomizer();
+	}
+
+	@Bean
 	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
 	GraalVmGroovyDslGradleBuildCustomizer graalVmGroovyDslGradleBuildCustomizer() {
 		return new GraalVmGroovyDslGradleBuildCustomizer(this.platformVersion);

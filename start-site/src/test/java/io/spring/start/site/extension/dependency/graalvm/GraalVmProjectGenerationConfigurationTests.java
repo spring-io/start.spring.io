@@ -38,10 +38,23 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void mavenBuildWithoutNativeDoesNotConfigureNativeSupport() {
+	void mavenBuildWithoutNativeDoesNotConfigureNativeBuildTools() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("3.0.0-M5");
-		assertThat(mavenPom(request)).doesNotContain("BP_NATIVE_IMAGE");
+		assertThat(mavenPom(request)).doesNotContain("native-maven-plugin");
+	}
+
+	@Test
+	void mavenBuildConfigureNativeBuildtoolsPlugint() {
+		ProjectRequest request = createNativeProjectRequest();
+		request.setBootVersion("3.0.0-M5");
+		assertThat(mavenPom(request)).lines().containsSequence(
+		// @formatter:off
+				"			<plugin>",
+				"				<groupId>org.graalvm.buildtools</groupId>",
+				"				<artifactId>native-maven-plugin</artifactId>",
+				"			</plugin>");
+		// @formatter:on
 	}
 
 	@Test
