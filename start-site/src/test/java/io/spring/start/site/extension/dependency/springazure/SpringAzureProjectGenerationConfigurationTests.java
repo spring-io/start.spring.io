@@ -110,7 +110,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	void onlySleuth() {
 		ProjectStructure project = generateProject("2.7.5", "distributed-tracing");
 		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
-				.hasDependenciesSize(2).hasDependency("org.springframework.cloud", "spring-cloud-starter-sleuth")
+				.hasDependenciesSize(3).hasDependency("org.springframework.cloud", "spring-cloud-starter-sleuth")
 				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
 	}
 
