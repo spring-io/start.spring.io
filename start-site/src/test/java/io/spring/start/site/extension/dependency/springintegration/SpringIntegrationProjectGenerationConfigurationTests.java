@@ -71,17 +71,16 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	}
 
 	static Stream<Arguments> supportedEntries() {
-		return Stream.of(Arguments.arguments("activemq", "jms"), Arguments.arguments("artemis", "jms"),
-				Arguments.arguments("amqp", "amqp"), Arguments.arguments("data-jdbc", "jdbc"),
-				Arguments.arguments("jdbc", "jdbc"), Arguments.arguments("data-jpa", "jpa"),
-				Arguments.arguments("data-mongodb", "mongodb"), Arguments.arguments("data-mongodb-reactive", "mongodb"),
-				Arguments.arguments("data-r2dbc", "r2dbc"), Arguments.arguments("data-redis", "redis"),
-				Arguments.arguments("data-redis-reactive", "redis"), Arguments.arguments("kafka", "kafka"),
-				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mail", "mail"),
-				Arguments.arguments("rsocket", "rsocket"), Arguments.arguments("security", "security"),
-				Arguments.arguments("web", "http"), Arguments.arguments("webflux", "webflux"),
-				Arguments.arguments("websocket", "websocket"), Arguments.arguments("websocket", "stomp"),
-				Arguments.arguments("web-services", "ws"));
+		return Stream.of(Arguments.arguments("artemis", "jms"), Arguments.arguments("amqp", "amqp"),
+				Arguments.arguments("data-jdbc", "jdbc"), Arguments.arguments("jdbc", "jdbc"),
+				Arguments.arguments("data-jpa", "jpa"), Arguments.arguments("data-mongodb", "mongodb"),
+				Arguments.arguments("data-mongodb-reactive", "mongodb"), Arguments.arguments("data-r2dbc", "r2dbc"),
+				Arguments.arguments("data-redis", "redis"), Arguments.arguments("data-redis-reactive", "redis"),
+				Arguments.arguments("kafka", "kafka"), Arguments.arguments("kafka-streams", "kafka"),
+				Arguments.arguments("mail", "mail"), Arguments.arguments("rsocket", "rsocket"),
+				Arguments.arguments("security", "security"), Arguments.arguments("web", "http"),
+				Arguments.arguments("webflux", "webflux"), Arguments.arguments("websocket", "websocket"),
+				Arguments.arguments("websocket", "stomp"), Arguments.arguments("web-services", "ws"));
 	}
 
 	@Test

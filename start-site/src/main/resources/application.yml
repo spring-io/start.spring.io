@@ -409,7 +409,6 @@ initializr:
              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#io.webservices
         - name: Jersey
           id: jersey
-          compatibilityRange: "[2.0.0.RELEASE,3.0.0-M1)"
           description: Framework for developing RESTful Web Services in Java that provides support for JAX-RS APIs.
           facets:
             - json
@@ -1150,7 +1149,6 @@ initializr:
               href: https://www.testcontainers.org/
         - name: Contract Verifier
           bom: spring-cloud
-          compatibilityRange: "[2.3.0.M1,3.0.0-M1)"
           id: cloud-contract-verifier
           description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
           groupId: org.springframework.cloud
