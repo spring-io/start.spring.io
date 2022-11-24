@@ -11,24 +11,24 @@
     },
     {
       "current": false,
-      "releaseStatus": "SNAPSHOT",
-      "snapshot": true,
-      "version": "3.0.0-M3",
-      "versionDisplayName": "3.0.0-M3"
-    },
-    {
-      "current": false,
-      "releaseStatus": "SNAPSHOT",
-      "snapshot": true,
-      "version": "2.7.0-SNAPSHOT",
-      "versionDisplayName": "2.7.0-SNAPSHOT"
-    },
-    {
-      "current": false,
       "releaseStatus": "RC",
+      "snapshot": false,
+      "version": "3.0.0-RC2",
+      "versionDisplayName": "3.0.0-RC2"
+    },
+    {
+      "current": false,
+      "releaseStatus": "SNAPSHOT",
       "snapshot": true,
-      "version": "2.7.0-RC1",
-      "versionDisplayName": "2.7.0-RC1"
+      "version": "2.7.6-SNAPSHOT",
+      "versionDisplayName": "2.7.6-SNAPSHOT"
+    },
+    {
+      "current": true,
+      "releaseStatus": "GENERAL_AVAILABILITY",
+      "snapshot": false,
+      "version": "2.7.5",
+      "versionDisplayName": "2.7.5"
     },
     {
       "current": false,
@@ -38,7 +38,7 @@
       "versionDisplayName": "2.6.8-SNAPSHOT"
     },
     {
-      "current": true,
+      "current": false,
       "releaseStatus": "GENERAL_AVAILABILITY",
       "snapshot": false,
       "version": "2.6.7",
