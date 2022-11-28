@@ -21,12 +21,14 @@ import java.util.List;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
+import io.spring.initializr.generator.buildsystem.Dependency.Builder;
 import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionRange;
+import io.spring.initializr.generator.version.VersionReference;
 
 /**
  * A {@link BuildCustomizer} for R2DBC that adds the necessary extra dependencies based on
@@ -34,6 +36,7 @@ import io.spring.initializr.generator.version.VersionRange;
  * Liquibase is selected.
  *
  * @author Stephane Nicoll
+ * @author Andy Wilkinson
  */
 public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
@@ -41,10 +44,15 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final VersionRange SPRING_BOOT_2_7_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.7.0-M1");
 
+	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
+
 	private final boolean borcaOrLater;
+
+	private final boolean mariaDbIsUnmanaged;
 
 	public R2dbcBuildCustomizer(Version platformVersion) {
 		this.borcaOrLater = SPRING_BOOT_2_7_0_OR_LATER.match(platformVersion);
+		this.mariaDbIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
 	}
 
 	@Override
@@ -53,7 +61,8 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-h2");
 		}
 		if (build.dependencies().has("mariadb")) {
-			addManagedDriver(build.dependencies(), "org.mariadb", "r2dbc-mariadb");
+			addManagedDriver(build.dependencies(), "org.mariadb", "r2dbc-mariadb",
+					this.mariaDbIsUnmanaged ? "1.1.2" : null);
 		}
 		if (build.dependencies().has("mysql") && !this.borcaOrLater) {
 			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
@@ -72,6 +81,14 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private void addManagedDriver(DependencyContainer dependencies, String groupId, String artifactId) {
 		dependencies.add(artifactId, Dependency.withCoordinates(groupId, artifactId).scope(DependencyScope.RUNTIME));
+	}
+
+	private void addManagedDriver(DependencyContainer dependencies, String groupId, String artifactId, String version) {
+		Builder<?> builder = Dependency.withCoordinates(groupId, artifactId).scope(DependencyScope.RUNTIME);
+		if (version != null) {
+			builder.version(VersionReference.ofValue(version));
+		}
+		dependencies.add(artifactId, builder);
 	}
 
 	private void addSpringJdbcIfNecessary(Build build) {

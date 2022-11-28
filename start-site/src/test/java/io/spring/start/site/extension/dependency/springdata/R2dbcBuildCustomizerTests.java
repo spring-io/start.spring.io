@@ -19,6 +19,7 @@ package io.spring.start.site.extension.dependency.springdata;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionReference;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.support.MetadataBuildItemResolver;
 import io.spring.start.site.extension.AbstractExtensionTests;
@@ -45,12 +46,23 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void r2dbcWithMariadb() {
+	void r2dbcWithMariadbAndBorca() {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("mariadb");
+		customize(build, Version.parse("2.7.6"));
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mariadb", "r2dbc-mariadb");
+		assertThat(build.dependencies().get("r2dbc-mariadb").getVersion()).isNull();
+	}
+
+	@Test
+	void r2dbcWithMariadbAfterBorca() {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("mariadb");
 		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mariadb", "r2dbc-mariadb");
+		assertThat(build.dependencies().get("r2dbc-mariadb").getVersion()).isEqualTo(VersionReference.ofValue("1.1.2"));
 	}
 
 	@Test
