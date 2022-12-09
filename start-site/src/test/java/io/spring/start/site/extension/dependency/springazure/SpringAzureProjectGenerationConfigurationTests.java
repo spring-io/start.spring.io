@@ -168,6 +168,46 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 				.doesNotContain("https://aka.ms/spring/docs/actuator");
 	}
 
+	@Test
+	void springBoot2AzureJdbcWithMysql() {
+		ProjectStructure project = generateProject("2.7.5", "mysql", "azure-support");
+		assertThat(project).mavenBuild()
+				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-mysql");
+		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/msdocs/mysql")
+				.doesNotContain("https://aka.ms/spring/msdocs/postgresql");
+	}
+
+	@Test
+	void azureJdbcWithMysql() {
+		ProjectStructure project = generateProject("3.0.0", "mysql", "azure-support");
+		assertThat(project).mavenBuild()
+				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-mysql");
+		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/msdocs/mysql")
+				.doesNotContain("https://aka.ms/spring/msdocs/postgresql");
+	}
+
+	@Test
+	void springBoot2AzureJdbcWithPostgresql() {
+		ProjectStructure project = generateProject("2.7.5", "postgresql", "azure-support");
+		assertThat(project).mavenBuild()
+				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-postgresql");
+		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/msdocs/postgresql")
+				.doesNotContain("https://aka.ms/spring/msdocs/mysql");
+	}
+
+	@Test
+	void azureJdbcWithPostgresql() {
+		ProjectStructure project = generateProject("3.0.0", "postgresql", "azure-support");
+		assertThat(project).mavenBuild()
+				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-postgresql");
+		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/msdocs/postgresql")
+				.doesNotContain("https://aka.ms/spring/msdocs/mysql");
+	}
+
 	private static Stream<Arguments> springBoot2AzureDependencies() {
 		return Stream.of(Arguments.of("azure-active-directory"), Arguments.of("azure-cosmos-db"),
 				Arguments.of("azure-keyvault"), Arguments.of("azure-storage"), Arguments.of("azure-support"));
