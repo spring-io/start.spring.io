@@ -429,7 +429,7 @@ initializr:
               href: https://spring.io/guides/gs/crud-with-vaadin/
               description: Creating CRUD UI with Vaadin
             - rel: reference
-              href: https://vaadin.com/spring
+              href: https://vaadin.com/docs
     - name: Template Engines
       content:
         - name: Thymeleaf
