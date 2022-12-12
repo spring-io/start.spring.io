@@ -135,9 +135,9 @@ function SideLeft() {
                           id='ql-help-migration'
                           target='_blank'
                           rel='noopener noreferrer'
-                          href='https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide'
+                          href='https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide'
                         >
-                          Migrate Spring Boot 1.5 to 2.0
+                          Migrate Spring Boot 2.7 to 3.0
                         </a>
                       </li>
                     </ul>
