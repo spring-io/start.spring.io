@@ -61,7 +61,7 @@ public class SpringCloudProjectGenerationConfiguration {
 
 	@Bean
 	public SpringCloudStreamBuildCustomizer springCloudStreamBuildCustomizer() {
-		return new SpringCloudStreamBuildCustomizer();
+		return new SpringCloudStreamBuildCustomizer(this.description);
 	}
 
 	@Bean
