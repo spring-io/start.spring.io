@@ -692,8 +692,8 @@ initializr:
           description: MySQL JDBC and R2DBC driver.
           facets:
             - native
-          groupId: com.mysql
-          artifactId: mysql-connector-j
+          groupId: mysql
+          artifactId: mysql-connector-java
           scope: runtime
           starter: false
           links:
