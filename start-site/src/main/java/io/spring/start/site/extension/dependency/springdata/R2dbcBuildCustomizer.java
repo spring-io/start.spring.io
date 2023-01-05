@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,9 +50,12 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private final boolean mariaDbIsUnmanaged;
 
+	private final boolean sqlServerIsUnmanaged;
+
 	public R2dbcBuildCustomizer(Version platformVersion) {
 		this.borcaOrLater = SPRING_BOOT_2_7_0_OR_LATER.match(platformVersion);
 		this.mariaDbIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
+		this.sqlServerIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
 	}
 
 	@Override
@@ -72,7 +75,8 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 			addManagedDriver(build.dependencies(), groupId, "r2dbc-postgresql");
 		}
 		if (build.dependencies().has("sqlserver")) {
-			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql");
+			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql",
+					this.sqlServerIsUnmanaged ? "1.0.0.RELEASE" : null);
 		}
 		if (build.dependencies().has("flyway") || build.dependencies().has("liquibase")) {
 			addSpringJdbcIfNecessary(build);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,8 +108,20 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("sqlserver");
+		customize(build, Version.parse("2.7.6"));
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "sqlserver", "r2dbc-mssql");
+		assertThat(build.dependencies().get("r2dbc-mssql").getVersion()).isNull();
+	}
+
+	@Test
+	void r2dbcWithSqlserverAfterBorca() {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("sqlserver");
 		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "sqlserver", "r2dbc-mssql");
+		assertThat(build.dependencies().get("r2dbc-mssql").getVersion())
+				.isEqualTo(VersionReference.ofValue("1.0.0.RELEASE"));
 	}
 
 	@Test
