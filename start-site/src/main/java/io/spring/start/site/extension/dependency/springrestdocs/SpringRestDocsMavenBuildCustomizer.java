@@ -30,7 +30,7 @@ class SpringRestDocsMavenBuildCustomizer implements BuildCustomizer<MavenBuild> 
 	@Override
 	public void customize(MavenBuild build) {
 		build.plugins().add("org.asciidoctor", "asciidoctor-maven-plugin", (plugin) -> {
-			plugin.version("1.5.8");
+			plugin.version("2.2.1");
 			plugin.execution("generate-docs", (execution) -> {
 				execution.phase("prepare-package");
 				execution.goal("process-asciidoc");
