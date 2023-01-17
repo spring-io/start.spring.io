@@ -889,7 +889,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#messaging.jms.artemis
         - name: WebSocket
           id: websocket
-          description: Build WebSocket applications with SockJS and STOMP.
+          description: Build Servlet-based WebSocket applications with SockJS and STOMP.
           facets:
             - native
           links:
