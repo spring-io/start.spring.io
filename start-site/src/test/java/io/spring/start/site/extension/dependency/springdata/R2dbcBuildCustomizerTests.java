@@ -62,7 +62,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		build.dependencies().add("mariadb");
 		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mariadb", "r2dbc-mariadb");
-		assertThat(build.dependencies().get("r2dbc-mariadb").getVersion()).isEqualTo(VersionReference.ofValue("1.1.2"));
+		assertThat(build.dependencies().get("r2dbc-mariadb").getVersion()).isEqualTo(VersionReference.ofValue("1.1.3"));
 	}
 
 	@Test
@@ -122,6 +122,15 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "sqlserver", "r2dbc-mssql");
 		assertThat(build.dependencies().get("r2dbc-mssql").getVersion())
 				.isEqualTo(VersionReference.ofValue("1.0.0.RELEASE"));
+	}
+
+	@Test
+	void r2dbcWithOracleAfterBorca() {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("oracle");
+		customize(build);
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "oracle", "oracle-r2dbc");
 	}
 
 	@Test

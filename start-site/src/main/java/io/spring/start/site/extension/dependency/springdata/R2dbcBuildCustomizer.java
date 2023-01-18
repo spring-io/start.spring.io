@@ -37,6 +37,7 @@ import io.spring.initializr.generator.version.VersionReference;
  *
  * @author Stephane Nicoll
  * @author Andy Wilkinson
+ * @author Brian Clozel
  */
 public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
@@ -65,7 +66,7 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 		}
 		if (build.dependencies().has("mariadb")) {
 			addManagedDriver(build.dependencies(), "org.mariadb", "r2dbc-mariadb",
-					this.mariaDbIsUnmanaged ? "1.1.2" : null);
+					this.mariaDbIsUnmanaged ? "1.1.3" : null);
 		}
 		if (build.dependencies().has("mysql") && !this.borcaOrLater) {
 			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
@@ -77,6 +78,9 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 		if (build.dependencies().has("sqlserver")) {
 			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql",
 					this.sqlServerIsUnmanaged ? "1.0.0.RELEASE" : null);
+		}
+		if (build.dependencies().has("oracle") && this.borcaOrLater) {
+			addManagedDriver(build.dependencies(), "com.oracle.database.r2dbc", "oracle-r2dbc");
 		}
 		if (build.dependencies().has("flyway") || build.dependencies().has("liquibase")) {
 			addSpringJdbcIfNecessary(build);
