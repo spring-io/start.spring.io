@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.DefaultMetadataElement;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
-import io.spring.initializr.web.support.SaganInitializrMetadataUpdateStrategy;
+import io.spring.initializr.web.support.SpringIoInitializrMetadataUpdateStrategy;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -33,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Stephane Nicoll
  */
-public class StartInitializrMetadataUpdateStrategy extends SaganInitializrMetadataUpdateStrategy {
+public class StartInitializrMetadataUpdateStrategy extends SpringIoInitializrMetadataUpdateStrategy {
 
 	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate, ObjectMapper objectMapper) {
 		super(restTemplate, objectMapper);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,15 +65,15 @@ class StartInitializrMetadataUpdateStrategyTests {
 		StartInitializrMetadataUpdateStrategy provider = new StartInitializrMetadataUpdateStrategy(this.restTemplate,
 				objectMapper);
 		expectJson(metadata.getConfiguration().getEnv().getSpringBootMetadataUrl(),
-				"metadata/sagan/spring-boot-old.json");
+				"metadata/springio/spring-boot.json");
 		InitializrMetadata updatedMetadata = provider.update(metadata);
 		assertThat(updatedMetadata.getBootVersions()).isNotNull();
 		List<DefaultMetadataElement> updatedBootVersions = updatedMetadata.getBootVersions().getContent();
 		assertThat(updatedBootVersions).hasSize(4);
-		assertBootVersion(updatedBootVersions.get(0), "3.0.0 (SNAPSHOT)", false);
-		assertBootVersion(updatedBootVersions.get(1), "3.0.0 (RC2)", false);
-		assertBootVersion(updatedBootVersions.get(2), "2.7.6 (SNAPSHOT)", false);
-		assertBootVersion(updatedBootVersions.get(3), "2.7.5", true);
+		assertBootVersion(updatedBootVersions.get(0), "3.0.2 (SNAPSHOT)", false);
+		assertBootVersion(updatedBootVersions.get(1), "3.0.1", true);
+		assertBootVersion(updatedBootVersions.get(2), "2.7.8 (SNAPSHOT)", false);
+		assertBootVersion(updatedBootVersions.get(3), "2.7.7", false);
 	}
 
 	@Test
