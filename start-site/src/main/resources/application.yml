@@ -691,7 +691,7 @@ initializr:
           starter: false
         - name: MySQL Driver
           id: mysql
-          description: MySQL JDBC and R2DBC driver.
+          description: MySQL JDBC driver.
           facets:
             - native
           groupId: com.mysql
