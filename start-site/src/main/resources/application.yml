@@ -135,7 +135,7 @@ initializr:
           - compatibilityRange: "[2.4.0-M1,2.6.0-M1)"
             version: 2.0.11
           - compatibilityRange: "[2.6.0-M1,3.0.0-M1)"
-            version: 3.4.1
+            version: 3.4.2
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
