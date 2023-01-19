@@ -1411,8 +1411,8 @@ initializr:
               href: https://spring.io/guides/gs/spring-boot-for-azure/
               description: Deploying a Spring Boot app to Azure
             - rel: reference
-              href: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html
-              description: Spring Cloud Azure Reference Documentation
+              href: https://aka.ms/spring/msdocs/developer-guide
+              description: Spring Cloud Azure developer guide
             - rel: sample
               href: https://aka.ms/spring/samples
               description: Azure Samples
