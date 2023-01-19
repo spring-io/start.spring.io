@@ -102,21 +102,6 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		assertHelpDocument(request).contains("$ docker run --rm -p 8080:8080 another-project:2.0.0-SNAPSHOT");
 	}
 
-	@Test
-	void nativeSectionWithNativeBuildtoolsAddsDedicatedSection() {
-		ProjectRequest request = createProjectRequest("native");
-		request.setBootVersion("2.5.1");
-		assertHelpDocument(request).contains("Lightweight Container with Cloud Native Buildpacks",
-				"Executable with Native Build Tools");
-	}
-
-	@Test
-	void nativeSectionWithoutNativeBuildtoolsDoesNotAddDedicatedSection() {
-		ProjectRequest request = createProjectRequest("native");
-		request.setBootVersion("2.4.5");
-		assertHelpDocument(request).doesNotContain("Executable with Native Build Tools");
-	}
-
 	@Override
 	protected ProjectRequest createProjectRequest(String... styles) {
 		ProjectRequest request = super.createProjectRequest(styles);

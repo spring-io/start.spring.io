@@ -16,12 +16,10 @@
 
 package io.spring.start.site.extension.dependency.picocli;
 
-import io.spring.initializr.generator.test.buildsystem.maven.MavenBuildAssert;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import org.assertj.core.api.AssertProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,8 +32,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PicocliCodegenBuildCustomizerTests extends AbstractExtensionTests {
 
 	private static final Version SPRING_BOOT_3_VERSION = Version.parse("3.0.0");
-
-	private static final Version SPRING_BOOT_27_VERSION = Version.parse("2.7.0");
 
 	@Test
 	void picocliCodegenIsAddedAsMavenOptionalDependency() {
@@ -66,22 +62,6 @@ class PicocliCodegenBuildCustomizerTests extends AbstractExtensionTests {
 	void picocliCodegenIsNotAddedAsGradleAnnotationProcessorIfNativeNotSelected() {
 		ProjectRequest request = createProjectRequest("picocli");
 		request.setBootVersion(SPRING_BOOT_3_VERSION.toString());
-		assertThat(gradleBuild(request)).doesNotContain("info.picocli:picocli-codegen");
-	}
-
-	@Test
-	void picocliCodegenNotAddedAsMavenOptionalDependencyWithSpring27() {
-		ProjectRequest request = createProjectRequest("picocli", "native");
-		request.setBootVersion(SPRING_BOOT_27_VERSION.toString());
-		AssertProvider<MavenBuildAssert> mavenPom = mavenPom(request);
-		assertThat(mavenPom).hasDependency(getPicocli(SPRING_BOOT_27_VERSION)).doesNotHaveDependency("info.picocli",
-				"picocli-codegen");
-	}
-
-	@Test
-	void picocliCodegenIsNotAddedAsGradleAnnotationProcessorWithSpringBoot27() {
-		ProjectRequest request = createProjectRequest("picocli", "native");
-		request.setBootVersion(SPRING_BOOT_27_VERSION.toString());
 		assertThat(gradleBuild(request)).doesNotContain("info.picocli:picocli-codegen");
 	}
 

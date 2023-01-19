@@ -13,7 +13,6 @@ io.spring.start.site.extension.dependency.springboot.SpringBootProjectGeneration
 io.spring.start.site.extension.dependency.springcloud.SpringCloudProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springdata.SpringDataProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springintegration.SpringIntegrationProjectGenerationConfiguration,\
-io.spring.start.site.extension.dependency.springnative.SpringNativeProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springrestdocs.SpringRestDocsProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.testcontainers.TestcontainersProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.vaadin.VaadinProjectGenerationConfiguration,\

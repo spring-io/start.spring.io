@@ -56,27 +56,6 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java8IsCompatibleWithSpringNative010() {
-		ProjectRequest request = javaProject("1.8", "2.5.5");
-		request.getDependencies().add("native");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java8IsNotCompatibleWithSpringNative011() {
-		ProjectRequest request = javaProject("1.8", "2.6.0-M3");
-		request.getDependencies().add("native");
-		assertThat(mavenPom(request)).hasProperty("java.version", "11");
-	}
-
-	@Test
-	void java8WithoutSpringNative011IsNotDowngraded() {
-		ProjectRequest request = javaProject("1.8", "2.6.0-M3");
-		request.getDependencies().add("web");
-		assertThat(mavenPom(request)).hasProperty("java.version", "1.8");
-	}
-
-	@Test
 	void java8IsNotCompatibleWithSpringBoot3() {
 		ProjectRequest request = javaProject("1.8", "3.0.0-M1");
 		assertThat(mavenPom(request)).hasProperty("java.version", "17");
