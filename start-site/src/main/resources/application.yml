@@ -453,7 +453,6 @@ initializr:
           description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features. Enable your Spring Boot application to work with Okta via OAuth 2.0/OIDC.
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
-          compatibilityRange: "[2.1.2.RELEASE,3.0.0-M1)"
           mappings:
             - compatibilityRange: "[2.2.0.RELEASE,2.4.0-M1)"
               version: 1.4.0
