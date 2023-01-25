@@ -67,7 +67,7 @@ abstract class SpringIntegrationModuleRegistry {
 						.customizeHelpDocument(addReferenceLink("WebFlux Module", "webflux")),
 				onDependencies("websocket").customizeBuild(addDependency("stomp").andThen(addDependency("websocket")))
 						.customizeHelpDocument(addReferenceLink("STOMP Module", "stomp")
-								.andThen(addReferenceLink("WebSocket Module", "websocket"))),
+								.andThen(addReferenceLink("WebSocket Module", "web-sockets"))),
 				onDependencies("web-services").customizeBuild(addDependency("ws"))
 						.customizeHelpDocument(addReferenceLink("Web Services Module", "ws")));
 	}
