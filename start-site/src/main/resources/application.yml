@@ -192,7 +192,9 @@ initializr:
           - compatibilityRange: "[2.5.0-M1,2.7.0-M1)"
             version: 2.2.2
           - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
-            version: 2.3.1
+            version: 2.3.4
+          - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
+            version: 3.0.1
     gradle:
       dependency-management-plugin-version: 1.0.14.RELEASE
     kotlin:
@@ -1050,7 +1052,7 @@ initializr:
           scope: runtime
           starter: false
           mappings:
-            - compatibility-range: "[2.3.0.M1,3.0.0-M1)"
+            - compatibility-range: "[2.3.0.M1,3.1.0-M1)"
               groupId: com.wavefront
               artifactId: wavefront-spring-boot-starter
               bom: wavefront
