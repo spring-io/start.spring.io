@@ -297,6 +297,12 @@ initializr:
           description: Build GraphQL applications with Spring for GraphQL and GraphQL Java.
           facets:
             - json
+          links:
+            - rel: guide
+              href: https://spring.io/guides/gs/graphql-server/
+              description: Building a GraphQL service
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/html/web.html#web.graphql
         - name: Rest Repositories
           id: data-rest
           facets:
