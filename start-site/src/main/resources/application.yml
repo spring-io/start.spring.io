@@ -1591,12 +1591,18 @@ initializr:
       id: groovy
       default: false
   bootVersions:
-    - name : Latest SNAPSHOT
-      id: 2.2.0.BUILD-SNAPSHOT
+    - name : 3.0.3 (SNAPSHOT)
+      id: 3.0.3-SNAPSHOT
       default: false
-    - name : 2.1.1.
-      id: 2.1.1.RELEASE
+    - name : 3.0.2
+      id: 3.0.2
       default: true
+    - name : 2.7.9 (SNAPSHOT)
+      id: 2.7.9-SNAPSHOT
+      default: false
+    - name : 2.7.8
+      id: 2.7.8
+      default: false
 
 ---
 
