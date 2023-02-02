@@ -23,6 +23,8 @@ resource_types:
   source:
     repository: gcr.io/cf-build-service-public/concourse-kpack-resource
     tag: "1.0"
+    username:
+    password:
 
 - name: pull-request
   type: registry-image
