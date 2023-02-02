@@ -1,32 +1,41 @@
----
+anchors:
+  docker-resource-source: &docker-resource-source
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
+
 resource_types:
 - name: artifactory-resource
   type: registry-image
   source:
+    <<: *docker-resource-source
     repository: springio/artifactory-resource
-    tag: 0.0.14
+    tag: 0.0.17
 
 - name: github-status-resource
   type: registry-image
   source:
+    <<: *docker-resource-source
     repository: dpb587/github-status-resource
     tag: master
 
 - name: kpack-image
   type: registry-image
   source:
+    <<: *docker-resource-source
     repository: gcr.io/cf-build-service-public/concourse-kpack-resource
     tag: "1.0"
 
 - name: pull-request
   type: registry-image
   source:
+    <<: *docker-resource-source
     repository: teliaoss/github-pr-resource
-    tag: v0.21.0
+    tag: v0.23.0
 
 - name: slack-notification
   type: registry-image
   source:
+    <<: *docker-resource-source
     repository: cfcommunity/slack-notification-resource
     tag: latest
 
@@ -271,6 +280,7 @@ jobs:
     image: start-site-ci-image
     file: git-repo/ci/tasks/get-blob-url.yml
     params:
+      <<: *docker-resource-source
       ARTIFACTORY_SERVER: ((artifactory-server))
       ARTIFACTORY_REPO: ((artifactory-repo))
   - put: kpack

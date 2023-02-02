@@ -1,10 +1,12 @@
 ---
 platform: linux
 image_resource:
-  type: docker-image
+  type: registry-image
   source:
-    repository: springci/spring-boot-ci
-    tag: 2.4.x
+    repository: springci/start-site-ci-image
+    tag: main
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
 inputs:
   - name: artifactory-repo
   - name: git-repo
