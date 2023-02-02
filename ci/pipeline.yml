@@ -21,7 +21,6 @@ resource_types:
 - name: kpack-image
   type: registry-image
   source:
-    <<: *docker-resource-source
     repository: gcr.io/cf-build-service-public/concourse-kpack-resource
     tag: "1.0"
 
