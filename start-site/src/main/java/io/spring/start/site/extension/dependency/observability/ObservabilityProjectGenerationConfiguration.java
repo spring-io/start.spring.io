@@ -58,6 +58,12 @@ class ObservabilityProjectGenerationConfiguration {
 			return new ObservabilityHelpDocumentCustomizer(description, build);
 		}
 
+		@Bean
+		@ConditionalOnRequestedDependency("wavefront")
+		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
+			return new WavefrontHelpDocumentCustomizer("https://docs.wavefront.com/wavefront_springboot3.html", build);
+		}
+
 	}
 
 	@Configuration(proxyBeanMethods = false)
@@ -77,7 +83,7 @@ class ObservabilityProjectGenerationConfiguration {
 		@Bean
 		@ConditionalOnRequestedDependency("wavefront")
 		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
-			return new WavefrontHelpDocumentCustomizer(build);
+			return new WavefrontHelpDocumentCustomizer("https://docs.wavefront.com/wavefront_springboot.html", build);
 		}
 
 	}

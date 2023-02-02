@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link WavefrontHelpDocumentCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Brian Clozel
  */
 class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
@@ -59,6 +60,18 @@ class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	void wavefrontWithSleuthDoesNotAddTracingNote() {
 		assertHelpDocument("2.7.5", "wavefront", "distributed-tracing").doesNotContain(
 				"Finally, you can opt-in for distributed tracing by adding the 'Distributed Tracing' entry.");
+	}
+
+	@Test
+	void springBoot2xWavefrontReference() {
+		assertHelpDocument("2.7.5", "wavefront").contains(
+				"* [Wavefront for Spring Boot documentation](https://docs.wavefront.com/wavefront_springboot.html)");
+	}
+
+	@Test
+	void springBoot3xWavefrontReference() {
+		assertHelpDocument("3.0.0", "wavefront").contains(
+				"* [Wavefront for Spring Boot documentation](https://docs.wavefront.com/wavefront_springboot3.html)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String version, String... dependencies) {

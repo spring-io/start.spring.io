@@ -1062,10 +1062,6 @@ initializr:
               artifactId: wavefront-spring-boot-starter
               bom: wavefront
               starter: true
-          links:
-            - rel: reference
-              href: https://docs.wavefront.com/wavefront_springboot.html
-              description: Wavefront for Spring Boot documentation
         - name: Zipkin
           id: zipkin
           description: Enable and expose span and trace IDs to Zipkin.
