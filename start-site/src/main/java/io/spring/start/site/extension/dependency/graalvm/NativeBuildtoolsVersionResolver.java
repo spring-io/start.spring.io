@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,8 @@ abstract class NativeBuildtoolsVersionResolver {
 			new NativeBuildtoolsRange("[3.0.0-M1,3.0.0-RC1)", "0.9.14"),
 			new NativeBuildtoolsRange("[3.0.0-RC1,3.0.0-RC2)", "0.9.16"),
 			new NativeBuildtoolsRange("[3.0.0-RC2,3.0.0)", "0.9.17"),
-			new NativeBuildtoolsRange("[3.0.0,3.1.0-M1)", "0.9.18"));
+			new NativeBuildtoolsRange("[3.0.0,3.0.1)", "0.9.18"), new NativeBuildtoolsRange("[3.0.1,3.0.3)", "0.9.19"),
+			new NativeBuildtoolsRange("[3.0.3,3.1.0-M1)", "0.9.20"));
 
 	static String resolve(Version platformVersion) {
 		return ranges.stream().filter((range) -> range.match(platformVersion)).findFirst()

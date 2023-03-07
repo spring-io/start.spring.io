@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,8 @@ class NativeBuildtoolsVersionResolverTests {
 
 	private static Stream<Arguments> platformVersions() {
 		return Stream.of(versions("2.7.0", null), versions("3.0.0-M1", "0.9.14"), versions("3.0.0-RC1", "0.9.16"),
-				versions("3.0.0-RC2", "0.9.17"), versions("3.0.0", "0.9.18"));
+				versions("3.0.0-RC2", "0.9.17"), versions("3.0.0", "0.9.18"), versions("3.0.1", "0.9.19"),
+				versions("3.0.3", "0.9.20"));
 	}
 
 	private static Arguments versions(String platformVersion, String nativeBuildToolsVersion) {
