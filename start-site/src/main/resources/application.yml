@@ -387,6 +387,18 @@ initializr:
               description: Creating CRUD UI with Vaadin
             - rel: reference
               href: https://vaadin.com/docs
+        - name: Hilla
+          id: hilla
+          facets:
+            - web
+          groupId: dev.hilla
+          artifactId: hilla-spring-boot-starter
+          description: Hilla is an open source framework that integrates a Spring Boot Java backend with a reactive TypeScript frontend.
+          bom: hilla
+          compatibilityRange: "[2.6.0-M1,3.1.0-M1)"
+          links:
+            - rel: reference
+              href: https://hilla.dev/
     - name: Template Engines
       content:
         - name: Thymeleaf
