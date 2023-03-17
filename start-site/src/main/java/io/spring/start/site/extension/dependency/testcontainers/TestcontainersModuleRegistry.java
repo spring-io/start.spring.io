@@ -33,6 +33,7 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  *
  * @author Stephane Nicoll
  * @author Eddú Meléndez
+ * @author Chris Bono
  */
 abstract class TestcontainersModuleRegistry {
 
@@ -68,6 +69,8 @@ abstract class TestcontainersModuleRegistry {
 					.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")),
 				onDependencies("oracle").customizeBuild(addModule("oracle-xe"))
 					.customizeHelpDocument(addReferenceLink("Oracle-XE Module", "databases/oraclexe/")),
+				onDependencies("pulsar", "pulsar-reactive").customizeBuild(addModule("pulsar"))
+					.customizeHelpDocument(addReferenceLink("Pulsar Module", "pulsar/")),
 				onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
 					.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
 	}
