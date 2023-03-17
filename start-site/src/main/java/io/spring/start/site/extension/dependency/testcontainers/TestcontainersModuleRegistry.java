@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  *
  * @author Stephane Nicoll
  * @author Eddú Meléndez
+ * @author Chris Bono
  */
 abstract class TestcontainersModuleRegistry {
 
@@ -68,6 +69,8 @@ abstract class TestcontainersModuleRegistry {
 						.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")),
 				onDependencies("oracle").customizeBuild(addModule("oracle-xe"))
 						.customizeHelpDocument(addReferenceLink("Oracle-XE Module", "databases/oraclexe/")),
+				onDependencies("pulsar", "pulsar-reactive").customizeBuild(addModule("pulsar"))
+						.customizeHelpDocument(addReferenceLink("Pulsar Module", "pulsar/")),
 				onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
 						.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
 	}

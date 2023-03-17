@@ -834,6 +834,35 @@ initializr:
               description: Messaging with JMS
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#messaging.jms.artemis
+        - name: Spring for Apache Pulsar
+          id: pulsar
+          compatibilityRange: "[3.0.0,3.1.0-M1)"
+          mappings:
+            - compatibilityRange: "[3.0.0,3.1.0-M1)"
+              version: 0.2.0
+          description: Build messaging applications with Apache Pulsar
+          facets:
+            - native
+          groupId: org.springframework.pulsar
+          artifactId: spring-pulsar-spring-boot-starter
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-pulsar/docs/current/reference/html/
+        - name: Spring for Apache Pulsar (Reactive)
+          id: pulsar-reactive
+          compatibilityRange: "[3.0.0,3.1.0-M1)"
+          mappings:
+            - compatibilityRange: "[3.0.0,3.1.0-M1)"
+              version: 0.2.0
+          description: Build reactive messaging applications with Apache Pulsar
+          facets:
+            - native
+            - reactive
+          groupId: org.springframework.pulsar
+          artifactId: spring-pulsar-reactive-spring-boot-starter
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-pulsar/docs/current/reference/html/#reactive-pulsar
         - name: WebSocket
           id: websocket
           description: Build Servlet-based WebSocket applications with SockJS and STOMP.
@@ -1378,7 +1407,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-bus/docs/current/reference/html/
         - name: Cloud Stream
           id: cloud-stream
-          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, RabbitMQ or Solace PubSub+).
+          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, RabbitMQ, Apache Pulsar, or Solace PubSub+).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
           links:
