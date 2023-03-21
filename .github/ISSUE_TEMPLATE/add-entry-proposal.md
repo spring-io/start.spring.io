@@ -57,6 +57,13 @@ field level documentation on each of the properties and adding the
 [ ] Starter provides metadata, including documentation, for all its configuration
 properties.
 
+## Build system integration
+If your starter provides build system integration in the form of custom plugins or
+configuration, both Maven and Gradle must be supported.
+
+Please provide the details of any custom build configuration that should be generated
+when your proposed entry is selected.
+
 ## Version mappings
 Spring Initializr allows different versions of a starter to be used with different
 versions of Spring Boot. For example, if a project is being generated with Spring
