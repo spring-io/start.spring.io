@@ -139,6 +139,13 @@ initializr:
             version: 3.5.0
           - compatibilityRange: "[3.0.0,3.1.0-M1)"
             version: 4.0.0
+      spring-modulith:
+        groupId: org.springframework.modulith
+        artifactId: spring-modulith-bom
+        mappings:
+          - compatibility-range: "[3.1.0,3.2.0-M1)"
+            version: 1.0.0-M1
+            repositories: spring-milestones
       spring-shell:
         groupId: org.springframework.shell
         artifactId: spring-shell-dependencies
@@ -252,6 +259,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#features.docker-compose
+        - name: Spring Modulith
+          id: modulith
+          group-id: org.springframework.modulith
+          artifact-id: spring-modulith-starter-core
+          description: Support for building modular monolithic applications.
+          bom: spring-modulith
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-modulith/docs/current/reference/html/
     - name: Web
       content:
         - name: Spring Web
