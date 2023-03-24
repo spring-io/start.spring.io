@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,8 +51,8 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		HelpDocument document = customize(description, new MavenBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
-			assertThat(link.getHref()).isEqualTo(
-					"https://docs.spring.io/spring-boot/docs/3.0.0-RC1/maven-plugin/reference/htmlsingle/#aot");
+			assertThat(link.getHref())
+				.isEqualTo("https://docs.spring.io/spring-boot/docs/3.0.0-RC1/maven-plugin/reference/htmlsingle/#aot");
 		});
 	}
 
@@ -63,8 +63,8 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		HelpDocument document = customize(description, new GradleBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
-			assertThat(link.getHref()).isEqualTo(
-					"https://docs.spring.io/spring-boot/docs/3.0.0-RC1/gradle-plugin/reference/htmlsingle/#aot");
+			assertThat(link.getHref())
+				.isEqualTo("https://docs.spring.io/spring-boot/docs/3.0.0-RC1/gradle-plugin/reference/htmlsingle/#aot");
 		});
 	}
 
@@ -77,13 +77,13 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void nativeSectionWithGradleUseGradleCommand() {
 		assertHelpDocument("gradle-project", "native").contains("$ ./gradlew bootBuildImage")
-				.contains("$ ./gradlew nativeCompile");
+			.contains("$ ./gradlew nativeCompile");
 	}
 
 	@Test
 	void nativeSectionWithMavenUseMavenCommand() {
 		assertHelpDocument("maven-project", "native").contains("$ ./mvnw spring-boot:build-image -Pnative")
-				.contains("$ ./mvnw native:compile -Pnative");
+			.contains("$ ./mvnw native:compile -Pnative");
 	}
 
 	@Test

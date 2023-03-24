@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,12 +40,13 @@ public class SpringGraphQlBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		build.dependencies().add("spring-graphql-test",
-				Dependency.withCoordinates("org.springframework.graphql", "spring-graphql-test")
-						.scope(DependencyScope.TEST_COMPILE));
+		build.dependencies()
+			.add("spring-graphql-test", Dependency.withCoordinates("org.springframework.graphql", "spring-graphql-test")
+				.scope(DependencyScope.TEST_COMPILE));
 		if (!this.buildResolver.hasFacet(build, "reactive")) {
-			build.dependencies().add("spring-webflux", Dependency
-					.withCoordinates("org.springframework", "spring-webflux").scope(DependencyScope.TEST_COMPILE));
+			build.dependencies()
+				.add("spring-webflux", Dependency.withCoordinates("org.springframework", "spring-webflux")
+					.scope(DependencyScope.TEST_COMPILE));
 		}
 	}
 

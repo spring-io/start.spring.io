@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,8 +41,9 @@ public class SpringCloudGatewayHelpDocumentCustomizer implements HelpDocumentCus
 	public void customize(HelpDocument document) {
 		Map<String, Dependency> originalDependencies = this.diff.getOriginal().getRequestedDependencies();
 		if (originalDependencies.containsKey("cloud-gateway") && originalDependencies.containsKey("web")) {
-			document.getWarnings().addItem(
-					"Spring Cloud Gateway requires Spring WebFlux, your choice of Spring Web has been replaced accordingly.");
+			document.getWarnings()
+				.addItem(
+						"Spring Cloud Gateway requires Spring WebFlux, your choice of Spring Web has been replaced accordingly.");
 		}
 	}
 

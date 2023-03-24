@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,16 @@ class VaadinMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
 	@Override
 	public void customize(MavenBuild build) {
-		build.profiles().id("production").plugins().add("com.vaadin", "vaadin-maven-plugin",
-				(plugin) -> plugin.version("${vaadin.version}").execution("frontend",
-						(execution) -> execution.goal("prepare-frontend").goal("build-frontend").phase("compile")
-								.configuration((configuration) -> configuration.add("productionMode", "true"))));
+		build.profiles()
+			.id("production")
+			.plugins()
+			.add("com.vaadin", "vaadin-maven-plugin",
+					(plugin) -> plugin.version("${vaadin.version}")
+						.execution("frontend",
+								(execution) -> execution.goal("prepare-frontend")
+									.goal("build-frontend")
+									.phase("compile")
+									.configuration((configuration) -> configuration.add("productionMode", "true"))));
 	}
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,24 +33,24 @@ class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 	void restDocsWithWebMvc() {
 		ProjectRequest request = createProjectRequest("web", "restdocs");
 		assertThat(mavenPom(request))
-				.hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
-				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient");
+			.hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
+			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient");
 	}
 
 	@Test
 	void restDocsWithWebFlux() {
 		ProjectRequest request = createProjectRequest("webflux", "restdocs");
 		assertThat(mavenPom(request))
-				.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
-				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
+			.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
+			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
 	}
 
 	@Test
 	void restDocsWithJersey() {
 		ProjectRequest request = createProjectRequest("jersey", "restdocs");
 		assertThat(mavenPom(request))
-				.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
-				.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
+			.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
+			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
 	}
 
 }

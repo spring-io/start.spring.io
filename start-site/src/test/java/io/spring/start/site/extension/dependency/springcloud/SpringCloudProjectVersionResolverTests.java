@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ class SpringCloudProjectVersionResolverTests {
 		BillOfMaterials bom = BillOfMaterials.create("com.example", "custom-bom", "1.0.0");
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addBom("custom-bom", bom).build();
 		String version = new SpringCloudProjectVersionResolver(metadata, this.versionResolver)
-				.resolveVersion(VersionParser.DEFAULT.parse("2.1.0.RELEASE"), "com.example:test");
+			.resolveVersion(VersionParser.DEFAULT.parse("2.1.0.RELEASE"), "com.example:test");
 		assertThat(version).isNull();
 	}
 
@@ -52,9 +52,9 @@ class SpringCloudProjectVersionResolverTests {
 		BillOfMaterials bom = BillOfMaterials.create("org.springframework.cloud", "spring-cloud-dependencies", "1.0.0");
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addBom("spring-cloud", bom).build();
 		given(this.versionResolver.resolve("org.springframework.cloud", "spring-cloud-dependencies", "1.0.0"))
-				.willReturn(Collections.singletonMap("org.springframework.cloud:spring-cloud", "1.1.0"));
+			.willReturn(Collections.singletonMap("org.springframework.cloud:spring-cloud", "1.1.0"));
 		String version = new SpringCloudProjectVersionResolver(metadata, this.versionResolver)
-				.resolveVersion(VersionParser.DEFAULT.parse("2.1.0.RELEASE"), "org.springframework.cloud:test");
+			.resolveVersion(VersionParser.DEFAULT.parse("2.1.0.RELEASE"), "org.springframework.cloud:test");
 		assertThat(version).isNull();
 	}
 
@@ -63,9 +63,9 @@ class SpringCloudProjectVersionResolverTests {
 		BillOfMaterials bom = BillOfMaterials.create("org.springframework.cloud", "spring-cloud-dependencies", "1.0.0");
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addBom("spring-cloud", bom).build();
 		given(this.versionResolver.resolve("org.springframework.cloud", "spring-cloud-dependencies", "1.0.0"))
-				.willReturn(Collections.singletonMap("org.springframework.cloud:spring-cloud", "1.1.0"));
+			.willReturn(Collections.singletonMap("org.springframework.cloud:spring-cloud", "1.1.0"));
 		String version = new SpringCloudProjectVersionResolver(metadata, this.versionResolver)
-				.resolveVersion(VersionParser.DEFAULT.parse("2.1.0.RELEASE"), "org.springframework.cloud:spring-cloud");
+			.resolveVersion(VersionParser.DEFAULT.parse("2.1.0.RELEASE"), "org.springframework.cloud:spring-cloud");
 		assertThat(version).isEqualTo("1.1.0");
 	}
 

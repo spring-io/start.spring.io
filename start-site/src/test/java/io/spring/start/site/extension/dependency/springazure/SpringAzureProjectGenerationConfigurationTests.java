@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,14 +42,14 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	void springBoot2onlyAzureDependency(String dependencyId) {
 		ProjectStructure project = generateProject("2.7.5", dependencyId);
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency(getDependency(dependencyId))
-				.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-starter-actuator")
-				.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-trace-sleuth")
-				.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency(getDependency(dependencyId))
+			.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-starter-actuator")
+			.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-trace-sleuth")
+			.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue");
 		assertThatHelpDocumentOf(project).doesNotContain("https://aka.ms/spring/docs/actuator")
-				.doesNotContain("https://aka.ms/spring/docs/sleuth")
-				.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
+			.doesNotContain("https://aka.ms/spring/docs/sleuth")
+			.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
 	}
 
 	@ParameterizedTest
@@ -57,28 +57,32 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	void onlyAzureDependency(String dependencyId) {
 		ProjectStructure project = generateProject("3.0.0", dependencyId);
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency(getDependency(dependencyId))
-				.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-starter-actuator")
-				.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency(getDependency(dependencyId))
+			.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-starter-actuator")
+			.doesNotHaveDependency("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue");
 		assertThatHelpDocumentOf(project).doesNotContain("https://aka.ms/spring/docs/actuator")
-				.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
+			.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
 	}
 
 	@Test
 	void springBoot2onlyActuator() {
 		ProjectStructure project = generateProject("2.7.5", "actuator");
-		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
-				.hasDependenciesSize(2).hasDependency("org.springframework.boot", "spring-boot-starter-actuator")
-				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
+		assertThat(project).mavenBuild()
+			.doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
+			.hasDependenciesSize(2)
+			.hasDependency("org.springframework.boot", "spring-boot-starter-actuator")
+			.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
 	}
 
 	@Test
 	void onlyActuator() {
 		ProjectStructure project = generateProject("3.0.0", "actuator");
-		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
-				.hasDependenciesSize(2).hasDependency("org.springframework.boot", "spring-boot-starter-actuator")
-				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
+		assertThat(project).mavenBuild()
+			.doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
+			.hasDependenciesSize(2)
+			.hasDependency("org.springframework.boot", "spring-boot-starter-actuator")
+			.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
 	}
 
 	@ParameterizedTest
@@ -86,12 +90,12 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	void springBoot2azureDependencyWithActuator(String dependencyId) {
 		ProjectStructure project = generateProject("2.7.5", dependencyId, "actuator");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency(getDependency(dependencyId))
-				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-actuator");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency(getDependency(dependencyId))
+			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-actuator");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/docs/actuator")
-				.doesNotContain("https://aka.ms/spring/docs/sleuth")
-				.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
+			.doesNotContain("https://aka.ms/spring/docs/sleuth")
+			.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
 	}
 
 	@ParameterizedTest
@@ -99,19 +103,21 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	void azureDependencyWithActuator(String dependencyId) {
 		ProjectStructure project = generateProject("3.0.0", dependencyId, "actuator");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency(getDependency(dependencyId))
-				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-actuator");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency(getDependency(dependencyId))
+			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-actuator");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/docs/actuator")
-				.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
+			.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
 	}
 
 	@Test
 	void onlySleuth() {
 		ProjectStructure project = generateProject("2.7.5", "distributed-tracing");
-		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
-				.hasDependenciesSize(3).hasDependency("org.springframework.cloud", "spring-cloud-starter-sleuth")
-				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
+		assertThat(project).mavenBuild()
+			.doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
+			.hasDependenciesSize(3)
+			.hasDependency("org.springframework.cloud", "spring-cloud-starter-sleuth")
+			.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
 	}
 
 	@ParameterizedTest
@@ -119,93 +125,99 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	void springBoot2AzureDependencyWithSleuth(String dependencyId) {
 		ProjectStructure project = generateProject("2.7.5", dependencyId, "distributed-tracing");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency(getDependency(dependencyId))
-				.hasDependency("com.azure.spring", "spring-cloud-azure-trace-sleuth");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency(getDependency(dependencyId))
+			.hasDependency("com.azure.spring", "spring-cloud-azure-trace-sleuth");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/docs/sleuth")
-				.doesNotContain("https://aka.ms/spring/docs/actuator")
-				.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
+			.doesNotContain("https://aka.ms/spring/docs/actuator")
+			.doesNotContain("https://aka.ms/spring/docs/spring-integration/storage-queue");
 	}
 
 	@Test
 	void springBoot2OnlyIntegration() {
 		ProjectStructure project = generateProject("2.7.5", "integration");
-		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
-				.hasDependenciesSize(3).hasDependency("org.springframework.boot", "spring-boot-starter-integration")
-				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test")
-				.hasDependency("org.springframework.integration", "spring-integration-test", null, "test");
+		assertThat(project).mavenBuild()
+			.doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
+			.hasDependenciesSize(3)
+			.hasDependency("org.springframework.boot", "spring-boot-starter-integration")
+			.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test")
+			.hasDependency("org.springframework.integration", "spring-integration-test", null, "test");
 	}
 
 	@Test
 	void onlyIntegration() {
 		ProjectStructure project = generateProject("3.0.0", "integration");
-		assertThat(project).mavenBuild().doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
-				.hasDependenciesSize(3).hasDependency("org.springframework.boot", "spring-boot-starter-integration")
-				.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test")
-				.hasDependency("org.springframework.integration", "spring-integration-test", null, "test");
+		assertThat(project).mavenBuild()
+			.doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
+			.hasDependenciesSize(3)
+			.hasDependency("org.springframework.boot", "spring-boot-starter-integration")
+			.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test")
+			.hasDependency("org.springframework.integration", "spring-integration-test", null, "test");
 	}
 
 	@Test
 	void springBoot2AzureStorageWithIntegration() {
 		ProjectStructure project = generateProject("2.7.5", "azure-storage", "integration");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency(getDependency("azure-storage")).hasDependency(getDependency("integration"))
-				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency(getDependency("azure-storage"))
+			.hasDependency(getDependency("integration"))
+			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/docs/spring-integration/storage-queue")
-				.doesNotContain("https://aka.ms/spring/docs/actuator")
-				.doesNotContain("https://aka.ms/spring/docs/sleuth");
+			.doesNotContain("https://aka.ms/spring/docs/actuator")
+			.doesNotContain("https://aka.ms/spring/docs/sleuth");
 	}
 
 	@Test
 	void azureStorageWithIntegration() {
 		ProjectStructure project = generateProject("3.0.0", "azure-storage", "integration");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency(getDependency("azure-storage")).hasDependency(getDependency("integration"))
-				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency(getDependency("azure-storage"))
+			.hasDependency(getDependency("integration"))
+			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-integration-storage-queue");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/docs/spring-integration/storage-queue")
-				.doesNotContain("https://aka.ms/spring/docs/actuator");
+			.doesNotContain("https://aka.ms/spring/docs/actuator");
 	}
 
 	@Test
 	void springBoot2AzureJdbcWithMysql() {
 		ProjectStructure project = generateProject("2.7.5", "mysql", "azure-support");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-mysql");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-mysql");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/msdocs/mysql")
-				.doesNotContain("https://aka.ms/spring/msdocs/postgresql");
+			.doesNotContain("https://aka.ms/spring/msdocs/postgresql");
 	}
 
 	@Test
 	void azureJdbcWithMysql() {
 		ProjectStructure project = generateProject("3.0.0", "mysql", "azure-support");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-mysql");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-mysql");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/msdocs/mysql")
-				.doesNotContain("https://aka.ms/spring/msdocs/postgresql");
+			.doesNotContain("https://aka.ms/spring/msdocs/postgresql");
 	}
 
 	@Test
 	void springBoot2AzureJdbcWithPostgresql() {
 		ProjectStructure project = generateProject("2.7.5", "postgresql", "azure-support");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-postgresql");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-postgresql");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/msdocs/postgresql")
-				.doesNotContain("https://aka.ms/spring/msdocs/mysql");
+			.doesNotContain("https://aka.ms/spring/msdocs/mysql");
 	}
 
 	@Test
 	void azureJdbcWithPostgresql() {
 		ProjectStructure project = generateProject("3.0.0", "postgresql", "azure-support");
 		assertThat(project).mavenBuild()
-				.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
-				.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-postgresql");
+			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
+			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-postgresql");
 		assertThatHelpDocumentOf(project).contains("https://aka.ms/spring/msdocs/postgresql")
-				.doesNotContain("https://aka.ms/spring/msdocs/mysql");
+			.doesNotContain("https://aka.ms/spring/msdocs/mysql");
 	}
 
 	private static Stream<Arguments> springBoot2AzureDependencies() {

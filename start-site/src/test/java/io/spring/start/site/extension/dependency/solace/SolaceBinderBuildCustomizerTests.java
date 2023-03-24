@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,8 +59,8 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
 		request.setBootVersion("2.4.8");
 		ProjectStructure project = generateProject(request);
-		assertThat(project).mavenBuild().hasBom("com.solace.spring.cloud", "solace-spring-cloud-bom",
-				"${solace-spring-cloud.version}");
+		assertThat(project).mavenBuild()
+			.hasBom("com.solace.spring.cloud", "solace-spring-cloud-bom", "${solace-spring-cloud.version}");
 	}
 
 	@Test
@@ -69,8 +69,8 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
 		request.setBootVersion(platformVersion);
 		ProjectStructure project = generateProject(request);
-		assertThat(project).mavenBuild().hasProperty("solace-spring-cloud.version",
-				getBom("solace-spring-cloud", platformVersion).getVersion());
+		assertThat(project).mavenBuild()
+			.hasProperty("solace-spring-cloud.version", getBom("solace-spring-cloud", platformVersion).getVersion());
 	}
 
 	@Test
@@ -84,9 +84,9 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 
 	private void assertNoBinder(ProjectStructure project) {
 		assertThat(project).mavenBuild()
-				.doesNotHaveDependency("com.solace.spring.cloud", "spring-cloud-starter-stream-solace")
-				.doesNotHaveBom("com.solace.spring.cloud", "solace-spring-cloud-bom")
-				.doesNotHaveProperty("solace-spring-cloud.version");
+			.doesNotHaveDependency("com.solace.spring.cloud", "spring-cloud-starter-stream-solace")
+			.doesNotHaveBom("com.solace.spring.cloud", "solace-spring-cloud-bom")
+			.doesNotHaveProperty("solace-spring-cloud.version");
 	}
 
 }

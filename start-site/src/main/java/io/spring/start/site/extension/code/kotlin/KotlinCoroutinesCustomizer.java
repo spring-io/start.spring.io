@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,8 +48,9 @@ public class KotlinCoroutinesCustomizer {
 
 	public void customize(Build build) {
 		if (hasReactiveFacet(build)) {
-			build.dependencies().add("kotlinx-coroutines-reactor",
-					Dependency.withCoordinates("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor"));
+			build.dependencies()
+				.add("kotlinx-coroutines-reactor",
+						Dependency.withCoordinates("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor"));
 		}
 	}
 
@@ -62,8 +63,8 @@ public class KotlinCoroutinesCustomizer {
 			String href = String.format(
 					"https://docs.spring.io/spring/docs/%s/spring-framework-reference/languages.html#coroutines",
 					versionToUse);
-			document.gettingStarted().addReferenceDocLink(href,
-					"Coroutines section of the Spring Framework Documentation");
+			document.gettingStarted()
+				.addReferenceDocLink(href, "Coroutines section of the Spring Framework Documentation");
 		}
 	}
 

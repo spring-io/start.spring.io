@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,11 +41,12 @@ public class ObservabilityHelpDocumentCustomizer implements HelpDocumentCustomiz
 	@Override
 	public void customize(HelpDocument document) {
 		if (this.build.dependencies().has("distributed-tracing")) {
-			document.gettingStarted().addReferenceDocLink("https://micrometer.io/docs/tracing",
-					"Distributed Tracing Reference Guide");
-			document.gettingStarted().addReferenceDocLink(String.format(
-					"https://docs.spring.io/spring-boot/docs/%s/reference/html/actuator.html#actuator.micrometer-tracing.getting-started",
-					this.platformVersion), "Getting Started with Distributed Tracing");
+			document.gettingStarted()
+				.addReferenceDocLink("https://micrometer.io/docs/tracing", "Distributed Tracing Reference Guide");
+			document.gettingStarted()
+				.addReferenceDocLink(String.format(
+						"https://docs.spring.io/spring-boot/docs/%s/reference/html/actuator.html#actuator.micrometer-tracing.getting-started",
+						this.platformVersion), "Getting Started with Distributed Tracing");
 
 		}
 	}

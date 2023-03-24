@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,8 +52,9 @@ public class SpringCloudCircuitBreakerBuildCustomizer implements BuildCustomizer
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
 		if (dependencies.has("cloud-resilience4j") && this.buildResolver.hasFacet(build, "reactive")) {
-			build.dependencies().add("cloud-resilience4j-reactive", "org.springframework.cloud",
-					"spring-cloud-starter-circuitbreaker-reactor-resilience4j", DependencyScope.COMPILE);
+			build.dependencies()
+				.add("cloud-resilience4j-reactive", "org.springframework.cloud",
+						"spring-cloud-starter-circuitbreaker-reactor-resilience4j", DependencyScope.COMPILE);
 			removeBlockingCloudResilience4j(build);
 		}
 	}

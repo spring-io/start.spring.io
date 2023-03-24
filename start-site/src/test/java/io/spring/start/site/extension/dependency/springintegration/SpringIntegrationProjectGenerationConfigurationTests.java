@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,18 +43,19 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	void buildWithOnlySpringIntegration() {
 		Dependency integrationTest = integrationDependency("test");
 		integrationTest.setScope(Dependency.SCOPE_TEST);
-		assertThat(generateProject("integration")).mavenBuild().hasDependency(getDependency("integration"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(integrationTest);
+		assertThat(generateProject("integration")).mavenBuild()
+			.hasDependency(getDependency("integration"))
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(integrationTest);
 	}
 
 	@ParameterizedTest
 	@MethodSource("supportedEntries")
 	void buildWithSupportedEntries(String springBootDependencyId, String integrationModuleId) {
 		assertThat(generateProject("integration", springBootDependencyId)).mavenBuild()
-				.hasDependency(getDependency("integration"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(integrationDependency(integrationModuleId));
+			.hasDependency(getDependency("integration"))
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(integrationDependency(integrationModuleId));
 	}
 
 	static Stream<Arguments> supportedEntries() {
@@ -74,14 +75,14 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	@MethodSource("referenceLinks")
 	void linkToSupportedEntriesWhenSpringIntegrationIsPresentIsAdded(String dependencyId, String pageName) {
 		assertHelpDocument("integration", dependencyId)
-				.contains("https://docs.spring.io/spring-integration/reference/html/" + pageName + ".html");
+			.contains("https://docs.spring.io/spring-integration/reference/html/" + pageName + ".html");
 	}
 
 	@ParameterizedTest
 	@MethodSource("referenceLinks")
 	void linkToSupportedEntriesWhenSpringIntegrationIsNotPresentIsNotAdded(String dependencyId, String pageName) {
 		assertHelpDocument(dependencyId)
-				.doesNotContain("https://docs.spring.io/spring-integration/reference/html/" + pageName + ".html");
+			.doesNotContain("https://docs.spring.io/spring-integration/reference/html/" + pageName + ".html");
 	}
 
 	static Stream<Arguments> referenceLinks() {
@@ -100,7 +101,7 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	@Test
 	void linkToSupportedEntriesWhenTwoMatchesArePresentOnlyAddLinkOnce() {
 		assertHelpDocument("testcontainers", "data-mongodb", "data-mongodb-reactive")
-				.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
+			.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
 	}
 
 	private static Dependency integrationDependency(String id) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,8 +31,9 @@ class InvalidJvmVersionHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void warningAddedWithUnsupportedCombination() {
-		assertHelpDocument("2.4.0", "16").lines().containsSubsequence("# Read Me First",
-				"* The JVM level was changed from '16' to '11', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
+		assertHelpDocument("2.4.0", "16").lines()
+			.containsSubsequence("# Read Me First",
+					"* The JVM level was changed from '16' to '11', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
 	}
 
 	@Test

@@ -121,7 +121,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "sqlserver", "r2dbc-mssql");
 		assertThat(build.dependencies().get("r2dbc-mssql").getVersion())
-				.isEqualTo(VersionReference.ofValue("1.0.0.RELEASE"));
+			.isEqualTo(VersionReference.ofValue("1.0.0.RELEASE"));
 	}
 
 	@Test

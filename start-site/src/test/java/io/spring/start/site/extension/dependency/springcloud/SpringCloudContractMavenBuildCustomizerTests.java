@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,9 +36,9 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("cloud-contract-verifier"))
-				.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud")
-				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
-				.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
+			.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud")
+			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
 	}
 
 	@Test
@@ -52,16 +52,16 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		projectRequest.setBootVersion("2.4.0");
 		assertThat(mavenPom(projectRequest))
-				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
-				.hasText("/project/build/plugins/plugin[1]/configuration/testFramework", "JUNIT5");
+			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[1]/configuration/testFramework", "JUNIT5");
 	}
 
 	@Test
 	void springCloudContractVerifierPluginWithTestModeSetWhenWebFluxIsPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
 		assertThat(mavenPom(projectRequest))
-				.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
-				.hasText("/project/build/plugins/plugin[1]/configuration/testMode", "WEBTESTCLIENT");
+			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[1]/configuration/testMode", "WEBTESTCLIENT");
 	}
 
 	@Test

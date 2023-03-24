@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,25 +34,25 @@ class SpringSecurityRSocketBuildCustomizerTests extends AbstractExtensionTests {
 	void securityRSocketIsAddedWithSecurityAndRSocket() {
 		ProjectRequest request = createProjectRequest("security", "rsocket");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("security"))
-				.hasDependency(Dependency.createSpringBootStarter("rsocket"))
-				.hasDependency("org.springframework.security", "spring-security-messaging")
-				.hasDependency("org.springframework.security", "spring-security-rsocket");
+			.hasDependency(Dependency.createSpringBootStarter("rsocket"))
+			.hasDependency("org.springframework.security", "spring-security-messaging")
+			.hasDependency("org.springframework.security", "spring-security-rsocket");
 	}
 
 	@Test
 	void securityRSocketIsNotAddedWithRSocketOnly() {
 		ProjectRequest request = createProjectRequest("rsocket");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("rsocket"))
-				.doesNotHaveDependency("org.springframework.security", "spring-security-messaging")
-				.doesNotHaveDependency("org.springframework.security", "spring-security-rsocket");
+			.doesNotHaveDependency("org.springframework.security", "spring-security-messaging")
+			.doesNotHaveDependency("org.springframework.security", "spring-security-rsocket");
 	}
 
 	@Test
 	void securityRSocketIsNotAddedWithSecurityOnly() {
 		ProjectRequest request = createProjectRequest("security");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("security"))
-				.doesNotHaveDependency("org.springframework.security", "spring-security-messaging")
-				.doesNotHaveDependency("org.springframework.security", "spring-security-rsocket");
+			.doesNotHaveDependency("org.springframework.security", "spring-security-messaging")
+			.doesNotHaveDependency("org.springframework.security", "spring-security-rsocket");
 	}
 
 }

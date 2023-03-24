@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,9 +49,10 @@ class SpringGraphQlBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("webflux", "graphql");
 		request.setBootVersion("2.7.0-SNAPSHOT");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webflux"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(this.graphQlTest).doesNotHaveDependency("org.springframework", "spring-webflux")
-				.hasDependenciesSize(5);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(this.graphQlTest)
+			.doesNotHaveDependency("org.springframework", "spring-webflux")
+			.hasDependenciesSize(5);
 	}
 
 	@Test
@@ -59,8 +60,10 @@ class SpringGraphQlBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("web", "graphql");
 		request.setBootVersion("2.7.0-SNAPSHOT");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(this.graphQlTest).hasDependency(this.webFlux).hasDependenciesSize(5);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(this.graphQlTest)
+			.hasDependency(this.webFlux)
+			.hasDependenciesSize(5);
 	}
 
 }

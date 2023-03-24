@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,8 +49,8 @@ class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	@Override
 	public void customize(HelpDocument document) {
-		document.gettingStarted().addReferenceDocLink("https://maven.apache.org/guides/index.html",
-				"Official Apache Maven documentation");
+		document.gettingStarted()
+			.addReferenceDocLink("https://maven.apache.org/guides/index.html", "Official Apache Maven documentation");
 		String referenceGuideUrl = generateReferenceGuideUrl();
 		document.gettingStarted().addReferenceDocLink(referenceGuideUrl, "Spring Boot Maven Plugin Reference Guide");
 		if (this.springBoot23) {

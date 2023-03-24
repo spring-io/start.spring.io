@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,16 +38,16 @@ class PicocliCodegenBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("picocli", "native");
 		request.setBootVersion(SPRING_BOOT_3_VERSION.toString());
 		assertThat(mavenPom(request)).hasDependency(getPicocli(SPRING_BOOT_3_VERSION))
-				.hasDependency(getPicocliCodegen(SPRING_BOOT_3_VERSION))
-				.hasText("/project/dependencies/dependency[2]/optional", "true");
+			.hasDependency(getPicocliCodegen(SPRING_BOOT_3_VERSION))
+			.hasText("/project/dependencies/dependency[2]/optional", "true");
 	}
 
 	@Test
 	void picocliCodegenIsNotAddedAsMavenDependencyIfNativeNotSelected() {
 		ProjectRequest request = createProjectRequest("picocli");
 		request.setBootVersion(SPRING_BOOT_3_VERSION.toString());
-		assertThat(mavenPom(request)).hasDependency(getDependency("picocli")).doesNotHaveDependency("info.picocli",
-				"picocli-codegen");
+		assertThat(mavenPom(request)).hasDependency(getDependency("picocli"))
+			.doesNotHaveDependency("info.picocli", "picocli-codegen");
 	}
 
 	@Test

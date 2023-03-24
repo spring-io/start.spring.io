@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,9 @@ public class ThymeleafBuildCustomizer implements BuildCustomizer<Build> {
 		if (build.dependencies().has("security")) {
 			String artifactId = (this.springBoot3OrAbove) ? "thymeleaf-extras-springsecurity6"
 					: "thymeleaf-extras-springsecurity5";
-			build.dependencies().add("thymeleaf-extras-spring-security",
-					Dependency.withCoordinates("org.thymeleaf.extras", artifactId));
+			build.dependencies()
+				.add("thymeleaf-extras-spring-security",
+						Dependency.withCoordinates("org.thymeleaf.extras", artifactId));
 		}
 	}
 

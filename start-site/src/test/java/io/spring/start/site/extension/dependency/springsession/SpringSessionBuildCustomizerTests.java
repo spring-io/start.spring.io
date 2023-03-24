@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,50 +40,55 @@ class SpringSessionBuildCustomizerTests extends AbstractExtensionTests {
 	void noSessionWithRedis() {
 		ProjectRequest request = createProjectRequest("data-redis");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(2);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependenciesSize(2);
 	}
 
 	@Test
 	void sessionWithNoStore() {
 		ProjectRequest request = createProjectRequest("session", "data-jpa");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.session", "spring-session-core")
-				.hasDependency(Dependency.createSpringBootStarter("data-jpa"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(3);
+			.hasDependency(Dependency.createSpringBootStarter("data-jpa"))
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependenciesSize(3);
 	}
 
 	@Test
 	void sessionWithRedis() {
 		ProjectRequest request = createProjectRequest("session", "data-redis");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
-				.hasDependenciesSize(3);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(REDIS)
+			.hasDependenciesSize(3);
 	}
 
 	@Test
 	void sessionWithRedisReactive() {
 		ProjectRequest request = createProjectRequest("session", "data-redis-reactive");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis-reactive"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
-				.hasDependenciesSize(4); // TODO: side effect of `reactor-test`
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(REDIS)
+			.hasDependenciesSize(4); // TODO: side effect of `reactor-test`
 	}
 
 	@Test
 	void sessionWithJdbc() {
 		ProjectRequest request = createProjectRequest("session", "jdbc");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("jdbc"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(JDBC)
-				.hasDependenciesSize(3);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(JDBC)
+			.hasDependenciesSize(3);
 	}
 
 	@Test
 	void sessionWithRedisAndJdbc() {
 		ProjectRequest request = createProjectRequest("session", "data-redis", "jdbc");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("data-redis"))
-				.hasDependency(Dependency.createSpringBootStarter("jdbc"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST)).hasDependency(REDIS)
-				.hasDependency(JDBC).hasDependenciesSize(5);
+			.hasDependency(Dependency.createSpringBootStarter("jdbc"))
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(REDIS)
+			.hasDependency(JDBC)
+			.hasDependenciesSize(5);
 	}
 
 }

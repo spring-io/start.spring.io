@@ -60,7 +60,8 @@ class StartInitializrMetadataUpdateStrategyTests {
 	@Test
 	void eolVersionsAreRemoved() {
 		InitializrMetadata metadata = new InitializrMetadataTestBuilder().addBootVersion("0.0.9.RELEASE", true)
-				.addBootVersion("0.0.8.RELEASE", false).build();
+			.addBootVersion("0.0.8.RELEASE", false)
+			.build();
 		assertThat(metadata.getBootVersions().getDefault().getId()).isEqualTo("0.0.9.RELEASE");
 		StartInitializrMetadataUpdateStrategy provider = new StartInitializrMetadataUpdateStrategy(this.restTemplate,
 				objectMapper);
@@ -92,8 +93,9 @@ class StartInitializrMetadataUpdateStrategyTests {
 	private void expectJson(String url, String bodyPath) {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-		this.mockServer.expect(requestTo(url)).andExpect(method(HttpMethod.GET))
-				.andRespond(withStatus(HttpStatus.OK).body(new ClassPathResource(bodyPath)).headers(httpHeaders));
+		this.mockServer.expect(requestTo(url))
+			.andExpect(method(HttpMethod.GET))
+			.andRespond(withStatus(HttpStatus.OK).body(new ClassPathResource(bodyPath)).headers(httpHeaders));
 	}
 
 }

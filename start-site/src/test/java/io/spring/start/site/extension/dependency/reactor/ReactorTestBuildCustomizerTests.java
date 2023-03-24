@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +37,9 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 		Dependency reactorTest = Dependency.withId("reactor-test", "io.projectreactor", "reactor-test");
 		reactorTest.setScope(Dependency.SCOPE_TEST);
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webflux"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(reactorTest).hasDependenciesSize(3);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(reactorTest)
+			.hasDependenciesSize(3);
 	}
 
 	@Test
@@ -46,8 +47,8 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.5.0");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(2);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependenciesSize(2);
 	}
 
 }

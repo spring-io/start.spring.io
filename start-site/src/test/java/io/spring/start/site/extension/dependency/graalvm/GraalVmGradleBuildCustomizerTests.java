@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,17 +39,23 @@ abstract class GraalVmGradleBuildCustomizerTests {
 		GraalVmGradleBuildCustomizer customizer = createCustomizer("3.0.0-RC1");
 		GradleBuild build = createBuild();
 		customizer.customize(build);
-		GradlePlugin nbtPlugin = build.plugins().values()
-				.filter((plugin) -> plugin.getId().equals("org.graalvm.buildtools.native")).findAny().orElse(null);
+		GradlePlugin nbtPlugin = build.plugins()
+			.values()
+			.filter((plugin) -> plugin.getId().equals("org.graalvm.buildtools.native"))
+			.findAny()
+			.orElse(null);
 		assertThat(nbtPlugin).isNotNull();
 		assertThat(nbtPlugin).isInstanceOf(StandardGradlePlugin.class)
-				.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.16"));
+			.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.16"));
 	}
 
 	protected GradleBuild createBuild() {
 		GradleBuild build = new GradleBuild();
-		build.dependencies().add("native", Dependency.withCoordinates("com.example", "native")
-				.version(VersionReference.ofProperty("native.version")).build());
+		build.dependencies()
+			.add("native",
+					Dependency.withCoordinates("com.example", "native")
+						.version(VersionReference.ofProperty("native.version"))
+						.build());
 		return build;
 	}
 

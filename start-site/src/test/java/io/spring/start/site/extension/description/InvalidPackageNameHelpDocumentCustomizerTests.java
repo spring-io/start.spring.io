@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,8 +31,9 @@ class InvalidPackageNameHelpDocumentCustomizerTests extends AbstractExtensionTes
 
 	@Test
 	void warningAddedWithInvalidPackageName() {
-		assertHelpDocument("com.my-invalid-package").lines().containsSubsequence("# Read Me First",
-				"* The original package name 'com.my-invalid-package' is invalid and this project uses 'com.myinvalidpackage' instead.");
+		assertHelpDocument("com.my-invalid-package").lines()
+			.containsSubsequence("# Read Me First",
+					"* The original package name 'com.my-invalid-package' is invalid and this project uses 'com.myinvalidpackage' instead.");
 	}
 
 	@Test

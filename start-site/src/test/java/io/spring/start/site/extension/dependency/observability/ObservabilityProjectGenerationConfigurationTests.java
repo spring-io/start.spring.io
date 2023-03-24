@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,20 +32,21 @@ class ObservabilityProjectGenerationConfigurationTests extends AbstractExtension
 
 	@Test
 	void zipkinAddsDistributedTracingIfNecessary() {
-		assertThat(generateProject("3.0.0", "zipkin")).mavenBuild().hasDependency(getDependency("zipkin"))
-				.hasDependency(getDependency("distributed-tracing"));
+		assertThat(generateProject("3.0.0", "zipkin")).mavenBuild()
+			.hasDependency(getDependency("zipkin"))
+			.hasDependency(getDependency("distributed-tracing"));
 	}
 
 	@Test
 	void wavefrontDoesNotAddDistributedTracingByDefault() {
-		assertThat(generateProject("3.0.0", "wavefront")).mavenBuild().doesNotHaveDependency("io.micrometer",
-				"micrometer-tracing-reporter-wavefront");
+		assertThat(generateProject("3.0.0", "wavefront")).mavenBuild()
+			.doesNotHaveDependency("io.micrometer", "micrometer-tracing-reporter-wavefront");
 	}
 
 	@Test
 	void wavefrontWithDistributedTracingConfigureReport() {
 		assertThat(generateProject("3.0.0", "wavefront", "distributed-tracing")).mavenBuild()
-				.hasDependency("io.micrometer", "micrometer-tracing-reporter-wavefront", null, "runtime");
+			.hasDependency("io.micrometer", "micrometer-tracing-reporter-wavefront", null, "runtime");
 	}
 
 	private ProjectStructure generateProject(String bootVersion, String... dependencies) {

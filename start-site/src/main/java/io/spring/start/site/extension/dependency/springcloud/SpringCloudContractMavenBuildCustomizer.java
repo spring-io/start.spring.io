@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,11 +38,15 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 	private static final Log logger = LogFactory.getLog(SpringCloudContractMavenBuildCustomizer.class);
 
 	private static final MavenRepository SPRING_MILESTONES = MavenRepository
-			.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone").name("Spring Milestones").build();
+		.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone")
+		.name("Spring Milestones")
+		.build();
 
 	private static final MavenRepository SPRING_SNAPSHOTS = MavenRepository
-			.withIdAndUrl("spring-snapshots", "https://repo.spring.io/snapshot").name("Spring Snapshots")
-			.snapshotsEnabled(true).build();
+		.withIdAndUrl("spring-snapshots", "https://repo.spring.io/snapshot")
+		.name("Spring Snapshots")
+		.snapshotsEnabled(true)
+		.build();
 
 	private final ProjectDescription description;
 
@@ -70,8 +74,9 @@ class SpringCloudContractMavenBuildCustomizer implements BuildCustomizer<MavenBu
 			plugin.configuration((builder) -> builder.add("testFramework", "JUNIT5"));
 			if (mavenBuild.dependencies().has("webflux")) {
 				plugin.configuration((builder) -> builder.add("testMode", "WEBTESTCLIENT"));
-				mavenBuild.dependencies().add("rest-assured-spring-web-test-client",
-						Dependency.withCoordinates("io.rest-assured", "spring-web-test-client")
+				mavenBuild.dependencies()
+					.add("rest-assured-spring-web-test-client",
+							Dependency.withCoordinates("io.rest-assured", "spring-web-test-client")
 								.scope(DependencyScope.TEST_COMPILE));
 			}
 		});

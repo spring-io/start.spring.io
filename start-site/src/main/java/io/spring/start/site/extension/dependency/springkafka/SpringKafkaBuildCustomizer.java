@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,9 @@ public class SpringKafkaBuildCustomizer implements BuildCustomizer<Build> {
 	@Override
 	public void customize(Build build) {
 		if (build.dependencies().has("kafka")) {
-			build.dependencies().add("spring-kafka-test",
-					Dependency.withCoordinates("org.springframework.kafka", "spring-kafka-test")
-							.scope(DependencyScope.TEST_COMPILE));
+			build.dependencies()
+				.add("spring-kafka-test", Dependency.withCoordinates("org.springframework.kafka", "spring-kafka-test")
+					.scope(DependencyScope.TEST_COMPILE));
 		}
 	}
 

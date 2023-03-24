@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ class ImplicitDependencyBuildCustomizerTests {
 	void customizerWithMatchingBuildIsInvoked() {
 		Consumer<Build> buildCustomizer = mockBuildCustomizer();
 		List<ImplicitDependency> dependencies = Collections
-				.singletonList(new Builder().matchAnyDependencyIds("test").customizeBuild(buildCustomizer).build());
+			.singletonList(new Builder().matchAnyDependencyIds("test").customizeBuild(buildCustomizer).build());
 		Build build = new MavenBuild();
 		build.dependencies().add("test", mock(Dependency.class));
 		new ImplicitDependencyBuildCustomizer(dependencies).customize(build);
@@ -52,7 +52,7 @@ class ImplicitDependencyBuildCustomizerTests {
 	void customizerWithNonMatchingBuildIsNotInvoked() {
 		Consumer<Build> buildCustomizer = mockBuildCustomizer();
 		List<ImplicitDependency> dependencies = Collections
-				.singletonList(new Builder().matchAnyDependencyIds("test").customizeBuild(buildCustomizer).build());
+			.singletonList(new Builder().matchAnyDependencyIds("test").customizeBuild(buildCustomizer).build());
 		Build build = new MavenBuild();
 		build.dependencies().add("another", mock(Dependency.class));
 		new ImplicitDependencyBuildCustomizer(dependencies).customize(build);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,8 @@ class ManagedDependenciesDependencyManagementPluginVersionResolverTests {
 		description.setPlatformVersion(Version.parse("2.1.8.RELEASE"));
 		Function<ProjectDescription, String> fallback = mock(Function.class);
 		String version = new ManagedDependenciesDependencyManagementPluginVersionResolver(
-				dependencyManagementVersionResolver, fallback).resolveDependencyManagementPluginVersion(description);
+				dependencyManagementVersionResolver, fallback)
+			.resolveDependencyManagementPluginVersion(description);
 		assertThat(version).isEqualTo("1.0.8.RELEASE");
 		verifyNoInteractions(fallback);
 	}
@@ -67,7 +68,8 @@ class ManagedDependenciesDependencyManagementPluginVersionResolverTests {
 		Function<ProjectDescription, String> fallback = mock(Function.class);
 		given(fallback.apply(description)).willReturn("1.0.0.RELEASE");
 		String version = new ManagedDependenciesDependencyManagementPluginVersionResolver(
-				dependencyManagementVersionResolver, fallback).resolveDependencyManagementPluginVersion(description);
+				dependencyManagementVersionResolver, fallback)
+			.resolveDependencyManagementPluginVersion(description);
 		assertThat(version).isEqualTo("1.0.0.RELEASE");
 		verify(fallback).apply(description);
 	}

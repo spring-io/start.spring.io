@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,8 +55,9 @@ class SolaceBinderBuildCustomizer implements BuildCustomizer<Build> {
 		if (this.bom != null) {
 			build.properties().version(this.bom.getVersionProperty(), this.bom.getVersion());
 			build.boms().add(BOM_ID);
-			build.dependencies().add("solace-binder",
-					Dependency.withCoordinates("com.solace.spring.cloud", "spring-cloud-starter-stream-solace"));
+			build.dependencies()
+				.add("solace-binder",
+						Dependency.withCoordinates("com.solace.spring.cloud", "spring-cloud-starter-stream-solace"));
 			// The low-level API is likely not going to be used in such arrangement
 			build.dependencies().remove("solace");
 		}

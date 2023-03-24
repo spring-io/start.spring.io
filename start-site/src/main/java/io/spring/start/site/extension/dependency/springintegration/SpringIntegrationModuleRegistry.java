@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,38 +38,38 @@ abstract class SpringIntegrationModuleRegistry {
 	static Iterable<ImplicitDependency> create() {
 		return create(
 				onDependencies("activemq", "artemis").customizeBuild(addDependency("jms"))
-						.customizeHelpDocument(addReferenceLink("JMS Module", "jms")),
+					.customizeHelpDocument(addReferenceLink("JMS Module", "jms")),
 				onDependencies("amqp").customizeBuild(addDependency("amqp"))
-						.customizeHelpDocument(addReferenceLink("AMQP Module", "amqp")),
+					.customizeHelpDocument(addReferenceLink("AMQP Module", "amqp")),
 				onDependencies("data-jdbc", "jdbc").customizeBuild(addDependency("jdbc"))
-						.customizeHelpDocument(addReferenceLink("JDBC Module", "jdbc")),
+					.customizeHelpDocument(addReferenceLink("JDBC Module", "jdbc")),
 				onDependencies("data-jpa").customizeBuild(addDependency("jpa"))
-						.customizeHelpDocument(addReferenceLink("JPA Module", "jpa")),
+					.customizeHelpDocument(addReferenceLink("JPA Module", "jpa")),
 				onDependencies("data-mongodb", "data-mongodb-reactive").customizeBuild(addDependency("mongodb"))
-						.customizeHelpDocument(addReferenceLink("MongoDB Module", "mongodb")),
+					.customizeHelpDocument(addReferenceLink("MongoDB Module", "mongodb")),
 				onDependencies("data-r2dbc").customizeBuild(addDependency("r2dbc"))
-						.customizeHelpDocument(addReferenceLink("R2DBC Module", "r2dbc")),
+					.customizeHelpDocument(addReferenceLink("R2DBC Module", "r2dbc")),
 				onDependencies("data-redis", "data-redis-reactive").customizeBuild(addDependency("redis"))
-						.customizeHelpDocument(addReferenceLink("Redis Module", "redis")),
+					.customizeHelpDocument(addReferenceLink("Redis Module", "redis")),
 				onDependencies("integration").customizeBuild(addDependency("test", DependencyScope.TEST_COMPILE))
-						.customizeHelpDocument(addReferenceLink("Test Module", "testing")),
+					.customizeHelpDocument(addReferenceLink("Test Module", "testing")),
 				onDependencies("kafka", "kafka-streams").customizeBuild(addDependency("kafka"))
-						.customizeHelpDocument(addReferenceLink("Apache Kafka Module", "kafka")),
+					.customizeHelpDocument(addReferenceLink("Apache Kafka Module", "kafka")),
 				onDependencies("mail").customizeBuild(addDependency("mail"))
-						.customizeHelpDocument(addReferenceLink("Mail Module", "mail")),
+					.customizeHelpDocument(addReferenceLink("Mail Module", "mail")),
 				onDependencies("rsocket").customizeBuild(addDependency("rsocket"))
-						.customizeHelpDocument(addReferenceLink("RSocket Module", "rsocket")),
+					.customizeHelpDocument(addReferenceLink("RSocket Module", "rsocket")),
 				onDependencies("security").customizeBuild(addDependency("security"))
-						.customizeHelpDocument(addReferenceLink("Security Module", "security")),
+					.customizeHelpDocument(addReferenceLink("Security Module", "security")),
 				onDependencies("web").customizeBuild(addDependency("http"))
-						.customizeHelpDocument(addReferenceLink("HTTP Module", "http")),
+					.customizeHelpDocument(addReferenceLink("HTTP Module", "http")),
 				onDependencies("webflux").customizeBuild(addDependency("webflux"))
-						.customizeHelpDocument(addReferenceLink("WebFlux Module", "webflux")),
+					.customizeHelpDocument(addReferenceLink("WebFlux Module", "webflux")),
 				onDependencies("websocket").customizeBuild(addDependency("stomp").andThen(addDependency("websocket")))
-						.customizeHelpDocument(addReferenceLink("STOMP Module", "stomp")
-								.andThen(addReferenceLink("WebSocket Module", "web-sockets"))),
+					.customizeHelpDocument(addReferenceLink("STOMP Module", "stomp")
+						.andThen(addReferenceLink("WebSocket Module", "web-sockets"))),
 				onDependencies("web-services").customizeBuild(addDependency("ws"))
-						.customizeHelpDocument(addReferenceLink("Web Services Module", "ws")));
+					.customizeHelpDocument(addReferenceLink("Web Services Module", "ws")));
 	}
 
 	private static Iterable<ImplicitDependency> create(ImplicitDependency.Builder... dependencies) {
@@ -85,8 +85,10 @@ abstract class SpringIntegrationModuleRegistry {
 	}
 
 	private static Consumer<Build> addDependency(String id, DependencyScope scope) {
-		return (build) -> build.dependencies().add("integration-" + id,
-				Dependency.withCoordinates("org.springframework.integration", "spring-integration-" + id).scope(scope));
+		return (build) -> build.dependencies()
+			.add("integration-" + id,
+					Dependency.withCoordinates("org.springframework.integration", "spring-integration-" + id)
+						.scope(scope));
 	}
 
 	private static Consumer<HelpDocument> addReferenceLink(String name, String id) {

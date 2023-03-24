@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,15 +37,16 @@ class SpringKafkaBuildCustomizerTests extends AbstractExtensionTests {
 		Dependency kafkaTest = Dependency.withId("spring-kafka-test", "org.springframework.kafka", "spring-kafka-test",
 				null, Dependency.SCOPE_TEST);
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(kafkaTest).hasDependenciesSize(4);
+			.hasDependency(kafkaTest)
+			.hasDependenciesSize(4);
 	}
 
 	@Test
 	void springKafkaTestIsNotAddedWithoutKafka() {
 		ProjectRequest request = createProjectRequest("web");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependenciesSize(2);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependenciesSize(2);
 	}
 
 }

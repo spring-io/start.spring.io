@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,9 +55,9 @@ class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
 	@Override
 	public void customize(HelpDocument document) {
 		document.gettingStarted()
-				.addReferenceDocLink(String.format(
-						"https://docs.spring.io/spring-boot/docs/%s/reference/html/native-image.html#native-image",
-						this.platformVersion), "GraalVM Native Image Support");
+			.addReferenceDocLink(String.format(
+					"https://docs.spring.io/spring-boot/docs/%s/reference/html/native-image.html#native-image",
+					this.platformVersion), "GraalVM Native Image Support");
 		boolean mavenBuild = this.build instanceof MavenBuild;
 		String url = String.format("https://docs.spring.io/spring-boot/docs/%s/%s/reference/htmlsingle/#aot",
 				this.platformVersion, (mavenBuild) ? "maven-plugin" : "gradle-plugin");
@@ -89,8 +89,10 @@ class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
 	}
 
 	private Stream<Dependency> buildDependencies() {
-		return this.build.dependencies().ids().map((id) -> this.metadata.getDependencies().get(id))
-				.filter(Objects::nonNull);
+		return this.build.dependencies()
+			.ids()
+			.map((id) -> this.metadata.getDependencies().get(id))
+			.filter(Objects::nonNull);
 	}
 
 }

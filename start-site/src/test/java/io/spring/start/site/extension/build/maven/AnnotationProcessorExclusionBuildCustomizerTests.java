@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,19 +27,20 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class AnnotationProcessorExclusionBuildCustomizerTest extends AbstractExtensionTests {
+class AnnotationProcessorExclusionBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void annotationProcessorsAreExcludedWithoutMetadata() {
 		ProjectRequest request = createProjectRequest("lombok", "configuration-processor");
 		request.setBootVersion("2.3.0.RELEASE");
-		assertThat(mavenPom(request)).lines().containsSequence("					<excludes>",
-				"						<exclude>", "							<groupId>org.projectlombok</groupId>",
-				"							<artifactId>lombok</artifactId>", "						</exclude>",
-				"						<exclude>",
-				"							<groupId>org.springframework.boot</groupId>",
-				"							<artifactId>spring-boot-configuration-processor</artifactId>",
-				"						</exclude>", "					</excludes>");
+		assertThat(mavenPom(request)).lines()
+			.containsSequence("					<excludes>", "						<exclude>",
+					"							<groupId>org.projectlombok</groupId>",
+					"							<artifactId>lombok</artifactId>", "						</exclude>",
+					"						<exclude>",
+					"							<groupId>org.springframework.boot</groupId>",
+					"							<artifactId>spring-boot-configuration-processor</artifactId>",
+					"						</exclude>", "					</excludes>");
 
 	}
 
@@ -47,10 +48,11 @@ class AnnotationProcessorExclusionBuildCustomizerTest extends AbstractExtensionT
 	void annotationProcessorsAreExcludedOnlyIfTheyAreNotHandledWithMetadata() {
 		ProjectRequest request = createProjectRequest("lombok", "configuration-processor");
 		request.setBootVersion("2.4.0");
-		assertThat(mavenPom(request)).lines().containsSequence("					<excludes>",
-				"						<exclude>", "							<groupId>org.projectlombok</groupId>",
-				"							<artifactId>lombok</artifactId>", "						</exclude>",
-				"					</excludes>");
+		assertThat(mavenPom(request)).lines()
+			.containsSequence("					<excludes>", "						<exclude>",
+					"							<groupId>org.projectlombok</groupId>",
+					"							<artifactId>lombok</artifactId>", "						</exclude>",
+					"					</excludes>");
 
 	}
 
@@ -58,10 +60,11 @@ class AnnotationProcessorExclusionBuildCustomizerTest extends AbstractExtensionT
 	void nonAnnotationProcessorsAreIgnored() {
 		ProjectRequest request = createProjectRequest("web");
 		request.setBootVersion("2.4.0");
-		assertThat(mavenPom(request)).lines().doesNotContainSequence("						<exclude>",
-				"							<groupId>org.springframework.boot</groupId>",
-				"							<artifactId>spring-boot-starter-web</artifactId>",
-				"						</exclude>");
+		assertThat(mavenPom(request)).lines()
+			.doesNotContainSequence("						<exclude>",
+					"							<groupId>org.springframework.boot</groupId>",
+					"							<artifactId>spring-boot-starter-web</artifactId>",
+					"						</exclude>");
 
 	}
 

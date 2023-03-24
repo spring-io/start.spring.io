@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,9 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 			build.dependencies().add("distributed-tracing");
 		}
 		if (build.dependencies().has("wavefront") && build.dependencies().has("distributed-tracing")) {
-			build.dependencies().add("wavefront-tracing-reporter",
-					Dependency.withCoordinates("io.micrometer", "micrometer-tracing-reporter-wavefront")
+			build.dependencies()
+				.add("wavefront-tracing-reporter",
+						Dependency.withCoordinates("io.micrometer", "micrometer-tracing-reporter-wavefront")
 							.scope(DependencyScope.RUNTIME));
 		}
 	}

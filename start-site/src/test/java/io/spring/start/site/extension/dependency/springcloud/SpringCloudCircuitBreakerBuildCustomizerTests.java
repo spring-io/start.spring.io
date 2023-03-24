@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,10 +38,10 @@ class SpringCloudCircuitBreakerBuildCustomizerTests extends AbstractExtensionTes
 		ProjectRequest request = createProjectRequest("webflux", "cloud-resilience4j");
 		request.setBootVersion("2.5.0");
 		assertThat(mavenPom(request)).hasDependency(getDependency("webflux"))
-				.hasDependency(REACTIVE_CLOUD_CIRCUIT_BREAKER)
-				.doesNotHaveDependency("org.springframework.cloud", "spring-cloud-starter-circuitbreaker-resilience4j")
-				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
-				.hasBomsSize(1);
+			.hasDependency(REACTIVE_CLOUD_CIRCUIT_BREAKER)
+			.doesNotHaveDependency("org.springframework.cloud", "spring-cloud-starter-circuitbreaker-resilience4j")
+			.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
+			.hasBomsSize(1);
 	}
 
 	@Test
@@ -49,10 +49,10 @@ class SpringCloudCircuitBreakerBuildCustomizerTests extends AbstractExtensionTes
 		ProjectRequest request = createProjectRequest("cloud-resilience4j");
 		request.setBootVersion("2.5.0");
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-resilience4j"))
-				.doesNotHaveDependency("org.springframework.cloud",
-						"spring-cloud-starter-circuitbreaker-reactor-resilience4j")
-				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
-				.hasBomsSize(1);
+			.doesNotHaveDependency("org.springframework.cloud",
+					"spring-cloud-starter-circuitbreaker-reactor-resilience4j")
+			.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
+			.hasBomsSize(1);
 	}
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,8 @@ class StartApplicationIntegrationTests {
 	@Test
 	void metadataCanBeSerialized() throws URISyntaxException, IOException {
 		RequestEntity<Void> request = RequestEntity.get(new URI("/"))
-				.accept(MediaType.parseMediaType("application/vnd.initializr.v2.1+json")).build();
+			.accept(MediaType.parseMediaType("application/vnd.initializr.v2.1+json"))
+			.build();
 		ResponseEntity<String> response = this.restTemplate.exchange(request, String.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		new ObjectMapper().readTree(response.getBody());
@@ -65,17 +66,19 @@ class StartApplicationIntegrationTests {
 
 	@Test
 	void configurationCanBeSerialized() throws URISyntaxException {
-		RequestEntity<Void> request = RequestEntity.get(new URI("/metadata/config")).accept(MediaType.APPLICATION_JSON)
-				.build();
+		RequestEntity<Void> request = RequestEntity.get(new URI("/metadata/config"))
+			.accept(MediaType.APPLICATION_JSON)
+			.build();
 		ResponseEntity<String> response = this.restTemplate.exchange(request, String.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		InitializrMetadata actual = InitializrMetadataBuilder.create()
-				.withInitializrMetadata(new ByteArrayResource(response.getBody().getBytes())).build();
+			.withInitializrMetadata(new ByteArrayResource(response.getBody().getBytes()))
+			.build();
 		assertThat(actual).isNotNull();
 		InitializrMetadata expected = this.metadataProvider.get();
 		assertThat(actual.getDependencies().getAll().size()).isEqualTo(expected.getDependencies().getAll().size());
 		assertThat(actual.getConfiguration().getEnv().getBoms().size())
-				.isEqualTo(expected.getConfiguration().getEnv().getBoms().size());
+			.isEqualTo(expected.getConfiguration().getEnv().getBoms().size());
 	}
 
 }

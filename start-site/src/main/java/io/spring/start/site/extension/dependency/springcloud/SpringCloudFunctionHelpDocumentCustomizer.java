@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,8 +65,10 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 
 	@Override
 	public void customize(HelpDocument helpDocument) {
-		this.buildDependencies.stream().filter((dependencyId) -> dependencyId.equals("cloud-function")).findAny()
-				.ifPresent((dependency) -> addBuildSetupInfo(helpDocument));
+		this.buildDependencies.stream()
+			.filter((dependencyId) -> dependencyId.equals("cloud-function"))
+			.findAny()
+			.ifPresent((dependency) -> addBuildSetupInfo(helpDocument));
 	}
 
 	private void addBuildSetupInfo(HelpDocument helpDocument) {
@@ -85,13 +87,16 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 		}
 		String buildSystemId = this.description.getBuildSystem().id();
 		Map<Boolean, List<CloudPlatform>> platformsByBuildSystemSupport = cloudPlatformsFromDependencies().stream()
-				.collect(Collectors.partitioningBy(
-						(cloudPlatform) -> cloudPlatform.getSupportedBuildSystems().contains(buildSystemId)));
-		platformsByBuildSystemSupport.get(true).forEach((cloudPlatform) -> helpDocument.nextSteps().addSection(
-				getSection(springCloudFunctionVersion, buildSystemId, cloudPlatform, getTemplateName(cloudPlatform))));
+			.collect(Collectors
+				.partitioningBy((cloudPlatform) -> cloudPlatform.getSupportedBuildSystems().contains(buildSystemId)));
+		platformsByBuildSystemSupport.get(true)
+			.forEach((cloudPlatform) -> helpDocument.nextSteps()
+				.addSection(getSection(springCloudFunctionVersion, buildSystemId, cloudPlatform,
+						getTemplateName(cloudPlatform))));
 		platformsByBuildSystemSupport.get(false)
-				.forEach((cloudPlatform) -> helpDocument.nextSteps().addSection(getSection(springCloudFunctionVersion,
-						buildSystemId, cloudPlatform, "spring-cloud-function-build-setup-missing")));
+			.forEach((cloudPlatform) -> helpDocument.nextSteps()
+				.addSection(getSection(springCloudFunctionVersion, buildSystemId, cloudPlatform,
+						"spring-cloud-function-build-setup-missing")));
 	}
 
 	private boolean isSnapshot(String springCloudFunctionVersion) {
@@ -100,9 +105,9 @@ class SpringCloudFunctionHelpDocumentCustomizer implements HelpDocumentCustomize
 
 	private Set<CloudPlatform> cloudPlatformsFromDependencies() {
 		return new HashSet<>(Arrays.stream(CloudPlatform.values())
-				.collect(Collectors.partitioningBy(
-						(cloudPlatform) -> this.buildDependencies.contains(cloudPlatform.getDependencyId())))
-				.get(true));
+			.collect(Collectors
+				.partitioningBy((cloudPlatform) -> this.buildDependencies.contains(cloudPlatform.getDependencyId())))
+			.get(true));
 	}
 
 	private MustacheSection getSection(String version, String buildSystemId, CloudPlatform cloudPlatform,

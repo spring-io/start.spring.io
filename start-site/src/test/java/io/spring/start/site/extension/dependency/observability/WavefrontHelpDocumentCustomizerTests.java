@@ -41,19 +41,19 @@ class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void wavefrontWithoutWebApplicationDoesNotAddActuatorSection() {
 		assertHelpDocument("2.7.5", "wavefront")
-				.doesNotContain("You can also access your dashboard using the `/actuator/wavefront` endpoint.");
+			.doesNotContain("You can also access your dashboard using the `/actuator/wavefront` endpoint.");
 	}
 
 	@Test
 	void wavefrontWithWebApplicationAddActuatorSection() {
 		assertHelpDocument("2.7.5", "wavefront", "web")
-				.contains("You can also access your dashboard using the `/actuator/wavefront` endpoint.");
+			.contains("You can also access your dashboard using the `/actuator/wavefront` endpoint.");
 	}
 
 	@Test
 	void wavefrontWithoutSleuthAddTracingNote() {
 		assertHelpDocument("2.7.5", "wavefront")
-				.contains("Finally, you can opt-in for distributed tracing by adding the 'Distributed Tracing' entry.");
+			.contains("Finally, you can opt-in for distributed tracing by adding the 'Distributed Tracing' entry.");
 	}
 
 	@Test

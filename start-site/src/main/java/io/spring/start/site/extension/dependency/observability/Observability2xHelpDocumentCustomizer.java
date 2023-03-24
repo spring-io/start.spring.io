@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,9 +36,10 @@ public class Observability2xHelpDocumentCustomizer implements HelpDocumentCustom
 	@Override
 	public void customize(HelpDocument document) {
 		if (this.build.dependencies().has("distributed-tracing")) {
-			document.gettingStarted().addReferenceDocLink(
-					"https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/htmlsingle/spring-cloud-sleuth.html",
-					"Spring Cloud Sleuth Reference Guide");
+			document.gettingStarted()
+				.addReferenceDocLink(
+						"https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/htmlsingle/spring-cloud-sleuth.html",
+						"Spring Cloud Sleuth Reference Guide");
 		}
 	}
 

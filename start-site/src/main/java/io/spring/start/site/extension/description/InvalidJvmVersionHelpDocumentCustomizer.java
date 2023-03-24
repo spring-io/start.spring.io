@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,10 +45,11 @@ public class InvalidJvmVersionHelpDocumentCustomizer implements HelpDocumentCust
 			String originalJvmVersion = original.jvmVersion();
 			String currentJvmVersion = current.jvmVersion();
 			if (!Objects.equals(originalJvmVersion, currentJvmVersion)) {
-				document.getWarnings().addItem(String.format(
-						"The JVM level was changed from '%s' to '%s', review the [JDK Version Range](%s) on the wiki for more details.",
-						originalJvmVersion, currentJvmVersion,
-						"https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range"));
+				document.getWarnings()
+					.addItem(String.format(
+							"The JVM level was changed from '%s' to '%s', review the [JDK Version Range](%s) on the wiki for more details.",
+							originalJvmVersion, currentJvmVersion,
+							"https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range"));
 			}
 		});
 	}

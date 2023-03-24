@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,30 +48,37 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 	public void customize(Build build) {
 		if (hasDependency("cloud-stream", build) || hasDependency("cloud-bus", build)) {
 			if (hasDependency("amqp", build)) {
-				build.dependencies().add("cloud-stream-binder-rabbit", "org.springframework.cloud",
-						"spring-cloud-stream-binder-rabbit", DependencyScope.COMPILE);
+				build.dependencies()
+					.add("cloud-stream-binder-rabbit", "org.springframework.cloud", "spring-cloud-stream-binder-rabbit",
+							DependencyScope.COMPILE);
 			}
 			if (hasDependency("kafka", build)) {
-				build.dependencies().add("cloud-stream-binder-kafka", "org.springframework.cloud",
-						"spring-cloud-stream-binder-kafka", DependencyScope.COMPILE);
+				build.dependencies()
+					.add("cloud-stream-binder-kafka", "org.springframework.cloud", "spring-cloud-stream-binder-kafka",
+							DependencyScope.COMPILE);
 			}
 		}
 		// Spring Cloud Stream specific
 		if (hasDependency("cloud-stream", build)) {
 			if (hasDependency("kafka-streams", build)) {
-				build.dependencies().add("cloud-stream-binder-kafka-streams", "org.springframework.cloud",
-						"spring-cloud-stream-binder-kafka-streams", DependencyScope.COMPILE);
+				build.dependencies()
+					.add("cloud-stream-binder-kafka-streams", "org.springframework.cloud",
+							"spring-cloud-stream-binder-kafka-streams", DependencyScope.COMPILE);
 			}
 			if (isSpringBoot3x()) {
-				build.dependencies().add("cloud-stream-test",
-						Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream-test-binder")
+				build.dependencies()
+					.add("cloud-stream-test",
+							Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream-test-binder")
 								.scope(DependencyScope.TEST_COMPILE));
 			}
 			else if (build instanceof MavenBuild) {
 				// TODO: https://github.com/spring-io/initializr/issues/1159
-				build.dependencies().add("cloud-stream-test",
-						Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream")
-								.classifier("test-binder").type("test-jar").scope(DependencyScope.TEST_COMPILE));
+				build.dependencies()
+					.add("cloud-stream-test",
+							Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream")
+								.classifier("test-binder")
+								.type("test-jar")
+								.scope(DependencyScope.TEST_COMPILE));
 			}
 		}
 	}

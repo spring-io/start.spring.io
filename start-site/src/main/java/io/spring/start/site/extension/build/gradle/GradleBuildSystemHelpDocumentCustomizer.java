@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,18 +44,20 @@ class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer 
 
 	@Override
 	public void customize(HelpDocument document) {
-		document.gettingStarted().addAdditionalLink("https://scans.gradle.com#gradle",
-				"Gradle Build Scans – insights for your project's build");
+		document.gettingStarted()
+			.addAdditionalLink("https://scans.gradle.com#gradle",
+					"Gradle Build Scans – insights for your project's build");
 		document.gettingStarted().addReferenceDocLink("https://docs.gradle.org", "Official Gradle documentation");
-		document.gettingStarted().addReferenceDocLink(
-				String.format("https://docs.spring.io/spring-boot/docs/%s/gradle-plugin/reference/html/",
-						this.springBootVersion),
-				"Spring Boot Gradle Plugin Reference Guide");
+		document.gettingStarted()
+			.addReferenceDocLink(
+					String.format("https://docs.spring.io/spring-boot/docs/%s/gradle-plugin/reference/html/",
+							this.springBootVersion),
+					"Spring Boot Gradle Plugin Reference Guide");
 		if (this.buildImageAvailable) {
 			document.gettingStarted()
-					.addReferenceDocLink(String.format(
-							"https://docs.spring.io/spring-boot/docs/%s/gradle-plugin/reference/html/#build-image",
-							this.springBootVersion), "Create an OCI image");
+				.addReferenceDocLink(String.format(
+						"https://docs.spring.io/spring-boot/docs/%s/gradle-plugin/reference/html/#build-image",
+						this.springBootVersion), "Create an OCI image");
 		}
 	}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,30 +39,35 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 	void functionOnly() {
 		ProjectRequest request = createProjectRequest("cloud-function");
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-function"))
-				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-				.hasDependency(Dependency.createSpringBootStarter("")).hasDependenciesSize(3)
-				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
-				.hasBomsSize(1);
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(Dependency.createSpringBootStarter(""))
+			.hasDependenciesSize(3)
+			.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
+			.hasBomsSize(1);
 	}
 
 	@Test
 	void web() {
 		ProjectRequest request = createProjectRequest("web", "cloud-function");
 		BillOfMaterials bom = getBom("spring-cloud", request.getBootVersion());
-		assertThat(mavenPom(request)).hasDependency(getDependency("web")).hasDependency(WEB_ADAPTER)
-				.hasDependenciesSize(3)
-				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
-				.hasBomsSize(1).hasProperty("spring-cloud.version", bom.getVersion());
+		assertThat(mavenPom(request)).hasDependency(getDependency("web"))
+			.hasDependency(WEB_ADAPTER)
+			.hasDependenciesSize(3)
+			.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
+			.hasBomsSize(1)
+			.hasProperty("spring-cloud.version", bom.getVersion());
 	}
 
 	@Test
 	void webflux() {
 		ProjectRequest request = createProjectRequest("webflux", "cloud-function");
 		BillOfMaterials bom = getBom("spring-cloud", request.getBootVersion());
-		assertThat(mavenPom(request)).hasDependency(getDependency("webflux")).hasDependency(WEB_ADAPTER)
-				.hasDependenciesSize(4)
-				.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
-				.hasBomsSize(1).hasProperty("spring-cloud.version", bom.getVersion());
+		assertThat(mavenPom(request)).hasDependency(getDependency("webflux"))
+			.hasDependency(WEB_ADAPTER)
+			.hasDependenciesSize(4)
+			.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
+			.hasBomsSize(1)
+			.hasProperty("spring-cloud.version", bom.getVersion());
 	}
 
 }

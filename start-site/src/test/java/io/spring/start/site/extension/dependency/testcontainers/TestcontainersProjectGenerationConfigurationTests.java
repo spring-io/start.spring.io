@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,18 +41,18 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void buildWithOnlyTestContainers() {
 		assertThat(generateProject("testcontainers")).mavenBuild()
-				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-				.hasDependency(getDependency("testcontainers"));
+			.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
+			.hasDependency(getDependency("testcontainers"));
 	}
 
 	@ParameterizedTest
 	@MethodSource("supportedEntriesBuild")
 	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
 		assertThat(generateProject("testcontainers", springBootDependencyId)).mavenBuild()
-				.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-				.hasDependency(getDependency(springBootDependencyId))
-				.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
-				.hasDependency(getDependency("testcontainers"));
+			.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
+			.hasDependency(getDependency(springBootDependencyId))
+			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
+			.hasDependency(getDependency("testcontainers"));
 	}
 
 	static Stream<Arguments> supportedEntriesBuild() {
@@ -73,7 +73,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsPresentIsAdded(String dependencyId, String docHref) {
 		assertHelpDocument("testcontainers", dependencyId)
-				.contains("https://www.testcontainers.org/modules/" + docHref);
+			.contains("https://www.testcontainers.org/modules/" + docHref);
 	}
 
 	@ParameterizedTest
@@ -105,7 +105,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void linkToSupportedEntriesWhenTwoMatchesArePresentOnlyAddLinkOnce() {
 		assertHelpDocument("testcontainers", "data-mongodb", "data-mongodb-reactive")
-				.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
+			.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
 	}
 
 	private ProjectStructure generateProject(String... dependencies) {

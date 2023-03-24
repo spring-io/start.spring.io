@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,9 @@ class PicocliCodegenBuildCustomizer implements BuildCustomizer<Build> {
 		if (build.dependencies().has("native")) {
 			VersionReference picocliVersion = build.dependencies().get("picocli").getVersion();
 			Dependency picocliCodegen = Dependency.withCoordinates("info.picocli", "picocli-codegen")
-					.scope(DependencyScope.ANNOTATION_PROCESSOR).version(picocliVersion).build();
+				.scope(DependencyScope.ANNOTATION_PROCESSOR)
+				.version(picocliVersion)
+				.build();
 			build.dependencies().add("picocli-codegen", picocliCodegen);
 		}
 	}

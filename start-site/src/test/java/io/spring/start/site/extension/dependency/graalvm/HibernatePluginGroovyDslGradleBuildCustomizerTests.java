@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,11 +37,14 @@ class HibernatePluginGroovyDslGradleBuildCustomizerTests {
 				VersionReference.ofValue("6.1.0.Final"));
 		GradleBuild build = new GradleBuild();
 		customizer.customize(build);
-		GradlePlugin hibernatePlugin = build.plugins().values()
-				.filter((plugin) -> plugin.getId().equals("org.hibernate.orm")).findAny().orElse(null);
+		GradlePlugin hibernatePlugin = build.plugins()
+			.values()
+			.filter((plugin) -> plugin.getId().equals("org.hibernate.orm"))
+			.findAny()
+			.orElse(null);
 		assertThat(hibernatePlugin).isNotNull();
-		assertThat(hibernatePlugin).isInstanceOf(StandardGradlePlugin.class).satisfies(
-				(plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("6.1.0.Final"));
+		assertThat(hibernatePlugin).isInstanceOf(StandardGradlePlugin.class)
+			.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("6.1.0.Final"));
 	}
 
 }

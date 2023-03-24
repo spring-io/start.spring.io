@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,37 +39,37 @@ abstract class TestcontainersModuleRegistry {
 	static Iterable<ImplicitDependency> create() {
 		return create(
 				onDependencies("amqp").customizeBuild(addModule("rabbitmq"))
-						.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")),
+					.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")),
 				onDependencies("cloud-starter-consul-config").customizeBuild(addModule("consul"))
-						.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")),
+					.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")),
 				onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault"))
-						.customizeHelpDocument(addReferenceLink("Vault Module", "vault/")),
+					.customizeHelpDocument(addReferenceLink("Vault Module", "vault/")),
 				onDependencies("data-cassandra", "data-cassandra-reactive").customizeBuild(addModule("cassandra"))
-						.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")),
+					.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")),
 				onDependencies("data-couchbase", "data-couchbase-reactive").customizeBuild(addModule("couchbase"))
-						.customizeHelpDocument(addReferenceLink("Couchbase Module", "databases/couchbase/")),
+					.customizeHelpDocument(addReferenceLink("Couchbase Module", "databases/couchbase/")),
 				onDependencies("data-elasticsearch").customizeBuild(addModule("elasticsearch"))
-						.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")),
+					.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")),
 				onDependencies("data-mongodb", "data-mongodb-reactive").customizeBuild(addModule("mongodb"))
-						.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")),
+					.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")),
 				onDependencies("data-neo4j").customizeBuild(addModule("neo4j"))
-						.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")),
+					.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")),
 				onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc"))
-						.customizeHelpDocument(addReferenceLink("R2DBC support", "databases/r2dbc/")),
+					.customizeHelpDocument(addReferenceLink("R2DBC support", "databases/r2dbc/")),
 				onDependencies("db2").customizeBuild(addModule("db2"))
-						.customizeHelpDocument(addReferenceLink("DB2 Module", "databases/db2/")),
+					.customizeHelpDocument(addReferenceLink("DB2 Module", "databases/db2/")),
 				onDependencies("kafka", "kafka-streams").customizeBuild(addModule("kafka"))
-						.customizeHelpDocument(addReferenceLink("Kafka Modules", "kafka/")),
+					.customizeHelpDocument(addReferenceLink("Kafka Modules", "kafka/")),
 				onDependencies("mariadb").customizeBuild(addModule("mariadb"))
-						.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")),
+					.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")),
 				onDependencies("mysql").customizeBuild(addModule("mysql"))
-						.customizeHelpDocument(addReferenceLink("MySQL Module", "databases/mysql/")),
+					.customizeHelpDocument(addReferenceLink("MySQL Module", "databases/mysql/")),
 				onDependencies("postgresql").customizeBuild(addModule("postgresql"))
-						.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")),
+					.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")),
 				onDependencies("oracle").customizeBuild(addModule("oracle-xe"))
-						.customizeHelpDocument(addReferenceLink("Oracle-XE Module", "databases/oraclexe/")),
+					.customizeHelpDocument(addReferenceLink("Oracle-XE Module", "databases/oraclexe/")),
 				onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
-						.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
+					.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
 	}
 
 	private static List<ImplicitDependency> create(ImplicitDependency.Builder... dependencies) {
@@ -81,8 +81,9 @@ abstract class TestcontainersModuleRegistry {
 	}
 
 	private static Consumer<Build> addModule(String id) {
-		return (build) -> build.dependencies().add("testcontainers-" + id,
-				Dependency.withCoordinates("org.testcontainers", id).scope(DependencyScope.TEST_COMPILE));
+		return (build) -> build.dependencies()
+			.add("testcontainers-" + id,
+					Dependency.withCoordinates("org.testcontainers", id).scope(DependencyScope.TEST_COMPILE));
 	}
 
 	private static Consumer<HelpDocument> addReferenceLink(String name, String modulePath) {

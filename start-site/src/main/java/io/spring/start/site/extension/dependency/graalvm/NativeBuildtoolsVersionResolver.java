@@ -37,8 +37,11 @@ abstract class NativeBuildtoolsVersionResolver {
 			new NativeBuildtoolsRange("[3.0.3,3.1.0-M1)", "0.9.20"));
 
 	static String resolve(Version platformVersion) {
-		return ranges.stream().filter((range) -> range.match(platformVersion)).findFirst()
-				.map(NativeBuildtoolsRange::getVersion).orElse(null);
+		return ranges.stream()
+			.filter((range) -> range.match(platformVersion))
+			.findFirst()
+			.map(NativeBuildtoolsRange::getVersion)
+			.orElse(null);
 	}
 
 	private static class NativeBuildtoolsRange {
