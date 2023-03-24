@@ -95,7 +95,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		return Stream.of(java("9", "2.3.0.RELEASE"), java("10", "2.3.0.RELEASE"), java("11", "2.3.0.RELEASE"),
 				java("12", "2.3.0.RELEASE"), java("13", "2.3.0.RELEASE"), java("14", "2.3.0.RELEASE"),
 				java("15", "2.3.4.RELEASE"), java("16", "2.5.0-RC1"), java("17", "2.5.5"), java("18", "2.5.11"),
-				java("19", "2.6.12"));
+				java("19", "2.6.12"), java("20", "2.7.10"));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
@@ -108,7 +108,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		return Stream.of(groovy("9", "2.3.0.RELEASE"), groovy("10", "2.3.0.RELEASE"), groovy("11", "2.3.0.RELEASE"),
 				groovy("12", "2.3.0.RELEASE"), groovy("13", "2.3.0.RELEASE"), groovy("14", "2.3.0.RELEASE"),
 				groovy("15", "2.3.4.RELEASE"), groovy("16", "2.5.0-RC1"), groovy("17", "2.5.5"), groovy("18", "2.5.11"),
-				groovy("19", "2.6.12"));
+				groovy("19", "2.6.12"), groovy("20", "2.7.10"));
 	}
 
 	@ParameterizedTest(name = "{0} - Java {1} - Spring Boot {2}")
@@ -139,7 +139,8 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> unsupportedKotlinParameters() {
-		return Stream.of(kotlin("16", "2.4.3"), kotlin("17", "2.5.5"), kotlin("18", "2.5.11"), kotlin("19", "2.5.11"));
+		return Stream.of(kotlin("16", "2.4.3"), kotlin("17", "2.5.5"), kotlin("18", "2.5.11"), kotlin("19", "2.5.11"),
+				kotlin("20", "2.5.11"));
 	}
 
 	private static Stream<Arguments> unsupportedGroovyParameters() {
