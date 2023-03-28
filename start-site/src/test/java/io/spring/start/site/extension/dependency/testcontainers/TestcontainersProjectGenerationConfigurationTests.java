@@ -35,6 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Maciej Walkowiak
  * @author Stephane Nicoll
  * @author Eddú Meléndez
+ * @author Chris Bono
  */
 class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -66,7 +67,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("db2", "db2"), Arguments.arguments("kafka", "kafka"),
 				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
 				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
-				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("sqlserver", "mssqlserver"));
+				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("pulsar", "pulsar"),
+				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("sqlserver", "mssqlserver"));
 	}
 
 	@ParameterizedTest
@@ -97,8 +99,9 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("data-r2dbc", "databases/r2dbc/"), Arguments.arguments("db2", "databases/db2"),
 				Arguments.arguments("kafka", "kafka/"), Arguments.arguments("kafka-streams", "kafka/"),
 				Arguments.arguments("mariadb", "databases/mariadb/"), Arguments.arguments("mysql", "databases/mysql/"),
-				Arguments.arguments("postgresql", "databases/postgres/"),
 				Arguments.arguments("oracle", "databases/oraclexe/"),
+				Arguments.arguments("postgresql", "databases/postgres/"), Arguments.arguments("pulsar", "pulsar/"),
+				Arguments.arguments("pulsar-reactive", "pulsar/"),
 				Arguments.arguments("sqlserver", "databases/mssqlserver/"));
 	}
 
