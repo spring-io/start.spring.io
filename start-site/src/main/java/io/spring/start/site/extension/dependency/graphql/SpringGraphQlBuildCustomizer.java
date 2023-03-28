@@ -30,11 +30,11 @@ import io.spring.initializr.metadata.InitializrMetadata;
  *
  * @author Brian Clozel
  */
-public class SpringGraphQlBuildCustomizer implements BuildCustomizer<Build> {
+class SpringGraphQlBuildCustomizer implements BuildCustomizer<Build> {
 
 	private final BuildMetadataResolver buildResolver;
 
-	public SpringGraphQlBuildCustomizer(InitializrMetadata metadata) {
+	SpringGraphQlBuildCustomizer(InitializrMetadata metadata) {
 		this.buildResolver = new BuildMetadataResolver(metadata);
 	}
 
