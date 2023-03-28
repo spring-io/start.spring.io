@@ -847,7 +847,7 @@ initializr:
           artifactId: spring-pulsar-spring-boot-starter
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-pulsar/docs/current/reference/html/
+              href: https://docs.spring.io/spring-pulsar/docs/0.2.x/reference/html/
         - name: Spring for Apache Pulsar (Reactive)
           id: pulsar-reactive
           compatibilityRange: "[3.0.0,3.1.0-M1)"
@@ -862,7 +862,7 @@ initializr:
           artifactId: spring-pulsar-reactive-spring-boot-starter
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-pulsar/docs/current/reference/html/#reactive-pulsar
+              href: https://docs.spring.io/spring-pulsar/docs/0.2.x/reference/html/#reactive-pulsar
         - name: WebSocket
           id: websocket
           description: Build Servlet-based WebSocket applications with SockJS and STOMP.
@@ -1407,7 +1407,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-bus/docs/current/reference/html/
         - name: Cloud Stream
           id: cloud-stream
-          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, RabbitMQ, Apache Pulsar, or Solace PubSub+).
+          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder, e.g. Apache Kafka, Apache Pulsar, RabbitMQ, or Solace PubSub+).
           groupId: org.springframework.cloud
           artifactId: spring-cloud-stream
           links:
