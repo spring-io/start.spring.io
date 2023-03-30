@@ -116,7 +116,7 @@ initializr:
             version: 2022.0.0-RC2
             repositories: spring-milestones
           - compatibilityRange: "[3.0.0,3.1.0-M1)"
-            version: 2022.0.1
+            version: 2022.0.2
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
