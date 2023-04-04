@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,8 +96,8 @@ final class DependencyResolver {
 			this.localRepositoryLocation = Files.createTempDirectory("metadata-validation-m2");
 			LocalRepository localRepository = new LocalRepository(this.localRepositoryLocation.toFile());
 			this.repositorySystem = serviceLocator.getService(RepositorySystem.class);
-			session.setLocalRepositoryManager(
-					this.repositorySystem.newLocalRepositoryManager(session, localRepository));
+			session
+				.setLocalRepositoryManager(this.repositorySystem.newLocalRepositoryManager(session, localRepository));
 			session.setReadOnly();
 			this.repositorySystemSession = session;
 		}
@@ -129,10 +129,12 @@ final class DependencyResolver {
 		DependencyRequest dependencyRequest = new DependencyRequest(collectRequest,
 				DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE, JavaScopes.RUNTIME));
 		try {
-			return instance.resolveDependencies(dependencyRequest).getArtifactResults().stream()
-					.map(ArtifactResult::getArtifact)
-					.map((artifact) -> artifact.getGroupId() + ":" + artifact.getArtifactId())
-					.collect(Collectors.toList());
+			return instance.resolveDependencies(dependencyRequest)
+				.getArtifactResults()
+				.stream()
+				.map(ArtifactResult::getArtifact)
+				.map((artifact) -> artifact.getGroupId() + ":" + artifact.getArtifactId())
+				.collect(Collectors.toList());
 		}
 		catch (DependencyResolutionException ex) {
 			throw new RuntimeException(ex);
@@ -153,17 +155,17 @@ final class DependencyResolver {
 	}
 
 	private List<Dependency> getManagedDependencies(List<BillOfMaterials> boms, List<RemoteRepository> repositories) {
-		return boms.stream().flatMap(
-				(bom) -> getManagedDependencies(bom.getGroupId(), bom.getArtifactId(), bom.getVersion(), repositories))
-				.collect(Collectors.toList());
+		return boms.stream()
+			.flatMap((bom) -> getManagedDependencies(bom.getGroupId(), bom.getArtifactId(), bom.getVersion(),
+					repositories))
+			.collect(Collectors.toList());
 	}
 
 	private Stream<Dependency> getManagedDependencies(String groupId, String artifactId, String version,
 			List<RemoteRepository> repositories) {
 		String key = groupId + ":" + artifactId + ":" + version;
 		List<org.eclipse.aether.graph.Dependency> managedDependencies = DependencyResolver.managedDependencies
-				.computeIfAbsent(key,
-						(coords) -> resolveManagedDependencies(groupId, artifactId, version, repositories));
+			.computeIfAbsent(key, (coords) -> resolveManagedDependencies(groupId, artifactId, version, repositories));
 		return managedDependencies.stream();
 	}
 
@@ -171,9 +173,10 @@ final class DependencyResolver {
 			String version, List<RemoteRepository> repositories) {
 		try {
 			return this.repositorySystem
-					.readArtifactDescriptor(this.repositorySystemSession, new ArtifactDescriptorRequest(
-							new DefaultArtifact(groupId, artifactId, "pom", version), repositories, null))
-					.getManagedDependencies();
+				.readArtifactDescriptor(this.repositorySystemSession,
+						new ArtifactDescriptorRequest(new DefaultArtifact(groupId, artifactId, "pom", version),
+								repositories, null))
+				.getManagedDependencies();
 		}
 		catch (ArtifactDescriptorException ex) {
 			throw new RuntimeException(ex);
