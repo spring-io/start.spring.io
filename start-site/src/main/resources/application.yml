@@ -1033,6 +1033,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#actuator.metrics.export.datadog
+        - name: Dynatrace
+          id: dynatrace
+          groupId: io.micrometer
+          artifactId: micrometer-registry-dynatrace
+          scope: runtime
+          starter: false
+          description: Publish Micrometer metrics to Dynatrace, a platform featuring observability, AIOps, application security and analytics.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.metrics.export.dynatrace
         - name: Influx
           id: influx
           groupId: io.micrometer

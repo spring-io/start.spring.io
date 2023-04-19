@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,8 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 
-	static final List<String> STANDARD_REGISTRY_IDS = Arrays.asList("datadog", "graphite", "influx", "new-relic");
+	static final List<String> STANDARD_REGISTRY_IDS = Arrays.asList("datadog", "dynatrace", "graphite", "influx",
+			"new-relic");
 
 	private final List<String> dependencyIds;
 

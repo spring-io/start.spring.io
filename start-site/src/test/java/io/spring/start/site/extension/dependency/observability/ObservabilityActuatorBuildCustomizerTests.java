@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 
 	@ParameterizedTest
-	@ValueSource(strings = { "datadog", "influx", "graphite", "new-relic" })
+	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic" })
 	void actuatorIsAddedWith2xMicrometerRegistries(String dependency) {
 		assertThat(generateProject("2.7.5", dependency)).mavenBuild().hasDependency(getDependency("actuator"));
 	}
@@ -47,8 +47,8 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@ParameterizedTest
-	@ValueSource(
-			strings = { "datadog", "influx", "graphite", "new-relic", "distributed-tracing", "zipkin", "wavefront" })
+	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic", "distributed-tracing", "zipkin",
+			"wavefront" })
 	void actuatorIsAddedWithObservabilityEntries(String dependency) {
 		assertThat(generateProject("3.0.0", dependency)).mavenBuild().hasDependency(getDependency("actuator"));
 	}
