@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package io.spring.start.site.extension.dependency.testcontainers;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependencyBuildCustomizer;
 import io.spring.start.site.support.implicit.ImplicitDependencyHelpDocumentCustomizer;
@@ -30,6 +32,7 @@ import org.springframework.context.annotation.Bean;
  *
  * @author Maciej Walkowiak
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
 public class TestcontainersProjectGenerationConfiguration {
@@ -50,6 +53,13 @@ public class TestcontainersProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("testcontainers")
 	public ImplicitDependencyHelpDocumentCustomizer testcontainersHelpCustomizer(Build build) {
 		return new ImplicitDependencyHelpDocumentCustomizer(this.dependencies, build);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	public TestcontainersBuildCustomizer testcontainersBuildCustomizer(InitializrMetadata metadata,
+			ProjectDescription description) {
+		return new TestcontainersBuildCustomizer(metadata, description);
 	}
 
 }
