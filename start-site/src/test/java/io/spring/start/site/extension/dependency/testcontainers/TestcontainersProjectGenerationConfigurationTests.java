@@ -41,7 +41,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	@Test
 	void buildWithOnlyTestContainers() {
-		assertThat(generateProject("testcontainers")).mavenBuild()
+		assertThat(generateProject("3.0.0", "testcontainers")).mavenBuild()
 			.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
 			.hasDependency(getDependency("testcontainers"));
 	}
@@ -49,7 +49,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@ParameterizedTest
 	@MethodSource("supportedEntriesBuild")
 	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
-		assertThat(generateProject("testcontainers", springBootDependencyId)).mavenBuild()
+		assertThat(generateProject("3.0.0", "testcontainers", springBootDependencyId)).mavenBuild()
 			.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
 			.hasDependency(getDependency(springBootDependencyId))
 			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
@@ -111,8 +111,17 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
 	}
 
-	private ProjectStructure generateProject(String... dependencies) {
+	@Test
+	void buildWithSpringBootTestcontainers() {
+		assertThat(generateProject("3.1.0-RC1", "testcontainers")).mavenBuild()
+			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
+			.hasDependency("org.springframework.boot", "spring-boot-testcontainers", null, "test")
+			.hasDependency(getDependency("testcontainers"));
+	}
+
+	private ProjectStructure generateProject(String bootVersion, String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
+		request.setBootVersion(bootVersion);
 		request.setType("maven-build");
 		return generateProject(request);
 	}
