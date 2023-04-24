@@ -74,14 +74,14 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@ParameterizedTest
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsPresentIsAdded(String dependencyId, String docHref) {
-		assertHelpDocument("testcontainers", dependencyId)
+		assertHelpDocument("3.0.0", "testcontainers", dependencyId)
 			.contains("https://www.testcontainers.org/modules/" + docHref);
 	}
 
 	@ParameterizedTest
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsNotPresentIsNotAdded(String dependencyId, String docHref) {
-		assertHelpDocument(dependencyId).doesNotContain("https://www.testcontainers.org/modules/" + docHref);
+		assertHelpDocument("3.0.0", dependencyId).doesNotContain("https://www.testcontainers.org/modules/" + docHref);
 	}
 
 	static Stream<Arguments> supportedEntriesHelpDocument() {
@@ -107,27 +107,49 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	@Test
 	void linkToSupportedEntriesWhenTwoMatchesArePresentOnlyAddLinkOnce() {
-		assertHelpDocument("testcontainers", "data-mongodb", "data-mongodb-reactive")
+		assertHelpDocument("3.0.0", "testcontainers", "data-mongodb", "data-mongodb-reactive")
 			.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
 	}
 
 	@Test
-	void buildWithSpringBootTestcontainers() {
+	void buildWithSpringBoot31DoesNotIncludeBom() {
 		assertThat(generateProject("3.1.0-RC1", "testcontainers")).mavenBuild()
 			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
-			.hasDependency("org.springframework.boot", "spring-boot-testcontainers", null, "test")
 			.hasDependency(getDependency("testcontainers"));
 	}
 
-	private ProjectStructure generateProject(String bootVersion, String... dependencies) {
+	@Test
+	void buildWithSpringBoot30DoesNotIncludeSpringBootTestcontainers() {
+		assertThat(generateProject("3.0.0", "testcontainers")).mavenBuild()
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-testcontainers");
+	}
+
+	@Test
+	void buildWithSpringBoot31IncludeSpringBootTestcontainers() {
+		assertThat(generateProject("3.1.0-RC1", "testcontainers")).mavenBuild()
+			.hasDependency("org.springframework.boot", "spring-boot-testcontainers", null, "test");
+	}
+
+	@Test
+	void buildWithSpringBoot30DoesNotIncludeTestcontainersSection() {
+		assertHelpDocument("3.0.0", "testcontainers").doesNotContain("Spring Boot Testcontainers support");
+	}
+
+	@Test
+	void buildWithSpringBoot31IncludeTestcontainersSection() {
+		assertHelpDocument("3.1.0-RC1", "testcontainers").contains("Spring Boot Testcontainers support");
+	}
+
+	private ProjectStructure generateProject(String platformVersion, String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
-		request.setBootVersion(bootVersion);
+		request.setBootVersion(platformVersion);
 		request.setType("maven-build");
 		return generateProject(request);
 	}
 
-	private TextAssert assertHelpDocument(String... dependencyIds) {
+	private TextAssert assertHelpDocument(String platformVersion, String... dependencyIds) {
 		ProjectRequest request = createProjectRequest(dependencyIds);
+		request.setBootVersion(platformVersion);
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
 	}
