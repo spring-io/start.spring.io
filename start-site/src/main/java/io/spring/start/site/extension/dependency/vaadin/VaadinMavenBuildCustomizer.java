@@ -32,12 +32,9 @@ class VaadinMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 		build.profiles()
 			.id("production")
 			.plugins()
-			.add("com.vaadin", "vaadin-maven-plugin",
-					(plugin) -> plugin.version("${vaadin.version}")
-						.execution("frontend",
-								(execution) -> execution.goal("prepare-frontend")
-									.goal("build-frontend")
-									.phase("compile")));
+			.add("com.vaadin", "vaadin-maven-plugin", (plugin) -> plugin.version("${vaadin.version}")
+				.execution("frontend",
+						(execution) -> execution.goal("prepare-frontend").goal("build-frontend").phase("compile")));
 	}
 
 }
