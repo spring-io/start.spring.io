@@ -37,8 +37,7 @@ class VaadinMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 						.execution("frontend",
 								(execution) -> execution.goal("prepare-frontend")
 									.goal("build-frontend")
-									.phase("compile")
-									.configuration((configuration) -> configuration.add("productionMode", "true"))));
+									.phase("compile")));
 	}
 
 }
