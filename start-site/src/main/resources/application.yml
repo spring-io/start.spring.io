@@ -52,7 +52,7 @@ initializr:
           - compatibilityRange: "[2.7.0.M1,3.0.0-M1)"
             version: 2.7.4
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
-            version: 3.0.2
+            version: 3.0.3
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
