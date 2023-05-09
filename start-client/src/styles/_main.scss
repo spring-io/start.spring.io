@@ -108,6 +108,7 @@ body {
 // Header
 
 #header {
+  padding-top: 40px;
   h1,
   h2 {
     margin: 0;
@@ -1316,4 +1317,24 @@ ul.dependencies-list {
   display: inline-block;
   height: 14px;
   background: $light-placeholder;
+}
+
+.banner {
+  position: absolute;
+  top: 0;
+  right: 5rem;
+  left: 5rem;
+  a {
+    display: block;;
+    background-color: #6db33f;
+    color:  #FFF;
+    font-weight: normal;
+    display: block;
+    font-size: 0.9rem;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
 }

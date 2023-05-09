@@ -90,6 +90,9 @@
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
+  #header {
+    padding-top: 0;
+  }
   #side-left,
   #side-right {
     display: none;
