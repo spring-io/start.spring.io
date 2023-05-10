@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ class SpringRestDocsGradleBuildCustomizer implements BuildCustomizer<GradleBuild
 
 	@Override
 	public void customize(GradleBuild build) {
-		build.plugins().add("org.asciidoctor.convert", (plugin) -> plugin.setVersion("2.2.1"));
+		build.plugins().add("org.asciidoctor.jvm.convert", (plugin) -> plugin.setVersion("3.3.2"));
 		build.properties().property("snippetsDir", "file(\"build/generated-snippets\")");
 		build.tasks().customize("test", (task) -> task.invoke("outputs.dir", "snippetsDir"));
 		build.tasks().customize("asciidoctor", (task) -> {
