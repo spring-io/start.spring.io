@@ -19,6 +19,8 @@ package io.spring.start.site.extension.dependency.elasticsearch;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,10 +29,21 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on Elasticsearch.
  *
  * @author Moritz Halbritter
+ * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnRequestedDependency("data-elasticsearch")
 class ElasticsearchProjectGenerationConfiguration {
+
+	private static String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.elasticsearch.ElasticsearchContainer";
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer elasticsearchServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("elasticsearch",
+				(service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("elasticsearch", service, TESTCONTAINERS_CLASS_NAME, false)));
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")

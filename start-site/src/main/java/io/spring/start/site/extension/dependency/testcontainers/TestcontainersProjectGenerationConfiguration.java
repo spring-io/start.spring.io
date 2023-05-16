@@ -19,16 +19,24 @@ package io.spring.start.site.extension.dependency.testcontainers;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
+import io.spring.initializr.generator.condition.ConditionalOnLanguage;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.io.IndentingWriterFactory;
+import io.spring.initializr.generator.language.groovy.GroovyLanguage;
+import io.spring.initializr.generator.language.java.JavaLanguage;
+import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
+import io.spring.start.site.container.ServiceConnections;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependencyBuildCustomizer;
 import io.spring.start.site.support.implicit.ImplicitDependencyHelpDocumentCustomizer;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -80,6 +88,53 @@ public class TestcontainersProjectGenerationConfiguration {
 				helpDocument.gettingStarted()
 					.addReferenceDocLink(referenceDocUrl, "Spring Boot Testcontainers support");
 			};
+		}
+
+	}
+
+	@Configuration(proxyBeanMethods = false)
+	@ConditionalOnPlatformVersion("3.1.0-RC1")
+	static class TestApplicationConfiguration {
+
+		private final ProjectDescription description;
+
+		private final IndentingWriterFactory indentingWriterFactory;
+
+		TestApplicationConfiguration(ProjectDescription description, IndentingWriterFactory indentingWriterFactory) {
+			this.description = description;
+			this.indentingWriterFactory = indentingWriterFactory;
+		}
+
+		@Bean
+		ServiceConnections serviceConnections(ObjectProvider<ServiceConnectionsCustomizer> customizers) {
+			ServiceConnections serviceConnections = new ServiceConnections();
+			customizers.orderedStream().forEach((customizer) -> customizer.customize(serviceConnections));
+			return serviceConnections;
+		}
+
+		@Bean
+		@ConditionalOnLanguage(GroovyLanguage.ID)
+		GroovyTestContainersApplicationCodeProjectContributor groovyTestContainersApplicationCodeProjectContributor(
+				ServiceConnections serviceConnections) {
+			return new GroovyTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
+					this.description, serviceConnections);
+		}
+
+		@Bean
+		@ConditionalOnLanguage(KotlinLanguage.ID)
+		@ConditionalOnPlatformVersion("3.1.1-SNAPSHOT") // https://github.com/spring-projects/spring-boot/issues/35756
+		KotlinTestContainersApplicationCodeProjectContributor kotlinTestContainersApplicationCodeProjectContributor(
+				ServiceConnections serviceConnections) {
+			return new KotlinTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
+					this.description, serviceConnections);
+		}
+
+		@Bean
+		@ConditionalOnLanguage(JavaLanguage.ID)
+		JavaTestContainersApplicationCodeProjectContributor javaTestContainersApplicationCodeProjectContributor(
+				ServiceConnections serviceConnections) {
+			return new JavaTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
+					this.description, serviceConnections);
 		}
 
 	}

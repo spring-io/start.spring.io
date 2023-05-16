@@ -19,6 +19,8 @@ package io.spring.start.site.extension.dependency.postgresql;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,10 +29,20 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on PostgreSQL.
  *
  * @author Moritz Halbritter
+ * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnRequestedDependency("postgresql")
 class PostgresqlProjectGenerationConfiguration {
+
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.PostgreSQLContainer";
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer postgresqlServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("postgres", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("postgres", service, TESTCONTAINERS_CLASS_NAME)));
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")

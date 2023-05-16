@@ -20,6 +20,8 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,13 +35,28 @@ import org.springframework.context.annotation.Configuration;
 class RedisProjectGenerationConfiguration {
 
 	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer redisServiceConnectionsCustomizer(Build build, DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> {
+			if (isRedisEnabled(build)) {
+				serviceResolver.doWith("redis", (service) -> serviceConnections
+					.addServiceConnection(ServiceConnection.ofGenericContainer("redis", service, "redis")));
+			}
+		};
+	}
+
+	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer redisComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
 		return (composeFile) -> {
-			if (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")) {
+			if (isRedisEnabled(build)) {
 				serviceResolver.doWith("redis", (service) -> composeFile.services().add("redis", service));
 			}
 		};
+	}
+
+	private boolean isRedisEnabled(Build build) {
+		return (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive"));
 	}
 
 }

@@ -20,6 +20,8 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,21 +30,40 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on Cassandra.
  *
  * @author Moritz Halbritter
+ * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
 class CassandraProjectGenerationConfiguration {
+
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.CassandraContainer";
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer cassandraServiceConnectionsCustomizer(Build build,
+			DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> {
+			if (isCassandraEnabled(build)) {
+				serviceResolver.doWith("cassandra", (service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("cassandra", service, TESTCONTAINERS_CLASS_NAME)));
+			}
+		};
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer cassandraComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
 		return (composeFile) -> {
-			if (build.dependencies().has("data-cassandra") || build.dependencies().has("data-cassandra-reactive")) {
+			if (isCassandraEnabled(build)) {
 				serviceResolver.doWith("cassandra",
 						(service) -> composeFile.services()
 							.add("cassandra", service.andThen((builder) -> builder.environment("CASSANDRA_DC", "dc1")
 								.environment("CASSANDRA_ENDPOINT_SNITCH", "GossipingPropertyFileSnitch"))));
 			}
 		};
+	}
+
+	private boolean isCassandraEnabled(Build build) {
+		return build.dependencies().has("data-cassandra") || build.dependencies().has("data-cassandra-reactive");
 	}
 
 }

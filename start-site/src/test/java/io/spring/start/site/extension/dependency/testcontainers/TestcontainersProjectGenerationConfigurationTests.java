@@ -22,6 +22,7 @@ import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -138,6 +139,202 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void buildWithSpringBoot31IncludeTestcontainersSection() {
 		assertHelpDocument("3.1.0-RC1", "testcontainers").contains("Spring Boot Testcontainers support");
+	}
+
+	@Test
+	void testApplicationWithGroovyAndGenericContainerIsContributed() {
+		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
+		request.setBootVersion("3.1.0-RC2");
+		request.setLanguage("groovy");
+		assertThat(generateProject(request)).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
+			.isEqualTo("""
+					package com.example.demo
+
+					import org.springframework.boot.SpringApplication
+					import org.springframework.boot.test.context.TestConfiguration
+					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
+					import org.springframework.context.annotation.Bean
+					import org.testcontainers.containers.GenericContainer
+
+					@TestConfiguration(proxyBeanMethods = false)
+					class TestDemoApplication {
+
+						@Bean
+						@ServiceConnection(name = "redis")
+						GenericContainer redisContainer() {
+							new GenericContainer<>("redis:latest").withExposedPorts(6379)
+						}
+
+						static void main(String[] args) {
+							SpringApplication.from(DemoApplication::main).with(TestDemoApplication).run(args)
+						}
+
+					}
+					""");
+	}
+
+	@Test
+	void testApplicationWithJavaAndGenericContainerIsContributed() {
+		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
+		request.setBootVersion("3.1.0-RC2");
+		request.setLanguage("java");
+		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
+			.isEqualTo("""
+					package com.example.demo;
+
+					import org.springframework.boot.SpringApplication;
+					import org.springframework.boot.test.context.TestConfiguration;
+					import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+					import org.springframework.context.annotation.Bean;
+					import org.testcontainers.containers.GenericContainer;
+
+					@TestConfiguration(proxyBeanMethods = false)
+					class TestDemoApplication {
+
+						@Bean
+						@ServiceConnection(name = "redis")
+						GenericContainer<?> redisContainer() {
+							return new GenericContainer<>("redis:latest").withExposedPorts(6379);
+						}
+
+						public static void main(String[] args) {
+							SpringApplication.from(DemoApplication::main).with(TestDemoApplication.class).run(args);
+						}
+
+					}
+					""");
+	}
+
+	@Test
+	@Disabled
+	void testApplicationWithKotlinAndGenericContainerIsContributed() {
+		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
+		request.setBootVersion("3.1.1");
+		request.setLanguage("kotlin");
+		assertThat(generateProject(request)).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt")
+			.isEqualTo("""
+					package com.example.demo
+
+					import org.springframework.boot.fromApplication
+					import org.springframework.boot.test.context.TestConfiguration
+					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
+					import org.springframework.boot.with
+					import org.springframework.context.annotation.Bean
+					import org.testcontainers.containers.GenericContainer
+
+					@TestConfiguration(proxyBeanMethods = false)
+					class TestDemoApplication {
+
+						@Bean
+						@ServiceConnection(name = "redis")
+						fun redisContainer(): GenericContainer<*> {
+							return GenericContainer("redis:latest").withExposedPorts(6379)
+						}
+
+					}
+
+					fun main(args: Array<String>) {
+						fromApplication<DemoApplication>().with(TestDemoApplication::class).run(*args)
+					}
+					""");
+	}
+
+	@Test
+	void testApplicationWithGroovyAndSpecificContainerIsContributed() {
+		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
+		request.setBootVersion("3.1.0-RC2");
+		request.setLanguage("groovy");
+		assertThat(generateProject(request)).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
+			.isEqualTo("""
+					package com.example.demo
+
+					import org.springframework.boot.SpringApplication
+					import org.springframework.boot.test.context.TestConfiguration
+					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
+					import org.springframework.context.annotation.Bean
+					import org.testcontainers.containers.CassandraContainer
+
+					@TestConfiguration(proxyBeanMethods = false)
+					class TestDemoApplication {
+
+						@Bean
+						@ServiceConnection
+						CassandraContainer cassandraContainer() {
+							new CassandraContainer<>("cassandra:latest")
+						}
+
+						static void main(String[] args) {
+							SpringApplication.from(DemoApplication::main).with(TestDemoApplication).run(args)
+						}
+
+					}
+					""");
+	}
+
+	@Test
+	void testApplicationWithJavaAndSpecificContainerIsContributed() {
+		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
+		request.setBootVersion("3.1.0-RC2");
+		request.setLanguage("java");
+		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
+			.isEqualTo("""
+					package com.example.demo;
+
+					import org.springframework.boot.SpringApplication;
+					import org.springframework.boot.test.context.TestConfiguration;
+					import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+					import org.springframework.context.annotation.Bean;
+					import org.testcontainers.containers.CassandraContainer;
+
+					@TestConfiguration(proxyBeanMethods = false)
+					class TestDemoApplication {
+
+						@Bean
+						@ServiceConnection
+						CassandraContainer<?> cassandraContainer() {
+							return new CassandraContainer<>("cassandra:latest");
+						}
+
+						public static void main(String[] args) {
+							SpringApplication.from(DemoApplication::main).with(TestDemoApplication.class).run(args);
+						}
+
+					}
+					""");
+	}
+
+	@Test
+	@Disabled
+	void testApplicationWithKotlinAndSpecificContainerIsContributed() {
+		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
+		request.setBootVersion("3.1.1");
+		request.setLanguage("kotlin");
+		assertThat(generateProject(request)).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt")
+			.isEqualTo("""
+					package com.example.demo
+
+					import org.springframework.boot.fromApplication
+					import org.springframework.boot.test.context.TestConfiguration
+					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
+					import org.springframework.boot.with
+					import org.springframework.context.annotation.Bean
+					import org.testcontainers.containers.CassandraContainer
+
+					@TestConfiguration(proxyBeanMethods = false)
+					class TestDemoApplication {
+
+						@Bean
+						@ServiceConnection
+						fun cassandraContainer(): CassandraContainer<*> {
+							return CassandraContainer("cassandra:latest")
+						}
+
+					}
+
+					fun main(args: Array<String>) {
+						fromApplication<DemoApplication>().with(TestDemoApplication::class).run(*args)
+					}
+					""");
 	}
 
 	private ProjectStructure generateProject(String platformVersion, String... dependencies) {

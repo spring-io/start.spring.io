@@ -20,6 +20,8 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,15 +30,30 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on MongoDB.
  *
  * @author Moritz Halbritter
+ * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
 class MongoDbProjectGenerationConfiguration {
+
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.MongoDBContainer";
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer mongoDbServiceConnectionsCustomizer(Build build,
+			DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> {
+			if (isMongoEnabled(build)) {
+				serviceResolver.doWith("mongoDb", (service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("mongoDb", service, TESTCONTAINERS_CLASS_NAME, false)));
+			}
+		};
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer mongoDbComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
 		return (composeFile) -> {
-			if (build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive")) {
+			if (isMongoEnabled(build)) {
 				serviceResolver.doWith("mongoDb", (service) -> composeFile.services()
 					.add("mongodb",
 							service.andThen((builder) -> builder.environment("MONGO_INITDB_ROOT_USERNAME", "root")
@@ -44,6 +61,10 @@ class MongoDbProjectGenerationConfiguration {
 								.environment("MONGO_INITDB_DATABASE", "mydatabase"))));
 			}
 		};
+	}
+
+	private boolean isMongoEnabled(Build build) {
+		return build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive");
 	}
 
 }

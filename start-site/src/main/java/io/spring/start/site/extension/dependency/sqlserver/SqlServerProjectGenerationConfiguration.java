@@ -19,6 +19,8 @@ package io.spring.start.site.extension.dependency.sqlserver;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,10 +29,20 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on SQL Server.
  *
  * @author Moritz Halbritter
+ * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnRequestedDependency("sqlserver")
 class SqlServerProjectGenerationConfiguration {
+
+	private static String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.MSSQLServerContainer";
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer sqlServerServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("sqlServer", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("sqlServer", service, TESTCONTAINERS_CLASS_NAME)));
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")

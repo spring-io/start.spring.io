@@ -19,6 +19,8 @@ package io.spring.start.site.extension.dependency.zipkin;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,10 +29,18 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on Zipkin.
  *
  * @author Moritz Halbritter
+ * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnRequestedDependency("zipkin")
 class ZipkinProjectGenerationConfiguration {
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer oracleServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("zipkin", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofGenericContainer("zipkin", service, "openzipkin/zipkin")));
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")

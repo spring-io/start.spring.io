@@ -20,6 +20,8 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -27,14 +29,24 @@ import org.springframework.context.annotation.Bean;
  * Configuration for generation of projects that depend on Spring AMQP.
  *
  * @author Stephane Nicoll
+ * @author Stephane Nicoll
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("amqp")
 class SpringAmqpProjectGenerationConfiguration {
 
+	private static String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.RabbitMQContainer";
+
 	@Bean
 	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
 		return new SpringRabbitTestBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer rabbitServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("rabbit", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("rabbit", service, TESTCONTAINERS_CLASS_NAME, false)));
 	}
 
 	@Bean

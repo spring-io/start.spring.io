@@ -19,6 +19,8 @@ package io.spring.start.site.extension.dependency.mariadb;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,10 +29,20 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on MariaDB.
  *
  * @author Moritz Halbritter
+ * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnRequestedDependency("mariadb")
 class MariaDbProjectGenerationConfiguration {
+
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.MariaDBContainer";
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer mariaDbServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("mariaDb", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("mariaDb", service, TESTCONTAINERS_CLASS_NAME)));
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
