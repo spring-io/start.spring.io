@@ -443,6 +443,15 @@ initializr:
               description: Authenticating a User with LDAP
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.security
+        - name: Spring Authorization Server
+          id: oauth2-authorization-server
+          description: Spring Boot integration for Spring Security's authorization server features.
+          facets:
+            - native
+          compatibilityRange: "3.1.0-RC1"
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.security.oauth2.authorization-server
         - name: OAuth2 Client
           id: oauth2-client
           description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features.
