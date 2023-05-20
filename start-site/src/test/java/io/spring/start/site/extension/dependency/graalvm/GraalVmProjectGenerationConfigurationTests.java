@@ -33,21 +33,21 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void gradleBuildWithoutNativeDoesNotConfigureNativeBuildTools() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("3.0.0-M5");
+		request.setBootVersion("3.0.0");
 		assertThat(gradleBuild(request)).doesNotContain("org.graalvm.buildtools.native");
 	}
 
 	@Test
 	void mavenBuildWithoutNativeDoesNotConfigureNativeBuildTools() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("3.0.0-M5");
+		request.setBootVersion("3.0.0");
 		assertThat(mavenPom(request)).doesNotContain("native-maven-plugin");
 	}
 
 	@Test
 	void mavenBuildConfigureNativeBuildtoolsPlugint() {
 		ProjectRequest request = createNativeProjectRequest();
-		request.setBootVersion("3.0.0-M5");
+		request.setBootVersion("3.0.0");
 		assertThat(mavenPom(request)).lines().containsSequence(
 		// @formatter:off
 				"			<plugin>",
@@ -59,9 +59,9 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 
 	@Test
 	void gradleBuildConfigureNativeBuildToolsPlugin() {
-		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(Version.parse("3.0.0-M5"));
+		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(Version.parse("3.0.0"));
 		ProjectRequest request = createNativeProjectRequest();
-		request.setBootVersion("3.0.0-M5");
+		request.setBootVersion("3.0.0");
 		assertThat(gradleBuild(request)).hasPlugin("org.graalvm.buildtools.native", nbtVersion);
 	}
 
@@ -118,7 +118,7 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	private ProjectRequest createNativeProjectRequest(String... dependencies) {
 		ProjectRequest projectRequest = createProjectRequest(dependencies);
 		projectRequest.getDependencies().add(0, "native");
-		projectRequest.setBootVersion("3.0.0-M5");
+		projectRequest.setBootVersion("3.0.0");
 		return projectRequest;
 	}
 
