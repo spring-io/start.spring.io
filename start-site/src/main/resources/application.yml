@@ -117,6 +117,9 @@ initializr:
             repositories: spring-milestones
           - compatibilityRange: "[3.0.0,3.1.0-M1)"
             version: 2022.0.2
+          - compatibilityRange: "3.1.0-M1"
+            version: 2022.0.3-SNAPSHOT
+            repositories: spring-snapshots
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
@@ -1146,7 +1149,6 @@ initializr:
               href: https://www.testcontainers.org/
         - name: Contract Verifier
           bom: spring-cloud
-          compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
           id: cloud-contract-verifier
           description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
           groupId: org.springframework.cloud
@@ -1189,7 +1191,6 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#data.nosql.mongodb.embedded
     - name: Spring Cloud
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Cloud Bootstrap
           id: cloud-starter
@@ -1246,7 +1247,6 @@ initializr:
               description: Using Spring Cloud Open Service Broker
     - name: Spring Cloud Config
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Config Client
           id: cloud-config-client
@@ -1301,7 +1301,6 @@ initializr:
               description: Spring Cloud Consul Quick Start
     - name: Spring Cloud Discovery
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
@@ -1360,7 +1359,6 @@ initializr:
               href: https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/#spring-cloud-consul-discovery
     - name: Spring Cloud Routing
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Gateway
           id: cloud-gateway
@@ -1397,7 +1395,6 @@ initializr:
               href: https://docs.spring.io/spring-cloud-commons/docs/current/reference/html/#spring-cloud-loadbalancer
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Resilience4J
           id: cloud-resilience4j
@@ -1409,7 +1406,6 @@ initializr:
               href: https://docs.spring.io/spring-cloud-circuitbreaker/docs/current/reference/html/#configuring-resilience4j-circuit-breakers
     - name: Spring Cloud Messaging
       bom: spring-cloud
-      compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
       content:
         - name: Cloud Bus
           id: cloud-bus
