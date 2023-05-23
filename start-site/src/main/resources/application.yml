@@ -236,8 +236,6 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot
           description: Support for compiling Spring applications to native executables using the GraalVM native-image compiler.
-          facets:
-            - native
           starter: false
         - name: Spring Boot DevTools
           id: devtools
@@ -255,8 +253,6 @@ initializr:
           artifactId: lombok
           scope: annotationProcessor
           description: Java annotation library which helps to reduce boilerplate code.
-          facets:
-            - native
           starter: false
         - name: Spring Configuration Processor
           id: configuration-processor
@@ -276,7 +272,6 @@ initializr:
           facets:
             - web
             - json
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/rest-service/
@@ -295,7 +290,6 @@ initializr:
           facets:
             - json
             - reactive
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/reactive-rest-service/
@@ -394,8 +388,6 @@ initializr:
         - name: Thymeleaf
           id: thymeleaf
           description: A modern server-side Java template engine for both web and standalone environments. Allows HTML to be correctly displayed in browsers and as static prototypes.
-          facets:
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/handling-form-submission/
@@ -411,8 +403,6 @@ initializr:
         - name: Mustache
           id: mustache
           description: Logic-less Templates. There are no if statements, else clauses, or for loops. Instead there are only tags.
-          facets:
-            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.servlet.spring-mvc.template-engines
@@ -429,8 +419,6 @@ initializr:
         - name: Spring Security
           id: security
           description: Highly customizable authentication and access-control framework for Spring applications.
-          facets:
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/securing-web/
@@ -446,16 +434,12 @@ initializr:
         - name: OAuth2 Client
           id: oauth2-client
           description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features.
-          facets:
-            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.security.oauth2.client
         - name: OAuth2 Authorization Server
           id: oauth2-authorization-server
           description: Spring Boot integration for Spring Authorization Server.
-          facets:
-            - native
           compatibilityRange: "3.1.0-RC1"
           links:
             - rel: reference
@@ -463,8 +447,6 @@ initializr:
         - name: OAuth2 Resource Server
           id: oauth2-resource-server
           description: Spring Boot integration for Spring Security's OAuth2 resource server features.
-          facets:
-            - native
           compatibilityRange: 2.1.0.M2
           links:
             - rel: reference
@@ -510,8 +492,6 @@ initializr:
         - name: JDBC API
           id: jdbc
           description: Database Connectivity API that defines how a client may connect and query a database.
-          facets:
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/relational-data-access/
@@ -526,7 +506,6 @@ initializr:
           description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
           facets:
             - jpa
-            - native
           aliases:
             - jpa
           links:
@@ -538,8 +517,6 @@ initializr:
         - name: Spring Data JDBC
           id: data-jdbc
           description: Persist data in SQL stores with plain JDBC using Spring Data.
-          facets:
-            - native
           links:
             - rel: guide
               href: https://github.com/spring-projects/spring-data-examples/tree/master/jdbc/basics
@@ -551,7 +528,6 @@ initializr:
           description: Provides Reactive Relational Database Connectivity to persist data in SQL stores using Spring Data in reactive applications.
           facets:
             - reactive
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-r2dbc/
@@ -624,8 +600,6 @@ initializr:
         - name: H2 Database
           id: h2
           description: Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
-          facets:
-            - native
           groupId: com.h2database
           artifactId: h2
           scope: runtime
@@ -633,8 +607,6 @@ initializr:
         - name: HyperSQL Database
           id: hsql
           description: Lightweight 100% Java SQL Database Engine.
-          facets:
-            - native
           groupId: org.hsqldb
           artifactId: hsqldb
           scope: runtime
@@ -656,8 +628,6 @@ initializr:
         - name: MySQL Driver
           id: mysql
           description: MySQL JDBC driver.
-          facets:
-            - native
           groupId: com.mysql
           artifactId: mysql-connector-j
           scope: runtime
@@ -676,8 +646,6 @@ initializr:
         - name: PostgreSQL Driver
           id: postgresql
           description: A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
-          facets:
-            - native
           groupId: org.postgresql
           artifactId: postgresql
           scope: runtime
@@ -687,8 +655,6 @@ initializr:
         - name: Spring Data Redis (Access+Driver)
           id: data-redis
           description: Advanced and thread-safe Java Redis client for synchronous, asynchronous, and reactive usage. Supports Cluster, Sentinel, Pipelining, Auto-Reconnect, Codecs and much more.
-          facets:
-            - native
           aliases:
             - redis
           links:
@@ -702,7 +668,6 @@ initializr:
           description: Access Redis key-value data stores in a reactive fashion with Spring Data Redis.
           facets:
             - reactive
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-redis/
@@ -712,8 +677,6 @@ initializr:
         - name: Spring Data MongoDB
           id: data-mongodb
           description: Store data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time.
-          facets:
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-mongodb/
@@ -725,7 +688,6 @@ initializr:
           description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB.
           facets:
             - reactive
-            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#data.nosql.mongodb
@@ -735,8 +697,6 @@ initializr:
         - name: Spring Data Elasticsearch (Access+Driver)
           id: data-elasticsearch
           description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
-          facets:
-            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#data.nosql.elasticsearch
@@ -775,8 +735,6 @@ initializr:
         - name: Spring Data Neo4j
           id: data-neo4j
           description: An open source NoSQL database that stores data structured as graphs consisting of nodes, connected by relationships.
-          facets:
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-neo4j/
@@ -806,8 +764,6 @@ initializr:
         - name: Spring for Apache Kafka
           id: kafka
           description: Publish, subscribe, store, and process streams of records.
-          facets:
-            - native
           groupId: org.springframework.kafka
           artifactId: spring-kafka
           starter: false
@@ -817,8 +773,6 @@ initializr:
         - name: Spring for Apache Kafka Streams
           id: kafka-streams
           description: Building stream processing applications with Apache Kafka Streams.
-          facets:
-            - native
           groupId: org.apache.kafka
           artifactId: kafka-streams
           starter: false
@@ -858,8 +812,6 @@ initializr:
             - compatibilityRange: "[3.0.0,3.1.0-M1)"
               version: 0.2.0
           description: Build messaging applications with Apache Pulsar
-          facets:
-            - native
           groupId: org.springframework.pulsar
           artifactId: spring-pulsar-spring-boot-starter
           links:
@@ -873,7 +825,6 @@ initializr:
               version: 0.2.0
           description: Build reactive messaging applications with Apache Pulsar
           facets:
-            - native
             - reactive
           groupId: org.springframework.pulsar
           artifactId: spring-pulsar-reactive-spring-boot-starter
@@ -883,8 +834,6 @@ initializr:
         - name: WebSocket
           id: websocket
           description: Build Servlet-based WebSocket applications with SockJS and STOMP.
-          facets:
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-stomp-websocket/
@@ -897,7 +846,6 @@ initializr:
           compatibilityRange: 2.2.0.M2
           facets:
             - reactive
-            - native
           links:
             - rel: reference
               href: https://rsocket.io/
@@ -952,8 +900,6 @@ initializr:
         - name: Validation
           id: validation
           description: Bean Validation with Hibernate validator.
-          facets:
-            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#io.validation
@@ -962,8 +908,6 @@ initializr:
         - name: Java Mail Sender
           id: mail
           description: Send email using Java Mail and Spring Framework's JavaMailSender.
-          facets:
-            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#io.email
@@ -1009,8 +953,6 @@ initializr:
         - name: Spring Boot Actuator
           id: actuator
           description: Supports built in (or custom) endpoints that let you monitor and manage your application - such as application health, metrics, sessions, etc.
-          facets:
-            - native
           links:
             - rel: guide
               href: https://spring.io/guides/gs/actuator-service/
@@ -1219,8 +1161,6 @@ initializr:
           artifactId: spring-cloud-function-context
           starter: false
           description: Promotes the implementation of business logic via functions and supports a uniform programming model across serverless providers, as well as the ability to run standalone (locally or in a PaaS).
-          facets:
-            - native
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-function/docs/current/reference/html/spring-cloud-function.html
@@ -1264,8 +1204,6 @@ initializr:
         - name: Config Client
           id: cloud-config-client
           description: Client that connects to a Spring Cloud Config Server to fetch the application's configuration.
-          facets:
-            - native
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-config
           links:
@@ -1275,8 +1213,6 @@ initializr:
         - name: Config Server
           id: cloud-config-server
           description: Central management for configuration via Git, SVN, or HashiCorp Vault.
-          facets:
-            - native
           groupId: org.springframework.cloud
           artifactId: spring-cloud-config-server
           links:
