@@ -447,7 +447,7 @@ initializr:
         - name: OAuth2 Resource Server
           id: oauth2-resource-server
           description: Spring Boot integration for Spring Security's OAuth2 resource server features.
-          compatibilityRange: 2.1.0.M2
+          compatibilityRange: "2.1.0.M2"
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.security.oauth2.server
@@ -584,7 +584,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#data.sql.jooq
         - name: IBM DB2 Driver
           id: db2
-          compatibilityRange: 2.2.0.M6
+          compatibilityRange: "2.2.0.M6"
           description: A JDBC driver that provides access to IBM DB2.
           groupId: com.ibm.db2
           artifactId: jcc
@@ -843,7 +843,7 @@ initializr:
         - name: RSocket
           id: rsocket
           description: RSocket.io applications with Spring Messaging and Netty.
-          compatibilityRange: 2.2.0.M2
+          compatibilityRange: "2.2.0.M2"
           facets:
             - reactive
           links:
