@@ -451,6 +451,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.security.oauth2.client
+        - name: OAuth2 Authorization Server
+          id: oauth2-authorization-server
+          description: Spring Boot integration for Spring Authorization Server.
+          facets:
+            - native
+          compatibilityRange: "3.1.0-RC1"
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.security.oauth2.authorization-server
         - name: OAuth2 Resource Server
           id: oauth2-resource-server
           description: Spring Boot integration for Spring Security's OAuth2 resource server features.
