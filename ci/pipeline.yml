@@ -26,13 +26,6 @@ resource_types:
     username:
     password:
 
-- name: pull-request
-  type: registry-image
-  source:
-    <<: *docker-resource-source
-    repository: teliaoss/github-pr-resource
-    tag: v0.23.0
-
 - name: slack-notification
   type: registry-image
   source:
@@ -103,14 +96,6 @@ resources:
       json_key: ((kpack-resource-account-key))
       kubeconfig: ((shipyard-kubeconfig))
 
-- name: pull-requests
-  type: pull-request
-  icon: source-pull
-  source:
-    access_token: ((github-ci-pull-request-token))
-    repo: spring-io/start.spring.io
-    base: ((branch))
-
 - name: script-source
   type: git
   icon: github-circle
@@ -144,9 +129,6 @@ groups:
   - update-deployment
   - update-image
   - verify
-- name: pull-requests
-  jobs:
-  - pull-requests
 - name: ci-images
   jobs:
   - build-start-site-ci-image
@@ -215,33 +197,6 @@ jobs:
       silent: true
       icon_emoji: ":concourse:"
       username: concourse-ci
-
-- name: pull-requests
-  public: true
-  plan:
-  - in_parallel:
-    - get: git-repo
-      resource: pull-requests
-      trigger: true
-      version: every
-    - get: start-site-ci-image
-  - put: pull-requests
-    params:
-      path: git-repo
-      status: pending
-  - task: build-project
-    image: start-site-ci-image
-    file: git-repo/ci/tasks/build-service.yml
-    on_success:
-      put: pull-requests
-      params:
-        path: git-repo
-        status: success
-    on_failure:
-      put: pull-requests
-      params:
-        path: git-repo
-        status: failure
 
 - name: build-start-site-ci-image
   plan:
