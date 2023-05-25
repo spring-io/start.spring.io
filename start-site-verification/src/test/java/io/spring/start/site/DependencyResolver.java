@@ -98,6 +98,7 @@ final class DependencyResolver {
 			this.repositorySystem = serviceLocator.getService(RepositorySystem.class);
 			session
 				.setLocalRepositoryManager(this.repositorySystem.newLocalRepositoryManager(session, localRepository));
+			session.setUserProperties(System.getProperties());
 			session.setReadOnly();
 			this.repositorySystemSession = session;
 		}
