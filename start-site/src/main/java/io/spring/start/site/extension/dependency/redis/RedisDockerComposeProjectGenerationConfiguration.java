@@ -14,42 +14,38 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.springamqp;
+package io.spring.start.site.extension.dependency.redis;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
 import io.spring.start.site.container.DockerImages;
+import io.spring.start.site.container.DockerImages.DockerImage;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Spring AMQP.
+ * Configuration for generation of projects that depend on Redis.
  *
- * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
-@ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("amqp")
-class SpringAmqpProjectGenerationConfiguration {
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnRequestedDependency("docker-compose")
+class RedisDockerComposeProjectGenerationConfiguration {
 
 	@Bean
-	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
-		return new SpringRabbitTestBuildCustomizer();
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeFileCustomizer rabbitDockerComposeFileCustomizer() {
+	DockerComposeFileCustomizer redisDockerComposeFileCustomizer(Build build) {
 		return (composeFile) -> {
-			DockerImages.DockerImage image = DockerImages.rabbit();
-			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-				.name("rabbitmq")
-				.imageWebsite(image.website())
-				.environment("RABBITMQ_DEFAULT_USER", "myuser")
-				.environment("RABBITMQ_DEFAULT_PASS", "secret")
-				.ports(5672)
-				.build());
+			if (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")) {
+				DockerImage image = DockerImages.redis();
+				composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+					.name("redis")
+					.imageWebsite(image.website())
+					.ports(6379)
+					.build());
+			}
 		};
 	}
 

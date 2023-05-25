@@ -26,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringBootProjectGenerationConfiguration}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -56,6 +57,24 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 	void mavenWithoutDevtoolsDoesNotChangeOptional() {
 		ProjectRequest request = createProjectRequest("web");
 		assertThat(mavenPom(request)).doesNotContain("optional");
+	}
+
+	@Test
+	void gradleWithDockerComposeSupportUsesDevelopmentOnly() {
+		ProjectRequest request = createProjectRequest("docker-compose");
+		request.setBootVersion("3.1.0-RC1");
+		assertThat(gradleBuild(request)).lines()
+			.contains("\tdevelopmentOnly 'org.springframework.boot:spring-boot-docker-compose'");
+	}
+
+	@Test
+	void mavenWithDockerComposeSupportHasOptionalScope() {
+		ProjectRequest request = createProjectRequest("docker-compose");
+		request.setBootVersion("3.1.0-RC1");
+		assertThat(mavenPom(request))
+			.hasText("/project/dependencies/dependency[2]/artifactId", "spring-boot-docker-compose")
+			.hasText("/project/dependencies/dependency[2]/scope", "runtime")
+			.hasText("/project/dependencies/dependency[2]/optional", "true");
 	}
 
 }

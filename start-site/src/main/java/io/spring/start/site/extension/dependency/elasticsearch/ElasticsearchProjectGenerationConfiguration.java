@@ -14,41 +14,37 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.springamqp;
+package io.spring.start.site.extension.dependency.elasticsearch;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
 import io.spring.start.site.container.DockerImages;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Spring AMQP.
+ * Configuration for generation of projects that depend on Elasticsearch.
  *
- * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
-@ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("amqp")
-class SpringAmqpProjectGenerationConfiguration {
-
-	@Bean
-	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
-		return new SpringRabbitTestBuildCustomizer();
-	}
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnRequestedDependency("data-elasticsearch")
+class ElasticsearchProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeFileCustomizer rabbitDockerComposeFileCustomizer() {
+	DockerComposeFileCustomizer elasticsearchDockerComposeFileCustomizer() {
 		return (composeFile) -> {
-			DockerImages.DockerImage image = DockerImages.rabbit();
+			DockerImages.DockerImage image = DockerImages.elasticsearch();
 			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-				.name("rabbitmq")
+				.name("elasticsearch")
 				.imageWebsite(image.website())
-				.environment("RABBITMQ_DEFAULT_USER", "myuser")
-				.environment("RABBITMQ_DEFAULT_PASS", "secret")
-				.ports(5672)
+				.environment("ELASTIC_PASSWORD", "secret")
+				.environment("xpack.security.enabled", "false")
+				.environment("discovery.type", "single-node")
+				.ports(9200, 9300)
 				.build());
 		};
 	}

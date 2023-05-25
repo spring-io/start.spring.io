@@ -14,41 +14,38 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.springamqp;
+package io.spring.start.site.extension.dependency.mariadb;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
 import io.spring.start.site.container.DockerImages;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Spring AMQP.
+ * Configuration for generation of projects that depend on MariaDB.
  *
- * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
-@ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("amqp")
-class SpringAmqpProjectGenerationConfiguration {
-
-	@Bean
-	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
-		return new SpringRabbitTestBuildCustomizer();
-	}
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnRequestedDependency("mariadb")
+class MariaDbProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeFileCustomizer rabbitDockerComposeFileCustomizer() {
+	DockerComposeFileCustomizer mariaDbDockerComposeFileCustomizer() {
 		return (composeFile) -> {
-			DockerImages.DockerImage image = DockerImages.rabbit();
+			DockerImages.DockerImage image = DockerImages.mariaDb();
 			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-				.name("rabbitmq")
+				.name("mariadb")
 				.imageWebsite(image.website())
-				.environment("RABBITMQ_DEFAULT_USER", "myuser")
-				.environment("RABBITMQ_DEFAULT_PASS", "secret")
-				.ports(5672)
+				.environment("MARIADB_ROOT_PASSWORD", "verysecret")
+				.environment("MARIADB_USER", "myuser")
+				.environment("MARIADB_PASSWORD", "secret")
+				.environment("MARIADB_DATABASE", "mydatabase")
+				.ports(3306)
 				.build());
 		};
 	}

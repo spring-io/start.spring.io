@@ -30,11 +30,14 @@ import org.springframework.context.annotation.Bean;
  * {@link ProjectGenerationConfiguration} for customizations relevant for Spring Boot.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 @ProjectGenerationConfiguration
 public class SpringBootProjectGenerationConfiguration {
 
 	private static final String DEVTOOLS_ID = "devtools";
+
+	private static final String DOCKER_COMPOSE_ID = "docker-compose";
 
 	@Bean
 	@ConditionalOnRequestedDependency(DEVTOOLS_ID)
@@ -48,6 +51,20 @@ public class SpringBootProjectGenerationConfiguration {
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	public DevelopmentOnlyDependencyGradleBuildCustomizer devToolsGradleBuildCustomizer() {
 		return new DevelopmentOnlyDependencyGradleBuildCustomizer(DEVTOOLS_ID);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency(DOCKER_COMPOSE_ID)
+	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	public OptionalDependencyMavenBuildCustomizer dockerComposeMavenBuildCustomizer() {
+		return new OptionalDependencyMavenBuildCustomizer(DOCKER_COMPOSE_ID);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency(DOCKER_COMPOSE_ID)
+	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+	public DevelopmentOnlyDependencyGradleBuildCustomizer dockerComposeGradleBuildCustomizer() {
+		return new DevelopmentOnlyDependencyGradleBuildCustomizer(DOCKER_COMPOSE_ID);
 	}
 
 }

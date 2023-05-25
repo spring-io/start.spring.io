@@ -101,6 +101,7 @@
 							<configuration>
 								<skip>${disable.checks}</skip>
 								<configLocation>io/spring/javaformat/checkstyle/checkstyle.xml</configLocation>
+								<suppressionsLocation>src/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
 								<includeTestSourceDirectory>true</includeTestSourceDirectory>
 							</configuration>
 							<goals>

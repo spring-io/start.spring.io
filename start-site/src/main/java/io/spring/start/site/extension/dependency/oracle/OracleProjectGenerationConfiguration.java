@@ -14,41 +14,36 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.springamqp;
+package io.spring.start.site.extension.dependency.oracle;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
 import io.spring.start.site.container.DockerImages;
+import io.spring.start.site.container.DockerImages.DockerImage;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Spring AMQP.
+ * Configuration for generation of projects that depend on Oracle.
  *
- * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
-@ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("amqp")
-class SpringAmqpProjectGenerationConfiguration {
-
-	@Bean
-	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
-		return new SpringRabbitTestBuildCustomizer();
-	}
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnRequestedDependency("oracle")
+class OracleProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeFileCustomizer rabbitDockerComposeFileCustomizer() {
+	DockerComposeFileCustomizer oracleDockerComposeFileCustomizer() {
 		return (composeFile) -> {
-			DockerImages.DockerImage image = DockerImages.rabbit();
+			DockerImage image = DockerImages.oracle();
 			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-				.name("rabbitmq")
+				.name("oracle")
 				.imageWebsite(image.website())
-				.environment("RABBITMQ_DEFAULT_USER", "myuser")
-				.environment("RABBITMQ_DEFAULT_PASS", "secret")
-				.ports(5672)
+				.environment("ORACLE_PASSWORD", "secret")
+				.ports(1521)
 				.build());
 		};
 	}
