@@ -233,6 +233,17 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#appendix.configuration-metadata.annotation-processor
+        - name: Docker Compose Support
+          id: docker-compose
+          compatibilityRange: "3.1.0-M1"
+          groupId: org.springframework.boot
+          artifactId: spring-boot-docker-compose
+          scope: runtime
+          description: Provides docker compose support for enhanced development experience.
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#features.docker-compose
     - name: Web
       content:
         - name: Spring Web
