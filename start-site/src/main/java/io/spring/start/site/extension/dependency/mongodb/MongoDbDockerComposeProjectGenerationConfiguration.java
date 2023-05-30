@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,14 +40,14 @@ class MongoDbDockerComposeProjectGenerationConfiguration {
 
 	@Bean
 	DockerComposeFileCustomizer mongoDbDockerComposeFileCustomizer(Build build) {
-		return (file) -> {
+		return (composeFile) -> {
 			if (build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive")) {
 				DockerImage image = DockerImages.mongoDb();
 				DockerComposeService service = new DockerComposeService(
 						"mongodb", image.image(), image.tag(), image.website(), Map.of("MONGO_INITDB_ROOT_USERNAME",
 								"root", "MONGO_INITDB_ROOT_PASSWORD", "secret", "MONGO_INITDB_DATABASE", "mydatabase"),
 						List.of(27017));
-				file.addService(service);
+				composeFile.addService(service);
 			}
 		};
 	}

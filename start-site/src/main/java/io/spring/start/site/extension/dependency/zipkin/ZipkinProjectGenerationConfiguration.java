@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
 import io.spring.start.site.container.DockerImages;
 
@@ -37,10 +38,12 @@ class ZipkinProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeService zipkinDockerComposeService() {
-		DockerImages.DockerImage image = DockerImages.zipkin();
-		return new DockerComposeService("zipkin", image.image(), image.tag(), image.website(), Collections.emptyMap(),
-				List.of(9411));
+	DockerComposeFileCustomizer zipkinDockerComposeFileCustomizer() {
+		return (composeFile) -> {
+			DockerImages.DockerImage image = DockerImages.zipkin();
+			composeFile.addService(new DockerComposeService("zipkin", image.image(), image.tag(), image.website(),
+					Collections.emptyMap(), List.of(9411)));
+		};
 	}
 
 }

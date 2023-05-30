@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
 import io.spring.start.site.container.DockerImages;
 
@@ -37,10 +38,13 @@ class SqlServerProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeService sqlServerDockerComposeService() {
-		DockerImages.DockerImage image = DockerImages.sqlServer();
-		return new DockerComposeService("sqlserver", image.image(), image.tag(), image.website(),
-				Map.of("MSSQL_PID", "express", "MSSQL_SA_PASSWORD", "verYs3cret", "ACCEPT_EULA", "yes"), List.of(1433));
+	DockerComposeFileCustomizer sqlServerDockerComposeFileCustomizer() {
+		return (composeFile) -> {
+			DockerImages.DockerImage image = DockerImages.sqlServer();
+			composeFile.addService(new DockerComposeService("sqlserver", image.image(), image.tag(), image.website(),
+					Map.of("MSSQL_PID", "express", "MSSQL_SA_PASSWORD", "verYs3cret", "ACCEPT_EULA", "yes"),
+					List.of(1433)));
+		};
 	}
 
 }

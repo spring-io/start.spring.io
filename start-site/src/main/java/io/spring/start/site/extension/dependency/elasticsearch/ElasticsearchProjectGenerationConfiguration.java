@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
 import io.spring.start.site.container.DockerImages;
 
@@ -37,11 +38,15 @@ class ElasticsearchProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeService elasticsearchDockerComposeService() {
-		DockerImages.DockerImage image = DockerImages.elasticsearch();
-		return new DockerComposeService("elasticsearch", image.image(), image.tag(), image.website(), Map
-			.of("ELASTIC_PASSWORD", "secret", "xpack.security.enabled", "false", "discovery.type", "single-node"),
-				List.of(9200, 9300));
+	DockerComposeFileCustomizer elasticsearchDockerComposeFileCustomizer() {
+		return (composeFile) -> {
+			DockerImages.DockerImage image = DockerImages.elasticsearch();
+			composeFile
+				.addService(new DockerComposeService(
+						"elasticsearch", image.image(), image.tag(), image.website(), Map.of("ELASTIC_PASSWORD",
+								"secret", "xpack.security.enabled", "false", "discovery.type", "single-node"),
+						List.of(9200, 9300)));
+		};
 	}
 
 }

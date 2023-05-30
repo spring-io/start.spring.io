@@ -14,7 +14,6 @@ io.spring.start.site.extension.dependency.mysql.MysqlProjectGenerationConfigurat
 io.spring.start.site.extension.dependency.observability.ObservabilityProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.picocli.PicocliProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.postgres.PostgresProjectGenerationConfiguration,\
-io.spring.start.site.extension.dependency.rabbit.RabbitProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.redis.RedisDockerComposeProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.solace.SolaceProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springamqp.SpringAmqpProjectGenerationConfiguration,\

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
 import io.spring.start.site.container.DockerImages;
 
@@ -37,12 +38,14 @@ class MysqlProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeService mysqlDockerComposeService() {
-		DockerImages.DockerImage image = DockerImages.mysql();
-		return new DockerComposeService(
-				"mysql", image.image(), image.tag(), image.website(), Map.of("MYSQL_ROOT_PASSWORD", "verysecret",
-						"MYSQL_USER", "myuser", "MYSQL_PASSWORD", "secret", "MYSQL_DATABASE", "mydatabase"),
-				List.of(3306));
+	DockerComposeFileCustomizer mysqlDockerComposeFileCustomizer() {
+		return (composeFile) -> {
+			DockerImages.DockerImage image = DockerImages.mysql();
+			composeFile.addService(new DockerComposeService(
+					"mysql", image.image(), image.tag(), image.website(), Map.of("MYSQL_ROOT_PASSWORD", "verysecret",
+							"MYSQL_USER", "myuser", "MYSQL_PASSWORD", "secret", "MYSQL_DATABASE", "mydatabase"),
+					List.of(3306)));
+		};
 	}
 
 }

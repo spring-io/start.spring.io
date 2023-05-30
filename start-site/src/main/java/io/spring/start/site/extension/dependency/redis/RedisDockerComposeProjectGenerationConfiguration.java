@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,12 +40,12 @@ class RedisDockerComposeProjectGenerationConfiguration {
 
 	@Bean
 	DockerComposeFileCustomizer redisDockerComposeFileCustomizer(Build build) {
-		return (file) -> {
+		return (composeFile) -> {
 			if (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")) {
 				DockerImage image = DockerImages.redis();
 				DockerComposeService service = new DockerComposeService("redis", image.image(), image.tag(),
 						image.website(), Collections.emptyMap(), List.of(6379));
-				file.addService(service);
+				composeFile.addService(service);
 			}
 		};
 	}
