@@ -19,16 +19,37 @@
 		"-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
 		"https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/cassandra/CassandraDockerComposeProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/elasticsearch/ElasticsearchProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/mariadb/MariaDbProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/mongodb/MongoDbDockerComposeProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/mysql/MysqlProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/postgres/PostgresProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/cassandra/CassandraDockerComposeProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/elasticsearch/ElasticsearchProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/mariadb/MariaDbProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/mongodb/MongoDbDockerComposeProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/mysql/MysqlProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/oracle/OracleProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/postgres/PostgresProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/redis/RedisDockerComposeProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
 	<suppress
 			files="start-site/src/test/java/io/spring/start/site/extension/dependency/springamqp/SpringAmqpProjectGenerationConfigurationTests.java"
 			checks="SpringLeadingWhitespace"/>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/redis/RedisDockerComposeProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/sqlserver/SqlServerProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
-	<suppress files="start-site/src/test/java/io/spring/start/site/extension/dependency/zipkin/ZipkinProjectGenerationConfigurationTests.java" checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/sqlserver/SqlServerProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
+	<suppress
+			files="start-site/src/test/java/io/spring/start/site/extension/dependency/zipkin/ZipkinProjectGenerationConfigurationTests.java"
+			checks="SpringLeadingWhitespace"/>
 </suppressions>

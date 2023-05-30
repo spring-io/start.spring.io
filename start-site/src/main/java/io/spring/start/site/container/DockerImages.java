@@ -70,6 +70,14 @@ public final class DockerImages {
 	}
 
 	/**
+	 * Oracle.
+	 * @return the Oracle image
+	 */
+	public static DockerImage oracle() {
+		return new DockerImage("gvenzl/oracle-xe", "latest", "https://hub.docker.com/r/gvenzl/oracle-xe");
+	}
+
+	/**
 	 * PostgreSQL.
 	 * @return the PostgreSQL image
 	 */

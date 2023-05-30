@@ -12,6 +12,7 @@ io.spring.start.site.extension.dependency.mariadb.MariaDbProjectGenerationConfig
 io.spring.start.site.extension.dependency.mongodb.MongoDbDockerComposeProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mysql.MysqlProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.observability.ObservabilityProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.oracle.OracleProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.picocli.PicocliProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.postgres.PostgresProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.redis.RedisDockerComposeProjectGenerationConfiguration,\
