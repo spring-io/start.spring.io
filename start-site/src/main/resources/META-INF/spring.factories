@@ -3,6 +3,7 @@ io.spring.start.site.extension.build.gradle.GradleProjectGenerationConfiguration
 io.spring.start.site.extension.build.maven.MavenProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.DependencyProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.cassandra.CassandraDockerComposeProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.dockercompose.DockerComposeProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.elasticsearch.ElasticsearchProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.flyway.FlywayProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.graalvm.GraalVmProjectGenerationConfiguration,\

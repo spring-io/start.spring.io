@@ -15,6 +15,6 @@
  */
 
 /**
- * Extensions for generation of projects that depend on RabbitMQ.
+ * Extensions for generation of projects that depend on Docker Compose.
  */
-package io.spring.start.site.extension.dependency.rabbit;
+package io.spring.start.site.extension.dependency.dockercompose;
