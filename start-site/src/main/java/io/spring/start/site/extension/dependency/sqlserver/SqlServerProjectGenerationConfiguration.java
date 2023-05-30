@@ -16,9 +16,6 @@
 
 package io.spring.start.site.extension.dependency.sqlserver;
 
-import java.util.List;
-import java.util.Map;
-
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
@@ -41,9 +38,14 @@ class SqlServerProjectGenerationConfiguration {
 	DockerComposeFileCustomizer sqlServerDockerComposeFileCustomizer() {
 		return (composeFile) -> {
 			DockerImages.DockerImage image = DockerImages.sqlServer();
-			composeFile.addService(new DockerComposeService("sqlserver", image.image(), image.tag(), image.website(),
-					Map.of("MSSQL_PID", "express", "MSSQL_SA_PASSWORD", "verYs3cret", "ACCEPT_EULA", "yes"),
-					List.of(1433)));
+			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+				.name("sqlserver")
+				.imageWebsite(image.website())
+				.environment("MSSQL_PID", "express")
+				.environment("MSSQL_SA_PASSWORD", "verYs3cret")
+				.environment("ACCEPT_EULA", "yes")
+				.ports(1433)
+				.build());
 		};
 	}
 

@@ -16,9 +16,6 @@
 
 package io.spring.start.site.extension.dependency.springamqp;
 
-import java.util.List;
-import java.util.Map;
-
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
@@ -46,8 +43,13 @@ class SpringAmqpProjectGenerationConfiguration {
 	DockerComposeFileCustomizer rabbitDockerComposeFileCustomizer() {
 		return (composeFile) -> {
 			DockerImages.DockerImage image = DockerImages.rabbit();
-			composeFile.addService(new DockerComposeService("rabbitmq", image.image(), image.tag(), image.website(),
-					Map.of("RABBITMQ_DEFAULT_USER", "myuser", "RABBITMQ_DEFAULT_PASS", "secret"), List.of(5672)));
+			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+				.name("rabbitmq")
+				.imageWebsite(image.website())
+				.environment("RABBITMQ_DEFAULT_USER", "myuser")
+				.environment("RABBITMQ_DEFAULT_PASS", "secret")
+				.ports(5672)
+				.build());
 		};
 	}
 

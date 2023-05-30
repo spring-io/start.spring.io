@@ -16,9 +16,6 @@
 
 package io.spring.start.site.extension.dependency.mongodb;
 
-import java.util.List;
-import java.util.Map;
-
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
@@ -43,11 +40,14 @@ class MongoDbDockerComposeProjectGenerationConfiguration {
 		return (composeFile) -> {
 			if (build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive")) {
 				DockerImage image = DockerImages.mongoDb();
-				DockerComposeService service = new DockerComposeService(
-						"mongodb", image.image(), image.tag(), image.website(), Map.of("MONGO_INITDB_ROOT_USERNAME",
-								"root", "MONGO_INITDB_ROOT_PASSWORD", "secret", "MONGO_INITDB_DATABASE", "mydatabase"),
-						List.of(27017));
-				composeFile.addService(service);
+				composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+					.name("mongodb")
+					.imageWebsite(image.website())
+					.environment("MONGO_INITDB_ROOT_USERNAME", "root")
+					.environment("MONGO_INITDB_ROOT_PASSWORD", "secret")
+					.environment("MONGO_INITDB_DATABASE", "mydatabase")
+					.ports(27017)
+					.build());
 			}
 		};
 	}

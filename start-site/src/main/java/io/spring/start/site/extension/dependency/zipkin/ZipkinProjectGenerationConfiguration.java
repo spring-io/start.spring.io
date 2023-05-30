@@ -16,9 +16,6 @@
 
 package io.spring.start.site.extension.dependency.zipkin;
 
-import java.util.Collections;
-import java.util.List;
-
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
@@ -41,8 +38,11 @@ class ZipkinProjectGenerationConfiguration {
 	DockerComposeFileCustomizer zipkinDockerComposeFileCustomizer() {
 		return (composeFile) -> {
 			DockerImages.DockerImage image = DockerImages.zipkin();
-			composeFile.addService(new DockerComposeService("zipkin", image.image(), image.tag(), image.website(),
-					Collections.emptyMap(), List.of(9411)));
+			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+				.name("zipkin")
+				.imageWebsite(image.website())
+				.ports(9411)
+				.build());
 		};
 	}
 

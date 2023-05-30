@@ -16,9 +16,6 @@
 
 package io.spring.start.site.extension.dependency.postgres;
 
-import java.util.List;
-import java.util.Map;
-
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
@@ -41,9 +38,14 @@ class PostgresProjectGenerationConfiguration {
 	DockerComposeFileCustomizer postgresDockerComposeFileCustomizer() {
 		return (composeFile) -> {
 			DockerImages.DockerImage image = DockerImages.postgres();
-			composeFile.addService(new DockerComposeService("postgres", image.image(), image.tag(), image.website(),
-					Map.of("POSTGRES_USER", "myuser", "POSTGRES_DB", "mydatabase", "POSTGRES_PASSWORD", "secret"),
-					List.of(5432)));
+			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+				.name("postgres")
+				.imageWebsite(image.website())
+				.environment("POSTGRES_USER", "myuser")
+				.environment("POSTGRES_DB", "mydatabase")
+				.environment("POSTGRES_PASSWORD", "secret")
+				.ports(5432)
+				.build());
 		};
 	}
 

@@ -16,9 +16,6 @@
 
 package io.spring.start.site.extension.dependency.elasticsearch;
 
-import java.util.List;
-import java.util.Map;
-
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
@@ -41,11 +38,14 @@ class ElasticsearchProjectGenerationConfiguration {
 	DockerComposeFileCustomizer elasticsearchDockerComposeFileCustomizer() {
 		return (composeFile) -> {
 			DockerImages.DockerImage image = DockerImages.elasticsearch();
-			composeFile
-				.addService(new DockerComposeService(
-						"elasticsearch", image.image(), image.tag(), image.website(), Map.of("ELASTIC_PASSWORD",
-								"secret", "xpack.security.enabled", "false", "discovery.type", "single-node"),
-						List.of(9200, 9300)));
+			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+				.name("elasticsearch")
+				.imageWebsite(image.website())
+				.environment("ELASTIC_PASSWORD", "secret")
+				.environment("xpack.security.enabled", "false")
+				.environment("discovery.type", "single-node")
+				.ports(9200, 9300)
+				.build());
 		};
 	}
 

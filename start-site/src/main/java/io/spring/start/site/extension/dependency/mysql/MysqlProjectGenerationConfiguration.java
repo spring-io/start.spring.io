@@ -16,9 +16,6 @@
 
 package io.spring.start.site.extension.dependency.mysql;
 
-import java.util.List;
-import java.util.Map;
-
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
@@ -41,10 +38,15 @@ class MysqlProjectGenerationConfiguration {
 	DockerComposeFileCustomizer mysqlDockerComposeFileCustomizer() {
 		return (composeFile) -> {
 			DockerImages.DockerImage image = DockerImages.mysql();
-			composeFile.addService(new DockerComposeService(
-					"mysql", image.image(), image.tag(), image.website(), Map.of("MYSQL_ROOT_PASSWORD", "verysecret",
-							"MYSQL_USER", "myuser", "MYSQL_PASSWORD", "secret", "MYSQL_DATABASE", "mydatabase"),
-					List.of(3306)));
+			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+				.name("mysql")
+				.imageWebsite(image.website())
+				.environment("MYSQL_ROOT_PASSWORD", "verysecret")
+				.environment("MYSQL_USER", "myuser")
+				.environment("MYSQL_PASSWORD", "secret")
+				.environment("MYSQL_DATABASE", "mydatabase")
+				.ports(3306)
+				.build());
 		};
 	}
 

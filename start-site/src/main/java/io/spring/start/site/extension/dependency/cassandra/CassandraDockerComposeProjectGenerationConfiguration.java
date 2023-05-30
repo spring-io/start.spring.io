@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,6 @@
  */
 
 package io.spring.start.site.extension.dependency.cassandra;
-
-import java.util.List;
-import java.util.Map;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
@@ -43,11 +40,13 @@ class CassandraDockerComposeProjectGenerationConfiguration {
 		return (file) -> {
 			if (build.dependencies().has("data-cassandra") || build.dependencies().has("data-cassandra-reactive")) {
 				DockerImage image = DockerImages.cassandra();
-				DockerComposeService service = new DockerComposeService("cassandra", image.image(), image.tag(),
-						image.website(),
-						Map.of("CASSANDRA_DC", "dc1", "CASSANDRA_ENDPOINT_SNITCH", "GossipingPropertyFileSnitch"),
-						List.of(9042));
-				file.addService(service);
+				file.addService(DockerComposeService.withImage(image.image(), image.tag())
+					.name("cassandra")
+					.imageWebsite(image.website())
+					.environment("CASSANDRA_DC", "dc1")
+					.environment("CASSANDRA_ENDPOINT_SNITCH", "GossipingPropertyFileSnitch")
+					.ports(9042)
+					.build());
 			}
 		};
 	}

@@ -16,9 +16,6 @@
 
 package io.spring.start.site.extension.dependency.redis;
 
-import java.util.Collections;
-import java.util.List;
-
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
@@ -43,9 +40,11 @@ class RedisDockerComposeProjectGenerationConfiguration {
 		return (composeFile) -> {
 			if (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")) {
 				DockerImage image = DockerImages.redis();
-				DockerComposeService service = new DockerComposeService("redis", image.image(), image.tag(),
-						image.website(), Collections.emptyMap(), List.of(6379));
-				composeFile.addService(service);
+				composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
+					.name("redis")
+					.imageWebsite(image.website())
+					.ports(6379)
+					.build());
 			}
 		};
 	}
