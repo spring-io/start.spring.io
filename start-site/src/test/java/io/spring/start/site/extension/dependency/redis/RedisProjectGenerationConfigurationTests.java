@@ -16,21 +16,21 @@
 
 package io.spring.start.site.extension.dependency.redis;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.core.io.ClassPathResource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link RedisDockerComposeProjectGenerationConfiguration}.
+ * Tests for {@link RedisProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
  */
-class RedisDockerComposeProjectGenerationConfigurationTests extends AbstractExtensionTests {
+class RedisProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void doesNothingWithoutDockerCompose() {
@@ -42,37 +42,19 @@ class RedisDockerComposeProjectGenerationConfigurationTests extends AbstractExte
 	@Test
 	void createsRedisService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-redis");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(redisService());
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis.yaml"));
 	}
 
 	@Test
 	void createsRedisServiceWhenReactive() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-redis-reactive");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(redisService());
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis.yaml"));
 	}
 
 	@Test
 	void doesNotFailWhenBothRedisAndReactiveRedisAreSelected() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-redis", "data-redis-reactive");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(redisService());
-	}
-
-	private static String redisService() {
-		return """
-				services:
-				  redis:
-				    image: 'redis:latest'
-				    ports:
-				      - '6379'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis.yaml"));
 	}
 
 }

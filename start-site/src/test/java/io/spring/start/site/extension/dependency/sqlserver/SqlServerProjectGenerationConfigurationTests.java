@@ -16,12 +16,12 @@
 
 package io.spring.start.site.extension.dependency.sqlserver;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,23 +42,7 @@ class SqlServerProjectGenerationConfigurationTests extends AbstractExtensionTest
 	@Test
 	void createsSqlServerService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "sqlserver");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(sqlServerService());
-	}
-
-	private static String sqlServerService() {
-		return """
-				services:
-				  sqlserver:
-				    image: 'mcr.microsoft.com/mssql/server:latest'
-				    environment:
-				      - 'ACCEPT_EULA=yes'
-				      - 'MSSQL_PID=express'
-				      - 'MSSQL_SA_PASSWORD=verYs3cret'
-				    ports:
-				      - '1433'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/sqlserver.yaml"));
 	}
 
 }

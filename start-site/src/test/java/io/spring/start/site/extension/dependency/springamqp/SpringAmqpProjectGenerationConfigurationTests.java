@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.springamqp;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -26,6 +24,8 @@ import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -58,31 +58,16 @@ class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTes
 	}
 
 	@Test
-	void doesNothingWithoutDockerCompose() {
+	void springAmqpWithoutDockerCompose() {
 		ProjectRequest request = createProjectRequest("web", "amqp");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void createsRabbitService() {
+	void springAmqpWithDockerCompose() {
 		ProjectRequest request = createProjectRequest("docker-compose", "amqp");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(rabbitService());
-	}
-
-	private static String rabbitService() {
-		return """
-				services:
-				  rabbitmq:
-				    image: 'rabbitmq:latest'
-				    environment:
-				      - 'RABBITMQ_DEFAULT_PASS=secret'
-				      - 'RABBITMQ_DEFAULT_USER=myuser'
-				    ports:
-				      - '5672'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/rabbitmq.yaml"));
 	}
 
 }

@@ -16,12 +16,12 @@
 
 package io.spring.start.site.extension.dependency.oracle;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,21 +42,7 @@ class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void createsOracleService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "oracle");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(oracleService());
-	}
-
-	private static String oracleService() {
-		return """
-				services:
-				  oracle:
-				    image: 'gvenzl/oracle-xe:latest'
-				    environment:
-				      - 'ORACLE_PASSWORD=secret'
-				    ports:
-				      - '1521'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle.yaml"));
 	}
 
 }

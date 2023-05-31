@@ -16,12 +16,12 @@
 
 package io.spring.start.site.extension.dependency.zipkin;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,19 +42,7 @@ class ZipkinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void createsZipkinService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "zipkin");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(zipkinService());
-	}
-
-	private static String zipkinService() {
-		return """
-				services:
-				  zipkin:
-				    image: 'openzipkin/zipkin:latest'
-				    ports:
-				      - '9411'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/zipkin.yaml"));
 	}
 
 }

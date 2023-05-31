@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.postgres;
-
-import java.nio.charset.StandardCharsets;
+package io.spring.start.site.extension.dependency.postgresql;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.core.io.ClassPathResource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link PostgresProjectGenerationConfiguration}.
+ * Tests for {@link PostgresqlProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
  */
-class PostgresProjectGenerationConfigurationTests extends AbstractExtensionTests {
+class postgresqlProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void doesNothingWithoutDockerCompose() {
@@ -42,23 +42,7 @@ class PostgresProjectGenerationConfigurationTests extends AbstractExtensionTests
 	@Test
 	void createsPostgresService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "postgresql");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(postgresService());
-	}
-
-	private static String postgresService() {
-		return """
-				services:
-				  postgres:
-				    image: 'postgres:latest'
-				    environment:
-				      - 'POSTGRES_DB=mydatabase'
-				      - 'POSTGRES_PASSWORD=secret'
-				      - 'POSTGRES_USER=myuser'
-				    ports:
-				      - '5432'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/postgres.yaml"));
 	}
 
 }

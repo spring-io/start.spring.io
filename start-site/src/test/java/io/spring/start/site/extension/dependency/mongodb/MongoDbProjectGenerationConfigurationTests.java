@@ -16,21 +16,21 @@
 
 package io.spring.start.site.extension.dependency.mongodb;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.core.io.ClassPathResource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link MongoDbDockerComposeProjectGenerationConfiguration}.
+ * Tests for {@link MongoDbProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
  */
-class MongoDbDockerComposeProjectGenerationConfigurationTests extends AbstractExtensionTests {
+class MongoDbProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void doesNothingWithoutDockerCompose() {
@@ -42,41 +42,19 @@ class MongoDbDockerComposeProjectGenerationConfigurationTests extends AbstractEx
 	@Test
 	void createsMongoDbService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-mongodb");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(mongoDbService());
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
 	}
 
 	@Test
 	void createsMongoDbServiceWhenReactive() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-mongodb-reactive");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(mongoDbService());
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
 	}
 
 	@Test
 	void doesNotFailWhenBothMongoDbAndReactiveMongoDbAreSelected() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-mongodb", "data-mongodb-reactive");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(mongoDbService());
-	}
-
-	private static String mongoDbService() {
-		return """
-				services:
-				  mongodb:
-				    image: 'mongo:latest'
-				    environment:
-				      - 'MONGO_INITDB_DATABASE=mydatabase'
-				      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-				      - 'MONGO_INITDB_ROOT_USERNAME=root'
-				    ports:
-				      - '27017'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
 	}
 
 }

@@ -18,8 +18,7 @@ package io.spring.start.site.extension.dependency.springamqp;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
+import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerImages;
 
 import org.springframework.context.annotation.Bean;
@@ -40,17 +39,13 @@ class SpringAmqpProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeFileCustomizer rabbitDockerComposeFileCustomizer() {
-		return (composeFile) -> {
-			DockerImages.DockerImage image = DockerImages.rabbit();
-			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-				.name("rabbitmq")
-				.imageWebsite(image.website())
-				.environment("RABBITMQ_DEFAULT_USER", "myuser")
-				.environment("RABBITMQ_DEFAULT_PASS", "secret")
-				.ports(5672)
-				.build());
-		};
+	ComposeFileCustomizer rabbitComposeFileCustomizer() {
+		return (composeFile) -> composeFile.services()
+			.add("rabbitmq",
+					DockerImages.rabbit()
+						.andThen((service) -> service.environment("RABBITMQ_DEFAULT_USER", "myuser")
+							.environment("RABBITMQ_DEFAULT_PASS", "secret")
+							.ports(5672)));
 	}
 
 }

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.mysql;
+package io.spring.start.site.extension.dependency.redis;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerImages;
@@ -24,25 +25,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on MySQL.
+ * Configuration for generation of projects that depend on Redis.
  *
  * @author Moritz Halbritter
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnRequestedDependency("mysql")
-class MysqlProjectGenerationConfiguration {
+class RedisProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer mysqlComposeFileCustomizer() {
-		return (composeFile) -> composeFile.services()
-			.add("mysql",
-					DockerImages.mysql()
-						.andThen((service) -> service.environment("MYSQL_ROOT_PASSWORD", "verysecret")
-							.environment("MYSQL_USER", "myuser")
-							.environment("MYSQL_PASSWORD", "secret")
-							.environment("MYSQL_DATABASE", "mydatabase")
-							.ports(3306)));
+	ComposeFileCustomizer redisComposeFileCustomizer(Build build) {
+		return (composeFile) -> {
+			if (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")) {
+				composeFile.services().add("redis", DockerImages.redis().andThen((service) -> service.ports(6379)));
+			}
+		};
 	}
 
 }

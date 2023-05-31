@@ -16,12 +16,12 @@
 
 package io.spring.start.site.extension.dependency.mysql;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,24 +42,7 @@ class MysqlProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void createsMysqlService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "mysql");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(mysqlService());
-	}
-
-	private static String mysqlService() {
-		return """
-				services:
-				  mysql:
-				    image: 'mysql:latest'
-				    environment:
-				      - 'MYSQL_DATABASE=mydatabase'
-				      - 'MYSQL_PASSWORD=secret'
-				      - 'MYSQL_ROOT_PASSWORD=verysecret'
-				      - 'MYSQL_USER=myuser'
-				    ports:
-				      - '3306'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mysql.yaml"));
 	}
 
 }

@@ -16,10 +16,15 @@
 
 package io.spring.start.site.container;
 
+import java.util.function.Consumer;
+
+import io.spring.initializr.generator.container.docker.compose.ComposeService.Builder;
+
 /**
  * Provides the names of common docker images.
  *
  * @author Moritz Halbritter
+ * @author Stephane Nicoll
  */
 public final class DockerImages {
 
@@ -125,7 +130,12 @@ public final class DockerImages {
 	 * @param tag the tag of the image
 	 * @param website the website of the image
 	 */
-	public record DockerImage(String image, String tag, String website) {
+	public record DockerImage(String image, String tag, String website) implements Consumer<Builder> {
+
+		@Override
+		public void accept(Builder builder) {
+			builder.image(image()).imageTag(tag()).imageWebsite(website());
+		}
 	}
 
 }

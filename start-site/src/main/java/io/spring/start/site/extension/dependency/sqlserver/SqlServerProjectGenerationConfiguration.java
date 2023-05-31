@@ -17,8 +17,7 @@
 package io.spring.start.site.extension.dependency.sqlserver;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
+import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerImages;
 
 import org.springframework.context.annotation.Bean;
@@ -35,18 +34,14 @@ class SqlServerProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeFileCustomizer sqlServerDockerComposeFileCustomizer() {
-		return (composeFile) -> {
-			DockerImages.DockerImage image = DockerImages.sqlServer();
-			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-				.name("sqlserver")
-				.imageWebsite(image.website())
-				.environment("MSSQL_PID", "express")
-				.environment("MSSQL_SA_PASSWORD", "verYs3cret")
-				.environment("ACCEPT_EULA", "yes")
-				.ports(1433)
-				.build());
-		};
+	ComposeFileCustomizer sqlServerComposeFileCustomizer() {
+		return (composeFile) -> composeFile.services()
+			.add("sqlserver",
+					DockerImages.sqlServer()
+						.andThen((service) -> service.environment("MSSQL_PID", "express")
+							.environment("MSSQL_SA_PASSWORD", "verYs3cret")
+							.environment("ACCEPT_EULA", "yes")
+							.ports(1433)));
 	}
 
 }

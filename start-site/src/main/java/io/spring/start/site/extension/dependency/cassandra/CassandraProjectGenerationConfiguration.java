@@ -14,38 +14,36 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.postgres;
+package io.spring.start.site.extension.dependency.cassandra;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
+import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerImages;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on PostgreSQL.
+ * Configuration for generation of projects that depend on Cassandra.
  *
  * @author Moritz Halbritter
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnRequestedDependency("postgresql")
-class PostgresProjectGenerationConfiguration {
+class CassandraProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeFileCustomizer postgresDockerComposeFileCustomizer() {
-		return (composeFile) -> {
-			DockerImages.DockerImage image = DockerImages.postgres();
-			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-				.name("postgres")
-				.imageWebsite(image.website())
-				.environment("POSTGRES_USER", "myuser")
-				.environment("POSTGRES_DB", "mydatabase")
-				.environment("POSTGRES_PASSWORD", "secret")
-				.ports(5432)
-				.build());
+	ComposeFileCustomizer cassandraComposeFileCustomizer(Build build) {
+		return (file) -> {
+			if (build.dependencies().has("data-cassandra") || build.dependencies().has("data-cassandra-reactive")) {
+				file.services()
+					.add("cassandra",
+							DockerImages.cassandra()
+								.andThen((service) -> service.environment("CASSANDRA_DC", "dc1")
+									.environment("CASSANDRA_ENDPOINT_SNITCH", "GossipingPropertyFileSnitch")
+									.ports(9042)));
+			}
 		};
 	}
 

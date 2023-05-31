@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 import io.spring.initializr.generator.test.buildsystem.gradle.GroovyDslGradleBuildAssert;
 import io.spring.initializr.generator.test.buildsystem.maven.MavenBuildAssert;
+import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
@@ -84,6 +85,11 @@ public abstract class AbstractExtensionTests {
 		request.setType("gradle-build");
 		String content = new String(getInvoker().invokeBuildGeneration(request));
 		return () -> new GroovyDslGradleBuildAssert(content);
+	}
+
+	protected AssertProvider<TextAssert> composeFile(ProjectRequest request) {
+		ProjectStructure project = generateProject(request);
+		return () -> new TextAssert(project.getProjectDirectory().resolve("compose.yaml"));
 	}
 
 	protected ProjectStructure generateProject(ProjectRequest request) {

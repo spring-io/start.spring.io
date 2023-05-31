@@ -16,21 +16,21 @@
 
 package io.spring.start.site.extension.dependency.cassandra;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.core.io.ClassPathResource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link CassandraDockerComposeProjectGenerationConfiguration}.
+ * Tests for {@link CassandraProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
  */
-class CassandraDockerComposeProjectGenerationConfigurationTests extends AbstractExtensionTests {
+class CassandraProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void doesNothingWithoutDockerCompose() {
@@ -42,40 +42,19 @@ class CassandraDockerComposeProjectGenerationConfigurationTests extends Abstract
 	@Test
 	void createsCassandraService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-cassandra");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(cassandraService());
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 
 	@Test
 	void createsCassandraServiceWhenReactive() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-cassandra-reactive");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(cassandraService());
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 
 	@Test
 	void doesNotFailWhenBothCassandraAndReactiveCassandraAreSelected() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-cassandra", "data-cassandra-reactive");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(cassandraService());
-	}
-
-	private static String cassandraService() {
-		return """
-				services:
-				  cassandra:
-				    image: 'cassandra:latest'
-				    environment:
-				      - 'CASSANDRA_DC=dc1'
-				      - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
-				    ports:
-				      - '9042'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 
 }

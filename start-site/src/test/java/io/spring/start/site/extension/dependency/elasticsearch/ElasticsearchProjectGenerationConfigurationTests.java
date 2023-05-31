@@ -16,12 +16,12 @@
 
 package io.spring.start.site.extension.dependency.elasticsearch;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,24 +42,7 @@ class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtension
 	@Test
 	void createsElasticsearchService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-elasticsearch");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(elasticsearchService());
-	}
-
-	private static String elasticsearchService() {
-		return """
-				services:
-				  elasticsearch:
-				    image: 'docker.elastic.co/elasticsearch/elasticsearch:8.7.1'
-				    environment:
-				      - 'ELASTIC_PASSWORD=secret'
-				      - 'discovery.type=single-node'
-				      - 'xpack.security.enabled=false'
-				    ports:
-				      - '9200'
-				      - '9300'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
 	}
 
 }

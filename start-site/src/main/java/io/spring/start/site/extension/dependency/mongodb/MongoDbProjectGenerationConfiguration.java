@@ -14,37 +14,36 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.redis;
+package io.spring.start.site.extension.dependency.mongodb;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
+import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerImages;
-import io.spring.start.site.container.DockerImages.DockerImage;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Redis.
+ * Configuration for generation of projects that depend on MongoDB.
  *
  * @author Moritz Halbritter
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnRequestedDependency("docker-compose")
-class RedisDockerComposeProjectGenerationConfiguration {
+class MongoDbProjectGenerationConfiguration {
 
 	@Bean
-	DockerComposeFileCustomizer redisDockerComposeFileCustomizer(Build build) {
+	@ConditionalOnRequestedDependency("docker-compose")
+	ComposeFileCustomizer mongoDbComposeFileCustomizer(Build build) {
 		return (composeFile) -> {
-			if (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")) {
-				DockerImage image = DockerImages.redis();
-				composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-					.name("redis")
-					.imageWebsite(image.website())
-					.ports(6379)
-					.build());
+			if (build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive")) {
+				composeFile.services()
+					.add("mongodb",
+							DockerImages.mongoDb()
+								.andThen((service) -> service.environment("MONGO_INITDB_ROOT_USERNAME", "root")
+									.environment("MONGO_INITDB_ROOT_PASSWORD", "secret")
+									.environment("MONGO_INITDB_DATABASE", "mydatabase")
+									.ports(27017)));
 			}
 		};
 	}

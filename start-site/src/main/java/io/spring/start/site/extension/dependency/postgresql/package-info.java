@@ -15,6 +15,6 @@
  */
 
 /**
- * Support classes for Markdown.
+ * Extensions for generation of projects that depend on PostgreSQL.
  */
-package io.spring.start.site.support.markdown;
+package io.spring.start.site.extension.dependency.postgresql;

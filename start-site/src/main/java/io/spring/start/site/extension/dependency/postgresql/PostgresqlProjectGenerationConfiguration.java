@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.mysql;
+package io.spring.start.site.extension.dependency.postgresql;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
@@ -24,25 +24,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on MySQL.
+ * Configuration for generation of projects that depend on PostgreSQL.
  *
  * @author Moritz Halbritter
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnRequestedDependency("mysql")
-class MysqlProjectGenerationConfiguration {
+@ConditionalOnRequestedDependency("postgresql")
+class PostgresqlProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer mysqlComposeFileCustomizer() {
+	ComposeFileCustomizer postgresqlComposeFileCustomizer() {
 		return (composeFile) -> composeFile.services()
-			.add("mysql",
-					DockerImages.mysql()
-						.andThen((service) -> service.environment("MYSQL_ROOT_PASSWORD", "verysecret")
-							.environment("MYSQL_USER", "myuser")
-							.environment("MYSQL_PASSWORD", "secret")
-							.environment("MYSQL_DATABASE", "mydatabase")
-							.ports(3306)));
+			.add("postgres",
+					DockerImages.postgres()
+						.andThen((service) -> service.environment("POSTGRES_USER", "myuser")
+							.environment("POSTGRES_DB", "mydatabase")
+							.environment("POSTGRES_PASSWORD", "secret")
+							.ports(5432)));
 	}
 
 }

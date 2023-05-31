@@ -16,12 +16,12 @@
 
 package io.spring.start.site.extension.dependency.mariadb;
 
-import java.nio.charset.StandardCharsets;
-
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,24 +42,7 @@ class MariaDbProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void createsMariaDbService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "mariadb");
-		ProjectStructure structure = generateProject(request);
-		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).exists()
-			.content(StandardCharsets.UTF_8)
-			.containsIgnoringNewLines(mariaDbService());
-	}
-
-	private static String mariaDbService() {
-		return """
-				services:
-				  mariadb:
-				    image: 'mariadb:latest'
-				    environment:
-				      - 'MARIADB_DATABASE=mydatabase'
-				      - 'MARIADB_PASSWORD=secret'
-				      - 'MARIADB_ROOT_PASSWORD=verysecret'
-				      - 'MARIADB_USER=myuser'
-				    ports:
-				      - '3306'""";
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mariadb.yaml"));
 	}
 
 }

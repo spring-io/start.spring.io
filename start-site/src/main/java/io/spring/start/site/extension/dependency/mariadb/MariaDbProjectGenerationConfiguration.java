@@ -17,8 +17,7 @@
 package io.spring.start.site.extension.dependency.mariadb;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeFileCustomizer;
-import io.spring.initializr.generator.spring.container.dockercompose.DockerComposeService;
+import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerImages;
 
 import org.springframework.context.annotation.Bean;
@@ -35,19 +34,15 @@ class MariaDbProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	DockerComposeFileCustomizer mariaDbDockerComposeFileCustomizer() {
-		return (composeFile) -> {
-			DockerImages.DockerImage image = DockerImages.mariaDb();
-			composeFile.addService(DockerComposeService.withImage(image.image(), image.tag())
-				.name("mariadb")
-				.imageWebsite(image.website())
-				.environment("MARIADB_ROOT_PASSWORD", "verysecret")
-				.environment("MARIADB_USER", "myuser")
-				.environment("MARIADB_PASSWORD", "secret")
-				.environment("MARIADB_DATABASE", "mydatabase")
-				.ports(3306)
-				.build());
-		};
+	ComposeFileCustomizer mariaDbComposeFileCustomizer() {
+		return (composeFile) -> composeFile.services()
+			.add("mariadb",
+					DockerImages.mariaDb()
+						.andThen((service) -> service.environment("MARIADB_ROOT_PASSWORD", "verysecret")
+							.environment("MARIADB_USER", "myuser")
+							.environment("MARIADB_PASSWORD", "secret")
+							.environment("MARIADB_DATABASE", "mydatabase")
+							.ports(3306)));
 	}
 
 }
