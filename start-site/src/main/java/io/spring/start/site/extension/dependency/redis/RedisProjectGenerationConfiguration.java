@@ -14,38 +14,32 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.springamqp;
+package io.spring.start.site.extension.dependency.redis;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerImages;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Spring AMQP.
+ * Configuration for generation of projects that depend on Redis.
  *
- * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
-@ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("amqp")
-class SpringAmqpProjectGenerationConfiguration {
-
-	@Bean
-	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
-		return new SpringRabbitTestBuildCustomizer();
-	}
+@Configuration(proxyBeanMethods = false)
+class RedisProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer rabbitComposeFileCustomizer() {
-		return (composeFile) -> composeFile.services()
-			.add("rabbitmq",
-					DockerImages.rabbit()
-						.andThen((service) -> service.environment("RABBITMQ_DEFAULT_USER", "myuser")
-							.environment("RABBITMQ_DEFAULT_PASS", "secret")
-							.ports(5672)));
+	ComposeFileCustomizer redisComposeFileCustomizer(Build build) {
+		return (composeFile) -> {
+			if (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")) {
+				composeFile.services().add("redis", DockerImages.redis().andThen((service) -> service.ports(6379)));
+			}
+		};
 	}
 
 }
