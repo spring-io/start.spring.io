@@ -149,6 +149,7 @@ jobs:
   - task: build
     image: start-site-ci-image
     file: git-repo/ci/tasks/build-service.yml
+    timeout: ((task-timeout))
     params:
       GOOGLE_TAGMANAGER_ID: ((google-tagmanager-id))
     on_success:

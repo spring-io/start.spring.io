@@ -7,6 +7,7 @@ docker-hub-organization: "springci"
 build-name: "start-site"
 pipeline-name: "start-site"
 concourse-url: "https://ci.spring.io"
+task-timeout: 1h00m
 shipyard-kubeconfig: |
   apiVersion: v1
   kind: Config
