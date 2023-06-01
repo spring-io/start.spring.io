@@ -5,8 +5,11 @@ set -ex
 # UTILS
 ###########################################################
 
+export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y curl git
+apt-get install --no-install-recommends -y tzdata ca-certificates curl git
+ln -fs /usr/share/zoneinfo/UTC /etc/localtime
+dpkg-reconfigure --frontend noninteractive tzdata
 
 curl https://raw.githubusercontent.com/spring-io/concourse-java-scripts/v0.0.2/concourse-java.sh > /opt/concourse-java.sh
 
