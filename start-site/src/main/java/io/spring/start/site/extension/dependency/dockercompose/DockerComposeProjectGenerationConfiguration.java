@@ -19,8 +19,8 @@ package io.spring.start.site.extension.dependency.dockercompose;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.container.docker.compose.ComposeFile;
 import io.spring.initializr.generator.io.IndentingWriterFactory;
+import io.spring.initializr.generator.spring.container.docker.compose.ComposeHelpDocumentCustomizer;
 import io.spring.initializr.generator.spring.container.docker.compose.ComposeProjectContributor;
-import io.spring.initializr.generator.spring.container.docker.compose.DockerComposeHelpDocumentCustomizer;
 import io.spring.start.site.container.ComposeFileCustomizer;
 
 import org.springframework.beans.factory.ObjectProvider;
@@ -50,8 +50,8 @@ class DockerComposeProjectGenerationConfiguration {
 	}
 
 	@Bean
-	DockerComposeHelpDocumentCustomizer dockerComposeHelpDocumentCustomizer(ComposeFile composeFile) {
-		return new DockerComposeHelpDocumentCustomizer(composeFile);
+	ComposeHelpDocumentCustomizer dockerComposeHelpDocumentCustomizer(ComposeFile composeFile) {
+		return new ComposeHelpDocumentCustomizer(composeFile);
 	}
 
 }
