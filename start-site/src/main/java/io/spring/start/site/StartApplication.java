@@ -21,6 +21,7 @@ import java.nio.file.Files;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.start.site.container.SimpleDockerServiceResolver;
 import io.spring.start.site.project.ProjectDescriptionCustomizerConfiguration;
 import io.spring.start.site.support.CacheableDependencyManagementVersionResolver;
 import io.spring.start.site.support.StartInitializrMetadataUpdateStrategy;
@@ -66,6 +67,11 @@ public class StartApplication {
 	public DependencyManagementVersionResolver dependencyManagementVersionResolver() throws IOException {
 		return new CacheableDependencyManagementVersionResolver(DependencyManagementVersionResolver
 			.withCacheLocation(Files.createTempDirectory("version-resolver-cache-")));
+	}
+
+	@Bean
+	public SimpleDockerServiceResolver dockerServiceResolver() {
+		return new SimpleDockerServiceResolver();
 	}
 
 }

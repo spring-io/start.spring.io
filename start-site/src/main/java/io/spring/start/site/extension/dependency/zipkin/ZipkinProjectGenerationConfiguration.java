@@ -18,7 +18,7 @@ package io.spring.start.site.extension.dependency.zipkin;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
-import io.spring.start.site.container.DockerImages;
+import io.spring.start.site.container.DockerServiceResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,9 +34,9 @@ class ZipkinProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer zipkinComposeFileCustomizer() {
-		return (composeFile) -> composeFile.services()
-			.add("zipkin", DockerImages.zipkin().andThen((service) -> service.ports(9411)));
+	ComposeFileCustomizer zipkinComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("zipkin",
+				(service) -> composeFile.services().add("zipkin", service));
 	}
 
 }

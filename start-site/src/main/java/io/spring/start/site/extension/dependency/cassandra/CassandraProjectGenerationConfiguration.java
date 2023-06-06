@@ -19,7 +19,7 @@ package io.spring.start.site.extension.dependency.cassandra;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
-import io.spring.start.site.container.DockerImages;
+import io.spring.start.site.container.DockerServiceResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,15 +34,13 @@ class CassandraProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer cassandraComposeFileCustomizer(Build build) {
-		return (file) -> {
+	ComposeFileCustomizer cassandraComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
+		return (composeFile) -> {
 			if (build.dependencies().has("data-cassandra") || build.dependencies().has("data-cassandra-reactive")) {
-				file.services()
-					.add("cassandra",
-							DockerImages.cassandra()
-								.andThen((service) -> service.environment("CASSANDRA_DC", "dc1")
-									.environment("CASSANDRA_ENDPOINT_SNITCH", "GossipingPropertyFileSnitch")
-									.ports(9042)));
+				serviceResolver.doWith("cassandra",
+						(service) -> composeFile.services()
+							.add("cassandra", service.andThen((builder) -> builder.environment("CASSANDRA_DC", "dc1")
+								.environment("CASSANDRA_ENDPOINT_SNITCH", "GossipingPropertyFileSnitch"))));
 			}
 		};
 	}

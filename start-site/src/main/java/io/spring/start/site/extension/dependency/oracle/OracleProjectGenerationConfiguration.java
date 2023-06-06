@@ -18,7 +18,7 @@ package io.spring.start.site.extension.dependency.oracle;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
-import io.spring.start.site.container.DockerImages;
+import io.spring.start.site.container.DockerServiceResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,10 +34,9 @@ class OracleProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer oracleComposeFileCustomizer() {
-		return (composeFile) -> composeFile.services()
-			.add("oracle", DockerImages.oracle()
-				.andThen((service) -> service.environment("ORACLE_PASSWORD", "secret").ports(1521)));
+	ComposeFileCustomizer oracleComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("oracle", (service) -> composeFile.services()
+			.add("oracle", service.andThen((builder) -> builder.environment("ORACLE_PASSWORD", "secret"))));
 	}
 
 }

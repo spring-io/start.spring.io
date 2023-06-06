@@ -18,7 +18,7 @@ package io.spring.start.site.extension.dependency.postgresql;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
-import io.spring.start.site.container.DockerImages;
+import io.spring.start.site.container.DockerServiceResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,14 +34,13 @@ class PostgresqlProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer postgresqlComposeFileCustomizer() {
-		return (composeFile) -> composeFile.services()
-			.add("postgres",
-					DockerImages.postgres()
-						.andThen((service) -> service.environment("POSTGRES_USER", "myuser")
-							.environment("POSTGRES_DB", "mydatabase")
-							.environment("POSTGRES_PASSWORD", "secret")
-							.ports(5432)));
+	ComposeFileCustomizer postgresqlComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("postgres",
+				(service) -> composeFile.services()
+					.add("postgres",
+							service.andThen((builder) -> builder.environment("POSTGRES_USER", "myuser")
+								.environment("POSTGRES_DB", "mydatabase")
+								.environment("POSTGRES_PASSWORD", "secret"))));
 	}
 
 }

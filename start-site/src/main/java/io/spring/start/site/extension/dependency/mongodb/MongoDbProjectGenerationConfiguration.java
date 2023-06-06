@@ -19,7 +19,7 @@ package io.spring.start.site.extension.dependency.mongodb;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
-import io.spring.start.site.container.DockerImages;
+import io.spring.start.site.container.DockerServiceResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,16 +34,14 @@ class MongoDbProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer mongoDbComposeFileCustomizer(Build build) {
+	ComposeFileCustomizer mongoDbComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
 		return (composeFile) -> {
 			if (build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive")) {
-				composeFile.services()
+				serviceResolver.doWith("mongoDb", (service) -> composeFile.services()
 					.add("mongodb",
-							DockerImages.mongoDb()
-								.andThen((service) -> service.environment("MONGO_INITDB_ROOT_USERNAME", "root")
-									.environment("MONGO_INITDB_ROOT_PASSWORD", "secret")
-									.environment("MONGO_INITDB_DATABASE", "mydatabase")
-									.ports(27017)));
+							service.andThen((builder) -> builder.environment("MONGO_INITDB_ROOT_USERNAME", "root")
+								.environment("MONGO_INITDB_ROOT_PASSWORD", "secret")
+								.environment("MONGO_INITDB_DATABASE", "mydatabase"))));
 			}
 		};
 	}

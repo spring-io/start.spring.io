@@ -19,7 +19,7 @@ package io.spring.start.site.extension.dependency.redis;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
-import io.spring.start.site.container.DockerImages;
+import io.spring.start.site.container.DockerServiceResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,10 +34,10 @@ class RedisProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer redisComposeFileCustomizer(Build build) {
+	ComposeFileCustomizer redisComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
 		return (composeFile) -> {
 			if (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")) {
-				composeFile.services().add("redis", DockerImages.redis().andThen((service) -> service.ports(6379)));
+				serviceResolver.doWith("redis", (service) -> composeFile.services().add("redis", service));
 			}
 		};
 	}
