@@ -185,9 +185,6 @@ initializr:
       v1-format-compatibility-range: "[2.0.0.RELEASE,2.4.0-M1)"
       v2-format-compatibility-range: "2.4.0-M1"
     repositories:
-      netflix-candidates:
-        name: Netflix Candidates
-        url: https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates
       spring-releases:
         name: Spring Releases
         url: https://repo.spring.io/release
@@ -1094,7 +1091,6 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-contract/reference/htmlsingle/
         - name: Contract Stub Runner
           bom: spring-cloud
-          compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
           id: cloud-contract-stub-runner
           description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
           groupId: org.springframework.cloud
@@ -1233,7 +1229,6 @@ initializr:
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
-          compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
           description: A REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-client
@@ -1243,12 +1238,8 @@ initializr:
               description: Service Registration and Discovery with Eureka and Spring Cloud
             - rel: reference
               href: https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/#service-discovery-eureka-clients
-          mappings:
-            - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
-              repository: netflix-candidates
         - name: Eureka Server
           id: cloud-eureka-server
-          compatibilityRange: "[2.3.0.M1,3.1.0-M1)"
           description: spring-cloud-netflix Eureka Server.
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-netflix-eureka-server
@@ -1258,9 +1249,6 @@ initializr:
               description: Service Registration and Discovery with Eureka and Spring Cloud
             - rel: reference
               href: https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/#spring-cloud-eureka-server
-          mappings:
-            - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
-              repository: netflix-candidates
         - name: Apache Zookeeper Discovery
           id: cloud-starter-zookeeper-discovery
           description: Service discovery with Apache Zookeeper.
