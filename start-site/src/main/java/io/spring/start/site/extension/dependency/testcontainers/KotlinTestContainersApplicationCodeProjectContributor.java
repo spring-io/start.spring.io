@@ -61,7 +61,7 @@ class KotlinTestContainersApplicationCodeProjectContributor extends
 			Consumer<KotlinCompilationUnit> customizer) {
 		super.customizeApplicationCompilationUnit(sourceCode, customizer
 			.andThen((compilationUnit) -> compilationUnit.addTopLevelFunction(KotlinFunctionDeclaration.function("main")
-				.parameters(new Parameter("Array<String>", "args"))
+				.parameters(Parameter.of("args", "Array<String>"))
 				.body(CodeBlock.ofStatement("$T<$L>().$T($L::class).run(*args)",
 						"org.springframework.boot.fromApplication", getDescription().getApplicationName(),
 						"org.springframework.boot.with", getTestApplicationName())))));

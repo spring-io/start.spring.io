@@ -56,7 +56,7 @@ class JavaTestContainersApplicationCodeProjectContributor extends
 				(type) -> type.addMethodDeclaration(JavaMethodDeclaration.method("main")
 					.modifiers(Modifier.PUBLIC | Modifier.STATIC)
 					.returning("void")
-					.parameters(new Parameter("java.lang.String[]", "args"))
+					.parameters(Parameter.of("args", String[].class))
 					.body(CodeBlock.ofStatement("$T.from($L::main).with($L.class).run(args)", SpringApplication.class,
 							getDescription().getApplicationName(), getTestApplicationName()))));
 	}

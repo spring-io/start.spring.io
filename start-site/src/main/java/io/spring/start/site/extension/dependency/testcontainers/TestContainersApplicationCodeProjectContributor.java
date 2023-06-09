@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import io.spring.initializr.generator.language.Annotatable;
-import io.spring.initializr.generator.language.Annotation;
+import io.spring.initializr.generator.language.ClassName;
 import io.spring.initializr.generator.language.CompilationUnit;
 import io.spring.initializr.generator.language.SourceCode;
 import io.spring.initializr.generator.language.SourceCodeWriter;
@@ -42,6 +42,14 @@ import io.spring.start.site.container.ServiceConnections.ServiceConnection;
  */
 abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDeclaration, C extends CompilationUnit<T>, S extends SourceCode<T, C>>
 		implements ProjectContributor {
+
+	public static final ClassName TEST_CONFIGURATION_CLASS_NAME = ClassName
+		.of("org.springframework.boot.test.context.TestConfiguration");
+
+	public static final ClassName BEAN_CLASS_NAME = ClassName.of("org.springframework.context.annotation.Bean");
+
+	public static final ClassName SERVICE_CONNECTION_CLASS_NAME = ClassName
+		.of("org.springframework.boot.testcontainers.service.connection.ServiceConnection");
 
 	private final ProjectDescription description;
 
@@ -89,8 +97,8 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 	protected void customizeApplicationTypeDeclaration(S sourceCode, Consumer<T> customizer) {
 		customizeApplicationCompilationUnit(sourceCode, (compilationUnit) -> {
 			T applicationType = compilationUnit.createTypeDeclaration(getTestApplicationName());
-			applicationType.annotate(Annotation.name("org.springframework.boot.test.context.TestConfiguration",
-					(ann) -> ann.attribute("proxyBeanMethods", Boolean.class, "false")));
+			applicationType.annotations()
+				.add(TEST_CONFIGURATION_CLASS_NAME, (annotation) -> annotation.set("proxyBeanMethods", false));
 			this.serviceConnections.values()
 				.forEach((serviceConnection) -> configureServiceConnection(applicationType, serviceConnection));
 			customizer.accept(applicationType);
@@ -98,14 +106,12 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 	}
 
 	protected void annotateContainerMethod(Annotatable annotable, String name) {
-		annotable.annotate(Annotation.name("org.springframework.context.annotation.Bean"));
-		annotable.annotate(Annotation
-			.name("org.springframework.boot.testcontainers.service.connection.ServiceConnection", (annotation) -> {
-				if (name != null) {
-					annotation.attribute("name", String.class, name);
-				}
-			}));
-
+		annotable.annotations().add(BEAN_CLASS_NAME);
+		annotable.annotations().add(SERVICE_CONNECTION_CLASS_NAME, (annotation) -> {
+			if (name != null) {
+				annotation.set("name", name);
+			}
+		});
 	}
 
 	protected String getTestApplicationName() {
