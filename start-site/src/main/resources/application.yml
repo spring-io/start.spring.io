@@ -138,9 +138,9 @@ initializr:
           - compatibilityRange: "[2.7.0,3.0.0-M1)"
             version: 2.1.10
           - compatibilityRange: "[3.0.0,3.1.0-M1)"
-            version: 3.0.4
+            version: 3.0.5
           - compatibilityRange: "[3.1.0,3.2.0-M1)"
-            version: 3.1.0
+            version: 3.1.1
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
