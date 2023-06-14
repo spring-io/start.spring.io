@@ -53,9 +53,7 @@ class KotlinTestContainersApplicationCodeProjectContributor extends
 
 	@Override
 	protected void contributeCode(KotlinSourceCode sourceCode) {
-		customizeApplicationTypeDeclaration(sourceCode, (type) -> {
-			type.modifiers(KotlinModifier.PUBLIC);
-		});
+		customizeApplicationTypeDeclaration(sourceCode, (type) -> type.modifiers(KotlinModifier.PUBLIC));
 	}
 
 	@Override
