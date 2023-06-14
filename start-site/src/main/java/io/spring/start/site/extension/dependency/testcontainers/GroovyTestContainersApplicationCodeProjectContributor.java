@@ -52,13 +52,15 @@ class GroovyTestContainersApplicationCodeProjectContributor extends
 
 	@Override
 	protected void contributeCode(GroovySourceCode sourceCode) {
-		customizeApplicationTypeDeclaration(sourceCode,
-				(type) -> type.addMethodDeclaration(GroovyMethodDeclaration.method("main")
-					.modifiers(Modifier.PUBLIC | Modifier.STATIC)
-					.returning("void")
-					.parameters(Parameter.of("args", String[].class))
-					.body(CodeBlock.ofStatement("$T.from($L::main).with($L).run(args)", SpringApplication.class,
-							getDescription().getApplicationName(), getTestApplicationName()))));
+		customizeApplicationTypeDeclaration(sourceCode, (type) -> {
+			type.modifiers(Modifier.PUBLIC);
+			type.addMethodDeclaration(GroovyMethodDeclaration.method("main")
+				.modifiers(Modifier.PUBLIC | Modifier.STATIC)
+				.returning("void")
+				.parameters(Parameter.of("args", String[].class))
+				.body(CodeBlock.ofStatement("$T.from($L::main).with($L).run(args)", SpringApplication.class,
+						getDescription().getApplicationName(), getTestApplicationName())));
+		});
 	}
 
 	@Override

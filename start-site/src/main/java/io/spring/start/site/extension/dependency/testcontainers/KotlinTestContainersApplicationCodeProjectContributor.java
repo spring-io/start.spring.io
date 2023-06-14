@@ -25,6 +25,7 @@ import io.spring.initializr.generator.language.CodeBlock;
 import io.spring.initializr.generator.language.Parameter;
 import io.spring.initializr.generator.language.kotlin.KotlinCompilationUnit;
 import io.spring.initializr.generator.language.kotlin.KotlinFunctionDeclaration;
+import io.spring.initializr.generator.language.kotlin.KotlinModifier;
 import io.spring.initializr.generator.language.kotlin.KotlinSourceCode;
 import io.spring.initializr.generator.language.kotlin.KotlinSourceCodeWriter;
 import io.spring.initializr.generator.language.kotlin.KotlinTypeDeclaration;
@@ -53,6 +54,7 @@ class KotlinTestContainersApplicationCodeProjectContributor extends
 	@Override
 	protected void contributeCode(KotlinSourceCode sourceCode) {
 		customizeApplicationTypeDeclaration(sourceCode, (type) -> {
+			type.modifiers(KotlinModifier.PUBLIC);
 		});
 	}
 

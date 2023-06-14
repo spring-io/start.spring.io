@@ -189,7 +189,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.testcontainers.containers.GenericContainer;
 
 					@TestConfiguration(proxyBeanMethods = false)
-					class TestDemoApplication {
+					public class TestDemoApplication {
 
 						@Bean
 						@ServiceConnection(name = "redis")
@@ -223,7 +223,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.testcontainers.containers.GenericContainer
 
 					@TestConfiguration(proxyBeanMethods = false)
-					class TestDemoApplication {
+					public class TestDemoApplication {
 
 						@Bean
 						@ServiceConnection(name = "redis")
@@ -287,7 +287,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.testcontainers.containers.CassandraContainer;
 
 					@TestConfiguration(proxyBeanMethods = false)
-					class TestDemoApplication {
+					public class TestDemoApplication {
 
 						@Bean
 						@ServiceConnection
@@ -321,7 +321,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.testcontainers.containers.CassandraContainer
 
 					@TestConfiguration(proxyBeanMethods = false)
-					class TestDemoApplication {
+					public class TestDemoApplication {
 
 						@Bean
 						@ServiceConnection
