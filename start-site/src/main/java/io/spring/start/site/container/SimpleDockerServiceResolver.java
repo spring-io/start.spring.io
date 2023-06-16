@@ -47,7 +47,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService elasticsearch() {
 		// They don't provide a 'latest' tag
-		return new DockerService("docker.elastic.co/elasticsearch/elasticsearch", "8.7.1",
+		return new DockerService("docker.elastic.co/elasticsearch/elasticsearch", "7.17.10",
 				"https://www.docker.elastic.co/r/elasticsearch", 9200, 9300);
 	}
 

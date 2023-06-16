@@ -1,6 +1,6 @@
 services:
   elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:8.7.1'
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.10'
     environment:
       - 'ELASTIC_PASSWORD=secret'
       - 'discovery.type=single-node'
