@@ -109,11 +109,11 @@ initializr:
           - compatibilityRange: "[2.4.0-M1,2.6.0-M1)"
             version: 2.0.11
           - compatibilityRange: "[2.6.0-M1,3.0.0-M1)"
-            version: 3.5.2
+            version: 3.5.3
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
             version: 4.3.1
           - compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
-            version: 4.4.0
+            version: 4.5.0
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
