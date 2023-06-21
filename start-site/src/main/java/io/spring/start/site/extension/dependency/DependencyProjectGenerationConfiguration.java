@@ -26,6 +26,7 @@ import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVer
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.dependency.liquibase.LiquibaseProjectContributor;
 import io.spring.start.site.extension.dependency.lombok.LombokGradleBuildCustomizer;
+import io.spring.start.site.extension.dependency.mybatis.MyBatisTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.okta.OktaHelpDocumentCustomizer;
 import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springbatch.SpringBatchTestBuildCustomizer;
@@ -44,6 +45,7 @@ import org.springframework.context.annotation.Bean;
  * @author Madhura Bhave
  * @author Stephane Nicoll
  * @author Eddú Meléndez
+ * @author Kazuki Shimizu
  */
 @ProjectGenerationConfiguration
 public class DependencyProjectGenerationConfiguration {
@@ -112,6 +114,12 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("okta")
 	public OktaHelpDocumentCustomizer oktaHelpDocumentCustomizer(MustacheTemplateRenderer templateRenderer) {
 		return new OktaHelpDocumentCustomizer(templateRenderer);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("mybatis")
+	public MyBatisTestBuildCustomizer mybatisTestBuildCustomizer() {
+		return new MyBatisTestBuildCustomizer();
 	}
 
 }
