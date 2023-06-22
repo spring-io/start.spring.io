@@ -93,6 +93,10 @@ class MetadataVerificationTests {
 					dependency.getVersion(), boms, repositories);
 		}
 		catch (RuntimeException ex) {
+			// ActiveMQ starter does not exist with Spring Boot 3.0
+			if (ex.getMessage().contains("rg.springframework.boot:spring-boot-starter-activemq:pom:")) {
+				return null;
+			}
 			// Known issue with Spring Cloud Contract to be fixed in the next release
 			// See
 			// https://github.com/spring-cloud/spring-cloud-contract/commit/13c7d477fbbc856b319600874a11aabcef283df7
