@@ -53,6 +53,13 @@ initializr:
             version: 2.7.4
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
             version: 3.0.4
+      hilla:
+        groupId: dev.hilla
+        artifactId: hilla-bom
+        versionProperty: hilla.version
+        mappings:
+          - compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
+            version: 2.1.1
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
@@ -364,6 +371,21 @@ initializr:
               description: Creating CRUD UI with Vaadin
             - rel: reference
               href: https://vaadin.com/docs
+        - name: Hilla
+          id: hilla
+          bom: hilla
+          compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
+          facets:
+            - web
+          groupId: dev.hilla
+          artifactId: hilla-react-spring-boot-starter
+          description: An open source framework that integrates a Spring Boot Java backend with a reactive TypeScript frontend.
+          links:
+            - rel: guide
+              href: https://hilla.dev/docs/react/start/quick/#coming-from-spring-initializr
+              description: Next Steps with Hilla
+            - rel: reference
+              href: https://hilla.dev/
     - name: Template Engines
       content:
         - name: Thymeleaf
