@@ -33,8 +33,7 @@ class MyBatisTestBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void mybatisIsAddedWithSecurity() {
 		ProjectRequest request = createProjectRequest("mybatis");
-		assertThat(mavenPom(request))
-			.hasDependency(mybatis())
+		assertThat(mavenPom(request)).hasDependency(mybatis())
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(mybatisTest())
 			.hasDependenciesSize(3);
@@ -49,8 +48,7 @@ class MyBatisTestBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	private static Dependency mybatis() {
-		return Dependency.withId("mybatis", "org.mybatis.spring.boot",
-				"mybatis-spring-boot-starter");
+		return Dependency.withId("mybatis", "org.mybatis.spring.boot", "mybatis-spring-boot-starter");
 	}
 
 	private static Dependency mybatisTest() {
