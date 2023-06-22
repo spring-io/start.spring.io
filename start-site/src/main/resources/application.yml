@@ -769,7 +769,6 @@ initializr:
               description: Apache Kafka Streams Binding Capabilities of Spring Cloud Stream
         - name: Spring for Apache ActiveMQ 5
           id: activemq
-          compatibilityRange: "[2.0.0.RELEASE,3.0.0-M1)"
           description: Spring JMS support with Apache ActiveMQ 'Classic'.
           links:
             - rel: guide
