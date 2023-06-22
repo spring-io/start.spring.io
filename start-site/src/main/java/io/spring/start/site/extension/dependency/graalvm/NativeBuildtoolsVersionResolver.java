@@ -34,7 +34,8 @@ abstract class NativeBuildtoolsVersionResolver {
 			new NativeBuildtoolsRange("[3.0.0-RC1,3.0.0-RC2)", "0.9.16"),
 			new NativeBuildtoolsRange("[3.0.0-RC2,3.0.0)", "0.9.17"),
 			new NativeBuildtoolsRange("[3.0.0,3.0.1)", "0.9.18"), new NativeBuildtoolsRange("[3.0.1,3.0.3)", "0.9.19"),
-			new NativeBuildtoolsRange("[3.0.3,3.1.0-M1)", "0.9.20"), new NativeBuildtoolsRange("3.1.0-M1", "0.9.20"));
+			new NativeBuildtoolsRange("[3.0.3,3.0.6)", "0.9.20"), new NativeBuildtoolsRange("[3.0.6,3.0.7)", "0.9.21"),
+			new NativeBuildtoolsRange("[3.0.7,3.1.1)", "0.9.22"), new NativeBuildtoolsRange("3.1.1", "0.9.23"));
 
 	static String resolve(Version platformVersion) {
 		return ranges.stream()
