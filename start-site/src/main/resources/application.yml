@@ -165,9 +165,9 @@ initializr:
           - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
             version: 23.2.15
           - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
-            version: 23.3.14
+            version: 23.3.15
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
-            version: 24.0.7
+            version: 24.0.8
           - compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
             version: 24.1.1
       wavefront:
