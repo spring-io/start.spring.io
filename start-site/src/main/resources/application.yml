@@ -161,15 +161,15 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[2.1.0.RELEASE,2.6.0-M1)"
-            version: 14.10.2
+            version: 14.10.3
           - compatibilityRange: "[2.6.0-M1,2.7.0-M1)"
-            version: 23.2.15
+            version: 23.2.14
           - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
-            version: 23.3.15
+            version: 23.3.16
           - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
-            version: 24.0.8
+            version: 24.0.9
           - compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
-            version: 24.1.1
+            version: 24.1.2
       wavefront:
         groupId: com.wavefront
         artifactId: wavefront-spring-boot-bom
