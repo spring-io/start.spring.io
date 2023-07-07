@@ -1,0 +1,21 @@
+name: Build Pull Request
+on: pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build pull request
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'spring-io/start.spring.io' }}
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'liberica'
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Build
+        run: ./mvnw clean verify
