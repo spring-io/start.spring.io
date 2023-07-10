@@ -109,7 +109,7 @@ initializr:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
         versionProperty: spring-cloud-services.version
-        additionalBoms: [spring-cloud]
+        additionalBoms: [ spring-cloud ]
         mappings:
           - compatibilityRange: "[2.6.0,2.7.0-M1)"
             version: 3.4.0
@@ -327,13 +327,13 @@ initializr:
           id: web-services
           description: Facilitates contract-first SOAP development. Allows for the creation of flexible web services using one of the many ways to manipulate XML payloads.
           aliases:
-           - ws
+            - ws
           links:
-           - rel: guide
-             href: https://spring.io/guides/gs/producing-web-service/
-             description: Producing a SOAP web service
-           - rel: reference
-             href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#io.webservices
+            - rel: guide
+              href: https://spring.io/guides/gs/producing-web-service/
+              description: Producing a SOAP web service
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#io.webservices
         - name: Jersey
           id: jersey
           description: Framework for developing RESTful Web Services in Java that provides support for JAX-RS APIs.
@@ -1542,16 +1542,16 @@ initializr:
       id: groovy
       default: false
   bootVersions:
-    - name : 3.0.3 (SNAPSHOT)
+    - name: 3.0.3 (SNAPSHOT)
       id: 3.0.3-SNAPSHOT
       default: false
-    - name : 3.0.2
+    - name: 3.0.2
       id: 3.0.2
       default: true
-    - name : 2.7.9 (SNAPSHOT)
+    - name: 2.7.9 (SNAPSHOT)
       id: 2.7.9-SNAPSHOT
       default: false
-    - name : 2.7.8
+    - name: 2.7.8
       id: 2.7.8
       default: false
 
