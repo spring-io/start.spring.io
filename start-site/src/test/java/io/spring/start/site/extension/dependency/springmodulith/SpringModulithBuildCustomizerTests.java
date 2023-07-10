@@ -16,7 +16,7 @@
 
 package io.spring.start.site.extension.dependency.springmodulith;
 
-import java.util.Collection;
+import java.util.Arrays;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
@@ -26,7 +26,6 @@ import io.spring.initializr.metadata.support.MetadataBuildItemResolver;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,69 +40,47 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	private final SpringModulithBuildCustomizer customizer = new SpringModulithBuildCustomizer();
 
 	@Test
-	void registersCoreStarterByDefault() {
-		Build build = createBuild();
+	void registersTestStarterWhenModulithIsSelected() {
+		Build build = createBuild("modulith");
 		this.customizer.customize(build);
-
-		assertThat(build.dependencies().ids()).contains("modulith");
-	}
-
-	@Test
-	void registersTestStarterByDefault() {
-		Build build = createBuild();
-		this.customizer.customize(build);
-
 		assertThat(build.dependencies().ids()).contains("modulith-starter-test");
 	}
 
 	@Test
 	void registersActuatorStarterIfActuatorsIsPresent() {
-		Build build = createBuild();
-		build.dependencies().add("actuator");
-
+		Build build = createBuild("modulith", "actuator");
 		this.customizer.customize(build);
-
 		assertThat(build.dependencies().ids()).contains("modulith-actuator");
 	}
 
 	@ParameterizedTest
-	@MethodSource("observabilityDependencies")
+	@ValueSource(
+			strings = { "actuator", "datadog", "graphite", "influx", "new-relic", "prometheus", "wavefront", "zipkin" })
 	void registersObservabilityStarterIfObservabilityDependencyIsPresent(String dependency) {
-		Build build = createBuild();
+		Build build = createBuild("modulith");
 		build.dependencies().add(dependency);
-
 		this.customizer.customize(build);
-
 		assertThat(build.dependencies().ids()).contains("modulith-observability");
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = { "jdbc", "jpa", "mongodb" })
 	void presenceOfSpringDataModuleAddsModuleEventStarter(String store) {
-		Build build = createBuild();
+		Build build = createBuild("modulith");
 		build.dependencies().add("data-" + store);
-
 		this.customizer.customize(build);
-
 		assertThat(build.dependencies().ids()).contains("modulith-starter-" + store);
-		assertThat(build.boms().has("spring-modulith"));
 	}
 
-	private Build createBuild() {
+	private Build createBuild(String... dependencies) {
 		InitializrMetadata metadata = getMetadata();
-
-		Build build = new MavenBuild(new MetadataBuildItemResolver(metadata, getDefaultPlatformVersion(metadata)));
-		build.dependencies().add("modulith");
-
+		MavenBuild build = new MavenBuild(new MetadataBuildItemResolver(metadata, getDefaultPlatformVersion(metadata)));
+		Arrays.stream(dependencies).forEach(build.dependencies()::add);
 		return build;
 	}
 
-	private static Version getDefaultPlatformVersion(InitializrMetadata metadata) {
+	private Version getDefaultPlatformVersion(InitializrMetadata metadata) {
 		return Version.parse(metadata.getBootVersions().getDefault().getId());
-	}
-
-	private static Collection<String> observabilityDependencies() {
-		return SpringModulithBuildCustomizer.OBSERVABILITY_DEPENDENCIES;
 	}
 
 }

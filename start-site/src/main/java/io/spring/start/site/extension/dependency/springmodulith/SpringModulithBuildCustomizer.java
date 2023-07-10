@@ -32,73 +32,43 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  * inclusion as well (observability and persistence).
  *
  * @author Oliver Drotbohm
+ * @author Stephane Nicoll
  */
 class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 
-	static final String GROUP_ID = "org.springframework.experimental";
-	static final String BOM_ARTIFACT_ID = "spring-modulith-bom";
-
-	static final Collection<String> OBSERVABILITY_DEPENDENCIES = List.of("datadog", "graphite", "influx", "new-relic",
-			"prometheus", "wavefront", "zipkin");
-
-	private static final String ARTIFACT_PREFIX = "spring-modulith-";
-
-	private static final Builder<?> ACTUATOR = Dependency.withCoordinates(GROUP_ID, ARTIFACT_PREFIX + "actuator")
-		.scope(DependencyScope.RUNTIME);
-
-	private static final Builder<?> OBSERVABILITY = Dependency
-		.withCoordinates(GROUP_ID, ARTIFACT_PREFIX + "observability")
-		.scope(DependencyScope.RUNTIME);
-
-	private static final Builder<?> STARTER_JDBC = Dependency.withCoordinates(GROUP_ID,
-			ARTIFACT_PREFIX + "starter-jdbc");
-
-	private static final Builder<?> STARTER_JPA = Dependency.withCoordinates(GROUP_ID, ARTIFACT_PREFIX + "starter-jpa");
-
-	private static final Builder<?> STARTER_MONGODB = Dependency.withCoordinates(GROUP_ID,
-			ARTIFACT_PREFIX + "starter-mongodb");
-
-	private static final Builder<?> TEST = Dependency.withCoordinates(GROUP_ID, ARTIFACT_PREFIX + "starter-test")
-		.scope(DependencyScope.TEST_COMPILE);
+	private static final Collection<String> OBSERVABILITY_DEPENDENCIES = List.of("actuator", "datadog", "graphite",
+			"influx", "new-relic", "prometheus", "wavefront", "zipkin");
 
 	@Override
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
-
-		// Actuator
-
 		if (dependencies.has("actuator")) {
-			dependencies.add("modulith-actuator", ACTUATOR);
+			dependencies.add("modulith-actuator", modulithDependency("actuator").scope(DependencyScope.RUNTIME));
 		}
-
-		// Observability
-
 		if (OBSERVABILITY_DEPENDENCIES.stream().anyMatch(dependencies::has)) {
-			dependencies.add("modulith-observability", OBSERVABILITY);
+			dependencies.add("modulith-observability",
+					modulithDependency("observability").scope(DependencyScope.RUNTIME));
 		}
-
-		// Event publication registry support
-
 		addEventPublicationRegistryBackend(build);
-
-		dependencies.add("modulith-starter-test", TEST);
+		dependencies.add("modulith-starter-test",
+				modulithDependency("starter-test").scope(DependencyScope.TEST_COMPILE));
 	}
 
 	private void addEventPublicationRegistryBackend(Build build) {
-
 		DependencyContainer dependencies = build.dependencies();
-
 		if (dependencies.has("data-mongodb")) {
-			dependencies.add("modulith-starter-mongodb", STARTER_MONGODB);
+			dependencies.add("modulith-starter-mongodb", modulithDependency("starter-mongodb"));
 		}
-
 		if (dependencies.has("data-jdbc")) {
-			dependencies.add("modulith-starter-jdbc", STARTER_JDBC);
+			dependencies.add("modulith-starter-jdbc", modulithDependency("starter-jdbc"));
 		}
-
 		if (dependencies.has("data-jpa")) {
-			dependencies.add("modulith-starter-jpa", STARTER_JPA);
+			dependencies.add("modulith-starter-jpa", modulithDependency("starter-jpa"));
 		}
+	}
+
+	private Builder<?> modulithDependency(String name) {
+		return Dependency.withCoordinates("org.springframework.modulith", "spring-modulith-" + name);
 	}
 
 }
