@@ -168,15 +168,6 @@ initializr:
       dependency-management-plugin-version: 1.0.14.RELEASE
     platform:
       compatibility-range: "2.6.0"
-    repositories:
-      spring-releases:
-        name: Spring Releases
-        url: https://repo.spring.io/release
-      sonatype-snapshots:
-        name: Sonatype Snapshots
-        url: https://oss.sonatype.org/content/repositories/snapshots/
-        releasesEnabled: false
-        snapshotsEnabled: true
   dependencies:
     - name: Developer Tools
       content:
