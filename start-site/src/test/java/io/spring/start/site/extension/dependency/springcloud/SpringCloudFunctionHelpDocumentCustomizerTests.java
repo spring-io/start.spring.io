@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForMaven() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.5.0");
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);
@@ -45,7 +44,6 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForGradle() {
 		ProjectRequest request = createProjectRequest();
-		request.setBootVersion("2.5.0");
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);

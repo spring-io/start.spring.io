@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,19 +33,19 @@ class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void linksAddedToHelpDocumentForGradleBuild() {
-		assertHelpDocument("gradle-build", "2.5.0").contains(
+		assertHelpDocument("gradle-build", "3.0.0").contains(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
-				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.0/gradle-plugin/reference/html/)",
-				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.0/gradle-plugin/reference/html/#build-image)");
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.0.0/gradle-plugin/reference/html/)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.0.0/gradle-plugin/reference/html/#build-image)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForMavenBuild() {
-		assertHelpDocument("maven-build", "2.5.0").doesNotContain(
+		assertHelpDocument("maven-build", "3.0.0").doesNotContain(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
-				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.0/gradle-plugin/reference/html/)");
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.0.0/gradle-plugin/reference/html/)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String type, String version) {

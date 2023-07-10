@@ -31,14 +31,14 @@ class InvalidJvmVersionHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void warningAddedWithUnsupportedCombination() {
-		assertHelpDocument("2.4.0", "16").lines()
+		assertHelpDocument("3.0.0", "11").lines()
 			.containsSubsequence("# Read Me First",
-					"* The JVM level was changed from '16' to '11', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
+					"* The JVM level was changed from '11' to '17', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
 	}
 
 	@Test
 	void warningNotAddedWithCompatibleVersion() {
-		assertHelpDocument("2.4.8", "11").doesNotContain("# Read Me First");
+		assertHelpDocument("3.0.0", "17").doesNotContain("# Read Me First");
 	}
 
 	private TextAssert assertHelpDocument(String platformVersion, String jvmVersion) {

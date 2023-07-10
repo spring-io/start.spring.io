@@ -21,9 +21,6 @@ import java.util.List;
 
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 
@@ -35,18 +32,13 @@ import io.spring.initializr.metadata.InitializrMetadata;
  */
 class AnnotationProcessorExclusionBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
-	private static final VersionRange SPRING_BOOT_2_4_0_M3_0R_LATER = VersionParser.DEFAULT.parseRange("2.4.0-M3");
-
 	private static final List<String> KNOWN_ANNOTATION_PROCESSORS = Collections
 		.singletonList("configuration-processor");
 
 	private final InitializrMetadata metadata;
 
-	private final boolean hasSmartExclude;
-
-	AnnotationProcessorExclusionBuildCustomizer(InitializrMetadata metadata, Version platformVersion) {
+	AnnotationProcessorExclusionBuildCustomizer(InitializrMetadata metadata) {
 		this.metadata = metadata;
-		this.hasSmartExclude = SPRING_BOOT_2_4_0_M3_0R_LATER.match(platformVersion);
 	}
 
 	@Override
@@ -57,7 +49,7 @@ class AnnotationProcessorExclusionBuildCustomizer implements BuildCustomizer<Mav
 		List<io.spring.initializr.generator.buildsystem.Dependency> dependencies = build.dependencies()
 			.ids()
 			.filter(this::isAnnotationProcessor)
-			.filter((id) -> !this.hasSmartExclude || !KNOWN_ANNOTATION_PROCESSORS.contains(id))
+			.filter((id) -> !KNOWN_ANNOTATION_PROCESSORS.contains(id))
 			.map((id) -> build.dependencies().get(id))
 			.toList();
 		if (!dependencies.isEmpty()) {
