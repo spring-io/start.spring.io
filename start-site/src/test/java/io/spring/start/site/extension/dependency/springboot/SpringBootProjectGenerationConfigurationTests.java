@@ -33,7 +33,6 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void gradleWithDevtoolsConfigureBuild() {
 		ProjectRequest request = createProjectRequest("devtools");
-		request.setBootVersion("2.4.8");
 		assertThat(gradleBuild(request)).lines()
 			.doesNotContain("configurations {")
 			.contains("\tdevelopmentOnly 'org.springframework.boot:spring-boot-devtools'");
@@ -42,7 +41,6 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void gradleWithoutDevtoolsDoesNotCreateDevelopmentOnlyConfiguration() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.4.8");
 		assertThat(gradleBuild(request)).doesNotContain("developmentOnly");
 	}
 

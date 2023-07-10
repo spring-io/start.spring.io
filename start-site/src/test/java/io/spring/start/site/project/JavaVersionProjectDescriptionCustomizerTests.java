@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,35 +35,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void java8IsMandatoryMaven() {
-		assertThat(mavenPom(javaProject("1.7", "2.3.0.RELEASE"))).hasProperty("java.version", "1.8");
-	}
-
-	@Test
-	void java8IsMandatoryGradle() {
-		assertThat(gradleBuild(javaProject("1.7", "2.3.0.RELEASE"))).hasSourceCompatibility("1.8");
-	}
-
-	@Test
 	void javaUnknownVersionIsLeftAsIs() {
-		assertThat(mavenPom(javaProject("9999999", "2.3.0.RELEASE"))).hasProperty("java.version", "9999999");
+		assertThat(mavenPom(javaProject("9999999", "2.7.13"))).hasProperty("java.version", "9999999");
 	}
 
 	@Test
 	void javaInvalidVersionIsLeftAsIs() {
-		assertThat(mavenPom(javaProject("${another.version}", "2.3.0.RELEASE"))).hasProperty("java.version",
+		assertThat(mavenPom(javaProject("${another.version}", "2.7.13"))).hasProperty("java.version",
 				"${another.version}");
 	}
 
 	@Test
 	void java8IsNotCompatibleWithSpringBoot3() {
-		ProjectRequest request = javaProject("1.8", "3.0.0-M1");
+		ProjectRequest request = javaProject("1.8", "3.0.0");
 		assertThat(mavenPom(request)).hasProperty("java.version", "17");
 	}
 
 	@Test
 	void java11IsNotCompatibleWithSpringBoot3() {
-		ProjectRequest request = javaProject("11", "3.0.0-M1");
+		ProjectRequest request = javaProject("11", "3.0.0");
 		assertThat(mavenPom(request)).hasProperty("java.version", "17");
 	}
 
@@ -92,37 +82,29 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedJavaParameters() {
-		return Stream.of(java("9", "2.3.0.RELEASE"), java("10", "2.3.0.RELEASE"), java("11", "2.3.0.RELEASE"),
-				java("12", "2.3.0.RELEASE"), java("13", "2.3.0.RELEASE"), java("14", "2.3.0.RELEASE"),
-				java("15", "2.3.4.RELEASE"), java("16", "2.5.0-RC1"), java("17", "2.5.5"), java("18", "2.5.11"),
-				java("19", "2.6.12"), java("20", "2.7.10"));
+		return Stream.of(java("19", "2.6.12"), java("20", "2.7.10"));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
-		return Stream.of(kotlin("9", "2.3.0.RELEASE"), kotlin("10", "2.3.0.RELEASE"), kotlin("11", "2.3.0.RELEASE"),
-				kotlin("12", "2.3.0.RELEASE"), kotlin("13", "2.3.0.RELEASE"), kotlin("14", "2.3.0.RELEASE"),
-				kotlin("15", "2.3.4.RELEASE"), kotlin("16", "2.5.0-RC1"), kotlin("17", "2.6.0"));
+		return Stream.of(kotlin("17", "2.6.0"));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {
-		return Stream.of(groovy("9", "2.3.0.RELEASE"), groovy("10", "2.3.0.RELEASE"), groovy("11", "2.3.0.RELEASE"),
-				groovy("12", "2.3.0.RELEASE"), groovy("13", "2.3.0.RELEASE"), groovy("14", "2.3.0.RELEASE"),
-				groovy("15", "2.3.4.RELEASE"), groovy("16", "2.5.0-RC1"), groovy("17", "2.5.5"), groovy("18", "2.5.11"),
-				groovy("19", "2.6.12"), groovy("20", "2.7.10"));
+		return Stream.of(groovy("19", "2.6.12"), groovy("20", "2.7.10"));
 	}
 
 	@ParameterizedTest(name = "{0} - Java {1} - Spring Boot {2}")
 	@MethodSource("unsupportedMavenParameters")
 	void mavenBuildWithUnsupportedOptionsDowngradesToLts(String language, String javaVersion,
 			String springBootVersion) {
-		assertThat(mavenPom(project(language, javaVersion, springBootVersion))).hasProperty("java.version", "11");
+		assertThat(mavenPom(project(language, javaVersion, springBootVersion))).hasProperty("java.version", "17");
 	}
 
 	@ParameterizedTest(name = "{0} - Java {1} - Spring Boot {2}")
 	@MethodSource("unsupportedGradleGroovyParameters")
 	void gradleGroovyBuildWithUnsupportedOptionsDowngradesToLts(String language, String javaVersion,
 			String springBootVersion) {
-		assertThat(gradleBuild(project(language, javaVersion, springBootVersion))).hasSourceCompatibility("11");
+		assertThat(gradleBuild(project(language, javaVersion, springBootVersion))).hasSourceCompatibility("17");
 	}
 
 	static Stream<Arguments> unsupportedMavenParameters() {
@@ -135,16 +117,15 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> unsupportedJavaParameters() {
-		return Stream.of(java("16", "2.4.3"), java("17", "2.5.4"));
+		return Stream.of(java("19", "2.6.11"));
 	}
 
 	private static Stream<Arguments> unsupportedKotlinParameters() {
-		return Stream.of(kotlin("16", "2.4.3"), kotlin("17", "2.5.5"), kotlin("18", "2.5.11"), kotlin("19", "2.5.11"),
-				kotlin("20", "2.5.11"));
+		return Stream.of(kotlin("18", "2.6.12"), kotlin("19", "2.6.12"), kotlin("20", "2.6.12"));
 	}
 
 	private static Stream<Arguments> unsupportedGroovyParameters() {
-		return Stream.of(groovy("16", "2.4.3"), groovy("17", "2.5.4"));
+		return Stream.of(groovy("19", "2.6.11"));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {

@@ -30,24 +30,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AnnotationProcessorExclusionBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void annotationProcessorsAreExcludedWithoutMetadata() {
-		ProjectRequest request = createProjectRequest("lombok", "configuration-processor");
-		request.setBootVersion("2.3.0.RELEASE");
-		assertThat(mavenPom(request)).lines()
-			.containsSequence("					<excludes>", "						<exclude>",
-					"							<groupId>org.projectlombok</groupId>",
-					"							<artifactId>lombok</artifactId>", "						</exclude>",
-					"						<exclude>",
-					"							<groupId>org.springframework.boot</groupId>",
-					"							<artifactId>spring-boot-configuration-processor</artifactId>",
-					"						</exclude>", "					</excludes>");
-
-	}
-
-	@Test
 	void annotationProcessorsAreExcludedOnlyIfTheyAreNotHandledWithMetadata() {
 		ProjectRequest request = createProjectRequest("lombok", "configuration-processor");
-		request.setBootVersion("2.4.0");
 		assertThat(mavenPom(request)).lines()
 			.containsSequence("					<excludes>", "						<exclude>",
 					"							<groupId>org.projectlombok</groupId>",
@@ -59,7 +43,6 @@ class AnnotationProcessorExclusionBuildCustomizerTests extends AbstractExtension
 	@Test
 	void nonAnnotationProcessorsAreIgnored() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("2.4.0");
 		assertThat(mavenPom(request)).lines()
 			.doesNotContainSequence("						<exclude>",
 					"							<groupId>org.springframework.boot</groupId>",
