@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
-import io.spring.initializr.generator.version.Version;
-
 /**
  * {@link GraalVmGradleBuildCustomizer} implementations for projects using the Kotlin DSL.
  *
@@ -25,8 +23,8 @@ import io.spring.initializr.generator.version.Version;
  */
 class GraalVmKotlinDslGradleBuildCustomizer extends GraalVmGradleBuildCustomizer {
 
-	GraalVmKotlinDslGradleBuildCustomizer(Version platformVersion) {
-		super(platformVersion);
+	GraalVmKotlinDslGradleBuildCustomizer(String nbtVersion) {
+		super(nbtVersion);
 	}
 
 }

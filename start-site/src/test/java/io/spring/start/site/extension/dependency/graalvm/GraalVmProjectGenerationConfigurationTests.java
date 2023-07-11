@@ -16,10 +16,14 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
+import java.nio.file.Path;
+
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -58,8 +62,9 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void gradleBuildConfigureNativeBuildToolsPlugin() {
-		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(Version.parse("3.0.0"));
+	void gradleBuildConfigureNativeBuildToolsPlugin(@TempDir Path temp) {
+		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(MavenVersionResolver.withCacheLocation(temp),
+				Version.parse("3.0.0"));
 		ProjectRequest request = createNativeProjectRequest();
 		request.setBootVersion("3.0.0");
 		assertThat(gradleBuild(request)).hasPlugin("org.graalvm.buildtools.native", nbtVersion);

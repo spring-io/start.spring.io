@@ -32,11 +32,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 abstract class GraalVmGradleBuildCustomizerTests {
 
-	protected abstract GraalVmGradleBuildCustomizer createCustomizer(String platformVersion);
+	protected abstract GraalVmGradleBuildCustomizer createCustomizer(String nbtVersion);
 
 	@Test
 	void gradleBuildConfigureNativeBuildToolsPlugin() {
-		GraalVmGradleBuildCustomizer customizer = createCustomizer("3.0.0-RC1");
+		GraalVmGradleBuildCustomizer customizer = createCustomizer("1.0.0");
 		GradleBuild build = createBuild();
 		customizer.customize(build);
 		GradlePlugin nbtPlugin = build.plugins()
@@ -46,7 +46,7 @@ abstract class GraalVmGradleBuildCustomizerTests {
 			.orElse(null);
 		assertThat(nbtPlugin).isNotNull();
 		assertThat(nbtPlugin).isInstanceOf(StandardGradlePlugin.class)
-			.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("0.9.16"));
+			.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("1.0.0"));
 	}
 
 	protected GradleBuild createBuild() {

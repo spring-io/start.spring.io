@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.graalvm;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
 
 /**
  * {@link BuildCustomizer} abstraction for Gradle projects using GraalVM.
@@ -29,8 +28,8 @@ class GraalVmGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	private final String nbtVersion;
 
-	protected GraalVmGradleBuildCustomizer(Version platformVersion) {
-		this.nbtVersion = NativeBuildtoolsVersionResolver.resolve(platformVersion);
+	protected GraalVmGradleBuildCustomizer(String nbtVersion) {
+		this.nbtVersion = nbtVersion;
 	}
 
 	@Override

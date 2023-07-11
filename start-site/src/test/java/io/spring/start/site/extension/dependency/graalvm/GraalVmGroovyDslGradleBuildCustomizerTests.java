@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
-import io.spring.initializr.generator.version.Version;
-
 /**
  * Tests for {@link GraalVmGroovyDslGradleBuildCustomizer}.
  *
@@ -26,8 +24,8 @@ import io.spring.initializr.generator.version.Version;
 class GraalVmGroovyDslGradleBuildCustomizerTests extends GraalVmGradleBuildCustomizerTests {
 
 	@Override
-	protected GraalVmGroovyDslGradleBuildCustomizer createCustomizer(String platformVersion) {
-		return new GraalVmGroovyDslGradleBuildCustomizer(Version.parse(platformVersion));
+	protected GraalVmGroovyDslGradleBuildCustomizer createCustomizer(String nbtVersion) {
+		return new GraalVmGroovyDslGradleBuildCustomizer(nbtVersion);
 	}
 
 }

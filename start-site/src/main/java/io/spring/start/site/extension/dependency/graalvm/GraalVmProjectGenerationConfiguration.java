@@ -44,10 +44,10 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnPlatformVersion("3.0.0-M1")
 class GraalVmProjectGenerationConfiguration {
 
-	private final Version platformVersion;
+	private final String nbtVersion;
 
-	GraalVmProjectGenerationConfiguration(ProjectDescription description) {
-		this.platformVersion = description.getPlatformVersion();
+	GraalVmProjectGenerationConfiguration(ProjectDescription description, MavenVersionResolver versionResolver) {
+		this.nbtVersion = NativeBuildtoolsVersionResolver.resolve(versionResolver, description.getPlatformVersion());
 	}
 
 	@Bean
@@ -64,13 +64,13 @@ class GraalVmProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
 	GraalVmGroovyDslGradleBuildCustomizer graalVmGroovyDslGradleBuildCustomizer() {
-		return new GraalVmGroovyDslGradleBuildCustomizer(this.platformVersion);
+		return new GraalVmGroovyDslGradleBuildCustomizer(this.nbtVersion);
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
 	GraalVmKotlinDslGradleBuildCustomizer graalVmKotlinDslGradleBuildCustomizer() {
-		return new GraalVmKotlinDslGradleBuildCustomizer(this.platformVersion);
+		return new GraalVmKotlinDslGradleBuildCustomizer(this.nbtVersion);
 	}
 
 	@Bean
