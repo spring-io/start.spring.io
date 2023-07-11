@@ -7,7 +7,7 @@ set -ex
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install --no-install-recommends -y tzdata ca-certificates curl git node-gyp
+apt-get install --no-install-recommends -y tzdata ca-certificates curl git
 ln -fs /usr/share/zoneinfo/UTC /etc/localtime
 dpkg-reconfigure --frontend noninteractive tzdata
 
