@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency.graalvm;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
@@ -33,6 +34,7 @@ import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.function.SingletonSupplier;
 
 /**
  * {@link ProjectGenerationConfiguration} for generation of projects that use GraalVM.
@@ -44,10 +46,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnPlatformVersion("3.0.0-M1")
 class GraalVmProjectGenerationConfiguration {
 
-	private final String nbtVersion;
+	private final Supplier<String> nbtVersion;
 
 	GraalVmProjectGenerationConfiguration(ProjectDescription description, MavenVersionResolver versionResolver) {
-		this.nbtVersion = NativeBuildtoolsVersionResolver.resolve(versionResolver, description.getPlatformVersion());
+		this.nbtVersion = SingletonSupplier
+			.of(() -> NativeBuildtoolsVersionResolver.resolve(versionResolver, description.getPlatformVersion()));
 	}
 
 	@Bean
@@ -64,13 +67,13 @@ class GraalVmProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
 	GraalVmGroovyDslGradleBuildCustomizer graalVmGroovyDslGradleBuildCustomizer() {
-		return new GraalVmGroovyDslGradleBuildCustomizer(this.nbtVersion);
+		return new GraalVmGroovyDslGradleBuildCustomizer(this.nbtVersion.get());
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
 	GraalVmKotlinDslGradleBuildCustomizer graalVmKotlinDslGradleBuildCustomizer() {
-		return new GraalVmKotlinDslGradleBuildCustomizer(this.nbtVersion);
+		return new GraalVmKotlinDslGradleBuildCustomizer(this.nbtVersion.get());
 	}
 
 	@Bean
