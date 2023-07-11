@@ -22,7 +22,7 @@ import java.util.function.Function;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -43,8 +43,8 @@ class ManagedDependenciesKotlinVersionResolverTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("2.5.0"));
 		Function<ProjectDescription, String> fallback = mock(Function.class);
-		String version = new ManagedDependenciesKotlinVersionResolver(
-				DependencyManagementVersionResolver.withCacheLocation(temp), fallback)
+		String version = new ManagedDependenciesKotlinVersionResolver(MavenVersionResolver.withCacheLocation(temp),
+				fallback)
 			.resolveKotlinVersion(description);
 		assertThat(version).isEqualTo("1.5.0");
 		verifyNoInteractions(fallback);

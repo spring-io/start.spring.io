@@ -20,7 +20,7 @@ import java.util.function.Function;
 
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.gradle.DependencyManagementPluginVersionResolver;
-import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 /**
  * {@link DependencyManagementPluginVersionResolver} that determines the dependency
@@ -32,20 +32,20 @@ import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
 public class ManagedDependenciesDependencyManagementPluginVersionResolver
 		implements DependencyManagementPluginVersionResolver {
 
-	private final DependencyManagementVersionResolver resolver;
+	private final MavenVersionResolver versionResolver;
 
 	private final Function<ProjectDescription, String> fallback;
 
-	public ManagedDependenciesDependencyManagementPluginVersionResolver(DependencyManagementVersionResolver resolver,
+	public ManagedDependenciesDependencyManagementPluginVersionResolver(MavenVersionResolver versionResolver,
 			Function<ProjectDescription, String> fallback) {
-		this.resolver = resolver;
+		this.versionResolver = versionResolver;
 		this.fallback = fallback;
 	}
 
 	@Override
 	public String resolveDependencyManagementPluginVersion(ProjectDescription description) {
-		String pluginVersion = this.resolver
-			.resolve("org.springframework.boot", "spring-boot-dependencies",
+		String pluginVersion = this.versionResolver
+			.resolveDependencies("org.springframework.boot", "spring-boot-dependencies",
 					description.getPlatformVersion().toString())
 			.get("io.spring.gradle:dependency-management-plugin");
 		return (pluginVersion != null) ? pluginVersion : this.fallback.apply(description);

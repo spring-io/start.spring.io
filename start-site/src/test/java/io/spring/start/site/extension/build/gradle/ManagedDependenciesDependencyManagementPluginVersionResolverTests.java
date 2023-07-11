@@ -22,7 +22,7 @@ import java.util.function.Function;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -40,11 +40,11 @@ import static org.mockito.Mockito.verifyNoInteractions;
  */
 class ManagedDependenciesDependencyManagementPluginVersionResolverTests {
 
-	private static DependencyManagementVersionResolver dependencyManagementVersionResolver;
+	private static MavenVersionResolver versionResolver;
 
 	@BeforeAll
 	static void setup(@TempDir Path cacheLocation) {
-		dependencyManagementVersionResolver = DependencyManagementVersionResolver.withCacheLocation(cacheLocation);
+		versionResolver = MavenVersionResolver.withCacheLocation(cacheLocation);
 	}
 
 	@Test
@@ -53,8 +53,7 @@ class ManagedDependenciesDependencyManagementPluginVersionResolverTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("2.1.8.RELEASE"));
 		Function<ProjectDescription, String> fallback = mock(Function.class);
-		String version = new ManagedDependenciesDependencyManagementPluginVersionResolver(
-				dependencyManagementVersionResolver, fallback)
+		String version = new ManagedDependenciesDependencyManagementPluginVersionResolver(versionResolver, fallback)
 			.resolveDependencyManagementPluginVersion(description);
 		assertThat(version).isEqualTo("1.0.8.RELEASE");
 		verifyNoInteractions(fallback);
@@ -67,8 +66,7 @@ class ManagedDependenciesDependencyManagementPluginVersionResolverTests {
 		description.setPlatformVersion(Version.parse("2.1.7.RELEASE"));
 		Function<ProjectDescription, String> fallback = mock(Function.class);
 		given(fallback.apply(description)).willReturn("1.0.0.RELEASE");
-		String version = new ManagedDependenciesDependencyManagementPluginVersionResolver(
-				dependencyManagementVersionResolver, fallback)
+		String version = new ManagedDependenciesDependencyManagementPluginVersionResolver(versionResolver, fallback)
 			.resolveDependencyManagementPluginVersion(description);
 		assertThat(version).isEqualTo("1.0.0.RELEASE");
 		verify(fallback).apply(description);

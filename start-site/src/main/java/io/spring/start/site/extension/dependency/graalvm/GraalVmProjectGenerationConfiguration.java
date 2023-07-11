@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionReference;
 import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -98,12 +98,12 @@ class GraalVmProjectGenerationConfiguration {
 		@Bean
 		@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
 		HibernatePluginGroovyDslGradleBuildCustomizer hibernatePluginGroovyDslGradleBuildCustomizer(
-				DependencyManagementVersionResolver versionResolver) {
+				MavenVersionResolver versionResolver) {
 			return new HibernatePluginGroovyDslGradleBuildCustomizer(determineHibernateVersion(versionResolver));
 		}
 
-		private VersionReference determineHibernateVersion(DependencyManagementVersionResolver versionResolver) {
-			Map<String, String> resolve = versionResolver.resolve("org.springframework.boot",
+		private VersionReference determineHibernateVersion(MavenVersionResolver versionResolver) {
+			Map<String, String> resolve = versionResolver.resolveDependencies("org.springframework.boot",
 					"spring-boot-dependencies", this.platformVersion.toString());
 			String hibernateVersion = resolve.get("org.hibernate.orm" + ":hibernate-core");
 			if (hibernateVersion == null) {

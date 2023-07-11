@@ -23,7 +23,7 @@ import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.gradle.DependencyManagementPluginVersionResolver;
 import io.spring.initializr.generator.spring.build.gradle.InitializrDependencyManagementPluginVersionResolver;
 import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 import org.springframework.context.annotation.Bean;
 
@@ -44,7 +44,7 @@ class GradleProjectGenerationConfiguration {
 
 	@Bean
 	DependencyManagementPluginVersionResolver dependencyManagementPluginVersionResolver(
-			DependencyManagementVersionResolver versionResolver, InitializrMetadata metadata) {
+			MavenVersionResolver versionResolver, InitializrMetadata metadata) {
 		return new ManagedDependenciesDependencyManagementPluginVersionResolver(versionResolver,
 				(description) -> new InitializrDependencyManagementPluginVersionResolver(metadata)
 					.resolveDependencyManagementPluginVersion(description));

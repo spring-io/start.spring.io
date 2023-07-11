@@ -24,7 +24,7 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildMetadataResolver;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 /**
  * A project customizer for Kotlin Coroutines.
@@ -37,10 +37,10 @@ public class KotlinCoroutinesCustomizer {
 
 	private final ProjectDescription description;
 
-	private final DependencyManagementVersionResolver versionResolver;
+	private final MavenVersionResolver versionResolver;
 
 	public KotlinCoroutinesCustomizer(InitializrMetadata metadata, ProjectDescription description,
-			DependencyManagementVersionResolver versionResolver) {
+			MavenVersionResolver versionResolver) {
 		this.buildResolver = new BuildMetadataResolver(metadata);
 		this.description = description;
 		this.versionResolver = versionResolver;
@@ -56,7 +56,7 @@ public class KotlinCoroutinesCustomizer {
 
 	public void customize(HelpDocument document, Build build) {
 		if (hasReactiveFacet(build)) {
-			Map<String, String> resolve = this.versionResolver.resolve("org.springframework.boot",
+			Map<String, String> resolve = this.versionResolver.resolveDependencies("org.springframework.boot",
 					"spring-boot-dependencies", this.description.getPlatformVersion().toString());
 			String frameworkVersion = resolve.get("org.springframework:spring-core");
 			String versionToUse = (frameworkVersion != null) ? frameworkVersion : "current";

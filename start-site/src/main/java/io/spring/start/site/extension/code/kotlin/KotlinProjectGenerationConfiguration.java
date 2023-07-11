@@ -26,7 +26,7 @@ import io.spring.initializr.generator.spring.code.kotlin.InitializrMetadataKotli
 import io.spring.initializr.generator.spring.code.kotlin.KotlinVersionResolver;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,8 +43,7 @@ import org.springframework.context.annotation.Configuration;
 class KotlinProjectGenerationConfiguration {
 
 	@Bean
-	KotlinVersionResolver kotlinVersionResolver(DependencyManagementVersionResolver versionResolver,
-			InitializrMetadata metadata) {
+	KotlinVersionResolver kotlinVersionResolver(MavenVersionResolver versionResolver, InitializrMetadata metadata) {
 		return new ManagedDependenciesKotlinVersionResolver(versionResolver,
 				(description) -> new InitializrMetadataKotlinVersionResolver(metadata)
 					.resolveKotlinVersion(description));
@@ -61,7 +60,7 @@ class KotlinProjectGenerationConfiguration {
 		private final KotlinCoroutinesCustomizer customizer;
 
 		KotlinCoroutinesCustomizerConfiguration(InitializrMetadata metadata, ProjectDescription description,
-				DependencyManagementVersionResolver versionResolver) {
+				MavenVersionResolver versionResolver) {
 			this.customizer = new KotlinCoroutinesCustomizer(metadata, description, versionResolver);
 		}
 

@@ -19,13 +19,12 @@ package io.spring.start.site.extension.dependency.springcloud;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.versionresolver.DependencyManagementVersionResolver;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Resolve Spring Cloud artifact versions using a
- * {@link DependencyManagementVersionResolver}.
+ * Resolve Spring Cloud artifact versions using a {@link MavenVersionResolver}.
  *
  * @author Olga Maciaszek-Sharma
  * @author Stephane Nicoll
@@ -36,11 +35,11 @@ class SpringCloudProjectVersionResolver {
 
 	private final InitializrMetadata metadata;
 
-	private final DependencyManagementVersionResolver resolver;
+	private final MavenVersionResolver versionResolver;
 
-	SpringCloudProjectVersionResolver(InitializrMetadata metadata, DependencyManagementVersionResolver resolver) {
+	SpringCloudProjectVersionResolver(InitializrMetadata metadata, MavenVersionResolver versionResolver) {
 		this.metadata = metadata;
-		this.resolver = resolver;
+		this.versionResolver = versionResolver;
 	}
 
 	/**
@@ -60,7 +59,8 @@ class SpringCloudProjectVersionResolver {
 		String releaseTrainVersion = bom.resolve(platformVersion).getVersion();
 		logger.info("Retrieving version for artifact: " + dependencyId + " and release train version: "
 				+ releaseTrainVersion);
-		return this.resolver.resolve("org.springframework.cloud", "spring-cloud-dependencies", releaseTrainVersion)
+		return this.versionResolver
+			.resolveDependencies("org.springframework.cloud", "spring-cloud-dependencies", releaseTrainVersion)
 			.get(dependencyId);
 	}
 
