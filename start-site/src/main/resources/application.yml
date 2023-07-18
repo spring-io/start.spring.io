@@ -382,7 +382,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.servlet.spring-mvc.template-engines
         - name: Mustache
           id: mustache
-          description: Logic-less Templates. There are no if statements, else clauses, or for loops. Instead there are only tags.
+          description: Logic-less templates for both web and standalone environments. There are no if statements, else clauses, or for loops. Instead there are only tags.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#web.servlet.spring-mvc.template-engines
