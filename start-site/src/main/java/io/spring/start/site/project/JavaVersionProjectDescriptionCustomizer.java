@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.spring.initializr.generator.language.Language;
-import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
@@ -61,19 +60,9 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			updateTo(description, "17");
 			return;
 		}
-		if (javaGeneration == 18) {
-			// Kotlin support to be determined
-			if (description.getLanguage() instanceof KotlinLanguage) {
-				updateTo(description, "17");
-			}
-		}
 		if (javaGeneration == 19) {
 			// Java 19 support as of Spring Boot 2.6.12
 			if (!SPRING_BOOT_2_6_12_OR_LATER.match(platformVersion)) {
-				updateTo(description, "17");
-			}
-			// Kotlin support to be determined
-			if (description.getLanguage() instanceof KotlinLanguage) {
 				updateTo(description, "17");
 			}
 		}
@@ -82,11 +71,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			if (!SPRING_BOOT_2_7_10_OR_LATER.match(platformVersion)) {
 				updateTo(description, "17");
 			}
-			// Kotlin support to be determined
-			if (description.getLanguage() instanceof KotlinLanguage) {
-				updateTo(description, "17");
 
-			}
 		}
 	}
 
