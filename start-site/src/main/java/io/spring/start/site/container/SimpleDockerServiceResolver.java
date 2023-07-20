@@ -32,6 +32,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	public SimpleDockerServiceResolver() {
 		this.dockerServices = new HashMap<>();
+		this.dockerServices.put("activeMQ", activeMQ());
 		this.dockerServices.put("elasticsearch", elasticsearch());
 		this.dockerServices.put("cassandra", cassandra());
 		this.dockerServices.put("mariaDb", mariaDb());
@@ -43,6 +44,10 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("redis", redis());
 		this.dockerServices.put("sqlServer", sqlServer());
 		this.dockerServices.put("zipkin", zipkin());
+	}
+
+	private static DockerService activeMQ() {
+		return new DockerService("symptoma/activemq", "latest", "https://hub.docker.com/r/symptoma/activemq", 61616);
 	}
 
 	private static DockerService elasticsearch() {

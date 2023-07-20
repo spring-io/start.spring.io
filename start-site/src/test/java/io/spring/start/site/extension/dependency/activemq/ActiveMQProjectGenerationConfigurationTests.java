@@ -22,6 +22,8 @@ import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.core.io.ClassPathResource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -57,6 +59,28 @@ class ActiveMQProjectGenerationConfigurationTests extends AbstractExtensionTests
 		ProjectRequest request = createProjectRequest("activemq");
 		request.setBootVersion("3.1.0");
 		assertHelpDocument(request).doesNotContain("ActiveMQ is not supported with Spring Boot 3.0");
+	}
+
+	@Test
+	void dockerComposeWhenDockerComposeIsNotSelectedDoesNotCreateService() {
+		ProjectRequest request = createProjectRequest("web", "activemq");
+		request.setBootVersion("3.2.0-M1");
+		ProjectStructure structure = generateProject(request);
+		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
+	}
+
+	@Test
+	void dockerComposeWhenIncompatibleSpringBootVersionDoesNotCreateService() {
+		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
+		request.setBootVersion("3.1.1");
+		assertThat(composeFile(request)).doesNotContain("activemq");
+	}
+
+	@Test
+	void dockerComposeCreatesAppropriateService() {
+		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
+		request.setBootVersion("3.2.0-M1");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq.yaml"));
 	}
 
 	private TextAssert assertHelpDocument(ProjectRequest request) {

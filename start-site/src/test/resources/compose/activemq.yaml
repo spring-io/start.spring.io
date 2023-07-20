@@ -1,0 +1,5 @@
+services:
+  activemq:
+    image: 'symptoma/activemq:latest'
+    ports:
+      - '61616'
