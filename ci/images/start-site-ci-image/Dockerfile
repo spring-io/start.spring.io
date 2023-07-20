@@ -1,4 +1,4 @@
-FROM ubuntu:jammy-20230425
+FROM ubuntu:jammy-20230624
 
 ADD setup.sh /setup.sh
 RUN ./setup.sh
