@@ -76,7 +76,7 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void gradleBuildWithJpaConfiguresHibernateEnhancePlugin() {
+	void gradleBuildAndGroovyDslWithJpaConfiguresHibernateEnhancePlugin() {
 		ProjectRequest request = createNativeProjectRequest("data-jpa");
 		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
 		// @formatter:off
@@ -85,6 +85,25 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 				"		lazyInitialization true",
 				"		dirtyTracking true",
 				"		associationManagement true",
+				"	}",
+				"}");
+		// @formatter:on
+	}
+
+	@Test
+	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePlugin() {
+		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		request.setType("gradle-project-kotlin");
+		assertThat(generateProject(request)).kotlinDslGradleBuild()
+			.hasPlugin("org.hibernate.orm")
+			.lines()
+			.containsSequence(
+			// @formatter:off
+				"hibernate {",
+				"	enhancement {",
+				"		enableLazyInitialization.set(true)",
+				"		enableDirtyTracking.set(true)",
+				"		enableAssociationManagement.set(true)",
 				"	}",
 				"}");
 		// @formatter:on
