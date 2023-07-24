@@ -76,24 +76,40 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void gradleBuildAndGroovyDslWithJpaConfiguresHibernateEnhancePlugin() {
+	void gradleBuildAndGroovyDslWithJpaAndHibernate61ConfiguresHibernateEnhancePlugin() {
 		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		request.setBootVersion("3.0.0");
 		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
 		// @formatter:off
 				"hibernate {",
 				"	enhancement {",
-				"		lazyInitialization true",
-				"		dirtyTracking true",
-				"		associationManagement true",
+				"		enableLazyInitialization = true",
+				"		enableDirtyTracking = true",
+				"		enableAssociationManagement = true",
 				"	}",
 				"}");
 		// @formatter:on
 	}
 
 	@Test
-	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePlugin() {
+	void gradleBuildAndGroovyDslWithJpaConfiguresHibernateEnhancePlugin() {
+		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		request.setBootVersion("3.1.0");
+		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
+		// @formatter:off
+				"hibernate {",
+				"	enhancement {",
+				"		enableAssociationManagement = true",
+				"	}",
+				"}");
+		// @formatter:on
+	}
+
+	@Test
+	void gradleBuildAndKotlinDslWithJpaAndHibernate61ConfiguresHibernateEnhancePlugin() {
 		ProjectRequest request = createNativeProjectRequest("data-jpa");
 		request.setType("gradle-project-kotlin");
+		request.setBootVersion("3.0.0");
 		assertThat(generateProject(request)).kotlinDslGradleBuild()
 			.hasPlugin("org.hibernate.orm")
 			.lines()
@@ -106,6 +122,24 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 				"		enableAssociationManagement.set(true)",
 				"	}",
 				"}");
+		// @formatter:on
+	}
+
+	@Test
+	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePlugin() {
+		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		request.setType("gradle-project-kotlin");
+		request.setBootVersion("3.1.0");
+		assertThat(generateProject(request)).kotlinDslGradleBuild()
+			.hasPlugin("org.hibernate.orm")
+			.lines()
+			.containsSequence(
+			// @formatter:off
+						"hibernate {",
+						"	enhancement {",
+						"		enableAssociationManagement.set(true)",
+						"	}",
+						"}");
 		// @formatter:on
 	}
 

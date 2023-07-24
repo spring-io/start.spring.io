@@ -18,7 +18,7 @@ package io.spring.start.site.extension.dependency.graalvm;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.VersionReference;
+import io.spring.initializr.generator.version.Version;
 
 /**
  * A {@link BuildCustomizer} for projects using the Kotlin DSL with GraalVm and Hibernate.
@@ -27,9 +27,9 @@ import io.spring.initializr.generator.version.VersionReference;
  */
 class HibernatePluginKotlinDslGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private final VersionReference hibernateVersion;
+	private final Version hibernateVersion;
 
-	HibernatePluginKotlinDslGradleBuildCustomizer(VersionReference hibernateVersion) {
+	HibernatePluginKotlinDslGradleBuildCustomizer(Version hibernateVersion) {
 		this.hibernateVersion = hibernateVersion;
 	}
 
@@ -41,14 +41,20 @@ class HibernatePluginKotlinDslGradleBuildCustomizer implements BuildCustomizer<G
 			writer.indented(() -> {
 				writer.println("enhancement {");
 				writer.indented(() -> {
-					writer.println("enableLazyInitialization.set(true)");
-					writer.println("enableDirtyTracking.set(true)");
+					if (!isHibernate62Available()) {
+						writer.println("enableLazyInitialization.set(true)");
+						writer.println("enableDirtyTracking.set(true)");
+					}
 					writer.println("enableAssociationManagement.set(true)");
 				});
 				writer.println("}");
 			});
 			writer.println("}");
 		});
+	}
+
+	private boolean isHibernate62Available() {
+		return this.hibernateVersion.getMajor() >= 6 && this.hibernateVersion.getMinor() >= 2;
 	}
 
 }

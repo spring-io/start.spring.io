@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package io.spring.start.site.extension.dependency.graalvm;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.VersionReference;
+import io.spring.initializr.generator.version.Version;
 
 /**
  * A {@link BuildCustomizer} for projects using the Groovy DSL with GraalVm and Hibernate.
@@ -27,9 +27,9 @@ import io.spring.initializr.generator.version.VersionReference;
  */
 class HibernatePluginGroovyDslGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private final VersionReference hibernateVersion;
+	private final Version hibernateVersion;
 
-	HibernatePluginGroovyDslGradleBuildCustomizer(VersionReference hibernateVersion) {
+	HibernatePluginGroovyDslGradleBuildCustomizer(Version hibernateVersion) {
 		this.hibernateVersion = hibernateVersion;
 	}
 
@@ -41,14 +41,20 @@ class HibernatePluginGroovyDslGradleBuildCustomizer implements BuildCustomizer<G
 			writer.indented(() -> {
 				writer.println("enhancement {");
 				writer.indented(() -> {
-					writer.println("lazyInitialization true");
-					writer.println("dirtyTracking true");
-					writer.println("associationManagement true");
+					if (!isHibernate62Available()) {
+						writer.println("enableLazyInitialization = true");
+						writer.println("enableDirtyTracking = true");
+					}
+					writer.println("enableAssociationManagement = true");
 				});
 				writer.println("}");
 			});
 			writer.println("}");
 		});
+	}
+
+	private boolean isHibernate62Available() {
+		return this.hibernateVersion.getMajor() >= 6 && this.hibernateVersion.getMinor() >= 2;
 	}
 
 }

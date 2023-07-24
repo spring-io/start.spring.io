@@ -28,7 +28,6 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionReference;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
 
@@ -112,7 +111,7 @@ class GraalVmProjectGenerationConfiguration {
 			return new HibernatePluginKotlinDslGradleBuildCustomizer(determineHibernateVersion(versionResolver));
 		}
 
-		private VersionReference determineHibernateVersion(MavenVersionResolver versionResolver) {
+		private Version determineHibernateVersion(MavenVersionResolver versionResolver) {
 			Map<String, String> resolve = versionResolver.resolveDependencies("org.springframework.boot",
 					"spring-boot-dependencies", this.platformVersion.toString());
 			String hibernateVersion = resolve.get("org.hibernate.orm" + ":hibernate-core");
@@ -120,7 +119,7 @@ class GraalVmProjectGenerationConfiguration {
 				throw new IllegalStateException(
 						"Failed to determine Hibernate version for Spring Boot " + this.platformVersion);
 			}
-			return VersionReference.ofValue(hibernateVersion);
+			return Version.parse(hibernateVersion);
 		}
 
 	}

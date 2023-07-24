@@ -19,7 +19,7 @@ package io.spring.start.site.extension.dependency.graalvm;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.buildsystem.gradle.GradlePlugin;
 import io.spring.initializr.generator.buildsystem.gradle.StandardGradlePlugin;
-import io.spring.initializr.generator.version.VersionReference;
+import io.spring.initializr.generator.version.Version;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,7 +34,7 @@ class HibernatePluginGroovyDslGradleBuildCustomizerTests {
 	@Test
 	void customizerAppliesHibernateEnhancePlugin() {
 		HibernatePluginGroovyDslGradleBuildCustomizer customizer = new HibernatePluginGroovyDslGradleBuildCustomizer(
-				VersionReference.ofValue("6.1.0.Final"));
+				Version.parse("6.1.0.Final"));
 		GradleBuild build = new GradleBuild();
 		customizer.customize(build);
 		GradlePlugin hibernatePlugin = build.plugins()
