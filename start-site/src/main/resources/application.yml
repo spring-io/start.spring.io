@@ -1382,7 +1382,6 @@ initializr:
               description: Azure Active Directory Sample
         - name: Azure Cosmos DB
           id: azure-cosmos-db
-          compatibilityRange: "[2.6.0,3.0.0-M1)"
           groupId: com.azure.spring
           artifactId: spring-cloud-azure-starter-data-cosmos
           description: Fully managed NoSQL database service for modern app development, including Spring Data support.
