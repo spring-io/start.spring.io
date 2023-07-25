@@ -1139,23 +1139,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-task/docs/current/reference/html/
-    - name: Spring Cloud Tools
-      content:
-        - name: Open Service Broker
-          id: open-service-broker
-          compatibilityRange: "[2.6.0,2.7.0-M1)"
-          description: Framework for building Spring Boot apps that implement the Open Service Broker API, which can deliver services to applications running within cloud native platforms such as Cloud Foundry, Kubernetes and OpenShift.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-starter-open-service-broker
-          mappings:
-            - compatibilityRange: "[2.6.0,2.7.0-M1)"
-              version: 3.5.0
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-cloud-open-service-broker/docs/current/reference/
-            - rel: guide
-              href: https://github.com/spring-cloud-samples/bookstore-service-broker
-              description: Using Spring Cloud Open Service Broker
     - name: Spring Cloud Config
       bom: spring-cloud
       compatibilityRange: "[2.6.0,3.2.0-M1)"
