@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.graalvm;
 
 import java.nio.file.Path;
 
+import io.spring.initializr.generator.language.groovy.GroovyLanguage;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
 import io.spring.initializr.web.project.ProjectRequest;
@@ -171,6 +172,13 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 				"				</executions>",
 				"			</plugin>");
 		// @formatter:on
+	}
+
+	@Test
+	void groovyProjectDoesNotConfigureGraalVm() {
+		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		request.setLanguage(GroovyLanguage.ID);
+		assertThat(gradleBuild(request)).doesNotContain("graalvm").doesNotContain("org.hibernate.orm");
 	}
 
 	private ProjectRequest createNativeProjectRequest(String... dependencies) {
