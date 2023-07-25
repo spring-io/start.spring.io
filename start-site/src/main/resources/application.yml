@@ -896,7 +896,7 @@ initializr:
           description: Build command line applications with picocli.
           mappings:
             - compatibilityRange: "[2.6.0,3.1.0-M1)"
-              version: 4.7.0
+              version: 4.7.4
           links:
             - rel: reference
               href: https://picocli.info/#_spring_boot_example
