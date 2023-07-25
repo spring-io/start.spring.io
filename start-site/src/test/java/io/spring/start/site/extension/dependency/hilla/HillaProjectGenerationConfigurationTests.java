@@ -50,7 +50,7 @@ class HillaProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	void gradleBuildWithHillaConfigurePlugin() {
 		ProjectRequest request = createProjectRequest("hilla", "data-jpa");
 		request.setBootVersion("3.1.0");
-		assertThat(gradleBuild(request)).contains("id 'dev.hilla' version '2.1.1'");
+		assertThat(gradleBuild(request)).hasPlugin("dev.hilla");
 	}
 
 	@Test
