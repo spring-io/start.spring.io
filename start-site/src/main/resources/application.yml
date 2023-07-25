@@ -57,7 +57,7 @@ initializr:
         versionProperty: hilla.version
         mappings:
           - compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
-            version: 2.1.1
+            version: 2.1.4
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
