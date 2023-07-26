@@ -58,6 +58,13 @@ initializr:
         mappings:
           - compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
             version: 2.1.4
+      sentry:
+        groupId: io.sentry
+        artifactId: sentry-bom
+        versionProperty: sentry.version
+        mappings:
+          - compatibilityRange: "[2.7.0,3.2.0-M1)"
+            version: 6.26.0
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
@@ -941,6 +948,23 @@ initializr:
           links:
             - rel: reference
               href: https://codecentric.github.io/spring-boot-admin/current/#getting-started
+        - name: Sentry
+          id: sentry
+          bom: sentry
+          description: Application performance monitoring and error tracking that help software teams see clearer, solve quicker, and learn continuously.
+          compatibilityRange: "[2.7.0,3.2.0-M1)"
+          groupId: io.sentry
+          artifactId: sentry-spring-boot-starter-jakarta
+          starter: false
+          mappings:
+            - compatibilityRange: "[2.7.0,3.0.0-M1)"
+              artifactId: sentry-spring-boot-starter
+          links:
+            - rel: reference
+              href: https://docs.sentry.io/platforms/java/
+            - rel: guide
+              href: https://docs.sentry.io/platforms/java/guides/spring-boot/
+              description: Getting Started with Sentry
     - name: Observability
       content:
         - name: Datadog
