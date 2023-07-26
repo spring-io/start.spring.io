@@ -4,6 +4,7 @@ io.spring.start.site.extension.build.maven.MavenProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.DependencyProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.activemq.ActiveMQProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.cassandra.CassandraProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.derby.DerbyProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.dockercompose.DockerComposeProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.elasticsearch.ElasticsearchProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.flyway.FlywayProjectGenerationConfiguration,\
