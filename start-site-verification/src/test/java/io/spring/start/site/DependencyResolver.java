@@ -122,8 +122,7 @@ final class DependencyResolver {
 		collectRequest.setManagedDependencies(managedDependencies);
 		try {
 			CollectResult result = instance.collectDependencies(collectRequest);
-			DependencyFilter filter = DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE, JavaScopes.RUNTIME);
-			return DependencyCollector.collect(result.getRoot(), filter);
+			return DependencyCollector.collect(result.getRoot(), RuntimeTransitiveOnlyDependencyFilter.INSTANCE);
 		}
 		catch (DependencyCollectionException ex) {
 			throw new RuntimeException(ex);
@@ -216,6 +215,20 @@ final class DependencyResolver {
 		@Override
 		public boolean visitLeave(DependencyNode node) {
 			return true;
+		}
+
+	}
+
+	static class RuntimeTransitiveOnlyDependencyFilter implements DependencyFilter {
+
+		private static final RuntimeTransitiveOnlyDependencyFilter INSTANCE = new RuntimeTransitiveOnlyDependencyFilter();
+
+		private final DependencyFilter runtimeFilter = DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE,
+				JavaScopes.RUNTIME);
+
+		@Override
+		public boolean accept(DependencyNode node, List<DependencyNode> parents) {
+			return !node.getDependency().isOptional() && this.runtimeFilter.accept(node, parents);
 		}
 
 	}
