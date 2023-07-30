@@ -92,7 +92,7 @@ initializr:
           - compatibilityRange: "[2.6.0,3.0.0)"
             version: 2021.0.8
           - compatibilityRange: "[3.0.0,3.2.0-M1)"
-            version: 2022.0.3
+            version: 2022.0.4
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
