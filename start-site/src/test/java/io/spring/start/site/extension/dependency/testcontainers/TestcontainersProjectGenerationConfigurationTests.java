@@ -69,7 +69,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
 				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
 				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("pulsar", "pulsar"),
-				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("sqlserver", "mssqlserver"));
+				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
+				Arguments.arguments("sqlserver", "mssqlserver"));
 	}
 
 	@ParameterizedTest
@@ -102,7 +103,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("mariadb", "databases/mariadb/"), Arguments.arguments("mysql", "databases/mysql/"),
 				Arguments.arguments("oracle", "databases/oraclexe/"),
 				Arguments.arguments("postgresql", "databases/postgres/"), Arguments.arguments("pulsar", "pulsar/"),
-				Arguments.arguments("pulsar-reactive", "pulsar/"),
+				Arguments.arguments("pulsar-reactive", "pulsar/"), Arguments.arguments("solace", "solace/"),
 				Arguments.arguments("sqlserver", "databases/mssqlserver/"));
 	}
 
