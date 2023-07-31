@@ -71,6 +71,8 @@ abstract class TestcontainersModuleRegistry {
 					.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")),
 				onDependencies("pulsar", "pulsar-reactive").customizeBuild(addModule("pulsar"))
 					.customizeHelpDocument(addReferenceLink("Pulsar Module", "pulsar/")),
+				onDependencies("solace").customizeBuild(addModule("solace"))
+					.customizeHelpDocument(addReferenceLink("Solace Module", "solace/")),
 				onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
 					.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
 	}
