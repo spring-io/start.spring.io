@@ -76,13 +76,13 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsPresentIsAdded(String dependencyId, String docHref) {
 		assertHelpDocument("3.0.0", "testcontainers", dependencyId)
-			.contains("https://www.testcontainers.org/modules/" + docHref);
+			.contains("https://java.testcontainers.org/modules/" + docHref);
 	}
 
 	@ParameterizedTest
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsNotPresentIsNotAdded(String dependencyId, String docHref) {
-		assertHelpDocument("3.0.0", dependencyId).doesNotContain("https://www.testcontainers.org/modules/" + docHref);
+		assertHelpDocument("3.0.0", dependencyId).doesNotContain("https://java.testcontainers.org/modules/" + docHref);
 	}
 
 	static Stream<Arguments> supportedEntriesHelpDocument() {
@@ -109,7 +109,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void linkToSupportedEntriesWhenTwoMatchesArePresentOnlyAddLinkOnce() {
 		assertHelpDocument("3.0.0", "testcontainers", "data-mongodb", "data-mongodb-reactive")
-			.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
+			.containsOnlyOnce("https://java.testcontainers.org/modules/databases/mongodb/");
 	}
 
 	@Test
