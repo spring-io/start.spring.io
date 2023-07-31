@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,21 +34,31 @@ class FlywayBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final VersionRange SPRING_BOOT_2_7_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.7.0");
 
+	private static final VersionRange SPRING_BOOT_3_2_M1_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0-M1");
+
 	private final boolean isSpringBoot27OrLater;
+
+	private final boolean isSpringBoot32OrLater;
 
 	FlywayBuildCustomizer(ProjectDescription projectDescription) {
 		this.isSpringBoot27OrLater = SPRING_BOOT_2_7_0_OR_LATER.match(projectDescription.getPlatformVersion());
+		this.isSpringBoot32OrLater = SPRING_BOOT_3_2_M1_OR_LATER.match(projectDescription.getPlatformVersion());
 	}
 
 	@Override
 	public void customize(Build build) {
+		DependencyContainer dependencies = build.dependencies();
 		if (this.isSpringBoot27OrLater) {
-			DependencyContainer dependencies = build.dependencies();
 			if ((dependencies.has("mysql") || dependencies.has("mariadb"))) {
 				dependencies.add("flyway-mysql", "org.flywaydb", "flyway-mysql", DependencyScope.COMPILE);
 			}
 			if (dependencies.has("sqlserver")) {
 				dependencies.add("flyway-sqlserver", "org.flywaydb", "flyway-sqlserver", DependencyScope.COMPILE);
+			}
+		}
+		if (this.isSpringBoot32OrLater) {
+			if (dependencies.has("oracle")) {
+				dependencies.add("flyway-oracle", "org.flywaydb", "flyway-database-oracle", DependencyScope.COMPILE);
 			}
 		}
 	}
