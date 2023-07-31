@@ -41,6 +41,8 @@ abstract class TestcontainersModuleRegistry {
 		return create(
 				onDependencies("amqp").customizeBuild(addModule("rabbitmq"))
 					.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")),
+				onDependencies("cloud-gcp-pubsub").customizeBuild(addModule("gcloud"))
+					.customizeHelpDocument(addReferenceLink("GCloud Module", "gcloud/")),
 				onDependencies("cloud-starter-consul-config").customizeBuild(addModule("consul"))
 					.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")),
 				onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault"))
