@@ -93,7 +93,7 @@ abstract class TestcontainersModuleRegistry {
 
 	private static Consumer<HelpDocument> addReferenceLink(String name, String modulePath) {
 		return (helpDocument) -> {
-			String href = String.format("https://www.testcontainers.org/modules/%s", modulePath);
+			String href = String.format("https://java.testcontainers.org/modules/%s", modulePath);
 			String description = String.format("Testcontainers %s Reference Guide", name);
 			helpDocument.gettingStarted().addReferenceDocLink(href, description);
 		};

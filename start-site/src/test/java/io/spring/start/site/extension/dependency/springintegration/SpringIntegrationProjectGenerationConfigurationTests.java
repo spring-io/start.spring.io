@@ -101,7 +101,7 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	@Test
 	void linkToSupportedEntriesWhenTwoMatchesArePresentOnlyAddLinkOnce() {
 		assertHelpDocument("testcontainers", "data-mongodb", "data-mongodb-reactive")
-			.containsOnlyOnce("https://www.testcontainers.org/modules/databases/mongodb/");
+			.containsOnlyOnce("https://java.testcontainers.org/modules/databases/mongodb/");
 	}
 
 	private static Dependency integrationDependency(String id) {
