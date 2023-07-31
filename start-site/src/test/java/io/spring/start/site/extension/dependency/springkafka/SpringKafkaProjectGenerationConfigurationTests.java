@@ -24,12 +24,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SpringKafkaBuildCustomizer}.
+ * Tests for {@link SpringKafkaProjectGenerationConfiguration}.
  *
  * @author Wonwoo Lee
  * @author Stephane Nicoll
  */
-class SpringKafkaBuildCustomizerTests extends AbstractExtensionTests {
+class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void springKafkaTestIsAdded() {

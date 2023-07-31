@@ -30,7 +30,6 @@ import io.spring.start.site.extension.dependency.mybatis.MyBatisTestBuildCustomi
 import io.spring.start.site.extension.dependency.okta.OktaHelpDocumentCustomizer;
 import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springbatch.SpringBatchTestBuildCustomizer;
-import io.spring.start.site.extension.dependency.springkafka.SpringKafkaBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityRSocketBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsession.SpringSessionBuildCustomizer;
@@ -85,11 +84,6 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("lombok")
 	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer() {
 		return new LombokGradleBuildCustomizer(this.metadata);
-	}
-
-	@Bean
-	public SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
-		return new SpringKafkaBuildCustomizer();
 	}
 
 	@Bean

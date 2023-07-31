@@ -35,6 +35,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("activeMQ", activeMQ());
 		this.dockerServices.put("cassandra", cassandra());
 		this.dockerServices.put("elasticsearch", elasticsearch());
+		this.dockerServices.put("kafka", kafka());
 		this.dockerServices.put("mariaDb", mariaDb());
 		this.dockerServices.put("mongoDb", mongoDb());
 		this.dockerServices.put("mysql", mysql());
@@ -58,6 +59,11 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		// They don't provide a 'latest' tag
 		return new DockerService("docker.elastic.co/elasticsearch/elasticsearch", "7.17.10",
 				"https://www.docker.elastic.co/r/elasticsearch", 9200, 9300);
+	}
+
+	private static DockerService kafka() {
+		return new DockerService("confluentinc/cp-kafka", "latest", "https://hub.docker.com/r/confluentinc/cp-kafka",
+				9092);
 	}
 
 	private static DockerService mariaDb() {

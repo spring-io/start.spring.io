@@ -29,15 +29,14 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  * @author Stephane Nicoll
  * @author Madhura Bhave
  */
-public class SpringKafkaBuildCustomizer implements BuildCustomizer<Build> {
+class SpringKafkaBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		if (build.dependencies().has("kafka")) {
-			build.dependencies()
-				.add("spring-kafka-test", Dependency.withCoordinates("org.springframework.kafka", "spring-kafka-test")
-					.scope(DependencyScope.TEST_COMPILE));
-		}
+		build.dependencies()
+			.add("spring-kafka-test", Dependency.withCoordinates("org.springframework.kafka", "spring-kafka-test")
+				.scope(DependencyScope.TEST_COMPILE));
+
 	}
 
 }
