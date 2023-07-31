@@ -1087,7 +1087,7 @@ initializr:
               bom: testcontainers
           links:
             - rel: reference
-              href: https://www.testcontainers.org/
+              href: https://java.testcontainers.org/
         - name: Contract Verifier
           bom: spring-cloud
           id: cloud-contract-verifier
