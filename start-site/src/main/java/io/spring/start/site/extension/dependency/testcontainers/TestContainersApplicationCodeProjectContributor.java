@@ -23,6 +23,7 @@ import java.util.function.Supplier;
 
 import io.spring.initializr.generator.language.Annotatable;
 import io.spring.initializr.generator.language.ClassName;
+import io.spring.initializr.generator.language.CodeBlock;
 import io.spring.initializr.generator.language.CompilationUnit;
 import io.spring.initializr.generator.language.SourceCode;
 import io.spring.initializr.generator.language.SourceCodeWriter;
@@ -50,6 +51,9 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 
 	public static final ClassName SERVICE_CONNECTION_CLASS_NAME = ClassName
 		.of("org.springframework.boot.testcontainers.service.connection.ServiceConnection");
+
+	private static final ClassName DOCKER_IMAGE_NAME_CLASS_NAME = ClassName
+		.of("org.testcontainers.utility.DockerImageName");
 
 	private final ProjectDescription description;
 
@@ -116,6 +120,10 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 
 	protected String getTestApplicationName() {
 		return "Test" + this.description.getApplicationName();
+	}
+
+	protected CodeBlock generatedDockerImageNameCode(String imageId) {
+		return CodeBlock.of("$T.parse($S)", DOCKER_IMAGE_NAME_CLASS_NAME, imageId);
 	}
 
 }

@@ -85,18 +85,19 @@ class GroovyTestContainersApplicationCodeProjectContributor extends
 		String portsParameter = Arrays.stream(ports).mapToObj(String::valueOf).collect(Collectors.joining(", "));
 		GroovyMethodDeclaration method = GroovyMethodDeclaration.method(methodName)
 			.returning("GenericContainer")
-			.body(CodeBlock.ofStatement("new $T<>($S).withExposedPorts($L)",
-					"org.testcontainers.containers.GenericContainer", imageId, portsParameter));
+			.body(CodeBlock.ofStatement("new $T<>($L).withExposedPorts($L)",
+					"org.testcontainers.containers.GenericContainer", generatedDockerImageNameCode(imageId),
+					portsParameter));
 		annotateContainerMethod(method, connectionName);
 		return method;
 	}
 
 	private GroovyMethodDeclaration usingSpecificContainer(String methodName, String imageId, String containerClassName,
 			boolean containerClassNameGeneric) {
-		String statementFormat = containerClassNameGeneric ? "new $T<>($S)" : "new $T(\"$L\")";
+		String statementFormat = containerClassNameGeneric ? "new $T<>($L)" : "new $T($L)";
 		GroovyMethodDeclaration method = GroovyMethodDeclaration.method(methodName)
 			.returning(containerClassName)
-			.body(CodeBlock.ofStatement(statementFormat, containerClassName, imageId));
+			.body(CodeBlock.ofStatement(statementFormat, containerClassName, generatedDockerImageNameCode(imageId)));
 		annotateContainerMethod(method, null);
 		return method;
 	}

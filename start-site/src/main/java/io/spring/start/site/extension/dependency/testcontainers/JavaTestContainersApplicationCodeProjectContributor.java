@@ -84,8 +84,9 @@ class JavaTestContainersApplicationCodeProjectContributor extends
 		String portsParameter = Arrays.stream(ports).mapToObj(String::valueOf).collect(Collectors.joining(", "));
 		JavaMethodDeclaration method = JavaMethodDeclaration.method(methodName)
 			.returning("GenericContainer<?>")
-			.body(CodeBlock.ofStatement("return new $T<>($S).withExposedPorts($L)",
-					"org.testcontainers.containers.GenericContainer", imageId, portsParameter));
+			.body(CodeBlock.ofStatement("return new $T<>($L).withExposedPorts($L)",
+					"org.testcontainers.containers.GenericContainer", generatedDockerImageNameCode(imageId),
+					portsParameter));
 		annotateContainerMethod(method, connectionName);
 		return method;
 	}
@@ -94,10 +95,10 @@ class JavaTestContainersApplicationCodeProjectContributor extends
 			boolean containerClassNameGeneric) {
 		String returnType = (containerClassNameGeneric) ? ClassUtils.getShortName(containerClassName) + "<?>"
 				: containerClassName;
-		String statementFormat = (containerClassNameGeneric) ? "return new $T<>($S)" : "return new $T(\"$L\")";
+		String statementFormat = (containerClassNameGeneric) ? "return new $T<>($L)" : "return new $T($L)";
 		JavaMethodDeclaration method = JavaMethodDeclaration.method(methodName)
 			.returning(returnType)
-			.body(CodeBlock.ofStatement(statementFormat, containerClassName, imageId));
+			.body(CodeBlock.ofStatement(statementFormat, containerClassName, generatedDockerImageNameCode(imageId)));
 		annotateContainerMethod(method, null);
 		return method;
 	}

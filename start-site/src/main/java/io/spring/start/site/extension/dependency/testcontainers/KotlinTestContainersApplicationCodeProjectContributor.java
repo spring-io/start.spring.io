@@ -88,8 +88,9 @@ class KotlinTestContainersApplicationCodeProjectContributor extends
 		String portsParameter = Arrays.stream(ports).mapToObj(String::valueOf).collect(Collectors.joining(", "));
 		KotlinFunctionDeclaration method = KotlinFunctionDeclaration.function(functionName)
 			.returning("GenericContainer<*>")
-			.body(CodeBlock.ofStatement("return $T($S).withExposedPorts($L)",
-					"org.testcontainers.containers.GenericContainer", imageId, portsParameter));
+			.body(CodeBlock.ofStatement("return $T($L).withExposedPorts($L)",
+					"org.testcontainers.containers.GenericContainer", generatedDockerImageNameCode(imageId),
+					portsParameter));
 		annotateContainerMethod(method, connectionName);
 		return method;
 	}
@@ -100,7 +101,7 @@ class KotlinTestContainersApplicationCodeProjectContributor extends
 				: containerClassName;
 		KotlinFunctionDeclaration method = KotlinFunctionDeclaration.function(functionName)
 			.returning(returnType)
-			.body(CodeBlock.ofStatement("return $T($S)", containerClassName, imageId));
+			.body(CodeBlock.ofStatement("return $T($L)", containerClassName, generatedDockerImageNameCode(imageId)));
 		annotateContainerMethod(method, null);
 		return method;
 	}

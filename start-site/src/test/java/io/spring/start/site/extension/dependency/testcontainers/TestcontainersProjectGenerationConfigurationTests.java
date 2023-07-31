@@ -22,7 +22,6 @@ import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -156,6 +155,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 					import org.springframework.context.annotation.Bean
 					import org.testcontainers.containers.GenericContainer
+					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
 					class TestDemoApplication {
@@ -163,7 +163,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 						@Bean
 						@ServiceConnection(name = "redis")
 						GenericContainer redisContainer() {
-							new GenericContainer<>("redis:latest").withExposedPorts(6379)
+							new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(6379)
 						}
 
 						static void main(String[] args) {
@@ -188,6 +188,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 					import org.springframework.context.annotation.Bean;
 					import org.testcontainers.containers.GenericContainer;
+					import org.testcontainers.utility.DockerImageName;
 
 					@TestConfiguration(proxyBeanMethods = false)
 					public class TestDemoApplication {
@@ -195,7 +196,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 						@Bean
 						@ServiceConnection(name = "redis")
 						GenericContainer<?> redisContainer() {
-							return new GenericContainer<>("redis:latest").withExposedPorts(6379);
+							return new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(6379);
 						}
 
 						public static void main(String[] args) {
@@ -207,7 +208,6 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	}
 
 	@Test
-	@Disabled
 	void testApplicationWithKotlinAndGenericContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
 		request.setBootVersion("3.1.1");
@@ -222,14 +222,15 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.with
 					import org.springframework.context.annotation.Bean
 					import org.testcontainers.containers.GenericContainer
+					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
-					public class TestDemoApplication {
+					class TestDemoApplication {
 
 						@Bean
 						@ServiceConnection(name = "redis")
 						fun redisContainer(): GenericContainer<*> {
-							return GenericContainer("redis:latest").withExposedPorts(6379)
+							return GenericContainer(DockerImageName.parse("redis:latest")).withExposedPorts(6379)
 						}
 
 					}
@@ -254,6 +255,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 					import org.springframework.context.annotation.Bean
 					import org.testcontainers.containers.CassandraContainer
+					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
 					class TestDemoApplication {
@@ -261,7 +263,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 						@Bean
 						@ServiceConnection
 						CassandraContainer cassandraContainer() {
-							new CassandraContainer<>("cassandra:latest")
+							new CassandraContainer<>(DockerImageName.parse("cassandra:latest"))
 						}
 
 						static void main(String[] args) {
@@ -286,6 +288,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 					import org.springframework.context.annotation.Bean;
 					import org.testcontainers.containers.CassandraContainer;
+					import org.testcontainers.utility.DockerImageName;
 
 					@TestConfiguration(proxyBeanMethods = false)
 					public class TestDemoApplication {
@@ -293,7 +296,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 						@Bean
 						@ServiceConnection
 						CassandraContainer<?> cassandraContainer() {
-							return new CassandraContainer<>("cassandra:latest");
+							return new CassandraContainer<>(DockerImageName.parse("cassandra:latest"));
 						}
 
 						public static void main(String[] args) {
@@ -305,7 +308,6 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	}
 
 	@Test
-	@Disabled
 	void testApplicationWithKotlinAndSpecificContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
 		request.setBootVersion("3.1.1");
@@ -320,14 +322,15 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.with
 					import org.springframework.context.annotation.Bean
 					import org.testcontainers.containers.CassandraContainer
+					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
-					public class TestDemoApplication {
+					class TestDemoApplication {
 
 						@Bean
 						@ServiceConnection
 						fun cassandraContainer(): CassandraContainer<*> {
-							return CassandraContainer("cassandra:latest")
+							return CassandraContainer(DockerImageName.parse("cassandra:latest"))
 						}
 
 					}
