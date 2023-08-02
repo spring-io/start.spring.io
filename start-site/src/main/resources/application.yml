@@ -101,7 +101,7 @@ initializr:
           - compatibilityRange: "[2.6.0,3.0.0-M1)"
             version: 4.10.0
           - compatibilityRange: "[3.0.0-M1,3.2.0-M1)"
-            version: 5.3.0
+            version: 5.4.0
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
