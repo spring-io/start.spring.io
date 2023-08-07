@@ -64,7 +64,7 @@ initializr:
         versionProperty: sentry.version
         mappings:
           - compatibilityRange: "[2.7.0,3.2.0-M1)"
-            version: 6.26.0
+            version: 6.28.0
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
@@ -955,7 +955,6 @@ initializr:
           compatibilityRange: "[2.7.0,3.2.0-M1)"
           groupId: io.sentry
           artifactId: sentry-spring-boot-starter-jakarta
-          starter: false
           mappings:
             - compatibilityRange: "[2.7.0,3.0.0-M1)"
               artifactId: sentry-spring-boot-starter
