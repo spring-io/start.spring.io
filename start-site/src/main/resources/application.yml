@@ -142,6 +142,9 @@ initializr:
             version: 3.0.7
           - compatibilityRange: "[3.1.0,3.2.0-M1)"
             version: 3.1.3
+          - compatibilityRange: "3.2.0-M1"
+            version: 3.2.0-M1
+            repositories: spring-milestones
       testcontainers:
         groupId: org.testcontainers
         artifactId: testcontainers-bom
@@ -912,7 +915,6 @@ initializr:
           groupId: org.springframework.shell
           artifactId: spring-shell-starter
           description: Build command line applications with spring.
-          compatibilityRange: "[2.7.0,3.2.0-M1)"
           bom: spring-shell
           links:
             - rel: reference
