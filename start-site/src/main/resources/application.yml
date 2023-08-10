@@ -236,9 +236,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-modulith/docs/current/reference/html/
-          mappings:
-            - compatibilityRange: "[3.1.0,3.2.0-M1)"
-              starter: false
     - name: Web
       content:
         - name: Spring Web
