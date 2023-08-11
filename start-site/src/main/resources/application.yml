@@ -109,9 +109,9 @@ initializr:
         additionalBoms: [ spring-cloud ]
         mappings:
           - compatibilityRange: "[2.6.0,3.0.0-M1)"
-            version: 3.6.2
+            version: 3.6.3
           - compatibilityRange: "[3.0.0-M1,3.2.0-M1)"
-            version: 4.7.1
+            version: 4.7.2
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
