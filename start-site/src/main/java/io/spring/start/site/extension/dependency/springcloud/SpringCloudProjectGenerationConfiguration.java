@@ -24,6 +24,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ProjectDescription;
@@ -83,6 +84,7 @@ public class SpringCloudProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("cloud-gateway")
+	@ConditionalOnPlatformVersion("[2.6.0,3.2.0-M1)")
 	public SpringCloudGatewayHelpDocumentCustomizer springCloudGatewayHelpDocumentCustomizer(
 			ProjectDescriptionDiff diff) {
 		return new SpringCloudGatewayHelpDocumentCustomizer(diff);
