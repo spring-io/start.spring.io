@@ -33,6 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link R2dbcBuildCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -72,6 +73,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		build.dependencies().add("mysql");
 		customize(build, Version.parse("2.6.8"));
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql", "r2dbc-mysql");
+		assertThat(build.dependencies().get("r2dbc-mysql").getGroupId()).isEqualTo("dev.miku");
 	}
 
 	@Test
@@ -81,6 +83,16 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		build.dependencies().add("mysql");
 		customize(build, Version.parse("2.7.0"));
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql");
+	}
+
+	@Test
+	void r2dbcWithMysqlAndSpringBoot31() {
+		Build build = createBuild();
+		build.dependencies().add("data-r2dbc");
+		build.dependencies().add("mysql");
+		customize(build, Version.parse("3.1.0"));
+		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql", "r2dbc-mysql");
+		assertThat(build.dependencies().get("r2dbc-mysql").getGroupId()).isEqualTo("io.asyncer");
 	}
 
 	@Test
