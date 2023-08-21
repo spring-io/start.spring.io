@@ -38,6 +38,7 @@ import io.spring.initializr.generator.version.VersionReference;
  * @author Stephane Nicoll
  * @author Andy Wilkinson
  * @author Brian Clozel
+ * @author Eddú Meléndez
  */
 public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
@@ -47,16 +48,21 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
 
+	private static final VersionRange SPRING_BOOT_3_1_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.1.0");
+
 	private final boolean borcaOrLater;
 
 	private final boolean mariaDbIsUnmanaged;
 
 	private final boolean sqlServerIsUnmanaged;
 
+	private final boolean mysqlR2dbcNewDependency;
+
 	public R2dbcBuildCustomizer(Version platformVersion) {
 		this.borcaOrLater = SPRING_BOOT_2_7_0_OR_LATER.match(platformVersion);
 		this.mariaDbIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
 		this.sqlServerIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
+		this.mysqlR2dbcNewDependency = SPRING_BOOT_3_1_0_OR_LATER.match(platformVersion);
 	}
 
 	@Override
@@ -70,6 +76,9 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 		}
 		if (build.dependencies().has("mysql") && !this.borcaOrLater) {
 			addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
+		}
+		if (build.dependencies().has("mysql") && this.mysqlR2dbcNewDependency) {
+			addManagedDriver(build.dependencies(), "io.asyncer", "r2dbc-mysql");
 		}
 		if (build.dependencies().has("postgresql")) {
 			String groupId = this.borcaOrLater ? "org.postgresql" : "io.r2dbc";
