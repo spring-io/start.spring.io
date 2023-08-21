@@ -135,8 +135,7 @@ initializr:
         artifactId: spring-modulith-bom
         mappings:
           - compatibility-range: "[3.1.0,3.2.0-M1)"
-            version: 1.0.0-RC2
-            repositories: spring-milestones
+            version: 1.0.0
       spring-shell:
         groupId: org.springframework.shell
         artifactId: spring-shell-dependencies
