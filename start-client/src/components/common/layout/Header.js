@@ -14,11 +14,6 @@ function Header() {
             </span>
           </a>
         </h1>
-        <div className='banner'>
-          <a href='https://springone.io/?utm_source=start-spring-io-banner'>
-            Meet the Spring team this August at SpringOne.
-          </a>
-        </div>
       </div>
       <HeaderMobile />
     </header>
