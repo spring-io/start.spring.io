@@ -41,6 +41,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("mysql", mysql());
 		this.dockerServices.put("oracle", oracle());
 		this.dockerServices.put("postgres", postgres());
+		this.dockerServices.put("pulsar", pulsar());
 		this.dockerServices.put("rabbit", rabbit());
 		this.dockerServices.put("redis", redis());
 		this.dockerServices.put("sqlServer", sqlServer());
@@ -84,6 +85,11 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService postgres() {
 		return new DockerService("postgres", "latest", "https://hub.docker.com/_/postgres", 5432);
+	}
+
+	private static DockerService pulsar() {
+		return new DockerService("apachepulsar/pulsar", "latest", "https://hub.docker.com/r/apachepulsar/pulsar", 6650,
+				8080);
 	}
 
 	private static DockerService rabbit() {
