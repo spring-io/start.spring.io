@@ -56,6 +56,7 @@ class SpringPulsarProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
+	@ConditionalOnPlatformVersion("3.2.0-SNAPSHOT")
 	ComposeFileCustomizer pulsarComposeFileCustomizer(DockerServiceResolver serviceResolver) {
 		return (composeFile) -> serviceResolver.doWith("pulsar",
 				(service) -> composeFile.services().add("pulsar", service));
