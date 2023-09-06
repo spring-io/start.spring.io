@@ -21,11 +21,11 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.metadata.InitializrMetadata;
-
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+
 import org.springframework.context.annotation.Bean;
 
 /**
