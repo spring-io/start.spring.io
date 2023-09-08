@@ -16,9 +16,13 @@
 
 package io.spring.start.site.container;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Consumer;
 
-import io.spring.initializr.generator.container.docker.compose.ComposeService.Builder;
+import io.spring.initializr.generator.container.docker.compose.ComposeService;
 
 /**
  * Description of a Docker service.
@@ -26,7 +30,7 @@ import io.spring.initializr.generator.container.docker.compose.ComposeService.Bu
  * @author Stephane Nicoll
  * @author Chris Bono
  */
-public class DockerService implements Consumer<Builder> {
+public final class DockerService implements Consumer<ComposeService.Builder> {
 
 	private final String image;
 
@@ -38,12 +42,21 @@ public class DockerService implements Consumer<Builder> {
 
 	private final int[] ports;
 
-	DockerService(String image, String imageTag, String website, String command, int... ports) {
-		this.image = image;
-		this.imageTag = imageTag;
-		this.website = website;
-		this.command = command;
-		this.ports = ports;
+	private DockerService(DockerService.Builder builder) {
+		this.image = builder.image;
+		this.imageTag = builder.imageTag;
+		this.website = builder.website;
+		this.command = builder.command;
+		this.ports = builder.ports.stream().mapToInt(Number::intValue).toArray();
+	}
+
+	/**
+	 * Return a new builder using the specified image and optional tag.
+	 * @param imageAndTag the image (and optional tag) to use for the service
+	 * @return the new builder instance.
+	 */
+	public static DockerService.Builder withImageAndTag(String imageAndTag) {
+		return new DockerService.Builder(imageAndTag);
 	}
 
 	/**
@@ -88,12 +101,72 @@ public class DockerService implements Consumer<Builder> {
 	}
 
 	@Override
-	public void accept(Builder builder) {
+	public void accept(ComposeService.Builder builder) {
 		builder.image(this.image)
 			.imageTag(this.imageTag)
 			.imageWebsite(this.website)
-			.ports(this.ports)
-			.command(this.command);
+			.command(this.command)
+			.ports(this.ports);
+	}
+
+	/**
+	 * Builder for {@link DockerService}.
+	 */
+	public static class Builder {
+
+		private String image;
+
+		private String imageTag = "latest";
+
+		private String website;
+
+		private String command;
+
+		private final Set<Integer> ports = new TreeSet<>();
+
+		protected Builder(String imageAndTag) {
+			String[] split = imageAndTag.split(":", 2);
+			String tag = (split.length == 1) ? "latest" : split[1];
+			image(split[0]).imageTag(tag);
+		}
+
+		public DockerService.Builder image(String image) {
+			this.image = image;
+			return this;
+		}
+
+		public DockerService.Builder imageTag(String imageTag) {
+			this.imageTag = imageTag;
+			return this;
+		}
+
+		public DockerService.Builder website(String website) {
+			this.website = website;
+			return this;
+		}
+
+		public DockerService.Builder command(String command) {
+			this.command = command;
+			return this;
+		}
+
+		public DockerService.Builder ports(Collection<Integer> ports) {
+			this.ports.addAll(ports);
+			return this;
+		}
+
+		public DockerService.Builder ports(int... ports) {
+			return ports(Arrays.stream(ports).boxed().toList());
+		}
+
+		/**
+		 * Builds the {@link DockerService} instance.
+		 * @return the built instance
+		 */
+		public DockerService build() {
+			return new DockerService(this);
+		}
+
 	}
 
 }
