@@ -788,30 +788,32 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#messaging.jms.artemis
         - name: Spring for Apache Pulsar
           id: pulsar
-          compatibilityRange: "[3.0.0,3.2.0-M1)"
-          mappings:
-            - compatibilityRange: "[3.0.0,3.2.0-M1)"
-              version: 0.2.0
+          compatibilityRange: "[3.0.0,3.2.0-SNAPSHOT]"
           description: Build messaging applications with Apache Pulsar
-          groupId: org.springframework.pulsar
-          artifactId: spring-pulsar-spring-boot-starter
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-pulsar/docs/0.2.x/reference/html/
-        - name: Spring for Apache Pulsar (Reactive)
-          id: pulsar-reactive
-          compatibilityRange: "[3.0.0,3.2.0-M1)"
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#messaging.pulsar
           mappings:
             - compatibilityRange: "[3.0.0,3.2.0-M1)"
               version: 0.2.0
+              groupId: org.springframework.pulsar
+              artifactId: spring-pulsar-spring-boot-starter
+              starter: false
+        - name: Spring for Apache Pulsar (Reactive)
+          id: pulsar-reactive
+          compatibilityRange: "[3.0.0,3.2.0-SNAPSHOT]"
           description: Build reactive messaging applications with Apache Pulsar
           facets:
             - reactive
-          groupId: org.springframework.pulsar
-          artifactId: spring-pulsar-reactive-spring-boot-starter
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-pulsar/docs/0.2.x/reference/html/#reactive-pulsar
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#messaging.pulsar
+          mappings:
+            - compatibilityRange: "[3.0.0,3.2.0-M1)"
+              version: 0.2.0
+              groupId: org.springframework.pulsar
+              artifactId: spring-pulsar-reactive-spring-boot-starter
+              starter: false
         - name: WebSocket
           id: websocket
           description: Build Servlet-based WebSocket applications with SockJS and STOMP.
