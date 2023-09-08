@@ -48,59 +48,61 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	}
 
 	private static DockerService activeMQ() {
-		return new DockerService("symptoma/activemq", "latest", "https://hub.docker.com/r/symptoma/activemq", 61616);
+		return new DockerService("symptoma/activemq", "latest", "https://hub.docker.com/r/symptoma/activemq", null,
+				61616);
 	}
 
 	private static DockerService cassandra() {
-		return new DockerService("cassandra", "latest", "https://hub.docker.com/_/cassandra", 9042);
+		return new DockerService("cassandra", "latest", "https://hub.docker.com/_/cassandra", null, 9042);
 	}
 
 	private static DockerService elasticsearch() {
 		// They don't provide a 'latest' tag
 		return new DockerService("docker.elastic.co/elasticsearch/elasticsearch", "7.17.10",
-				"https://www.docker.elastic.co/r/elasticsearch", 9200, 9300);
+				"https://www.docker.elastic.co/r/elasticsearch", null, 9200, 9300);
 	}
 
 	private static DockerService kafka() {
 		return new DockerService("confluentinc/cp-kafka", "latest", "https://hub.docker.com/r/confluentinc/cp-kafka",
-				9092);
+				null, 9092);
 	}
 
 	private static DockerService mariaDb() {
-		return new DockerService("mariadb", "latest", "https://hub.docker.com/_/mariadb", 3306);
+		return new DockerService("mariadb", "latest", "https://hub.docker.com/_/mariadb", null, 3306);
 	}
 
 	private static DockerService mongoDb() {
-		return new DockerService("mongo", "latest", "https://hub.docker.com/_/mongo", 27017);
+		return new DockerService("mongo", "latest", "https://hub.docker.com/_/mongo", null, 27017);
 	}
 
 	private static DockerService mysql() {
-		return new DockerService("mysql", "latest", "https://hub.docker.com/_/mysql", 3306);
+		return new DockerService("mysql", "latest", "https://hub.docker.com/_/mysql", null, 3306);
 	}
 
 	private static DockerService oracle() {
-		return new DockerService("gvenzl/oracle-xe", "latest", "https://hub.docker.com/r/gvenzl/oracle-xe", 1521);
+		return new DockerService("gvenzl/oracle-xe", "latest", "https://hub.docker.com/r/gvenzl/oracle-xe", null, 1521);
 	}
 
 	private static DockerService postgres() {
-		return new DockerService("postgres", "latest", "https://hub.docker.com/_/postgres", 5432);
+		return new DockerService("postgres", "latest", "https://hub.docker.com/_/postgres", null, 5432);
 	}
 
 	private static DockerService rabbit() {
-		return new DockerService("rabbitmq", "latest", "https://hub.docker.com/_/rabbitmq", 5672);
+		return new DockerService("rabbitmq", "latest", "https://hub.docker.com/_/rabbitmq", null, 5672);
 	}
 
 	private static DockerService redis() {
-		return new DockerService("redis", "latest", "https://hub.docker.com/_/redis", 6379);
+		return new DockerService("redis", "latest", "https://hub.docker.com/_/redis", null, 6379);
 	}
 
 	private static DockerService sqlServer() {
 		return new DockerService("mcr.microsoft.com/mssql/server", "latest",
-				"https://mcr.microsoft.com/en-us/product/mssql/server/about/", 1433);
+				"https://mcr.microsoft.com/en-us/product/mssql/server/about/", null, 1433);
 	}
 
 	private static DockerService zipkin() {
-		return new DockerService("openzipkin/zipkin", "latest", "https://hub.docker.com/r/openzipkin/zipkin/", 9411);
+		return new DockerService("openzipkin/zipkin", "latest", "https://hub.docker.com/r/openzipkin/zipkin/", null,
+				9411);
 	}
 
 	@Override

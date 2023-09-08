@@ -24,6 +24,7 @@ import io.spring.initializr.generator.container.docker.compose.ComposeService.Bu
  * Description of a Docker service.
  *
  * @author Stephane Nicoll
+ * @author Chris Bono
  */
 public class DockerService implements Consumer<Builder> {
 
@@ -33,12 +34,15 @@ public class DockerService implements Consumer<Builder> {
 
 	private final String website;
 
+	private final String command;
+
 	private final int[] ports;
 
-	DockerService(String image, String imageTag, String website, int... ports) {
+	DockerService(String image, String imageTag, String website, String command, int... ports) {
 		this.image = image;
 		this.imageTag = imageTag;
 		this.website = website;
+		this.command = command;
 		this.ports = ports;
 	}
 
@@ -68,6 +72,14 @@ public class DockerService implements Consumer<Builder> {
 	}
 
 	/**
+	 * Return the command to use to override the default command (optional).
+	 * @return the command
+	 */
+	public String getCommand() {
+		return this.command;
+	}
+
+	/**
 	 * Return the ports that should be exposed by the service.
 	 * @return the ports to expose
 	 */
@@ -77,7 +89,11 @@ public class DockerService implements Consumer<Builder> {
 
 	@Override
 	public void accept(Builder builder) {
-		builder.image(this.image).imageTag(this.imageTag).imageWebsite(this.website).ports(this.ports);
+		builder.image(this.image)
+			.imageTag(this.imageTag)
+			.imageWebsite(this.website)
+			.ports(this.ports)
+			.command(this.command);
 	}
 
 }
