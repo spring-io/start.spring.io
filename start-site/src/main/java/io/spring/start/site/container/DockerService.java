@@ -42,16 +42,16 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 
 	private final int[] ports;
 
-	private DockerService(DockerService.Builder builder) {
+	private DockerService(Builder builder) {
 		this.image = builder.image;
 		this.imageTag = builder.imageTag;
 		this.website = builder.website;
 		this.command = builder.command;
-		this.ports = builder.ports.stream().mapToInt(Number::intValue).toArray();
+		this.ports = builder.ports.stream().mapToInt(Integer::intValue).toArray();
 	}
 
 	/**
-	 * Return a new builder using the specified image and optional tag.
+	 * Create a new builder using the specified image and optional tag.
 	 * @param imageAndTag the image (and optional tag) to use for the service
 	 * @return the new builder instance.
 	 */
@@ -85,7 +85,7 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 	}
 
 	/**
-	 * Return the command to use to override the default command (optional).
+	 * Return the command to use, if any.
 	 * @return the command
 	 */
 	public String getCommand() {
@@ -130,38 +130,38 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 			image(split[0]).imageTag(tag);
 		}
 
-		public DockerService.Builder image(String image) {
+		public Builder image(String image) {
 			this.image = image;
 			return this;
 		}
 
-		public DockerService.Builder imageTag(String imageTag) {
+		public Builder imageTag(String imageTag) {
 			this.imageTag = imageTag;
 			return this;
 		}
 
-		public DockerService.Builder website(String website) {
+		public Builder website(String website) {
 			this.website = website;
 			return this;
 		}
 
-		public DockerService.Builder command(String command) {
+		public Builder command(String command) {
 			this.command = command;
 			return this;
 		}
 
-		public DockerService.Builder ports(Collection<Integer> ports) {
+		public Builder ports(Collection<Integer> ports) {
 			this.ports.addAll(ports);
 			return this;
 		}
 
-		public DockerService.Builder ports(int... ports) {
+		public Builder ports(int... ports) {
 			return ports(Arrays.stream(ports).boxed().toList());
 		}
 
 		/**
-		 * Builds the {@link DockerService} instance.
-		 * @return the built instance
+		 * Build a {@link DockerService} with the current state of this builder.
+		 * @return a {@link DockerService}
 		 */
 		public DockerService build() {
 			return new DockerService(this);
