@@ -25,6 +25,7 @@ import java.util.Map;
  *
  * @author Stephane Nicoll
  * @author Moritz Halbritter
+ * @author Chris Bono
  */
 public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
@@ -48,59 +49,83 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	}
 
 	private static DockerService activeMQ() {
-		return new DockerService("symptoma/activemq", "latest", "https://hub.docker.com/r/symptoma/activemq", 61616);
+		return DockerService.withImageAndTag("symptoma/activemq")
+			.website("https://hub.docker.com/r/symptoma/activemq")
+			.ports(61616)
+			.build();
 	}
 
 	private static DockerService cassandra() {
-		return new DockerService("cassandra", "latest", "https://hub.docker.com/_/cassandra", 9042);
+		return DockerService.withImageAndTag("cassandra")
+			.website("https://hub.docker.com/_/cassandra")
+			.ports(9042)
+			.build();
 	}
 
 	private static DockerService elasticsearch() {
 		// They don't provide a 'latest' tag
-		return new DockerService("docker.elastic.co/elasticsearch/elasticsearch", "7.17.10",
-				"https://www.docker.elastic.co/r/elasticsearch", 9200, 9300);
+		return DockerService.withImageAndTag("docker.elastic.co/elasticsearch/elasticsearch:7.17.10")
+			.website("https://www.docker.elastic.co/r/elasticsearch")
+			.ports(9200, 9300)
+			.build();
 	}
 
 	private static DockerService kafka() {
-		return new DockerService("confluentinc/cp-kafka", "latest", "https://hub.docker.com/r/confluentinc/cp-kafka",
-				9092);
+		return DockerService.withImageAndTag("confluentinc/cp-kafka")
+			.website("https://hub.docker.com/r/confluentinc/cp-kafka")
+			.ports(9092)
+			.build();
 	}
 
 	private static DockerService mariaDb() {
-		return new DockerService("mariadb", "latest", "https://hub.docker.com/_/mariadb", 3306);
+		return DockerService.withImageAndTag("mariadb").website("https://hub.docker.com/_/mariadb").ports(3306).build();
 	}
 
 	private static DockerService mongoDb() {
-		return new DockerService("mongo", "latest", "https://hub.docker.com/_/mongo", 27017);
+		return DockerService.withImageAndTag("mongo").website("https://hub.docker.com/_/mongo").ports(27017).build();
 	}
 
 	private static DockerService mysql() {
-		return new DockerService("mysql", "latest", "https://hub.docker.com/_/mysql", 3306);
+		return DockerService.withImageAndTag("mysql").website("https://hub.docker.com/_/mysql").ports(3306).build();
 	}
 
 	private static DockerService oracle() {
-		return new DockerService("gvenzl/oracle-xe", "latest", "https://hub.docker.com/r/gvenzl/oracle-xe", 1521);
+		return DockerService.withImageAndTag("gvenzl/oracle-xe")
+			.website("https://hub.docker.com/r/gvenzl/oracle-xe")
+			.ports(1521)
+			.build();
 	}
 
 	private static DockerService postgres() {
-		return new DockerService("postgres", "latest", "https://hub.docker.com/_/postgres", 5432);
+		return DockerService.withImageAndTag("postgres")
+			.website("https://hub.docker.com/_/postgres")
+			.ports(5432)
+			.build();
 	}
 
 	private static DockerService rabbit() {
-		return new DockerService("rabbitmq", "latest", "https://hub.docker.com/_/rabbitmq", 5672);
+		return DockerService.withImageAndTag("rabbitmq")
+			.website("https://hub.docker.com/_/rabbitmq")
+			.ports(5672)
+			.build();
 	}
 
 	private static DockerService redis() {
-		return new DockerService("redis", "latest", "https://hub.docker.com/_/redis", 6379);
+		return DockerService.withImageAndTag("redis").website("https://hub.docker.com/_/redis").ports(6379).build();
 	}
 
 	private static DockerService sqlServer() {
-		return new DockerService("mcr.microsoft.com/mssql/server", "latest",
-				"https://mcr.microsoft.com/en-us/product/mssql/server/about/", 1433);
+		return DockerService.withImageAndTag("mcr.microsoft.com/mssql/server")
+			.website("https://mcr.microsoft.com/en-us/product/mssql/server/about/")
+			.ports(1433)
+			.build();
 	}
 
 	private static DockerService zipkin() {
-		return new DockerService("openzipkin/zipkin", "latest", "https://hub.docker.com/r/openzipkin/zipkin/", 9411);
+		return DockerService.withImageAndTag("openzipkin/zipkin")
+			.website("https://hub.docker.com/r/openzipkin/zipkin/")
+			.ports(9411)
+			.build();
 	}
 
 	@Override
