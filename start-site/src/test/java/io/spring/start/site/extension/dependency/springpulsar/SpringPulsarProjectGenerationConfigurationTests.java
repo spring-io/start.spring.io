@@ -70,7 +70,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void pulsarBootStarterUsedWhenBoot32Selected() {
 			ProjectRequest request = createProjectRequest("pulsar");
-			request.setBootVersion("3.2.0-SNAPSHOT");
+			request.setBootVersion("3.2.0-M3");
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild().hasDependency("org.springframework.boot", "spring-boot-starter-pulsar");
 		}
@@ -78,7 +78,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void pulsarReactiveBootStarterUsedWhenBoot32Selected() {
 			ProjectRequest request = createProjectRequest("pulsar-reactive");
-			request.setBootVersion("3.2.0-SNAPSHOT");
+			request.setBootVersion("3.2.0-M3");
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild()
 				.hasDependency("org.springframework.boot", "spring-boot-starter-pulsar-reactive");
@@ -92,7 +92,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void serviceNotCreatedWhenDockerComposeNotSelected() {
 			ProjectRequest request = createProjectRequest("pulsar");
-			request.setBootVersion("3.2.0-SNAPSHOT");
+			request.setBootVersion("3.2.0-M3");
 			ProjectStructure structure = generateProject(request);
 			assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 		}
@@ -109,7 +109,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@ValueSource(strings = { "pulsar", "pulsar-reactive" })
 		void serviceCreatedWhenDockerComposeSelectedWithCompatibleBootVersion(String pulsarDependencyId) {
 			ProjectRequest request = createProjectRequest("docker-compose", pulsarDependencyId);
-			request.setBootVersion("3.2.0-SNAPSHOT");
+			request.setBootVersion("3.2.0-M3");
 			assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/pulsar.yaml"));
 		}
 
@@ -120,12 +120,12 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 
 		private final ProjectAssetTester projectTester = new ProjectAssetTester()
 			.withConfiguration(SpringPulsarProjectGenerationConfiguration.class)
-			.withBean(DockerServiceResolver.class, () -> new SimpleDockerServiceResolver());
+			.withBean(DockerServiceResolver.class, SimpleDockerServiceResolver::new);
 
 		@Test
 		void connectionNotAddedWhenTestcontainersNotSelected() {
 			MutableProjectDescription description = new MutableProjectDescription();
-			description.setPlatformVersion(Version.parse("3.2.0-SNAPSHOT"));
+			description.setPlatformVersion(Version.parse("3.2.0-M3"));
 			description.addDependency("pulsar", mock(Dependency.class));
 			this.projectTester.configure(description,
 					(context) -> assertThat(context).doesNotHaveBean("pulsarServiceConnectionsCustomizer"));
@@ -134,7 +134,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void connectionNotAddedWhenPulsarNotSelected() {
 			MutableProjectDescription description = new MutableProjectDescription();
-			description.setPlatformVersion(Version.parse("3.2.0-SNAPSHOT"));
+			description.setPlatformVersion(Version.parse("3.2.0-M3"));
 			description.addDependency("testcontainers", mock(Dependency.class));
 			this.projectTester.configure(description,
 					(context) -> assertThat(context).doesNotHaveBean("pulsarServiceConnectionsCustomizer"));
@@ -155,7 +155,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@ValueSource(strings = { "pulsar", "pulsar-reactive" })
 		void connectionAddedWhenTestcontainersAndPulsarSelectedWithCompatibleBootVersion(String pulsarDependencyId) {
 			MutableProjectDescription description = new MutableProjectDescription();
-			description.setPlatformVersion(Version.parse("3.2.0-SNAPSHOT"));
+			description.setPlatformVersion(Version.parse("3.2.0-M3"));
 			description.addDependency("testcontainers", mock(Dependency.class));
 			description.addDependency(pulsarDependencyId, mock(Dependency.class));
 			this.projectTester.configure(description,
@@ -164,11 +164,11 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 						.satisfies((customizer) -> {
 							ServiceConnections connections = new ServiceConnections();
 							customizer.customize(connections);
-							assertPulsarServiceConnectionAddded(connections);
+							assertPulsarServiceConnectionAdded(connections);
 						}));
 		}
 
-		private void assertPulsarServiceConnectionAddded(ServiceConnections connections) {
+		private void assertPulsarServiceConnectionAdded(ServiceConnections connections) {
 			assertThat(connections.values()).first().satisfies((connection) -> {
 				assertThat(connection.id()).isEqualTo("pulsar");
 				assertThat(connection.containerClassName()).isEqualTo("org.testcontainers.containers.PulsarContainer");
@@ -208,7 +208,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		}
 
 		@ParameterizedTest
-		@ValueSource(strings = { "3.2.0-M1", "3.2.0-SNAPSHOT" })
+		@ValueSource(strings = { "3.2.0-M1", "3.2.0-M3" })
 		void binderNotAddedWhenPulsarAndCloudStreamSelectedWithIncompatibleBootVersion(String bootVersion) {
 			ProjectRequest request = createProjectRequest("pulsar", "cloud-stream");
 			request.setBootVersion(bootVersion);
@@ -217,7 +217,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		}
 
 		@ParameterizedTest
-		@ValueSource(strings = { "3.0.0", "3.1.3", "3.1.4-SNAPSHOT" })
+		@ValueSource(strings = { "3.0.0", "3.1.3" })
 		void binderAddedWhenPulsarAndCloudStreamSelectedWithCompatibleBootVersion(String bootVersion) {
 			ProjectRequest request = createProjectRequest("pulsar", "cloud-stream");
 			request.setBootVersion(bootVersion);
@@ -226,7 +226,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		}
 
 		@ParameterizedTest
-		@ValueSource(strings = { "3.0.0", "3.1.3", "3.1.4-SNAPSHOT" })
+		@ValueSource(strings = { "3.0.0", "3.1.3" })
 		void binderAddedWhenPulsarReactiveAndCloudStreamSelectedWithCompatibleBootVersion(String bootVersion) {
 			ProjectRequest request = createProjectRequest("pulsar-reactive", "cloud-stream");
 			request.setBootVersion(bootVersion);
