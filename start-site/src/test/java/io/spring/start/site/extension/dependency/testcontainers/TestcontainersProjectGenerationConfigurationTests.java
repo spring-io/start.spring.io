@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 
 import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
+import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
 		assertThat(generateProject("3.0.0", "testcontainers", springBootDependencyId)).mavenBuild()
 			.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-			.hasDependency(getDependency(springBootDependencyId))
+			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.0.0")))
 			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
 			.hasDependency(getDependency("testcontainers"));
 	}

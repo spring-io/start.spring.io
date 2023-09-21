@@ -42,6 +42,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("mysql", mysql());
 		this.dockerServices.put("oracle", oracle());
 		this.dockerServices.put("postgres", postgres());
+		this.dockerServices.put("pulsar", pulsar());
 		this.dockerServices.put("rabbit", rabbit());
 		this.dockerServices.put("redis", redis());
 		this.dockerServices.put("sqlServer", sqlServer());
@@ -100,6 +101,15 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("postgres")
 			.website("https://hub.docker.com/_/postgres")
 			.ports(5432)
+			.build();
+	}
+
+	private static DockerService pulsar() {
+		// The latest tag they provide is not the 'latest' GA
+		return DockerService.withImageAndTag("apachepulsar/pulsar:3.1.0")
+			.website("https://hub.docker.com/r/apachepulsar/pulsar")
+			.command("bin/pulsar standalone")
+			.ports(8080, 6650)
 			.build();
 	}
 
