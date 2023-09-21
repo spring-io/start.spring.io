@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.spring.initializr.generator.language.Language;
+import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.initializr.generator.version.Version;
@@ -40,6 +41,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private static final VersionRange SPRING_BOOT_2_6_12_OR_LATER = VersionParser.DEFAULT.parseRange("2.6.12");
 
 	private static final VersionRange SPRING_BOOT_2_7_10_OR_LATER = VersionParser.DEFAULT.parseRange("2.7.10");
+
+	private static final VersionRange SPRING_BOOT_2_7_16_OR_LATER = VersionParser.DEFAULT.parseRange("2.7.16");
 
 	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
 
@@ -73,6 +76,16 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			}
 
 		}
+		if (javaGeneration == 21) {
+			// Java 21 support as of Spring Boot 2.7.16
+			if (!SPRING_BOOT_2_7_16_OR_LATER.match(platformVersion)) {
+				updateTo(description, "17");
+			}
+			// Kotlin does not support Java 21 bytecodes yet
+			if (description.getLanguage() instanceof KotlinLanguage) {
+				updateTo(description, "17");
+			}
+		}
 	}
 
 	private void updateTo(MutableProjectDescription description, String jvmVersion) {
@@ -86,7 +99,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 				return 8;
 			}
 			int generation = Integer.parseInt(javaVersion);
-			return ((generation > 8 && generation <= 20) ? generation : null);
+			return ((generation > 8 && generation <= 21) ? generation : null);
 		}
 		catch (NumberFormatException ex) {
 			return null;
