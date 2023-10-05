@@ -21,6 +21,7 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
+import io.spring.initializr.generator.version.Version;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,53 +36,65 @@ class R2dbcHelpDocumentCustomizerTests {
 
 	@Test
 	void r2dbcWithNoMatchingDriver() {
-		HelpDocument helpDocument = createHelpDocument();
+		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"));
 		assertThat(helpDocument.getSections()).hasSize(1);
 	}
 
 	@Test
 	void r2dbcWithH2() {
-		HelpDocument helpDocument = createHelpDocument("h2");
+		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "h2");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithMariadb() {
-		HelpDocument helpDocument = createHelpDocument("mariadb");
+		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "mariadb");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithPostgresql() {
-		HelpDocument helpDocument = createHelpDocument("postgresql");
+		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "postgresql");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithSqlServer() {
-		HelpDocument helpDocument = createHelpDocument("sqlserver");
+		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "sqlserver");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithOracle() {
-		HelpDocument helpDocument = createHelpDocument("oracle");
+		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "oracle");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
-	void r2dbcWithSeveralDrivers() {
-		HelpDocument helpDocument = createHelpDocument("mysql", "h2");
+	void r2dbcWithMysql() {
+		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "mysql");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
-	private HelpDocument createHelpDocument(String... dependencyIds) {
+	@Test
+	void r2dbcWithMysqlBeforeVersion() {
+		HelpDocument helpDocument = createHelpDocument(Version.parse("2.7.0.M1"), "mysql");
+		assertThat(helpDocument.getSections()).hasSize(1);
+	}
+
+	@Test
+	void r2dbcWithSeveralDrivers() {
+		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "mysql", "h2");
+		assertThat(helpDocument.getSections()).isEmpty();
+	}
+
+	private HelpDocument createHelpDocument(Version platformVersion, String... dependencyIds) {
 		Build build = new GradleBuild();
 		for (String dependencyId : dependencyIds) {
 			build.dependencies().add(dependencyId, Dependency.withCoordinates(dependencyId, dependencyId));
 		}
 		HelpDocument document = new HelpDocument(mock(MustacheTemplateRenderer.class));
-		new R2dbcHelpDocumentCustomizer(build).customize(document);
+		new R2dbcHelpDocumentCustomizer(build, platformVersion).customize(document);
 		return document;
 	}
 
