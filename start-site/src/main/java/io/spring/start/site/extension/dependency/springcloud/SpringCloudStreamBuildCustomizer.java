@@ -57,6 +57,11 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 					.add("cloud-stream-binder-kafka", "org.springframework.cloud", "spring-cloud-stream-binder-kafka",
 							DependencyScope.COMPILE);
 			}
+			if (isSpringBoot3xWithPulsarSupport() && hasDependency("pulsar", build)) {
+				build.dependencies()
+					.add("cloud-stream-binder-pulsar", "org.springframework.cloud", "spring-cloud-stream-binder-pulsar",
+							DependencyScope.COMPILE);
+			}
 		}
 		// Spring Cloud Stream specific
 		if (hasDependency("cloud-stream", build)) {
@@ -90,6 +95,11 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 	protected boolean isSpringBoot3x() {
 		Version platformVersion = this.description.getPlatformVersion();
 		return platformVersion.compareTo(Version.parse("3.0.0-M1")) > 0;
+	}
+
+	protected boolean isSpringBoot3xWithPulsarSupport() {
+		Version platformVersion = this.description.getPlatformVersion();
+		return platformVersion.compareTo(Version.parse("3.2.0-M3")) >= 0;
 	}
 
 }
