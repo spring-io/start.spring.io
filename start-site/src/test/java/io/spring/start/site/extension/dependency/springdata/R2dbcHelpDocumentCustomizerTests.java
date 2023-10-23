@@ -36,59 +36,63 @@ class R2dbcHelpDocumentCustomizerTests {
 
 	@Test
 	void r2dbcWithNoMatchingDriver() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"));
+		HelpDocument helpDocument = createHelpDocument();
 		assertThat(helpDocument.getSections()).hasSize(1);
 	}
 
 	@Test
 	void r2dbcWithH2() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "h2");
+		HelpDocument helpDocument = createHelpDocument("h2");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithMariadb() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "mariadb");
+		HelpDocument helpDocument = createHelpDocument("mariadb");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithPostgresql() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "postgresql");
+		HelpDocument helpDocument = createHelpDocument("postgresql");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithSqlServer() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "sqlserver");
+		HelpDocument helpDocument = createHelpDocument("sqlserver");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithOracle() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "oracle");
+		HelpDocument helpDocument = createHelpDocument("oracle");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithMysql() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "mysql");
+		HelpDocument helpDocument = createHelpDocument("mysql");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
 	@Test
 	void r2dbcWithMysqlBeforeVersion() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("2.7.0.M1"), "mysql");
+		HelpDocument helpDocument = createHelpDocumentForVersion(Version.parse("2.7.0.M1"), "mysql");
 		assertThat(helpDocument.getSections()).hasSize(1);
 	}
 
 	@Test
 	void r2dbcWithSeveralDrivers() {
-		HelpDocument helpDocument = createHelpDocument(Version.parse("3.1.0"), "mysql", "h2");
+		HelpDocument helpDocument = createHelpDocumentForVersion(Version.parse("3.1.0"), "mysql", "h2");
 		assertThat(helpDocument.getSections()).isEmpty();
 	}
 
-	private HelpDocument createHelpDocument(Version platformVersion, String... dependencyIds) {
+	private HelpDocument createHelpDocument(String... dependencyIds) {
+		return createHelpDocumentForVersion(Version.parse("3.1.0"), dependencyIds);
+	}
+
+	private HelpDocument createHelpDocumentForVersion(Version platformVersion, String... dependencyIds) {
 		Build build = new GradleBuild();
 		for (String dependencyId : dependencyIds) {
 			build.dependencies().add(dependencyId, Dependency.withCoordinates(dependencyId, dependencyId));
