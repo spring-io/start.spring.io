@@ -39,8 +39,8 @@ public class SpringDataProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("data-r2dbc")
-	public R2dbcHelpDocumentCustomizer r2dbcHelpDocumentCustomizer(Build build) {
-		return new R2dbcHelpDocumentCustomizer(build);
+	public R2dbcHelpDocumentCustomizer r2dbcHelpDocumentCustomizer(Build build, ProjectDescription description) {
+		return new R2dbcHelpDocumentCustomizer(build, description.getPlatformVersion());
 	}
 
 }

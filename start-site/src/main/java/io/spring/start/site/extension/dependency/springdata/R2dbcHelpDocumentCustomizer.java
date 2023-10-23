@@ -16,12 +16,15 @@
 
 package io.spring.start.site.extension.dependency.springdata;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link HelpDocumentCustomizer} that adds a section when R2DBC is selected but no
@@ -31,17 +34,23 @@ import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomize
  */
 public class R2dbcHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final List<String> DRIVERS = Arrays.asList("h2", "mariadb", "postgresql", "sqlserver", "oracle");
+	private static final VersionRange SPRING_BOOT_3_1_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.1.0");
 
 	private final Build build;
 
-	public R2dbcHelpDocumentCustomizer(Build build) {
+	private final List<String> drivers;
+
+	public R2dbcHelpDocumentCustomizer(Build build, Version platformVersion) {
 		this.build = build;
+		this.drivers = new ArrayList<>(List.of("h2", "mariadb", "postgresql", "sqlserver", "oracle"));
+		if (SPRING_BOOT_3_1_0_OR_LATER.match(platformVersion)) {
+			this.drivers.add("mysql");
+		}
 	}
 
 	@Override
 	public void customize(HelpDocument document) {
-		if (this.build.dependencies().ids().noneMatch(DRIVERS::contains)) {
+		if (this.build.dependencies().ids().noneMatch(this.drivers::contains)) {
 			document.addSection((writer) -> {
 				writer.println("## Missing R2DBC Driver");
 				writer.println();
