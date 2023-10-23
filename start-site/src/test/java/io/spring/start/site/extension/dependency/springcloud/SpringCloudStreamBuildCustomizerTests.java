@@ -34,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  * @author Brian Clozel
+ * @author Chris Bono
  */
 class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -42,6 +43,9 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	private static final Dependency KAFKA_STREAMS_BINDER = Dependency.withId("cloud-stream-binder-kafka-streams",
 			"org.springframework.cloud", "spring-cloud-stream-binder-kafka-streams");
+
+	private static final Dependency PULSAR_BINDER = Dependency.withId("cloud-stream-binder-pulsar",
+			"org.springframework.cloud", "spring-cloud-stream-binder-pulsar");
 
 	private static final Dependency RABBIT_BINDER = Dependency.withId("cloud-stream-binder-rabbit",
 			"org.springframework.cloud", "spring-cloud-stream-binder-rabbit");
@@ -83,6 +87,16 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(testDependency)
 			.hasDependenciesSize(5);
+	}
+
+	@Test
+	void springCloudStreamWithPulsar() {
+		ProjectRequest request = createProjectRequest("cloud-stream", "pulsar");
+		request.setBootVersion("3.2.0-RC1");
+		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-stream"))
+			.hasDependency(getDependency("pulsar"))
+			.hasDependency(PULSAR_BINDER)
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST));
 	}
 
 	@ParameterizedTest
