@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package io.spring.start.site.project;
 
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 import io.spring.start.site.project.dependency.springcloud.SpringCloudGatewayProjectDescriptionCustomizer;
+import io.spring.start.site.project.dependency.springcloud.SpringCloudResilience4JProjectDescriptionCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,11 @@ public class ProjectDescriptionCustomizerConfiguration {
 	@Bean
 	public JavaVersionProjectDescriptionCustomizer javaVersionProjectDescriptionCustomizer() {
 		return new JavaVersionProjectDescriptionCustomizer();
+	}
+
+	@Bean
+	public SpringCloudResilience4JProjectDescriptionCustomizer springCloudResilience4JProjectDescriptionCustomizer() {
+		return new SpringCloudResilience4JProjectDescriptionCustomizer();
 	}
 
 	@Bean
