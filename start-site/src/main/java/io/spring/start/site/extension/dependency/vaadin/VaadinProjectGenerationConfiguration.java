@@ -38,8 +38,8 @@ class VaadinProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-	VaadinMavenBuildCustomizer vaadinMavenBuildCustomizer(ProjectDescription description) {
-		return new VaadinMavenBuildCustomizer(description.getPlatformVersion());
+	VaadinMavenBuildCustomizer vaadinMavenBuildCustomizer() {
+		return new VaadinMavenBuildCustomizer();
 	}
 
 	@Bean

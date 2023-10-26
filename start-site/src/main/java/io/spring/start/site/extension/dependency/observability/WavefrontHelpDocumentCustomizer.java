@@ -31,16 +31,15 @@ class WavefrontHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	private final Build build;
 
-	private final String referenceLink;
-
-	WavefrontHelpDocumentCustomizer(String referenceLink, Build build) {
-		this.referenceLink = referenceLink;
+	WavefrontHelpDocumentCustomizer(Build build) {
 		this.build = build;
 	}
 
 	@Override
 	public void customize(HelpDocument document) {
-		document.gettingStarted().addReferenceDocLink(this.referenceLink, "Wavefront for Spring Boot documentation");
+		document.gettingStarted()
+			.addReferenceDocLink("https://docs.wavefront.com/wavefront_springboot3.html",
+					"Wavefront for Spring Boot documentation");
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("## Observability with Wavefront%n%n"));

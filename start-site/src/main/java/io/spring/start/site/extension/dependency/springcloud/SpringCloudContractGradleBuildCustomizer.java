@@ -23,8 +23,6 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -38,8 +36,6 @@ import org.apache.commons.logging.LogFactory;
 abstract class SpringCloudContractGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	private static final Log logger = LogFactory.getLog(SpringCloudContractGradleBuildCustomizer.class);
-
-	private static final VersionRange SPRING_CLOUD_CONTRACT_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0.M4");
 
 	private static final MavenRepository SPRING_MILESTONES = MavenRepository
 		.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone")
@@ -81,9 +77,7 @@ abstract class SpringCloudContractGradleBuildCustomizer implements BuildCustomiz
 						Dependency.withCoordinates("io.rest-assured", "spring-web-test-client")
 							.scope(DependencyScope.TEST_COMPILE));
 		}
-		if (SPRING_CLOUD_CONTRACT_3_0_OR_LATER.match(VersionParser.DEFAULT.parse(sccPluginVersion))) {
-			build.tasks().customize("contractTest", (task) -> task.invoke("useJUnitPlatform"));
-		}
+		build.tasks().customize("contractTest", (task) -> task.invoke("useJUnitPlatform"));
 		configurePluginRepositories(build, sccPluginVersion);
 	}
 

@@ -44,13 +44,9 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final List<String> JDBC_DEPENDENCY_IDS = Arrays.asList("jdbc", "data-jdbc", "data-jpa");
 
-	private static final VersionRange SPRING_BOOT_2_7_0_OR_LATER = VersionParser.DEFAULT.parseRange("2.7.0-M1");
-
 	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
 
 	private static final VersionRange SPRING_BOOT_3_1_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.1.0");
-
-	private final boolean borcaOrLater;
 
 	private final boolean mariaDbIsUnmanaged;
 
@@ -59,7 +55,6 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 	private final boolean mysqlR2dbcIsAsyncerDependency;
 
 	public R2dbcBuildCustomizer(Version platformVersion) {
-		this.borcaOrLater = SPRING_BOOT_2_7_0_OR_LATER.match(platformVersion);
 		this.mariaDbIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
 		this.sqlServerIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
 		this.mysqlR2dbcIsAsyncerDependency = SPRING_BOOT_3_1_0_OR_LATER.match(platformVersion);
@@ -75,22 +70,18 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 					this.mariaDbIsUnmanaged ? "1.1.3" : null);
 		}
 		if (build.dependencies().has("mysql")) {
-			if (!this.borcaOrLater) {
-				addManagedDriver(build.dependencies(), "dev.miku", "r2dbc-mysql");
-			}
-			else if (this.mysqlR2dbcIsAsyncerDependency) {
+			if (this.mysqlR2dbcIsAsyncerDependency) {
 				addManagedDriver(build.dependencies(), "io.asyncer", "r2dbc-mysql");
 			}
 		}
 		if (build.dependencies().has("postgresql")) {
-			String groupId = this.borcaOrLater ? "org.postgresql" : "io.r2dbc";
-			addManagedDriver(build.dependencies(), groupId, "r2dbc-postgresql");
+			addManagedDriver(build.dependencies(), "org.postgresql", "r2dbc-postgresql");
 		}
 		if (build.dependencies().has("sqlserver")) {
 			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql",
 					this.sqlServerIsUnmanaged ? "1.0.0.RELEASE" : null);
 		}
-		if (build.dependencies().has("oracle") && this.borcaOrLater) {
+		if (build.dependencies().has("oracle")) {
 			addManagedDriver(build.dependencies(), "com.oracle.database.r2dbc", "oracle-r2dbc");
 		}
 		if (build.dependencies().has("flyway") || build.dependencies().has("liquibase")) {

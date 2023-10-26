@@ -102,13 +102,6 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		assertHelpDocument(request).contains("$ docker run --rm -p 8080:8080 another-project:2.0.0-SNAPSHOT");
 	}
 
-	@Override
-	protected ProjectRequest createProjectRequest(String... styles) {
-		ProjectRequest request = super.createProjectRequest(styles);
-		request.setBootVersion("3.0.0-M5");
-		return request;
-	}
-
 	private TextAssert assertHelpDocument(ProjectRequest request) {
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));

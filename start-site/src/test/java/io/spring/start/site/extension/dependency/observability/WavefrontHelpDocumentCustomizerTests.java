@@ -33,43 +33,37 @@ class WavefrontHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void wavefrontAddGeneralSection() {
-		assertHelpDocument("2.7.5", "wavefront").contains("## Observability with Wavefront", "",
+		assertHelpDocument("3.0.0", "wavefront").contains("## Observability with Wavefront", "",
 				"If you don't have a Wavefront account, the starter will create a freemium account for you.",
 				"The URL to access the Wavefront Service dashboard is logged on startup.");
 	}
 
 	@Test
 	void wavefrontWithoutWebApplicationDoesNotAddActuatorSection() {
-		assertHelpDocument("2.7.5", "wavefront")
+		assertHelpDocument("3.0.0", "wavefront")
 			.doesNotContain("You can also access your dashboard using the `/actuator/wavefront` endpoint.");
 	}
 
 	@Test
 	void wavefrontWithWebApplicationAddActuatorSection() {
-		assertHelpDocument("2.7.5", "wavefront", "web")
+		assertHelpDocument("3.0.0", "wavefront", "web")
 			.contains("You can also access your dashboard using the `/actuator/wavefront` endpoint.");
 	}
 
 	@Test
 	void wavefrontWithoutSleuthAddTracingNote() {
-		assertHelpDocument("2.7.5", "wavefront")
+		assertHelpDocument("3.0.0", "wavefront")
 			.contains("Finally, you can opt-in for distributed tracing by adding the 'Distributed Tracing' entry.");
 	}
 
 	@Test
 	void wavefrontWithSleuthDoesNotAddTracingNote() {
-		assertHelpDocument("2.7.5", "wavefront", "distributed-tracing").doesNotContain(
+		assertHelpDocument("3.0.0", "wavefront", "distributed-tracing").doesNotContain(
 				"Finally, you can opt-in for distributed tracing by adding the 'Distributed Tracing' entry.");
 	}
 
 	@Test
-	void springBoot2xWavefrontReference() {
-		assertHelpDocument("2.7.5", "wavefront").contains(
-				"* [Wavefront for Spring Boot documentation](https://docs.wavefront.com/wavefront_springboot.html)");
-	}
-
-	@Test
-	void springBoot3xWavefrontReference() {
+	void springBootWavefrontReference() {
 		assertHelpDocument("3.0.0", "wavefront").contains(
 				"* [Wavefront for Spring Boot documentation](https://docs.wavefront.com/wavefront_springboot3.html)");
 	}

@@ -30,14 +30,8 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 
-	static final List<String> STANDARD_REGISTRY_IDS = Arrays.asList("datadog", "dynatrace", "graphite", "influx",
-			"new-relic");
-
-	private final List<String> dependencyIds;
-
-	ObservabilityActuatorBuildCustomizer(List<String> dependencyIds) {
-		this.dependencyIds = dependencyIds;
-	}
+	private static final List<String> STANDARD_REGISTRY_IDS = Arrays.asList("datadog", "distributed-tracing",
+			"dynatrace", "graphite", "influx", "new-relic", "wavefront", "zipkin");
 
 	@Override
 	public void customize(Build build) {
@@ -47,7 +41,7 @@ class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	protected boolean match(DependencyContainer dependencies) {
-		return dependencies.ids().anyMatch(this.dependencyIds::contains);
+		return dependencies.ids().anyMatch(STANDARD_REGISTRY_IDS::contains);
 	}
 
 }

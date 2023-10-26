@@ -20,7 +20,6 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
@@ -94,8 +93,8 @@ public class DependencyProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("thymeleaf")
-	public ThymeleafBuildCustomizer thymeleafBuildCustomizer(ProjectDescription description) {
-		return new ThymeleafBuildCustomizer(description.getPlatformVersion());
+	public ThymeleafBuildCustomizer thymeleafBuildCustomizer() {
+		return new ThymeleafBuildCustomizer();
 	}
 
 	@Bean
