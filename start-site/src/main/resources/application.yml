@@ -43,20 +43,14 @@ initializr:
         artifactId: spring-boot-admin-dependencies
         versionProperty: spring-boot-admin.version
         mappings:
-          - compatibilityRange: "[2.6.0,2.7.0-M1)"
-            version: 2.6.8
-          - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
-            version: 2.7.4
-          - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
-            version: 3.0.4
-          - compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
+          - compatibilityRange: "[3.1.0,3.2.0-M1)"
             version: 3.1.5
       hilla:
         groupId: dev.hilla
         artifactId: hilla-bom
         versionProperty: hilla.version
         mappings:
-          - compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
+          - compatibilityRange: "[3.1.0,3.2.0-M1)"
             version: 2.1.9
       sentry:
         groupId: io.sentry
@@ -70,18 +64,14 @@ initializr:
         artifactId: solace-spring-boot-bom
         versionProperty: solace-spring-boot.version
         mappings:
-          - compatibilityRange: "[2.6.0,3.0.0-M1)"
-            version: 1.2.2
-          - compatibilityRange: "3.0.0-M1"
+          - compatibilityRange: "3.0.0"
             version: 2.0.0
       solace-spring-cloud:
         groupId: com.solace.spring.cloud
         artifactId: solace-spring-cloud-bom
         versionProperty: solace-spring-cloud.version
         mappings:
-          - compatibilityRange: "[2.6.0,3.0.0-M1)"
-            version: 2.3.2
-          - compatibilityRange: "3.0.0-M1"
+          - compatibilityRange: "3.0.0"
             version: 3.0.0
       spring-cloud:
         groupId: org.springframework.cloud
@@ -89,8 +79,6 @@ initializr:
         versionProperty: spring-cloud.version
         order: 50
         mappings:
-          - compatibilityRange: "[2.6.0,3.0.0)"
-            version: 2021.0.8
           - compatibilityRange: "[3.0.0,3.2.0-M1)"
             version: 2022.0.4
           - compatibilityRange: "[3.2.0-M1,3.2.x-SNAPSHOT)"
@@ -104,9 +92,7 @@ initializr:
         artifactId: spring-cloud-azure-dependencies
         versionProperty: spring-cloud-azure.version
         mappings:
-          - compatibilityRange: "[2.6.0,3.0.0-M1)"
-            version: 4.13.0
-          - compatibilityRange: "[3.0.0-M1,3.3.0-M1)"
+          - compatibilityRange: "[3.0.0,3.3.0-M1)"
             version: 5.7.0
       spring-cloud-gcp:
         groupId: com.google.cloud
@@ -114,9 +100,7 @@ initializr:
         versionProperty: spring-cloud-gcp.version
         additionalBoms: [ spring-cloud ]
         mappings:
-          - compatibilityRange: "[2.6.0,3.0.0-M1)"
-            version: 3.7.4
-          - compatibilityRange: "[3.0.0-M1,3.2.0-M1)"
+          - compatibilityRange: "[3.0.0,3.2.0-M1)"
             version: 4.8.4
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
@@ -124,10 +108,6 @@ initializr:
         versionProperty: spring-cloud-services.version
         additionalBoms: [ spring-cloud ]
         mappings:
-          - compatibilityRange: "[2.6.0,2.7.0-M1)"
-            version: 3.4.0
-          - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
-            version: 3.5.0
           - compatibilityRange: "[3.0.0,3.2.0-M1)"
             version: 4.0.3
       spring-modulith:
@@ -145,27 +125,16 @@ initializr:
         artifactId: spring-shell-dependencies
         versionProperty: spring-shell.version
         mappings:
-          - compatibilityRange: "[2.7.0,3.0.0-M1)"
-            version: 2.1.14
-          - compatibilityRange: "[3.0.0,3.1.0-M1)"
-            version: 3.0.9
           - compatibilityRange: "[3.1.0,3.2.0-M1)"
             version: 3.1.5
           - compatibilityRange: "3.2.0-M1"
             version: 3.2.0-M3
             repositories: spring-milestones
-      testcontainers:
-        groupId: org.testcontainers
-        artifactId: testcontainers-bom
-        version: 1.18.3
-        versionProperty: testcontainers.version
       timefold-solver:
         groupId: ai.timefold.solver
         artifactId: timefold-solver-bom
         versionProperty: timefold-solver.version
         mappings:
-          - compatibilityRange: "[2.7.0,3.0.0-M1)"
-            version: 0.8.41
           - compatibilityRange: "[3.0.0,3.2.0-M1)"
             version: 1.3.0
       vaadin:
@@ -173,23 +142,8 @@ initializr:
         artifactId: vaadin-bom
         versionProperty: vaadin.version
         mappings:
-          - compatibilityRange: "[2.6.0,2.7.0-M1)"
-            version: 23.2.15
-          - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
-            version: 23.3.28
-          - compatibilityRange: "[3.0.0-M1,3.2.0-M1)"
+          - compatibilityRange: "[3.0.0,3.2.0-M1)"
             version: 24.2.4
-      wavefront:
-        groupId: com.wavefront
-        artifactId: wavefront-spring-boot-bom
-        versionProperty: wavefront.version
-        mappings:
-          - compatibilityRange: "[2.6.0,2.7.0-M1)"
-            version: 2.2.2
-          - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
-            version: 2.3.4
-          - compatibilityRange: "[3.0.0-M1,3.1.0-M1)"
-            version: 3.0.2
     gradle:
       dependency-management-plugin-version: 1.0.14.RELEASE
     platform:
@@ -199,7 +153,6 @@ initializr:
       content:
         - name: GraalVM Native Support
           id: native
-          compatibilityRange: "3.0.0-M1"
           groupId: org.springframework.boot
           artifactId: spring-boot
           description: Support for compiling Spring applications to native executables using the GraalVM native-image compiler.
@@ -296,7 +249,6 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#web.reactive
         - name: Spring for GraphQL
           id: graphql
-          compatibilityRange: "2.7.0-M1"
           description: Build GraphQL applications with Spring for GraphQL and GraphQL Java.
           facets:
             - json
@@ -374,7 +326,7 @@ initializr:
           artifactId: vaadin-spring-boot-starter
           description: A web framework that allows you to write UI in pure Java without getting bogged down in JS, HTML, and CSS.
           bom: vaadin
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           links:
             - rel: guide
               href: https://spring.io/guides/gs/crud-with-vaadin/
@@ -471,14 +423,12 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#data.nosql.ldap
         - name: Okta
           id: okta
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features. Enable your Spring Boot application to work with Okta via OAuth 2.0/OIDC.
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
           mappings:
-            - compatibilityRange: "[2.6.0,3.0.0-M1)"
-              version: 2.1.6
-            - compatibilityRange: "[3.0.0-M1,3.2.0-M1)"
+            - compatibilityRange: "[3.0.0,3.2.0-M1)"
               version: 3.0.5
           links:
             - rel: guide
@@ -545,7 +495,7 @@ initializr:
               description: R2DBC Homepage
         - name: MyBatis Framework
           id: mybatis
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           description: Persistence framework with support for custom SQL, stored procedures and advanced mappings. MyBatis couples objects with stored procedures or SQL statements using a XML descriptor or annotations.
           links:
             - rel: guide
@@ -556,11 +506,7 @@ initializr:
           groupId: org.mybatis.spring.boot
           artifactId: mybatis-spring-boot-starter
           mappings:
-            - compatibilityRange: "[2.6.0,2.7.0-M1)"
-              version: 2.2.2
-            - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
-              version: 2.3.1
-            - compatibilityRange: "3.0.0-M1"
+            - compatibilityRange: "3.0.0"
               version: 3.0.2
         - name: Liquibase Migration
           id: liquibase
@@ -809,7 +755,6 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#messaging.jms.artemis
         - name: Spring for Apache Pulsar
           id: pulsar
-          compatibilityRange: "3.0.0"
           description: Build messaging applications with Apache Pulsar
           links:
             - rel: reference
@@ -821,7 +766,6 @@ initializr:
               artifactId: spring-pulsar-spring-boot-starter
         - name: Spring for Apache Pulsar (Reactive)
           id: pulsar-reactive
-          compatibilityRange: "3.0.0"
           description: Build reactive messaging applications with Apache Pulsar
           facets:
             - reactive
@@ -852,13 +796,9 @@ initializr:
               href: https://rsocket.io/
         - name: Apache Camel
           id: camel
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           mappings:
-            - compatibilityRange: "[2.6.0,2.7.0-M1)"
-              version: 3.14.10
-            - compatibilityRange: "[2.7.0.M1,3.0.0-M1)"
-              version: 3.20.8
-            - compatibilityRange: "[3.0.0-M1,3.2.0-M1)"
+            - compatibilityRange: "[3.0.0,3.2.0-M1)"
               version: 4.2.0
           description: Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
           groupId: org.apache.camel.springboot
@@ -870,7 +810,7 @@ initializr:
         - name: Solace PubSub+
           bom: solace-spring-boot
           id: solace
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           description: Connect to a Solace PubSub+ Advanced Event Broker to publish, subscribe, request/reply and store/replay messages
           groupId: com.solace.spring.boot
           artifactId: solace-spring-boot-starter
@@ -925,10 +865,10 @@ initializr:
           id: picocli
           groupId: info.picocli
           artifactId: picocli-spring-boot-starter
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           description: Build command line applications with picocli.
           mappings:
-            - compatibilityRange: "[2.6.0,3.2.0-M1)"
+            - compatibilityRange: "[3.0.0,3.2.0-M1)"
               version: 4.7.5
           links:
             - rel: reference
@@ -972,7 +912,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Required for your application to register with a Codecentric's Spring Boot Admin Server instance.
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -982,7 +922,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -991,12 +931,9 @@ initializr:
           id: sentry
           bom: sentry
           description: Application performance monitoring and error tracking that help software teams see clearer, solve quicker, and learn continuously.
-          compatibilityRange: "[2.7.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.2.0-M1)"
           groupId: io.sentry
           artifactId: sentry-spring-boot-starter-jakarta
-          mappings:
-            - compatibilityRange: "[2.7.0,3.0.0-M1)"
-              artifactId: sentry-spring-boot-starter
           links:
             - rel: reference
               href: https://docs.sentry.io/platforms/java/
@@ -1071,12 +1008,6 @@ initializr:
           groupId: io.micrometer
           artifactId: micrometer-tracing-bridge-brave
           starter: false
-          mappings:
-            - compatibility-range: "[2.6.0,3.0.0-M1)"
-              groupId: org.springframework.cloud
-              artifactId: spring-cloud-starter-sleuth
-              bom: spring-cloud
-              starter: true
         - name: Wavefront
           id: wavefront
           description: Publish metrics and optionally distributed traces to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
@@ -1084,23 +1015,12 @@ initializr:
           artifactId: micrometer-registry-wavefront
           scope: runtime
           starter: false
-          mappings:
-            - compatibility-range: "[2.6.0,3.1.0-M1)"
-              groupId: com.wavefront
-              artifactId: wavefront-spring-boot-starter
-              bom: wavefront
-              starter: true
         - name: Zipkin
           id: zipkin
           description: Enable and expose span and trace IDs to Zipkin.
           groupId: io.zipkin.reporter2
           artifactId: zipkin-reporter-brave
           starter: false
-          mappings:
-            - compatibilityRange: "[2.6.0,3.0.0-M1)"
-              groupId: org.springframework.cloud
-              artifactId: spring-cloud-sleuth-zipkin
-              bom: spring-cloud
     - name: Testing
       content:
         - name: Spring REST Docs
@@ -1120,9 +1040,6 @@ initializr:
           artifactId: junit-jupiter
           scope: test
           starter: false
-          mappings:
-            - compatibility-range: "[2.6.0,3.1.0-M2)"
-              bom: testcontainers
           links:
             - rel: reference
               href: https://java.testcontainers.org/
@@ -1156,17 +1073,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#data.nosql.ldap.embedded
-        - name: Embedded MongoDB Database
-          id: flapdoodle-mongo
-          compatibilityRange: "[2.6.0,3.0.0-M1)"
-          description: Provides a platform neutral way for running MongoDB in unit tests.
-          groupId: de.flapdoodle.embed
-          artifactId: de.flapdoodle.embed.mongo
-          scope: test
-          starter: false
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#data.nosql.mongodb.embedded
     - name: Spring Cloud
       bom: spring-cloud
       content:
@@ -1281,15 +1187,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#spring-cloud-zookeeper-discovery
-        - name: Cloud Foundry Discovery
-          id: cloud-cloudfoundry-discovery
-          compatibilityRange: "[2.6.0,3.0.0-M1)"
-          description: Service discovery with Cloud Foundry.
-          groupId: org.springframework.cloud
-          artifactId: spring-cloud-cloudfoundry-discovery
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-cloud-cloudfoundry/docs/current/reference/html/
         - name: Consul Discovery
           id: cloud-starter-consul-discovery
           description: Service discovery with Hashicorp Consul.
@@ -1366,7 +1263,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring-cloud-stream-overview-introducing
     - name: VMware Tanzu Application Service
       bom: spring-cloud-services
-      compatibilityRange: "[2.6.0,3.2.0-M1)"
+      compatibilityRange: "[3.0.0,3.2.0-M1)"
       content:
         - name: Config Client (TAS)
           id: scs-config-client
@@ -1386,7 +1283,7 @@ initializr:
               href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
     - name: Microsoft Azure
       bom: spring-cloud-azure
-      compatibilityRange: "[2.6.0,3.3.0-M1)"
+      compatibilityRange: "[3.0.0,3.3.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
@@ -1464,7 +1361,7 @@ initializr:
               description: Azure Storage Sample
     - name: Google Cloud Platform
       bom: spring-cloud-gcp
-      compatibilityRange: "[2.6.0,3.2.0-M1)"
+      compatibilityRange: "[3.0.0,3.2.0-M1)"
       content:
         - name: GCP Support
           id: cloud-gcp
@@ -1569,18 +1466,18 @@ initializr:
       id: groovy
       default: false
   bootVersions:
-    - name: 3.0.3 (SNAPSHOT)
-      id: 3.0.3-SNAPSHOT
+    - name: 3.2.0 (SNAPSHOT)
+      id: 3.2.0-SNAPSHOT
       default: false
-    - name: 3.0.2
-      id: 3.0.2
+    - name: 3.2.0 (RC1)
+      id: 3.2.0-RC1
+      default: false
+    - name: 3.1.6 (SNAPSHOT)
+      id: 3.1.6-SNAPSHOT
+      default: false
+    - name: 3.1.5
+      id: 3.1.5
       default: true
-    - name: 2.7.9 (SNAPSHOT)
-      id: 2.7.9-SNAPSHOT
-      default: false
-    - name: 2.7.8
-      id: 2.7.8
-      default: false
 
 ---
 
