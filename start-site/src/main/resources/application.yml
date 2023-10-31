@@ -892,7 +892,7 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#io.quartz
-        - name: Spring cache abstraction
+        - name: Spring Cache Abstraction
           id: cache
           description: Provides cache-related operations, such as the ability to update the content of the cache, but does not provide the actual data store.
           links:
