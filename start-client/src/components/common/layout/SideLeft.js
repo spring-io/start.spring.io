@@ -146,17 +146,6 @@ function SideLeft() {
                           </span>
                         </a>
                       </li>
-                      <li>
-                        <a
-                          rel='noreferrer noopener'
-                          target='_blank'
-                          href='https://twitter.com/springboot'
-                        >
-                          <span className='a-content' tabIndex='-1'>
-                            Twitter
-                          </span>
-                        </a>
-                      </li>
                     </ul>
                   </div>
                   <div className='copyright'>
