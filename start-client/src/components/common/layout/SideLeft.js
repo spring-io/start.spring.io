@@ -5,7 +5,7 @@ import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 
 import Header from './Header'
 import { AppContext } from '../../reducer/App'
-import { IconGithub, IconTwitter } from '../icons'
+import { IconGithub } from '../icons'
 
 function SideLeft() {
   const [isOpen, setIsOpen] = useState(false)
@@ -70,15 +70,6 @@ function SideLeft() {
             >
               <span className='a-content' tabIndex='-1'>
                 <IconGithub />
-              </span>
-            </a>
-            <a
-              rel='noreferrer noopener'
-              target='_blank'
-              href='https://twitter.com/springboot'
-            >
-              <span className='a-content' tabIndex='-1'>
-                <IconTwitter />
               </span>
             </a>
           </div>

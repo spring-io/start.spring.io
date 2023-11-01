@@ -1,7 +1,6 @@
 export { IconTimes } from './Icons'
 export { IconPlus } from './Icons'
 export { IconGithub } from './Icons'
-export { IconTwitter } from './Icons'
 export { IconCaretDown } from './Icons'
 export { IconList } from './Icons'
 export { IconSearch } from './Icons'
