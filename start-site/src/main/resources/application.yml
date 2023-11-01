@@ -94,7 +94,7 @@ initializr:
           - compatibilityRange: "[3.0.0,3.2.0-M1)"
             version: 2022.0.4
           - compatibilityRange: "[3.2.0-M1,3.2.x-SNAPSHOT)"
-            version: 2023.0.0-M2
+            version: 2023.0.0-RC1
             repositories: spring-milestones
           - compatibilityRange: "3.2.x-SNAPSHOT"
             version: 2023.0.0-SNAPSHOT
