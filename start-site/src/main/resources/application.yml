@@ -933,6 +933,7 @@ initializr:
               href: https://spring.io/projects/spring-shell
         - name: Timefold Solver
           id: timefold-solver
+          compatibilityRange: "[2.6.0,3.2.0-M1)"
           groupId: ai.timefold.solver
           artifactId: timefold-solver-spring-boot-starter
           description: AI solver to optimize operations and scheduling
