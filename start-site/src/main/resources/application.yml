@@ -938,6 +938,7 @@ initializr:
           artifactId: timefold-solver-spring-boot-starter
           description: AI solver to optimize operations and scheduling.
           bom: timefold-solver
+          starter: false
           links:
             - rel: reference
               href:  https://timefold.ai/docs/timefold-solver/latest/quickstart/spring-boot/spring-boot-quickstart#springBootJavaQuickStart
