@@ -20,6 +20,6 @@ curl https://raw.githubusercontent.com/spring-io/concourse-java-scripts/v0.0.2/c
 
 mkdir -p /opt/openjdk
 cd /opt/openjdk
-curl -L https://github.com/bell-sw/Liberica/releases/download/17.0.8+7/bellsoft-jdk17.0.8+7-linux-amd64.tar.gz | tar zx --strip-components=1
+curl -L https://github.com/bell-sw/Liberica/releases/download/17.0.9+11/bellsoft-jdk17.0.9+11-linux-amd64.tar.gz | tar zx --strip-components=1
 test -f /opt/openjdk/bin/java
 test -f /opt/openjdk/bin/javac
