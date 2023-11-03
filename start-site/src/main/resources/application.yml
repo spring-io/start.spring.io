@@ -294,7 +294,7 @@ initializr:
               href: https://spring.io/guides/gs/graphql-server/
               description: Building a GraphQL service
             - rel: reference
-              href: https://docs.spring.io/spring-boot/docs/${bootVersion}/reference/htmlsingle/index.html#web.graphql
+              href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#web.graphql
         - name: Rest Repositories
           id: data-rest
           facets:
