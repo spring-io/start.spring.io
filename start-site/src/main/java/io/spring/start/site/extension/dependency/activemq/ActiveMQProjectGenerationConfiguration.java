@@ -19,15 +19,12 @@ package io.spring.start.site.extension.dependency.activemq;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
 
 /**
  * Configuration for generation of projects that depend on ActiveMQ.
@@ -52,23 +49,6 @@ public class ActiveMQProjectGenerationConfiguration {
 	ComposeFileCustomizer activeMQComposeFileCustomizer(DockerServiceResolver serviceResolver) {
 		return (composeFile) -> serviceResolver.doWith("activeMQ",
 				(service) -> composeFile.services().add("activemq", service));
-	}
-
-	@ConditionalOnPlatformVersion("[3.0.0-M1,3.1.0-RC1)")
-	static class SpringBoot30Configuration {
-
-		@Bean
-		BuildCustomizer<?> activeMQNotSupportedBuildCustomizer() {
-			return BuildCustomizer.ordered(Ordered.HIGHEST_PRECEDENCE + 5,
-					(build) -> build.dependencies().remove("activemq"));
-		}
-
-		@Bean
-		HelpDocumentCustomizer activeMQNotSupportedHelpDocumentCustomizer() {
-			return (helpDocument) -> helpDocument.getWarnings()
-				.addItem("ActiveMQ is not supported with Spring Boot 3.0");
-		}
-
 	}
 
 }

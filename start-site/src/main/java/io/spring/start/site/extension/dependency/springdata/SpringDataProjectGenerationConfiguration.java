@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.springdata;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
@@ -33,14 +32,14 @@ public class SpringDataProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("data-r2dbc")
-	public R2dbcBuildCustomizer r2dbcBuildCustomizer(ProjectDescription description) {
-		return new R2dbcBuildCustomizer(description.getPlatformVersion());
+	public R2dbcBuildCustomizer r2dbcBuildCustomizer() {
+		return new R2dbcBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("data-r2dbc")
-	public R2dbcHelpDocumentCustomizer r2dbcHelpDocumentCustomizer(Build build, ProjectDescription description) {
-		return new R2dbcHelpDocumentCustomizer(build, description.getPlatformVersion());
+	public R2dbcHelpDocumentCustomizer r2dbcHelpDocumentCustomizer(Build build) {
+		return new R2dbcHelpDocumentCustomizer(build);
 	}
 
 }

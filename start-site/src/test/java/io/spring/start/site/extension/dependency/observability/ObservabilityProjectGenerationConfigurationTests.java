@@ -32,26 +32,25 @@ class ObservabilityProjectGenerationConfigurationTests extends AbstractExtension
 
 	@Test
 	void zipkinAddsDistributedTracingIfNecessary() {
-		assertThat(generateProject("3.0.0", "zipkin")).mavenBuild()
+		assertThat(generateProject("zipkin")).mavenBuild()
 			.hasDependency(getDependency("zipkin"))
 			.hasDependency(getDependency("distributed-tracing"));
 	}
 
 	@Test
 	void wavefrontDoesNotAddDistributedTracingByDefault() {
-		assertThat(generateProject("3.0.0", "wavefront")).mavenBuild()
+		assertThat(generateProject("wavefront")).mavenBuild()
 			.doesNotHaveDependency("io.micrometer", "micrometer-tracing-reporter-wavefront");
 	}
 
 	@Test
 	void wavefrontWithDistributedTracingConfigureReport() {
-		assertThat(generateProject("3.0.0", "wavefront", "distributed-tracing")).mavenBuild()
+		assertThat(generateProject("wavefront", "distributed-tracing")).mavenBuild()
 			.hasDependency("io.micrometer", "micrometer-tracing-reporter-wavefront", null, "runtime");
 	}
 
-	private ProjectStructure generateProject(String bootVersion, String... dependencies) {
+	private ProjectStructure generateProject(String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
-		request.setBootVersion(bootVersion);
 		request.setType("maven-build");
 		return generateProject(request);
 	}

@@ -41,7 +41,7 @@ class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	private TextAssert assertHelpDocument(String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
-		request.setBootVersion("3.0.0");
+		request.setBootVersion("3.1.0");
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
 	}

@@ -25,9 +25,6 @@ import io.spring.initializr.generator.buildsystem.Dependency.Builder;
 import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.generator.version.VersionReference;
 
 /**
@@ -44,42 +41,22 @@ public class R2dbcBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final List<String> JDBC_DEPENDENCY_IDS = Arrays.asList("jdbc", "data-jdbc", "data-jpa");
 
-	private static final VersionRange SPRING_BOOT_3_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.0.0-M1");
-
-	private static final VersionRange SPRING_BOOT_3_1_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.1.0");
-
-	private final boolean mariaDbIsUnmanaged;
-
-	private final boolean sqlServerIsUnmanaged;
-
-	private final boolean mysqlR2dbcIsAsyncerDependency;
-
-	public R2dbcBuildCustomizer(Version platformVersion) {
-		this.mariaDbIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
-		this.sqlServerIsUnmanaged = SPRING_BOOT_3_0_0_OR_LATER.match(platformVersion);
-		this.mysqlR2dbcIsAsyncerDependency = SPRING_BOOT_3_1_0_OR_LATER.match(platformVersion);
-	}
-
 	@Override
 	public void customize(Build build) {
 		if (build.dependencies().has("h2")) {
 			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-h2");
 		}
 		if (build.dependencies().has("mariadb")) {
-			addManagedDriver(build.dependencies(), "org.mariadb", "r2dbc-mariadb",
-					this.mariaDbIsUnmanaged ? "1.1.3" : null);
+			addManagedDriver(build.dependencies(), "org.mariadb", "r2dbc-mariadb", "1.1.3");
 		}
 		if (build.dependencies().has("mysql")) {
-			if (this.mysqlR2dbcIsAsyncerDependency) {
-				addManagedDriver(build.dependencies(), "io.asyncer", "r2dbc-mysql");
-			}
+			addManagedDriver(build.dependencies(), "io.asyncer", "r2dbc-mysql");
 		}
 		if (build.dependencies().has("postgresql")) {
 			addManagedDriver(build.dependencies(), "org.postgresql", "r2dbc-postgresql");
 		}
 		if (build.dependencies().has("sqlserver")) {
-			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql",
-					this.sqlServerIsUnmanaged ? "1.0.0.RELEASE" : null);
+			addManagedDriver(build.dependencies(), "io.r2dbc", "r2dbc-mssql", "1.0.0.RELEASE");
 		}
 		if (build.dependencies().has("oracle")) {
 			addManagedDriver(build.dependencies(), "com.oracle.database.r2dbc", "oracle-r2dbc");

@@ -38,21 +38,18 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void gradleBuildWithoutNativeDoesNotConfigureNativeBuildTools() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("3.0.0");
 		assertThat(gradleBuild(request)).doesNotContain("org.graalvm.buildtools.native");
 	}
 
 	@Test
 	void mavenBuildWithoutNativeDoesNotConfigureNativeBuildTools() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("3.0.0");
 		assertThat(mavenPom(request)).doesNotContain("native-maven-plugin");
 	}
 
 	@Test
 	void mavenBuildConfigureNativeBuildtoolsPlugint() {
 		ProjectRequest request = createNativeProjectRequest();
-		request.setBootVersion("3.0.0");
 		assertThat(mavenPom(request)).lines().containsSequence(
 		// @formatter:off
 				"			<plugin>",
@@ -65,9 +62,9 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void gradleBuildConfigureNativeBuildToolsPlugin(@TempDir Path temp) {
 		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(MavenVersionResolver.withCacheLocation(temp),
-				Version.parse("3.0.0"));
+				Version.parse("3.1.0"));
 		ProjectRequest request = createNativeProjectRequest();
-		request.setBootVersion("3.0.0");
+		request.setBootVersion("3.1.0");
 		assertThat(gradleBuild(request)).hasPlugin("org.graalvm.buildtools.native", nbtVersion);
 	}
 
@@ -77,46 +74,13 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void gradleBuildAndGroovyDslWithJpaAndHibernate61ConfiguresHibernateEnhancePlugin() {
-		ProjectRequest request = createNativeProjectRequest("data-jpa");
-		request.setBootVersion("3.0.0");
-		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
-		// @formatter:off
-				"hibernate {",
-				"	enhancement {",
-				"		enableLazyInitialization = true",
-				"		enableDirtyTracking = true",
-				"		enableAssociationManagement = true",
-				"	}",
-				"}");
-		// @formatter:on
-	}
-
-	@Test
 	void gradleBuildAndGroovyDslWithJpaConfiguresHibernateEnhancePlugin() {
 		ProjectRequest request = createNativeProjectRequest("data-jpa");
-		request.setBootVersion("3.1.0");
 		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
 		// @formatter:off
 				"hibernate {",
 				"	enhancement {",
 				"		enableAssociationManagement = true",
-				"	}",
-				"}");
-		// @formatter:on
-	}
-
-	@Test
-	void gradleBuildAndKotlinDslWithJpaAndHibernate61ConfiguresHibernateEnhancePlugin() {
-		ProjectRequest request = createNativeProjectRequest("data-jpa");
-		request.setBootVersion("3.0.0");
-		assertThat(gradleKotlinDslBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
-		// @formatter:off
-				"hibernate {",
-				"	enhancement {",
-				"		enableLazyInitialization.set(true)",
-				"		enableDirtyTracking.set(true)",
-				"		enableAssociationManagement.set(true)",
 				"	}",
 				"}");
 		// @formatter:on
@@ -125,7 +89,6 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePlugin() {
 		ProjectRequest request = createNativeProjectRequest("data-jpa");
-		request.setBootVersion("3.1.0");
 		assertThat(gradleKotlinDslBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
 		// @formatter:off
 						"hibernate {",
@@ -176,7 +139,7 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	private ProjectRequest createNativeProjectRequest(String... dependencies) {
 		ProjectRequest projectRequest = createProjectRequest(dependencies);
 		projectRequest.getDependencies().add(0, "native");
-		projectRequest.setBootVersion("3.0.0");
+		projectRequest.setBootVersion("3.1.0");
 		return projectRequest;
 	}
 

@@ -23,7 +23,6 @@ import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
-import io.spring.initializr.generator.version.Version;
 
 /**
  * Validate that the requested java version is compatible with the chosen Spring Boot
@@ -50,7 +49,6 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		if (javaGeneration < 17) {
 			updateTo(description, "17");
 		}
-		Version platformVersion = description.getPlatformVersion();
 		if (javaGeneration == 21) {
 			// Kotlin does not support Java 21 bytecodes yet
 			if (description.getLanguage() instanceof KotlinLanguage) {

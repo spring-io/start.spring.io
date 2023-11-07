@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.observability;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
-import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
@@ -51,12 +50,6 @@ class ObservabilityProjectGenerationConfiguration {
 		ObservabilityHelpDocumentCustomizer observabilityHelpDocumentCustomizer(ProjectDescription description,
 				Build build) {
 			return new ObservabilityHelpDocumentCustomizer(description, build);
-		}
-
-		@Bean
-		@ConditionalOnRequestedDependency("wavefront")
-		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
-			return new WavefrontHelpDocumentCustomizer(build);
 		}
 
 	}

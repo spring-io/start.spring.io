@@ -40,21 +40,11 @@ class HibernatePluginGroovyDslGradleBuildCustomizer implements BuildCustomizer<G
 			writer.println("hibernate {");
 			writer.indented(() -> {
 				writer.println("enhancement {");
-				writer.indented(() -> {
-					if (!isHibernate62Available()) {
-						writer.println("enableLazyInitialization = true");
-						writer.println("enableDirtyTracking = true");
-					}
-					writer.println("enableAssociationManagement = true");
-				});
+				writer.indented(() -> writer.println("enableAssociationManagement = true"));
 				writer.println("}");
 			});
 			writer.println("}");
 		});
-	}
-
-	private boolean isHibernate62Available() {
-		return this.hibernateVersion.getMajor() >= 6 && this.hibernateVersion.getMinor() >= 2;
 	}
 
 }

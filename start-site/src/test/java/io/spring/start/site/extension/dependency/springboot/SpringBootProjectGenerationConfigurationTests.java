@@ -51,7 +51,6 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 		@Test
 		void dockerComposeSupportHasOptionalScope() {
 			ProjectRequest request = createProjectRequest("docker-compose");
-			request.setBootVersion("3.1.0-RC1");
 			assertThat(mavenPom(request))
 				.hasText("/project/dependencies/dependency[2]/artifactId", "spring-boot-docker-compose")
 				.hasText("/project/dependencies/dependency[2]/scope", "runtime")
@@ -103,9 +102,17 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 		@Test
 		void gradleWithDockerComposeSupportUsesDevelopmentOnly() {
 			ProjectRequest request = createProjectRequest("docker-compose");
-			request.setBootVersion("3.1.0-RC1");
 			assertThat(gradleBuild(request)).lines()
 				.contains("\tdevelopmentOnly 'org.springframework.boot:spring-boot-docker-compose'");
+		}
+
+		@Test
+		void mavenWithDockerComposeSupportHasOptionalScope() {
+			ProjectRequest request = createProjectRequest("docker-compose");
+			assertThat(mavenPom(request))
+				.hasText("/project/dependencies/dependency[2]/artifactId", "spring-boot-docker-compose")
+				.hasText("/project/dependencies/dependency[2]/scope", "runtime")
+				.hasText("/project/dependencies/dependency[2]/optional", "true");
 		}
 
 		@Test

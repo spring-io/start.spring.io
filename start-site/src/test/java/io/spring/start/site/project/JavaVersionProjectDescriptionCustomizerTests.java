@@ -75,15 +75,15 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedJavaParameters() {
-		return Stream.of(java("17", "3.0.0"), java("19", "3.0.0"), java("20", "3.0.11"), java("21", "3.0.11"));
+		return Stream.of(java("17", "3.1.0"), java("19", "3.1.0"), java("20", "3.1.0"), java("21", "3.1.0"));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
-		return Stream.of(kotlin("17", "3.0.0"), kotlin("19", "3.0.0"), kotlin("20", "3.0.11"));
+		return Stream.of(kotlin("17", "3.1.0"), kotlin("19", "3.1.0"), kotlin("20", "3.1.0"));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {
-		return Stream.of(groovy("17", "3.0.0"), groovy("19", "3.0.0"), groovy("20", "3.0.11"), groovy("21", "3.0.11"));
+		return Stream.of(groovy("17", "3.1.0"), groovy("19", "3.1.0"), groovy("20", "3.1.0"), groovy("21", "3.1.0"));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {
