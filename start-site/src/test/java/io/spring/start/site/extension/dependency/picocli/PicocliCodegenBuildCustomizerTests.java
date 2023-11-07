@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class PicocliCodegenBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final Version SPRING_BOOT_3_VERSION = Version.parse("3.0.0");
+	private static final Version SPRING_BOOT_3_VERSION = Version.parse("3.1.0");
 
 	@Test
 	void picocliCodegenIsAddedAsMavenOptionalDependency() {
