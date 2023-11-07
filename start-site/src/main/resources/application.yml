@@ -193,7 +193,7 @@ initializr:
     gradle:
       dependency-management-plugin-version: 1.0.14.RELEASE
     platform:
-      compatibility-range: "2.6.0"
+      compatibility-range: "3.1.0"
   dependencies:
     - name: Developer Tools
       content:
