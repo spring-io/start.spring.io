@@ -106,8 +106,8 @@ initializr:
         mappings:
           - compatibilityRange: "[2.6.0,3.0.0-M1)"
             version: 4.13.0
-          - compatibilityRange: "[3.0.0-M1,3.2.0-M1)"
-            version: 5.6.0
+          - compatibilityRange: "[3.0.0-M1,3.3.0-M1)"
+            version: 5.7.0
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
@@ -1375,7 +1375,7 @@ initializr:
               href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
     - name: Microsoft Azure
       bom: spring-cloud-azure
-      compatibilityRange: "[2.6.0,3.2.0-M1)"
+      compatibilityRange: "[2.6.0,3.3.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
