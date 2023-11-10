@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.springframework.core.Ordered;
  *
  * @author Stephane Nicoll
  */
-class GraalVmBuildCustomizer implements BuildCustomizer<Build>, Ordered {
+class GraalVmBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
