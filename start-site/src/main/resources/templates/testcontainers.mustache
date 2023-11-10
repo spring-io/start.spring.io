@@ -1,0 +1,13 @@
+### Testcontainers support
+
+This project uses [Testcontainers at development time]({{testcontainersAtDevelopmentTimeLink}}).
+
+{{#services.size}}
+Testcontainers has been configured to use the following Docker images:
+
+{{#services}}
+* [`{{image}}:{{imageTag}}`]({{website}})
+{{/services}}
+
+Please review the tags of the used images and set them to the same as you're running in production.
+{{/services.size}}
