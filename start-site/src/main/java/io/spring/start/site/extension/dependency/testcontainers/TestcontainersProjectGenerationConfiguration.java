@@ -29,7 +29,6 @@ import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.start.site.container.ServiceConnections;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
 import io.spring.start.site.support.implicit.ImplicitDependency;
@@ -39,12 +38,14 @@ import io.spring.start.site.support.implicit.ImplicitDependencyHelpDocumentCusto
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * Configuration for generation of projects that depend on Testcontainers.
  *
  * @author Maciej Walkowiak
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("testcontainers")
@@ -68,6 +69,20 @@ public class TestcontainersProjectGenerationConfiguration {
 
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnPlatformVersion("3.1.0-RC1")
+	static class ServiceConnectionsConfiguration {
+
+		@Bean
+		ServiceConnections serviceConnections(ObjectProvider<ServiceConnectionsCustomizer> customizers) {
+			ServiceConnections serviceConnections = new ServiceConnections();
+			customizers.orderedStream().forEach((customizer) -> customizer.customize(serviceConnections));
+			return serviceConnections;
+		}
+
+	}
+
+	@Configuration(proxyBeanMethods = false)
+	@ConditionalOnPlatformVersion("3.1.0-RC1")
+	@Import(ServiceConnectionsConfiguration.class)
 	static class SpringBootSupportConfiguration {
 
 		@Bean
@@ -80,20 +95,16 @@ public class TestcontainersProjectGenerationConfiguration {
 		}
 
 		@Bean
-		HelpDocumentCustomizer springBootTestcontainersHelpDocumentCustomizer(ProjectDescription description) {
-			return (helpDocument) -> {
-				String referenceDocUrl = String.format(
-						"https://docs.spring.io/spring-boot/docs/%s/reference/html/features.html#features.testing.testcontainers",
-						description.getPlatformVersion());
-				helpDocument.gettingStarted()
-					.addReferenceDocLink(referenceDocUrl, "Spring Boot Testcontainers support");
-			};
+		TestContainersHelpDocumentCustomizer springBootTestcontainersHelpDocumentCustomizer(
+				ProjectDescription description, ServiceConnections serviceConnections) {
+			return new TestContainersHelpDocumentCustomizer(description, serviceConnections);
 		}
 
 	}
 
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnPlatformVersion("3.1.0-RC1")
+	@Import(ServiceConnectionsConfiguration.class)
 	static class TestApplicationConfiguration {
 
 		private final ProjectDescription description;
@@ -103,13 +114,6 @@ public class TestcontainersProjectGenerationConfiguration {
 		TestApplicationConfiguration(ProjectDescription description, IndentingWriterFactory indentingWriterFactory) {
 			this.description = description;
 			this.indentingWriterFactory = indentingWriterFactory;
-		}
-
-		@Bean
-		ServiceConnections serviceConnections(ObjectProvider<ServiceConnectionsCustomizer> customizers) {
-			ServiceConnections serviceConnections = new ServiceConnections();
-			customizers.orderedStream().forEach((customizer) -> customizer.customize(serviceConnections));
-			return serviceConnections;
 		}
 
 		@Bean

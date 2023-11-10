@@ -37,6 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Eddú Meléndez
  * @author Chris Bono
+ * @author Moritz Halbritter
  */
 class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -342,6 +343,16 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 						fromApplication<DemoApplication>().with(TestDemoApplication::class).run(*args)
 					}
 					""");
+	}
+
+	@Test
+	void shouldAddHelpSection() {
+		assertHelpDocument("3.1.5", "testcontainers", "data-mongodb", "postgresql").contains(
+				"https://docs.spring.io/spring-boot/docs/3.1.5/reference/html/features.html#features.testing.testcontainers")
+			.contains(
+					"https://docs.spring.io/spring-boot/docs/3.1.5/reference/html/features.html#features.testing.testcontainers.at-development-time")
+			.contains("mongo:latest")
+			.contains("postgres:latest");
 	}
 
 	private ProjectStructure generateProject(String platformVersion, String... dependencies) {
