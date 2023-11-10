@@ -60,8 +60,7 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void springCloudContractVerifierPluginWithKotlinDslAndTestModeSetWhenWebFluxIsPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
-		projectRequest.setType("gradle-project-kotlin");
-		assertThat(generateProject(projectRequest)).textFile("build.gradle.kts")
+		assertThat(gradleKotlinDslBuild(projectRequest))
 			.contains("import org.springframework.cloud.contract.verifier.config.TestMode")
 			.containsSubsequence("contracts {", "testMode.set(TestMode.WEBTESTCLIENT)");
 	}

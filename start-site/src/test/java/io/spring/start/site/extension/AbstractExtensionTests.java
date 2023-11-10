@@ -19,6 +19,7 @@ package io.spring.start.site.extension;
 import java.util.Arrays;
 
 import io.spring.initializr.generator.test.buildsystem.gradle.GroovyDslGradleBuildAssert;
+import io.spring.initializr.generator.test.buildsystem.gradle.KotlinDslGradleBuildAssert;
 import io.spring.initializr.generator.test.buildsystem.maven.MavenBuildAssert;
 import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
@@ -85,6 +86,12 @@ public abstract class AbstractExtensionTests {
 		request.setType("gradle-build");
 		String content = new String(getInvoker().invokeBuildGeneration(request));
 		return () -> new GroovyDslGradleBuildAssert(content);
+	}
+
+	protected AssertProvider<KotlinDslGradleBuildAssert> gradleKotlinDslBuild(ProjectRequest request) {
+		request.setType("gradle-project-kotlin");
+		String content = new String(getInvoker().invokeBuildGeneration(request));
+		return () -> new KotlinDslGradleBuildAssert(content);
 	}
 
 	protected AssertProvider<TextAssert> composeFile(ProjectRequest request) {

@@ -109,13 +109,9 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void gradleBuildAndKotlinDslWithJpaAndHibernate61ConfiguresHibernateEnhancePlugin() {
 		ProjectRequest request = createNativeProjectRequest("data-jpa");
-		request.setType("gradle-project-kotlin");
 		request.setBootVersion("3.0.0");
-		assertThat(generateProject(request)).kotlinDslGradleBuild()
-			.hasPlugin("org.hibernate.orm")
-			.lines()
-			.containsSequence(
-			// @formatter:off
+		assertThat(gradleKotlinDslBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
+		// @formatter:off
 				"hibernate {",
 				"	enhancement {",
 				"		enableLazyInitialization.set(true)",
@@ -129,13 +125,9 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePlugin() {
 		ProjectRequest request = createNativeProjectRequest("data-jpa");
-		request.setType("gradle-project-kotlin");
 		request.setBootVersion("3.1.0");
-		assertThat(generateProject(request)).kotlinDslGradleBuild()
-			.hasPlugin("org.hibernate.orm")
-			.lines()
-			.containsSequence(
-			// @formatter:off
+		assertThat(gradleKotlinDslBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
+		// @formatter:off
 						"hibernate {",
 						"	enhancement {",
 						"		enableAssociationManagement.set(true)",
