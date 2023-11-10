@@ -36,9 +36,9 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("cloud-contract-verifier"))
-			.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud")
-			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
-			.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
+			.hasText("/project/build/plugins/plugin[2]/groupId", "org.springframework.cloud")
+			.hasText("/project/build/plugins/plugin[2]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[2]/extensions", Boolean.toString(true));
 	}
 
 	@Test
@@ -52,16 +52,16 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
 		projectRequest.setBootVersion("2.7.0");
 		assertThat(mavenPom(projectRequest))
-			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
-			.hasText("/project/build/plugins/plugin[1]/configuration/testFramework", "JUNIT5");
+			.hasText("/project/build/plugins/plugin[2]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[2]/configuration/testFramework", "JUNIT5");
 	}
 
 	@Test
 	void springCloudContractVerifierPluginWithTestModeSetWhenWebFluxIsPresent() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
 		assertThat(mavenPom(projectRequest))
-			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
-			.hasText("/project/build/plugins/plugin[1]/configuration/testMode", "WEBTESTCLIENT");
+			.hasText("/project/build/plugins/plugin[2]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[2]/configuration/testMode", "WEBTESTCLIENT");
 	}
 
 	@Test
