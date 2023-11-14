@@ -203,6 +203,16 @@ initializr:
           artifactId: spring-boot
           description: Support for compiling Spring applications to native executables using the GraalVM native-image compiler.
           starter: false
+        - name: GraphQL DGS Code Generation
+          id: dgs-codegen
+          compatibilityRange: "3.0.0-M1"
+          groupId: com.netflix.graphql.dgs.codegen
+          artifactId: graphql-dgs-codegen-gradle
+          mappings:
+            - compatibilityRange: "3.0.0-M1"
+              version: 6.0.3
+          description: Generate data types and type-safe APIs for querying GraphQL APIs by parsing schema files.
+          starter: false
         - name: Spring Boot DevTools
           id: devtools
           groupId: org.springframework.boot
