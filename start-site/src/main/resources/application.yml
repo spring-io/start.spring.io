@@ -177,7 +177,7 @@ initializr:
           - compatibilityRange: "[2.7.0-M1,3.0.0-M1)"
             version: 23.3.27
           - compatibilityRange: "[3.0.0-M1,3.2.0-M1)"
-            version: 24.2.2
+            version: 24.2.3
       wavefront:
         groupId: com.wavefront
         artifactId: wavefront-spring-boot-bom
