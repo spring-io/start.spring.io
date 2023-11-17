@@ -91,8 +91,8 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	}
 
 	private static DockerService oracle() {
-		return DockerService.withImageAndTag("gvenzl/oracle-xe")
-			.website("https://hub.docker.com/r/gvenzl/oracle-xe")
+		return DockerService.withImageAndTag("gvenzl/oracle-free")
+			.website("https://hub.docker.com/r/gvenzl/oracle-free")
 			.ports(1521)
 			.build();
 	}
