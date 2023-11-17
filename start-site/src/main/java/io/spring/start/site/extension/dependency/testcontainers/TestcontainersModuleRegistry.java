@@ -67,8 +67,8 @@ abstract class TestcontainersModuleRegistry {
 					.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")),
 				onDependencies("mysql").customizeBuild(addModule("mysql"))
 					.customizeHelpDocument(addReferenceLink("MySQL Module", "databases/mysql/")),
-				onDependencies("oracle").customizeBuild(addModule("oracle-xe"))
-					.customizeHelpDocument(addReferenceLink("Oracle-XE Module", "databases/oraclexe/")),
+				onDependencies("oracle").customizeBuild(addModule("oracle-free"))
+					.customizeHelpDocument(addReferenceLink("Oracle Free Module", "databases/oraclefree/")),
 				onDependencies("postgresql").customizeBuild(addModule("postgresql"))
 					.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")),
 				onDependencies("pulsar", "pulsar-reactive").customizeBuild(addModule("pulsar"))

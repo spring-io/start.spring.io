@@ -1,6 +1,6 @@
 services:
   oracle:
-    image: 'gvenzl/oracle-xe:latest'
+    image: 'gvenzl/oracle-free:latest'
     environment:
       - 'ORACLE_PASSWORD=secret'
     ports:
