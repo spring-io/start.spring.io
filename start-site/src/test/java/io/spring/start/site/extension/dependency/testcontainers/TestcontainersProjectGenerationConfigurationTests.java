@@ -56,6 +56,15 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency("testcontainers"));
 	}
 
+	@Test
+	void buildWithSpringBoot32AndOracleJdbcDriverUsesOracleFree() {
+		assertThat(generateProject("3.2.0", "testcontainers", "oracle")).mavenBuild()
+			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
+			.hasDependency(getDependency("oracle").resolve(Version.parse("3.2.0")))
+			.hasDependency("org.testcontainers", "oracle-free", null, "test")
+			.hasDependency(getDependency("testcontainers"));
+	}
+
 	static Stream<Arguments> supportedEntriesBuild() {
 		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.arguments("cloud-gcp", "gcloud"),
 				Arguments.arguments("cloud-gcp-pubsub", "gcloud"), Arguments.arguments("data-cassandra", "cassandra"),
@@ -68,7 +77,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("db2", "db2"), Arguments.arguments("kafka", "kafka"),
 				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
 				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
-				Arguments.arguments("oracle", "oracle-free"), Arguments.arguments("pulsar", "pulsar"),
+				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("pulsar", "pulsar"),
 				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
 				Arguments.arguments("sqlserver", "mssqlserver"));
 	}
@@ -102,7 +111,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("data-r2dbc", "databases/r2dbc/"), Arguments.arguments("db2", "databases/db2"),
 				Arguments.arguments("kafka", "kafka/"), Arguments.arguments("kafka-streams", "kafka/"),
 				Arguments.arguments("mariadb", "databases/mariadb/"), Arguments.arguments("mysql", "databases/mysql/"),
-				Arguments.arguments("oracle", "databases/oraclefree/"),
+				Arguments.arguments("oracle", "databases/oraclexe/"),
 				Arguments.arguments("postgresql", "databases/postgres/"), Arguments.arguments("pulsar", "pulsar/"),
 				Arguments.arguments("pulsar-reactive", "pulsar/"), Arguments.arguments("solace", "solace/"),
 				Arguments.arguments("sqlserver", "databases/mssqlserver/"));

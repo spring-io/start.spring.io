@@ -52,8 +52,8 @@ public class TestcontainersProjectGenerationConfiguration {
 
 	private final Iterable<ImplicitDependency> dependencies;
 
-	public TestcontainersProjectGenerationConfiguration() {
-		this.dependencies = TestcontainersModuleRegistry.create();
+	public TestcontainersProjectGenerationConfiguration(ProjectDescription projectDescription) {
+		this.dependencies = TestcontainersModuleRegistry.create(projectDescription.getPlatformVersion());
 	}
 
 	@Bean
