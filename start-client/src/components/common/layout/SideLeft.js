@@ -149,7 +149,11 @@ function SideLeft() {
                     </ul>
                   </div>
                   <div className='copyright'>
-                    © 2013-{new Date().getFullYear()} VMware, Inc.
+                    © 2013-{new Date().getFullYear()} Broadcom. All Rights
+                    Reserved.
+                    <br />
+                    The term &quot;Broadcom&quot; refers to Broadcom Inc. and/or
+                    its subsidiaries
                     <br />
                     start.spring.io is powered by{' '}
                     <span>
