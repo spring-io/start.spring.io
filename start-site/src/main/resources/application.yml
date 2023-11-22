@@ -133,6 +133,7 @@ initializr:
       spring-modulith:
         groupId: org.springframework.modulith
         artifactId: spring-modulith-bom
+        versionProperty: spring-modulith.version
         mappings:
           - compatibility-range: "[3.1.0,3.2.0-M1)"
             version: 1.0.2
