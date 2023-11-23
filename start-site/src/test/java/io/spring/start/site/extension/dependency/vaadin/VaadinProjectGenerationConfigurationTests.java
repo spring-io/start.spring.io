@@ -31,32 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void mavenBuildWithVaadin23AddProductionProfileWithProductionModeFlag() {
+	void mavenBuildWithVaadinAddProductionProfileWithoutProductionModeFlag() {
 		ProjectRequest request = createProjectRequest("vaadin", "data-jpa");
-		request.setBootVersion("2.7.10");
-		assertThat(mavenPom(request)).hasProfile("production")
-			.lines()
-			.containsSequence("		<profile>", "			<id>production</id>", "			<build>",
-					"				<plugins>", "					<plugin>",
-					"						<groupId>com.vaadin</groupId>",
-					"						<artifactId>vaadin-maven-plugin</artifactId>",
-					"						<version>${vaadin.version}</version>",
-					"						<executions>", "							<execution>",
-					"								<id>frontend</id>",
-					"								<phase>compile</phase>", "								<goals>",
-					"									<goal>prepare-frontend</goal>",
-					"									<goal>build-frontend</goal>",
-					"								</goals>", "								<configuration>",
-					"									<productionMode>true</productionMode>",
-					"								</configuration>", "							</execution>",
-					"						</executions>", "					</plugin>", "				</plugins>",
-					"			</build>", "		</profile>");
-	}
-
-	@Test
-	void mavenBuildWithVaadin24AddProductionProfileWithoutProductionModeFlag() {
-		ProjectRequest request = createProjectRequest("vaadin", "data-jpa");
-		request.setBootVersion("3.0.0");
+		request.setBootVersion("3.1.0");
 		assertThat(mavenPom(request)).hasProfile("production")
 			.lines()
 			.containsSequence("		<profile>", "			<id>production</id>", "			<build>",
@@ -111,7 +88,7 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Override
 	protected ProjectRequest createProjectRequest(String... dependencies) {
 		ProjectRequest request = super.createProjectRequest(dependencies);
-		request.setBootVersion("2.7.13");
+		request.setBootVersion("3.1.0");
 		return request;
 	}
 

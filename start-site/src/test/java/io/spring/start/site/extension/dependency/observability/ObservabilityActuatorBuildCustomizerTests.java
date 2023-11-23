@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.dependency.observability;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
-import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,24 +32,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 
 	@ParameterizedTest
-	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic" })
-	void actuatorIsAddedWith2xMicrometerRegistries(String dependency) {
-		assertThat(generateProject("2.7.5", dependency)).mavenBuild().hasDependency(getDependency("actuator"));
-	}
-
-	@ParameterizedTest
-	@ValueSource(strings = { "distributed-tracing", "zipkin", "wavefront" })
-	void actuatorIsNotAddedWith2xStarters(String dependency) {
-		Dependency actuator = getDependency("actuator");
-		assertThat(generateProject("2.7.5", dependency)).mavenBuild()
-			.doesNotHaveDependency(actuator.getGroupId(), actuator.getArtifactId());
-	}
-
-	@ParameterizedTest
 	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic", "distributed-tracing", "zipkin",
 			"wavefront" })
 	void actuatorIsAddedWithObservabilityEntries(String dependency) {
-		assertThat(generateProject("3.0.0", dependency)).mavenBuild().hasDependency(getDependency("actuator"));
+		assertThat(generateProject("3.1.0", dependency)).mavenBuild().hasDependency(getDependency("actuator"));
 	}
 
 	private ProjectStructure generateProject(String bootVersion, String... dependencies) {

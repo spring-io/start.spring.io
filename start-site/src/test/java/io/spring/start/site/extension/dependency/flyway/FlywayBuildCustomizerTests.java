@@ -31,21 +31,21 @@ class FlywayBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void mariadbOnly() {
-		ProjectRequest projectRequest = createProject("2.7.0", "mariadb");
+		ProjectRequest projectRequest = createProject("3.1.0", "mariadb");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("mariadb"))
 			.doesNotHaveDependency("org.flywaydb", "flyway-mysql");
 	}
 
 	@Test
 	void mysqlOnly() {
-		ProjectRequest projectRequest = createProject("2.7.0", "mysql");
+		ProjectRequest projectRequest = createProject("3.1.0", "mysql");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("mysql"))
 			.doesNotHaveDependency("org.flywaydb", "flyway-mysql");
 	}
 
 	@Test
 	void sqlserverOnly() {
-		ProjectRequest projectRequest = createProject("2.7.0", "sqlserver");
+		ProjectRequest projectRequest = createProject("3.1.0", "sqlserver");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("sqlserver"))
 			.doesNotHaveDependency("org.flywaydb", "flyway-sqlserver");
 	}
@@ -58,27 +58,6 @@ class FlywayBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void mariadbAndFlywayPreviousTo270() {
-		ProjectRequest projectRequest = createProject("2.6.0", "mariadb", "flyway");
-		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("mariadb"))
-			.doesNotHaveDependency("org.flywaydb", "flyway-mysql");
-	}
-
-	@Test
-	void mysqlAndFlywayPreviousTo270() {
-		ProjectRequest projectRequest = createProject("2.6.0", "mysql", "flyway");
-		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("mysql"))
-			.doesNotHaveDependency("org.flywaydb", "flyway-mysql");
-	}
-
-	@Test
-	void sqlserverAndFlywayPreviousTo270() {
-		ProjectRequest projectRequest = createProject("2.6.0", "sqlserver", "flyway");
-		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("sqlserver"))
-			.doesNotHaveDependency("org.flywaydb", "flyway-sqlserver");
-	}
-
-	@Test
 	void oracleAndFlywayPreviousTo32M1() {
 		ProjectRequest projectRequest = createProject("3.1.0", "oracle", "flyway");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("oracle"))
@@ -87,21 +66,21 @@ class FlywayBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void mariadbAndFlyway() {
-		ProjectRequest projectRequest = createProject("2.7.0", "mariadb", "flyway");
+		ProjectRequest projectRequest = createProject("3.1.0", "mariadb", "flyway");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("mariadb"))
 			.hasDependency("org.flywaydb", "flyway-mysql");
 	}
 
 	@Test
 	void mysqlAndFlyway() {
-		ProjectRequest projectRequest = createProject("2.7.0", "mysql", "flyway");
+		ProjectRequest projectRequest = createProject("3.1.0", "mysql", "flyway");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("mysql"))
 			.hasDependency("org.flywaydb", "flyway-mysql");
 	}
 
 	@Test
 	void sqlserverAndFlyway() {
-		ProjectRequest projectRequest = createProject("2.7.0", "sqlserver", "flyway");
+		ProjectRequest projectRequest = createProject("3.1.0", "sqlserver", "flyway");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("sqlserver"))
 			.hasDependency("org.flywaydb", "flyway-sqlserver");
 	}
@@ -116,7 +95,6 @@ class FlywayBuildCustomizerTests extends AbstractExtensionTests {
 	private ProjectRequest createProject(String springBootVersion, String... styles) {
 		ProjectRequest projectRequest = createProjectRequest(styles);
 		projectRequest.setLanguage("java");
-		projectRequest.setJavaVersion("11");
 		projectRequest.setBootVersion(springBootVersion);
 		return projectRequest;
 	}

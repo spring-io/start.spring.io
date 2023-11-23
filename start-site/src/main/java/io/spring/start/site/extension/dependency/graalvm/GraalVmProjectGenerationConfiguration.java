@@ -23,7 +23,6 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.condition.ProjectGenerationCondition;
 import io.spring.initializr.generator.language.groovy.GroovyLanguage;
@@ -48,7 +47,6 @@ import org.springframework.util.function.SingletonSupplier;
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("native")
-@ConditionalOnPlatformVersion("3.0.0-M1")
 @Conditional(CompatibleLanguageCondition.class)
 class GraalVmProjectGenerationConfiguration {
 

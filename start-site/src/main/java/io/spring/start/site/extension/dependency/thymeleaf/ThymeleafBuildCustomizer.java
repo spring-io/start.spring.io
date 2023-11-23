@@ -19,9 +19,6 @@ package io.spring.start.site.extension.dependency.thymeleaf;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link BuildCustomizer} for Thymeleaf.
@@ -30,22 +27,12 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 public class ThymeleafBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final VersionRange SPRING_BOOT_3_OR_ABOVE = VersionParser.DEFAULT.parseRange("3.0.0-M1");
-
-	private final boolean springBoot3OrAbove;
-
-	public ThymeleafBuildCustomizer(Version platformVersion) {
-		this.springBoot3OrAbove = SPRING_BOOT_3_OR_ABOVE.match(platformVersion);
-	}
-
 	@Override
 	public void customize(Build build) {
 		if (build.dependencies().has("security")) {
-			String artifactId = (this.springBoot3OrAbove) ? "thymeleaf-extras-springsecurity6"
-					: "thymeleaf-extras-springsecurity5";
 			build.dependencies()
 				.add("thymeleaf-extras-spring-security",
-						Dependency.withCoordinates("org.thymeleaf.extras", artifactId));
+						Dependency.withCoordinates("org.thymeleaf.extras", "thymeleaf-extras-springsecurity6"));
 		}
 	}
 

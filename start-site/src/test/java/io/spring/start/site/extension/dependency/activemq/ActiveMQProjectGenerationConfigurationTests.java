@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.dependency.activemq;
 
-import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
@@ -32,34 +31,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 class ActiveMQProjectGenerationConfigurationTests extends AbstractExtensionTests {
-
-	@Test
-	void activeMQWithSpringBoot30RemovesDependency() {
-		ProjectRequest request = createProjectRequest("activemq");
-		request.setBootVersion("3.0.0");
-		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-activemq");
-	}
-
-	@Test
-	void activeMQWithSpringBoot31KeepsDependency() {
-		ProjectRequest request = createProjectRequest("activemq");
-		request.setBootVersion("3.1.0");
-		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-activemq");
-	}
-
-	@Test
-	void activeMQWithSpringBoot30AddsWarning() {
-		ProjectRequest request = createProjectRequest("activemq");
-		request.setBootVersion("3.0.0");
-		assertHelpDocument(request).contains("ActiveMQ is not supported with Spring Boot 3.0");
-	}
-
-	@Test
-	void activeMQWithSpringBoot31DoesNotAddWarning() {
-		ProjectRequest request = createProjectRequest("activemq");
-		request.setBootVersion("3.1.0");
-		assertHelpDocument(request).doesNotContain("ActiveMQ is not supported with Spring Boot 3.0");
-	}
 
 	@Test
 	void dockerComposeWhenDockerComposeIsNotSelectedDoesNotCreateService() {
@@ -81,11 +52,6 @@ class ActiveMQProjectGenerationConfigurationTests extends AbstractExtensionTests
 		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
 		request.setBootVersion("3.2.0-M1");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq.yaml"));
-	}
-
-	private TextAssert assertHelpDocument(ProjectRequest request) {
-		ProjectStructure project = generateProject(request);
-		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
 	}
 
 }

@@ -43,17 +43,15 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	@Test
 	void buildWithOnlyTestContainers() {
-		assertThat(generateProject("3.0.0", "testcontainers")).mavenBuild()
-			.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
+		assertThat(generateProject("3.1.0", "testcontainers")).mavenBuild()
 			.hasDependency(getDependency("testcontainers"));
 	}
 
 	@ParameterizedTest
 	@MethodSource("supportedEntriesBuild")
 	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
-		assertThat(generateProject("3.0.0", "testcontainers", springBootDependencyId)).mavenBuild()
-			.hasBom("org.testcontainers", "testcontainers-bom", "${testcontainers.version}")
-			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.0.0")))
+		assertThat(generateProject("3.1.0", "testcontainers", springBootDependencyId)).mavenBuild()
+			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.1.0")))
 			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
 			.hasDependency(getDependency("testcontainers"));
 	}
@@ -78,14 +76,14 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@ParameterizedTest
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsPresentIsAdded(String dependencyId, String docHref) {
-		assertHelpDocument("3.0.0", "testcontainers", dependencyId)
+		assertHelpDocument("3.1.0", "testcontainers", dependencyId)
 			.contains("https://java.testcontainers.org/modules/" + docHref);
 	}
 
 	@ParameterizedTest
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsNotPresentIsNotAdded(String dependencyId, String docHref) {
-		assertHelpDocument("3.0.0", dependencyId).doesNotContain("https://java.testcontainers.org/modules/" + docHref);
+		assertHelpDocument("3.1.0", dependencyId).doesNotContain("https://java.testcontainers.org/modules/" + docHref);
 	}
 
 	static Stream<Arguments> supportedEntriesHelpDocument() {
@@ -112,43 +110,32 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	@Test
 	void linkToSupportedEntriesWhenTwoMatchesArePresentOnlyAddLinkOnce() {
-		assertHelpDocument("3.0.0", "testcontainers", "data-mongodb", "data-mongodb-reactive")
+		assertHelpDocument("3.1.0", "testcontainers", "data-mongodb", "data-mongodb-reactive")
 			.containsOnlyOnce("https://java.testcontainers.org/modules/databases/mongodb/");
 	}
 
 	@Test
 	void buildWithSpringBoot31DoesNotIncludeBom() {
-		assertThat(generateProject("3.1.0-RC1", "testcontainers")).mavenBuild()
+		assertThat(generateProject("3.1.0", "testcontainers")).mavenBuild()
 			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
 			.hasDependency(getDependency("testcontainers"));
 	}
 
 	@Test
-	void buildWithSpringBoot30DoesNotIncludeSpringBootTestcontainers() {
-		assertThat(generateProject("3.0.0", "testcontainers")).mavenBuild()
-			.doesNotHaveDependency("org.springframework.boot", "spring-boot-testcontainers");
-	}
-
-	@Test
 	void buildWithSpringBoot31IncludeSpringBootTestcontainers() {
-		assertThat(generateProject("3.1.0-RC1", "testcontainers")).mavenBuild()
+		assertThat(generateProject("3.1.0", "testcontainers")).mavenBuild()
 			.hasDependency("org.springframework.boot", "spring-boot-testcontainers", null, "test");
 	}
 
 	@Test
-	void buildWithSpringBoot30DoesNotIncludeTestcontainersSection() {
-		assertHelpDocument("3.0.0", "testcontainers").doesNotContain("Spring Boot Testcontainers support");
-	}
-
-	@Test
 	void buildWithSpringBoot31IncludeTestcontainersSection() {
-		assertHelpDocument("3.1.0-RC1", "testcontainers").contains("Spring Boot Testcontainers support");
+		assertHelpDocument("3.1.0", "testcontainers").contains("Spring Boot Testcontainers support");
 	}
 
 	@Test
 	void testApplicationWithGroovyAndGenericContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
-		request.setBootVersion("3.1.0-RC2");
+		request.setBootVersion("3.1.0");
 		request.setLanguage("groovy");
 		assertThat(generateProject(request)).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
 			.isEqualTo("""
@@ -181,7 +168,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void testApplicationWithJavaAndGenericContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
-		request.setBootVersion("3.1.0-RC2");
+		request.setBootVersion("3.1.0");
 		request.setLanguage("java");
 		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
 			.isEqualTo("""
@@ -248,7 +235,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void testApplicationWithGroovyAndSpecificContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
-		request.setBootVersion("3.1.0-RC2");
+		request.setBootVersion("3.1.0");
 		request.setLanguage("groovy");
 		assertThat(generateProject(request)).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
 			.isEqualTo("""
@@ -281,7 +268,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void testApplicationWithJavaAndSpecificContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
-		request.setBootVersion("3.1.0-RC2");
+		request.setBootVersion("3.1.0");
 		request.setLanguage("java");
 		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
 			.isEqualTo("""

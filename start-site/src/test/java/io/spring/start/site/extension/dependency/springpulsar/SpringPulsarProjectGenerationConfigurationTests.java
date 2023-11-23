@@ -47,21 +47,17 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 	@Nested
 	class PulsarDependencyConfigurationTests {
 
-		@ParameterizedTest
-		@ValueSource(strings = { "3.0.0", "3.1.3" })
-		void pulsarLegacyStarterUsedWhenBoot30orBoot31Selected(String bootVersion) {
+		@Test
+		void pulsarLegacyStarterUsedWhenBoot30orBoot31Selected() {
 			ProjectRequest request = createProjectRequest("pulsar");
-			request.setBootVersion(bootVersion);
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild()
 				.hasDependency("org.springframework.pulsar", "spring-pulsar-spring-boot-starter");
 		}
 
-		@ParameterizedTest
-		@ValueSource(strings = { "3.0.0", "3.1.3" })
-		void pulsarReactiveLegacyStarterUsedWhenBoot30orBoot31Selected(String bootVersion) {
+		@Test
+		void pulsarReactiveLegacyStarterUsedWhenBoot30orBoot31Selected() {
 			ProjectRequest request = createProjectRequest("pulsar-reactive");
-			request.setBootVersion(bootVersion);
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild()
 				.hasDependency("org.springframework.pulsar", "spring-pulsar-reactive-spring-boot-starter");
@@ -140,11 +136,9 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 					(context) -> assertThat(context).doesNotHaveBean("pulsarServiceConnectionsCustomizer"));
 		}
 
-		@ParameterizedTest
-		@ValueSource(strings = { "3.0.0", "3.1.3" })
-		void connectionNotAddedWhenIncompatibleBootVersionSelected(String bootVersion) {
+		@Test
+		void connectionNotAddedWhenIncompatibleBootVersionSelected() {
 			MutableProjectDescription description = new MutableProjectDescription();
-			description.setPlatformVersion(Version.parse(bootVersion));
 			description.addDependency("pulsar", mock(Dependency.class));
 			description.addDependency("testcontainers", mock(Dependency.class));
 			this.projectTester.configure(description,
@@ -216,20 +210,16 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 			assertNoBinder(project);
 		}
 
-		@ParameterizedTest
-		@ValueSource(strings = { "3.0.0", "3.1.3" })
-		void binderAddedWhenPulsarAndCloudStreamSelectedWithCompatibleBootVersion(String bootVersion) {
+		@Test
+		void binderAddedWhenPulsarAndCloudStreamSelectedWithCompatibleBootVersion() {
 			ProjectRequest request = createProjectRequest("pulsar", "cloud-stream");
-			request.setBootVersion(bootVersion);
 			ProjectStructure project = generateProject(request);
 			assertBinder(project);
 		}
 
-		@ParameterizedTest
-		@ValueSource(strings = { "3.0.0", "3.1.3" })
-		void binderAddedWhenPulsarReactiveAndCloudStreamSelectedWithCompatibleBootVersion(String bootVersion) {
+		@Test
+		void binderAddedWhenPulsarReactiveAndCloudStreamSelectedWithCompatibleBootVersion() {
 			ProjectRequest request = createProjectRequest("pulsar-reactive", "cloud-stream");
-			request.setBootVersion(bootVersion);
 			ProjectStructure project = generateProject(request);
 			assertBinder(project);
 		}

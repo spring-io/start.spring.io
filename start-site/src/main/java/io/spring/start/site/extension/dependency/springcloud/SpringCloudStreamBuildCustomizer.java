@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.springcloud;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
@@ -57,7 +56,7 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 					.add("cloud-stream-binder-kafka", "org.springframework.cloud", "spring-cloud-stream-binder-kafka",
 							DependencyScope.COMPILE);
 			}
-			if (isSpringBoot3xWithPulsarSupport() && hasDependency("pulsar", build)) {
+			if (hasPulsarSupport() && hasDependency("pulsar", build)) {
 				build.dependencies()
 					.add("cloud-stream-binder-pulsar", "org.springframework.cloud", "spring-cloud-stream-binder-pulsar",
 							DependencyScope.COMPILE);
@@ -70,21 +69,10 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 					.add("cloud-stream-binder-kafka-streams", "org.springframework.cloud",
 							"spring-cloud-stream-binder-kafka-streams", DependencyScope.COMPILE);
 			}
-			if (isSpringBoot3x()) {
-				build.dependencies()
-					.add("cloud-stream-test",
-							Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream-test-binder")
-								.scope(DependencyScope.TEST_COMPILE));
-			}
-			else if (build instanceof MavenBuild) {
-				// TODO: https://github.com/spring-io/initializr/issues/1159
-				build.dependencies()
-					.add("cloud-stream-test",
-							Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream")
-								.classifier("test-binder")
-								.type("test-jar")
-								.scope(DependencyScope.TEST_COMPILE));
-			}
+			build.dependencies()
+				.add("cloud-stream-test",
+						Dependency.withCoordinates("org.springframework.cloud", "spring-cloud-stream-test-binder")
+							.scope(DependencyScope.TEST_COMPILE));
 		}
 	}
 
@@ -92,12 +80,7 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 		return build.dependencies().has(id);
 	}
 
-	protected boolean isSpringBoot3x() {
-		Version platformVersion = this.description.getPlatformVersion();
-		return platformVersion.compareTo(Version.parse("3.0.0-M1")) > 0;
-	}
-
-	protected boolean isSpringBoot3xWithPulsarSupport() {
+	protected boolean hasPulsarSupport() {
 		Version platformVersion = this.description.getPlatformVersion();
 		return platformVersion.compareTo(Version.parse("3.2.0-M3")) >= 0;
 	}

@@ -44,9 +44,8 @@ class SpringCloudContractGradleBuildCustomizerTests extends AbstractExtensionTes
 	}
 
 	@Test
-	void springCloudContractVerifierPlugin30ContractTestWithJUnit5ByDefault() {
+	void springCloudContractVerifierPluginContractTestWithJUnit5ByDefault() {
 		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier");
-		projectRequest.setBootVersion("2.7.5");
 		assertThat(gradleBuild(projectRequest)).containsSubsequence("tasks.named('contractTest') {",
 				"useJUnitPlatform()");
 	}

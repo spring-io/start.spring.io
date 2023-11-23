@@ -66,75 +66,67 @@ public class TestcontainersProjectGenerationConfiguration {
 		return new ImplicitDependencyHelpDocumentCustomizer(this.dependencies, build);
 	}
 
+	@Bean
+	ServiceConnections serviceConnections(ObjectProvider<ServiceConnectionsCustomizer> customizers) {
+		ServiceConnections serviceConnections = new ServiceConnections();
+		customizers.orderedStream().forEach((customizer) -> customizer.customize(serviceConnections));
+		return serviceConnections;
+	}
+
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnPlatformVersion("3.1.0-RC1")
-	static class SpringBoot31Configuration {
+	static class SpringBootSupportConfiguration {
 
 		@Bean
-		ServiceConnections serviceConnections(ObjectProvider<ServiceConnectionsCustomizer> customizers) {
-			ServiceConnections serviceConnections = new ServiceConnections();
-			customizers.orderedStream().forEach((customizer) -> customizer.customize(serviceConnections));
-			return serviceConnections;
+		BuildCustomizer<Build> springBootTestcontainersBuildCustomizer() {
+			return (build) -> build.dependencies()
+				.add("spring-boot-testcontainers",
+						Dependency.withCoordinates("org.springframework.boot", "spring-boot-testcontainers")
+							.scope(DependencyScope.TEST_COMPILE));
 		}
 
-		@Configuration(proxyBeanMethods = false)
-		static class SpringBootSupportConfiguration {
-
-			@Bean
-			BuildCustomizer<Build> springBootTestcontainersBuildCustomizer() {
-				return (build) -> build.dependencies()
-					.add("spring-boot-testcontainers",
-							Dependency.withCoordinates("org.springframework.boot", "spring-boot-testcontainers")
-								.scope(DependencyScope.TEST_COMPILE));
-
-			}
-
-			@Bean
-			TestContainersHelpDocumentCustomizer springBootTestcontainersHelpDocumentCustomizer(
-					ProjectDescription description, ServiceConnections serviceConnections) {
-				return new TestContainersHelpDocumentCustomizer(description, serviceConnections);
-			}
-
+		@Bean
+		TestContainersHelpDocumentCustomizer springBootTestcontainersHelpDocumentCustomizer(
+				ProjectDescription description, ServiceConnections serviceConnections) {
+			return new TestContainersHelpDocumentCustomizer(description, serviceConnections);
 		}
 
-		@Configuration(proxyBeanMethods = false)
-		static class TestApplicationConfiguration {
+	}
 
-			private final ProjectDescription description;
+	@Configuration(proxyBeanMethods = false)
+	static class TestApplicationConfiguration {
 
-			private final IndentingWriterFactory indentingWriterFactory;
+		private final ProjectDescription description;
 
-			TestApplicationConfiguration(ProjectDescription description,
-					IndentingWriterFactory indentingWriterFactory) {
-				this.description = description;
-				this.indentingWriterFactory = indentingWriterFactory;
-			}
+		private final IndentingWriterFactory indentingWriterFactory;
 
-			@Bean
-			@ConditionalOnLanguage(GroovyLanguage.ID)
-			GroovyTestContainersApplicationCodeProjectContributor groovyTestContainersApplicationCodeProjectContributor(
-					ServiceConnections serviceConnections) {
-				return new GroovyTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
-						this.description, serviceConnections);
-			}
+		TestApplicationConfiguration(ProjectDescription description, IndentingWriterFactory indentingWriterFactory) {
+			this.description = description;
+			this.indentingWriterFactory = indentingWriterFactory;
+		}
 
-			@Bean
-			@ConditionalOnLanguage(KotlinLanguage.ID)
-			@ConditionalOnPlatformVersion("3.1.1-SNAPSHOT") // https://github.com/spring-projects/spring-boot/issues/35756
-			KotlinTestContainersApplicationCodeProjectContributor kotlinTestContainersApplicationCodeProjectContributor(
-					ServiceConnections serviceConnections) {
-				return new KotlinTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
-						this.description, serviceConnections);
-			}
+		@Bean
+		@ConditionalOnLanguage(GroovyLanguage.ID)
+		GroovyTestContainersApplicationCodeProjectContributor groovyTestContainersApplicationCodeProjectContributor(
+				ServiceConnections serviceConnections) {
+			return new GroovyTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
+					this.description, serviceConnections);
+		}
 
-			@Bean
-			@ConditionalOnLanguage(JavaLanguage.ID)
-			JavaTestContainersApplicationCodeProjectContributor javaTestContainersApplicationCodeProjectContributor(
-					ServiceConnections serviceConnections) {
-				return new JavaTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
-						this.description, serviceConnections);
-			}
+		@Bean
+		@ConditionalOnLanguage(KotlinLanguage.ID)
+		@ConditionalOnPlatformVersion("3.1.1-SNAPSHOT") // https://github.com/spring-projects/spring-boot/issues/35756
+		KotlinTestContainersApplicationCodeProjectContributor kotlinTestContainersApplicationCodeProjectContributor(
+				ServiceConnections serviceConnections) {
+			return new KotlinTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
+					this.description, serviceConnections);
+		}
 
+		@Bean
+		@ConditionalOnLanguage(JavaLanguage.ID)
+		JavaTestContainersApplicationCodeProjectContributor javaTestContainersApplicationCodeProjectContributor(
+				ServiceConnections serviceConnections) {
+			return new JavaTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,
+					this.description, serviceConnections);
 		}
 
 	}

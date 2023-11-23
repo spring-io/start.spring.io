@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,8 @@
 
 package io.spring.start.site.extension.dependency.observability;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
-import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
@@ -42,9 +38,7 @@ class ObservabilityProjectGenerationConfiguration {
 
 		@Bean
 		ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer() {
-			List<String> dependencyIds = new ArrayList<>(ObservabilityActuatorBuildCustomizer.STANDARD_REGISTRY_IDS);
-			dependencyIds.addAll(List.of("distributed-tracing", "wavefront", "zipkin"));
-			return new ObservabilityActuatorBuildCustomizer(dependencyIds);
+			return new ObservabilityActuatorBuildCustomizer();
 		}
 
 		@Bean
@@ -58,12 +52,6 @@ class ObservabilityProjectGenerationConfiguration {
 			return new ObservabilityHelpDocumentCustomizer(description, build);
 		}
 
-		@Bean
-		@ConditionalOnRequestedDependency("wavefront")
-		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
-			return new WavefrontHelpDocumentCustomizer("https://docs.wavefront.com/wavefront_springboot3.html", build);
-		}
-
 	}
 
 	@Configuration(proxyBeanMethods = false)
@@ -71,19 +59,8 @@ class ObservabilityProjectGenerationConfiguration {
 	static class Observability2xConfiguration {
 
 		@Bean
-		ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer() {
-			return new ObservabilityActuatorBuildCustomizer(ObservabilityActuatorBuildCustomizer.STANDARD_REGISTRY_IDS);
-		}
-
-		@Bean
 		Observability2xHelpDocumentCustomizer observabilityHelpDocumentCustomizer(Build build) {
 			return new Observability2xHelpDocumentCustomizer(build);
-		}
-
-		@Bean
-		@ConditionalOnRequestedDependency("wavefront")
-		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
-			return new WavefrontHelpDocumentCustomizer("https://docs.wavefront.com/wavefront_springboot.html", build);
 		}
 
 	}

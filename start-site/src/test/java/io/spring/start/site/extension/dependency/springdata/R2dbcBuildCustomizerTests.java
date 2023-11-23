@@ -47,17 +47,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void r2dbcWithMariadbAndBorca() {
-		Build build = createBuild();
-		build.dependencies().add("data-r2dbc");
-		build.dependencies().add("mariadb");
-		customize(build, Version.parse("2.7.6"));
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mariadb", "r2dbc-mariadb");
-		assertThat(build.dependencies().get("r2dbc-mariadb").getVersion()).isNull();
-	}
-
-	@Test
-	void r2dbcWithMariadbAfterBorca() {
+	void r2dbcWithMariadb() {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("mariadb");
@@ -71,26 +61,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("mysql");
-		customize(build, Version.parse("2.6.8"));
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql", "r2dbc-mysql");
-		assertThat(build.dependencies().get("r2dbc-mysql").getGroupId()).isEqualTo("dev.miku");
-	}
-
-	@Test
-	void r2dbcWithMysqlAndBorca() {
-		Build build = createBuild();
-		build.dependencies().add("data-r2dbc");
-		build.dependencies().add("mysql");
-		customize(build, Version.parse("2.7.0"));
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql");
-	}
-
-	@Test
-	void r2dbcWithMysqlAndSpringBoot31() {
-		Build build = createBuild();
-		build.dependencies().add("data-r2dbc");
-		build.dependencies().add("mysql");
-		customize(build, Version.parse("3.1.0"));
+		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "mysql", "r2dbc-mysql");
 		assertThat(build.dependencies().get("r2dbc-mysql").getGroupId()).isEqualTo("io.asyncer");
 	}
@@ -100,33 +71,13 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("postgresql");
-		customize(build, Version.parse("2.6.8"));
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "postgresql", "r2dbc-postgresql");
-		assertThat(build.dependencies().get("r2dbc-postgresql").getGroupId()).isEqualTo("io.r2dbc");
-	}
-
-	@Test
-	void r2dbcWithPostgresqlAndBorca() {
-		Build build = createBuild();
-		build.dependencies().add("data-r2dbc");
-		build.dependencies().add("postgresql");
-		customize(build, Version.parse("3.0.0-M2"));
+		customize(build);
 		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "postgresql", "r2dbc-postgresql");
 		assertThat(build.dependencies().get("r2dbc-postgresql").getGroupId()).isEqualTo("org.postgresql");
 	}
 
 	@Test
 	void r2dbcWithSqlserver() {
-		Build build = createBuild();
-		build.dependencies().add("data-r2dbc");
-		build.dependencies().add("sqlserver");
-		customize(build, Version.parse("2.7.6"));
-		assertThat(build.dependencies().ids()).containsOnly("data-r2dbc", "sqlserver", "r2dbc-mssql");
-		assertThat(build.dependencies().get("r2dbc-mssql").getVersion()).isNull();
-	}
-
-	@Test
-	void r2dbcWithSqlserverAfterBorca() {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("sqlserver");
@@ -137,7 +88,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void r2dbcWithOracleAfterBorca() {
+	void r2dbcWithOracle() {
 		Build build = createBuild();
 		build.dependencies().add("data-r2dbc");
 		build.dependencies().add("oracle");
@@ -191,11 +142,7 @@ class R2dbcBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	private void customize(Build build) {
-		customize(build, getDefaultPlatformVersion(getMetadata()));
-	}
-
-	private void customize(Build build, Version platformVersion) {
-		new R2dbcBuildCustomizer(platformVersion).customize(build);
+		new R2dbcBuildCustomizer().customize(build);
 	}
 
 	private Version getDefaultPlatformVersion(InitializrMetadata metadata) {

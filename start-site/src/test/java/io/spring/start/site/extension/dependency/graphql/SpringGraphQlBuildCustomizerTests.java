@@ -47,7 +47,6 @@ class SpringGraphQlBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void shouldAddTestingDependencyWhenWebFlux() {
 		ProjectRequest request = createProjectRequest("webflux", "graphql");
-		request.setBootVersion("2.7.0-SNAPSHOT");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webflux"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(this.graphQlTest)
@@ -58,7 +57,6 @@ class SpringGraphQlBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void shouldAddTestingDependencyAndWebFluxWhenWeb() {
 		ProjectRequest request = createProjectRequest("web", "graphql");
-		request.setBootVersion("2.7.0-SNAPSHOT");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(this.graphQlTest)

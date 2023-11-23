@@ -54,26 +54,6 @@ abstract class SpringAzureModuleRegistry {
 						.addReferenceDocLink("https://aka.ms/spring/msdocs/postgresql", "Azure PostgreSQL support")));
 	}
 
-	static Iterable<ImplicitDependency> createSpringBoot2Registry() {
-		return create(
-				onDependencies("actuator").customizeBuild(addDependency("spring-cloud-azure-starter-actuator"))
-					.customizeHelpDocument(addReferenceLink("actuator", "Azure Actuator")),
-				onDependencies("distributed-tracing").customizeBuild(addDependency("spring-cloud-azure-trace-sleuth"))
-					.customizeHelpDocument(addReferenceLink("sleuth", "Azure Sleuth")),
-				onDependencies("integration", "azure-storage")
-					.customizeBuild(addDependency("spring-cloud-azure-starter-integration-storage-queue"))
-					.customizeHelpDocument(
-							addReferenceLink("spring-integration/storage-queue", "Azure Integration Storage Queue")),
-				onDependencies("mysql", "azure-support")
-					.customizeBuild(addDependency("spring-cloud-azure-starter-jdbc-mysql"))
-					.customizeHelpDocument((helpDocument) -> helpDocument.gettingStarted()
-						.addReferenceDocLink("https://aka.ms/spring/msdocs/mysql", "Azure MySQL support")),
-				onDependencies("postgresql", "azure-support")
-					.customizeBuild(addDependency("spring-cloud-azure-starter-jdbc-postgresql"))
-					.customizeHelpDocument((helpDocument) -> helpDocument.gettingStarted()
-						.addReferenceDocLink("https://aka.ms/spring/msdocs/postgresql", "Azure PostgreSQL support")));
-	}
-
 	private static Iterable<ImplicitDependency> create(ImplicitDependency.Builder... dependencies) {
 		return Arrays.stream(dependencies).map(Builder::build).collect(Collectors.toList());
 	}
