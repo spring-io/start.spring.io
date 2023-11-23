@@ -33,6 +33,7 @@ class MyBatisTestBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void mybatisIsAddedWithSecurity() {
 		ProjectRequest request = createProjectRequest("mybatis");
+		request.setBootVersion("3.1.0");
 		assertThat(mavenPom(request)).hasDependency(mybatis())
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(mybatisTest())

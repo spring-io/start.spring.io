@@ -50,6 +50,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void pulsarLegacyStarterUsedWhenBoot30orBoot31Selected() {
 			ProjectRequest request = createProjectRequest("pulsar");
+			request.setBootVersion("3.1.0");
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild()
 				.hasDependency("org.springframework.pulsar", "spring-pulsar-spring-boot-starter");
@@ -58,6 +59,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void pulsarReactiveLegacyStarterUsedWhenBoot30orBoot31Selected() {
 			ProjectRequest request = createProjectRequest("pulsar-reactive");
+			request.setBootVersion("3.1.0");
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild()
 				.hasDependency("org.springframework.pulsar", "spring-pulsar-reactive-spring-boot-starter");
@@ -213,6 +215,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void binderAddedWhenPulsarAndCloudStreamSelectedWithCompatibleBootVersion() {
 			ProjectRequest request = createProjectRequest("pulsar", "cloud-stream");
+			request.setBootVersion("3.1.0");
 			ProjectStructure project = generateProject(request);
 			assertBinder(project);
 		}
@@ -220,6 +223,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void binderAddedWhenPulsarReactiveAndCloudStreamSelectedWithCompatibleBootVersion() {
 			ProjectRequest request = createProjectRequest("pulsar-reactive", "cloud-stream");
+			request.setBootVersion("3.1.0");
 			ProjectStructure project = generateProject(request);
 			assertBinder(project);
 		}

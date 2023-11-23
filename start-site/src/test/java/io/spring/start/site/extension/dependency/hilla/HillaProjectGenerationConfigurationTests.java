@@ -62,8 +62,9 @@ class HillaProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void projectWithHillaCustomizesGitIgnore() {
-		assertThat(generateProject(createProjectRequest("hilla", "data-jpa"))).textFile(".gitignore")
-			.contains("node_modules/", "frontend/generated/");
+		ProjectRequest request = createProjectRequest("hilla", "data-jpa");
+		request.setBootVersion("3.1.0");
+		assertThat(generateProject(request)).textFile(".gitignore").contains("node_modules/", "frontend/generated/");
 	}
 
 	@Test
