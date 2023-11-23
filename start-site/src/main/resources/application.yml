@@ -1450,11 +1450,6 @@ initializr:
       default: false
     - id: 17
       default: true
-    - id: 11
-      default: false
-    - id: 1.8
-      name: 8
-      default: false
   languages:
     - name: Java
       id: java
