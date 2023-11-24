@@ -33,16 +33,44 @@ import static org.assertj.core.api.Assertions.assertThat;
 class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void doesNothingWithoutDockerCompose() {
+	void doesNotGenerateComposeYamlWithoutDockerCompose() {
 		ProjectRequest request = createProjectRequest("web", "oracle");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void createsOracleService() {
+	void createsOracleXeServiceWithBoot31() {
 		ProjectRequest request = createProjectRequest("docker-compose", "oracle");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle.yaml"));
+		request.setBootVersion("3.1.0");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle-xe.yaml"));
+	}
+
+	@Test
+	void createsOracleFreeServiceWithBoot32() {
+		ProjectRequest request = createProjectRequest("docker-compose", "oracle");
+		request.setBootVersion("3.2.0");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle-free.yaml"));
+	}
+
+	@Test
+	void declaresOracleXeContainerBeanWithBoot31() {
+		ProjectRequest request = createProjectRequest("testcontainers", "oracle");
+		request.setBootVersion("3.1.0");
+		request.setLanguage("java");
+		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
+			.contains("import org.testcontainers.containers.OracleContainer;")
+			.contains("		return new OracleContainer(DockerImageName.parse(\"gvenzl/oracle-xe:latest\"));");
+	}
+
+	@Test
+	void declaresOracleFreeContainerBeanWithBoot32() {
+		ProjectRequest request = createProjectRequest("testcontainers", "oracle");
+		request.setBootVersion("3.2.0");
+		request.setLanguage("java");
+		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
+			.contains("import org.testcontainers.containers.oracle.OracleContainer;")
+			.contains("		return new OracleContainer(DockerImageName.parse(\"gvenzl/oracle-free:latest\"));");
 	}
 
 }

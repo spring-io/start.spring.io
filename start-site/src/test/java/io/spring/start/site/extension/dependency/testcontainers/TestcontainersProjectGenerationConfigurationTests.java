@@ -56,6 +56,15 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency("testcontainers"));
 	}
 
+	@Test
+	void buildWithSpringBoot32AndOracleJdbcDriverUsesOracleFree() {
+		assertThat(generateProject("3.2.0", "testcontainers", "oracle")).mavenBuild()
+			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
+			.hasDependency(getDependency("oracle").resolve(Version.parse("3.2.0")))
+			.hasDependency("org.testcontainers", "oracle-free", null, "test")
+			.hasDependency(getDependency("testcontainers"));
+	}
+
 	static Stream<Arguments> supportedEntriesBuild() {
 		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.arguments("cloud-gcp", "gcloud"),
 				Arguments.arguments("cloud-gcp-pubsub", "gcloud"), Arguments.arguments("data-cassandra", "cassandra"),
