@@ -17,7 +17,9 @@
 package io.spring.start.site.extension.description;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
+import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionDiff;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
@@ -43,15 +45,30 @@ public class InvalidJvmVersionHelpDocumentCustomizer implements HelpDocumentCust
 	public void customize(HelpDocument document) {
 		this.diff.ifLanguageChanged(this.description, (original, current) -> {
 			String originalJvmVersion = original.jvmVersion();
-			String currentJvmVersion = current.jvmVersion();
-			if (!Objects.equals(originalJvmVersion, currentJvmVersion)) {
-				document.getWarnings()
-					.addItem(String.format(
-							"The JVM level was changed from '%s' to '%s', review the [JDK Version Range](%s) on the wiki for more details.",
-							originalJvmVersion, currentJvmVersion,
-							"https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range"));
+			String actualJvmVersion = current.jvmVersion();
+			if (!Objects.equals(originalJvmVersion, actualJvmVersion)) {
+				processJvmVersionDiff(originalJvmVersion, actualJvmVersion).accept(document);
 			}
 		});
+	}
+
+	protected Consumer<HelpDocument> processJvmVersionDiff(String originalJvmVersion, String actualJvmVersion) {
+		return (document) -> {
+			if (this.description.getLanguage() instanceof KotlinLanguage) {
+				document.getWarnings()
+					.addItem(
+							"The JVM level was changed from '%s' to '%s' as the Kotlin version does not support Java %s yet."
+								.formatted(originalJvmVersion, actualJvmVersion, originalJvmVersion));
+			}
+			else {
+				document.getWarnings()
+					.addItem(
+							"The JVM level was changed from '%s' to '%s', review the [JDK Version Range](%s) on the wiki for more details."
+								.formatted(originalJvmVersion, actualJvmVersion,
+										"https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range"));
+			}
+		};
+
 	}
 
 }

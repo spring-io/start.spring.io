@@ -23,6 +23,9 @@ import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Validate that the requested java version is compatible with the chosen Spring Boot
@@ -33,10 +36,13 @@ import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
  */
 public class JavaVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
+	private static final VersionRange KOTLIN_1_9_20_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0-RC2");
+
 	private static final List<String> UNSUPPORTED_VERSIONS = Arrays.asList("1.6", "1.7", "1.8");
 
 	@Override
 	public void customize(MutableProjectDescription description) {
+		Version platformVersion = description.getPlatformVersion();
 		String javaVersion = description.getLanguage().jvmVersion();
 		if (UNSUPPORTED_VERSIONS.contains(javaVersion)) {
 			updateTo(description, "17");
@@ -50,8 +56,8 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			updateTo(description, "17");
 		}
 		if (javaGeneration == 21) {
-			// Kotlin does not support Java 21 bytecodes yet
-			if (description.getLanguage() instanceof KotlinLanguage) {
+			// Kotlin 1.9.20 is required
+			if (description.getLanguage() instanceof KotlinLanguage && !KOTLIN_1_9_20_OR_LATER.match(platformVersion)) {
 				updateTo(description, "17");
 			}
 		}

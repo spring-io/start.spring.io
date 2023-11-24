@@ -61,8 +61,8 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void kotlinIsNotSupportedWithJava21() {
-		assertThat(mavenPom(kotlinProject("21", "3.1.0"))).hasProperty("java.version", "17");
+	void kotlinIsNotSupportedWithJava21AndSpringBoot31() {
+		assertThat(mavenPom(kotlinProject("21", "3.1.6"))).hasProperty("java.version", "17");
 	}
 
 	static Stream<Arguments> supportedMavenParameters() {
@@ -79,7 +79,8 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
-		return Stream.of(kotlin("17", "3.1.0"), kotlin("19", "3.1.0"), kotlin("20", "3.1.0"));
+		return Stream.of(kotlin("17", "3.1.0"), kotlin("19", "3.1.0"), kotlin("20", "3.1.0"),
+				kotlin("21", "3.2.0-RC2"));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {
