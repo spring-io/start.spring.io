@@ -494,7 +494,7 @@ initializr:
               description: R2DBC Homepage
         - name: MyBatis Framework
           id: mybatis
-          compatibilityRange: "[3.0.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.3.0-M1)"
           description: Persistence framework with support for custom SQL, stored procedures and advanced mappings. MyBatis couples objects with stored procedures or SQL statements using a XML descriptor or annotations.
           links:
             - rel: guide
@@ -506,7 +506,7 @@ initializr:
           artifactId: mybatis-spring-boot-starter
           mappings:
             - compatibilityRange: "3.0.0"
-              version: 3.0.2
+              version: 3.0.3
         - name: Liquibase Migration
           id: liquibase
           description: Liquibase database migration and source control library.
