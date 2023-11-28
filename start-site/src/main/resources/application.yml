@@ -125,9 +125,9 @@ initializr:
         versionProperty: spring-shell.version
         mappings:
           - compatibilityRange: "[3.1.0,3.2.0-M1)"
-            version: 3.1.5
+            version: 3.1.6
           - compatibilityRange: "3.2.0-M1"
-            version: 3.2.0-M3
+            version: 3.2.0-RC1
             repositories: spring-milestones
       timefold-solver:
         groupId: ai.timefold.solver
