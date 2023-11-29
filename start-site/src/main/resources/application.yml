@@ -51,7 +51,7 @@ initializr:
         versionProperty: hilla.version
         mappings:
           - compatibilityRange: "[3.1.0,3.2.0-M1)"
-            version: 2.1.9
+            version: 2.4.0
       sentry:
         groupId: io.sentry
         artifactId: sentry-bom
@@ -142,7 +142,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[3.0.0,3.2.0-M1)"
-            version: 24.2.4
+            version: 24.2.5
     gradle:
       dependency-management-plugin-version: 1.0.14.RELEASE
     platform:
