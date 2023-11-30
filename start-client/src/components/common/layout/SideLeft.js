@@ -149,7 +149,7 @@ function SideLeft() {
                     </ul>
                   </div>
                   <div className='copyright'>
-                    © 2013-{new Date().getFullYear()} Broadcom. All Rights
+                    © 2005-{new Date().getFullYear()} Broadcom. All Rights
                     Reserved.
                     <br />
                     The term &quot;Broadcom&quot; refers to Broadcom Inc. and/or
