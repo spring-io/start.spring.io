@@ -588,7 +588,7 @@ initializr:
           id: oracle
           description: A JDBC driver that provides access to Oracle.
           groupId: com.oracle.database.jdbc
-          artifactId: ojdbc8
+          artifactId: ojdbc11
           scope: runtime
           starter: false
         - name: PostgreSQL Driver
