@@ -1201,6 +1201,8 @@ initializr:
           groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-gateway
           description: Provides a simple, yet effective way to route to APIs and provide cross cutting concerns to them such as security, monitoring/metrics, and resiliency.
+          facets:
+            - reactive
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/
