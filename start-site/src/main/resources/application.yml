@@ -1201,8 +1201,19 @@ initializr:
         - name: Gateway
           id: cloud-gateway
           groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-gateway-mvc
+          compatibilityRange: "3.2.0-M1"
+          description: Provides a simple, yet effective way to route to APIs in Servlet-based applications. Provides cross-cutting concerns to those APIs such as security, monitoring/metrics, and resiliency.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/
+        - name: Reactive Gateway
+          id: cloud-gateway-reactive
+          groupId: org.springframework.cloud
           artifactId: spring-cloud-starter-gateway
-          description: Provides a simple, yet effective way to route to APIs and provide cross cutting concerns to them such as security, monitoring/metrics, and resiliency.
+          description: Provides a simple, yet effective way to route to APIs in reactive applications. Provides cross-cutting concerns to those APIs such as security, monitoring/metrics, and resiliency.
+          facets:
+            - reactive
           links:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/
