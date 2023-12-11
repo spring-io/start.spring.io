@@ -1376,9 +1376,9 @@ initializr:
       bom: spring-cloud-gcp
       compatibilityRange: "[3.0.0,3.2.0-M1)"
       content:
-        - name: GCP Support
+        - name: Google Cloud Support
           id: cloud-gcp
-          description: Contains auto-configuration support for every Spring Cloud GCP integration. Most of the auto-configuration code is only enabled if other dependencies are added to the classpath.
+          description: Contains auto-configuration support for every Google Cloud integration. Most of the auto-configuration code is only enabled if other dependencies are added to the classpath.
           groupId: com.google.cloud
           artifactId: spring-cloud-gcp-starter
           links:
@@ -1386,10 +1386,10 @@ initializr:
               href: https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples
-              description: GCP Samples
-        - name: GCP Messaging
+              description: Google Cloud Samples
+        - name: Google Cloud Messaging
           id: cloud-gcp-pubsub
-          description: Adds the GCP Support entry and all the required dependencies so that the Google Cloud Pub/Sub integration work out of the box.
+          description: Adds the Google Cloud Support entry and all the required dependencies so that the Google Cloud Pub/Sub integration work out of the box.
           groupId: com.google.cloud
           artifactId: spring-cloud-gcp-starter-pubsub
           links:
@@ -1397,10 +1397,10 @@ initializr:
               href: https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#cloud-pubsub
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-pubsub-sample
-              description: GCP Pub/Sub Sample
-        - name: GCP Storage
+              description: Google Cloud Pub/Sub Sample
+        - name: Google Cloud Storage
           id: cloud-gcp-storage
-          description: Adds the GCP Support entry and all the required dependencies so that the Google Cloud Storage integration work out of the box.
+          description: Adds the Google Cloud Support entry and all the required dependencies so that the Google Cloud Storage integration work out of the box.
           groupId: com.google.cloud
           artifactId: spring-cloud-gcp-starter-storage
           links:
