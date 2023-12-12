@@ -144,8 +144,8 @@ initializr:
         artifactId: vaadin-bom
         versionProperty: vaadin.version
         mappings:
-          - compatibilityRange: "[3.0.0,3.2.0-M1)"
-            version: 24.2.5
+          - compatibilityRange: "[3.0.0,3.3.0-M1)"
+            version: 24.3.0  
     gradle:
       dependency-management-plugin-version: 1.0.14.RELEASE
     platform:
