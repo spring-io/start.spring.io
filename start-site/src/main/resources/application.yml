@@ -145,7 +145,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[3.0.0,3.3.0-M1)"
-            version: 24.3.0  
+            version: 24.3.0
     gradle:
       dependency-management-plugin-version: 1.0.14.RELEASE
     platform:
@@ -328,7 +328,7 @@ initializr:
           artifactId: vaadin-spring-boot-starter
           description: A web framework that allows you to write UI in pure Java without getting bogged down in JS, HTML, and CSS.
           bom: vaadin
-          compatibilityRange: "[3.0.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.3.0-M1)"
           links:
             - rel: guide
               href: https://spring.io/guides/gs/crud-with-vaadin/
