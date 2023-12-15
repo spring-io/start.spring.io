@@ -37,7 +37,7 @@ class ZipkinProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer oracleServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+	ServiceConnectionsCustomizer zipkinServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("zipkin", (service) -> serviceConnections
 			.addServiceConnection(ServiceConnection.ofGenericContainer("zipkin", service, "openzipkin/zipkin")));
 	}
