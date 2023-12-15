@@ -103,6 +103,8 @@ initializr:
         mappings:
           - compatibilityRange: "[3.0.0,3.2.0-M1)"
             version: 4.9.0
+          - compatibilityRange: "[3.2.0-M1,3.3.0-M1)"
+            version: 5.0.0
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
@@ -1374,7 +1376,7 @@ initializr:
               description: Azure Storage Sample
     - name: Google Cloud
       bom: spring-cloud-gcp
-      compatibilityRange: "[3.0.0,3.2.0-M1)"
+      compatibilityRange: "[3.0.0,3.3.0-M1)"
       content:
         - name: Google Cloud Support
           id: cloud-gcp
