@@ -113,8 +113,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	}
 
 	private static DockerService pulsar() {
-		// The latest tag they provide is not the 'latest' GA
-		return DockerService.withImageAndTag("apachepulsar/pulsar:3.1.1")
+		return DockerService.withImageAndTag("apachepulsar/pulsar")
 			.website("https://hub.docker.com/r/apachepulsar/pulsar")
 			.command("bin/pulsar standalone")
 			.ports(8080, 6650)
