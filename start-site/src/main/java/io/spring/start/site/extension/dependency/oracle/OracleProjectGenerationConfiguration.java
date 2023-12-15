@@ -60,7 +60,7 @@ class OracleProjectGenerationConfiguration {
 
 	private enum OracleContainer {
 
-		FREE("oracleFree", "org.testcontainers.containers.oracle.OracleContainer"),
+		FREE("oracleFree", "org.testcontainers.oracle.OracleContainer"),
 
 		XE("oracleXe", "org.testcontainers.containers.OracleContainer");
 
