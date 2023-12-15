@@ -69,7 +69,7 @@ class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 		request.setBootVersion("3.2.0");
 		request.setLanguage("java");
 		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
-			.contains("import org.testcontainers.containers.oracle.OracleContainer;")
+			.contains("import org.testcontainers.oracle.OracleContainer;")
 			.contains("		return new OracleContainer(DockerImageName.parse(\"gvenzl/oracle-free:latest\"));");
 	}
 
