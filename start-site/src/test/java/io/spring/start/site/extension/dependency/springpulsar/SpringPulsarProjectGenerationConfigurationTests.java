@@ -172,7 +172,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 				assertThat(connection.containerClassNameGeneric()).isFalse();
 				assertThat(connection.dockerService()).satisfies((dockerService) -> {
 					assertThat(dockerService.getImage()).isEqualTo("apachepulsar/pulsar");
-					assertThat(dockerService.getImageTag()).isEqualTo("3.1.0");
+					assertThat(dockerService.getImageTag()).isEqualTo("latest");
 					assertThat(dockerService.getWebsite()).isEqualTo("https://hub.docker.com/r/apachepulsar/pulsar");
 					assertThat(dockerService.getCommand()).isEqualTo("bin/pulsar standalone");
 					assertThat(dockerService.getPorts()).containsExactlyInAnyOrder(8080, 6650);
