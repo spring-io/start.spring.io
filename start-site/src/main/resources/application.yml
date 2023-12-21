@@ -139,8 +139,8 @@ initializr:
         artifactId: timefold-solver-bom
         versionProperty: timefold-solver.version
         mappings:
-          - compatibilityRange: "[3.0.0,3.2.0-M1)"
-            version: 1.3.0
+          - compatibilityRange: "[3.0.0,3.3.0-M1)"
+            version: 1.5.0
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
@@ -890,12 +890,11 @@ initializr:
               href: https://spring.io/projects/spring-shell
         - name: Timefold Solver
           id: timefold-solver
-          compatibilityRange: "[2.6.0,3.2.0-M1)"
+          compatibilityRange: "[2.6.0,3.3.0-M1)"
           groupId: ai.timefold.solver
           artifactId: timefold-solver-spring-boot-starter
           description: AI solver to optimize operations and scheduling.
           bom: timefold-solver
-          starter: false
           links:
             - rel: reference
               href:  https://timefold.ai/docs/timefold-solver/latest/quickstart/spring-boot/spring-boot-quickstart#springBootJavaQuickStart
