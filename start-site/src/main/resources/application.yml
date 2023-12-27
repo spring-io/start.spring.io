@@ -50,8 +50,8 @@ initializr:
         artifactId: hilla-bom
         versionProperty: hilla.version
         mappings:
-          - compatibilityRange: "[3.1.0,3.2.0-M1)"
-            version: 2.4.0
+          - compatibilityRange: "[3.1.0,3.3.0-M1)"
+            version: 2.5.5
       sentry:
         groupId: io.sentry
         artifactId: sentry-bom
@@ -340,7 +340,7 @@ initializr:
         - name: Hilla
           id: hilla
           bom: hilla
-          compatibilityRange: "[3.1.0-M1,3.2.0-M1)"
+          compatibilityRange: "[3.1.0-M1,3.3.0-M1)"
           facets:
             - web
           groupId: dev.hilla
