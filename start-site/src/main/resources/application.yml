@@ -130,10 +130,9 @@ initializr:
         versionProperty: spring-shell.version
         mappings:
           - compatibilityRange: "[3.1.0,3.2.0-M1)"
-            version: 3.1.6
-          - compatibilityRange: "3.2.0-M1"
-            version: 3.2.0-RC1
-            repositories: spring-milestones
+            version: 3.1.7
+          - compatibilityRange: "[3.2.0-M1,3.3.0-M1)"
+            version: 3.2.0
       timefold-solver:
         groupId: ai.timefold.solver
         artifactId: timefold-solver-bom
@@ -883,6 +882,7 @@ initializr:
           id: spring-shell
           groupId: org.springframework.shell
           artifactId: spring-shell-starter
+          compatibilityRange: "[3.1.0,3.3.0-M1)"
           description: Build command line applications with spring.
           bom: spring-shell
           links:
