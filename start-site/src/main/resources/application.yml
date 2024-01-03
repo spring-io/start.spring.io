@@ -882,6 +882,7 @@ initializr:
           id: spring-shell
           groupId: org.springframework.shell
           artifactId: spring-shell-starter
+          compatibilityRange: "[3.1.0,3.3.0-M1)"
           description: Build command line applications with spring.
           bom: spring-shell
           links:
