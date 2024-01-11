@@ -139,7 +139,7 @@ initializr:
         versionProperty: timefold-solver.version
         mappings:
           - compatibilityRange: "[3.0.0,3.3.0-M1)"
-            version: 1.5.0
+            version: 1.6.0
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
