@@ -146,7 +146,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[3.0.0,3.3.0-M1)"
-            version: 24.3.2
+            version: 24.3.3
     gradle:
       dependency-management-plugin-version: 1.0.14.RELEASE
     platform:
