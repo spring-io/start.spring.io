@@ -82,7 +82,7 @@ initializr:
         order: 50
         mappings:
           - compatibilityRange: "[3.0.0,3.2.0-M1)"
-            version: 2022.0.4
+            version: 2022.0.5
           - compatibilityRange: "[3.2.0-M1,3.2.0)"
             version: 2023.0.0-RC1
             repositories: spring-milestones
