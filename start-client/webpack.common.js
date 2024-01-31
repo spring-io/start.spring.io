@@ -44,6 +44,9 @@ const config = {
         test: /.(js|jsx)$/,
         exclude: [path.resolve(__dirname, 'node_modules')],
         loader: 'babel-loader',
+        options: {
+          plugins: ['lodash'],
+        },
       },
       {
         test: /\.s[ac]ss$/i,

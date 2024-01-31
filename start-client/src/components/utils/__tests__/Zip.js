@@ -1,6 +1,6 @@
 import JSZip from 'jszip'
 import fs from 'fs'
-import get from 'lodash.get'
+import get from 'lodash/get'
 import path from 'path'
 
 import { createTree, findRoot, getLanguage } from '../Zip'

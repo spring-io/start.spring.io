@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import get from 'lodash.get'
+import get from 'lodash/get'
 import React, { useEffect, useState } from 'react'
 
 import { IconCaretDown, IconFile, IconFolder } from '../icons'

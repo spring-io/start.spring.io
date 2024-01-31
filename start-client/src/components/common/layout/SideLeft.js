@@ -1,4 +1,4 @@
-import get from 'lodash.get'
+import get from 'lodash/get'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'

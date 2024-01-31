@@ -3,11 +3,12 @@
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common.js')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
-const WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer')
-  .WebpackBundleSizeAnalyzerPlugin
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const WebpackBundleSizeAnalyzerPlugin =
+  require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin
 const path = require('path')
+var LodashWebpackPlugin = require('lodash-webpack-plugin')
 
 const config = {
   mode: 'production',
@@ -24,10 +25,13 @@ const config = {
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
-      openAnalyzer: false,
+      openAnalyzer: true,
       generateStatsFile: true,
       statsFilename: '../analysis/stats.json',
       reportFilename: '../analysis/bundle-analyzer.html',
+    }),
+    new LodashWebpackPlugin({
+      paths: true,
     }),
     new WebpackBundleSizeAnalyzerPlugin('../analysis/bundle-size-analyzer.log'),
   ],

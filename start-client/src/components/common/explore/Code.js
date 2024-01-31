@@ -2,7 +2,7 @@ import Highlight from 'prism-react-renderer'
 import Prism from 'prism-react-renderer/prism'
 import PropTypes from 'prop-types'
 import React from 'react'
-import get from 'lodash.get'
+import get from 'lodash/get'
 import ReactMarkdown from 'react-markdown'
 
 if (typeof global !== 'undefined') {

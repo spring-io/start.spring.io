@@ -1,6 +1,6 @@
 import BodyClassName from 'react-body-classname'
 import FileSaver from 'file-saver'
-import get from 'lodash.get'
+import get from 'lodash/get'
 import React, {
   Suspense,
   lazy,

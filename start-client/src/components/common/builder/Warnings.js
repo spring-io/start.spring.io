@@ -1,4 +1,4 @@
-import get from 'lodash.get'
+import get from 'lodash/get'
 import React, { useContext } from 'react'
 
 import { IconTimes } from '../icons'

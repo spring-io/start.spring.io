@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import get from 'lodash.get'
-import set from 'lodash.set'
+import get from 'lodash/get'
+import set from 'lodash/set'
 import React, { useReducer } from 'react'
 
 import useTheme from '../utils/Theme'
