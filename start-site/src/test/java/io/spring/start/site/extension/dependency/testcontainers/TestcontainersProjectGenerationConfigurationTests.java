@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,6 +65,17 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency("testcontainers"));
 	}
 
+	@ParameterizedTest
+	@MethodSource("supportedTestcontainersActiveMQEntriesBuild")
+	void buildWithSpringBoot33AndTestcontainersActiveMQModule(String springBootDependencyId,
+			String testcontainersArtifactId) {
+		assertThat(generateProject("3.3.0", "testcontainers", springBootDependencyId)).mavenBuild()
+			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
+			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.3.0")))
+			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
+			.hasDependency(getDependency("testcontainers"));
+	}
+
 	static Stream<Arguments> supportedEntriesBuild() {
 		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.arguments("cloud-gcp", "gcloud"),
 				Arguments.arguments("cloud-gcp-pubsub", "gcloud"), Arguments.arguments("data-cassandra", "cassandra"),
@@ -80,6 +91,10 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("pulsar", "pulsar"),
 				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
 				Arguments.arguments("sqlserver", "mssqlserver"));
+	}
+
+	static Stream<Arguments> supportedTestcontainersActiveMQEntriesBuild() {
+		return Stream.of(Arguments.arguments("activemq", "activemq"), Arguments.arguments("artemis", "activemq"));
 	}
 
 	@ParameterizedTest

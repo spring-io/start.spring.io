@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,8 +42,16 @@ abstract class TestcontainersModuleRegistry {
 
 	private static final VersionRange SPRING_BOOT_3_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0");
 
+	private static final VersionRange SPRING_BOOT_3_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
+
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<ImplicitDependency.Builder> builders = new ArrayList<>();
+		if (SPRING_BOOT_3_3_0_OR_LATER.match(platformVersion)) {
+			builders.add(onDependencies("activemq").customizeBuild(addModule("activemq"))
+				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
+			builders.add(onDependencies("artemis").customizeBuild(addModule("activemq"))
+				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
+		}
 		builders.add(onDependencies("amqp").customizeBuild(addModule("rabbitmq"))
 			.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")));
 		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud"))
