@@ -57,8 +57,8 @@ initializr:
         artifactId: sentry-bom
         versionProperty: sentry.version
         mappings:
-          - compatibilityRange: "[2.7.0,3.2.0-M1)"
-            version: 6.28.0
+          - compatibilityRange: "[2.7.0,3.3.0-M1)"
+            version: 7.3.0
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
@@ -939,7 +939,7 @@ initializr:
           id: sentry
           bom: sentry
           description: Application performance monitoring and error tracking that help software teams see clearer, solve quicker, and learn continuously.
-          compatibilityRange: "[3.0.0,3.2.0-M1)"
+          compatibilityRange: "[3.0.0,3.3.0-M1)"
           groupId: io.sentry
           artifactId: sentry-spring-boot-starter-jakarta
           links:
