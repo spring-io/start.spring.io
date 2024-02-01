@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package io.spring.start.site;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
@@ -30,11 +31,13 @@ import io.spring.start.site.web.HomeController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.util.StringUtils;
 
 /**
  * Initializr website application.
@@ -46,6 +49,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @Import(ProjectDescriptionCustomizerConfiguration.class)
 @EnableCaching
 @EnableAsync
+@EnableConfigurationProperties(StartConfigurationProperties.class)
 public class StartApplication {
 
 	public static void main(String[] args) {
@@ -64,9 +68,16 @@ public class StartApplication {
 	}
 
 	@Bean
-	public CacheableMavenVersionResolver mavenVersionResolver() throws IOException {
-		return new CacheableMavenVersionResolver(
-				MavenVersionResolver.withCacheLocation(Files.createTempDirectory("version-resolver-cache-")));
+	public CacheableMavenVersionResolver mavenVersionResolver(StartConfigurationProperties properties)
+			throws IOException {
+		Path location;
+		if (StringUtils.hasText(properties.getMavenVersionResolver().getCacheDirectory())) {
+			location = Path.of(properties.getMavenVersionResolver().getCacheDirectory());
+		}
+		else {
+			location = Files.createTempDirectory("version-resolver-cache-");
+		}
+		return new CacheableMavenVersionResolver(MavenVersionResolver.withCacheLocation(location));
 	}
 
 	@Bean

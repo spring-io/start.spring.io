@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
-import java.nio.file.Path;
-
 import io.spring.initializr.generator.language.groovy.GroovyLanguage;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -60,9 +59,8 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void gradleBuildConfigureNativeBuildToolsPlugin(@TempDir Path temp) {
-		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(MavenVersionResolver.withCacheLocation(temp),
-				Version.parse("3.1.0"));
+	void gradleBuildConfigureNativeBuildToolsPlugin(@Autowired MavenVersionResolver mavenVersionResolver) {
+		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(mavenVersionResolver, Version.parse("3.1.0"));
 		ProjectRequest request = createNativeProjectRequest();
 		request.setBootVersion("3.1.0");
 		assertThat(gradleBuild(request)).hasPlugin("org.graalvm.buildtools.native", nbtVersion);

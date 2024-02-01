@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
-import java.nio.file.Path;
 import java.util.stream.Stream;
 
 import io.spring.initializr.generator.version.Version;
@@ -24,13 +23,13 @@ import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.metadata.MetadataElement;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,17 +41,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestInstance(Lifecycle.PER_CLASS)
 class NativeBuildtoolsVersionResolverTests extends AbstractExtensionTests {
 
-	private MavenVersionResolver versionResolver;
-
-	@BeforeEach
-	void createVersionResolver(@TempDir Path temp) {
-		this.versionResolver = MavenVersionResolver.withCacheLocation(temp);
-	}
-
 	@ParameterizedTest
 	@MethodSource("platformVersions")
-	void resolveNativeBuildToolsVersion(Version platformVersion) {
-		assertThat(NativeBuildtoolsVersionResolver.resolve(this.versionResolver, platformVersion)).isNotNull();
+	void resolveNativeBuildToolsVersion(Version platformVersion, @Autowired MavenVersionResolver versionResolver) {
+		assertThat(NativeBuildtoolsVersionResolver.resolve(versionResolver, platformVersion)).isNotNull();
 	}
 
 	private Stream<Arguments> platformVersions() {

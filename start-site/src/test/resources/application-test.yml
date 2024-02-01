@@ -1,0 +1,3 @@
+application:
+  maven-version-resolver:
+    cache-directory: "${java.io.tmpdir}/maven-version-resolver-cache"

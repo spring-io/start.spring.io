@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 
 package io.spring.start.site.extension.code.kotlin;
 
-import java.nio.file.Path;
 import java.util.function.Function;
 
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
+import io.spring.start.site.test.TestMavenVersionResolver;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -37,14 +36,15 @@ import static org.mockito.Mockito.verifyNoInteractions;
  */
 class ManagedDependenciesKotlinVersionResolverTests {
 
+	private final MavenVersionResolver mavenVersionResolver = TestMavenVersionResolver.get();
+
 	@Test
 	@SuppressWarnings("unchecked")
-	void kotlinVersionCanBeResolved(@TempDir Path temp) {
+	void kotlinVersionCanBeResolved() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("2.5.0"));
 		Function<ProjectDescription, String> fallback = mock(Function.class);
-		String version = new ManagedDependenciesKotlinVersionResolver(MavenVersionResolver.withCacheLocation(temp),
-				fallback)
+		String version = new ManagedDependenciesKotlinVersionResolver(this.mavenVersionResolver, fallback)
 			.resolveKotlinVersion(description);
 		assertThat(version).isEqualTo("1.5.0");
 		verifyNoInteractions(fallback);
