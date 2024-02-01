@@ -1022,10 +1022,20 @@ initializr:
         - name: Wavefront
           id: wavefront
           description: Publish metrics and optionally distributed traces to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
-          groupId: io.micrometer
-          artifactId: micrometer-registry-wavefront
-          scope: runtime
-          starter: false
+          mappings:
+            - compatibility-range: "[3.1.0,3.2.0)"
+              groupId: io.micrometer
+              artifactId: micrometer-registry-wavefront
+              starter: false
+            - compatibility-range: "3.3.0-M1"
+              groupId: io.micrometer
+              artifactId: micrometer-registry-wavefront
+              starter: false
+            - compatibility-range: "[3.2.0, 3.3.0-M1)"
+              groupId: com.wavefront
+              artifactId: wavefront-spring-boot-starter
+              version: 3.2.0
+              starter: true
         - name: Zipkin
           id: zipkin
           description: Enable and expose span and trace IDs to Zipkin.
