@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import java.util.Map;
  * @author Stephane Nicoll
  * @author Moritz Halbritter
  * @author Chris Bono
+ * @author Eddú Meléndez
  */
 public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
@@ -34,6 +35,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	public SimpleDockerServiceResolver() {
 		this.dockerServices = new HashMap<>();
 		this.dockerServices.put("activeMQ", activeMQ());
+		this.dockerServices.put("artemis", artemis());
 		this.dockerServices.put("cassandra", cassandra());
 		this.dockerServices.put("elasticsearch", elasticsearch());
 		this.dockerServices.put("kafka", kafka());
@@ -53,6 +55,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	private static DockerService activeMQ() {
 		return DockerService.withImageAndTag("symptoma/activemq")
 			.website("https://hub.docker.com/r/symptoma/activemq")
+			.ports(61616)
+			.build();
+	}
+
+	private static DockerService artemis() {
+		return DockerService.withImageAndTag("apache/activemq-artemis")
+			.website("https://hub.docker.com/r/apache/activemq-classic")
 			.ports(61616)
 			.build();
 	}
