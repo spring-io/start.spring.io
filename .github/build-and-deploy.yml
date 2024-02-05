@@ -1,0 +1,38 @@
+name: Build and deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'liberica'
+          cache: 'maven'
+
+      - name: Run the Maven verify phase
+        run: ./mvnw --batch-mode --update-snapshots verify
+
+      - name: Set up Azure
+        uses: azure/login@cb79c773a3cfa27f31f25eb3f677781210c9ce3d
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS_SPRING_IO }}
+
+      - name: Set up Azure Spring Extension
+        run: az extension add --name spring
+
+      - name: Deploy
+        run: |
+          az spring app deploy \
+            --name start-spring-io \
+            --service spring-io \
+            --resource-group spring-io \
+            --artifact-path start-site/target/start-site-exec.jar
