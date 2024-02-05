@@ -24,7 +24,10 @@ jobs:
           path: |
             /tmp/maven-version-resolver-cache
             /tmp/homes
-          key: ${{ runner.os }}-test-repositories
+          # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
+          key: test-repositories-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            test-repositories-${{ runner.os }}
 
       - name: Build with Maven
         run: ./mvnw --batch-mode --update-snapshots verify
