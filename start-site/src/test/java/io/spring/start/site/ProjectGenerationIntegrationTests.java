@@ -216,6 +216,7 @@ class ProjectGenerationIntegrationTests {
 		private Path createTempDirectory() {
 			try {
 				Path path = Path.of(System.getProperty("java.io.tmpdir"))
+					.resolve("homes")
 					.resolve(this.prefix + "-" + this.counter.getAndIncrement());
 				Files.createDirectories(path);
 				return path;
