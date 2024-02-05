@@ -36,6 +36,9 @@ spring:
         use-last-modified: false
 
 initializr:
+  stats:
+    elastic:
+      uri: ${elastic-uri:}
   env:
     boms:
       codecentric-spring-boot-admin:
