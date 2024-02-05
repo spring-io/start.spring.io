@@ -10,14 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'spring-io/start.spring.io' }}
     steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'liberica'
-      - name: Check out code
-        uses: actions/checkout@v3
-      - name: Build
-        run: ./mvnw clean verify
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: ./mvnw --batch-mode --update-snapshots verify
+
       - name: Run metadata verification tests
-        run: ./mvnw -Pverification verify
+        run: ./mvnw --batch-mode --update-snapshots -Pverification verify
