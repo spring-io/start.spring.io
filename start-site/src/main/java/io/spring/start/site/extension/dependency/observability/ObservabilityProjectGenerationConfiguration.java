@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.observability;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
@@ -50,6 +51,13 @@ class ObservabilityProjectGenerationConfiguration {
 		ObservabilityHelpDocumentCustomizer observabilityHelpDocumentCustomizer(ProjectDescription description,
 				Build build) {
 			return new ObservabilityHelpDocumentCustomizer(description, build);
+		}
+
+		@Bean
+		@ConditionalOnRequestedDependency("wavefront")
+		@ConditionalOnPlatformVersion("[3.2.0, 3.3.0-M1)")
+		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
+			return new WavefrontHelpDocumentCustomizer("https://docs.wavefront.com/wavefront_springboot3.html", build);
 		}
 
 	}
