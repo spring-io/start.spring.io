@@ -1053,7 +1053,7 @@ initializr:
           starter: false
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-restdocs/docs/current/reference/html5/
+              href: https://docs.spring.io/spring-restdocs/docs/current/reference/htmlsingle/
         - name: Testcontainers
           id: testcontainers
           description: Provide lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
