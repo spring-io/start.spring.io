@@ -164,8 +164,8 @@ function SideLeft() {
                       >
                         Spring Initializr
                       </a>
-                    </span>{' '}
-                    <span>and</span>{' '}
+                    </span>
+                    <span>,</span>{' '}
                     <span>
                       <a
                         target='_blank'
@@ -173,6 +173,16 @@ function SideLeft() {
                         href='https://buildpacks.io/'
                       >
                         Cloud Native Buildpacks
+                      </a>
+                    </span>{' '}
+                    <span>and</span>{' '}
+                    <span>
+                      <a
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        href='https://azure.microsoft.com/en-us/products/spring-apps'
+                      >
+                        Azure Spring Apps
                       </a>
                     </span>
                   </div>
