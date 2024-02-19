@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import static org.mockito.Mockito.mock;
  * Tests for {@link SpringRestDocsProjectGenerationConfiguration}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class SpringRestDocsProjectGenerationConfigurationTests {
 
@@ -49,13 +50,26 @@ class SpringRestDocsProjectGenerationConfigurationTests {
 	}
 
 	@Test
-	void springRestDocsCustomizerGradle() {
+	void springRestDocsCustomizerGradleGroovy() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setBuildSystem(new GradleBuildSystem());
+		description.setBuildSystem(new GradleBuildSystem(GradleBuildSystem.DIALECT_GROOVY));
 		description.addDependency("restdocs", mock(Dependency.class));
 		this.projectTester.configure(description,
 				(context) -> assertThat(context).getBeans(BuildCustomizer.class)
-					.containsKeys("restDocsGradleBuildCustomizer")
+					.containsKeys("restDocsGradleGroovyBuildCustomizer")
+					.doesNotContainKeys("restDocsGradleKotlinBuildCustomizer")
+					.doesNotContainKeys("restDocsMavenBuildCustomizer"));
+	}
+
+	@Test
+	void springRestDocsCustomizerGradleKotlin() {
+		MutableProjectDescription description = new MutableProjectDescription();
+		description.setBuildSystem(new GradleBuildSystem(GradleBuildSystem.DIALECT_KOTLIN));
+		description.addDependency("restdocs", mock(Dependency.class));
+		this.projectTester.configure(description,
+				(context) -> assertThat(context).getBeans(BuildCustomizer.class)
+					.containsKeys("restDocsGradleKotlinBuildCustomizer")
+					.doesNotContainKeys("restDocsGradleGroovyBuildCustomizer")
 					.doesNotContainKeys("restDocsMavenBuildCustomizer"));
 	}
 

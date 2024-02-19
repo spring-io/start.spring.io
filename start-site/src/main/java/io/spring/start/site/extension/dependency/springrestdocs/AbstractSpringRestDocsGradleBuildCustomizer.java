@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,20 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * {@link BuildCustomizer Customizer} for a {@link GradleBuild} when the generated project
- * depends on Spring REST Docs.
+ * Abstract {@link BuildCustomizer Customizer} for a {@link GradleBuild} when the
+ * generated project * depends on Spring REST Docs.
  *
- * @author Andy Wilkinson
+ * @author Moritz Halbritter
  */
-class SpringRestDocsGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
+abstract class AbstractSpringRestDocsGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	@Override
 	public void customize(GradleBuild build) {
 		build.plugins().add("org.asciidoctor.jvm.convert", (plugin) -> plugin.setVersion("3.3.2"));
 		build.properties().property("snippetsDir", "file(\"build/generated-snippets\")");
-		build.tasks().customize("test", (task) -> task.invoke("outputs.dir", "snippetsDir"));
-		build.tasks().customize("asciidoctor", (task) -> {
-			task.invoke("inputs.dir", "snippetsDir");
-			task.invoke("dependsOn", "test");
-		});
+		customizeForDialect(build);
 	}
+
+	abstract void customizeForDialect(GradleBuild build);
 
 }

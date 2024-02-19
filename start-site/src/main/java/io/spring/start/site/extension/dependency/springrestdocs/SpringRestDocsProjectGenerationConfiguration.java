@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,25 +29,32 @@ import org.springframework.context.annotation.Bean;
  * REST Docs.
  *
  * @author Andy Wilkinson
+ * @author Moritz Halbritter
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("restdocs")
 public class SpringRestDocsProjectGenerationConfiguration {
 
 	@Bean
-	public SpringRestDocsBuildCustomizer springRestDocsBuildCustomizer() {
+	SpringRestDocsBuildCustomizer springRestDocsBuildCustomizer() {
 		return new SpringRestDocsBuildCustomizer();
 	}
 
 	@Bean
-	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
-	public SpringRestDocsGradleBuildCustomizer restDocsGradleBuildCustomizer() {
-		return new SpringRestDocsGradleBuildCustomizer();
+	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
+	SpringRestDocsGradleGroovyBuildCustomizer restDocsGradleGroovyBuildCustomizer() {
+		return new SpringRestDocsGradleGroovyBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
+	SpringRestDocsGradleKotlinBuildCustomizer restDocsGradleKotlinBuildCustomizer() {
+		return new SpringRestDocsGradleKotlinBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-	public SpringRestDocsMavenBuildCustomizer restDocsMavenBuildCustomizer() {
+	SpringRestDocsMavenBuildCustomizer restDocsMavenBuildCustomizer() {
 		return new SpringRestDocsMavenBuildCustomizer();
 	}
 

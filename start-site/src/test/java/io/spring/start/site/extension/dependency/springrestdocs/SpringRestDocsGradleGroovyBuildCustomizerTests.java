@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 
 /**
- * Tests for {@link SpringRestDocsGradleBuildCustomizer}.
+ * Tests for {@link SpringRestDocsGradleGroovyBuildCustomizer}.
  *
  * @author Andy Wilkinson
  */
-class SpringRestDocsGradleBuildCustomizerTests {
+class SpringRestDocsGradleGroovyBuildCustomizerTests {
 
-	private final SpringRestDocsGradleBuildCustomizer customizer = new SpringRestDocsGradleBuildCustomizer();
+	private final SpringRestDocsGradleGroovyBuildCustomizer customizer = new SpringRestDocsGradleGroovyBuildCustomizer();
 
 	@Test
 	void customizesGradleBuild() {
