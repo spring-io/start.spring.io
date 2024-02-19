@@ -48,9 +48,9 @@ import io.spring.initializr.web.project.DefaultProjectRequestToDescriptionConver
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.start.site.test.TemporaryFiles;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -127,8 +127,8 @@ class ProjectGenerationIntegrationTests {
 
 	@ParameterizedTest(name = "{0} - {1} - {2} - {3}")
 	@MethodSource("parameters")
-	void projectBuilds(Version bootVersion, Packaging packaging, Language language, BuildSystem buildSystem,
-			@TempDir Path directory) throws IOException, InterruptedException {
+	void projectBuilds(Version bootVersion, Packaging packaging, Language language, BuildSystem buildSystem)
+			throws IOException, InterruptedException {
 		WebProjectRequest request = new WebProjectRequest();
 		request.setBootVersion(bootVersion.toString());
 		request.setLanguage(language.id());
@@ -143,7 +143,8 @@ class ProjectGenerationIntegrationTests {
 		try {
 			ProcessBuilder processBuilder = createProcessBuilder(buildSystem, home);
 			processBuilder.directory(project.toFile());
-			Path output = Files.createTempFile(directory, "output-", ".log");
+			Path output = TemporaryFiles.newTemporaryDirectory("ProjectGenerationIntegrationTests-projectBuilds")
+				.resolve("output.log");
 			processBuilder.redirectError(output.toFile());
 			processBuilder.redirectOutput(output.toFile());
 			assertThat(processBuilder.start().waitFor()).describedAs(String.join("\n", Files.readAllLines(output)))
@@ -215,7 +216,7 @@ class ProjectGenerationIntegrationTests {
 
 		private Path createTempDirectory() {
 			try {
-				Path path = Path.of(System.getProperty("java.io.tmpdir"))
+				Path path = TemporaryFiles.getTempDir()
 					.resolve("homes")
 					.resolve(this.prefix + "-" + this.counter.getAndIncrement());
 				Files.createDirectories(path);
