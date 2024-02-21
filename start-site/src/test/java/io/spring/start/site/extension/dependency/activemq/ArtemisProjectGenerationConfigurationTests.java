@@ -19,8 +19,8 @@ package io.spring.start.site.extension.dependency.activemq;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
-
 import org.junit.jupiter.api.Test;
+
 import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
