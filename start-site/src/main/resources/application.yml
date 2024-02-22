@@ -1547,7 +1547,7 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/embeddings/postgresml-embeddings.html
-        - name: Redis Search and Query Redis Search and Query
+        - name: Redis Search and Query
           id: spring-ai-vectordb-redis
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
