@@ -69,7 +69,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService artemis() {
 		return DockerService.withImageAndTag("apache/activemq-artemis")
-			.website("https://hub.docker.com/r/apache/activemq-classic")
+			.website("https://hub.docker.com/r/apache/activemq-artemis")
 			.ports(61616)
 			.build();
 	}
