@@ -84,10 +84,7 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.0.0,3.3.0-M1)"
-            # TODO: Replace with released version
-            version: 0.8.0-SNAPSHOT
-            # TODO: Remove once on Maven central
-            repositories: spring-snapshots
+            version: 0.8.0
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1442,7 +1439,7 @@ initializr:
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
           artifact-id: spring-ai-azure-vector-store-spring-boot-starter
-          description: Spring AI support for Azure AI Search. It is an AI-powered information retrieval platform and part of Microsoft’s larger AI platform. Among other features, it allows users to query information using vector-based storage and retrieval.
+          description: Spring AI vector database support for Azure AI Search. It is an AI-powered information retrieval platform and part of Microsoft’s larger AI platform. Among other features, it allows users to query information using vector-based storage and retrieval.
           bom: spring-ai
           starter: true
           links:
@@ -1459,34 +1456,34 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/bedrock-chat.html
-        - name: Chroma
+        - name: Chroma Vector Database
           id: spring-ai-vectordb-chroma
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
           artifact-id: spring-ai-chroma-store-spring-boot-starter
-          description: Spring AI support for Chroma. It is an open-source embedding database and gives you the tools to store document embeddings, content, and metadata. It also allows to search through those embeddings, including metadata filtering.
+          description: Spring AI vector database support for Chroma. It is an open-source embedding database and gives you the tools to store document embeddings, content, and metadata. It also allows to search through those embeddings, including metadata filtering.
           bom: spring-ai
           starter: true
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/chroma.html
-        - name: Milvus
+        - name: Milvus Vector Database
           id: spring-ai-vectordb-milvus
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
           artifact-id: spring-ai-milvus-store-spring-boot-starter
-          description: Spring AI support for Milvus. It is an open-source vector database that has garnered significant attention in the fields of data science and machine learning. One of its standout features lies in its robust support for vector indexing and querying.
+          description: Spring AI vector database support for Milvus. It is an open-source vector database that has garnered significant attention in the fields of data science and machine learning. One of its standout features lies in its robust support for vector indexing and querying.
           bom: spring-ai
           starter: true
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/milvus.html
-        - name: Neo4J Vector Search
+        - name: Neo4J Vector Database
           id: spring-ai-vectordb-neo4j
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
           artifact-id: spring-ai-neo4j-store-spring-boot-starter
-          description: Spring AI support for Neo4j's Vector Search. It allows users to query vector embeddings from large datasets.
+          description: Spring AI vector database support for Neo4j's Vector Search. It allows users to query vector embeddings from large datasets.
           bom: spring-ai
           starter: true
           links:
@@ -1514,23 +1511,23 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/clients/openai-chat.html
-        - name: PGvector
+        - name: PGvector Vector Database
           id: spring-ai-vectordb-pgvector
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
           artifact-id: spring-ai-pgvector-store-spring-boot-starter
-          description: Spring AI support for PGvector. It is an open-source extension for PostgreSQL that enables storing and searching over machine learning-generated embeddings.
+          description: Spring AI vector database support for PGvector. It is an open-source extension for PostgreSQL that enables storing and searching over machine learning-generated embeddings.
           bom: spring-ai
           starter: true
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/pgvector.html
-        - name: Pinecone
+        - name: Pinecone Vector Database
           id: spring-ai-vectordb-pinecone
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
           artifact-id: spring-ai-pinecone-store-spring-boot-starter
-          description: Spring AI support for Pinecone. It is a popular cloud-based vector database and allows you to store and search vectors efficiently.
+          description: Spring AI vector database support for Pinecone. It is a popular cloud-based vector database and allows you to store and search vectors efficiently.
           bom: spring-ai
           starter: true
           links:
@@ -1547,12 +1544,12 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/embeddings/postgresml-embeddings.html
-        - name: Redis Search and Query
+        - name: Redis Search and Query Vector Database
           id: spring-ai-vectordb-redis
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
           artifact-id: spring-ai-redis-spring-boot-starter
-          description: Spring AI support for Redis Search and Query.It extends the core features of Redis OSS and allows you to use Redis as a vector database.
+          description: Spring AI vector database support for Redis Search and Query.It extends the core features of Redis OSS and allows you to use Redis as a vector database.
           bom: spring-ai
           starter: true
           links:
@@ -1591,12 +1588,12 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/clients/vertexai-chat.html
-        - name: Weaviate
+        - name: Weaviate Vector Database
           id: spring-ai-vectordb-weaviate
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
           artifact-id: spring-ai-weaviate-store-spring-boot-starter
-          description: Spring AI support for Weaviate, an open-source vector database. It allows you to store data objects and vector embeddings from your favorite ML-models and scale seamlessly into billions of data objects.
+          description: Spring AI vector database support for Weaviate, an open-source vector database. It allows you to store data objects and vector embeddings from your favorite ML-models and scale seamlessly into billions of data objects.
           bom: spring-ai
           starter: true
           links:
