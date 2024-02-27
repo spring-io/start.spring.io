@@ -223,7 +223,7 @@ initializr:
           description: Support for building modular monolithic applications.
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-modulith/docs/current/reference/html/
+              href: https://docs.spring.io/spring-modulith/reference/
     - name: Web
       content:
         - name: Spring Web
