@@ -719,6 +719,15 @@ initializr:
               description: Messaging with RabbitMQ
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#messaging.amqp
+        - name: Spring for RabbitMQ Streams
+          id: amqp-streams
+          description: Building stream processing applications with RabbitMQ.
+          groupId: org.springframework.amqp
+          artifactId: spring-rabbit-stream
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-amqp/reference/stream.html
         - name: Spring for Apache Kafka
           id: kafka
           description: Publish, subscribe, store, and process streams of records.

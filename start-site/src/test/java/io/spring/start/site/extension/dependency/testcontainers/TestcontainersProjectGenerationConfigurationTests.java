@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,8 +66,9 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	}
 
 	static Stream<Arguments> supportedEntriesBuild() {
-		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.arguments("cloud-gcp", "gcloud"),
-				Arguments.arguments("cloud-gcp-pubsub", "gcloud"), Arguments.arguments("data-cassandra", "cassandra"),
+		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.of("amqp-streams", "rabbitmq"),
+				Arguments.arguments("cloud-gcp", "gcloud"), Arguments.arguments("cloud-gcp-pubsub", "gcloud"),
+				Arguments.arguments("data-cassandra", "cassandra"),
 				Arguments.arguments("data-cassandra-reactive", "cassandra"),
 				Arguments.arguments("data-couchbase", "couchbase"),
 				Arguments.arguments("data-couchbase-reactive", "couchbase"),
@@ -96,8 +97,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	}
 
 	static Stream<Arguments> supportedEntriesHelpDocument() {
-		return Stream.of(Arguments.arguments("amqp", "rabbitmq/"), Arguments.arguments("cloud-gcp", "gcloud/"),
-				Arguments.arguments("cloud-gcp-pubsub", "gcloud/"),
+		return Stream.of(Arguments.arguments("amqp", "rabbitmq/"), Arguments.arguments("amqp-streams", "rabbitmq/"),
+				Arguments.arguments("cloud-gcp", "gcloud/"), Arguments.arguments("cloud-gcp-pubsub", "gcloud/"),
 				Arguments.arguments("cloud-starter-consul-config", "consul/"),
 				Arguments.arguments("cloud-starter-vault-config", "vault/"),
 				Arguments.arguments("data-cassandra", "databases/cassandra/"),

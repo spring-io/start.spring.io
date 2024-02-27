@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ abstract class TestcontainersModuleRegistry {
 
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<ImplicitDependency.Builder> builders = new ArrayList<>();
-		builders.add(onDependencies("amqp").customizeBuild(addModule("rabbitmq"))
+		builders.add(onDependencies("amqp", "amqp-streams").customizeBuild(addModule("rabbitmq"))
 			.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")));
 		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud"))
 			.customizeHelpDocument(addReferenceLink("GCloud Module", "gcloud/")));
