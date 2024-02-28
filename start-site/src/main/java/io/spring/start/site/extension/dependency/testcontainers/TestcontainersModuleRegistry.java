@@ -52,7 +52,7 @@ abstract class TestcontainersModuleRegistry {
 			builders.add(onDependencies("artemis").customizeBuild(addModule("activemq"))
 				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
 		}
-		builders.add(onDependencies("amqp").customizeBuild(addModule("rabbitmq"))
+		builders.add(onDependencies("amqp", "amqp-streams").customizeBuild(addModule("rabbitmq"))
 			.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")));
 		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud"))
 			.customizeHelpDocument(addReferenceLink("GCloud Module", "gcloud/")));

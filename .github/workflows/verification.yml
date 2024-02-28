@@ -1,0 +1,41 @@
+name: Verification
+on:
+  schedule:
+    - cron: '15 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  verification:
+    name: Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'liberica'
+          cache: 'maven'
+
+      - name: Cache Maven/Gradle repositories for tests
+        uses: actions/cache@v4
+        with:
+          path: /tmp/start-spring-io-cache
+          # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
+          key: test-repositories-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: test-repositories-${{ runner.os }}-
+
+      - name: Build with Maven
+        env:
+          START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache
+        run: ./mvnw --batch-mode --update-snapshots --activate-profiles verification verify
+
+      - name: Google Chat Notification
+        uses: Co-qn/google-chat-notification@3691ccf4763537d6e544bc6cdcccc1965799d056
+        with:
+          name: Verification
+          url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+          status: ${{ job.status }}
+        if: always()
