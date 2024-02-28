@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build and deploy
+  verification:
+    name: Verification
     runs-on: ubuntu-latest
     steps:
       - name: Check out
