@@ -38,7 +38,7 @@ class PgVectorProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer postgresqlServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+	ServiceConnectionsCustomizer pgvectorServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver
 			.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
 					ServiceConnections.ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
