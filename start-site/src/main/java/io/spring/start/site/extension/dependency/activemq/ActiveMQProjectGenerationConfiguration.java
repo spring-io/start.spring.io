@@ -46,7 +46,7 @@ public class ActiveMQProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("3.2.0-M1")
+	@ConditionalOnPlatformVersion("3.3.0-M2")
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer activeMQClassicServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("activeMQClassic", (service) -> serviceConnections
