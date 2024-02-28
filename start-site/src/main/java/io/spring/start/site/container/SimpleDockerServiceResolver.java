@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import java.util.Map;
  * @author Stephane Nicoll
  * @author Moritz Halbritter
  * @author Chris Bono
+ * @author Eddú Meléndez
  */
 public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
@@ -40,6 +41,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("mariaDb", mariaDb());
 		this.dockerServices.put("mongoDb", mongoDb());
 		this.dockerServices.put("mysql", mysql());
+		this.dockerServices.put("neo4j", neo4j());
 		this.dockerServices.put("oracleFree", oracleFree());
 		this.dockerServices.put("oracleXe", oracleXe());
 		this.dockerServices.put("postgres", postgres());
@@ -89,6 +91,10 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService mysql() {
 		return DockerService.withImageAndTag("mysql").website("https://hub.docker.com/_/mysql").ports(3306).build();
+	}
+
+	private static DockerService neo4j() {
+		return DockerService.withImageAndTag("neo4j").website("https://hub.docker.com/_/neo4j").ports(7687).build();
 	}
 
 	private static DockerService oracleFree() {
