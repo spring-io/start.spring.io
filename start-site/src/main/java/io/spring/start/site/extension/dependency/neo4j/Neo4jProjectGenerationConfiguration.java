@@ -22,6 +22,7 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
