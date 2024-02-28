@@ -19,6 +19,8 @@ package io.spring.start.site.extension.dependency.postgresql;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
+import io.spring.start.site.container.ServiceConnections;
+import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +33,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnRequestedDependency("spring-ai-vectordb-pgvector")
 class PgVectorProjectGenerationConfiguration {
+
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.PostgreSQLContainer";
+
+	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
+	ServiceConnectionsCustomizer postgresqlServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver
+			.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
+					ServiceConnections.ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
