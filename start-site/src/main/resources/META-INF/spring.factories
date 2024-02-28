@@ -15,6 +15,7 @@ io.spring.start.site.extension.dependency.hilla.HillaProjectGenerationConfigurat
 io.spring.start.site.extension.dependency.mariadb.MariaDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mongodb.MongoDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mysql.MysqlProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.neo4j.Neo4jProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.observability.ObservabilityProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.oracle.OracleProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.picocli.PicocliProjectGenerationConfiguration,\
