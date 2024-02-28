@@ -40,7 +40,7 @@ public class Neo4jProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer neo4jServiceConnectionsCustomizer(Build build, DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> {
-			if (isCassandraEnabled(build)) {
+			if (isNeo4jEnabled(build)) {
 				serviceResolver.doWith("neo4j", (service) -> serviceConnections
 					.addServiceConnection(ServiceConnection.ofContainer("neo4j", service, TESTCONTAINERS_CLASS_NAME)));
 			}
@@ -51,14 +51,14 @@ public class Neo4jProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer neo4jComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
 		return (composeFile) -> {
-			if (isCassandraEnabled(build)) {
+			if (isNeo4jEnabled(build)) {
 				serviceResolver.doWith("neo4j", (service) -> composeFile.services()
 					.add("neo4j", service.andThen((builder) -> builder.environment("NEO4J_AUTH", "neo4j/secret"))));
 			}
 		};
 	}
 
-	private boolean isCassandraEnabled(Build build) {
+	private boolean isNeo4jEnabled(Build build) {
 		return build.dependencies().has("data-neo4j") || build.dependencies().has("spring-ai-vectordb-neo4j");
 	}
 
