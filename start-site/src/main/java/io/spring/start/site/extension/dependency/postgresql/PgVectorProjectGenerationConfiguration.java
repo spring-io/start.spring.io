@@ -16,10 +16,11 @@
 
 package io.spring.start.site.extension.dependency.postgresql;
 
+import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
-import io.spring.start.site.container.ServiceConnections;
+import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
@@ -37,11 +38,12 @@ class PgVectorProjectGenerationConfiguration {
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.PostgreSQLContainer";
 
 	@Bean
+	@ConditionalOnPlatformVersion("3.3.0-M3")
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer pgvectorServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver
-			.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
-					ServiceConnections.ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
+				.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
 	}
 
 	@Bean
