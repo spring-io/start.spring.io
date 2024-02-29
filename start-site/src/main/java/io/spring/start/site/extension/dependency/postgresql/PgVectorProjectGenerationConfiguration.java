@@ -43,7 +43,7 @@ class PgVectorProjectGenerationConfiguration {
 
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.PostgreSQLContainer";
 
-	private static final VersionRange TESTCONTAINERS_1_9_7_OR_LATER = VersionParser.DEFAULT.parseRange("1.19.7");
+	private static final VersionRange TESTCONTAINERS_1_19_7_OR_LATER = VersionParser.DEFAULT.parseRange("1.19.7");
 
 	private final MavenVersionResolver versionResolver;
 
@@ -63,7 +63,7 @@ class PgVectorProjectGenerationConfiguration {
 		String testcontainersVersion = resolve.get("org.testcontainers:testcontainers");
 
 		return (serviceConnections) -> {
-			if (TESTCONTAINERS_1_9_7_OR_LATER.match(Version.parse(testcontainersVersion))) {
+			if (TESTCONTAINERS_1_19_7_OR_LATER.match(Version.parse(testcontainersVersion))) {
 				serviceResolver.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
 			}
