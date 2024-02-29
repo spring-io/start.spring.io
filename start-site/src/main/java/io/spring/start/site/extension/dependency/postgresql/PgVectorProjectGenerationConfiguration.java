@@ -16,6 +16,8 @@
 
 package io.spring.start.site.extension.dependency.postgresql;
 
+import java.util.Map;
+
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.version.Version;
@@ -29,8 +31,6 @@ import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Map;
 
 /**
  * Configuration for generation of projects that depend on PgVector.
@@ -49,8 +49,7 @@ class PgVectorProjectGenerationConfiguration {
 
 	private final ProjectDescription description;
 
-	public PgVectorProjectGenerationConfiguration(MavenVersionResolver versionResolver,
-			ProjectDescription description) {
+	PgVectorProjectGenerationConfiguration(MavenVersionResolver versionResolver, ProjectDescription description) {
 		this.versionResolver = versionResolver;
 		this.description = description;
 	}
