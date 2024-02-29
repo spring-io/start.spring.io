@@ -52,7 +52,8 @@ class PgVectorProjectGenerationConfiguration {
 					.add("pgvector",
 							service.andThen((builder) -> builder.environment("POSTGRES_USER", "myuser")
 								.environment("POSTGRES_DB", "mydatabase")
-								.environment("POSTGRES_PASSWORD", "secret"))));
+								.environment("POSTGRES_PASSWORD", "secret")
+								.label("org.springframework.boot.service-connection", "postgres"))));
 	}
 
 }
