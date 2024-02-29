@@ -16,8 +16,12 @@
 
 package io.spring.start.site.extension.dependency.postgresql;
 
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -25,6 +29,8 @@ import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Map;
 
 /**
  * Configuration for generation of projects that depend on PgVector.
@@ -37,13 +43,31 @@ class PgVectorProjectGenerationConfiguration {
 
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.PostgreSQLContainer";
 
+	private static final VersionRange TESTCONTAINERS_1_9_7_OR_LATER = VersionParser.DEFAULT.parseRange("1.19.7");
+
+	private final MavenVersionResolver versionResolver;
+
+	private final ProjectDescription description;
+
+	public PgVectorProjectGenerationConfiguration(MavenVersionResolver versionResolver,
+			ProjectDescription description) {
+		this.versionResolver = versionResolver;
+		this.description = description;
+	}
+
 	@Bean
-	@ConditionalOnPlatformVersion("3.3.0-M3")
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer pgvectorServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver
-				.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
+		Map<String, String> resolve = this.versionResolver.resolveDependencies("org.springframework.boot",
+				"spring-boot-dependencies", this.description.getPlatformVersion().toString());
+		String testcontainersVersion = resolve.get("org.testcontainers:testcontainers");
+
+		return (serviceConnections) -> {
+			if (TESTCONTAINERS_1_9_7_OR_LATER.match(Version.parse(testcontainersVersion))) {
+				serviceResolver.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
+			}
+		};
 	}
 
 	@Bean
