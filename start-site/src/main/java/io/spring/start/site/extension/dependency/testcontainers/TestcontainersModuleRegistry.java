@@ -42,11 +42,11 @@ abstract class TestcontainersModuleRegistry {
 
 	private static final VersionRange SPRING_BOOT_3_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0");
 
-	private static final VersionRange SPRING_BOOT_3_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
+	private static final VersionRange SPRING_BOOT_3_3_0_M2_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M2");
 
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<ImplicitDependency.Builder> builders = new ArrayList<>();
-		if (SPRING_BOOT_3_3_0_OR_LATER.match(platformVersion)) {
+		if (SPRING_BOOT_3_3_0_M2_OR_LATER.match(platformVersion)) {
 			builders.add(onDependencies("activemq").customizeBuild(addModule("activemq"))
 				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
 			builders.add(onDependencies("artemis").customizeBuild(addModule("activemq"))

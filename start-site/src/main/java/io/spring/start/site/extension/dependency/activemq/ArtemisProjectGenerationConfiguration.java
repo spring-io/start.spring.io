@@ -42,7 +42,7 @@ public class ArtemisProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer artemisServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("artemis", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("artemis", service, TESTCONTAINERS_CLASS_NAME)));
+			.addServiceConnection(ServiceConnection.ofContainer("artemis", service, TESTCONTAINERS_CLASS_NAME, false)));
 	}
 
 	@Bean
