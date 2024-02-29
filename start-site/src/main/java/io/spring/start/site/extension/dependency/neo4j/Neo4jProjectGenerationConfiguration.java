@@ -53,7 +53,8 @@ public class Neo4jProjectGenerationConfiguration {
 		return (composeFile) -> {
 			if (isNeo4jEnabled(build)) {
 				serviceResolver.doWith("neo4j", (service) -> composeFile.services()
-					.add("neo4j", service.andThen((builder) -> builder.environment("NEO4J_AUTH", "neo4j/secret"))));
+					.add("neo4j",
+							service.andThen((builder) -> builder.environment("NEO4J_AUTH", "neo4j/notverysecret"))));
 			}
 		};
 	}
