@@ -26,40 +26,32 @@ import org.springframework.core.io.ClassPathResource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ActiveMQProjectGenerationConfiguration}.
+ * Tests for {@link ArtemisProjectGenerationConfiguration}.
  *
- * @author Stephane Nicoll
  * @author Eddú Meléndez
  */
-class ActiveMQProjectGenerationConfigurationTests extends AbstractExtensionTests {
+class ArtemisProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void dockerComposeWhenDockerComposeIsNotSelectedDoesNotCreateService() {
-		ProjectRequest request = createProjectRequest("web", "activemq");
-		request.setBootVersion("3.2.0-M1");
+		ProjectRequest request = createProjectRequest("web", "artemis");
+		request.setBootVersion("3.3.0-M2");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
 	void dockerComposeWhenIncompatibleSpringBootVersionDoesNotCreateService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
+		ProjectRequest request = createProjectRequest("docker-compose", "artemis");
 		request.setBootVersion("3.1.1");
-		assertThat(composeFile(request)).doesNotContain("activemq");
+		assertThat(composeFile(request)).doesNotContain("artemis");
 	}
 
 	@Test
 	void dockerComposeCreatesAppropriateService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
-		request.setBootVersion("3.2.0-M1");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq.yaml"));
-	}
-
-	@Test
-	void dockerComposeCreatesAppropriateServiceWithVersion33() {
-		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
+		ProjectRequest request = createProjectRequest("docker-compose", "artemis");
 		request.setBootVersion("3.3.0-M2");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq-classic.yaml"));
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/artemis.yaml"));
 	}
 
 }
