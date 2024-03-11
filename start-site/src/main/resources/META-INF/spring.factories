@@ -1,6 +1,7 @@
 io.spring.initializr.generator.project.ProjectGenerationConfiguration=\
 io.spring.start.site.extension.build.gradle.GradleProjectGenerationConfiguration,\
 io.spring.start.site.extension.build.maven.MavenProjectGenerationConfiguration,\
+io.spring.start.site.extension.code.kotlin.KotlinProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.DependencyProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.activemq.ActiveMQProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.activemq.ArtemisProjectGenerationConfiguration,\
@@ -38,4 +39,4 @@ io.spring.start.site.extension.dependency.testcontainers.TestcontainersProjectGe
 io.spring.start.site.extension.dependency.vaadin.VaadinProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.zipkin.ZipkinProjectGenerationConfiguration,\
 io.spring.start.site.extension.description.DescriptionProjectGenerationConfiguration,\
-io.spring.start.site.extension.code.kotlin.KotlinProjectGenerationConfiguration
+io.spring.start.site.extension.properties.ApplicationPropertiesProjectGenerationConfiguration
