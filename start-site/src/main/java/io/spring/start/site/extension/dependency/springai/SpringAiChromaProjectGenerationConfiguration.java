@@ -16,10 +16,12 @@
 
 package io.spring.start.site.extension.dependency.springai;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,9 +38,14 @@ class SpringAiChromaProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer chromaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("chroma", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("chroma", service, TESTCONTAINERS_CLASS_NAME)));
+	ServiceConnectionsCustomizer chromaServiceConnectionsCustomizer(Build build,
+			DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> {
+			if (SpringAiVersion.version1OrLater(build)) {
+				serviceResolver.doWith("chroma", (service) -> serviceConnections
+					.addServiceConnection(ServiceConnection.ofContainer("chroma", service, TESTCONTAINERS_CLASS_NAME)));
+			}
+		};
 	}
 
 }
