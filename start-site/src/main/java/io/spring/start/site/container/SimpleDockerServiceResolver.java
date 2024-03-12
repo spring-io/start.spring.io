@@ -38,6 +38,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("activeMQClassic", activeMQClassic());
 		this.dockerServices.put("artemis", artemis());
 		this.dockerServices.put("cassandra", cassandra());
+		this.dockerServices.put("chroma", chroma());
 		this.dockerServices.put("elasticsearch", elasticsearch());
 		this.dockerServices.put("kafka", kafka());
 		this.dockerServices.put("mariaDb", mariaDb());
@@ -79,6 +80,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("cassandra")
 			.website("https://hub.docker.com/_/cassandra")
 			.ports(9042)
+			.build();
+	}
+
+	private static DockerService chroma() {
+		return DockerService.withImageAndTag("chromadb/chroma")
+			.website("https://hub.docker.com/r/chromadb/chroma")
+			.ports(8000)
 			.build();
 	}
 
