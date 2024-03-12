@@ -54,6 +54,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("rabbit", rabbit());
 		this.dockerServices.put("redis", redis());
 		this.dockerServices.put("sqlServer", sqlServer());
+		this.dockerServices.put("weaviate", weaviate());
 		this.dockerServices.put("zipkin", zipkin());
 	}
 
@@ -181,6 +182,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("mcr.microsoft.com/mssql/server")
 			.website("https://mcr.microsoft.com/en-us/product/mssql/server/about/")
 			.ports(1433)
+			.build();
+	}
+
+	private static DockerService weaviate() {
+		return DockerService.withImageAndTag("semitechnologies/weaviate")
+			.website("https://hub.docker.com/r/semitechnologies/weaviate")
+			.ports(8080)
 			.build();
 	}
 

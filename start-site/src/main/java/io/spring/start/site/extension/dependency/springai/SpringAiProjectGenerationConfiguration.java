@@ -38,6 +38,8 @@ class SpringAiProjectGenerationConfiguration {
 
 	private static final String QDRANT_TESTCONTAINERS_CLASS_NAME = "org.testcontainers.qdrant.QdrantContainer";
 
+	private static final String WEAVIATE_TESTCONTAINERS_CLASS_NAME = "org.testcontainers.weaviate.WeaviateContainer";
+
 	@Bean
 	@ConditionalOnRequestedDependency("spring-ai-vectordb-chroma")
 	ServiceConnectionsCustomizer chromaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
@@ -57,6 +59,14 @@ class SpringAiProjectGenerationConfiguration {
 	ServiceConnectionsCustomizer qdrantServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("qdrant", (service) -> serviceConnections
 			.addServiceConnection(ServiceConnection.ofContainer("qdrant", service, QDRANT_TESTCONTAINERS_CLASS_NAME)));
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("spring-ai-vectordb-weaviate")
+	ServiceConnectionsCustomizer weaviateServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("weaviate",
+				(service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("weaviate", service, WEAVIATE_TESTCONTAINERS_CLASS_NAME)));
 	}
 
 }
