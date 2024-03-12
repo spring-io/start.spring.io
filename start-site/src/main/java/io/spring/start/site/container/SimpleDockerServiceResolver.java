@@ -50,6 +50,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("pgvector", pgvector());
 		this.dockerServices.put("postgres", postgres());
 		this.dockerServices.put("pulsar", pulsar());
+		this.dockerServices.put("qdrant", qdrant());
 		this.dockerServices.put("rabbit", rabbit());
 		this.dockerServices.put("redis", redis());
 		this.dockerServices.put("sqlServer", sqlServer());
@@ -155,6 +156,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 			.website("https://hub.docker.com/r/apachepulsar/pulsar")
 			.command("bin/pulsar standalone")
 			.ports(8080, 6650)
+			.build();
+	}
+
+	private static DockerService qdrant() {
+		return DockerService.withImageAndTag("qdrant/qdrant")
+			.website("https://hub.docker.com/r/qdrant/qdrant")
+			.ports(6334)
 			.build();
 	}
 

@@ -36,6 +36,8 @@ class SpringAiProjectGenerationConfiguration {
 
 	private static final String MILVUS_TESTCONTAINERS_CLASS_NAME = "org.testcontainers.milvus.MilvusContainer";
 
+	private static final String QDRANT_TESTCONTAINERS_CLASS_NAME = "org.testcontainers.qdrant.QdrantContainer";
+
 	@Bean
 	@ConditionalOnRequestedDependency("spring-ai-vectordb-chroma")
 	ServiceConnectionsCustomizer chromaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
@@ -48,6 +50,13 @@ class SpringAiProjectGenerationConfiguration {
 	ServiceConnectionsCustomizer milvusServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("milvus", (service) -> serviceConnections
 			.addServiceConnection(ServiceConnection.ofContainer("milvus", service, MILVUS_TESTCONTAINERS_CLASS_NAME)));
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("spring-ai-vectordb-qdrant")
+	ServiceConnectionsCustomizer qdrantServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("qdrant", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("qdrant", service, QDRANT_TESTCONTAINERS_CLASS_NAME)));
 	}
 
 }
