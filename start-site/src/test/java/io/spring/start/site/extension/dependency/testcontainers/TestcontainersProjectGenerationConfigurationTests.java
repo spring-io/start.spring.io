@@ -71,6 +71,17 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency("testcontainers"));
 	}
 
+	@ParameterizedTest
+	@MethodSource("supportedTestcontainersSpringAiEntriesBuild")
+	void buildWithSpringBoot33M3AndTestcontainersSpringAiModule(String springBootDependencyId,
+			String testcontainersArtifactId) {
+		assertThat(generateProject(SPRING_BOOT_VERSION_3_3, "testcontainers", springBootDependencyId)).mavenBuild()
+			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
+			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.3.0")))
+			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
+			.hasDependency(getDependency("testcontainers"));
+	}
+
 	static Stream<Arguments> supportedEntriesBuild320() {
 		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.of("amqp-streams", "rabbitmq"),
 				Arguments.arguments("cloud-gcp", "gcloud"), Arguments.arguments("cloud-gcp-pubsub", "gcloud"),
@@ -93,6 +104,14 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	static Stream<Arguments> supportedTestcontainersActiveMQEntriesBuild() {
 		return Stream.of(Arguments.arguments("activemq", "activemq"), Arguments.arguments("artemis", "activemq"));
+	}
+
+	static Stream<Arguments> supportedTestcontainersSpringAiEntriesBuild() {
+		return Stream.of(Arguments.arguments("spring-ai-vectordb-chroma", "chromadb"),
+				Arguments.arguments("spring-ai-vectordb-milvus", "milvus"),
+				Arguments.arguments("spring-ai-vectordb-ollama", "ollama"),
+				Arguments.arguments("spring-ai-vectordb-qdrant", "qdrant"),
+				Arguments.arguments("spring-ai-vectordb-weaviate", "weaviate"));
 	}
 
 	@ParameterizedTest
