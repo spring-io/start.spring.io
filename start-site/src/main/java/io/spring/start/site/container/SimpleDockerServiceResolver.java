@@ -42,6 +42,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("elasticsearch", elasticsearch());
 		this.dockerServices.put("kafka", kafka());
 		this.dockerServices.put("mariaDb", mariaDb());
+		this.dockerServices.put("milvus", milvus());
 		this.dockerServices.put("mongoDb", mongoDb());
 		this.dockerServices.put("mysql", mysql());
 		this.dockerServices.put("neo4j", neo4j());
@@ -107,6 +108,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService mariaDb() {
 		return DockerService.withImageAndTag("mariadb").website("https://hub.docker.com/_/mariadb").ports(3306).build();
+	}
+
+	private static DockerService milvus() {
+		return DockerService.withImageAndTag("milvusdb/milvus")
+			.website("https://hub.docker.com/r/milvusdb/milvus")
+			.ports(19530)
+			.build();
 	}
 
 	private static DockerService mongoDb() {

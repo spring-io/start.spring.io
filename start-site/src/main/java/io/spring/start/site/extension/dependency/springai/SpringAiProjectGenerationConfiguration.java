@@ -34,11 +34,20 @@ class SpringAiProjectGenerationConfiguration {
 
 	private static final String CHROMA_TESTCONTAINERS_CLASS_NAME = "org.testcontainers.chromadb.ChromaDBContainer";
 
+	private static final String MILVUS_TESTCONTAINERS_CLASS_NAME = "org.testcontainers.milvus.MilvusContainer";
+
 	@Bean
 	@ConditionalOnRequestedDependency("spring-ai-vectordb-chroma")
 	ServiceConnectionsCustomizer chromaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("chroma", (service) -> serviceConnections
 			.addServiceConnection(ServiceConnection.ofContainer("chroma", service, CHROMA_TESTCONTAINERS_CLASS_NAME)));
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("spring-ai-vectordb-milvus")
+	ServiceConnectionsCustomizer milvusServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("milvus", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("milvus", service, MILVUS_TESTCONTAINERS_CLASS_NAME)));
 	}
 
 }
