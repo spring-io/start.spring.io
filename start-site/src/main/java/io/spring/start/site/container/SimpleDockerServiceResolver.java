@@ -46,6 +46,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("mongoDb", mongoDb());
 		this.dockerServices.put("mysql", mysql());
 		this.dockerServices.put("neo4j", neo4j());
+		this.dockerServices.put("ollama", ollama());
 		this.dockerServices.put("oracleFree", oracleFree());
 		this.dockerServices.put("pgvector", pgvector());
 		this.dockerServices.put("postgres", postgres());
@@ -129,6 +130,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService neo4j() {
 		return DockerService.withImageAndTag("neo4j").website("https://hub.docker.com/_/neo4j").ports(7687).build();
+	}
+
+	private static DockerService ollama() {
+		return DockerService.withImageAndTag("ollama/ollama")
+			.website("https://hub.docker.com/r/ollama/ollama")
+			.ports(11434)
+			.build();
 	}
 
 	private static DockerService oracleFree() {

@@ -40,6 +40,8 @@ class SpringAiProjectGenerationConfiguration {
 
 	private static final String WEAVIATE_TESTCONTAINERS_CLASS_NAME = "org.testcontainers.weaviate.WeaviateContainer";
 
+	private static final String OLLAMA_TESTCONTAINERS_CLASS_NAME = "org.testcontainers.ollama.OllamaContainer";
+
 	@Bean
 	@ConditionalOnRequestedDependency("spring-ai-vectordb-chroma")
 	ServiceConnectionsCustomizer chromaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
@@ -67,6 +69,13 @@ class SpringAiProjectGenerationConfiguration {
 		return (serviceConnections) -> serviceResolver.doWith("weaviate",
 				(service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("weaviate", service, WEAVIATE_TESTCONTAINERS_CLASS_NAME)));
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("spring-ai-ollama")
+	ServiceConnectionsCustomizer ollamaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("ollama", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("ollama", service, OLLAMA_TESTCONTAINERS_CLASS_NAME)));
 	}
 
 }
