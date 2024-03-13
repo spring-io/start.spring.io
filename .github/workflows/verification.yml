@@ -24,8 +24,8 @@ jobs:
         with:
           path: /tmp/start-spring-io-cache
           # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
-          key: test-repositories-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: test-repositories-${{ runner.os }}-
+          key: test-repositories-ubuntu-latest-${{ github.run_id }}
+          restore-keys: test-repositories-ubuntu-latest
 
       - name: Build with Maven
         env:
