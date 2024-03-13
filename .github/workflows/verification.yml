@@ -32,10 +32,10 @@ jobs:
           START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache
         run: ./mvnw --batch-mode --update-snapshots --activate-profiles verification verify
 
-      - name: Google Chat Notification
-        uses: Co-qn/google-chat-notification@3691ccf4763537d6e544bc6cdcccc1965799d056
-        with:
-          name: Verification
-          url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
-          status: ${{ job.status }}
+      - name: Send notification
+        uses: ./.github/actions/send-notification
         if: always()
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+          status: ${{ job.status }}
+          run-name: ${{ format('start.spring.io (Verification) | {0}', github.ref_name) }}
