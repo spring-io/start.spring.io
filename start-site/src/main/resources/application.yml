@@ -84,7 +84,7 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.0.0,3.3.0-M1)"
-            version: 0.8.0
+            version: 0.8.1
             repositories: spring-milestones
       spring-cloud:
         groupId: org.springframework.cloud
@@ -1494,6 +1494,17 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/milvus.html
+        - name: Mistral AI
+          id: spring-ai-mistral
+          compatibility-range: "[3.1.0,3.3.0-M1)"
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-mistral-ai-spring-boot-starter
+          description: Spring AI support for Mistral AI, the open and portable generative AI for devs and businesses.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/clients/mistralai-chat.html
         - name: Neo4J Vector Database
           id: spring-ai-vectordb-neo4j
           compatibility-range: "[3.1.0,3.3.0-M1)"
@@ -1593,17 +1604,39 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/embeddings/onnx.html
-        - name: Vertex AI
-          id: spring-ai-vertexai
+        - name: Vertex AI PaLM2
+          id: spring-ai-vertexai-palm2
           compatibility-range: "[3.1.0,3.3.0-M1)"
           group-id: org.springframework.ai
-          artifact-id: spring-ai-vertex-ai-spring-boot-starter
-          description: Spring AI support for Google Vertex PaLM chat and embedding models.
+          artifact-id: spring-ai-vertex-ai-palm2-spring-boot-starter
+          description: Spring AI support for Google Vertex PaLM2 chat and embedding models.
           bom: spring-ai
           starter: true
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/clients/vertexai-chat.html
+              href: https://docs.spring.io/spring-ai/reference/api/clients/vertexai-palm2-chat.html
+        - name: Vertex AI Gemini
+          id: spring-ai-vertexai-gemini
+          compatibility-range: "[3.1.0,3.3.0-M1)"
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-vertex-ai-gemini-spring-boot-starter
+          description: Spring AI support for Google Vertex Gemini chat.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/clients/vertexai-gemini-chat.html
+        - name: Qdrant Vector Database
+          id: spring-ai-vectordb-qdrant
+          compatibility-range: "[3.1.0,3.3.0-M1)"
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-qdrant-store-spring-boot-starter
+          description: Spring AI vector database support for Qdrant. It is an open-source, high-performance vector search engine/database.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/qdrant.html
         - name: Weaviate Vector Database
           id: spring-ai-vectordb-weaviate
           compatibility-range: "[3.1.0,3.3.0-M1)"
