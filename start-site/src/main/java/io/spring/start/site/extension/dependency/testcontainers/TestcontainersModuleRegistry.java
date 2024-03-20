@@ -42,8 +42,16 @@ abstract class TestcontainersModuleRegistry {
 
 	private static final VersionRange SPRING_BOOT_3_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0");
 
+	private static final VersionRange SPRING_BOOT_3_3_0_M2_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M2");
+
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<ImplicitDependency.Builder> builders = new ArrayList<>();
+		if (SPRING_BOOT_3_3_0_M2_OR_LATER.match(platformVersion)) {
+			builders.add(onDependencies("activemq").customizeBuild(addModule("activemq"))
+				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
+			builders.add(onDependencies("artemis").customizeBuild(addModule("activemq"))
+				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
+		}
 		builders.add(onDependencies("amqp", "amqp-streams").customizeBuild(addModule("rabbitmq"))
 			.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")));
 		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud"))
@@ -60,7 +68,7 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")));
 		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive").customizeBuild(addModule("mongodb"))
 			.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")));
-		builders.add(onDependencies("data-neo4j").customizeBuild(addModule("neo4j"))
+		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j").customizeBuild(addModule("neo4j"))
 			.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")));
 		builders.add(onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc"))
 			.customizeHelpDocument(addReferenceLink("R2DBC support", "databases/r2dbc/")));

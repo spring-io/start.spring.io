@@ -1,8 +1,10 @@
 io.spring.initializr.generator.project.ProjectGenerationConfiguration=\
 io.spring.start.site.extension.build.gradle.GradleProjectGenerationConfiguration,\
 io.spring.start.site.extension.build.maven.MavenProjectGenerationConfiguration,\
+io.spring.start.site.extension.code.kotlin.KotlinProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.DependencyProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.activemq.ActiveMQProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.activemq.ArtemisProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.cassandra.CassandraProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.derby.DerbyProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.dgs.DgsCodegenProjectGenerationConfiguration,\
@@ -15,6 +17,7 @@ io.spring.start.site.extension.dependency.hilla.HillaProjectGenerationConfigurat
 io.spring.start.site.extension.dependency.mariadb.MariaDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mongodb.MongoDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mysql.MysqlProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.neo4j.Neo4jProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.observability.ObservabilityProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.oracle.OracleProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.picocli.PicocliProjectGenerationConfiguration,\
@@ -37,4 +40,4 @@ io.spring.start.site.extension.dependency.testcontainers.TestcontainersProjectGe
 io.spring.start.site.extension.dependency.vaadin.VaadinProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.zipkin.ZipkinProjectGenerationConfiguration,\
 io.spring.start.site.extension.description.DescriptionProjectGenerationConfiguration,\
-io.spring.start.site.extension.code.kotlin.KotlinProjectGenerationConfiguration
+io.spring.start.site.extension.properties.ApplicationPropertiesProjectGenerationConfiguration

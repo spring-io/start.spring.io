@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link FlywayBuildCustomizer}.
  *
  * @author Eddú Meléndez
+ * @author Moritz Halbritter
  */
 class FlywayBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -90,6 +91,41 @@ class FlywayBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest projectRequest = createProject("3.2.0-M1", "oracle", "flyway");
 		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("oracle"))
 			.hasDependency("org.flywaydb", "flyway-database-oracle");
+	}
+
+	@Test
+	void db2AndFlywayOnSpringBoot32() {
+		ProjectRequest projectRequest = createProject("3.2.0", "db2", "flyway");
+		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("db2"))
+			.doesNotHaveDependency("org.flywaydb", "flyway-database-db2");
+	}
+
+	@Test
+	void db2AndFlyway() {
+		ProjectRequest projectRequest = createProject("3.3.0-SNAPSHOT", "db2", "flyway");
+		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("db2"))
+			.hasDependency("org.flywaydb", "flyway-database-db2");
+	}
+
+	@Test
+	void derbyAndFlyway() {
+		ProjectRequest projectRequest = createProject("3.3.0-SNAPSHOT", "derby", "flyway");
+		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("derby"))
+			.hasDependency("org.flywaydb", "flyway-database-derby");
+	}
+
+	@Test
+	void hsqlAndFlyway() {
+		ProjectRequest projectRequest = createProject("3.3.0-SNAPSHOT", "hsql", "flyway");
+		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("hsql"))
+			.hasDependency("org.flywaydb", "flyway-database-hsqldb");
+	}
+
+	@Test
+	void hsqlAndPostgres() {
+		ProjectRequest projectRequest = createProject("3.3.0-SNAPSHOT", "postgresql", "flyway");
+		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("postgresql"))
+			.hasDependency("org.flywaydb", "flyway-database-postgresql");
 	}
 
 	private ProjectRequest createProject(String springBootVersion, String... styles) {

@@ -14,31 +14,26 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.flyway;
+package io.spring.start.site.extension.properties;
 
-import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Flyway.
+ * {@link ProjectGenerationConfiguration} for customizations relevant to the application
+ * properties.
  *
- * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
-@Configuration(proxyBeanMethods = false)
-@ConditionalOnRequestedDependency("flyway")
-class FlywayProjectGenerationConfiguration {
+@ProjectGenerationConfiguration
+class ApplicationPropertiesProjectGenerationConfiguration {
 
 	@Bean
-	FlywayProjectContributor flywayProjectContributor() {
-		return new FlywayProjectContributor();
-	}
-
-	@Bean
-	FlywayBuildCustomizer flywayBuildCustomizer(ProjectDescription projectDescription) {
-		return new FlywayBuildCustomizer(projectDescription);
+	DefaultApplicationPropertiesCustomizer defaultApplicationPropertiesContributorCustomizer(
+			ProjectDescription projectDescription) {
+		return new DefaultApplicationPropertiesCustomizer(projectDescription);
 	}
 
 }

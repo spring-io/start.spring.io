@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.postgresql;
+package io.spring.start.site.extension.dependency.activemq;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
@@ -26,23 +26,32 @@ import org.springframework.core.io.ClassPathResource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link PostgresqlProjectGenerationConfiguration}.
+ * Tests for {@link ArtemisProjectGenerationConfiguration}.
  *
- * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
-class postgresqlProjectGenerationConfigurationTests extends AbstractExtensionTests {
+class ArtemisProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void doesNothingWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest("web", "postgresql");
+	void dockerComposeWhenDockerComposeIsNotSelectedDoesNotCreateService() {
+		ProjectRequest request = createProjectRequest("web", "artemis");
+		request.setBootVersion("3.3.0-M2");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void createsPostgresService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "postgresql");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/postgres.yaml"));
+	void dockerComposeWhenIncompatibleSpringBootVersionDoesNotCreateService() {
+		ProjectRequest request = createProjectRequest("docker-compose", "artemis");
+		request.setBootVersion("3.1.1");
+		assertThat(composeFile(request)).doesNotContain("artemis");
+	}
+
+	@Test
+	void dockerComposeCreatesAppropriateService() {
+		ProjectRequest request = createProjectRequest("docker-compose", "artemis");
+		request.setBootVersion("3.3.0-M2");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/artemis.yaml"));
 	}
 
 }

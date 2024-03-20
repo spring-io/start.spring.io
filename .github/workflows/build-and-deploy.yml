@@ -36,7 +36,7 @@ jobs:
         run: ./mvnw --batch-mode --update-snapshots verify
 
       - name: Set up Azure
-        uses: azure/login@cb79c773a3cfa27f31f25eb3f677781210c9ce3d
+        uses: azure/login@8c334a195cbb38e46038007b304988d888bf676a
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS_SPRING_IO }}
 
@@ -51,10 +51,10 @@ jobs:
             --resource-group spring-io \
             --artifact-path start-site/target/start-site-exec.jar
 
-      - name: Google Chat Notification
-        uses: Co-qn/google-chat-notification@3691ccf4763537d6e544bc6cdcccc1965799d056
-        with:
-          name: Build and Deploy
-          url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
-          status: ${{ job.status }}
+      - name: Send notification
+        uses: ./.github/actions/send-notification
         if: always()
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+          status: ${{ job.status }}
+          run-name: ${{ format('start.spring.io | {0}', github.ref_name) }}
