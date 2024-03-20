@@ -1712,6 +1712,8 @@ initializr:
       id: war
       default: false
   javaVersions:
+    - id: 22
+      default: false
     - id: 21
       default: false
     - id: 17

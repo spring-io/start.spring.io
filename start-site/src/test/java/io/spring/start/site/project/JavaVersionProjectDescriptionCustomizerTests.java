@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link JavaVersionProjectDescriptionCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTests {
 
@@ -65,6 +66,11 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		assertThat(mavenPom(kotlinProject("21", "3.1.6"))).hasProperty("java.version", "17");
 	}
 
+	@Test
+	void java22IsNotSupportedWithBoot323() {
+		assertThat(mavenPom(javaProject("22", "3.2.3"))).hasProperty("java.version", "21");
+	}
+
 	static Stream<Arguments> supportedMavenParameters() {
 		return Stream.concat(supportedJavaParameters(),
 				Stream.concat(supportedKotlinParameters(), supportedGroovyParameters()));
@@ -75,16 +81,18 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedJavaParameters() {
-		return Stream.of(java("17", "3.1.0"), java("19", "3.1.0"), java("20", "3.1.0"), java("21", "3.1.0"));
+		return Stream.of(java("17", "3.1.0"), java("21", "3.1.0"), java("21", "3.2.0"), java("22", "3.2.4"),
+				java("21", "3.3.0-M2"), java("22", "3.3.0-M3"));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
-		return Stream.of(kotlin("17", "3.1.0"), kotlin("19", "3.1.0"), kotlin("20", "3.1.0"),
-				kotlin("21", "3.2.0-RC2"));
+		return Stream.of(kotlin("17", "3.1.0"), kotlin("21", "3.2.0-RC2"), kotlin("22", "3.2.4"),
+				kotlin("21", "3.3.0-M2"), kotlin("22", "3.3.0-M3"));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {
-		return Stream.of(groovy("17", "3.1.0"), groovy("19", "3.1.0"), groovy("20", "3.1.0"), groovy("21", "3.1.0"));
+		return Stream.of(groovy("17", "3.1.0"), groovy("21", "3.1.0"), groovy("21", "3.2.0"), groovy("22", "3.2.4"),
+				groovy("21", "3.3.0-M2"), groovy("22", "3.3.0-M3"));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {
