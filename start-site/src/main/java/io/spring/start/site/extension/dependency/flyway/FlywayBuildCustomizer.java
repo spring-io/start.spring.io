@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,15 +29,21 @@ import io.spring.initializr.generator.version.VersionRange;
  *
  * @author Eddú Meléndez
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class FlywayBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final VersionRange SPRING_BOOT_3_2_M1_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0-M1");
 
+	private static final VersionRange SPRING_BOOT_3_3_M3_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M3");
+
 	private final boolean isSpringBoot32OrLater;
+
+	private final boolean isSpringBoot33OrLater;
 
 	FlywayBuildCustomizer(ProjectDescription projectDescription) {
 		this.isSpringBoot32OrLater = SPRING_BOOT_3_2_M1_OR_LATER.match(projectDescription.getPlatformVersion());
+		this.isSpringBoot33OrLater = SPRING_BOOT_3_3_M3_OR_LATER.match(projectDescription.getPlatformVersion());
 	}
 
 	@Override
@@ -52,6 +58,23 @@ class FlywayBuildCustomizer implements BuildCustomizer<Build> {
 		if (this.isSpringBoot32OrLater) {
 			if (dependencies.has("oracle")) {
 				dependencies.add("flyway-oracle", "org.flywaydb", "flyway-database-oracle", DependencyScope.COMPILE);
+			}
+		}
+		if (this.isSpringBoot33OrLater) {
+			if (dependencies.has("db2")) {
+				dependencies.add("flyway-database-db2", "org.flywaydb", "flyway-database-db2", DependencyScope.COMPILE);
+			}
+			if (dependencies.has("derby")) {
+				dependencies.add("flyway-database-derby", "org.flywaydb", "flyway-database-derby",
+						DependencyScope.COMPILE);
+			}
+			if (dependencies.has("hsql")) {
+				dependencies.add("flyway-database-hsqldb", "org.flywaydb", "flyway-database-hsqldb",
+						DependencyScope.COMPILE);
+			}
+			if (dependencies.has("postgresql")) {
+				dependencies.add("flyway-database-postgresql", "org.flywaydb", "flyway-database-postgresql",
+						DependencyScope.COMPILE);
 			}
 		}
 	}
