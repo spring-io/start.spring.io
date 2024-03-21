@@ -88,7 +88,7 @@ abstract class TestcontainersModuleRegistry {
 			builders.add(onDependencies("oracle").customizeBuild(addModule("oracle-xe"))
 				.customizeHelpDocument(addReferenceLink("Oracle-XE Module", "databases/oraclexe/")));
 		}
-		builders.add(onDependencies("postgresql").customizeBuild(addModule("postgresql"))
+		builders.add(onDependencies("postgresql", "spring-ai-vectordb-pgvector").customizeBuild(addModule("postgresql"))
 			.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")));
 		builders.add(onDependencies("pulsar", "pulsar-reactive").customizeBuild(addModule("pulsar"))
 			.customizeHelpDocument(addReferenceLink("Pulsar Module", "pulsar/")));

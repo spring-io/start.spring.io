@@ -85,13 +85,15 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("data-couchbase-reactive", "couchbase"),
 				Arguments.arguments("data-elasticsearch", "elasticsearch"),
 				Arguments.arguments("data-mongodb", "mongodb"), Arguments.arguments("data-mongodb-reactive", "mongodb"),
-				Arguments.arguments("data-neo4j", "neo4j"), Arguments.arguments("spring-ai-vectordb-neo4j", "neo4j"),
-				Arguments.arguments("data-r2dbc", "r2dbc"), Arguments.arguments("db2", "db2"),
-				Arguments.arguments("kafka", "kafka"), Arguments.arguments("kafka-streams", "kafka"),
-				Arguments.arguments("mariadb", "mariadb"), Arguments.arguments("mysql", "mysql"),
-				Arguments.arguments("postgresql", "postgresql"), Arguments.arguments("oracle", "oracle-xe"),
-				Arguments.arguments("pulsar", "pulsar"), Arguments.arguments("pulsar-reactive", "pulsar"),
-				Arguments.arguments("solace", "solace"), Arguments.arguments("sqlserver", "mssqlserver"));
+				Arguments.arguments("data-neo4j", "neo4j"), Arguments.arguments("data-r2dbc", "r2dbc"),
+				Arguments.arguments("db2", "db2"), Arguments.arguments("kafka", "kafka"),
+				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
+				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
+				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("pulsar", "pulsar"),
+				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
+				Arguments.arguments("spring-ai-vectordb-neo4j", "neo4j"),
+				Arguments.arguments("spring-ai-vectordb-pgvector", "postgresql"),
+				Arguments.arguments("sqlserver", "mssqlserver"));
 	}
 
 	static Stream<Arguments> supportedTestcontainersActiveMQEntriesBuild() {
