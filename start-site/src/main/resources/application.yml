@@ -47,7 +47,7 @@ initializr:
         versionProperty: spring-boot-admin.version
         mappings:
           - compatibilityRange: "[3.1.0,3.3.0-M1)"
-            version: 3.2.1
+            version: 3.2.3
       hilla:
         groupId: dev.hilla
         artifactId: hilla-bom
