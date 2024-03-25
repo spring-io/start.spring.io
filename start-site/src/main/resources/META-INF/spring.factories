@@ -21,6 +21,7 @@ io.spring.start.site.extension.dependency.neo4j.Neo4jProjectGenerationConfigurat
 io.spring.start.site.extension.dependency.observability.ObservabilityProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.oracle.OracleProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.picocli.PicocliProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.postgresql.PgVectorProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.postgresql.PostgresqlProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.redis.RedisProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.solace.SolaceProjectGenerationConfiguration,\
