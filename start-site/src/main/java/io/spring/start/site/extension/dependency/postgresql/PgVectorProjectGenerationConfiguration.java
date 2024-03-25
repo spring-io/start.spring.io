@@ -60,7 +60,6 @@ class PgVectorProjectGenerationConfiguration {
 		Map<String, String> resolve = this.versionResolver.resolveDependencies("org.springframework.boot",
 				"spring-boot-dependencies", this.description.getPlatformVersion().toString());
 		String testcontainersVersion = resolve.get("org.testcontainers:testcontainers");
-
 		return (serviceConnections) -> {
 			if (TESTCONTAINERS_1_19_7_OR_LATER.match(Version.parse(testcontainersVersion))) {
 				serviceResolver.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
