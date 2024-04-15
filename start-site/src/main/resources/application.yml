@@ -76,8 +76,10 @@ initializr:
         mappings:
           - compatibilityRange: "[3.0.0,3.1.0-M1)"
             version: 3.0.0
-          - compatibilityRange: "[3.1.0-M1, 3.3.0-M1)"
+          - compatibilityRange: "[3.1.0-M1, 3.2.0-M1)"
             version: 3.1.0
+          - compatibilityRange: "[3.2.0-M1, 3.3.0-M1)"
+            version: 4.0.0
       spring-ai:
         groupId: org.springframework.ai
         artifactId: spring-ai-bom
