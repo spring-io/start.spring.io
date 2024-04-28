@@ -32,6 +32,7 @@ import io.spring.start.site.extension.dependency.springbatch.SpringBatchTestBuil
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityRSocketBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsession.SpringSessionBuildCustomizer;
+import io.spring.start.site.extension.dependency.springshell.SpringShellTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.thymeleaf.ThymeleafBuildCustomizer;
 
 import org.springframework.context.annotation.Bean;
@@ -113,6 +114,12 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("mybatis")
 	public MyBatisTestBuildCustomizer mybatisTestBuildCustomizer() {
 		return new MyBatisTestBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("spring-shell")
+	public SpringShellTestBuildCustomizer springShellTestBuildCustomizer() {
+		return new SpringShellTestBuildCustomizer();
 	}
 
 }
