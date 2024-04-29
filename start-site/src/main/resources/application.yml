@@ -1014,20 +1014,14 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#actuator.metrics.export.newrelic
         - name: Prometheus
           id: prometheus
-          description: Expose Micrometer metrics in Prometheus format, an in-memory dimensional time series database with a simple built-in UI, a custom query language, and math operations.
+          groupId: io.micrometer
+          artifactId: micrometer-registry-prometheus
           scope: runtime
+          starter: false
+          description: Expose Micrometer metrics in Prometheus format, an in-memory dimensional time series database with a simple built-in UI, a custom query language, and math operations.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#actuator.metrics.export.prometheus
-          mappings:
-            - compatibility-range: "[3.1.0,3.3.0-M3)"
-              groupId: io.micrometer
-              artifactId: micrometer-registry-prometheus
-              starter: false
-            - compatibility-range: "3.3.0-M3"
-              groupId: io.micrometer
-              artifactId: micrometer-registry-prometheus-simpleclient
-              starter: false
         - name: Distributed Tracing
           id: distributed-tracing
           description: Enable span and trace IDs in logs.
