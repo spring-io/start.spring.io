@@ -31,9 +31,10 @@ public class SpringShellTestBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		var springShell = Dependency.withCoordinates("org.springframework.shell", "spring-shell-starter-test")
-			.scope(DependencyScope.TEST_COMPILE);
-		build.dependencies().add("spring-shell-starter-test", springShell);
+		build.dependencies()
+			.add("spring-shell-starter-test",
+					Dependency.withCoordinates("org.springframework.shell", "spring-shell-starter-test")
+						.scope(DependencyScope.TEST_COMPILE));
 	}
 
 }

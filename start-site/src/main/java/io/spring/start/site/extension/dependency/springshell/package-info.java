@@ -15,6 +15,6 @@
  */
 
 /**
- * Extensions for generation of projects that depend on Spring Security.
+ * Extensions for generation of projects that depend on Spring Shell.
  */
 package io.spring.start.site.extension.dependency.springshell;
