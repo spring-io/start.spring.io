@@ -30,8 +30,18 @@ function Fields({
     dispatch: dispatchInitializr,
     errors,
   } = useContext(InitializrContext)
-  const update = args => {
+  const update = (args, storageKey) => {
     dispatchInitializr({ type: 'UPDATE', payload: args })
+    if(storageKey){
+      localStorage.setItem('spring' + storageKey, args[storageKey]);
+    }
+  }
+  function getValue(array, key) {
+    const localStorageValue = localStorage.getItem('spring' + key);
+    if(array.find(item => item && item.key === localStorageValue)){
+      return localStorageValue;
+    }
+    return get(values, key);
   }
 
   return (
@@ -45,10 +55,10 @@ function Fields({
                 <Control text='Project'>
                   <Radio
                     name='project'
-                    selected={get(values, 'project')}
+                    selected={getValue(get(config, 'lists.project'), 'project')}
                     options={get(config, 'lists.project')}
                     onChange={value => {
-                      update({ project: value })
+                      update({project: value}, 'project')
                     }}
                   />
                 </Control>
@@ -57,10 +67,10 @@ function Fields({
                 <Control text='Language'>
                   <Radio
                     name='language'
-                    selected={get(values, 'language')}
+                    selected={getValue(get(config, 'lists.language'), 'language')}
                     options={get(config, 'lists.language')}
                     onChange={value => {
-                      update({ language: value })
+                      update({language: value}, 'language')
                     }}
                   />
                 </Control>
@@ -70,7 +80,7 @@ function Fields({
             <Control text='Spring Boot'>
               <Radio
                 name='boot'
-                selected={get(values, 'boot')}
+                selected={getValue(get(config, 'lists.boot'), 'boot')}
                 error={get(errors, 'boot.value', '')}
                 options={get(config, 'lists.boot')}
                 onChange={value => {
@@ -83,6 +93,7 @@ function Fields({
                     type: 'UPDATE_DEPENDENCIES',
                     payload: { boot: value },
                   })
+                  localStorage.setItem('springboot', value)
                 }}
               />
               {get(errors, 'boot') && (
@@ -135,20 +146,22 @@ function Fields({
               />
               <FieldRadio
                 id='input-packaging'
-                value={get(values, 'meta.packaging')}
+                value={getValue(get(config, 'lists.meta.packaging'), 'meta.packaging')}
                 text='Packaging'
                 options={get(config, 'lists.meta.packaging')}
                 onChange={value => {
-                  update({ meta: { packaging: value } })
+                  update({meta: {packaging: value}})
+                  localStorage.setItem('springmeta.packaging', value)
                 }}
               />
               <FieldRadio
                 id='input-java'
-                value={get(values, 'meta.java')}
+                value={getValue(get(config, 'lists.meta.java'), 'meta.java')}
                 text='Java'
                 options={get(config, 'lists.meta.java')}
                 onChange={value => {
-                  update({ meta: { java: value } })
+                  update({meta: {java: value}})
+                  localStorage.setItem('springmeta.java', value)
                 }}
               />
             </Control>
