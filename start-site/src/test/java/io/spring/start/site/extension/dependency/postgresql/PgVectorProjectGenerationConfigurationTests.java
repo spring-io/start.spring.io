@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link PgVectorProjectGenerationConfiguration}.
  *
  * @author Eddú Meléndez
+ * @author Moritz Halbritter
  */
 class PgVectorProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -42,6 +43,12 @@ class PgVectorProjectGenerationConfigurationTests extends AbstractExtensionTests
 	@Test
 	void createsPostgresService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-pgvector");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/pgvector.yaml"));
+	}
+
+	@Test
+	void shouldOnlyHavePgVectorIfPostgresAndPgVectorIsSelected() {
+		ProjectRequest request = createProjectRequest("docker-compose", "postgresql", "spring-ai-vectordb-pgvector");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/pgvector.yaml"));
 	}
 

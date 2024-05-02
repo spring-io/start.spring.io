@@ -36,6 +36,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on PgVector.
  *
  * @author Eddú Meléndez
+ * @author Moritz Halbritter
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnRequestedDependency("spring-ai-vectordb-pgvector")
@@ -71,13 +72,15 @@ class PgVectorProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer pgvectorComposeFileCustomizer(DockerServiceResolver serviceResolver) {
-		return (composeFile) -> serviceResolver.doWith("pgvector",
-				(service) -> composeFile.services()
-					.add("pgvector",
-							service.andThen((builder) -> builder.environment("POSTGRES_USER", "myuser")
-								.environment("POSTGRES_DB", "mydatabase")
-								.environment("POSTGRES_PASSWORD", "secret")
-								.label("org.springframework.boot.service-connection", "postgres"))));
+		return (composeFile) -> serviceResolver.doWith("pgvector", (service) -> {
+			composeFile.services().remove("postgres");
+			composeFile.services()
+				.add("pgvector",
+						service.andThen((builder) -> builder.environment("POSTGRES_USER", "myuser")
+							.environment("POSTGRES_DB", "mydatabase")
+							.environment("POSTGRES_PASSWORD", "secret")
+							.label("org.springframework.boot.service-connection", "postgres")));
+		});
 	}
 
 }
