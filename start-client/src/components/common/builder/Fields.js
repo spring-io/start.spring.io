@@ -30,18 +30,18 @@ function Fields({
     dispatch: dispatchInitializr,
     errors,
   } = useContext(InitializrContext)
-  const update = (args, storageKey) => {
+  const update = args => {
     dispatchInitializr({ type: 'UPDATE', payload: args })
-    if(storageKey){
-      localStorage.setItem('spring' + storageKey, args[storageKey]);
-    }
   }
-  function getValue(array, key) {
-    const localStorageValue = localStorage.getItem('spring' + key);
-    if(array.find(item => item && item.key === localStorageValue)){
+  const getSelection = (options, key, localStorageKey) => {
+    const localStorageValue = localStorage.getItem(localStorageKey);
+    if(localStorageValue && options.find(item => item && item.key === localStorageValue)){
       return localStorageValue;
     }
     return get(values, key);
+  }
+  const getOptions = name => {
+    return get(config, name)
   }
 
   return (
@@ -55,10 +55,11 @@ function Fields({
                 <Control text='Project'>
                   <Radio
                     name='project'
-                    selected={getValue(get(config, 'lists.project'), 'project')}
-                    options={get(config, 'lists.project')}
+                    selected={getSelection(getOptions('lists.project'), 'project', 'project')}
+                    options={getOptions('lists.project')}
                     onChange={value => {
-                      update({project: value}, 'project')
+                      update({project: value})
+                      localStorage.setItem('project', value)
                     }}
                   />
                 </Control>
@@ -67,10 +68,11 @@ function Fields({
                 <Control text='Language'>
                   <Radio
                     name='language'
-                    selected={getValue(get(config, 'lists.language'), 'language')}
-                    options={get(config, 'lists.language')}
+                    selected={getSelection(getOptions('lists.language'), 'language', 'language')}
+                    options={getOptions('lists.language')}
                     onChange={value => {
-                      update({language: value}, 'language')
+                      update({language: value})
+                      localStorage.setItem('language', value)
                     }}
                   />
                 </Control>
@@ -80,9 +82,9 @@ function Fields({
             <Control text='Spring Boot'>
               <Radio
                 name='boot'
-                selected={getValue(get(config, 'lists.boot'), 'boot')}
+                selected={get(values, 'boot')}
                 error={get(errors, 'boot.value', '')}
-                options={get(config, 'lists.boot')}
+                options={getOptions('lists.boot')}
                 onChange={value => {
                   dispatchInitializr({
                     type: 'UPDATE',
@@ -93,7 +95,6 @@ function Fields({
                     type: 'UPDATE_DEPENDENCIES',
                     payload: { boot: value },
                   })
-                  localStorage.setItem('springboot', value)
                 }}
               />
               {get(errors, 'boot') && (
@@ -146,22 +147,22 @@ function Fields({
               />
               <FieldRadio
                 id='input-packaging'
-                value={getValue(get(config, 'lists.meta.packaging'), 'meta.packaging')}
+                value={getSelection(getOptions('lists.meta.packaging'), 'meta.packaging', 'packaging')}
                 text='Packaging'
-                options={get(config, 'lists.meta.packaging')}
+                options={getOptions('lists.meta.packaging')}
                 onChange={value => {
                   update({meta: {packaging: value}})
-                  localStorage.setItem('springmeta.packaging', value)
+                  localStorage.setItem('packaging', value)
                 }}
               />
               <FieldRadio
                 id='input-java'
-                value={getValue(get(config, 'lists.meta.java'), 'meta.java')}
+                value={getSelection(getOptions('lists.meta.java'), 'meta.java', 'java')}
                 text='Java'
-                options={get(config, 'lists.meta.java')}
+                options={getOptions('lists.meta.java')}
                 onChange={value => {
                   update({meta: {java: value}})
-                  localStorage.setItem('springmeta.java', value)
+                  localStorage.setItem('java', value)
                 }}
               />
             </Control>
