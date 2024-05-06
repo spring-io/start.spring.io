@@ -26,6 +26,14 @@ export const defaultInitializrContext = {
   warnings: {},
 }
 
+const localStorage =
+  typeof window !== 'undefined'
+    ? window.localStorage
+    : {
+        get: () => {},
+        set: () => {},
+      }
+
 const getPersistedOrDefault = json => {
   const values = {
     project:
