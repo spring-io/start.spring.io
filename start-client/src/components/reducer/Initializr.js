@@ -53,10 +53,11 @@ const getPersistedOrDefault = json => {
       java:
         localStorage.getItem('java') || get(json, 'defaultValues.meta.java'),
     },
+    dependencies: [],
   }
   const checks = ['project', 'language', 'boot', 'meta.java', 'meta.packaging']
   checks.forEach(key => {
-    const item = get(json, `lists.${key}`).find(
+    const item = get(json, `lists.${key}`)?.find(
       it => it.key === get(values, key)
     )
     if (!item) {
