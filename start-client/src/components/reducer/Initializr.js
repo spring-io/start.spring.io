@@ -30,8 +30,8 @@ const localStorage =
   typeof window !== 'undefined'
     ? window.localStorage
     : {
-        get: () => {},
-        set: () => {},
+        getItem: () => {},
+        setItem: () => {},
       }
 
 const getPersistedOrDefault = json => {
