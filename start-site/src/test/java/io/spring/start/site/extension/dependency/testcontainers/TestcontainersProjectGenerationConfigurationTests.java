@@ -48,20 +48,20 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	}
 
 	@ParameterizedTest
-	@MethodSource("supportedEntriesBuild")
-	void buildWithSupportedEntries(String springBootDependencyId, String testcontainersArtifactId) {
+	@MethodSource("supportedEntriesBuild310")
+	void buildWithSupportedEntriesForSpringBoot31(String springBootDependencyId, String testcontainersArtifactId) {
 		assertThat(generateProject("3.1.0", "testcontainers", springBootDependencyId)).mavenBuild()
 			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.1.0")))
 			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
 			.hasDependency(getDependency("testcontainers"));
 	}
 
-	@Test
-	void buildWithSpringBoot32AndOracleJdbcDriverUsesOracleFree() {
-		assertThat(generateProject("3.2.0", "testcontainers", "oracle")).mavenBuild()
-			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
-			.hasDependency(getDependency("oracle").resolve(Version.parse("3.2.0")))
-			.hasDependency("org.testcontainers", "oracle-free", null, "test")
+	@ParameterizedTest
+	@MethodSource("supportedEntriesBuild320")
+	void buildWithSupportedEntriesForSpringBoot32(String springBootDependencyId, String testcontainersArtifactId) {
+		assertThat(generateProject("3.2.0", "testcontainers", springBootDependencyId)).mavenBuild()
+			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.2.0")))
+			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
 			.hasDependency(getDependency("testcontainers"));
 	}
 
@@ -76,7 +76,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency("testcontainers"));
 	}
 
-	static Stream<Arguments> supportedEntriesBuild() {
+	static Stream<Arguments> supportedEntriesBuild310() {
 		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.of("amqp-streams", "rabbitmq"),
 				Arguments.arguments("cloud-gcp", "gcloud"), Arguments.arguments("cloud-gcp-pubsub", "gcloud"),
 				Arguments.arguments("data-cassandra", "cassandra"),
@@ -90,6 +90,24 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
 				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
 				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("pulsar", "pulsar"),
+				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
+				Arguments.arguments("sqlserver", "mssqlserver"));
+	}
+
+	static Stream<Arguments> supportedEntriesBuild320() {
+		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.of("amqp-streams", "rabbitmq"),
+				Arguments.arguments("cloud-gcp", "gcloud"), Arguments.arguments("cloud-gcp-pubsub", "gcloud"),
+				Arguments.arguments("data-cassandra", "cassandra"),
+				Arguments.arguments("data-cassandra-reactive", "cassandra"),
+				Arguments.arguments("data-couchbase", "couchbase"),
+				Arguments.arguments("data-couchbase-reactive", "couchbase"),
+				Arguments.arguments("data-elasticsearch", "elasticsearch"),
+				Arguments.arguments("data-mongodb", "mongodb"), Arguments.arguments("data-mongodb-reactive", "mongodb"),
+				Arguments.arguments("data-neo4j", "neo4j"), Arguments.arguments("data-r2dbc", "r2dbc"),
+				Arguments.arguments("db2", "db2"), Arguments.arguments("kafka", "kafka"),
+				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
+				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
+				Arguments.arguments("oracle", "oracle-free"), Arguments.arguments("pulsar", "pulsar"),
 				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
 				Arguments.arguments("spring-ai-vectordb-neo4j", "neo4j"),
 				Arguments.arguments("spring-ai-vectordb-pgvector", "postgresql"),
