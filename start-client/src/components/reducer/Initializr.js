@@ -26,17 +26,70 @@ export const defaultInitializrContext = {
   warnings: {},
 }
 
+const localStorage =
+  typeof window !== 'undefined'
+    ? window.localStorage
+    : {
+        getItem: () => {},
+        setItem: () => {},
+      }
+
+const getPersistedOrDefault = json => {
+  const values = {
+    project:
+      localStorage.getItem('project') || get(json, 'defaultValues').project,
+    language:
+      localStorage.getItem('language') || get(json, 'defaultValues').language,
+    boot: get(json, 'defaultValues').boot,
+    meta: {
+      name: get(json, 'defaultValues.meta').name,
+      group: get(json, 'defaultValues.meta').group,
+      artifact: get(json, 'defaultValues.meta').artifact,
+      description: get(json, 'defaultValues.meta').description,
+      packageName: get(json, 'defaultValues.meta').packageName,
+      packaging:
+        localStorage.getItem('packaging') ||
+        get(json, 'defaultValues.meta').packaging,
+      java:
+        localStorage.getItem('java') || get(json, 'defaultValues.meta').java,
+    },
+    dependencies: [],
+  }
+  const checks = ['project', 'language', 'meta.java', 'meta.packaging']
+  checks.forEach(key => {
+    const item = get(json, `lists.${key}`)?.find(
+      it => it.key === get(values, key)
+    )
+    if (!item) {
+      set(values, key, get(json, `defaultValues.${key}`))
+    }
+  })
+  return values
+}
+
+const persist = changes => {
+  if (get(changes, 'project')) {
+    localStorage.setItem('project', get(changes, 'project'))
+  }
+  if (get(changes, 'language')) {
+    localStorage.setItem('language', get(changes, 'language'))
+  }
+  if (get(changes, 'meta.packaging')) {
+    localStorage.setItem('packaging', get(changes, 'meta.packaging'))
+  }
+  if (get(changes, 'meta.java')) {
+    localStorage.setItem('java', get(changes, 'meta.java'))
+  }
+}
+
 export function reducer(state, action) {
   switch (action.type) {
     case 'COMPLETE': {
       const json = get(action, 'payload')
-      const defaultValues = {
-        ...get(json, 'defaultValues'),
-        meta: get(json, 'defaultValues.meta'),
-      }
+      const values = getPersistedOrDefault(json)
       return {
-        values: defaultValues,
-        share: getShareUrl(defaultValues),
+        values,
+        share: getShareUrl(values),
         errors: {},
         warnings: {},
       }
@@ -67,6 +120,7 @@ export function reducer(state, action) {
         )
         set(meta, 'name', `${get(meta, 'artifact')}`)
       }
+      persist(changes)
       const values = {
         ...get(state, 'values'),
         ...changes,
