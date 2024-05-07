@@ -40,7 +40,7 @@ const getPersistedOrDefault = json => {
       localStorage.getItem('project') || get(json, 'defaultValues').project,
     language:
       localStorage.getItem('language') || get(json, 'defaultValues').language,
-    boot: localStorage.getItem('boot') || get(json, 'defaultValues').boot,
+    boot: get(json, 'defaultValues').boot,
     meta: {
       name: get(json, 'defaultValues.meta').name,
       group: get(json, 'defaultValues.meta').group,
@@ -49,13 +49,13 @@ const getPersistedOrDefault = json => {
       packageName: get(json, 'defaultValues.meta').packageName,
       packaging:
         localStorage.getItem('packaging') ||
-        get(json, 'defaultValues.meta.packaging'),
+        get(json, 'defaultValues.meta').packaging,
       java:
-        localStorage.getItem('java') || get(json, 'defaultValues.meta.java'),
+        localStorage.getItem('java') || get(json, 'defaultValues.meta').java,
     },
     dependencies: [],
   }
-  const checks = ['project', 'language', 'boot', 'meta.java', 'meta.packaging']
+  const checks = ['project', 'language', 'meta.java', 'meta.packaging']
   checks.forEach(key => {
     const item = get(json, `lists.${key}`)?.find(
       it => it.key === get(values, key)
@@ -73,9 +73,6 @@ const persist = changes => {
   }
   if (get(changes, 'language')) {
     localStorage.setItem('language', get(changes, 'language'))
-  }
-  if (get(changes, 'boot')) {
-    localStorage.setItem('boot', get(changes, 'boot'))
   }
   if (get(changes, 'meta.packaging')) {
     localStorage.setItem('packaging', get(changes, 'meta.packaging'))
