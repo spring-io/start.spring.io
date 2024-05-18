@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springai;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
@@ -44,6 +45,16 @@ class SpringAiWeaviateProjectGenerationConfiguration {
 			if (SpringAiVersion.version1OrLater(build)) {
 				serviceResolver.doWith("weaviate", (service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("weaviate", service, TESTCONTAINERS_CLASS_NAME)));
+			}
+		};
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("docker-compose")
+	ComposeFileCustomizer weaviateComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
+		return (composeFile) -> {
+			if (SpringAiVersion.version1OrLater(build)) {
+				serviceResolver.doWith("weaviate", (service) -> composeFile.services().add("weaviate", service));
 			}
 		};
 	}
