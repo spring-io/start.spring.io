@@ -71,6 +71,11 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		assertThat(mavenPom(javaProject("22", "3.2.3"))).hasProperty("java.version", "21");
 	}
 
+	@Test
+	void java22IsNotSupportedWithKotlin() {
+		assertThat(mavenPom(kotlinProject("22", "3.2.5"))).hasProperty("java.version", "21");
+	}
+
 	static Stream<Arguments> supportedMavenParameters() {
 		return Stream.concat(supportedJavaParameters(),
 				Stream.concat(supportedKotlinParameters(), supportedGroovyParameters()));
@@ -81,13 +86,12 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedJavaParameters() {
-		return Stream.of(java("17", "3.1.0"), java("21", "3.1.0"), java("21", "3.2.0"), java("22", "3.2.4"),
-				java("21", "3.3.0-M2"), java("22", "3.3.0-M3"));
+		return Stream.of(java("17", "3.1.0"), java("21", "3.1.0"), java("17", "3.2.0"), java("21", "3.2.0"),
+				java("22", "3.2.4"), java("17", "3.3.0-RC1"), java("21", "3.3.0-RC1"), java("22", "3.3.0-RC1"));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
-		return Stream.of(kotlin("17", "3.1.0"), kotlin("21", "3.2.0-RC2"), kotlin("22", "3.2.4"),
-				kotlin("21", "3.3.0-M2"), kotlin("22", "3.3.0-M3"));
+		return Stream.of(kotlin("17", "3.1.0"), kotlin("21", "3.2.0"), kotlin("21", "3.3.0-M2"));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {

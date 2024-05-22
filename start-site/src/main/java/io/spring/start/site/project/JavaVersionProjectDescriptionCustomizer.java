@@ -60,7 +60,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		}
 		if (javaGeneration == 21) {
 			// Kotlin 1.9.20 is required
-			if (description.getLanguage() instanceof KotlinLanguage && !KOTLIN_1_9_20_OR_LATER.match(platformVersion)) {
+			if (isKotlin(description) && !KOTLIN_1_9_20_OR_LATER.match(platformVersion)) {
 				updateTo(description, "17");
 			}
 		}
@@ -69,7 +69,20 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			if (!SPRING_BOOT_3_2_4_OR_LATER.match(platformVersion)) {
 				updateTo(description, "21");
 			}
+			if (isKotlin(description)) {
+				if (KOTLIN_1_9_20_OR_LATER.match(platformVersion)) {
+					// Kotlin 1.9.x doesn't support Java 22
+					updateTo(description, "21");
+				}
+				else {
+					updateTo(description, "17");
+				}
+			}
 		}
+	}
+
+	private boolean isKotlin(MutableProjectDescription description) {
+		return description.getLanguage() instanceof KotlinLanguage;
 	}
 
 	private void updateTo(MutableProjectDescription description, String jvmVersion) {
