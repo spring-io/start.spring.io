@@ -33,7 +33,7 @@ class InvalidPackageNameHelpDocumentCustomizerTests extends AbstractExtensionTes
 	void warningAddedWithInvalidPackageName() {
 		assertHelpDocument("com.my-invalid-package").lines()
 			.containsSubsequence("# Read Me First",
-					"* The original package name 'com.my-invalid-package' is invalid and this project uses 'com.myinvalidpackage' instead.");
+					"* The original package name 'com.my-invalid-package' is invalid and this project uses 'com.my_invalid_package' instead.");
 	}
 
 	@Test
