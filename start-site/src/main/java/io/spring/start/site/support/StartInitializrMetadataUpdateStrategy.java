@@ -32,8 +32,11 @@ import org.springframework.web.client.RestTemplate;
  * versions available on spring.io.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 public class StartInitializrMetadataUpdateStrategy extends SpringIoInitializrMetadataUpdateStrategy {
+
+	private static final Version MINIMUM_BOOT_VERSION = Version.parse("3.1.0");
 
 	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate, ObjectMapper objectMapper) {
 		super(restTemplate, objectMapper);
@@ -48,7 +51,7 @@ public class StartInitializrMetadataUpdateStrategy extends SpringIoInitializrMet
 
 	private boolean isCompatibleVersion(DefaultMetadataElement versionMetadata) {
 		Version version = Version.parse(versionMetadata.getId());
-		return (version.getMajor() >= 3 && version.getMinor() >= 1);
+		return version.compareTo(MINIMUM_BOOT_VERSION) >= 0;
 	}
 
 }
