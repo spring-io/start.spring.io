@@ -193,7 +193,7 @@ initializr:
           artifactId: graphql-dgs-codegen-gradle
           mappings:
             - compatibilityRange: "3.0.0-M1"
-              version: 6.0.3
+              version: 6.2.1
           description: Generate data types and type-safe APIs for querying GraphQL APIs by parsing schema files.
           starter: false
         - name: Spring Boot DevTools
