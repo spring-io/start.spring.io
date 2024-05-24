@@ -74,17 +74,13 @@ initializr:
         artifactId: solace-spring-boot-bom
         versionProperty: solace-spring-boot.version
         mappings:
-          - compatibilityRange: "3.0.0"
+          - compatibilityRange: "[3.0.0,3.3.0-M1)"
             version: 2.0.0
       solace-spring-cloud:
         groupId: com.solace.spring.cloud
         artifactId: solace-spring-cloud-bom
         versionProperty: solace-spring-cloud.version
         mappings:
-          - compatibilityRange: "[3.0.0,3.1.0-M1)"
-            version: 3.0.0
-          - compatibilityRange: "[3.1.0-M1, 3.2.0-M1)"
-            version: 3.1.0
           - compatibilityRange: "[3.2.0-M1, 3.3.0-M1)"
             version: 4.0.0
       spring-ai:
@@ -101,11 +97,6 @@ initializr:
         versionProperty: spring-cloud.version
         order: 50
         mappings:
-          - compatibilityRange: "[3.0.0,3.2.0-M1)"
-            version: 2022.0.5
-          - compatibilityRange: "[3.2.0-M1,3.2.0)"
-            version: 2023.0.0-RC1
-            repositories: spring-milestones
           - compatibilityRange: "3.2.0"
             version: 2023.0.1
       spring-cloud-azure:
@@ -121,8 +112,6 @@ initializr:
         versionProperty: spring-cloud-gcp.version
         additionalBoms: [ spring-cloud ]
         mappings:
-          - compatibilityRange: "[3.0.0,3.2.0-M1)"
-            version: 4.10.1
           - compatibilityRange: "[3.2.0-M1,3.3.0-M1)"
             version: 5.1.2
       spring-cloud-services:
@@ -131,8 +120,6 @@ initializr:
         versionProperty: spring-cloud-services.version
         additionalBoms: [ spring-cloud ]
         mappings:
-          - compatibilityRange: "[3.0.0,3.2.0-M1)"
-            version: 4.0.3
           - compatibilityRange: "[3.2.0-M1,3.3.0-M1)"
             version: 4.1.0
       spring-modulith:
@@ -140,8 +127,6 @@ initializr:
         artifactId: spring-modulith-bom
         versionProperty: spring-modulith.version
         mappings:
-          - compatibility-range: "[3.1.0,3.2.0-M1)"
-            version: 1.0.7
           - compatibility-range: "[3.2.0-M1,3.3.0-M1)"
             version: 1.1.4
           - compatibility-range: "3.3.0-M1"
@@ -152,8 +137,6 @@ initializr:
         artifactId: spring-shell-dependencies
         versionProperty: spring-shell.version
         mappings:
-          - compatibilityRange: "[3.1.0,3.2.0-M1)"
-            version: 3.1.11
           - compatibilityRange: "[3.2.0-M1,3.3.0-M1)"
             version: 3.2.4
           - compatibility-range: "3.3.0-M1"
@@ -807,11 +790,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#messaging.pulsar
-          mappings:
-            - compatibilityRange: "[3.0.0,3.2.0-M3)"
-              version: 0.2.0
-              groupId: org.springframework.pulsar
-              artifactId: spring-pulsar-spring-boot-starter
         - name: Spring for Apache Pulsar (Reactive)
           id: pulsar-reactive
           description: Build reactive messaging applications with Apache Pulsar
@@ -820,11 +798,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#messaging.pulsar
-          mappings:
-            - compatibilityRange: "[3.0.0,3.2.0-M1)"
-              version: 0.2.0
-              groupId: org.springframework.pulsar
-              artifactId: spring-pulsar-reactive-spring-boot-starter
         - name: WebSocket
           id: websocket
           description: Build Servlet-based WebSocket applications with SockJS and STOMP.
@@ -846,8 +819,6 @@ initializr:
           id: camel
           compatibilityRange: "[3.0.0,3.3.0-M1)"
           mappings:
-            - compatibilityRange: "[3.0.0,3.2.0-M1)"
-              version: 4.2.0
             - compatibilityRange: "[3.2.0-M1,3.3.0-M1)"
               version: 4.6.0
           description: Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
@@ -1049,19 +1020,15 @@ initializr:
           id: wavefront
           description: Publish metrics and optionally distributed traces to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
           mappings:
-            - compatibility-range: "[3.1.0,3.2.0)"
-              groupId: io.micrometer
-              artifactId: micrometer-registry-wavefront
-              starter: false
-            - compatibility-range: "3.3.0-M1"
-              groupId: io.micrometer
-              artifactId: micrometer-registry-wavefront
-              starter: false
             - compatibility-range: "[3.2.0, 3.3.0-M1)"
               groupId: com.wavefront
               artifactId: wavefront-spring-boot-starter
               version: 3.2.0
               starter: true
+            - compatibility-range: "3.3.0-M1"
+              groupId: io.micrometer
+              artifactId: micrometer-registry-wavefront
+              starter: false
         - name: Zipkin
           id: zipkin
           description: Enable and expose span and trace IDs to Zipkin.

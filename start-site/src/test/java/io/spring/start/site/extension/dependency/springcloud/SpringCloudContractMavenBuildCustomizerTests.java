@@ -32,14 +32,16 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.2.0";
+
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
 		ProjectRequest request = createProjectRequest("cloud-contract-verifier");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-contract-verifier"))
-			.hasText("/project/build/plugins/plugin[2]/groupId", "org.springframework.cloud")
-			.hasText("/project/build/plugins/plugin[2]/artifactId", "spring-cloud-contract-maven-plugin")
-			.hasText("/project/build/plugins/plugin[2]/extensions", Boolean.toString(true));
+			.hasText("/project/build/plugins/plugin[1]/groupId", "org.springframework.cloud")
+			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[1]/extensions", Boolean.toString(true));
 	}
 
 	@Test
@@ -51,19 +53,19 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 	@Test
 	void springCloudContractVerifierPluginForSpringBootWithJUnit5ByDefault() {
 		ProjectRequest request = createProjectRequest("cloud-contract-verifier");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request))
-			.hasText("/project/build/plugins/plugin[2]/artifactId", "spring-cloud-contract-maven-plugin")
-			.hasText("/project/build/plugins/plugin[2]/configuration/testFramework", "JUNIT5");
+			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[1]/configuration/testFramework", "JUNIT5");
 	}
 
 	@Test
 	void springCloudContractVerifierPluginWithTestModeSetWhenWebFluxIsPresent() {
 		ProjectRequest request = createProjectRequest("cloud-contract-verifier", "webflux");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request))
-			.hasText("/project/build/plugins/plugin[2]/artifactId", "spring-cloud-contract-maven-plugin")
-			.hasText("/project/build/plugins/plugin[2]/configuration/testMode", "WEBTESTCLIENT");
+			.hasText("/project/build/plugins/plugin[1]/artifactId", "spring-cloud-contract-maven-plugin")
+			.hasText("/project/build/plugins/plugin[1]/configuration/testMode", "WEBTESTCLIENT");
 	}
 
 	@Test

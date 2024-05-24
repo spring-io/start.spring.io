@@ -58,22 +58,6 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 		}
 
 		@Test
-		void springBoot31ConfiguresJammyBaseBuilder() {
-			ProjectRequest request = createProjectRequest();
-			request.setBootVersion("3.1.0");
-			assertThat(mavenPom(request)).hasText("/project/build/plugins/plugin[1]/configuration/image/builder",
-					PaketoBuilderBuildCustomizer.BASE_IMAGE_BUILDER);
-		}
-
-		@Test
-		void springBoot31WithNativeConfiguresJammyTinyBuilder() {
-			ProjectRequest request = createProjectRequest("native");
-			request.setBootVersion("3.1.0");
-			assertThat(mavenPom(request)).hasText("/project/build/plugins/plugin[2]/configuration/image/builder",
-					PaketoBuilderBuildCustomizer.TINY_IMAGE_BUILDER);
-		}
-
-		@Test
 		void springBoot32DoesNotConfigureJammyBaseBuilder() {
 			ProjectRequest request = createProjectRequest();
 			request.setBootVersion("3.2.0-RC1");
@@ -116,42 +100,10 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 		}
 
 		@Test
-		void springBoot31WithGroovyDslConfiguresJammyBaseBuilder() {
-			ProjectRequest request = createProjectRequest();
-			request.setBootVersion("3.1.0");
-			assertThat(gradleBuild(request))
-				.contains("builder = '%s'".formatted(PaketoBuilderBuildCustomizer.BASE_IMAGE_BUILDER));
-		}
-
-		@Test
-		void springBoot31WithGroovyDslAndNativeConfiguresJammyTinyBuilder() {
-			ProjectRequest request = createProjectRequest("native");
-			request.setBootVersion("3.1.0");
-			assertThat(gradleBuild(request))
-				.contains("builder = '%s'".formatted(PaketoBuilderBuildCustomizer.TINY_IMAGE_BUILDER));
-		}
-
-		@Test
 		void springBoot32WithGroovyDslDoesNotConfigureJammyBaseBuilder() {
 			ProjectRequest request = createProjectRequest();
 			request.setBootVersion("3.2.0-RC1");
 			assertThat(gradleBuild(request)).doesNotContain("builder = '");
-		}
-
-		@Test
-		void springBoot31WithKotlinDslConfiguresJammyBaseBuilder() {
-			ProjectRequest request = createProjectRequest();
-			request.setBootVersion("3.1.0");
-			assertThat(gradleKotlinDslBuild(request))
-				.contains("builder.set(\"%s\")".formatted(PaketoBuilderBuildCustomizer.BASE_IMAGE_BUILDER));
-		}
-
-		@Test
-		void springBoot31WithKotlinDslAndNativeConfiguresJammyTinyBuilder() {
-			ProjectRequest request = createProjectRequest("native");
-			request.setBootVersion("3.1.0");
-			assertThat(gradleKotlinDslBuild(request))
-				.contains("builder.set(\"%s\")".formatted(PaketoBuilderBuildCustomizer.TINY_IMAGE_BUILDER));
 		}
 
 		@Test

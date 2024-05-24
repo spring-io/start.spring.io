@@ -41,26 +41,21 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION_3_3 = "3.3.0";
+
+	private static final String SPRING_BOOT_VERSION_3_2 = "3.2.0";
+
 	@Test
 	void buildWithOnlyTestContainers() {
-		assertThat(generateProject("3.1.0", "testcontainers")).mavenBuild()
-			.hasDependency(getDependency("testcontainers"));
-	}
-
-	@ParameterizedTest
-	@MethodSource("supportedEntriesBuild310")
-	void buildWithSupportedEntriesForSpringBoot31(String springBootDependencyId, String testcontainersArtifactId) {
-		assertThat(generateProject("3.1.0", "testcontainers", springBootDependencyId)).mavenBuild()
-			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.1.0")))
-			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
+		assertThat(generateProject(SPRING_BOOT_VERSION_3_3, "testcontainers")).mavenBuild()
 			.hasDependency(getDependency("testcontainers"));
 	}
 
 	@ParameterizedTest
 	@MethodSource("supportedEntriesBuild320")
 	void buildWithSupportedEntriesForSpringBoot32(String springBootDependencyId, String testcontainersArtifactId) {
-		assertThat(generateProject("3.2.0", "testcontainers", springBootDependencyId)).mavenBuild()
-			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.2.0")))
+		assertThat(generateProject(SPRING_BOOT_VERSION_3_2, "testcontainers", springBootDependencyId)).mavenBuild()
+			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse(SPRING_BOOT_VERSION_3_2)))
 			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
 			.hasDependency(getDependency("testcontainers"));
 	}
@@ -69,29 +64,11 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@MethodSource("supportedTestcontainersActiveMQEntriesBuild")
 	void buildWithSpringBoot33AndTestcontainersActiveMQModule(String springBootDependencyId,
 			String testcontainersArtifactId) {
-		assertThat(generateProject("3.3.0", "testcontainers", springBootDependencyId)).mavenBuild()
+		assertThat(generateProject(SPRING_BOOT_VERSION_3_3, "testcontainers", springBootDependencyId)).mavenBuild()
 			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
 			.hasDependency(getDependency(springBootDependencyId).resolve(Version.parse("3.3.0")))
 			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
 			.hasDependency(getDependency("testcontainers"));
-	}
-
-	static Stream<Arguments> supportedEntriesBuild310() {
-		return Stream.of(Arguments.arguments("amqp", "rabbitmq"), Arguments.of("amqp-streams", "rabbitmq"),
-				Arguments.arguments("cloud-gcp", "gcloud"), Arguments.arguments("cloud-gcp-pubsub", "gcloud"),
-				Arguments.arguments("data-cassandra", "cassandra"),
-				Arguments.arguments("data-cassandra-reactive", "cassandra"),
-				Arguments.arguments("data-couchbase", "couchbase"),
-				Arguments.arguments("data-couchbase-reactive", "couchbase"),
-				Arguments.arguments("data-elasticsearch", "elasticsearch"),
-				Arguments.arguments("data-mongodb", "mongodb"), Arguments.arguments("data-mongodb-reactive", "mongodb"),
-				Arguments.arguments("data-neo4j", "neo4j"), Arguments.arguments("data-r2dbc", "r2dbc"),
-				Arguments.arguments("db2", "db2"), Arguments.arguments("kafka", "kafka"),
-				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
-				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
-				Arguments.arguments("oracle", "oracle-xe"), Arguments.arguments("pulsar", "pulsar"),
-				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
-				Arguments.arguments("sqlserver", "mssqlserver"));
 	}
 
 	static Stream<Arguments> supportedEntriesBuild320() {
@@ -121,66 +98,75 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@ParameterizedTest
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsPresentIsAdded(String dependencyId, String docHref) {
-		assertHelpDocument("3.1.0", "testcontainers", dependencyId)
-			.contains("https://java.testcontainers.org/modules/" + docHref);
+		assertHelpDocument(SPRING_BOOT_VERSION_3_2, "testcontainers", dependencyId).contains(docHref);
 	}
 
 	@ParameterizedTest
 	@MethodSource("supportedEntriesHelpDocument")
 	void linkToSupportedEntriesWhenTestContainerIsNotPresentIsNotAdded(String dependencyId, String docHref) {
-		assertHelpDocument("3.1.0", dependencyId).doesNotContain("https://java.testcontainers.org/modules/" + docHref);
+		assertHelpDocument(SPRING_BOOT_VERSION_3_2, dependencyId).doesNotContain(docHref);
 	}
 
 	static Stream<Arguments> supportedEntriesHelpDocument() {
-		return Stream.of(Arguments.arguments("amqp", "rabbitmq/"), Arguments.arguments("amqp-streams", "rabbitmq/"),
-				Arguments.arguments("cloud-gcp", "gcloud/"), Arguments.arguments("cloud-gcp-pubsub", "gcloud/"),
-				Arguments.arguments("cloud-starter-consul-config", "consul/"),
-				Arguments.arguments("cloud-starter-vault-config", "vault/"),
-				Arguments.arguments("data-cassandra", "databases/cassandra/"),
-				Arguments.arguments("data-cassandra-reactive", "databases/cassandra/"),
-				Arguments.arguments("data-couchbase", "databases/couchbase/"),
-				Arguments.arguments("data-couchbase-reactive", "databases/couchbase/"),
-				Arguments.arguments("data-elasticsearch", "elasticsearch/"),
-				Arguments.arguments("data-mongodb", "databases/mongodb/"),
-				Arguments.arguments("data-mongodb-reactive", "databases/mongodb/"),
-				Arguments.arguments("data-neo4j", "databases/neo4j/"),
-				Arguments.arguments("data-r2dbc", "databases/r2dbc/"), Arguments.arguments("db2", "databases/db2"),
-				Arguments.arguments("kafka", "kafka/"), Arguments.arguments("kafka-streams", "kafka/"),
-				Arguments.arguments("mariadb", "databases/mariadb/"), Arguments.arguments("mysql", "databases/mysql/"),
-				Arguments.arguments("oracle", "databases/oraclexe/"),
-				Arguments.arguments("postgresql", "databases/postgres/"), Arguments.arguments("pulsar", "pulsar/"),
-				Arguments.arguments("pulsar-reactive", "pulsar/"), Arguments.arguments("solace", "solace/"),
-				Arguments.arguments("sqlserver", "databases/mssqlserver/"));
+		return Stream.of(Arguments.arguments("amqp", "https://java.testcontainers.org/modules/rabbitmq/"),
+				Arguments.arguments("amqp-streams", "https://java.testcontainers.org/modules/rabbitmq/"),
+				Arguments.arguments("cloud-gcp", "https://java.testcontainers.org/modules/gcloud/"),
+				Arguments.arguments("cloud-gcp-pubsub", "https://java.testcontainers.org/modules/gcloud/"),
+				Arguments.arguments("cloud-starter-consul-config", "https://java.testcontainers.org/modules/consul/"),
+				Arguments.arguments("cloud-starter-vault-config", "https://java.testcontainers.org/modules/vault/"),
+				Arguments.arguments("data-cassandra", "https://java.testcontainers.org/modules/databases/cassandra/"),
+				Arguments.arguments("data-cassandra-reactive",
+						"https://java.testcontainers.org/modules/databases/cassandra/"),
+				Arguments.arguments("data-couchbase", "https://java.testcontainers.org/modules/databases/couchbase/"),
+				Arguments.arguments("data-couchbase-reactive",
+						"https://java.testcontainers.org/modules/databases/couchbase/"),
+				Arguments.arguments("data-elasticsearch", "https://java.testcontainers.org/modules/elasticsearch/"),
+				Arguments.arguments("data-mongodb", "https://java.testcontainers.org/modules/databases/mongodb/"),
+				Arguments.arguments("data-mongodb-reactive",
+						"https://java.testcontainers.org/modules/databases/mongodb/"),
+				Arguments.arguments("data-neo4j", "https://java.testcontainers.org/modules/databases/neo4j/"),
+				Arguments.arguments("data-r2dbc", "https://java.testcontainers.org/modules/databases/r2dbc/"),
+				Arguments.arguments("db2", "https://java.testcontainers.org/modules/databases/db2"),
+				Arguments.arguments("kafka", "https://java.testcontainers.org/modules/kafka/"),
+				Arguments.arguments("kafka-streams", "https://java.testcontainers.org/modules/kafka/"),
+				Arguments.arguments("mariadb", "https://java.testcontainers.org/modules/databases/mariadb/"),
+				Arguments.arguments("mysql", "https://java.testcontainers.org/modules/databases/mysql/"),
+				Arguments.arguments("oracle", "https://hub.docker.com/r/gvenzl/oracle-free"),
+				Arguments.arguments("postgresql", "https://java.testcontainers.org/modules/databases/postgres/"),
+				Arguments.arguments("pulsar", "https://java.testcontainers.org/modules/pulsar/"),
+				Arguments.arguments("pulsar-reactive", "https://java.testcontainers.org/modules/pulsar/"),
+				Arguments.arguments("solace", "https://java.testcontainers.org/modules/solace/"),
+				Arguments.arguments("sqlserver", "https://java.testcontainers.org/modules/databases/mssqlserver/"));
 	}
 
 	@Test
 	void linkToSupportedEntriesWhenTwoMatchesArePresentOnlyAddLinkOnce() {
-		assertHelpDocument("3.1.0", "testcontainers", "data-mongodb", "data-mongodb-reactive")
+		assertHelpDocument(SPRING_BOOT_VERSION_3_3, "testcontainers", "data-mongodb", "data-mongodb-reactive")
 			.containsOnlyOnce("https://java.testcontainers.org/modules/databases/mongodb/");
 	}
 
 	@Test
 	void buildWithSpringBoot31DoesNotIncludeBom() {
-		assertThat(generateProject("3.1.0", "testcontainers")).mavenBuild()
+		assertThat(generateProject(SPRING_BOOT_VERSION_3_3, "testcontainers")).mavenBuild()
 			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
 			.hasDependency(getDependency("testcontainers"));
 	}
 
 	@Test
 	void buildWithSpringBoot31IncludeSpringBootTestcontainers() {
-		assertThat(generateProject("3.1.0", "testcontainers")).mavenBuild()
+		assertThat(generateProject(SPRING_BOOT_VERSION_3_3, "testcontainers")).mavenBuild()
 			.hasDependency("org.springframework.boot", "spring-boot-testcontainers", null, "test");
 	}
 
 	@Test
 	void buildWithSpringBoot31IncludeTestcontainersSection() {
-		assertHelpDocument("3.1.0", "testcontainers").contains("Spring Boot Testcontainers support");
+		assertHelpDocument(SPRING_BOOT_VERSION_3_3, "testcontainers").contains("Spring Boot Testcontainers support");
 	}
 
 	@Test
 	void testApplicationWithGroovyAndGenericContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("groovy");
 		assertThat(generateProject(request)).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
 			.isEqualTo("""
@@ -213,7 +199,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void testApplicationWithJavaAndGenericContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("java");
 		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
 			.isEqualTo("""
@@ -246,7 +232,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void testApplicationWithKotlinAndGenericContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
-		request.setBootVersion("3.1.1");
+		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("kotlin");
 		assertThat(generateProject(request)).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt")
 			.isEqualTo("""
@@ -280,7 +266,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void testApplicationWithGroovyAndSpecificContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("groovy");
 		assertThat(generateProject(request)).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
 			.isEqualTo("""
@@ -313,7 +299,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void testApplicationWithJavaAndSpecificContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("java");
 		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
 			.isEqualTo("""
@@ -346,7 +332,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void testApplicationWithKotlinAndSpecificContainerIsContributed() {
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
-		request.setBootVersion("3.1.1");
+		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("kotlin");
 		assertThat(generateProject(request)).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt")
 			.isEqualTo("""
@@ -379,10 +365,10 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	@Test
 	void shouldAddHelpSection() {
-		assertHelpDocument("3.1.5", "testcontainers", "data-mongodb", "postgresql").contains(
-				"https://docs.spring.io/spring-boot/docs/3.1.5/reference/html/features.html#features.testing.testcontainers")
+		assertHelpDocument(SPRING_BOOT_VERSION_3_3, "testcontainers", "data-mongodb", "postgresql").contains(
+				"https://docs.spring.io/spring-boot/docs/3.3.0/reference/html/features.html#features.testing.testcontainers")
 			.contains(
-					"https://docs.spring.io/spring-boot/docs/3.1.5/reference/html/features.html#features.testing.testcontainers.at-development-time")
+					"https://docs.spring.io/spring-boot/docs/3.3.0/reference/html/features.html#features.testing.testcontainers.at-development-time")
 			.contains("mongo:latest")
 			.contains("postgres:latest");
 	}

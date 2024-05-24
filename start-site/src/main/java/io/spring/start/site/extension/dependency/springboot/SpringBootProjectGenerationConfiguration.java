@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.springboot;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.gradle.DevelopmentOnlyDependencyGradleBuildCustomizer;
@@ -46,12 +45,6 @@ class SpringBootProjectGenerationConfiguration {
 	static class MavenConfiguration {
 
 		@Bean
-		@ConditionalOnPlatformVersion("[2.0.0,3.2.0-M1)")
-		PaketoBuilderMavenBuildCustomizer paketoBuilderMavenBuildCustomizer() {
-			return new PaketoBuilderMavenBuildCustomizer();
-		}
-
-		@Bean
 		@ConditionalOnRequestedDependency(DEVTOOLS_ID)
 		OptionalDependencyMavenBuildCustomizer devToolsMavenBuildCustomizer() {
 			return new OptionalDependencyMavenBuildCustomizer(DEVTOOLS_ID);
@@ -68,20 +61,6 @@ class SpringBootProjectGenerationConfiguration {
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	static class GradleConfiguration {
-
-		@Bean
-		@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
-		@ConditionalOnPlatformVersion("[2.0.0,3.2.0-M1)")
-		PaketoBuilderGroovyDslGradleBuildCustomizer paketoBuilderGroovyDslGradleBuildCustomizer() {
-			return new PaketoBuilderGroovyDslGradleBuildCustomizer();
-		}
-
-		@Bean
-		@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
-		@ConditionalOnPlatformVersion("[2.0.0,3.2.0-M1)")
-		PaketoBuilderKotlinDslGradleBuildCustomizer paketoBuilderKotlinDslGradleBuildCustomizer() {
-			return new PaketoBuilderKotlinDslGradleBuildCustomizer();
-		}
 
 		@Bean
 		@ConditionalOnRequestedDependency(DEVTOOLS_ID)

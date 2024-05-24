@@ -24,7 +24,6 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.condition.ProjectGenerationCondition;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections;
@@ -62,14 +61,6 @@ class SpringPulsarProjectGenerationConfiguration {
 	ComposeFileCustomizer pulsarComposeFileCustomizer(DockerServiceResolver serviceResolver) {
 		return (composeFile) -> serviceResolver.doWith("pulsar",
 				(service) -> composeFile.services().add("pulsar", service));
-	}
-
-	@Bean
-	@ConditionalOnPlatformVersion("[3.0.0,3.2.0-M1)")
-	@ConditionalOnRequestedDependency("cloud-stream")
-	SpringPulsarBinderBuildCustomizer pulsarBinderBuildCustomizer(InitializrMetadata metadata,
-			ProjectDescription description) {
-		return new SpringPulsarBinderBuildCustomizer(metadata, description);
 	}
 
 	static class OnPulsarDependencyCondition extends ProjectGenerationCondition {
