@@ -45,7 +45,6 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("mysql", mysql());
 		this.dockerServices.put("neo4j", neo4j());
 		this.dockerServices.put("oracleFree", oracleFree());
-		this.dockerServices.put("oracleXe", oracleXe());
 		this.dockerServices.put("pgvector", pgvector());
 		this.dockerServices.put("postgres", postgres());
 		this.dockerServices.put("pulsar", pulsar());
@@ -117,13 +116,6 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	private static DockerService oracleFree() {
 		return DockerService.withImageAndTag("gvenzl/oracle-free")
 			.website("https://hub.docker.com/r/gvenzl/oracle-free")
-			.ports(1521)
-			.build();
-	}
-
-	private static DockerService oracleXe() {
-		return DockerService.withImageAndTag("gvenzl/oracle-xe")
-			.website("https://hub.docker.com/r/gvenzl/oracle-xe")
 			.ports(1521)
 			.build();
 	}
