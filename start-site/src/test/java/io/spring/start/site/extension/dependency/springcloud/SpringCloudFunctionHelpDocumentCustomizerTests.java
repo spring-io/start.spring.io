@@ -33,9 +33,12 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 
 	private static final String AZURE_SECTION_TITLE = "## Running Spring Cloud Function applications on Microsoft Azure";
 
+	private static final String BOOT_VERSION = "3.2.6";
+
 	@Test
 	void functionBuildSetupInfoSectionAddedForMaven() {
 		ProjectRequest request = createProjectRequest();
+		request.setBootVersion(BOOT_VERSION);
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);
@@ -44,6 +47,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 	@Test
 	void functionBuildSetupInfoSectionAddedForGradle() {
 		ProjectRequest request = createProjectRequest();
+		request.setBootVersion(BOOT_VERSION);
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
 		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);

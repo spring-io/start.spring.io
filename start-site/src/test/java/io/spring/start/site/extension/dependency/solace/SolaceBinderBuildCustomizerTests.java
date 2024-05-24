@@ -31,6 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final String BOOT_VERSION = "3.2.6";
+
 	@Test
 	void binderNotAddedWhenSolaceNotSelected() {
 		ProjectStructure project = generateProject(createProjectRequest("cloud-stream"));
@@ -40,6 +42,7 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void binderNotAddedWhenCloudStreamNotSelected() {
 		ProjectRequest request = createProjectRequest("solace");
+		request.setBootVersion(BOOT_VERSION);
 		ProjectStructure project = generateProject(request);
 		assertNoBinder(project);
 		assertThat(project).mavenBuild().hasDependency(getDependency("solace"));
@@ -48,6 +51,7 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void binderAddedWhenSolaceAndCloudStreamSelected() {
 		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
+		request.setBootVersion(BOOT_VERSION);
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasDependency("com.solace.spring.cloud", "spring-cloud-starter-stream-solace");
 	}
@@ -55,6 +59,7 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void bomAddedWhenSolaceAndCloudStreamSelected() {
 		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
+		request.setBootVersion(BOOT_VERSION);
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild()
 			.hasBom("com.solace.spring.cloud", "solace-spring-cloud-bom", "${solace-spring-cloud.version}");
@@ -73,6 +78,7 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void solaceStarterRemovedWhenSolaceAndCloudStreamSelected() {
 		ProjectRequest request = createProjectRequest("solace", "cloud-stream");
+		request.setBootVersion(BOOT_VERSION);
 		ProjectStructure project = generateProject(request);
 		Dependency solace = getDependency("solace");
 		assertThat(project).mavenBuild().doesNotHaveDependency(solace.getGroupId(), solace.getArtifactId());
