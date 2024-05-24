@@ -882,18 +882,6 @@ initializr:
               description: Caching Data with Spring
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#io.caching
-        - name: Picocli
-          id: picocli
-          groupId: info.picocli
-          artifactId: picocli-spring-boot-starter
-          compatibilityRange: "[3.0.0,3.2.0-M1)"
-          description: Build command line applications with picocli.
-          mappings:
-            - compatibilityRange: "[3.0.0,3.2.0-M1)"
-              version: 4.7.5
-          links:
-            - rel: reference
-              href: https://picocli.info/#_spring_boot_example
         - name: Spring Shell
           id: spring-shell
           groupId: org.springframework.shell
