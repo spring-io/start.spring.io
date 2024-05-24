@@ -47,24 +47,24 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void mavenBuildAddLinkToMavenAotPlugin() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("3.0.0-RC1"));
+		description.setPlatformVersion(Version.parse("3.2.0"));
 		HelpDocument document = customize(description, new MavenBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
 			assertThat(link.getHref())
-				.isEqualTo("https://docs.spring.io/spring-boot/docs/3.0.0-RC1/maven-plugin/reference/htmlsingle/#aot");
+				.isEqualTo("https://docs.spring.io/spring-boot/docs/3.2.0/maven-plugin/reference/htmlsingle/#aot");
 		});
 	}
 
 	@Test
 	void gradleBuildAddLinkToGradleAotPlugin() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("3.0.0-RC1"));
+		description.setPlatformVersion(Version.parse("3.2.0"));
 		HelpDocument document = customize(description, new GradleBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
 			assertThat(link.getHref())
-				.isEqualTo("https://docs.spring.io/spring-boot/docs/3.0.0-RC1/gradle-plugin/reference/htmlsingle/#aot");
+				.isEqualTo("https://docs.spring.io/spring-boot/docs/3.2.0/gradle-plugin/reference/htmlsingle/#aot");
 		});
 	}
 

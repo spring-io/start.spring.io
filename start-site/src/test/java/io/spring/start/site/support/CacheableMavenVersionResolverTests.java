@@ -63,10 +63,10 @@ class CacheableMavenVersionResolverTests {
 	@Test
 	void managedDependenciesAreCached() {
 		Map<String, String> dependencies = this.versionResolver.resolveDependencies("org.springframework.boot",
-				"spring-boot-dependencies", "3.1.0");
+				"spring-boot-dependencies", "3.2.0");
 		assertThat(dependencies).isNotNull();
 		ValueWrapper valueWrapper = this.cache
-			.get("dependencies-org.springframework.boot:spring-boot-dependencies:3.1.0");
+			.get("dependencies-org.springframework.boot:spring-boot-dependencies:3.2.0");
 		assertThat(valueWrapper).isNotNull();
 		assertThat(valueWrapper.get()).isInstanceOf(Map.class);
 	}
@@ -74,9 +74,9 @@ class CacheableMavenVersionResolverTests {
 	@Test
 	void managedPluginsAreCached() {
 		Map<String, String> plugins = this.versionResolver.resolvePlugins("org.springframework.boot",
-				"spring-boot-dependencies", "3.1.0");
+				"spring-boot-dependencies", "3.2.0");
 		assertThat(plugins).isNotNull();
-		ValueWrapper valueWrapper = this.cache.get("plugins-org.springframework.boot:spring-boot-dependencies:3.1.0");
+		ValueWrapper valueWrapper = this.cache.get("plugins-org.springframework.boot:spring-boot-dependencies:3.2.0");
 		assertThat(valueWrapper).isNotNull();
 		assertThat(valueWrapper.get()).isInstanceOf(Map.class);
 	}

@@ -36,29 +36,21 @@ class ActiveMQProjectGenerationConfigurationTests extends AbstractExtensionTests
 	@Test
 	void dockerComposeWhenDockerComposeIsNotSelectedDoesNotCreateService() {
 		ProjectRequest request = createProjectRequest("web", "activemq");
-		request.setBootVersion("3.2.0-M1");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void dockerComposeWhenIncompatibleSpringBootVersionDoesNotCreateService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
-		request.setBootVersion("3.1.1");
-		assertThat(composeFile(request)).doesNotContain("activemq");
-	}
-
-	@Test
 	void dockerComposeCreatesAppropriateService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
-		request.setBootVersion("3.2.0-M1");
+		request.setBootVersion("3.2.0");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq.yaml"));
 	}
 
 	@Test
 	void dockerComposeCreatesAppropriateServiceWithVersion33() {
 		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
-		request.setBootVersion("3.3.0-M2");
+		request.setBootVersion("3.3.0");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq-classic.yaml"));
 	}
 

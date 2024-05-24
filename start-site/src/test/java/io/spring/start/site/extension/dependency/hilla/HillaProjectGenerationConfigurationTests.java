@@ -31,10 +31,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class HillaProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.2.0";
+
 	@Test
 	void mavenBuildWithHillaAddProductionProfile() {
 		ProjectRequest request = createProjectRequest("hilla", "data-jpa");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request)).hasProfile("production")
 			.contains(new ClassPathResource("dependency/hilla/hilla-maven-profile.xml"));
 	}
@@ -42,28 +44,28 @@ class HillaProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void mavenBuildWithoutHillaDoesNotAddProductionProfile() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request)).doesNotContain("hilla");
 	}
 
 	@Test
 	void gradleBuildWithHillaConfigurePlugin() {
 		ProjectRequest request = createProjectRequest("hilla", "data-jpa");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(gradleBuild(request)).hasPlugin("dev.hilla");
 	}
 
 	@Test
 	void gradleBuildWithHillaConfigureTask() {
 		ProjectRequest request = createProjectRequest("data-jpa");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(gradleBuild(request)).doesNotContain("hilla");
 	}
 
 	@Test
 	void projectWithHillaCustomizesGitIgnore() {
 		ProjectRequest request = createProjectRequest("hilla", "data-jpa");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(generateProject(request)).textFile(".gitignore").contains("node_modules/", "frontend/generated/");
 	}
 

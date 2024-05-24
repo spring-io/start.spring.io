@@ -30,10 +30,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class MyBatisTestBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.2.0";
+
 	@Test
 	void mybatisIsAddedWithSecurity() {
 		ProjectRequest request = createProjectRequest("mybatis");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request)).hasDependency(mybatis())
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(mybatisTest())

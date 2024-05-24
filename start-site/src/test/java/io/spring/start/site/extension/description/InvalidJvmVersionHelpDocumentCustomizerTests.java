@@ -30,9 +30,11 @@ import org.junit.jupiter.api.Test;
  */
 class InvalidJvmVersionHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
+
 	@Test
 	void warningAddedWithUnsupportedCombination() {
-		assertHelpDocument("3.1.0", "11").lines()
+		assertHelpDocument(SPRING_BOOT_VERSION, "11").lines()
 			.containsSubsequence("# Read Me First",
 					"* The JVM level was changed from '11' to '17', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
 	}
@@ -40,17 +42,17 @@ class InvalidJvmVersionHelpDocumentCustomizerTests extends AbstractExtensionTest
 	@Test
 	void warningAddedWithUnsupportedKotlinVersion() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("3.1.0");
-		request.setJavaVersion("21");
+		request.setBootVersion(SPRING_BOOT_VERSION);
+		request.setJavaVersion("22");
 		request.setLanguage(KotlinLanguage.ID);
 		assertHelpDocument(request).lines()
 			.containsSubsequence("# Read Me First",
-					"* The JVM level was changed from '21' to '17' as the Kotlin version does not support Java 21 yet.");
+					"* The JVM level was changed from '22' to '21' as the Kotlin version does not support Java 22 yet.");
 	}
 
 	@Test
 	void warningNotAddedWithCompatibleVersion() {
-		assertHelpDocument("3.1.0", "17").doesNotContain("# Read Me First");
+		assertHelpDocument(SPRING_BOOT_VERSION, "17").doesNotContain("# Read Me First");
 	}
 
 	private TextAssert assertHelpDocument(ProjectRequest request) {

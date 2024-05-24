@@ -30,10 +30,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.2.0";
+
 	@Test
 	void mavenBuildWithVaadinAddProductionProfileWithoutProductionModeFlag() {
 		ProjectRequest request = createProjectRequest("vaadin", "data-jpa");
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request)).hasProfile("production")
 			.lines()
 			.containsSequence("		<profile>", "			<id>production</id>", "			<build>",
@@ -88,7 +90,7 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Override
 	protected ProjectRequest createProjectRequest(String... dependencies) {
 		ProjectRequest request = super.createProjectRequest(dependencies);
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		return request;
 	}
 

@@ -40,8 +40,6 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  */
 abstract class TestcontainersModuleRegistry {
 
-	private static final VersionRange SPRING_BOOT_3_2_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0");
-
 	private static final VersionRange SPRING_BOOT_3_3_0_M2_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M2");
 
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
@@ -80,14 +78,8 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")));
 		builders.add(onDependencies("mysql").customizeBuild(addModule("mysql"))
 			.customizeHelpDocument(addReferenceLink("MySQL Module", "databases/mysql/")));
-		if (SPRING_BOOT_3_2_0_OR_LATER.match(platformVersion)) {
-			builders.add(onDependencies("oracle").customizeBuild(addModule("oracle-free"))
-				.customizeHelpDocument(addReferenceLink("Oracle-Free Module", "databases/oraclefree/")));
-		}
-		else {
-			builders.add(onDependencies("oracle").customizeBuild(addModule("oracle-xe"))
-				.customizeHelpDocument(addReferenceLink("Oracle-XE Module", "databases/oraclexe/")));
-		}
+		builders.add(onDependencies("oracle").customizeBuild(addModule("oracle-free"))
+			.customizeHelpDocument(addReferenceLink("Oracle-Free Module", "databases/oraclefree/")));
 		builders.add(onDependencies("postgresql", "spring-ai-vectordb-pgvector").customizeBuild(addModule("postgresql"))
 			.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")));
 		builders.add(onDependencies("pulsar", "pulsar-reactive").customizeBuild(addModule("pulsar"))

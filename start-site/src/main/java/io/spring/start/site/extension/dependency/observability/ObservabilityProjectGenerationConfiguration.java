@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 class ObservabilityProjectGenerationConfiguration {
 
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnPlatformVersion("3.0.0-M1")
+	@ConditionalOnPlatformVersion("3.2.0")
 	static class ObservabilityConfiguration {
 
 		@Bean
@@ -58,17 +58,6 @@ class ObservabilityProjectGenerationConfiguration {
 		@ConditionalOnPlatformVersion("[3.2.0, 3.3.0-M1)")
 		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
 			return new WavefrontHelpDocumentCustomizer("https://docs.wavefront.com/wavefront_springboot3.html", build);
-		}
-
-	}
-
-	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnPlatformVersion("[2.0.0,3.0.0-M1)")
-	static class Observability2xConfiguration {
-
-		@Bean
-		Observability2xHelpDocumentCustomizer observabilityHelpDocumentCustomizer(Build build) {
-			return new Observability2xHelpDocumentCustomizer(build);
 		}
 
 	}

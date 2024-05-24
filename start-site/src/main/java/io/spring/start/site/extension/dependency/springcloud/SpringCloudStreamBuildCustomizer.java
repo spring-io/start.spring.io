@@ -19,9 +19,7 @@ package io.spring.start.site.extension.dependency.springcloud;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
 
 /**
  * Determine the appropriate Spring Cloud stream dependency to use based on the selected
@@ -37,12 +35,6 @@ import io.spring.initializr.generator.version.Version;
  */
 class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 
-	private final ProjectDescription description;
-
-	SpringCloudStreamBuildCustomizer(ProjectDescription description) {
-		this.description = description;
-	}
-
 	@Override
 	public void customize(Build build) {
 		if (hasDependency("cloud-stream", build) || hasDependency("cloud-bus", build)) {
@@ -56,7 +48,7 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 					.add("cloud-stream-binder-kafka", "org.springframework.cloud", "spring-cloud-stream-binder-kafka",
 							DependencyScope.COMPILE);
 			}
-			if (hasPulsarSupport() && hasDependency("pulsar", build)) {
+			if (hasDependency("pulsar", build)) {
 				build.dependencies()
 					.add("cloud-stream-binder-pulsar", "org.springframework.cloud", "spring-cloud-stream-binder-pulsar",
 							DependencyScope.COMPILE);
@@ -78,11 +70,6 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 
 	protected boolean hasDependency(String id, Build build) {
 		return build.dependencies().has(id);
-	}
-
-	protected boolean hasPulsarSupport() {
-		Version platformVersion = this.description.getPlatformVersion();
-		return platformVersion.compareTo(Version.parse("3.2.0-M3")) >= 0;
 	}
 
 }

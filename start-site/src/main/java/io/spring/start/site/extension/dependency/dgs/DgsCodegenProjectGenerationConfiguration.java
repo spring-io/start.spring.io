@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Bean;
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("dgs-codegen")
-@ConditionalOnPlatformVersion("3.0.0-M1")
+@ConditionalOnPlatformVersion("3.2.0")
 class DgsCodegenProjectGenerationConfiguration {
 
 	private final String dgsCodegenPluginVersion;

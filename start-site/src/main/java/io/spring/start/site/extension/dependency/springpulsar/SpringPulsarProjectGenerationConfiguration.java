@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.springpulsar;
 import java.util.Map;
 
 import io.spring.initializr.generator.buildsystem.Dependency;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.condition.ProjectGenerationCondition;
 import io.spring.initializr.generator.project.ProjectDescription;
@@ -47,7 +46,6 @@ class SpringPulsarProjectGenerationConfiguration {
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.PulsarContainer";
 
 	@Bean
-	@ConditionalOnPlatformVersion("3.2.0-M3")
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer pulsarServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("pulsar",
@@ -56,7 +54,6 @@ class SpringPulsarProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("3.2.0-M3")
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer pulsarComposeFileCustomizer(DockerServiceResolver serviceResolver) {
 		return (composeFile) -> serviceResolver.doWith("pulsar",

@@ -34,6 +34,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
+
 	@Test
 	void gradleBuildWithoutNativeDoesNotConfigureNativeBuildTools() {
 		ProjectRequest request = createProjectRequest("web");
@@ -60,9 +62,10 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 
 	@Test
 	void gradleBuildConfigureNativeBuildToolsPlugin(@Autowired MavenVersionResolver mavenVersionResolver) {
-		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(mavenVersionResolver, Version.parse("3.1.0"));
+		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(mavenVersionResolver,
+				Version.parse(SPRING_BOOT_VERSION));
 		ProjectRequest request = createNativeProjectRequest();
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(gradleBuild(request)).hasPlugin("org.graalvm.buildtools.native", nbtVersion);
 	}
 
@@ -137,7 +140,7 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	private ProjectRequest createNativeProjectRequest(String... dependencies) {
 		ProjectRequest projectRequest = createProjectRequest(dependencies);
 		projectRequest.getDependencies().add(0, "native");
-		projectRequest.setBootVersion("3.1.0");
+		projectRequest.setBootVersion(SPRING_BOOT_VERSION);
 		return projectRequest;
 	}
 

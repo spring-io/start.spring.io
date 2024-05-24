@@ -32,7 +32,6 @@ class DefaultApplicationPropertiesCustomizerTests extends AbstractExtensionTests
 	@Test
 	void shouldAddSpringApplicationName() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setBootVersion("3.1.0");
 		request.setJavaVersion("21");
 		request.setName("test");
 		assertApplicationProperties(request).lines().contains("spring.application.name=test");

@@ -38,7 +38,7 @@ public class ActiveMQProjectGenerationConfiguration {
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.activemq.ActiveMQContainer";
 
 	@Bean
-	@ConditionalOnPlatformVersion("[3.2.0-M1,3.3.0-M2)")
+	@ConditionalOnPlatformVersion("[3.2.0,3.3.0-M2)")
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer activeMQServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("activeMQ", (service) -> serviceConnections
@@ -55,7 +55,7 @@ public class ActiveMQProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("[3.2.0-M1,3.3.0-M2)")
+	@ConditionalOnPlatformVersion("[3.2.0,3.3.0-M2)")
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer activeMQComposeFileCustomizer(DockerServiceResolver serviceResolver) {
 		return (composeFile) -> serviceResolver.doWith("activeMQ",

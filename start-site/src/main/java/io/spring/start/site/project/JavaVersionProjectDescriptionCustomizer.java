@@ -37,8 +37,6 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 public class JavaVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final VersionRange KOTLIN_1_9_20_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0-RC2");
-
 	private static final VersionRange SPRING_BOOT_3_2_4_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.4");
 
 	private static final List<String> UNSUPPORTED_VERSIONS = Arrays.asList("1.6", "1.7", "1.8");
@@ -58,25 +56,14 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		if (javaGeneration < 17) {
 			updateTo(description, "17");
 		}
-		if (javaGeneration == 21) {
-			// Kotlin 1.9.20 is required
-			if (isKotlin(description) && !KOTLIN_1_9_20_OR_LATER.match(platformVersion)) {
-				updateTo(description, "17");
-			}
-		}
 		if (javaGeneration == 22) {
 			// Java 21 support as of Spring Boot 3.2.4
 			if (!SPRING_BOOT_3_2_4_OR_LATER.match(platformVersion)) {
 				updateTo(description, "21");
 			}
 			if (isKotlin(description)) {
-				if (KOTLIN_1_9_20_OR_LATER.match(platformVersion)) {
-					// Kotlin 1.9.x doesn't support Java 22
-					updateTo(description, "21");
-				}
-				else {
-					updateTo(description, "17");
-				}
+				// Kotlin 1.9.x doesn't support Java 22
+				updateTo(description, "21");
 			}
 		}
 	}

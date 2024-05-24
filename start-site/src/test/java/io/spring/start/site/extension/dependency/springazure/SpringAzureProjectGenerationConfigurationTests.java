@@ -37,10 +37,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.2.0";
+
 	@ParameterizedTest
 	@MethodSource("azureDependencies")
 	void onlyAzureDependency(String dependencyId) {
-		ProjectStructure project = generateProject("3.1.0", dependencyId);
+		ProjectStructure project = generateProject(SPRING_BOOT_VERSION, dependencyId);
 		assertThat(project).mavenBuild()
 			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
 			.hasDependency(getDependency(dependencyId))
@@ -52,7 +54,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 
 	@Test
 	void onlyActuator() {
-		ProjectStructure project = generateProject("3.1.0", "actuator");
+		ProjectStructure project = generateProject(SPRING_BOOT_VERSION, "actuator");
 		assertThat(project).mavenBuild()
 			.doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
 			.hasDependenciesSize(2)
@@ -63,7 +65,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	@ParameterizedTest
 	@MethodSource("azureDependencies")
 	void azureDependencyWithActuator(String dependencyId) {
-		ProjectStructure project = generateProject("3.1.0", dependencyId, "actuator");
+		ProjectStructure project = generateProject(SPRING_BOOT_VERSION, dependencyId, "actuator");
 		assertThat(project).mavenBuild()
 			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
 			.hasDependency(getDependency(dependencyId))
@@ -74,7 +76,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 
 	@Test
 	void onlyIntegration() {
-		ProjectStructure project = generateProject("3.1.0", "integration");
+		ProjectStructure project = generateProject(SPRING_BOOT_VERSION, "integration");
 		assertThat(project).mavenBuild()
 			.doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
 			.hasDependenciesSize(3)
@@ -85,7 +87,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 
 	@Test
 	void azureStorageWithIntegration() {
-		ProjectStructure project = generateProject("3.1.0", "azure-storage", "integration");
+		ProjectStructure project = generateProject(SPRING_BOOT_VERSION, "azure-storage", "integration");
 		assertThat(project).mavenBuild()
 			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
 			.hasDependency(getDependency("azure-storage"))
@@ -97,7 +99,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 
 	@Test
 	void azureJdbcWithMysql() {
-		ProjectStructure project = generateProject("3.1.0", "mysql", "azure-support");
+		ProjectStructure project = generateProject(SPRING_BOOT_VERSION, "mysql", "azure-support");
 		assertThat(project).mavenBuild()
 			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
 			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-mysql");
@@ -107,7 +109,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 
 	@Test
 	void azureJdbcWithPostgresql() {
-		ProjectStructure project = generateProject("3.1.0", "postgresql", "azure-support");
+		ProjectStructure project = generateProject(SPRING_BOOT_VERSION, "postgresql", "azure-support");
 		assertThat(project).mavenBuild()
 			.hasBom("com.azure.spring", "spring-cloud-azure-dependencies", "${spring-cloud-azure.version}")
 			.hasDependency("com.azure.spring", "spring-cloud-azure-starter-jdbc-postgresql");

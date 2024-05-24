@@ -31,11 +31,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
+
 	@ParameterizedTest
 	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic", "distributed-tracing", "zipkin",
 			"wavefront" })
 	void actuatorIsAddedWithObservabilityEntries(String dependency) {
-		assertThat(generateProject("3.1.0", dependency)).mavenBuild().hasDependency(getDependency("actuator"));
+		assertThat(generateProject(SPRING_BOOT_VERSION, dependency)).mavenBuild()
+			.hasDependency(getDependency("actuator"));
 	}
 
 	private ProjectStructure generateProject(String bootVersion, String... dependencies) {

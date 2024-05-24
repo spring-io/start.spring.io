@@ -114,15 +114,6 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 					(context) -> assertThat(context).doesNotHaveBean("pulsarServiceConnectionsCustomizer"));
 		}
 
-		@Test
-		void connectionNotAddedWhenIncompatibleBootVersionSelected() {
-			MutableProjectDescription description = new MutableProjectDescription();
-			description.addDependency("pulsar", mock(Dependency.class));
-			description.addDependency("testcontainers", mock(Dependency.class));
-			this.projectTester.configure(description,
-					(context) -> assertThat(context).doesNotHaveBean("pulsarServiceConnectionsCustomizer"));
-		}
-
 		@ParameterizedTest
 		@ValueSource(strings = { "pulsar", "pulsar-reactive" })
 		void connectionAddedWhenTestcontainersAndPulsarSelectedWithCompatibleBootVersion(String pulsarDependencyId) {

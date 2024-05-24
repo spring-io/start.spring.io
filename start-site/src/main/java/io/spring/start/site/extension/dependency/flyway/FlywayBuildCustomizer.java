@@ -33,16 +33,11 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 class FlywayBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final VersionRange SPRING_BOOT_3_2_M1_OR_LATER = VersionParser.DEFAULT.parseRange("3.2.0-M1");
-
 	private static final VersionRange SPRING_BOOT_3_3_M3_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M3");
-
-	private final boolean isSpringBoot32OrLater;
 
 	private final boolean isSpringBoot33OrLater;
 
 	FlywayBuildCustomizer(ProjectDescription projectDescription) {
-		this.isSpringBoot32OrLater = SPRING_BOOT_3_2_M1_OR_LATER.match(projectDescription.getPlatformVersion());
 		this.isSpringBoot33OrLater = SPRING_BOOT_3_3_M3_OR_LATER.match(projectDescription.getPlatformVersion());
 	}
 
@@ -55,10 +50,8 @@ class FlywayBuildCustomizer implements BuildCustomizer<Build> {
 		if (dependencies.has("sqlserver")) {
 			dependencies.add("flyway-sqlserver", "org.flywaydb", "flyway-sqlserver", DependencyScope.COMPILE);
 		}
-		if (this.isSpringBoot32OrLater) {
-			if (dependencies.has("oracle")) {
-				dependencies.add("flyway-oracle", "org.flywaydb", "flyway-database-oracle", DependencyScope.COMPILE);
-			}
+		if (dependencies.has("oracle")) {
+			dependencies.add("flyway-oracle", "org.flywaydb", "flyway-database-oracle", DependencyScope.COMPILE);
 		}
 		if (this.isSpringBoot33OrLater) {
 			if (dependencies.has("db2")) {

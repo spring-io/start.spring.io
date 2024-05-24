@@ -29,6 +29,8 @@ import org.junit.jupiter.api.Test;
  */
 class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.2.0";
+
 	@Test
 	void oktaSectionWithOktaDependencyIsPresent() {
 		assertHelpDocument("okta").contains("## OAuth 2.0 and OIDC with Okta");
@@ -41,7 +43,7 @@ class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	private TextAssert assertHelpDocument(String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
-		request.setBootVersion("3.1.0");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		ProjectStructure project = generateProject(request);
 		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
 	}
