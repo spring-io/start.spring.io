@@ -39,6 +39,8 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 	private static final Collection<String> OBSERVABILITY_DEPENDENCIES = List.of("actuator", "datadog", "graphite",
 			"influx", "new-relic", "prometheus", "wavefront", "zipkin");
 
+	private static final Collection<String> PERSISTENCE = List.of("jdbc", "jpa", "mongodb");
+
 	@Override
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
@@ -49,22 +51,30 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 			dependencies.add("modulith-observability",
 					modulithDependency("observability").scope(DependencyScope.RUNTIME));
 		}
-		addEventPublicationRegistryBackend(build);
+
+		boolean persistenceBackendAdded = addEventPublicationRegistryBackend(build);
+
+		if (persistenceBackendAdded) {
+			dependencies.remove("modulith");
+		}
+
 		dependencies.add("modulith-starter-test",
 				modulithDependency("starter-test").scope(DependencyScope.TEST_COMPILE));
 	}
 
-	private void addEventPublicationRegistryBackend(Build build) {
+	private boolean addEventPublicationRegistryBackend(Build build) {
 		DependencyContainer dependencies = build.dependencies();
-		if (dependencies.has("data-mongodb")) {
-			dependencies.add("modulith-starter-mongodb", modulithDependency("starter-mongodb"));
+		return PERSISTENCE.stream()
+			.map((it) -> addPersistenceDependency(it, dependencies))
+			.reduce(false, (l, r) -> l || r);
+	}
+
+	private boolean addPersistenceDependency(String store, DependencyContainer dependencies) {
+		if (!dependencies.has("data-" + store)) {
+			return false;
 		}
-		if (dependencies.has("data-jdbc")) {
-			dependencies.add("modulith-starter-jdbc", modulithDependency("starter-jdbc"));
-		}
-		if (dependencies.has("data-jpa")) {
-			dependencies.add("modulith-starter-jpa", modulithDependency("starter-jpa"));
-		}
+		dependencies.add("modulith-starter-" + store, modulithDependency("starter-" + store));
+		return true;
 	}
 
 	private Builder<?> modulithDependency(String name) {
