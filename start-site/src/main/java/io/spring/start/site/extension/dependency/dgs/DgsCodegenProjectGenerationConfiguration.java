@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.dgs;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -37,7 +36,6 @@ import org.springframework.context.annotation.Bean;
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("dgs-codegen")
-@ConditionalOnPlatformVersion("3.2.0")
 class DgsCodegenProjectGenerationConfiguration {
 
 	private final String dgsCodegenPluginVersion;

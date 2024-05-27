@@ -23,7 +23,6 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Configuration for generation of projects that use observability.
@@ -33,33 +32,27 @@ import org.springframework.context.annotation.Configuration;
 @ProjectGenerationConfiguration
 class ObservabilityProjectGenerationConfiguration {
 
-	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnPlatformVersion("3.2.0")
-	static class ObservabilityConfiguration {
+	@Bean
+	ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer() {
+		return new ObservabilityActuatorBuildCustomizer();
+	}
 
-		@Bean
-		ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer() {
-			return new ObservabilityActuatorBuildCustomizer();
-		}
+	@Bean
+	ObservabilityDistributedTracingBuildCustomizer observabilityDistributedTracingBuildCustomizer() {
+		return new ObservabilityDistributedTracingBuildCustomizer();
+	}
 
-		@Bean
-		ObservabilityDistributedTracingBuildCustomizer observabilityDistributedTracingBuildCustomizer() {
-			return new ObservabilityDistributedTracingBuildCustomizer();
-		}
+	@Bean
+	ObservabilityHelpDocumentCustomizer observabilityHelpDocumentCustomizer(ProjectDescription description,
+			Build build) {
+		return new ObservabilityHelpDocumentCustomizer(description, build);
+	}
 
-		@Bean
-		ObservabilityHelpDocumentCustomizer observabilityHelpDocumentCustomizer(ProjectDescription description,
-				Build build) {
-			return new ObservabilityHelpDocumentCustomizer(description, build);
-		}
-
-		@Bean
-		@ConditionalOnRequestedDependency("wavefront")
-		@ConditionalOnPlatformVersion("[3.2.0, 3.3.0-M1)")
-		WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
-			return new WavefrontHelpDocumentCustomizer("https://docs.wavefront.com/wavefront_springboot3.html", build);
-		}
-
+	@Bean
+	@ConditionalOnRequestedDependency("wavefront")
+	@ConditionalOnPlatformVersion("[3.2.0, 3.3.0-M1)")
+	WavefrontHelpDocumentCustomizer wavefrontHelpDocumentCustomizer(Build build) {
+		return new WavefrontHelpDocumentCustomizer("https://docs.wavefront.com/wavefront_springboot3.html", build);
 	}
 
 }
