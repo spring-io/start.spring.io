@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnRequestedDependency("data-elasticsearch")
 class ElasticsearchProjectGenerationConfiguration {
 
-	private static String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.elasticsearch.ElasticsearchContainer";
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.elasticsearch.ElasticsearchContainer";
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")

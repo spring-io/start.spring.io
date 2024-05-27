@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnRequestedDependency("mysql")
 class MysqlProjectGenerationConfiguration {
 
-	private static String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.MySQLContainer";
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.MySQLContainer";
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")

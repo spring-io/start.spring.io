@@ -33,6 +33,8 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("kafka")
 class SpringKafkaProjectGenerationConfiguration {
 
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.KafkaContainer";
+
 	@Bean
 	SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
 		return new SpringKafkaBuildCustomizer();
@@ -41,9 +43,8 @@ class SpringKafkaProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer kafkaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("kafka",
-				(service) -> serviceConnections.addServiceConnection(ServiceConnection.ofContainer("kafka", service,
-						"org.testcontainers.containers.KafkaContainer", false)));
+		return (serviceConnections) -> serviceResolver.doWith("kafka", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("kafka", service, TESTCONTAINERS_CLASS_NAME, false)));
 	}
 
 }

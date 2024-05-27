@@ -20,7 +20,6 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.condition.ConditionalOnLanguage;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.IndentingWriterFactory;
 import io.spring.initializr.generator.language.groovy.GroovyLanguage;
@@ -114,7 +113,6 @@ public class TestcontainersProjectGenerationConfiguration {
 
 		@Bean
 		@ConditionalOnLanguage(KotlinLanguage.ID)
-		@ConditionalOnPlatformVersion("3.1.1-SNAPSHOT") // https://github.com/spring-projects/spring-boot/issues/35756
 		KotlinTestContainersApplicationCodeProjectContributor kotlinTestContainersApplicationCodeProjectContributor(
 				ServiceConnections serviceConnections) {
 			return new KotlinTestContainersApplicationCodeProjectContributor(this.indentingWriterFactory,

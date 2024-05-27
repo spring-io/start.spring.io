@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("amqp")
 class SpringAmqpProjectGenerationConfiguration {
 
-	private static String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.RabbitMQContainer";
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.RabbitMQContainer";
 
 	@Bean
 	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {

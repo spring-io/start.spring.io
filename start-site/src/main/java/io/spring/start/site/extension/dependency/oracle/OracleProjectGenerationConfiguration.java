@@ -35,12 +35,14 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnRequestedDependency("oracle")
 class OracleProjectGenerationConfiguration {
 
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.oracle.OracleContainer";
+
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer oracleServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("oracleFree",
-				(service) -> serviceConnections.addServiceConnection(ServiceConnection.ofContainer("oracleFree",
-						service, "org.testcontainers.oracle.OracleContainer", false)));
+				(service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("oracleFree", service, TESTCONTAINERS_CLASS_NAME, false)));
 	}
 
 	@Bean

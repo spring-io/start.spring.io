@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnRequestedDependency("sqlserver")
 class SqlServerProjectGenerationConfiguration {
 
-	private static String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.MSSQLServerContainer";
+	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.MSSQLServerContainer";
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
