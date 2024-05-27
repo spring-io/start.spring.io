@@ -30,13 +30,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-abstract class GraalVmGradleBuildCustomizerTests {
-
-	protected abstract GraalVmGradleBuildCustomizer createCustomizer(String nbtVersion);
+class GraalVmGradleBuildCustomizerTests {
 
 	@Test
 	void gradleBuildConfigureNativeBuildToolsPlugin() {
-		GraalVmGradleBuildCustomizer customizer = createCustomizer("1.0.0");
+		GraalVmGradleBuildCustomizer customizer = new GraalVmGradleBuildCustomizer("1.0.0");
 		GradleBuild build = createBuild();
 		customizer.customize(build);
 		GradlePlugin nbtPlugin = build.plugins()

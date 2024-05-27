@@ -37,12 +37,6 @@ class GraalVmGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 		if (this.nbtVersion != null) {
 			build.plugins().add("org.graalvm.buildtools.native", (plugin) -> plugin.setVersion(this.nbtVersion));
 		}
-		// Spring Boot plugin
-		customizeSpringBootPlugin(build);
-	}
-
-	protected void customizeSpringBootPlugin(GradleBuild build) {
-
 	}
 
 }

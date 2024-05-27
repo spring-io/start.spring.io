@@ -69,15 +69,9 @@ class GraalVmProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
-	GraalVmGroovyDslGradleBuildCustomizer graalVmGroovyDslGradleBuildCustomizer() {
-		return new GraalVmGroovyDslGradleBuildCustomizer(this.nbtVersion.get());
-	}
-
-	@Bean
-	@ConditionalOnBuildSystem(value = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
-	GraalVmKotlinDslGradleBuildCustomizer graalVmKotlinDslGradleBuildCustomizer() {
-		return new GraalVmKotlinDslGradleBuildCustomizer(this.nbtVersion.get());
+	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+	GraalVmGradleBuildCustomizer graalVmGradleBuildCustomizer() {
+		return new GraalVmGradleBuildCustomizer(this.nbtVersion.get());
 	}
 
 	@Bean
