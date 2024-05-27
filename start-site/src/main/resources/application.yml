@@ -1621,7 +1621,7 @@ initializr:
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/weaviate.html
         - name: Timefold Solver
           id: timefold-solver
-          compatibilityRange: "[3.2.0,3.3.0-M1)"
+          compatibilityRange: "[3.2.0,3.4.0-M1)"
           groupId: ai.timefold.solver
           artifactId: timefold-solver-spring-boot-starter
           description: AI solver to optimize operations and scheduling.
