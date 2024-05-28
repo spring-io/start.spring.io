@@ -36,24 +36,20 @@ import org.springframework.context.annotation.Configuration;
 @ProjectGenerationConfiguration
 class SpringBootProjectGenerationConfiguration {
 
-	private static final String DEVTOOLS_ID = "devtools";
-
-	private static final String DOCKER_COMPOSE_ID = "docker-compose";
-
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
 	static class MavenConfiguration {
 
 		@Bean
-		@ConditionalOnRequestedDependency(DEVTOOLS_ID)
+		@ConditionalOnRequestedDependency("devtools")
 		OptionalDependencyMavenBuildCustomizer devToolsMavenBuildCustomizer() {
-			return new OptionalDependencyMavenBuildCustomizer(DEVTOOLS_ID);
+			return new OptionalDependencyMavenBuildCustomizer("devtools");
 		}
 
 		@Bean
-		@ConditionalOnRequestedDependency(DOCKER_COMPOSE_ID)
+		@ConditionalOnRequestedDependency("docker-compose")
 		OptionalDependencyMavenBuildCustomizer dockerComposeMavenBuildCustomizer() {
-			return new OptionalDependencyMavenBuildCustomizer(DOCKER_COMPOSE_ID);
+			return new OptionalDependencyMavenBuildCustomizer("docker-compose");
 		}
 
 	}
@@ -63,15 +59,15 @@ class SpringBootProjectGenerationConfiguration {
 	static class GradleConfiguration {
 
 		@Bean
-		@ConditionalOnRequestedDependency(DEVTOOLS_ID)
+		@ConditionalOnRequestedDependency("devtools")
 		DevelopmentOnlyDependencyGradleBuildCustomizer devToolsGradleBuildCustomizer() {
-			return new DevelopmentOnlyDependencyGradleBuildCustomizer(DEVTOOLS_ID);
+			return new DevelopmentOnlyDependencyGradleBuildCustomizer("devtools");
 		}
 
 		@Bean
-		@ConditionalOnRequestedDependency(DOCKER_COMPOSE_ID)
+		@ConditionalOnRequestedDependency("docker-compose")
 		DevelopmentOnlyDependencyGradleBuildCustomizer dockerComposeGradleBuildCustomizer() {
-			return new DevelopmentOnlyDependencyGradleBuildCustomizer(DOCKER_COMPOSE_ID);
+			return new DevelopmentOnlyDependencyGradleBuildCustomizer("docker-compose");
 		}
 
 	}
