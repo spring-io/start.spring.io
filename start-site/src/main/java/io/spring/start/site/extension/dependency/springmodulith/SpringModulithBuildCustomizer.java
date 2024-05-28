@@ -51,13 +51,10 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 			dependencies.add("modulith-observability",
 					modulithDependency("observability").scope(DependencyScope.RUNTIME));
 		}
-
 		boolean persistenceBackendAdded = addEventPublicationRegistryBackend(build);
-
 		if (persistenceBackendAdded) {
 			dependencies.remove("modulith");
 		}
-
 		dependencies.add("modulith-starter-test",
 				modulithDependency("starter-test").scope(DependencyScope.TEST_COMPILE));
 	}
@@ -65,7 +62,7 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 	private boolean addEventPublicationRegistryBackend(Build build) {
 		DependencyContainer dependencies = build.dependencies();
 		return PERSISTENCE.stream()
-			.map((it) -> addPersistenceDependency(it, dependencies))
+			.map((persistence) -> addPersistenceDependency(persistence, dependencies))
 			.reduce(false, (l, r) -> l || r);
 	}
 

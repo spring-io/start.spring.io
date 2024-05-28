@@ -129,7 +129,7 @@ initializr:
         mappings:
           - compatibility-range: "[3.2.0,3.3.0-M1)"
             version: 1.1.5
-          - compatibility-range: "3.3.0"
+          - compatibility-range: "[3.3.0,3.4.0-M1)"
             version: 1.2.0
       spring-shell:
         groupId: org.springframework.shell
@@ -219,7 +219,7 @@ initializr:
         - name: Spring Modulith
           id: modulith
           bom: spring-modulith
-          compatibility-range: "3.2.0"
+          compatibility-range: "[3.2.0,3.4.0-M1)"
           group-id: org.springframework.modulith
           artifact-id: spring-modulith-starter-core
           description: Support for building modular monolithic applications.
