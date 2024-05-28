@@ -31,9 +31,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringCloudContractConfigurationTests extends AbstractExtensionTests {
 
+	private static final String BOOT_VERSION = "3.2.6";
+
 	@Test
 	void contractsDirectoryWithMavenIsCreatedWithSpringCloudContractVerifier() {
 		ProjectRequest request = createProjectRequest("web", "cloud-contract-verifier");
+		request.setBootVersion(BOOT_VERSION);
 		request.setType("maven-project");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("src/test/resources/contracts")).exists().isDirectory();
@@ -42,6 +45,7 @@ class SpringCloudContractConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void contractsDirectoryWithMavenIsNotCreatedIfSpringCloudContractVerifierIsNotRequested() {
 		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion(BOOT_VERSION);
 		request.setType("maven-project");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("src/test/resources/contracts")).doesNotExist();
@@ -50,6 +54,7 @@ class SpringCloudContractConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void contractsDirectoryWithGradleIsCreatedWithSpringCloudContractVerifier() {
 		ProjectRequest request = createProjectRequest("web", "cloud-contract-verifier");
+		request.setBootVersion(BOOT_VERSION);
 		request.setType("gradle-project");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("src/contractTest/resources/contracts")).exists()
@@ -59,6 +64,7 @@ class SpringCloudContractConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void contractsDirectoryWithGradleIsNotCreatedIfSpringCloudContractVerifierIsNotRequested() {
 		ProjectRequest request = createProjectRequest("web");
+		request.setBootVersion(BOOT_VERSION);
 		request.setType("gradle-project");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("src/contractTest/resources/contracts")).doesNotExist();
