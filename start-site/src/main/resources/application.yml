@@ -88,8 +88,8 @@ initializr:
         artifactId: spring-ai-bom
         versionProperty: spring-ai.version
         mappings:
-          - compatibilityRange: "[3.2.0,3.3.0-M1)"
-            version: 0.8.1
+          - compatibilityRange: "[3.2.0,3.4.0-M1)"
+            version: 1.0.0-M1
             repositories: spring-milestones
       spring-cloud:
         groupId: org.springframework.cloud
@@ -1410,7 +1410,7 @@ initializr:
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
     - name: AI
-      compatibilityRange: "[3.2.0,3.3.0-M1)"
+      compatibilityRange: "[3.2.0,3.4.0-M1)"
       content:
         - name: Azure OpenAI
           id: spring-ai-azure-openai
@@ -1425,7 +1425,7 @@ initializr:
         - name: Azure AI Search
           id: spring-ai-vectordb-azure
           group-id: org.springframework.ai
-          artifact-id: spring-ai-azure-vector-store-spring-boot-starter
+          artifact-id: spring-ai-azure-store-spring-boot-starter
           description: Spring AI vector database support for Azure AI Search. It is an AI-powered information retrieval platform and part of Microsoft’s larger AI platform. Among other features, it allows users to query information using vector-based storage and retrieval.
           bom: spring-ai
           starter: true
@@ -1535,7 +1535,7 @@ initializr:
         - name: Redis Search and Query Vector Database
           id: spring-ai-vectordb-redis
           group-id: org.springframework.ai
-          artifact-id: spring-ai-redis-spring-boot-starter
+          artifact-id: spring-ai-redis-store-spring-boot-starter
           description: Spring AI vector database support for Redis Search and Query.It extends the core features of Redis OSS and allows you to use Redis as a vector database.
           bom: spring-ai
           starter: true
