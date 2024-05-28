@@ -91,7 +91,7 @@ function HistoryItem({ time, value, onClose }) {
             </strong>
           </span>
           <span className='deps'>
-            {deps.length === 0 && 'No dependencies'}
+            {deps.length === 0 && 'No dependency'}
             {deps.length > 0 && (
               <>
                 Dependencies:{' '}
