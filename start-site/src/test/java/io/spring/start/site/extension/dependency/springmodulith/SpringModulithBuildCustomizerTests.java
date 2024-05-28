@@ -71,16 +71,7 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 		build.dependencies().add("data-" + store);
 		this.customizer.customize(build);
 		assertThat(build.dependencies().ids()).contains("modulith-starter-" + store);
-		assertThat(build.dependencies().ids()).doesNotContain("modulith");
-	}
-
-	@ParameterizedTest
-	@ValueSource(strings = { "jdbc", "jpa", "mongodb" })
-	void presenceOfSpringDataModuleRemovesCoreStarter(String store) {
-		Build build = createBuild("modulith");
-		build.dependencies().add("data-" + store);
-		this.customizer.customize(build);
-		assertThat(build.dependencies().ids()).doesNotContain("modulith");
+		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-core");
 	}
 
 	private Build createBuild(String... dependencies) {
