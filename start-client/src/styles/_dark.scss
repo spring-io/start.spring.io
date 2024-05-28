@@ -16,6 +16,10 @@ body.dark {
     border-color: rgba(255, 255, 255, 0.2);
   }
 
+  #side-left .navigation-item {
+    color: white;
+  }
+
   #side-right .side-container {
     border-color: $dark-border;
     background: $dark-background;
@@ -321,7 +325,8 @@ body.dark {
   #side-left a,
   .explorer-ul .file,
   .explorer-ul .folder,
-  ul.dependencies-list li a {
+  ul.dependencies-list li a,
+  #side-left .navigation-item {
     &:focus {
       outline: 1px dotted $dark-border;
     }

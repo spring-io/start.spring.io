@@ -54,6 +54,8 @@ export const getShareUrl = values => {
   let params = `${querystring.stringify(props)}`
   if (get(values, 'dependencies', []).length > 0) {
     params = `${params}&dependencies=${get(values, 'dependencies').join(',')}`
+  } else {
+    params = `${params}&dependencies=`
   }
   return params
 }
@@ -151,6 +153,7 @@ export const parseParams = (values, queryParams, lists) => {
             const depsWarning = []
             const newVal = value
               .split(',')
+              .filter(item => !!item) 
               .map(item => {
                 const dep = get(lists, 'dependencies').find(
                   d => d.id === item.trim()

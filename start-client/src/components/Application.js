@@ -23,6 +23,7 @@ import { getConfig, getInfo, getProject } from './utils/ApiUtils'
 
 const Explore = lazy(() => import('./common/explore/Explore'))
 const Share = lazy(() => import('./common/share/Share'))
+const History = lazy(() => import('./common/history/History'))
 const HotKeys = lazy(() => import('./common/builder/HotKeys'))
 
 export default function Application() {
@@ -32,6 +33,7 @@ export default function Application() {
     theme,
     share: shareOpen,
     explore: exploreOpen,
+    history: historyOpen,
     list,
     dependencies,
   } = useContext(AppContext)
@@ -78,6 +80,7 @@ export default function Application() {
     setGenerating(false)
     if (project) {
       FileSaver.saveAs(project, `${get(values, 'meta.artifact')}.zip`)
+      dispatch({ type: 'ADD_HISTORY', payload: share })
     }
   }
 
@@ -102,7 +105,13 @@ export default function Application() {
     setBlob(null)
     dispatch({
       type: 'UPDATE',
-      payload: { list: false, share: false, explore: false, nav: false },
+      payload: {
+        list: false,
+        share: false,
+        explore: false,
+        nav: false,
+        history: false,
+      },
     })
   }
 
@@ -156,6 +165,15 @@ export default function Application() {
       <SideRight />
       <Suspense fallback=''>
         <Share open={shareOpen || false} shareUrl={share} onClose={onEscape} />
+        <Explore
+          projectName={`${get(values, 'meta.artifact')}.zip`}
+          blob={blob}
+          open={exploreOpen || false}
+          onClose={onEscape}
+        />
+      </Suspense>
+      <Suspense fallback=''>
+        <History open={historyOpen || false} onClose={onEscape} />
         <Explore
           projectName={`${get(values, 'meta.artifact')}.zip`}
           blob={blob}

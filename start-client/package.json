@@ -92,6 +92,7 @@
     "js-search": "^2.0.0",
     "jszip": "^3.6.0",
     "lodash": "^4.17.21",
+    "luxon": "^3.4.4",
     "prism-react-renderer": "^1.2.0",
     "prismjs": "^1.24.0",
     "prop-types": "^15.7.2",

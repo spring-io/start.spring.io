@@ -2,15 +2,17 @@ import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import React, { useReducer } from 'react'
-
 import useTheme from '../utils/Theme'
 import { isValidDependency } from '../utils/ApiUtils'
 import { rangeToText } from '../utils/Version'
+
+const MAX_HISTORY = 100
 
 export const defaultAppContext = {
   complete: false,
   explore: false,
   share: false,
+  history: false,
   nav: false,
   list: false,
   theme: 'light',
@@ -20,7 +22,16 @@ export const defaultAppContext = {
     list: [],
     groups: [],
   },
+  histories: [],
 }
+
+const localStorage =
+  typeof window !== 'undefined'
+    ? window.localStorage
+    : {
+        getItem: () => {},
+        setItem: () => {},
+      }
 
 export function reduceDependencies(boot, items) {
   const groups = []
@@ -96,7 +107,26 @@ export function reducer(state, action) {
         get(json, 'defaultValues.boot'),
         get(json, 'lists.dependencies')
       )
-      return { ...state, complete: true, config: json, dependencies }
+      const histories = localStorage.getItem('histories')
+        ? JSON.parse(localStorage.getItem('histories'))
+        : []
+      return { ...state, complete: true, config: json, dependencies, histories }
+    }
+    case 'ADD_HISTORY': {
+      const newHistory = get(action, 'payload')
+      const histories = [
+        {
+          date: new Date().toISOString(),
+          value: newHistory,
+        },
+        ...state.histories.slice(0, MAX_HISTORY - 1),
+      ]
+      localStorage.setItem('histories', JSON.stringify(histories))
+      return { ...state, histories }
+    }
+    case 'CLEAR_HISTORY': {
+      localStorage.setItem('histories', JSON.stringify([]))
+      return { ...state, histories: [] }
     }
     default:
       return state
