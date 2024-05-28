@@ -51,10 +51,7 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 			dependencies.add("modulith-observability",
 					modulithDependency("observability").scope(DependencyScope.RUNTIME));
 		}
-		boolean persistenceBackendAdded = addEventPublicationRegistryBackend(build);
-		if (persistenceBackendAdded) {
-			dependencies.remove("modulith");
-		}
+		addEventPublicationRegistryBackend(build);
 		dependencies.add("modulith-starter-test",
 				modulithDependency("starter-test").scope(DependencyScope.TEST_COMPILE));
 	}
