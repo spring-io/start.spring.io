@@ -54,7 +54,9 @@ initializr:
         versionProperty: netflix-dgs.version
         mappings:
           - compatibilityRange: "[3.2.0,3.3.0-M1)"
-            version: 8.6.1
+            version: 8.7.1
+          - compatibilityRange: "[3.3.0,3.4.0-M1)"
+            version: 9.0.0
       hilla:
         groupId: dev.hilla
         artifactId: hilla-bom
@@ -360,7 +362,7 @@ initializr:
           groupId: com.netflix.graphql.dgs
           artifactId: graphql-dgs-spring-graphql-starter
           description: Build GraphQL applications with Netflix DGS and Spring for GraphQL.
-          compatibilityRange: "[3.2.0,3.3.0-M1)"
+          compatibilityRange: "[3.2.0,3.4.0-M1)"
           bom: netflix-dgs
           links:
             - rel: reference
