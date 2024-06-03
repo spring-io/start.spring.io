@@ -16,7 +16,9 @@
 
 package io.spring.start.site.extension.dependency.vaadin;
 
+import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
+import io.spring.initializr.generator.buildsystem.maven.MavenProfile;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
@@ -24,14 +26,19 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  * mode.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class VaadinMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
 	@Override
 	public void customize(MavenBuild build) {
-		build.profiles()
-			.id("production")
-			.plugins()
+		MavenProfile profile = build.profiles().id("production");
+		profile.dependencies()
+			.add("vaadin-core",
+					Dependency.withCoordinates("com.vaadin", "vaadin-core")
+						.exclusions(new Dependency.Exclusion("com.vaadin", "vaadin-dev"))
+						.build());
+		profile.plugins()
 			.add("com.vaadin", "vaadin-maven-plugin", (plugin) -> plugin.version("${vaadin.version}")
 				.execution("frontend",
 						(execution) -> execution.goal("prepare-frontend").goal("build-frontend").phase("compile")));
