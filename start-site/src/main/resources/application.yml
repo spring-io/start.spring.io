@@ -99,8 +99,8 @@ initializr:
         versionProperty: spring-cloud.version
         order: 50
         mappings:
-          - compatibilityRange: "[3.2.0,3.3.0-M1)"
-            version: 2023.0.1
+          - compatibilityRange: "[3.2.0,3.4.0-M1)"
+            version: 2023.0.2
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
@@ -1043,7 +1043,7 @@ initializr:
               href: https://java.testcontainers.org/
         - name: Contract Verifier
           bom: spring-cloud
-          compatibilityRange: "[3.2.0,3.3.0-M1)"
+          compatibilityRange: "[3.2.0,3.4.0-M1)"
           id: cloud-contract-verifier
           description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
           groupId: org.springframework.cloud
@@ -1054,7 +1054,7 @@ initializr:
               href: https://cloud.spring.io/spring-cloud-contract/reference/htmlsingle/
         - name: Contract Stub Runner
           bom: spring-cloud
-          compatibilityRange: "[3.2.0,3.3.0-M1)"
+          compatibilityRange: "[3.2.0,3.4.0-M1)"
           id: cloud-contract-stub-runner
           description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
           groupId: org.springframework.cloud
@@ -1075,7 +1075,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#data.nosql.ldap.embedded
     - name: Spring Cloud
       bom: spring-cloud
-      compatibilityRange: "[3.2.0,3.3.0-M1)"
+      compatibilityRange: "[3.2.0,3.4.0-M1)"
       content:
         - name: Cloud Bootstrap
           id: cloud-starter
@@ -1107,7 +1107,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-task/docs/current/reference/html/
     - name: Spring Cloud Config
       bom: spring-cloud
-      compatibilityRange: "[3.2.0,3.3.0-M1)"
+      compatibilityRange: "[3.2.0,3.4.0-M1)"
       content:
         - name: Config Client
           id: cloud-config-client
@@ -1158,7 +1158,7 @@ initializr:
               description: Spring Cloud Consul Quick Start
     - name: Spring Cloud Discovery
       bom: spring-cloud
-      compatibilityRange: "[3.2.0,3.3.0-M1)"
+      compatibilityRange: "[3.2.0,3.4.0-M1)"
       content:
         - name: Eureka Discovery Client
           id: cloud-eureka
@@ -1200,7 +1200,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/#spring-cloud-consul-discovery
     - name: Spring Cloud Routing
       bom: spring-cloud
-      compatibilityRange: "[3.2.0,3.3.0-M1)"
+      compatibilityRange: "[3.2.0,3.4.0-M1)"
       content:
         - name: Gateway
           id: cloud-gateway
@@ -1247,7 +1247,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-commons/docs/current/reference/html/#spring-cloud-loadbalancer
     - name: Spring Cloud Circuit Breaker
       bom: spring-cloud
-      compatibilityRange: "[3.2.0,3.3.0-M1)"
+      compatibilityRange: "[3.2.0,3.4.0-M1)"
       content:
         - name: Resilience4J
           id: cloud-resilience4j
@@ -1259,7 +1259,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-circuitbreaker/docs/current/reference/html/#configuring-resilience4j-circuit-breakers
     - name: Spring Cloud Messaging
       bom: spring-cloud
-      compatibilityRange: "[3.2.0,3.3.0-M1)"
+      compatibilityRange: "[3.2.0,3.4.0-M1)"
       content:
         - name: Cloud Bus
           id: cloud-bus

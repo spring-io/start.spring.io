@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringCloudCircuitBreakerBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final String BOOT_VERSION = "3.2.6";
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
 
 	private static final Dependency REACTIVE_CLOUD_CIRCUIT_BREAKER = Dependency.withId("cloud-resilience4j-reactive",
 			"org.springframework.cloud", "spring-cloud-starter-circuitbreaker-reactor-resilience4j");
@@ -38,7 +38,7 @@ class SpringCloudCircuitBreakerBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void replacesCircuitBreakerWithReactiveCircuitBreakerWhenReactiveFacetPresent() {
 		ProjectRequest request = createProjectRequest("webflux", "cloud-resilience4j");
-		request.setBootVersion(BOOT_VERSION);
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request)).hasDependency(getDependency("webflux"))
 			.hasDependency(REACTIVE_CLOUD_CIRCUIT_BREAKER)
 			.doesNotHaveDependency("org.springframework.cloud", "spring-cloud-starter-circuitbreaker-resilience4j")
@@ -49,7 +49,7 @@ class SpringCloudCircuitBreakerBuildCustomizerTests extends AbstractExtensionTes
 	@Test
 	void doesNotReplaceCircuitBreakerWithReactiveCircuitBreakerWhenReactiveFacetNotPresent() {
 		ProjectRequest request = createProjectRequest("cloud-resilience4j");
-		request.setBootVersion(BOOT_VERSION);
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(mavenPom(request)).hasDependency(getDependency("cloud-resilience4j"))
 			.doesNotHaveDependency("org.springframework.cloud",
 					"spring-cloud-starter-circuitbreaker-reactor-resilience4j")
