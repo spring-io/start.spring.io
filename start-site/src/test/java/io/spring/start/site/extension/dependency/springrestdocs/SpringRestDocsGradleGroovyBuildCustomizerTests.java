@@ -35,6 +35,7 @@ class SpringRestDocsGradleGroovyBuildCustomizerTests {
 	private final SpringRestDocsGradleGroovyBuildCustomizer customizer = new SpringRestDocsGradleGroovyBuildCustomizer();
 
 	@Test
+	@SuppressWarnings("removal")
 	void customizesGradleBuild() {
 		GradleBuild build = new GradleBuild();
 		this.customizer.customize(build);

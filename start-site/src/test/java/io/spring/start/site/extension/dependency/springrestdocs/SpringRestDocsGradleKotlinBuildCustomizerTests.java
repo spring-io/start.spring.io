@@ -30,6 +30,7 @@ import static org.assertj.core.api.Assertions.entry;
  *
  * @author Moritz Halbritter
  */
+@SuppressWarnings("removal")
 class SpringRestDocsGradleKotlinBuildCustomizerTests {
 
 	private final SpringRestDocsGradleKotlinBuildCustomizer customizer = new SpringRestDocsGradleKotlinBuildCustomizer();
