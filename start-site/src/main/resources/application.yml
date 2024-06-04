@@ -141,8 +141,7 @@ initializr:
           - compatibilityRange: "[3.2.0,3.3.0-M1)"
             version: 3.2.5
           - compatibilityRange: "[3.3.0,3.4.0-M1)"
-            version: 3.3.0-RC1
-            repositories: spring-milestones
+            version: 3.3.0
       timefold-solver:
         groupId: ai.timefold.solver
         artifactId: timefold-solver-bom
