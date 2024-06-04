@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,6 @@
  */
 
 package io.spring.start.site.extension.dependency.springcloud;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
@@ -36,19 +33,11 @@ class SpringCloudContractKotlinDslGradleBuildCustomizer extends SpringCloudContr
 
 	@Override
 	protected void configureContractsDsl(GradleBuild build) {
-		boolean hasWebflux = build.dependencies().has("webflux");
-		Set<String> imports = new LinkedHashSet<>();
-		if (hasWebflux) {
-			imports.add("org.springframework.cloud.contract.verifier.config.TestMode");
-		}
-		build.snippets().add(imports, (indentingWriter) -> {
-			indentingWriter.println("contracts {");
-			indentingWriter.indented(() -> {
-				if (hasWebflux) {
-					indentingWriter.println("testMode.set(TestMode.WEBTESTCLIENT)");
-				}
-			});
-			indentingWriter.println("}");
+		build.extensions().customize("contracts", (contracts) -> {
+			if (build.dependencies().has("webflux")) {
+				contracts.attributeWithType("testMode", "TestMode.WEBTESTCLIENT",
+						"org.springframework.cloud.contract.verifier.config.TestMode");
+			}
 		});
 	}
 

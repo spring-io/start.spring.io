@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,14 +33,10 @@ class SpringCloudContractGroovyDslGradleBuildCustomizer extends SpringCloudContr
 
 	@Override
 	protected void configureContractsDsl(GradleBuild build) {
-		build.snippets().add((indentingWriter) -> {
-			indentingWriter.println("contracts {");
-			indentingWriter.indented(() -> {
-				if (build.dependencies().has("webflux")) {
-					indentingWriter.println("testMode = 'WebTestClient'");
-				}
-			});
-			indentingWriter.println("}");
+		build.extensions().customize("contracts", (contracts) -> {
+			if (build.dependencies().has("webflux")) {
+				contracts.attribute("testMode", "'WebTestClient'");
+			}
 		});
 	}
 
