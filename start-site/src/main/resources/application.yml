@@ -898,6 +898,16 @@ initializr:
               description: Building a RESTful Web Service with Spring Boot Actuator
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#actuator
+        - name: CycloneDX SBOM support
+          id: sbom-cyclone-dx
+          description: Creates a Software Bill of Materials in CycloneDX format.
+          groupId: org.springframework.boot
+          artifactId: spring-boot
+          starter: false
+          compatibilityRange: "3.3.0"
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.sbom
         - name: codecentric's Spring Boot Admin (Client)
           id: codecentric-spring-boot-admin-client
           groupId: de.codecentric
