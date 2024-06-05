@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class SpringCloudCircuitBreakerBuildCustomizer implements BuildCustomizer
 	private final ProjectDescription description;
 
 	public SpringCloudCircuitBreakerBuildCustomizer(InitializrMetadata metadata, ProjectDescription description) {
-		this.buildResolver = new BuildMetadataResolver(metadata);
+		this.buildResolver = new BuildMetadataResolver(metadata, description.getPlatformVersion());
 		this.metadata = metadata;
 		this.description = description;
 	}
