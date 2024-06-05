@@ -168,11 +168,11 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("groovy");
-		assertThat(generateProject(request)).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
+		assertThat(generateProject(request))
+			.textFile("src/test/groovy/com/example/demo/TestcontainersConfiguration.groovy")
 			.isEqualTo("""
 					package com.example.demo
 
-					import org.springframework.boot.SpringApplication
 					import org.springframework.boot.test.context.TestConfiguration
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 					import org.springframework.context.annotation.Bean
@@ -180,16 +180,12 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
-					class TestDemoApplication {
+					class TestcontainersConfiguration {
 
 						@Bean
 						@ServiceConnection(name = "redis")
 						GenericContainer redisContainer() {
 							new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(6379)
-						}
-
-						static void main(String[] args) {
-							SpringApplication.from(DemoApplication::main).with(TestDemoApplication).run(args)
 						}
 
 					}
@@ -201,11 +197,10 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("java");
-		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
+		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
 			.isEqualTo("""
 					package com.example.demo;
 
-					import org.springframework.boot.SpringApplication;
 					import org.springframework.boot.test.context.TestConfiguration;
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 					import org.springframework.context.annotation.Bean;
@@ -213,16 +208,12 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.testcontainers.utility.DockerImageName;
 
 					@TestConfiguration(proxyBeanMethods = false)
-					public class TestDemoApplication {
+					class TestcontainersConfiguration {
 
 						@Bean
 						@ServiceConnection(name = "redis")
 						GenericContainer<?> redisContainer() {
 							return new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(6379);
-						}
-
-						public static void main(String[] args) {
-							SpringApplication.from(DemoApplication::main).with(TestDemoApplication.class).run(args);
 						}
 
 					}
@@ -234,20 +225,18 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-redis");
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("kotlin");
-		assertThat(generateProject(request)).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt")
+		assertThat(generateProject(request)).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
 			.isEqualTo("""
 					package com.example.demo
 
-					import org.springframework.boot.fromApplication
 					import org.springframework.boot.test.context.TestConfiguration
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
-					import org.springframework.boot.with
 					import org.springframework.context.annotation.Bean
 					import org.testcontainers.containers.GenericContainer
 					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
-					class TestDemoApplication {
+					class TestcontainersConfiguration {
 
 						@Bean
 						@ServiceConnection(name = "redis")
@@ -255,10 +244,6 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 							return GenericContainer(DockerImageName.parse("redis:latest")).withExposedPorts(6379)
 						}
 
-					}
-
-					fun main(args: Array<String>) {
-						fromApplication<DemoApplication>().with(TestDemoApplication::class).run(*args)
 					}
 					""");
 	}
@@ -268,11 +253,25 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("groovy");
-		assertThat(generateProject(request)).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
+		ProjectStructure projectStructure = generateProject(request);
+		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
 			.isEqualTo("""
 					package com.example.demo
 
 					import org.springframework.boot.SpringApplication
+
+					class TestDemoApplication {
+
+						static void main(String[] args) {
+							SpringApplication.from(DemoApplication::main).with(TestcontainersConfiguration).run(args)
+						}
+
+					}
+					""");
+		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/TestcontainersConfiguration.groovy")
+			.isEqualTo("""
+					package com.example.demo
+
 					import org.springframework.boot.test.context.TestConfiguration
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 					import org.springframework.context.annotation.Bean
@@ -280,7 +279,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
-					class TestDemoApplication {
+					class TestcontainersConfiguration {
 
 						@Bean
 						@ServiceConnection
@@ -288,8 +287,22 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 							new CassandraContainer<>(DockerImageName.parse("cassandra:latest"))
 						}
 
-						static void main(String[] args) {
-							SpringApplication.from(DemoApplication::main).with(TestDemoApplication).run(args)
+					}
+					""");
+		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/DemoApplicationTests.groovy")
+			.isEqualTo("""
+					package com.example.demo
+
+					import org.junit.jupiter.api.Test
+					import org.springframework.boot.test.context.SpringBootTest
+					import org.springframework.context.annotation.Import
+
+					@Import(TestcontainersConfiguration)
+					@SpringBootTest
+					class DemoApplicationTests {
+
+						@Test
+						void contextLoads() {
 						}
 
 					}
@@ -301,11 +314,24 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("java");
-		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
+		ProjectStructure projectStructure = generateProject(request);
+		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestDemoApplication.java").isEqualTo("""
+				package com.example.demo;
+
+				import org.springframework.boot.SpringApplication;
+
+				public class TestDemoApplication {
+
+					public static void main(String[] args) {
+						SpringApplication.from(DemoApplication::main).with(TestcontainersConfiguration.class).run(args);
+					}
+
+				}
+				""");
+		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
 			.isEqualTo("""
 					package com.example.demo;
 
-					import org.springframework.boot.SpringApplication;
 					import org.springframework.boot.test.context.TestConfiguration;
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 					import org.springframework.context.annotation.Bean;
@@ -313,7 +339,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.testcontainers.utility.DockerImageName;
 
 					@TestConfiguration(proxyBeanMethods = false)
-					public class TestDemoApplication {
+					class TestcontainersConfiguration {
 
 						@Bean
 						@ServiceConnection
@@ -321,12 +347,25 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 							return new CassandraContainer<>(DockerImageName.parse("cassandra:latest"));
 						}
 
-						public static void main(String[] args) {
-							SpringApplication.from(DemoApplication::main).with(TestDemoApplication.class).run(args);
-						}
-
 					}
 					""");
+		assertThat(projectStructure).textFile("src/test/java/com/example/demo/DemoApplicationTests.java").isEqualTo("""
+				package com.example.demo;
+
+				import org.junit.jupiter.api.Test;
+				import org.springframework.boot.test.context.SpringBootTest;
+				import org.springframework.context.annotation.Import;
+
+				@Import(TestcontainersConfiguration.class)
+				@SpringBootTest
+				class DemoApplicationTests {
+
+					@Test
+					void contextLoads() {
+					}
+
+				}
+				""");
 	}
 
 	@Test
@@ -334,20 +373,30 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("kotlin");
-		assertThat(generateProject(request)).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt")
+		ProjectStructure projectStructure = generateProject(request);
+		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt").isEqualTo("""
+				package com.example.demo
+
+				import org.springframework.boot.fromApplication
+				import org.springframework.boot.with
+
+
+				fun main(args: Array<String>) {
+					fromApplication<DemoApplication>().with(TestcontainersConfiguration::class).run(*args)
+				}
+				""");
+		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
 			.isEqualTo("""
 					package com.example.demo
 
-					import org.springframework.boot.fromApplication
 					import org.springframework.boot.test.context.TestConfiguration
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
-					import org.springframework.boot.with
 					import org.springframework.context.annotation.Bean
 					import org.testcontainers.containers.CassandraContainer
 					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
-					class TestDemoApplication {
+					class TestcontainersConfiguration {
 
 						@Bean
 						@ServiceConnection
@@ -356,11 +405,24 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 						}
 
 					}
-
-					fun main(args: Array<String>) {
-						fromApplication<DemoApplication>().with(TestDemoApplication::class).run(*args)
-					}
 					""");
+		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/DemoApplicationTests.kt").isEqualTo("""
+				package com.example.demo
+
+				import org.junit.jupiter.api.Test
+				import org.springframework.boot.test.context.SpringBootTest
+				import org.springframework.context.annotation.Import
+
+				@Import(TestcontainersConfiguration::class)
+				@SpringBootTest
+				class DemoApplicationTests {
+
+					@Test
+					fun contextLoads() {
+					}
+
+				}
+				""");
 	}
 
 	@Test

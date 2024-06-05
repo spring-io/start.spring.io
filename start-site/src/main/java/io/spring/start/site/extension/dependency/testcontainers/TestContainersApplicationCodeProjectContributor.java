@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ import io.spring.start.site.container.ServiceConnections.ServiceConnection;
  * @param <C> language-specific compilation unit
  * @param <S> language-specific source code
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDeclaration, C extends CompilationUnit<T>, S extends SourceCode<T, C>>
 		implements ProjectContributor {
@@ -54,6 +55,8 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 
 	private static final ClassName DOCKER_IMAGE_NAME_CLASS_NAME = ClassName
 		.of("org.testcontainers.utility.DockerImageName");
+
+	static final ClassName TESTCONTAINERS_CONFIGURATION_CLASS_NAME = ClassName.of("TestcontainersConfiguration");
 
 	private final ProjectDescription description;
 
@@ -88,7 +91,20 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 	 * Contribute code using the specified {@link SourceCode}.
 	 * @param sourceCode the source code to use for contributions
 	 */
-	protected abstract void contributeCode(S sourceCode);
+	protected void contributeCode(S sourceCode) {
+		createTestcontainersConfiguration(sourceCode);
+	}
+
+	private void createTestcontainersConfiguration(S sourceCode) {
+		C testcontainersConfigurationUnit = sourceCode.createCompilationUnit(this.description.getPackageName(),
+				TESTCONTAINERS_CONFIGURATION_CLASS_NAME.getSimpleName());
+		T testcontainersConfiguration = testcontainersConfigurationUnit
+			.createTypeDeclaration(TESTCONTAINERS_CONFIGURATION_CLASS_NAME.getSimpleName());
+		testcontainersConfiguration.annotations()
+			.add(TEST_CONFIGURATION_CLASS_NAME, (annotation) -> annotation.set("proxyBeanMethods", false));
+		this.serviceConnections.values()
+			.forEach((serviceConnection) -> configureServiceConnection(testcontainersConfiguration, serviceConnection));
+	}
 
 	protected abstract void configureServiceConnection(T typeDeclaration, ServiceConnection serviceConnection);
 
@@ -101,10 +117,6 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 	protected void customizeApplicationTypeDeclaration(S sourceCode, Consumer<T> customizer) {
 		customizeApplicationCompilationUnit(sourceCode, (compilationUnit) -> {
 			T applicationType = compilationUnit.createTypeDeclaration(getTestApplicationName());
-			applicationType.annotations()
-				.add(TEST_CONFIGURATION_CLASS_NAME, (annotation) -> annotation.set("proxyBeanMethods", false));
-			this.serviceConnections.values()
-				.forEach((serviceConnection) -> configureServiceConnection(applicationType, serviceConnection));
 			customizer.accept(applicationType);
 		});
 	}
@@ -118,7 +130,7 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 		});
 	}
 
-	protected String getTestApplicationName() {
+	private String getTestApplicationName() {
 		return "Test" + this.description.getApplicationName();
 	}
 

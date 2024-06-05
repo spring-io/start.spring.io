@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest("testcontainers", "oracle");
 		request.setBootVersion(SPRING_BOOT_VERSION);
 		request.setLanguage("java");
-		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
+		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
 			.contains("import org.testcontainers.oracle.OracleContainer;")
 			.contains("		return new OracleContainer(DockerImageName.parse(\"gvenzl/oracle-free:latest\"));");
 	}
