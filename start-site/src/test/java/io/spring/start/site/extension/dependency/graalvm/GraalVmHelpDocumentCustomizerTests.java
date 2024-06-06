@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link GraalVmHelpDocumentCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
@@ -100,6 +101,22 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		request.setArtifactId("another-project");
 		request.setVersion("2.0.0-SNAPSHOT");
 		assertHelpDocument(request).contains("$ docker run --rm -p 8080:8080 another-project:2.0.0-SNAPSHOT");
+	}
+
+	@Test
+	void shouldDocumentGradleToolchainLimitations() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setType("gradle-project");
+		assertHelpDocument(request)
+			.contains("There are some limitations regarding Native Build Tools and Gradle toolchains.");
+	}
+
+	@Test
+	void shouldNotDocumentGradleToolchainLimitationsWhenUsingMaven() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setType("maven-project");
+		assertHelpDocument(request)
+			.doesNotContain("There are some limitations regarding Native Build Tools and Gradle toolchains.");
 	}
 
 	private TextAssert assertHelpDocument(ProjectRequest request) {

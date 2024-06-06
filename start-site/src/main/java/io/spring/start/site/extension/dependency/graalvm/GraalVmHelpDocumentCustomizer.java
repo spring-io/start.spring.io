@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
@@ -59,11 +60,13 @@ class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
 					"https://docs.spring.io/spring-boot/docs/%s/reference/html/native-image.html#native-image",
 					this.platformVersion), "GraalVM Native Image Support");
 		boolean mavenBuild = this.build instanceof MavenBuild;
+		boolean gradleBuild = this.build instanceof GradleBuild;
 		String url = String.format("https://docs.spring.io/spring-boot/docs/%s/%s/reference/htmlsingle/#aot",
 				this.platformVersion, (mavenBuild) ? "maven-plugin" : "gradle-plugin");
 		document.gettingStarted().addAdditionalLink(url, "Configure AOT settings in Build Plugin");
 
 		Map<String, Object> model = new HashMap<>();
+		model.put("gradleBuild", gradleBuild);
 		// Cloud native buildpacks
 		model.put("cnbBuildImageCommand",
 				mavenBuild ? "./mvnw spring-boot:build-image -Pnative" : "./gradlew bootBuildImage");
