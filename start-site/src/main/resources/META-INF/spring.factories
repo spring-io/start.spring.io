@@ -13,7 +13,6 @@ io.spring.start.site.extension.dependency.elasticsearch.ElasticsearchProjectGene
 io.spring.start.site.extension.dependency.flyway.FlywayProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.graalvm.GraalVmProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.graphql.SpringGraphQlProjectGenerationConfiguration,\
-io.spring.start.site.extension.dependency.hilla.HillaProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mariadb.MariaDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mongodb.MongoDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mysql.MysqlProjectGenerationConfiguration,\

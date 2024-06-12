@@ -57,13 +57,6 @@ initializr:
             version: 8.7.1
           - compatibilityRange: "[3.3.0,3.4.0-M1)"
             version: 9.0.0
-      hilla:
-        groupId: dev.hilla
-        artifactId: hilla-bom
-        versionProperty: hilla.version
-        mappings:
-          - compatibilityRange: "[3.2.0,3.3.0-M1)"
-            version: 2.5.5
       sentry:
         groupId: io.sentry
         artifactId: sentry-bom
@@ -341,21 +334,6 @@ initializr:
               description: Creating CRUD UI with Vaadin
             - rel: reference
               href: https://vaadin.com/docs
-        - name: Hilla
-          id: hilla
-          bom: hilla
-          compatibilityRange: "[3.2.0,3.3.0-M1)"
-          facets:
-            - web
-          groupId: dev.hilla
-          artifactId: hilla-react-spring-boot-starter
-          description: An open source framework that integrates a Spring Boot Java backend with a reactive TypeScript frontend.
-          links:
-            - rel: guide
-              href: https://hilla.dev/docs/react/start/quick/#coming-from-spring-initializr
-              description: Next Steps with Hilla
-            - rel: reference
-              href: https://hilla.dev/
         - name: Netflix DGS
           id: netflix-dgs
           groupId: com.netflix.graphql.dgs
