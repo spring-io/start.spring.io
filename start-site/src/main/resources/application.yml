@@ -327,7 +327,7 @@ initializr:
             - web
           groupId: com.vaadin
           artifactId: vaadin-spring-boot-starter
-          description: A web framework that allows you to write UI in pure Java without getting bogged down in JS, HTML, and CSS.
+          description: The full-stack web app platform for Spring. Build views fully in Java with Flow, or in React using Hilla.
           bom: vaadin
           compatibilityRange: "[3.2.0,3.4.0-M1)"
           links:
