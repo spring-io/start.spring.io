@@ -425,8 +425,8 @@ initializr:
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
           mappings:
-            - compatibilityRange: "[3.2.0,3.3.0-M1)"
-              version: 3.0.6
+            - compatibilityRange: "[3.2.0,3.3.0)"
+              version: 3.0.7
           links:
             - rel: guide
               href: https://github.com/okta/samples-java-spring/tree/master/okta-hosted-login
