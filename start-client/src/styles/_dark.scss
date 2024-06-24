@@ -399,20 +399,23 @@ body.dark {
 
   .modal-share .modal-header {
     background: $dark-background;
-    border-bottom: 1px solid #4a5053;
+    border-bottom: 1px solid $dark-border;
+  }
+  .modal-history-container {
+    border: 1px solid $dark-border;
   }
   .modal-content {
     background: $dark-background;
   }
   .modal-content .list a.item {
     background: $dark-background-secondary;
-    color: white;
+    color: $dark-color;
     &:hover {
       background: lighten($dark-background-secondary, 2);
     }
   }
   .modal-action {
     background: $dark-background;
-    border-top: 1px solid #4a5053;
+    border-top: 1px solid $dark-border;
   }
 }
