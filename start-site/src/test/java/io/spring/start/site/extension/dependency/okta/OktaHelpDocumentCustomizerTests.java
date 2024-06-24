@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  */
 class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
-	private static final String SPRING_BOOT_VERSION = "3.2.0";
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
 
 	@Test
 	void oktaSectionWithOktaDependencyIsPresent() {

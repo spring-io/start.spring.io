@@ -420,12 +420,12 @@ initializr:
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#data.nosql.ldap
         - name: Okta
           id: okta
-          compatibilityRange: "[3.2.0,3.3.0-M1)"
+          compatibilityRange: "[3.2.0,3.4.0-M1)"
           description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features. Enable your Spring Boot application to work with Okta via OAuth 2.0/OIDC.
           groupId: com.okta.spring
           artifactId: okta-spring-boot-starter
           mappings:
-            - compatibilityRange: "[3.2.0,3.3.0)"
+            - compatibilityRange: "[3.2.0,3.4.0-M1)"
               version: 3.0.7
           links:
             - rel: guide
