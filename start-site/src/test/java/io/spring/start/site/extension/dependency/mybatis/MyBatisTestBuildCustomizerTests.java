@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class MyBatisTestBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final String SPRING_BOOT_VERSION = "3.2.0";
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
 
 	@Test
 	void mybatisIsAddedWithSecurity() {
