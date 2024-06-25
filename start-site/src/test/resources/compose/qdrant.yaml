@@ -1,0 +1,5 @@
+services:
+  qdrant:
+    image: 'qdrant/qdrant'
+    ports:
+      - '6334'
