@@ -1463,6 +1463,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/clients/mistralai-chat.html
+        - name: MongoDB Atlas Vector Database
+          id: spring-ai-vectordb-mongodb-atlas
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-mongodb-atlas-store-spring-boot-starter
+          description: Spring AI vector database support for MongoDB Atlas. Is is a fully managed cloud database service that provides an easy way to deploy, operate, and scale a MongoDB database in the cloud.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/mongodb.html
         - name: Neo4j Vector Database
           id: spring-ai-vectordb-neo4j
           group-id: org.springframework.ai
