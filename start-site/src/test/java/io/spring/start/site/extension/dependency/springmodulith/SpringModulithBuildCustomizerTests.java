@@ -74,6 +74,24 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-core");
 	}
 
+	@ParameterizedTest
+	@ValueSource(strings = { "amqp", "kafka" })
+	void addsExternalizationDependency(String broker) {
+		Build build = createBuild("modulith", broker);
+		this.customizer.customize(build);
+		assertThat(build.dependencies().ids()).contains("modulith-events-" + broker);
+		assertThat(build.dependencies().ids()).contains("modulith-events-api");
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "activemq", "artemis" })
+	void addsJmsExternalizationDependency(String broker) {
+		Build build = createBuild("modulith", broker);
+		this.customizer.customize(build);
+		assertThat(build.dependencies().ids()).contains("modulith-events-jms");
+		assertThat(build.dependencies().ids()).contains("modulith-events-api");
+	}
+
 	private Build createBuild(String... dependencies) {
 		InitializrMetadata metadata = getMetadata();
 		MavenBuild build = new MavenBuild(new MetadataBuildItemResolver(metadata, getDefaultPlatformVersion(metadata)));
