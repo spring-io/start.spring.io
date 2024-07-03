@@ -41,6 +41,8 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final Collection<String> PERSISTENCE = List.of("jdbc", "jpa", "mongodb");
 
+	private static final Collection<String> BROKERS = List.of("activemq", "amqp", "artemis", "kafka");
+
 	@Override
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
@@ -52,6 +54,9 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 					modulithDependency("observability").scope(DependencyScope.RUNTIME));
 		}
 		addEventPublicationRegistryBackend(build);
+		if (addEventExternalizationDependency(build)) {
+			dependencies.add("modulith-events-api", modulithDependency("events-api"));
+		}
 		dependencies.add("modulith-starter-test",
 				modulithDependency("starter-test").scope(DependencyScope.TEST_COMPILE));
 	}
@@ -73,6 +78,25 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 
 	private Builder<?> modulithDependency(String name) {
 		return Dependency.withCoordinates("org.springframework.modulith", "spring-modulith-" + name);
+	}
+
+	private boolean addEventExternalizationDependency(Build build) {
+		DependencyContainer dependencies = build.dependencies();
+		return BROKERS.stream()
+			.filter(dependencies::has)
+			.map(this::getModulithBrokerKey)
+			.peek((it) -> dependencies.add("modulith-events-" + it,
+					modulithDependency("events-" + it).scope(DependencyScope.RUNTIME)))
+			.findAny()
+			.isPresent();
+	}
+
+	private String getModulithBrokerKey(String broker) {
+		return switch (broker) {
+			case "kafka", "amqp" -> broker;
+			case "artemis", "activemq" -> "jms";
+			default -> throw new IllegalArgumentException("Unsupported broker!");
+		};
 	}
 
 }
