@@ -92,17 +92,11 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	private String getModulithBrokerKey(String broker) {
-
-		switch (broker) {
-			case "kafka":
-			case "amqp":
-				return broker;
-			case "artemis":
-			case "activemq":
-				return "jms";
-			default:
-				throw new IllegalArgumentException("Unsupported broker!");
-		}
+		return switch (broker) {
+			case "kafka", "amqp" -> broker;
+			case "artemis", "activemq" -> "jms";
+			default -> throw new IllegalArgumentException("Unsupported broker!");
+		};
 	}
 
 }
