@@ -48,8 +48,7 @@ public class DgsCodegenMavenBuildCustomizer implements BuildCustomizer<MavenBuil
 										.add("schemaPaths",
 												(schemaPaths) -> schemaPaths.add("param",
 														"src/main/resources/graphql-client"))
-										.add("packageName", this.packageName + ".codegen")
-										.add("addGeneratedAnnotation", "true"))));
+										.add("packageName", this.packageName + ".codegen"))));
 		build.plugins()
 			.add("org.codehaus.mojo", "build-helper-maven-plugin",
 					(plugin) -> plugin.execution("add-dgs-source", (execution) -> execution.goal("add-source")

@@ -101,7 +101,6 @@ class DgsCodegenProjectGenerationConfigurationTests extends AbstractExtensionTes
 				"								<param>src/main/resources/graphql-client</param>",
 				"							</schemaPaths>",
 				"							<packageName>com.example.demo.codegen</packageName>",
-				"							<addGeneratedAnnotation>true</addGeneratedAnnotation>",
 				"						</configuration>",
 				"					</execution>",
 				"				</executions>",
