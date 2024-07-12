@@ -95,7 +95,7 @@ initializr:
         order: 50
         mappings:
           - compatibilityRange: "[3.2.0,3.4.0-M1)"
-            version: 2023.0.2
+            version: 2023.0.3
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
