@@ -37,15 +37,15 @@ class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests
 	void linksAddedToHelpDocumentForMavenBuild() {
 		assertHelpDocument("maven-build", SPRING_BOOT_VERSION).contains(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.3.0/maven-plugin/reference/html/)",
-				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.3.0/maven-plugin/reference/html/#build-image)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.3.0/maven-plugin)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/3.3.0/maven-plugin/build-image.html)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForGradleBuild() {
 		assertHelpDocument("gradle-build", SPRING_BOOT_VERSION).doesNotContain(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.3.0/maven-plugin/)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.3.0/maven-plugin/)");
 	}
 
 	private ListAssert<String> assertHelpDocument(String type, String version) {

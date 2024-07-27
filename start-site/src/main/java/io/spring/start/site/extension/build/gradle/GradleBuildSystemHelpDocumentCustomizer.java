@@ -20,6 +20,8 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link HelpDocumentCustomizer} that adds reference links for Gradle.
@@ -28,6 +30,10 @@ import io.spring.initializr.generator.version.Version;
  * @author Stephane Nicoll
  */
 class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
+
+	private static final String SPRING_BOOT_DOCS_URL = "https://docs.spring.io/spring-boot";
+
+	private static final VersionRange SPRING_BOOT_3_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
 
 	private final Version springBootVersion;
 
@@ -42,14 +48,22 @@ class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer 
 					"Gradle Build Scans – insights for your project's build");
 		document.gettingStarted().addReferenceDocLink("https://docs.gradle.org", "Official Gradle documentation");
 		document.gettingStarted()
-			.addReferenceDocLink(
-					String.format("https://docs.spring.io/spring-boot/docs/%s/gradle-plugin/reference/html/",
-							this.springBootVersion),
-					"Spring Boot Gradle Plugin Reference Guide");
+			.addReferenceDocLink(generateReferenceGuideUrl(), "Spring Boot Gradle Plugin Reference Guide");
 		document.gettingStarted()
 			.addReferenceDocLink(String.format(
-					"https://docs.spring.io/spring-boot/docs/%s/gradle-plugin/reference/html/#build-image",
+					generateReferenceGuideUrl() + (shouldChangeUrl() ? "/packaging-oci-image.html" : "#build-image"),
 					this.springBootVersion), "Create an OCI image");
+	}
+
+	private String generateReferenceGuideUrl() {
+		String baseUrlFormat = SPRING_BOOT_DOCS_URL
+				+ (shouldChangeUrl() ? "/%s/gradle-plugin" : "/%s/gradle-plugin/reference/html/");
+		return String.format(baseUrlFormat, this.springBootVersion);
+	}
+
+	private boolean shouldChangeUrl() {
+
+		return this.SPRING_BOOT_3_3_0_OR_LATER.match(this.springBootVersion);
 	}
 
 }
