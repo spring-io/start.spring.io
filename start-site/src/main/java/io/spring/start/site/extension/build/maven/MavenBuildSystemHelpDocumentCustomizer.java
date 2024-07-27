@@ -20,6 +20,8 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link HelpDocumentCustomizer} that adds reference links for Apache Maven.
@@ -28,6 +30,10 @@ import io.spring.initializr.generator.version.Version;
  * @author Stephane Nicoll
  */
 class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
+
+	private static final String SPRING_BOOT_DOCS_URL = "https://docs.spring.io/spring-boot";
+
+	private static final VersionRange SPRING_BOOT_3_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
 
 	private final Version springBootVersion;
 
@@ -41,13 +47,19 @@ class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 			.addReferenceDocLink("https://maven.apache.org/guides/index.html", "Official Apache Maven documentation");
 		String referenceGuideUrl = generateReferenceGuideUrl();
 		document.gettingStarted().addReferenceDocLink(referenceGuideUrl, "Spring Boot Maven Plugin Reference Guide");
-		String buildImageSection = referenceGuideUrl + "#build-image";
+		String buildImageSection = referenceGuideUrl + (shouldChangeUrl() ? "/build-image.html" : "#build-image");
 		document.gettingStarted().addReferenceDocLink(buildImageSection, "Create an OCI image");
 	}
 
 	private String generateReferenceGuideUrl() {
-		String baseUrlFormat = "https://docs.spring.io/spring-boot/docs/%s/maven-plugin/reference/html/";
+		String baseUrlFormat = SPRING_BOOT_DOCS_URL
+				+ (shouldChangeUrl() ? "/%s/maven-plugin" : "/docs/%s/maven-plugin/reference/html/");
 		return String.format(baseUrlFormat, this.springBootVersion);
+	}
+
+	private boolean shouldChangeUrl() {
+
+		return this.SPRING_BOOT_3_3_0_OR_LATER.match(this.springBootVersion);
 	}
 
 }

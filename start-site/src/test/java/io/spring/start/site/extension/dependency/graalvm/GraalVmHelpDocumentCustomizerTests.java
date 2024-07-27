@@ -46,6 +46,17 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	private MustacheTemplateRenderer templateRenderer;
 
 	@Test
+	void mavenBuildAndGradleAddLinkToMavenAotPlugin() {
+		MutableProjectDescription description = new MutableProjectDescription();
+		description.setPlatformVersion(Version.parse("3.3.0"));
+		HelpDocument document = customize(description, new MavenBuild());
+		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
+			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
+			assertThat(link.getHref()).isEqualTo("https://docs.spring.io/spring-boot/3.3.0/how-to/aot.html");
+		});
+	}
+
+	@Test
 	void mavenBuildAddLinkToMavenAotPlugin() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("3.2.0"));

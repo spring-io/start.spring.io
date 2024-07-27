@@ -38,8 +38,8 @@ class GradleBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTest
 		assertHelpDocument("gradle-build", SPRING_BOOT_VERSION).contains(
 				"* [Official Gradle documentation](https://docs.gradle.org)",
 				"* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)",
-				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.3.0/gradle-plugin/reference/html/)",
-				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.3.0/gradle-plugin/reference/html/#build-image)");
+				"* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/3.3.0/gradle-plugin)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/3.3.0/gradle-plugin/packaging-oci-image.html)");
 	}
 
 	@Test
