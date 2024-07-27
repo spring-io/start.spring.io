@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.testcontainers;
 
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +23,8 @@ import java.util.Map;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.start.site.container.DockerService;
 import io.spring.start.site.container.ServiceConnections;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;

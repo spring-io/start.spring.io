@@ -16,8 +16,6 @@
 
 package io.spring.start.site.extension.dependency.graalvm;
 
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -30,6 +28,8 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 
