@@ -428,9 +428,19 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void shouldAddHelpSection() {
 		assertHelpDocument(SPRING_BOOT_VERSION_3_3, "testcontainers", "data-mongodb", "postgresql").contains(
-				"https://docs.spring.io/spring-boot/docs/3.3.0/reference/html/features.html#features.testing.testcontainers")
+				"https://docs.spring.io/spring-boot/3.3.0/reference/testing/testcontainers.html#testing.testcontainers")
 			.contains(
-					"https://docs.spring.io/spring-boot/docs/3.3.0/reference/html/features.html#features.testing.testcontainers.at-development-time")
+					"https://docs.spring.io/spring-boot/3.3.0/reference/features/dev-services.html#features.dev-services.testcontainers")
+			.contains("mongo:latest")
+			.contains("postgres:latest");
+	}
+
+	@Test
+	void shouldAddHelpSectionWithOldSpringBoot() {
+		assertHelpDocument(SPRING_BOOT_VERSION_3_2, "testcontainers", "data-mongodb", "postgresql").contains(
+				"https://docs.spring.io/spring-boot/docs/3.2.0/reference/html/features.html#features.testing.testcontainers")
+			.contains(
+					"https://docs.spring.io/spring-boot/docs/3.2.0/reference/html/features.html#features.testing.testcontainers.at-development-time")
 			.contains("mongo:latest")
 			.contains("postgres:latest");
 	}
