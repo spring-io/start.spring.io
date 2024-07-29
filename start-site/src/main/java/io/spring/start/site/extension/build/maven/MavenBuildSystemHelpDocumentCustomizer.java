@@ -47,19 +47,15 @@ class MavenBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer {
 			.addReferenceDocLink("https://maven.apache.org/guides/index.html", "Official Apache Maven documentation");
 		String referenceGuideUrl = generateReferenceGuideUrl();
 		document.gettingStarted().addReferenceDocLink(referenceGuideUrl, "Spring Boot Maven Plugin Reference Guide");
-		String buildImageSection = referenceGuideUrl + (shouldChangeUrl() ? "/build-image.html" : "#build-image");
+		String buildImageSection = referenceGuideUrl
+				+ (SPRING_BOOT_3_3_0_OR_LATER.match(this.springBootVersion) ? "/build-image.html" : "#build-image");
 		document.gettingStarted().addReferenceDocLink(buildImageSection, "Create an OCI image");
 	}
 
 	private String generateReferenceGuideUrl() {
-		String baseUrlFormat = SPRING_BOOT_DOCS_URL
-				+ (shouldChangeUrl() ? "/%s/maven-plugin" : "/docs/%s/maven-plugin/reference/html/");
-		return String.format(baseUrlFormat, this.springBootVersion);
-	}
-
-	private boolean shouldChangeUrl() {
-
-		return this.SPRING_BOOT_3_3_0_OR_LATER.match(this.springBootVersion);
+		String baseUrlFormat = SPRING_BOOT_DOCS_URL + (SPRING_BOOT_3_3_0_OR_LATER.match(this.springBootVersion)
+				? "/%s/maven-plugin" : "/docs/%s/maven-plugin/reference/html/");
+		return baseUrlFormat.formatted(this.springBootVersion);
 	}
 
 }

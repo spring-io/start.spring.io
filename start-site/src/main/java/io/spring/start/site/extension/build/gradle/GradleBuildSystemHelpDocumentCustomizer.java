@@ -50,20 +50,17 @@ class GradleBuildSystemHelpDocumentCustomizer implements HelpDocumentCustomizer 
 		document.gettingStarted()
 			.addReferenceDocLink(generateReferenceGuideUrl(), "Spring Boot Gradle Plugin Reference Guide");
 		document.gettingStarted()
-			.addReferenceDocLink(String.format(
-					generateReferenceGuideUrl() + (shouldChangeUrl() ? "/packaging-oci-image.html" : "#build-image"),
-					this.springBootVersion), "Create an OCI image");
+			.addReferenceDocLink(
+					String
+						.format(generateReferenceGuideUrl() + (SPRING_BOOT_3_3_0_OR_LATER.match(this.springBootVersion)
+								? "/packaging-oci-image.html" : "#build-image"), this.springBootVersion),
+					"Create an OCI image");
 	}
 
 	private String generateReferenceGuideUrl() {
-		String baseUrlFormat = SPRING_BOOT_DOCS_URL
-				+ (shouldChangeUrl() ? "/%s/gradle-plugin" : "/%s/gradle-plugin/reference/html/");
-		return String.format(baseUrlFormat, this.springBootVersion);
-	}
-
-	private boolean shouldChangeUrl() {
-
-		return this.SPRING_BOOT_3_3_0_OR_LATER.match(this.springBootVersion);
+		String baseUrlFormat = SPRING_BOOT_DOCS_URL + (SPRING_BOOT_3_3_0_OR_LATER.match(this.springBootVersion)
+				? "/%s/gradle-plugin" : "/docs/%s/gradle-plugin/reference/html/");
+		return baseUrlFormat.formatted(this.springBootVersion);
 	}
 
 }

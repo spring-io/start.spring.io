@@ -42,13 +42,17 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
+
+	private static final String OLD_SPRING_BOOT_VERSION = "3.2.0";
+
 	@Autowired
 	private MustacheTemplateRenderer templateRenderer;
 
 	@Test
-	void mavenBuildAndGradleAddLinkToMavenAotPlugin() {
+	void mavenBuildAddLinkToMavenAotPlugin() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("3.3.0"));
+		description.setPlatformVersion(Version.parse(SPRING_BOOT_VERSION));
 		HelpDocument document = customize(description, new MavenBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
@@ -57,9 +61,9 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void mavenBuildAddLinkToMavenAotPlugin() {
+	void mavenBuildAddLinkToMavenAotPluginWithOldSpringBootVersion() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("3.2.0"));
+		description.setPlatformVersion(Version.parse(OLD_SPRING_BOOT_VERSION));
 		HelpDocument document = customize(description, new MavenBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
@@ -71,7 +75,18 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void gradleBuildAddLinkToGradleAotPlugin() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("3.2.0"));
+		description.setPlatformVersion(Version.parse(SPRING_BOOT_VERSION));
+		HelpDocument document = customize(description, new GradleBuild());
+		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
+			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
+			assertThat(link.getHref()).isEqualTo("https://docs.spring.io/spring-boot/3.3.0/how-to/aot.html");
+		});
+	}
+
+	@Test
+	void gradleBuildAddLinkToGradleAotPluginWithOldSpringBootVersion() {
+		MutableProjectDescription description = new MutableProjectDescription();
+		description.setPlatformVersion(Version.parse(OLD_SPRING_BOOT_VERSION));
 		HelpDocument document = customize(description, new GradleBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");

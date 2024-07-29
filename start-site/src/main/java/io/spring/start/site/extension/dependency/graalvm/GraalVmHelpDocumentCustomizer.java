@@ -60,13 +60,13 @@ class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
 	@Override
 	public void customize(HelpDocument document) {
 		document.gettingStarted()
-			.addReferenceDocLink(String.format(shouldChangeUrl()
+			.addReferenceDocLink(String.format(SPRING_BOOT_3_3_0_OR_LATER.match(this.platformVersion)
 					? "https://docs.spring.io/spring-boot/%s/reference/packaging/native-image/introducing-graalvm-native-images.html"
 					: "https://docs.spring.io/spring-boot/docs/%s/reference/html/native-image.html#native-image",
 					this.platformVersion), "GraalVM Native Image Support");
 		boolean mavenBuild = this.build instanceof MavenBuild;
 		boolean gradleBuild = this.build instanceof GradleBuild;
-		String url = shouldChangeUrl()
+		String url = SPRING_BOOT_3_3_0_OR_LATER.match(this.platformVersion)
 				? String.format("https://docs.spring.io/spring-boot/%s/how-to/aot.html", this.platformVersion)
 				: String.format("https://docs.spring.io/spring-boot/docs/%s/%s/reference/htmlsingle/#aot",
 						this.platformVersion, (mavenBuild) ? "maven-plugin" : "gradle-plugin");
@@ -103,11 +103,6 @@ class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
 			.ids()
 			.map((id) -> this.metadata.getDependencies().get(id))
 			.filter(Objects::nonNull);
-	}
-
-	private boolean shouldChangeUrl() {
-
-		return this.SPRING_BOOT_3_3_0_OR_LATER.match(this.platformVersion);
 	}
 
 }
