@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringSecurityTestBuildCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -34,6 +35,15 @@ class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTests {
 	void securityTestIsAddedWithSecurity() {
 		ProjectRequest request = createProjectRequest("security");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("security"))
+			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(springSecurityTest())
+			.hasDependenciesSize(3);
+	}
+
+	@Test
+	void securityTestIsAddedWithOAuth2Client() {
+		ProjectRequest request = createProjectRequest("oauth2-client");
+		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("oauth2-client"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(springSecurityTest())
 			.hasDependenciesSize(3);

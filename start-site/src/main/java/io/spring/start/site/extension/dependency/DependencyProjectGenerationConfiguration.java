@@ -46,6 +46,7 @@ import org.springframework.context.annotation.Bean;
  * @author Stephane Nicoll
  * @author Eddú Meléndez
  * @author Kazuki Shimizu
+ * @author Moritz Halbritter
  */
 @ProjectGenerationConfiguration
 public class DependencyProjectGenerationConfiguration {
@@ -64,6 +65,12 @@ public class DependencyProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnRequestedDependency("security")
 	public SpringSecurityTestBuildCustomizer securityTestBuildCustomizer() {
+		return new SpringSecurityTestBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("oauth2-client")
+	SpringSecurityTestBuildCustomizer oauth2ClientTestBuildCustomizer() {
 		return new SpringSecurityTestBuildCustomizer();
 	}
 
