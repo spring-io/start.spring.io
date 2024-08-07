@@ -102,7 +102,7 @@ initializr:
         versionProperty: spring-cloud-azure.version
         mappings:
           - compatibilityRange: "[3.2.0,3.4.0-M1)"
-            version: 5.14.0
+            version: 5.15.0
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
