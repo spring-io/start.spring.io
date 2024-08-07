@@ -46,7 +46,7 @@ class KotlinTestContainersApplicationCodeProjectContributor extends
 	KotlinTestContainersApplicationCodeProjectContributor(IndentingWriterFactory indentingWriterFactory,
 			ProjectDescription description, ServiceConnections serviceConnections) {
 		super(description, serviceConnections, KotlinSourceCode::new,
-				new KotlinSourceCodeWriter(indentingWriterFactory));
+				new KotlinSourceCodeWriter(description.getLanguage(), indentingWriterFactory));
 	}
 
 	@Override
