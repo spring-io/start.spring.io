@@ -42,6 +42,8 @@ abstract class TestcontainersModuleRegistry {
 
 	private static final VersionRange SPRING_BOOT_3_3_0_M2_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M2");
 
+	private static final VersionRange SPRING_BOOT_3_3_0_M3_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M3");
+
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<ImplicitDependency.Builder> builders = new ArrayList<>();
 		if (SPRING_BOOT_3_3_0_M2_OR_LATER.match(platformVersion)) {
@@ -88,6 +90,18 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Solace Module", "solace/")));
 		builders.add(onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
 			.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
+		if (SPRING_BOOT_3_3_0_M3_OR_LATER.match(platformVersion)) {
+			builders.add(onDependencies("spring-ai-vectordb-chroma").customizeBuild(addModule("chromadb"))
+				.customizeHelpDocument(addReferenceLink("Chroma Module", "testcontainers/")));
+			builders.add(onDependencies("spring-ai-vectordb-milvus").customizeBuild(addModule("milvus"))
+				.customizeHelpDocument(addReferenceLink("Milvus Module", "testcontainers/")));
+			builders.add(onDependencies("spring-ai-ollama").customizeBuild(addModule("ollama"))
+				.customizeHelpDocument(addReferenceLink("Ollama Module", "testcontainers/")));
+			builders.add(onDependencies("spring-ai-vectordb-qdrant").customizeBuild(addModule("qdrant"))
+				.customizeHelpDocument(addReferenceLink("Qdrant Module", "testcontainers/")));
+			builders.add(onDependencies("spring-ai-vectordb-weaviate").customizeBuild(addModule("weaviate"))
+				.customizeHelpDocument(addReferenceLink("Weaviate Module", "testcontainers/")));
+		}
 		return builders.stream().map(Builder::build).collect(Collectors.toList());
 	}
 
