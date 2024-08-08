@@ -35,6 +35,7 @@ class HibernatePluginGradleBuildCustomizer implements BuildCustomizer<GradleBuil
 
 	@Override
 	public void customize(GradleBuild build) {
+		build.plugins().add("java");
 		build.plugins().add("org.hibernate.orm", (plugin) -> plugin.setVersion(this.hibernateVersion.toString()));
 		build.extensions()
 			.customize("hibernate", (hibernate) -> hibernate.nested("enhancement",

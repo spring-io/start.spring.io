@@ -47,4 +47,25 @@ class HibernatePluginGradleBuildCustomizerTests {
 			.satisfies((plugin) -> assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("6.1.0.Final"));
 	}
 
+	@Test
+	void customizerAddsJavaPluginBeforeHibernatePlugin() {
+		HibernatePluginGradleBuildCustomizer customizer = new HibernatePluginGradleBuildCustomizer(
+				Version.parse("6.1.0.Final"));
+		GradleBuild build = new GradleBuild();
+		customizer.customize(build);
+		GradlePlugin javaPlugin = build.plugins()
+			.values()
+			.filter((plugin) -> plugin.getId().equals("java"))
+			.findAny()
+			.orElse(null);
+		GradlePlugin hibernatePlugin = build.plugins()
+			.values()
+			.filter((plugin) -> plugin.getId().equals("org.hibernate.orm"))
+			.findAny()
+			.orElse(null);
+		assertThat(javaPlugin).isNotNull();
+		assertThat(hibernatePlugin).isNotNull();
+		assertThat(build.plugins().values()).containsSequence(javaPlugin, hibernatePlugin);
+	}
+
 }
