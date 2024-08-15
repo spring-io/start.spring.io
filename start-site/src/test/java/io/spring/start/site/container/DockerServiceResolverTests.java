@@ -33,21 +33,6 @@ import static org.mockito.Mockito.verify;
  */
 class DockerServiceResolverTests {
 
-	class MockDockerServiceResolver implements DockerServiceResolver {
-
-		private final DockerService resolvedService;
-
-		MockDockerServiceResolver(DockerService resolvedService) {
-			this.resolvedService = resolvedService;
-		}
-
-		@Override
-		public DockerService resolve(String id) {
-			return this.resolvedService;
-		}
-
-	}
-
 	@Test
 	void doWith_withExistingService_callsConsumer() {
 		// given
@@ -73,6 +58,21 @@ class DockerServiceResolverTests {
 
 		// then
 		verify(serviceConsumer, never()).accept(any(DockerService.class));
+	}
+
+	class MockDockerServiceResolver implements DockerServiceResolver {
+
+		private final DockerService resolvedService;
+
+		MockDockerServiceResolver(DockerService resolvedService) {
+			this.resolvedService = resolvedService;
+		}
+
+		@Override
+		public DockerService resolve(String id) {
+			return this.resolvedService;
+		}
+
 	}
 
 }
