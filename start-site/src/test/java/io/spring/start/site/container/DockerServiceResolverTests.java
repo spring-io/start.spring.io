@@ -20,14 +20,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Consumer;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.any;
+
 
 /**
  * Tests for {@link DockerServiceResolver}.
  *
  * @author Fer Clager
  */
-class DockerServiceResolverTest {
+class DockerServiceResolverTests {
 
 	class MockDockerServiceResolver implements DockerServiceResolver {
 
