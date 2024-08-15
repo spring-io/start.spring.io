@@ -16,6 +16,8 @@
 
 package io.spring.start.site.container;
 
+import java.util.function.Consumer;
+
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.any;
@@ -23,8 +25,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-import java.util.function.Consumer;
 
 /**
  * Tests for {@link DockerServiceResolver}.
@@ -37,13 +37,13 @@ class DockerServiceResolverTests {
 
 		private final DockerService resolvedService;
 
-		public MockDockerServiceResolver(DockerService resolvedService) {
+		MockDockerServiceResolver(DockerService resolvedService) {
 			this.resolvedService = resolvedService;
 		}
 
 		@Override
 		public DockerService resolve(String id) {
-			return resolvedService;
+			return this.resolvedService;
 		}
 
 	}
