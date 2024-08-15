@@ -29,43 +29,46 @@ import static org.mockito.Mockito.*;
  */
 class DockerServiceResolverTest {
 
-    class MockDockerServiceResolver implements DockerServiceResolver {
-        private final DockerService resolvedService;
+	class MockDockerServiceResolver implements DockerServiceResolver {
 
-        public MockDockerServiceResolver(DockerService resolvedService) {
-            this.resolvedService = resolvedService;
-        }
+		private final DockerService resolvedService;
 
-        @Override
-        public DockerService resolve(String id) {
-            return resolvedService;
-        }
-    }
+		public MockDockerServiceResolver(DockerService resolvedService) {
+			this.resolvedService = resolvedService;
+		}
 
-    @Test
-    void doWith_withExistingService_callsConsumer() {
-        // given
-        DockerService mockService = mock(DockerService.class);
-        Consumer<DockerService> serviceConsumer = mock(Consumer.class);
-        DockerServiceResolver resolver = new MockDockerServiceResolver(mockService);
+		@Override
+		public DockerService resolve(String id) {
+			return resolvedService;
+		}
 
-        // when
-        resolver.doWith("existing-service", serviceConsumer);
+	}
 
-        // then
-        verify(serviceConsumer, times(1)).accept(mockService);
-    }
+	@Test
+	void doWith_withExistingService_callsConsumer() {
+		// given
+		DockerService mockService = mock(DockerService.class);
+		Consumer<DockerService> serviceConsumer = mock(Consumer.class);
+		DockerServiceResolver resolver = new MockDockerServiceResolver(mockService);
 
-    @Test
-    void doWith_withNonExistingService_doesNothing() {
-        // given
-        Consumer<DockerService> serviceConsumer = mock(Consumer.class);
-        DockerServiceResolver resolver = new MockDockerServiceResolver(null);
+		// when
+		resolver.doWith("existing-service", serviceConsumer);
 
-        // when
-        resolver.doWith("non-existing-service", serviceConsumer);
+		// then
+		verify(serviceConsumer, times(1)).accept(mockService);
+	}
 
-        // then
-        verify(serviceConsumer, never()).accept(any(DockerService.class));
-    }
+	@Test
+	void doWith_withNonExistingService_doesNothing() {
+		// given
+		Consumer<DockerService> serviceConsumer = mock(Consumer.class);
+		DockerServiceResolver resolver = new MockDockerServiceResolver(null);
+
+		// when
+		resolver.doWith("non-existing-service", serviceConsumer);
+
+		// then
+		verify(serviceConsumer, never()).accept(any(DockerService.class));
+	}
+
 }
