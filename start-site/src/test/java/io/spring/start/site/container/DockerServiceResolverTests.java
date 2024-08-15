@@ -26,7 +26,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.any;
 
-
 /**
  * Tests for {@link DockerServiceResolver}.
  *
