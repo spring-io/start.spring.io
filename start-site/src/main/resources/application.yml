@@ -65,7 +65,7 @@ initializr:
         versionProperty: sentry.version
         mappings:
           - compatibilityRange: "[3.2.0,3.3.0-M1)"
-            version: 7.3.0
+            version: 7.14.0
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
