@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link VaadinProjectGenerationConfiguration}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -108,6 +109,18 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	void gitIgnoreWithoutVaadinDoesNotIgnoreNodeModules() {
 		assertThat(generateProject(createProjectRequest("data-jpa"))).textFile(".gitignore")
 			.doesNotContain("node_modules");
+	}
+
+	@Test
+	void shouldAddLaunchBrowserProperty() {
+		assertThat(generateProject(createProjectRequest("vaadin"))).textFile("src/main/resources/application.properties")
+				.contains("vaadin.launch-browser=true");
+	}
+
+	@Test
+	void shouldNotAddLaunchBrowserPropertyIfVaadinIsNotSelected() {
+		assertThat(generateProject(createProjectRequest("data-jpa"))).textFile("src/main/resources/application.properties")
+				.doesNotContain("vaadin.launch-browser=true");
 	}
 
 	@Override
