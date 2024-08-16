@@ -34,8 +34,8 @@
 		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
 		<spring-initializr.version>0.22.0-SNAPSHOT</spring-initializr.version>
-		<spring-javaformat.version>0.0.42</spring-javaformat.version>
-	</properties>
+		<spring-javaformat.version>0.0.43</spring-javaformat.version>
+	</properties>v
 
 	<modules>
 		<module>start-client</module>
