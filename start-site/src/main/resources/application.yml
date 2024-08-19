@@ -65,21 +65,23 @@ initializr:
         versionProperty: sentry.version
         mappings:
           - compatibilityRange: "[3.2.0,3.3.0-M1)"
-            version: 7.3.0
+            version: 7.14.0
       solace-spring-boot:
         groupId: com.solace.spring.boot
         artifactId: solace-spring-boot-bom
         versionProperty: solace-spring-boot.version
         mappings:
           - compatibilityRange: "[3.2.0,3.4.0-M1)"
-            version: 2.0.0
+            version: 2.1.1
       solace-spring-cloud:
         groupId: com.solace.spring.cloud
         artifactId: solace-spring-cloud-bom
         versionProperty: solace-spring-cloud.version
         mappings:
-          - compatibilityRange: "[3.2.0,3.4.0-M1)"
+          - compatibilityRange: "[3.2.0,3.3.0-M1)"
             version: 4.1.0
+          - compatibilityRange: "[3.3.0,3.4.0-M1)"
+            version: 4.4.0
       spring-ai:
         groupId: org.springframework.ai
         artifactId: spring-ai-bom
@@ -110,7 +112,7 @@ initializr:
         additionalBoms: [ spring-cloud ]
         mappings:
           - compatibilityRange: "[3.2.0,3.3.0-M1)"
-            version: 5.4.3
+            version: 5.5.0
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
@@ -118,7 +120,7 @@ initializr:
         additionalBoms: [ spring-cloud ]
         mappings:
           - compatibilityRange: "[3.2.0,3.4.0-M1)"
-            version: 4.1.3
+            version: 4.1.5
       spring-modulith:
         groupId: org.springframework.modulith
         artifactId: spring-modulith-bom
