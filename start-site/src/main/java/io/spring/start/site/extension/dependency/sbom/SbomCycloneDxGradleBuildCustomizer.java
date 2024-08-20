@@ -26,7 +26,7 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 class SbomCycloneDxGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private static final String PLUGIN_VERSION = "1.8.2";
+	private static final String PLUGIN_VERSION = "1.10.0";
 
 	@Override
 	public void customize(GradleBuild build) {

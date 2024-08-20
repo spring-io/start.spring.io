@@ -64,7 +64,7 @@ class SbomProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void shouldAddGradlePlugin() {
 		ProjectRequest request = createProjectRequest("sbom-cyclone-dx");
-		assertThat(gradleBuild(request)).hasPlugin("org.cyclonedx.bom", "1.8.2");
+		assertThat(gradleBuild(request)).hasPlugin("org.cyclonedx.bom", "1.10.0");
 	}
 
 }
