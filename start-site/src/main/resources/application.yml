@@ -348,6 +348,21 @@ initializr:
           links:
             - rel: reference
               href: https://netflix.github.io/dgs/
+        - name: htmx
+          id: htmx
+          facets:
+            - web
+          starter: false
+          groupId: io.github.wimdeblauwe
+          artifactId: htmx-spring-boot
+          description: Build modern user interfaces with the simplicity and power of hypertext.
+          compatibilityRange: "[3.2.0,3.4.0-M1)"
+          version: 3.4.1
+          links:
+            - rel: reference
+              href: https://github.com/wimdeblauwe/htmx-spring-boot
+            - rel: guide
+              href: https://www.youtube.com/watch?v=j-rfPoXe5aE
     - name: Template Engines
       content:
         - name: Thymeleaf
