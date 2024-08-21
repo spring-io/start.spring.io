@@ -355,7 +355,6 @@ initializr:
           id: htmx
           facets:
             - web
-          starter: false
           groupId: io.github.wimdeblauwe
           artifactId: htmx-spring-boot
           description: Build modern user interfaces with the simplicity and power of hypertext.
