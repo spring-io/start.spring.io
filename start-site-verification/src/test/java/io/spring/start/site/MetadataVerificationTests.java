@@ -16,7 +16,6 @@
 
 package io.spring.start.site;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -62,7 +61,7 @@ class MetadataVerificationTests {
 
 	private final InitializrMetadata metadata;
 
-	MetadataVerificationTests(@Autowired InitializrMetadataProvider metadataProvider) throws IOException {
+	MetadataVerificationTests(@Autowired InitializrMetadataProvider metadataProvider) {
 		this.metadata = metadataProvider.get();
 	}
 
