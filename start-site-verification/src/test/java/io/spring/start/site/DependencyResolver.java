@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -62,7 +63,7 @@ import org.springframework.util.FileSystemUtils;
 
 final class DependencyResolver {
 
-	private static final Collection<DependencyResolver> instances = new ArrayList<>();
+	private static final Collection<DependencyResolver> instances = new CopyOnWriteArrayList<>();
 
 	private static final ThreadLocal<DependencyResolver> instanceForThread = ThreadLocal.withInitial(() -> {
 		DependencyResolver instance = new DependencyResolver();
