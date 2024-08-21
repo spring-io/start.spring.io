@@ -17,17 +17,11 @@
 package io.spring.start.site;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import io.spring.initializr.generator.buildsystem.BuildSystem;
@@ -48,7 +42,8 @@ import io.spring.initializr.web.project.DefaultProjectRequestToDescriptionConver
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
-import io.spring.start.site.test.TemporaryFiles;
+import io.spring.start.testsupport.Homes;
+import io.spring.start.testsupport.TemporaryFiles;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.parallel.Execution;
@@ -61,7 +56,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.util.Assert;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -77,10 +71,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestInstance(Lifecycle.PER_CLASS)
 @Execution(ExecutionMode.CONCURRENT)
 class ProjectGenerationIntegrationTests {
-
-	private static final Homes mavenHomes = new Homes("maven-home");
-
-	private static final Homes gradleHomes = new Homes("gradle-home");
 
 	private final ProjectGenerationInvoker<ProjectRequest> invoker;
 
@@ -157,16 +147,16 @@ class ProjectGenerationIntegrationTests {
 
 	private Path acquireHome(BuildSystem buildSystem) {
 		return switch (buildSystem.id()) {
-			case MavenBuildSystem.ID -> mavenHomes.acquire();
-			case GradleBuildSystem.ID -> gradleHomes.acquire();
+			case MavenBuildSystem.ID -> Homes.MAVEN.acquire();
+			case GradleBuildSystem.ID -> Homes.GRADLE.acquire();
 			default -> throw new IllegalStateException("Unknown build system '%s'".formatted(buildSystem.id()));
 		};
 	}
 
 	private void releaseHome(BuildSystem buildSystem, Path home) {
 		switch (buildSystem.id()) {
-			case MavenBuildSystem.ID -> mavenHomes.release(home);
-			case GradleBuildSystem.ID -> gradleHomes.release(home);
+			case MavenBuildSystem.ID -> Homes.MAVEN.release(home);
+			case GradleBuildSystem.ID -> Homes.GRADLE.release(home);
 			default -> throw new IllegalStateException("Unknown build system '%s'".formatted(buildSystem.id()));
 		}
 	}
@@ -184,49 +174,6 @@ class ProjectGenerationIntegrationTests {
 			return processBuilder;
 		}
 		throw new IllegalStateException("Unknown build system '%s'".formatted(buildSystem.id()));
-	}
-
-	private static final class Homes {
-
-		private final Set<Path> homes = ConcurrentHashMap.newKeySet();
-
-		private final Queue<Path> freeHomes = new ConcurrentLinkedQueue<>();
-
-		private final AtomicInteger counter = new AtomicInteger();
-
-		private final String prefix;
-
-		private Homes(String prefix) {
-			this.prefix = prefix;
-		}
-
-		Path acquire() {
-			Path home = this.freeHomes.poll();
-			if (home == null) {
-				home = createTempDirectory();
-				this.homes.add(home);
-			}
-			return home;
-		}
-
-		void release(Path home) {
-			Assert.state(this.homes.contains(home), "Invalid home '%s'".formatted(home));
-			this.freeHomes.add(home);
-		}
-
-		private Path createTempDirectory() {
-			try {
-				Path path = TemporaryFiles.getTempDir()
-					.resolve("homes")
-					.resolve(this.prefix + "-" + this.counter.getAndIncrement());
-				Files.createDirectories(path);
-				return path;
-			}
-			catch (IOException ex) {
-				throw new UncheckedIOException("Failed to create temp directory", ex);
-			}
-		}
-
 	}
 
 }

@@ -40,6 +40,7 @@
 	<modules>
 		<module>start-client</module>
 		<module>start-site</module>
+		<module>test-support</module>
 	</modules>
 
 	<profiles>
@@ -77,6 +78,11 @@
 			<dependency>
 				<groupId>io.spring.start</groupId>
 				<artifactId>start-site</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.start</groupId>
+				<artifactId>test-support</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>

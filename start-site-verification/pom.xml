@@ -28,6 +28,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>io.spring.start</groupId>
+			<artifactId>test-support</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -34,8 +34,8 @@ import io.spring.initializr.metadata.DependencyGroup;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.metadata.Repository;
+import io.spring.start.testsupport.Homes;
 import org.eclipse.aether.repository.RemoteRepository;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.parallel.Execution;
@@ -46,6 +46,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -57,17 +58,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
 @Execution(ExecutionMode.CONCURRENT)
+@ActiveProfiles("test")
 class MetadataVerificationTests {
 
 	private final InitializrMetadata metadata;
 
 	MetadataVerificationTests(@Autowired InitializrMetadataProvider metadataProvider) {
 		this.metadata = metadataProvider.get();
-	}
-
-	@AfterAll
-	static void cleanUp() {
-		DependencyResolver.cleanUp();
 	}
 
 	@ParameterizedTest(name = "{3}")
@@ -88,8 +85,8 @@ class MetadataVerificationTests {
 	private List<String> collectDependencies(Dependency dependency, List<BillOfMaterials> boms,
 			List<RemoteRepository> repositories) {
 		try {
-			return DependencyResolver.resolveDependencies(dependency.getGroupId(), dependency.getArtifactId(),
-					dependency.getVersion(), boms, repositories);
+			return DependencyResolver.resolveDependencies(Homes.MAVEN, dependency.getGroupId(),
+					dependency.getArtifactId(), dependency.getVersion(), boms, repositories);
 		}
 		catch (RuntimeException ex) {
 			// ActiveMQ starter does not exist with Spring Boot 3.0
