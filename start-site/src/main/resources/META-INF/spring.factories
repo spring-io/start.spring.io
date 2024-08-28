@@ -7,6 +7,7 @@ io.spring.start.site.extension.dependency.activemq.ActiveMQProjectGenerationConf
 io.spring.start.site.extension.dependency.activemq.ArtemisProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.cassandra.CassandraProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.derby.DerbyProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.dgs.DgsProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.dgs.DgsCodegenProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.dockercompose.DockerComposeProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.elasticsearch.ElasticsearchProjectGenerationConfiguration,\
