@@ -36,7 +36,7 @@ abstract class DgsCodegenVersionResolver {
 		}
 		else if (MavenBuildSystem.ID.equals(build.id())) {
 			// https://github.com/deweyjose/graphqlcodegen/releases
-			return "1.50";
+			return "1.61.5";
 		}
 		throw new IllegalArgumentException("Could not resolve DGS Codegen version for build system " + build.id());
 	}
