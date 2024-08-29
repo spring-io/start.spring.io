@@ -362,7 +362,7 @@ initializr:
           artifactId: htmx-spring-boot
           description: Build modern user interfaces with the simplicity and power of hypertext.
           compatibilityRange: "[3.2.0,3.4.0-M1)"
-          version: 3.4.1
+          version: 3.5.0
           links:
             - rel: reference
               href: https://github.com/wimdeblauwe/htmx-spring-boot
