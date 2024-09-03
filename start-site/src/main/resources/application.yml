@@ -1518,6 +1518,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/clients/openai-chat.html
+        - name: Oracle Vector Database
+          id: spring-ai-vectordb-oracle
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-oracle-store-spring-boot-starter
+          description: Spring AI vector database support for Oracle. Enables storing, indexing and searching vector embeddings in Oracle Database 23ai.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/oracle.html
         - name: PGvector Vector Database
           id: spring-ai-vectordb-pgvector
           group-id: org.springframework.ai
