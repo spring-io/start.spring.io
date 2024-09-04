@@ -26,17 +26,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link TestcontainersConfiguration}.
+ * Tests for {@link SpringAiTestcontainersProjectGenerationConfiguration}.
  *
  * @author Eddú Meléndez
  */
-class TestcontainersConfigurationTests extends AbstractExtensionTests {
+class SpringAiTestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@ParameterizedTest
 	@MethodSource("supportedTestcontainersSpringAiEntriesBuild")
 	void springAiTestcontainersDependencyIsAdded(String springAiDependency) {
 		ProjectRequest projectRequest = createProject("3.3.0", "testcontainers", springAiDependency);
-		assertThat(mavenPom(projectRequest)).hasDependency(getDependency("spring-ai-testcontainers"));
+		assertThat(mavenPom(projectRequest)).hasDependency("org.springframework.ai",
+				"spring-ai-spring-boot-testcontainers", null, "test");
 	}
 
 	private ProjectRequest createProject(String springBootVersion, String... styles) {

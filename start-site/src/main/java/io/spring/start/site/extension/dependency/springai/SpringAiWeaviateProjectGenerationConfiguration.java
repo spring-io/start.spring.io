@@ -16,22 +16,23 @@
 
 package io.spring.start.site.extension.dependency.springai;
 
-import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Configuration for generation of projects that depend on Weaviate.
  *
  * @author Eddú Meléndez
  */
-@Configuration(proxyBeanMethods = false)
+@ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("spring-ai-vectordb-weaviate")
 class SpringAiWeaviateProjectGenerationConfiguration {
 
@@ -39,10 +40,10 @@ class SpringAiWeaviateProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer weaviateServiceConnectionsCustomizer(Build build,
-			DockerServiceResolver serviceResolver) {
+	ServiceConnectionsCustomizer weaviateServiceConnectionsCustomizer(InitializrMetadata metadata,
+			ProjectDescription description, DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> {
-			if (SpringAiVersion.version1OrLater(build)) {
+			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
 				serviceResolver.doWith("weaviate", (service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("weaviate", service, TESTCONTAINERS_CLASS_NAME)));
 			}
@@ -51,9 +52,10 @@ class SpringAiWeaviateProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer weaviateComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
+	ComposeFileCustomizer weaviateComposeFileCustomizer(InitializrMetadata metadata, ProjectDescription description,
+			DockerServiceResolver serviceResolver) {
 		return (composeFile) -> {
-			if (SpringAiVersion.version1OrLater(build)) {
+			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
 				serviceResolver.doWith("weaviate", (service) -> composeFile.services().add("weaviate", service));
 			}
 		};

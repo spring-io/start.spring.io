@@ -1,5 +1,5 @@
 services:
   weaviate:
-    image: 'semitechnologies/weaviate'
+    image: 'semitechnologies/weaviate:latest'
     ports:
       - '8080'

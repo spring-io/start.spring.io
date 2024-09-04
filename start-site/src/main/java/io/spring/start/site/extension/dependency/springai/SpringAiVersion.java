@@ -16,21 +16,26 @@
 
 package io.spring.start.site.extension.dependency.springai;
 
-import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionRange;
+import io.spring.initializr.metadata.InitializrMetadata;
 
 final class SpringAiVersion {
 
-	private static final VersionRange SPRING_AI_1_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("1.0.0");
+	private static final VersionRange SPRING_AI_1_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("1.0.0-M2");
 
 	private SpringAiVersion() {
 
 	}
 
-	static boolean version1OrLater(Build build) {
-		var springAiBomVersion = build.boms().get("spring-ai").getVersion().getValue();
+	static boolean version1OrLater(InitializrMetadata metadata, Version platformVersion) {
+		var springAiBomVersion = metadata.getConfiguration()
+			.getEnv()
+			.getBoms()
+			.get("spring-ai")
+			.resolve(platformVersion)
+			.getVersion();
 		return SPRING_AI_1_0_0_OR_LATER.match(Version.parse(springAiBomVersion));
 	}
 

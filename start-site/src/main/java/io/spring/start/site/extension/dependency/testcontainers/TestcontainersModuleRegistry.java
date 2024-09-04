@@ -80,7 +80,7 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")));
 		builders.add(onDependencies("mysql").customizeBuild(addModule("mysql"))
 			.customizeHelpDocument(addReferenceLink("MySQL Module", "databases/mysql/")));
-		builders.add(onDependencies("oracle").customizeBuild(addModule("oracle-free"))
+		builders.add(onDependencies("oracle", "spring-ai-vectordb-oracle").customizeBuild(addModule("oracle-free"))
 			.customizeHelpDocument(addReferenceLink("Oracle-Free Module", "databases/oraclefree/")));
 		builders.add(onDependencies("postgresql", "spring-ai-vectordb-pgvector").customizeBuild(addModule("postgresql"))
 			.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")));

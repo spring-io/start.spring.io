@@ -20,27 +20,30 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
+import io.spring.initializr.metadata.InitializrMetadata;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Spring AI Docker Compose.
+ * Configuration for generation of projects that depend on Spring AI Testcontainers.
  *
  * @author Eddú Meléndez
  */
-@Configuration(proxyBeanMethods = false)
-class DockerComposeConfiguration {
+@ProjectGenerationConfiguration
+@ConditionalOnRequestedDependency("testcontainers")
+class SpringAiTestcontainersProjectGenerationConfiguration {
 
 	@Bean
-	@ConditionalOnRequestedDependency("docker-compose")
-	BuildCustomizer<Build> springBootTestcontainersBuildCustomizer() {
+	BuildCustomizer<Build> springAiTestcontainersBuildCustomizer(InitializrMetadata metadata,
+			ProjectDescription description) {
 		return (build) -> {
-			if (SpringAiVersion.version1OrLater(build)) {
+			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
 				build.dependencies()
-					.add("spring-ai-docker-compose",
-							Dependency.withCoordinates("org.springframework.ai", "spring-ai-spring-boot-docker-compose")
+					.add("spring-ai-testcontainers",
+							Dependency.withCoordinates("org.springframework.ai", "spring-ai-spring-boot-testcontainers")
 								.scope(DependencyScope.TEST_COMPILE));
 			}
 		};

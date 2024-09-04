@@ -26,6 +26,13 @@ io.spring.start.site.extension.dependency.postgresql.PostgresqlProjectGeneration
 io.spring.start.site.extension.dependency.redis.RedisProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.sbom.SbomProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.solace.SolaceProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiChromaProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiDockerComposeProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiMilvusProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiOllamaProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiQdrantProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiTestcontainersProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiWeaviateProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springamqp.SpringAmqpProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springazure.SpringAzureProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springboot.SpringBootProjectGenerationConfiguration,\

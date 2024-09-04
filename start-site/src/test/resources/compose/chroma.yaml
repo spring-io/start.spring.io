@@ -1,5 +1,5 @@
 services:
   chroma:
-    image: 'chromadb/chroma'
+    image: 'chromadb/chroma:latest'
     ports:
       - '8000'
