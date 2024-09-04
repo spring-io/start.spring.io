@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Bean;
 class SpringAiDockerComposeProjectGenerationConfiguration {
 
 	@Bean
-	BuildCustomizer<Build> springBootTestcontainersBuildCustomizer(InitializrMetadata metadata,
+	BuildCustomizer<Build> springAiDockerComposeBuildCustomizer(InitializrMetadata metadata,
 			ProjectDescription description) {
 		return (build) -> {
 			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
