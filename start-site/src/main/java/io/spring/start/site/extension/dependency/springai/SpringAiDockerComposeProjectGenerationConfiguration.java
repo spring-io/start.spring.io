@@ -23,8 +23,8 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-
 import io.spring.initializr.metadata.InitializrMetadata;
+
 import org.springframework.context.annotation.Bean;
 
 /**
