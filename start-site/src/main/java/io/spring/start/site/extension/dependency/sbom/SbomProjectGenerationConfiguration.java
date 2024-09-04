@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,44 +14,40 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.hilla;
+package io.spring.start.site.extension.dependency.sbom;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.generator.spring.scm.git.GitIgnoreCustomizer;
-import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
 
 /**
- * Configuration for generation of projects that depend on Hilla.
+ * {@link ProjectGenerationConfiguration} for generation of projects that use SBOMs.
  *
- * @author Luciano Vernaschi
- * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 @ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("hilla")
-class HillaProjectGenerationConfiguration {
+@ConditionalOnRequestedDependency("sbom-cyclone-dx")
+class SbomProjectGenerationConfiguration {
+
+	@Bean
+	SbomCycloneDxBuildCustomizer sbomBuildCustomizer() {
+		return new SbomCycloneDxBuildCustomizer();
+	}
 
 	@Bean
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-	HillaMavenBuildCustomizer hillaMavenBuildCustomizer() {
-		return new HillaMavenBuildCustomizer();
+	SbomCycloneDxMavenBuildCustomizer sbomCycloneDxMavenBuildCustomizer() {
+		return new SbomCycloneDxMavenBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
-	HillaGradleBuildCustomizer hillaGradleBuildCustomizer(InitializrMetadata metadata, ProjectDescription description) {
-		return new HillaGradleBuildCustomizer(metadata, description.getPlatformVersion());
-	}
-
-	@Bean
-	GitIgnoreCustomizer hillaGitIgnoreCustomizer() {
-		return (gitignore) -> gitignore.getGeneral().add("node_modules/", "frontend/generated/");
+	SbomCycloneDxGradleBuildCustomizer sbomCycloneDxGradleBuildCustomizer() {
+		return new SbomCycloneDxGradleBuildCustomizer();
 	}
 
 }

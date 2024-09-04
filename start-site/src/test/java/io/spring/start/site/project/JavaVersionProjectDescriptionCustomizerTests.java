@@ -58,7 +58,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@MethodSource("supportedGradleGroovyParameters")
 	void gradleGroovyBuildWithSupportedOptionsDoesNotDowngradeJavaVersion(String language, String javaVersion,
 			String springBootVersion) {
-		assertThat(gradleBuild(project(language, javaVersion, springBootVersion))).hasSourceCompatibility(javaVersion);
+		assertThat(gradleBuild(project(language, javaVersion, springBootVersion))).hasToolchainForJava(javaVersion);
 	}
 
 	@Test

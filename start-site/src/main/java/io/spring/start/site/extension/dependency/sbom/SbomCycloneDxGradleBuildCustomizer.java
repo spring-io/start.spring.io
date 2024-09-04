@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,23 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.hilla;
+package io.spring.start.site.extension.dependency.sbom;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.metadata.InitializrMetadata;
 
 /**
- * A {@link BuildCustomizer} that registers Hilla's Gradle plugin.
+ * {@link BuildCustomizer} that adds the CycloneDX Gradle plugin.
  *
- * @author Luciano Vernaschi
- * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
-class HillaGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
+class SbomCycloneDxGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private final String hillaVersion;
-
-	HillaGradleBuildCustomizer(InitializrMetadata metadata, Version platformVersion) {
-		this.hillaVersion = metadata.getConfiguration()
-			.getEnv()
-			.getBoms()
-			.get("hilla")
-			.resolve(platformVersion)
-			.getVersion();
-	}
+	private static final String PLUGIN_VERSION = "1.10.0";
 
 	@Override
 	public void customize(GradleBuild build) {
-		build.plugins().add("dev.hilla", (plugin) -> plugin.setVersion(this.hillaVersion));
+		build.plugins().add("org.cyclonedx.bom", (plugin) -> plugin.setVersion(PLUGIN_VERSION));
 	}
 
 }

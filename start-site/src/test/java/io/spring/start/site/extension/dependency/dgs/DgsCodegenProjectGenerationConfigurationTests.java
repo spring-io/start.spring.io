@@ -89,7 +89,7 @@ class DgsCodegenProjectGenerationConfigurationTests extends AbstractExtensionTes
 				"			<plugin>",
 				"				<groupId>io.github.deweyjose</groupId>",
 				"				<artifactId>graphqlcodegen-maven-plugin</artifactId>",
-				"				<version>1.50</version>",
+				"				<version>1.61.5</version>",
 				"				<executions>",
 				"					<execution>",
 				"						<id>dgs-codegen</id>",

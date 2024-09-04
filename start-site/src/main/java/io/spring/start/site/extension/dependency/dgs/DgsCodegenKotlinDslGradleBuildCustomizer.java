@@ -38,14 +38,10 @@ class DgsCodegenKotlinDslGradleBuildCustomizer implements BuildCustomizer<Gradle
 	@Override
 	public void customize(GradleBuild build) {
 		build.plugins().add("com.netflix.dgs.codegen", (plugin) -> plugin.setVersion(this.pluginVersion));
-		build.snippets().add((writer) -> {
-			writer.println("tasks.generateJava {");
-			writer.indented(() -> {
-				writer.println("schemaPaths.add(\"${projectDir}/src/main/resources/graphql-client\")");
-				writer.println("packageName = \"" + this.packageName + ".codegen\"");
-				writer.println("generateClient = true");
-			});
-			writer.println("}");
+		build.extensions().customize("tasks.generateJava", (generateJava) -> {
+			generateJava.invoke("schemaPaths.add", "\"${projectDir}/src/main/resources/graphql-client\"");
+			generateJava.attribute("packageName", "\"" + this.packageName + ".codegen\"");
+			generateJava.attribute("generateClient", "true");
 		});
 	}
 

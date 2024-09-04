@@ -19,6 +19,7 @@ package io.spring.start.site.test;
 import java.util.Map;
 
 import io.spring.initializr.versionresolver.MavenVersionResolver;
+import io.spring.start.testsupport.TemporaryFiles;
 
 /**
  * A {@link MavenVersionResolver} for tests, which uses a fixed directory for the cache.

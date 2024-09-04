@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.test;
+package io.spring.start.testsupport;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Predicate;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,26 +25,20 @@ import io.spring.initializr.generator.version.Version;
  *
  * @author Stephane Nicoll
  */
-class HibernatePluginGroovyDslGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
+class HibernatePluginGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
 	private final Version hibernateVersion;
 
-	HibernatePluginGroovyDslGradleBuildCustomizer(Version hibernateVersion) {
+	HibernatePluginGradleBuildCustomizer(Version hibernateVersion) {
 		this.hibernateVersion = hibernateVersion;
 	}
 
 	@Override
 	public void customize(GradleBuild build) {
 		build.plugins().add("org.hibernate.orm", (plugin) -> plugin.setVersion(this.hibernateVersion.toString()));
-		build.snippets().add((writer) -> {
-			writer.println("hibernate {");
-			writer.indented(() -> {
-				writer.println("enhancement {");
-				writer.indented(() -> writer.println("enableAssociationManagement = true"));
-				writer.println("}");
-			});
-			writer.println("}");
-		});
+		build.extensions()
+			.customize("hibernate", (hibernate) -> hibernate.nested("enhancement",
+					(enhancement) -> enhancement.attribute("enableAssociationManagement", "true")));
 	}
 
 }

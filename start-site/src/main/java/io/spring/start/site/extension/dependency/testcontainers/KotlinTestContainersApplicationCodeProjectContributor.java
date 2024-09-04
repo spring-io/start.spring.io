@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.dependency.testcontainers;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.io.IndentingWriterFactory;
@@ -25,7 +24,6 @@ import io.spring.initializr.generator.language.CodeBlock;
 import io.spring.initializr.generator.language.Parameter;
 import io.spring.initializr.generator.language.kotlin.KotlinCompilationUnit;
 import io.spring.initializr.generator.language.kotlin.KotlinFunctionDeclaration;
-import io.spring.initializr.generator.language.kotlin.KotlinModifier;
 import io.spring.initializr.generator.language.kotlin.KotlinSourceCode;
 import io.spring.initializr.generator.language.kotlin.KotlinSourceCodeWriter;
 import io.spring.initializr.generator.language.kotlin.KotlinTypeDeclaration;
@@ -48,23 +46,18 @@ class KotlinTestContainersApplicationCodeProjectContributor extends
 	KotlinTestContainersApplicationCodeProjectContributor(IndentingWriterFactory indentingWriterFactory,
 			ProjectDescription description, ServiceConnections serviceConnections) {
 		super(description, serviceConnections, KotlinSourceCode::new,
-				new KotlinSourceCodeWriter(indentingWriterFactory));
+				new KotlinSourceCodeWriter(description.getLanguage(), indentingWriterFactory));
 	}
 
 	@Override
 	protected void contributeCode(KotlinSourceCode sourceCode) {
-		customizeApplicationTypeDeclaration(sourceCode, (type) -> type.modifiers(KotlinModifier.PUBLIC));
-	}
-
-	@Override
-	protected void customizeApplicationCompilationUnit(KotlinSourceCode sourceCode,
-			Consumer<KotlinCompilationUnit> customizer) {
-		super.customizeApplicationCompilationUnit(sourceCode, customizer
-			.andThen((compilationUnit) -> compilationUnit.addTopLevelFunction(KotlinFunctionDeclaration.function("main")
-				.parameters(Parameter.of("args", "Array<String>"))
-				.body(CodeBlock.ofStatement("$T<$L>().$T($L::class).run(*args)",
-						"org.springframework.boot.fromApplication", getDescription().getApplicationName(),
-						"org.springframework.boot.with", getTestApplicationName())))));
+		super.contributeCode(sourceCode);
+		customizeApplicationCompilationUnit(sourceCode,
+				(compilationUnit) -> compilationUnit.addTopLevelFunction(KotlinFunctionDeclaration.function("main")
+					.parameters(Parameter.of("args", "Array<String>"))
+					.body(CodeBlock.ofStatement("$T<$L>().$T($T::class).run(*args)",
+							"org.springframework.boot.fromApplication", getDescription().getApplicationName(),
+							"org.springframework.boot.with", TESTCONTAINERS_CONFIGURATION_CLASS_NAME))));
 	}
 
 	@Override

@@ -28,24 +28,33 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jenn Strater
  * @author Andy Wilkinson
+ * @author Moritz Halbritter
  */
 class MavenBuildSystemHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
 	private static final String SPRING_BOOT_VERSION = "3.3.0";
 
+	private static final String OLD_SPRING_BOOT_VERSION = "3.2.0";
+
 	@Test
 	void linksAddedToHelpDocumentForMavenBuild() {
 		assertHelpDocument("maven-build", SPRING_BOOT_VERSION).contains(
 				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.3.0/maven-plugin/reference/html/)",
-				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.3.0/maven-plugin/reference/html/#build-image)");
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.3.0/maven-plugin)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/3.3.0/maven-plugin/build-image.html)");
+	}
+
+	@Test
+	void linksAddedToHelpDocumentForMavenBuildWithOldSpringBootVersion() {
+		assertHelpDocument("maven-build", OLD_SPRING_BOOT_VERSION).contains(
+				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
+				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.0/maven-plugin/reference/html/)",
+				"* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.0/maven-plugin/reference/html/#build-image)");
 	}
 
 	@Test
 	void linksNotAddedToHelpDocumentForGradleBuild() {
-		assertHelpDocument("gradle-build", SPRING_BOOT_VERSION).doesNotContain(
-				"* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)",
-				"* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.3.0/maven-plugin/)");
+		assertHelpDocument("gradle-build", SPRING_BOOT_VERSION).noneMatch((line) -> line.contains("Maven"));
 	}
 
 	private ListAssert<String> assertHelpDocument(String type, String version) {

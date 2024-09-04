@@ -35,7 +35,9 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void binderNotAddedWhenSolaceNotSelected() {
-		ProjectStructure project = generateProject(createProjectRequest("cloud-stream"));
+		ProjectRequest request = createProjectRequest("cloud-stream");
+		request.setBootVersion(BOOT_VERSION);
+		ProjectStructure project = generateProject(request);
 		assertNoBinder(project);
 	}
 

@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link ThymeleafBuildCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class ThymeleafBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -35,6 +36,15 @@ class ThymeleafBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest projectRequest = createProjectRequest("thymeleaf", "security");
 		assertThat(mavenPom(projectRequest)).hasDependency(Dependency.createSpringBootStarter("thymeleaf"))
 			.hasDependency(Dependency.createSpringBootStarter("security"))
+			.hasDependency(Dependency.withId("thymeleaf-extras-spring-security", "org.thymeleaf.extras",
+					"thymeleaf-extras-springsecurity6"));
+	}
+
+	@Test
+	void thymeleafWithOAuth2ClientAndSpringBootAddsExtrasDependency() {
+		ProjectRequest projectRequest = createProjectRequest("thymeleaf", "oauth2-client");
+		assertThat(mavenPom(projectRequest)).hasDependency(Dependency.createSpringBootStarter("thymeleaf"))
+			.hasDependency(Dependency.createSpringBootStarter("oauth2-client"))
 			.hasDependency(Dependency.withId("thymeleaf-extras-spring-security", "org.thymeleaf.extras",
 					"thymeleaf-extras-springsecurity6"));
 	}

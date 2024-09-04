@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.test;
+package io.spring.start.testsupport;
 
 import java.io.IOException;
 import java.nio.file.Files;

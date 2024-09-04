@@ -85,6 +85,39 @@ body {
     left: 0;
     width: 5rem;
   }
+  .navigation-divider {
+    margin: 20px;
+    border-top: 1px solid $light-border;
+  }
+  .navigation-item {
+    $size: 30px;
+    display: block;
+    margin: 0.2rem auto;
+    color: $light-color;
+    padding: 0;
+    cursor: pointer;
+    width: $size + 12px;
+    height: $size + 12px;
+    @include transition(color $spring-transition-duration);
+    border: 0 none;
+    background: none;
+    .icon-history {
+      width: 30px;
+      margin-top: 6px;
+    }
+    &:hover {
+      color: $light-primary;
+    }
+    &:focus {
+      outline: 1px dotted #aecaca;
+    }
+  }
+  &.is-open .navigation-item {
+    color: white;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 }
 
 #side-right {
@@ -163,6 +196,7 @@ body {
       border: 0;
       padding: 4px;
       outline: none;
+      cursor: pointer;
     }
     svg {
       display: block;

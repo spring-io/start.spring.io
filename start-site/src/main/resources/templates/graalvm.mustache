@@ -44,3 +44,12 @@ To run your existing tests in a native image, run the following goal:
 ```
 $ {{testsExecutionCommand}}
 ```
+
+{{#gradleBuild}}
+### Gradle Toolchain support
+
+There are some limitations regarding Native Build Tools and Gradle toolchains.
+Native Build Tools disable toolchain support by default.
+Effectively, native image compilation is done with the JDK used to execute Gradle.
+You can read more about [toolchain support in the Native Build Tools here](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#configuration-toolchains).
+{{/gradleBuild}}

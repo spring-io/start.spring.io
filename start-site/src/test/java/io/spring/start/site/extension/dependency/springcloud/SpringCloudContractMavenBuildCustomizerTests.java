@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final String SPRING_BOOT_VERSION = "3.2.0";
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
 
 	@Test
 	void springCloudContractVerifierPluginAddedWhenSCCDependencyPresent() {
@@ -70,11 +70,12 @@ class SpringCloudContractMavenBuildCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void springWebTestClientDependencyAddedWhenWebFluxIsPresent() {
-		ProjectRequest projectRequest = createProjectRequest("cloud-contract-verifier", "webflux");
+		ProjectRequest request = createProjectRequest("cloud-contract-verifier", "webflux");
+		request.setBootVersion(SPRING_BOOT_VERSION);
 		Dependency springWebTestClientDep = Dependency.withId("rest-assured-spring-web-test-client", "io.rest-assured",
 				"spring-web-test-client");
 		springWebTestClientDep.setScope(Dependency.SCOPE_TEST);
-		assertThat(mavenPom(projectRequest)).hasDependency(springWebTestClientDep);
+		assertThat(mavenPom(request)).hasDependency(springWebTestClientDep);
 	}
 
 }

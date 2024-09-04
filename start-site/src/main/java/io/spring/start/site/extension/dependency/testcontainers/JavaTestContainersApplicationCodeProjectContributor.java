@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,14 +52,15 @@ class JavaTestContainersApplicationCodeProjectContributor extends
 
 	@Override
 	protected void contributeCode(JavaSourceCode sourceCode) {
+		super.contributeCode(sourceCode);
 		customizeApplicationTypeDeclaration(sourceCode, (type) -> {
 			type.modifiers(Modifier.PUBLIC);
 			type.addMethodDeclaration(JavaMethodDeclaration.method("main")
 				.modifiers(Modifier.PUBLIC | Modifier.STATIC)
 				.returning("void")
 				.parameters(Parameter.of("args", String[].class))
-				.body(CodeBlock.ofStatement("$T.from($L::main).with($L.class).run(args)", SpringApplication.class,
-						getDescription().getApplicationName(), getTestApplicationName())));
+				.body(CodeBlock.ofStatement("$T.from($L::main).with($T.class).run(args)", SpringApplication.class,
+						getDescription().getApplicationName(), TESTCONTAINERS_CONFIGURATION_CLASS_NAME)));
 		});
 	}
 

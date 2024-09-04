@@ -40,9 +40,10 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	private final SpringModulithBuildCustomizer customizer = new SpringModulithBuildCustomizer();
 
 	@Test
-	void registersTestStarterWhenModulithIsSelected() {
+	void registersTestAndCoreStarterWhenModulithIsSelected() {
 		Build build = createBuild("modulith");
 		this.customizer.customize(build);
+		assertThat(build.dependencies().ids()).contains("modulith");
 		assertThat(build.dependencies().ids()).contains("modulith-starter-test");
 	}
 
@@ -70,6 +71,25 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 		build.dependencies().add("data-" + store);
 		this.customizer.customize(build);
 		assertThat(build.dependencies().ids()).contains("modulith-starter-" + store);
+		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-core");
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "amqp", "kafka" })
+	void addsExternalizationDependency(String broker) {
+		Build build = createBuild("modulith", broker);
+		this.customizer.customize(build);
+		assertThat(build.dependencies().ids()).contains("modulith-events-" + broker);
+		assertThat(build.dependencies().ids()).contains("modulith-events-api");
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "activemq", "artemis" })
+	void addsJmsExternalizationDependency(String broker) {
+		Build build = createBuild("modulith", broker);
+		this.customizer.customize(build);
+		assertThat(build.dependencies().ids()).contains("modulith-events-jms");
+		assertThat(build.dependencies().ids()).contains("modulith-events-api");
 	}
 
 	private Build createBuild(String... dependencies) {

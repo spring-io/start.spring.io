@@ -21,6 +21,8 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * {@link HelpDocumentCustomizer} implementation for Observability.
@@ -28,6 +30,8 @@ import io.spring.initializr.generator.version.Version;
  * @author Stephane Nicoll
  */
 public class ObservabilityHelpDocumentCustomizer implements HelpDocumentCustomizer {
+
+	private static final VersionRange SPRING_BOOT_3_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
 
 	private final Version platformVersion;
 
@@ -42,10 +46,12 @@ public class ObservabilityHelpDocumentCustomizer implements HelpDocumentCustomiz
 	public void customize(HelpDocument document) {
 		if (this.build.dependencies().has("distributed-tracing")) {
 			document.gettingStarted()
-				.addReferenceDocLink("https://micrometer.io/docs/tracing", "Distributed Tracing Reference Guide");
+				.addReferenceDocLink("https://docs.micrometer.io/tracing/reference/index.html",
+						"Distributed Tracing Reference Guide");
 			document.gettingStarted()
-				.addReferenceDocLink(String.format(
-						"https://docs.spring.io/spring-boot/docs/%s/reference/html/actuator.html#actuator.micrometer-tracing.getting-started",
+				.addReferenceDocLink(String.format(SPRING_BOOT_3_3_0_OR_LATER.match(this.platformVersion)
+						? "https://docs.spring.io/spring-boot/%s/reference/actuator/tracing.html"
+						: "https://docs.spring.io/spring-boot/docs/%s/reference/html/actuator.html#actuator.micrometer-tracing.getting-started",
 						this.platformVersion), "Getting Started with Distributed Tracing");
 
 		}

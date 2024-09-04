@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,8 +38,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link GraalVmHelpDocumentCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
+
+	private static final String SPRING_BOOT_VERSION = "3.3.0";
+
+	private static final String OLD_SPRING_BOOT_VERSION = "3.2.0";
 
 	@Autowired
 	private MustacheTemplateRenderer templateRenderer;
@@ -47,7 +52,18 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void mavenBuildAddLinkToMavenAotPlugin() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("3.2.0"));
+		description.setPlatformVersion(Version.parse(SPRING_BOOT_VERSION));
+		HelpDocument document = customize(description, new MavenBuild());
+		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
+			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
+			assertThat(link.getHref()).isEqualTo("https://docs.spring.io/spring-boot/3.3.0/how-to/aot.html");
+		});
+	}
+
+	@Test
+	void mavenBuildAddLinkToMavenAotPluginWithOldSpringBootVersion() {
+		MutableProjectDescription description = new MutableProjectDescription();
+		description.setPlatformVersion(Version.parse(OLD_SPRING_BOOT_VERSION));
 		HelpDocument document = customize(description, new MavenBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
@@ -59,7 +75,18 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void gradleBuildAddLinkToGradleAotPlugin() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse("3.2.0"));
+		description.setPlatformVersion(Version.parse(SPRING_BOOT_VERSION));
+		HelpDocument document = customize(description, new GradleBuild());
+		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
+			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
+			assertThat(link.getHref()).isEqualTo("https://docs.spring.io/spring-boot/3.3.0/how-to/aot.html");
+		});
+	}
+
+	@Test
+	void gradleBuildAddLinkToGradleAotPluginWithOldSpringBootVersion() {
+		MutableProjectDescription description = new MutableProjectDescription();
+		description.setPlatformVersion(Version.parse(OLD_SPRING_BOOT_VERSION));
 		HelpDocument document = customize(description, new GradleBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
@@ -100,6 +127,22 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		request.setArtifactId("another-project");
 		request.setVersion("2.0.0-SNAPSHOT");
 		assertHelpDocument(request).contains("$ docker run --rm -p 8080:8080 another-project:2.0.0-SNAPSHOT");
+	}
+
+	@Test
+	void shouldDocumentGradleToolchainLimitations() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setType("gradle-project");
+		assertHelpDocument(request)
+			.contains("There are some limitations regarding Native Build Tools and Gradle toolchains.");
+	}
+
+	@Test
+	void shouldNotDocumentGradleToolchainLimitationsWhenUsingMaven() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setType("maven-project");
+		assertHelpDocument(request)
+			.doesNotContain("There are some limitations regarding Native Build Tools and Gradle toolchains.");
 	}
 
 	private TextAssert assertHelpDocument(ProjectRequest request) {

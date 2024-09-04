@@ -39,6 +39,10 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 	private static final Collection<String> OBSERVABILITY_DEPENDENCIES = List.of("actuator", "datadog", "graphite",
 			"influx", "new-relic", "prometheus", "wavefront", "zipkin");
 
+	private static final Collection<String> PERSISTENCE = List.of("jdbc", "jpa", "mongodb");
+
+	private static final Collection<String> BROKERS = List.of("activemq", "amqp", "artemis", "kafka");
+
 	@Override
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
@@ -50,25 +54,49 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 					modulithDependency("observability").scope(DependencyScope.RUNTIME));
 		}
 		addEventPublicationRegistryBackend(build);
+		if (addEventExternalizationDependency(build)) {
+			dependencies.add("modulith-events-api", modulithDependency("events-api"));
+		}
 		dependencies.add("modulith-starter-test",
 				modulithDependency("starter-test").scope(DependencyScope.TEST_COMPILE));
 	}
 
-	private void addEventPublicationRegistryBackend(Build build) {
+	private boolean addEventPublicationRegistryBackend(Build build) {
 		DependencyContainer dependencies = build.dependencies();
-		if (dependencies.has("data-mongodb")) {
-			dependencies.add("modulith-starter-mongodb", modulithDependency("starter-mongodb"));
+		return PERSISTENCE.stream()
+			.map((persistence) -> addPersistenceDependency(persistence, dependencies))
+			.reduce(false, (l, r) -> l || r);
+	}
+
+	private boolean addPersistenceDependency(String store, DependencyContainer dependencies) {
+		if (!dependencies.has("data-" + store)) {
+			return false;
 		}
-		if (dependencies.has("data-jdbc")) {
-			dependencies.add("modulith-starter-jdbc", modulithDependency("starter-jdbc"));
-		}
-		if (dependencies.has("data-jpa")) {
-			dependencies.add("modulith-starter-jpa", modulithDependency("starter-jpa"));
-		}
+		dependencies.add("modulith-starter-" + store, modulithDependency("starter-" + store));
+		return true;
 	}
 
 	private Builder<?> modulithDependency(String name) {
 		return Dependency.withCoordinates("org.springframework.modulith", "spring-modulith-" + name);
+	}
+
+	private boolean addEventExternalizationDependency(Build build) {
+		DependencyContainer dependencies = build.dependencies();
+		return BROKERS.stream()
+			.filter(dependencies::has)
+			.map(this::getModulithBrokerKey)
+			.peek((it) -> dependencies.add("modulith-events-" + it,
+					modulithDependency("events-" + it).scope(DependencyScope.RUNTIME)))
+			.findAny()
+			.isPresent();
+	}
+
+	private String getModulithBrokerKey(String broker) {
+		return switch (broker) {
+			case "kafka", "amqp" -> broker;
+			case "artemis", "activemq" -> "jms";
+			default -> throw new IllegalArgumentException("Unsupported broker!");
+		};
 	}
 
 }

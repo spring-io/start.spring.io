@@ -94,7 +94,7 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 		// @formatter:off
 						"hibernate {",
 						"	enhancement {",
-						"		enableAssociationManagement.set(true)",
+						"		enableAssociationManagement = true",
 						"	}",
 						"}");
 		// @formatter:on
