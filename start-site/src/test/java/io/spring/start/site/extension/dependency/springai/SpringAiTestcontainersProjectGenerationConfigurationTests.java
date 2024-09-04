@@ -49,7 +49,7 @@ class SpringAiTestcontainersProjectGenerationConfigurationTests extends Abstract
 
 	static Stream<String> supportedTestcontainersSpringAiEntriesBuild() {
 		return Stream.of("spring-ai-vectordb-chroma", "spring-ai-vectordb-milvus", "spring-ai-ollama",
-				"spring-ai-vectordb-qdrant", "spring-ai-vectordb-weaviate");
+				"spring-ai-vectordb-oracle", "spring-ai-vectordb-qdrant", "spring-ai-vectordb-weaviate");
 	}
 
 }
