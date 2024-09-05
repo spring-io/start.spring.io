@@ -23,6 +23,8 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.VersionProperty;
+import io.spring.initializr.generator.version.VersionReference;
 import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
@@ -34,19 +36,30 @@ import org.springframework.context.annotation.Bean;
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("docker-compose")
-class SpringAiDockerComposeProjectGenerationConfiguration {
+@ConditionalOnRequestedSpringAiDependency
+public class SpringAiDockerComposeProjectGenerationConfiguration {
+
+	/**
+	 * Dependency id of
+	 * {@code org.springframework.ai:spring-ai-spring-boot-docker-compose}.
+	 */
+	public static final String DEPENDENCY_ID = "spring-ai-docker-compose";
 
 	@Bean
 	BuildCustomizer<Build> springAiDockerComposeBuildCustomizer(InitializrMetadata metadata,
 			ProjectDescription description) {
-		return (build) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				build.dependencies()
-					.add("spring-ai-docker-compose",
-							Dependency.withCoordinates("org.springframework.ai", "spring-ai-spring-boot-docker-compose")
-								.scope(DependencyScope.TEST_COMPILE));
-			}
-		};
+		// spring-ai-spring-boot-docker-compose is not managed in the BOM
+		// See https://github.com/spring-projects/spring-ai/issues/1314
+		VersionProperty springAiBomVersion = getSpringAiVersion(metadata, description);
+		return (build) -> build.dependencies()
+			.add(DEPENDENCY_ID,
+					Dependency.withCoordinates("org.springframework.ai", "spring-ai-spring-boot-docker-compose")
+						.version(VersionReference.ofProperty(springAiBomVersion))
+						.scope(DependencyScope.RUNTIME));
+	}
+
+	private static VersionProperty getSpringAiVersion(InitializrMetadata metadata, ProjectDescription description) {
+		return metadata.getConfiguration().getEnv().getBoms().get("spring-ai").getVersionProperty();
 	}
 
 }

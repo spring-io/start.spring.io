@@ -17,9 +17,7 @@
 package io.spring.start.site.extension.dependency.springai;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
@@ -39,14 +37,9 @@ class SpringAiMilvusProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer milvusServiceConnectionsCustomizer(InitializrMetadata metadata,
-			ProjectDescription description, DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				serviceResolver.doWith("milvus", (service) -> serviceConnections
-					.addServiceConnection(ServiceConnection.ofContainer("milvus", service, TESTCONTAINERS_CLASS_NAME)));
-			}
-		};
+	ServiceConnectionsCustomizer milvusServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("milvus", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("milvus", service, TESTCONTAINERS_CLASS_NAME, false)));
 	}
 
 }

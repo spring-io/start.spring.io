@@ -17,9 +17,7 @@
 package io.spring.start.site.extension.dependency.springai;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -40,25 +38,16 @@ class SpringAiQdrantProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer qdrantServiceConnectionsCustomizer(InitializrMetadata metadata,
-			ProjectDescription description, DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				serviceResolver.doWith("qdrant", (service) -> serviceConnections
-					.addServiceConnection(ServiceConnection.ofContainer("qdrant", service, TESTCONTAINERS_CLASS_NAME)));
-			}
-		};
+	ServiceConnectionsCustomizer qdrantServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("qdrant", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("qdrant", service, TESTCONTAINERS_CLASS_NAME, false)));
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer qdrantComposeFileCustomizer(InitializrMetadata metadata, ProjectDescription description,
-			DockerServiceResolver serviceResolver) {
-		return (composeFile) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				serviceResolver.doWith("qdrant", (service) -> composeFile.services().add("qdrant", service));
-			}
-		};
+	ComposeFileCustomizer qdrantComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("qdrant",
+				(service) -> composeFile.services().add("qdrant", service));
 	}
 
 }

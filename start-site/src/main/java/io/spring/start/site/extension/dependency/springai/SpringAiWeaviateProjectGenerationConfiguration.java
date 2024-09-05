@@ -17,9 +17,7 @@
 package io.spring.start.site.extension.dependency.springai;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -40,25 +38,17 @@ class SpringAiWeaviateProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer weaviateServiceConnectionsCustomizer(InitializrMetadata metadata,
-			ProjectDescription description, DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				serviceResolver.doWith("weaviate", (service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("weaviate", service, TESTCONTAINERS_CLASS_NAME)));
-			}
-		};
+	ServiceConnectionsCustomizer weaviateServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("weaviate",
+				(service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("weaviate", service, TESTCONTAINERS_CLASS_NAME, false)));
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer weaviateComposeFileCustomizer(InitializrMetadata metadata, ProjectDescription description,
-			DockerServiceResolver serviceResolver) {
-		return (composeFile) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				serviceResolver.doWith("weaviate", (service) -> composeFile.services().add("weaviate", service));
-			}
-		};
+	ComposeFileCustomizer weaviateComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("weaviate",
+				(service) -> composeFile.services().add("weaviate", service));
 	}
 
 }

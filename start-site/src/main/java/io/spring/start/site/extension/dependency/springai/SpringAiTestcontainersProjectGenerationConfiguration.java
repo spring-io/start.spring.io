@@ -20,10 +20,8 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
 
@@ -34,19 +32,15 @@ import org.springframework.context.annotation.Bean;
  */
 @ProjectGenerationConfiguration
 @ConditionalOnRequestedDependency("testcontainers")
+@ConditionalOnRequestedSpringAiDependency
 class SpringAiTestcontainersProjectGenerationConfiguration {
 
 	@Bean
-	BuildCustomizer<Build> springAiTestcontainersBuildCustomizer(InitializrMetadata metadata,
-			ProjectDescription description) {
-		return (build) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				build.dependencies()
-					.add("spring-ai-testcontainers",
-							Dependency.withCoordinates("org.springframework.ai", "spring-ai-spring-boot-testcontainers")
-								.scope(DependencyScope.TEST_COMPILE));
-			}
-		};
+	BuildCustomizer<Build> springAiTestcontainersBuildCustomizer() {
+		return (build) -> build.dependencies()
+			.add("spring-ai-testcontainers",
+					Dependency.withCoordinates("org.springframework.ai", "spring-ai-spring-boot-testcontainers")
+						.scope(DependencyScope.TEST_COMPILE));
 	}
 
 }

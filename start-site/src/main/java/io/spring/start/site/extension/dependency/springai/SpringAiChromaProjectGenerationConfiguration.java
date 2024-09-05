@@ -17,9 +17,7 @@
 package io.spring.start.site.extension.dependency.springai;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -40,25 +38,16 @@ class SpringAiChromaProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer chromaServiceConnectionsCustomizer(InitializrMetadata metadata,
-			ProjectDescription description, DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				serviceResolver.doWith("chroma", (service) -> serviceConnections
-					.addServiceConnection(ServiceConnection.ofContainer("chroma", service, TESTCONTAINERS_CLASS_NAME)));
-			}
-		};
+	ServiceConnectionsCustomizer chromaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("chroma", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("chroma", service, TESTCONTAINERS_CLASS_NAME, false)));
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer chromaComposeFileCustomizer(InitializrMetadata metadata, ProjectDescription description,
-			DockerServiceResolver serviceResolver) {
-		return (composeFile) -> {
-			if (SpringAiVersion.version1OrLater(metadata, description.getPlatformVersion())) {
-				serviceResolver.doWith("chroma", (service) -> composeFile.services().add("chroma", service));
-			}
-		};
+	ComposeFileCustomizer chromaComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("chroma",
+				(service) -> composeFile.services().add("chroma", service));
 	}
 
 }

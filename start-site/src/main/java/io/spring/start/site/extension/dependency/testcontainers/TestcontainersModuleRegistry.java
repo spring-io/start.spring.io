@@ -40,13 +40,11 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  */
 abstract class TestcontainersModuleRegistry {
 
-	private static final VersionRange SPRING_BOOT_3_3_0_M2_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M2");
-
-	private static final VersionRange SPRING_BOOT_3_3_0_M3_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M3");
+	private static final VersionRange SPRING_BOOT_3_3_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
 
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<ImplicitDependency.Builder> builders = new ArrayList<>();
-		if (SPRING_BOOT_3_3_0_M2_OR_LATER.match(platformVersion)) {
+		if (SPRING_BOOT_3_3_OR_LATER.match(platformVersion)) {
 			builders.add(onDependencies("activemq").customizeBuild(addModule("activemq"))
 				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
 			builders.add(onDependencies("artemis").customizeBuild(addModule("activemq"))
@@ -91,7 +89,7 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Solace Module", "solace/")));
 		builders.add(onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
 			.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
-		if (SPRING_BOOT_3_3_0_M3_OR_LATER.match(platformVersion)) {
+		if (SPRING_BOOT_3_3_OR_LATER.match(platformVersion)) {
 			builders.add(onDependencies("spring-ai-vectordb-chroma").customizeBuild(addModule("chromadb"))
 				.customizeHelpDocument(addReferenceLink("Chroma Module", "testcontainers/")));
 			builders.add(onDependencies("spring-ai-vectordb-milvus").customizeBuild(addModule("milvus"))

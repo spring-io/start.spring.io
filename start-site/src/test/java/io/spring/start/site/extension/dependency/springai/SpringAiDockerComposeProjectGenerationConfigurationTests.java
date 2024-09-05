@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -29,21 +30,29 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringAiDockerComposeProjectGenerationConfiguration}.
  *
  * @author Eddú Meléndez
+ * @author Moritz Halbritter
  */
 class SpringAiDockerComposeProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@ParameterizedTest
 	@MethodSource("supportedDockerComposeSpringAiEntriesBuild")
 	void springAiTestcontainersDependencyIsAdded(String springAiDependency) {
-		ProjectRequest projectRequest = createProject("3.3.0", "docker-compose", springAiDependency);
+		ProjectRequest projectRequest = createProject("docker-compose", springAiDependency);
 		assertThat(mavenPom(projectRequest)).hasDependency("org.springframework.ai",
-				"spring-ai-spring-boot-docker-compose", null, "test");
+				"spring-ai-spring-boot-docker-compose", null, "runtime");
 	}
 
-	private ProjectRequest createProject(String springBootVersion, String... styles) {
+	@Test
+	void shouldNotAddSpringAiTestcontainersDependencyIfNoSpringAiDependencyIsSelected() {
+		ProjectRequest projectRequest = createProject("docker-compose", "web");
+		assertThat(mavenPom(projectRequest)).doesNotHaveDependency("org.springframework.ai",
+				"spring-ai-spring-boot-docker-compose");
+	}
+
+	private ProjectRequest createProject(String... styles) {
 		ProjectRequest projectRequest = createProjectRequest(styles);
 		projectRequest.setLanguage("java");
-		projectRequest.setBootVersion(springBootVersion);
+		projectRequest.setBootVersion("3.3.0");
 		return projectRequest;
 	}
 
