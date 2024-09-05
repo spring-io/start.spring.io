@@ -1572,7 +1572,7 @@ initializr:
           id: spring-ai-vectordb-redis
           group-id: org.springframework.ai
           artifact-id: spring-ai-redis-store-spring-boot-starter
-          description: Spring AI vector database support for Redis Search and Query.It extends the core features of Redis OSS and allows you to use Redis as a vector database.
+          description: Spring AI vector database support for Redis Search and Query. It extends the core features of Redis OSS and allows you to use Redis as a vector database.
           bom: spring-ai
           starter: true
           links:
