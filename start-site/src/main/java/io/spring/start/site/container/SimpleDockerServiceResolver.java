@@ -50,6 +50,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("pulsar", pulsar());
 		this.dockerServices.put("rabbit", rabbit());
 		this.dockerServices.put("redis", redis());
+		this.dockerServices.put("redisStack", redisStack());
 		this.dockerServices.put("sqlServer", sqlServer());
 		this.dockerServices.put("zipkin", zipkin());
 	}
@@ -151,6 +152,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService redis() {
 		return DockerService.withImageAndTag("redis").website("https://hub.docker.com/_/redis").ports(6379).build();
+	}
+
+	private static DockerService redisStack() {
+		return DockerService.withImageAndTag("redis/redis-stack")
+			.website("https://hub.docker.com/r/redis/redis-stack")
+			.ports(6379)
+			.build();
 	}
 
 	private static DockerService sqlServer() {

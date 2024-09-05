@@ -24,6 +24,7 @@ io.spring.start.site.extension.dependency.oracle.OracleProjectGenerationConfigur
 io.spring.start.site.extension.dependency.postgresql.PgVectorProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.postgresql.PostgresqlProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.redis.RedisProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.redis.RedisStackProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.sbom.SbomProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.solace.SolaceProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springamqp.SpringAmqpProjectGenerationConfiguration,\
