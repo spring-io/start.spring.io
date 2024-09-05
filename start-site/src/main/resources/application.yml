@@ -1458,6 +1458,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/chroma.html
+        - name: Elasticsearch Vector Database
+          id: spring-ai-vectordb-elasticsearch
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-elasticsearch-store-spring-boot-starter
+          description: Spring AI vector database support for Elasticsearch.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/elasticsearch.html
         - name: Milvus Vector Database
           id: spring-ai-vectordb-milvus
           group-id: org.springframework.ai
@@ -1618,6 +1628,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/qdrant.html
+        - name: Typesense Vector Database
+          id: spring-ai-vectordb-typesense
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-typesense-store-spring-boot-starter
+          description: Spring AI vector database support for Typesense.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/typesense.html
         - name: Weaviate Vector Database
           id: spring-ai-vectordb-weaviate
           group-id: org.springframework.ai
