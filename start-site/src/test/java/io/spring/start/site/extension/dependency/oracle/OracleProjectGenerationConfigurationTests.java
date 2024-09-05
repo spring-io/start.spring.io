@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link OracleProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -44,6 +45,13 @@ class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void createsOracleFreeServiceWithBoot32() {
 		ProjectRequest request = createProjectRequest("docker-compose", "oracle");
+		request.setBootVersion(SPRING_BOOT_VERSION);
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle-free.yaml"));
+	}
+
+	@Test
+	void createsOracleFreeServiceWithBoot32AndSpringAi() {
+		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-oracle");
 		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle-free.yaml"));
 	}

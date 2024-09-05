@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.oracle;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
@@ -30,26 +31,38 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Moritz Halbritter
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnRequestedDependency("oracle")
 class OracleProjectGenerationConfiguration {
 
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.oracle.OracleContainer";
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer oracleServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("oracleFree",
-				(service) -> serviceConnections.addServiceConnection(
+	ServiceConnectionsCustomizer oracleServiceConnectionsCustomizer(Build build,
+			DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> {
+			if (isOracleEnabled(build)) {
+				serviceResolver.doWith("oracleFree", (service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("oracleFree", service, TESTCONTAINERS_CLASS_NAME, false)));
+			}
+		};
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer oracleComposeFileCustomizer(DockerServiceResolver serviceResolver) {
-		return (composeFile) -> serviceResolver.doWith("oracleFree", (service) -> composeFile.services()
-			.add("oracle", service.andThen((builder) -> builder.environment("ORACLE_PASSWORD", "secret"))));
+	ComposeFileCustomizer oracleComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
+		return (composeFile) -> {
+			if (isOracleEnabled(build)) {
+				serviceResolver.doWith("oracleFree", (service) -> composeFile.services()
+					.add("oracle", service.andThen((builder) -> builder.environment("ORACLE_PASSWORD", "secret"))));
+			}
+		};
+	}
+
+	private boolean isOracleEnabled(Build build) {
+		return build.dependencies().has("oracle") || build.dependencies().has("spring-ai-vectordb-oracle");
 	}
 
 }
