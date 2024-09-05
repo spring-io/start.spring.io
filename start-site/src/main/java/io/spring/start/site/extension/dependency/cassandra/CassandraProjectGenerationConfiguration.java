@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Moritz Halbritter
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @Configuration(proxyBeanMethods = false)
 class CassandraProjectGenerationConfiguration {
@@ -63,7 +64,8 @@ class CassandraProjectGenerationConfiguration {
 	}
 
 	private boolean isCassandraEnabled(Build build) {
-		return build.dependencies().has("data-cassandra") || build.dependencies().has("data-cassandra-reactive");
+		return build.dependencies().has("data-cassandra") || build.dependencies().has("data-cassandra-reactive")
+				|| build.dependencies().has("spring-ai-vectordb-cassandra");
 	}
 
 }

@@ -1448,6 +1448,21 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/bedrock-chat.html
+        - name: Apache Cassandra Vector Database
+          id: spring-ai-vectordb-cassandra
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-cassandra-store-spring-boot-starter
+  # spring-ai-cassandra-store-spring-boot-starter is not managed in the BOM
+  # See https://github.com/spring-projects/spring-ai/pull/1312
+          mappings:
+            - compatibilityRange: "[3.2.0,3.4.0-M1)"
+              version: 1.0.0-M2
+              repository: spring-milestones
+          description: Spring AI vector database support for Apache Cassandra.
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/apache-cassandra.html
         - name: Chroma Vector Database
           id: spring-ai-vectordb-chroma
           group-id: org.springframework.ai
