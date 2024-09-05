@@ -1458,16 +1458,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/chroma.html
-        - name: Cassandra Vector Database
-          id: spring-ai-vectordb-cassandra
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-apache-cassandra-store-spring-boot-starter
-          description: Spring AI vector database support for Cassandra.
-          bom: spring-ai
-          starter: true
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/apache-cassandra.html
         - name: Elasticsearch Vector Database
           id: spring-ai-vectordb-elasticsearch
           group-id: org.springframework.ai
