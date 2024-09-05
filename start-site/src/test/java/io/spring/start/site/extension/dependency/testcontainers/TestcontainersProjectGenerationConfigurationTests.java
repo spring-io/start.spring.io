@@ -95,9 +95,9 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("db2", "db2"), Arguments.arguments("kafka", "kafka"),
 				Arguments.arguments("kafka-streams", "kafka"), Arguments.arguments("mariadb", "mariadb"),
 				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
-				Arguments.arguments("oracle", "oracle-free"),
-				Arguments.arguments("pulsar", "pulsar"), Arguments.arguments("pulsar-reactive", "pulsar"),
-				Arguments.arguments("solace", "solace"), Arguments.arguments("spring-ai-vectordb-neo4j", "neo4j"),
+				Arguments.arguments("oracle", "oracle-free"), Arguments.arguments("pulsar", "pulsar"),
+				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
+				Arguments.arguments("spring-ai-vectordb-neo4j", "neo4j"),
 				Arguments.arguments("spring-ai-vectordb-pgvector", "postgresql"),
 				Arguments.arguments("sqlserver", "mssqlserver"));
 	}
