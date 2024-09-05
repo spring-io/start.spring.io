@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.elasticsearch;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
@@ -30,30 +31,43 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Moritz Halbritter
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnRequestedDependency("data-elasticsearch")
 class ElasticsearchProjectGenerationConfiguration {
 
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.elasticsearch.ElasticsearchContainer";
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer elasticsearchServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("elasticsearch",
-				(service) -> serviceConnections.addServiceConnection(
+	ServiceConnectionsCustomizer elasticsearchServiceConnectionsCustomizer(Build build,
+			DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> {
+			if (isElasticsearchEnabled(build)) {
+				serviceResolver.doWith("elasticsearch", (service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("elasticsearch", service, TESTCONTAINERS_CLASS_NAME, false)));
+			}
+		};
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer elasticsearchComposeFileCustomizer(DockerServiceResolver serviceResolver) {
-		return (composeFile) -> serviceResolver.doWith("elasticsearch",
-				(service) -> composeFile.services()
-					.add("elasticsearch",
-							service.andThen((builder) -> builder.environment("ELASTIC_PASSWORD", "secret")
-								.environment("xpack.security.enabled", "false")
-								.environment("discovery.type", "single-node"))));
+	ComposeFileCustomizer elasticsearchComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
+		return (composeFile) -> {
+			if (isElasticsearchEnabled(build)) {
+				serviceResolver.doWith("elasticsearch",
+						(service) -> composeFile.services()
+							.add("elasticsearch",
+									service.andThen((builder) -> builder.environment("ELASTIC_PASSWORD", "secret")
+										.environment("xpack.security.enabled", "false")
+										.environment("discovery.type", "single-node"))));
+			}
+		};
+	}
+
+	private boolean isElasticsearchEnabled(Build build) {
+		return build.dependencies().has("data-elasticsearch")
+				|| build.dependencies().has("spring-ai-vectordb-elasticsearch");
 	}
 
 }
