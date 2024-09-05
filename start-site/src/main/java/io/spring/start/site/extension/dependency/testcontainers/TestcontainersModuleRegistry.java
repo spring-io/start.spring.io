@@ -62,7 +62,8 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")));
 		builders.add(onDependencies("data-couchbase", "data-couchbase-reactive").customizeBuild(addModule("couchbase"))
 			.customizeHelpDocument(addReferenceLink("Couchbase Module", "databases/couchbase/")));
-		builders.add(onDependencies("data-elasticsearch").customizeBuild(addModule("elasticsearch"))
+		builders.add(onDependencies("data-elasticsearch", "spring-ai-vectordb-elasticsearch")
+			.customizeBuild(addModule("elasticsearch"))
 			.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")));
 		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive").customizeBuild(addModule("mongodb"))
 			.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")));
