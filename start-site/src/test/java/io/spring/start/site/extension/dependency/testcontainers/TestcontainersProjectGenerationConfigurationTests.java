@@ -86,6 +86,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("mysql", "mysql"), Arguments.arguments("postgresql", "postgresql"),
 				Arguments.arguments("oracle", "oracle-free"), Arguments.arguments("pulsar", "pulsar"),
 				Arguments.arguments("pulsar-reactive", "pulsar"), Arguments.arguments("solace", "solace"),
+				Arguments.arguments("spring-ai-vectordb-elasticsearch", "elasticsearch"),
 				Arguments.arguments("spring-ai-vectordb-neo4j", "neo4j"),
 				Arguments.arguments("spring-ai-vectordb-oracle", "oracle-free"),
 				Arguments.arguments("spring-ai-vectordb-pgvector", "postgresql"),
