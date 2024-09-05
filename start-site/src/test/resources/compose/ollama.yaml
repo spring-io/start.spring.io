@@ -1,0 +1,5 @@
+services:
+  ollama:
+    image: 'ollama/ollama:latest'
+    ports:
+      - '11434'

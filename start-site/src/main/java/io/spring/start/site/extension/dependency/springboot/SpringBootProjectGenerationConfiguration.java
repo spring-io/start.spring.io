@@ -23,6 +23,7 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.gradle.DevelopmentOnlyDependencyGradleBuildCustomizer;
 import io.spring.initializr.generator.spring.build.maven.OptionalDependencyMavenBuildCustomizer;
+import io.spring.start.site.extension.dependency.springai.SpringAiDockerComposeProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,6 +53,18 @@ class SpringBootProjectGenerationConfiguration {
 			return new OptionalDependencyMavenBuildCustomizer("docker-compose");
 		}
 
+		/**
+		 * Marks {@code org.springframework.ai:spring-ai-spring-boot-docker-compose} as
+		 * optional.
+		 * @return the build customizer
+		 * @see SpringAiDockerComposeProjectGenerationConfiguration
+		 */
+		@Bean
+		OptionalDependencyMavenBuildCustomizer springAiDockerComposeMavenBuildCustomizer() {
+			return new OptionalDependencyMavenBuildCustomizer(
+					SpringAiDockerComposeProjectGenerationConfiguration.DEPENDENCY_ID);
+		}
+
 	}
 
 	@Configuration(proxyBeanMethods = false)
@@ -68,6 +81,18 @@ class SpringBootProjectGenerationConfiguration {
 		@ConditionalOnRequestedDependency("docker-compose")
 		DevelopmentOnlyDependencyGradleBuildCustomizer dockerComposeGradleBuildCustomizer() {
 			return new DevelopmentOnlyDependencyGradleBuildCustomizer("docker-compose");
+		}
+
+		/**
+		 * Puts {@code org.springframework.ai:spring-ai-spring-boot-docker-compose} in
+		 * {@code developmentOnly} scope.
+		 * @return the build customizer
+		 * @see SpringAiDockerComposeProjectGenerationConfiguration
+		 */
+		@Bean
+		DevelopmentOnlyDependencyGradleBuildCustomizer springAiDockerComposeGradleBuildCustomizer() {
+			return new DevelopmentOnlyDependencyGradleBuildCustomizer(
+					SpringAiDockerComposeProjectGenerationConfiguration.DEPENDENCY_ID);
 		}
 
 	}
