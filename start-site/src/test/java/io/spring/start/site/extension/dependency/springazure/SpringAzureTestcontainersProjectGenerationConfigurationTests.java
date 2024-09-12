@@ -38,7 +38,7 @@ class SpringAzureTestcontainersProjectGenerationConfigurationTests extends Abstr
 
 	@Test
 	void shouldNotAddSpringAzureTestcontainersDependencyIfNoSpringAzureDependencyIsSelected() {
-		ProjectRequest projectRequest = createProjectRequest("testcontainers", "web");
+		ProjectRequest projectRequest = createProjectRequest("testcontainers", "azure-keyvault");
 		assertThat(mavenPom(projectRequest)).doesNotHaveDependency("com.azure.spring",
 				"spring-cloud-azure-testcontainers");
 	}

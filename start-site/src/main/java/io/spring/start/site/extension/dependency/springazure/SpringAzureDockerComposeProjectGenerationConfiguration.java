@@ -31,11 +31,11 @@ import org.springframework.context.annotation.Bean;
  * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("docker-compose")
-@ConditionalOnRequestedSpringAzureDependency
+@ConditionalOnRequestedDependency("azure-storage")
 class SpringAzureDockerComposeProjectGenerationConfiguration {
 
 	@Bean
+	@ConditionalOnRequestedDependency("docker-compose")
 	BuildCustomizer<Build> springAzureDockerComposeBuildCustomizer() {
 		return (build) -> build.dependencies()
 			.add("spring-azure-docker-compose",

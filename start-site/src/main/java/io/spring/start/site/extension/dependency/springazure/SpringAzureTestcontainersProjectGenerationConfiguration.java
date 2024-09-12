@@ -31,11 +31,11 @@ import org.springframework.context.annotation.Bean;
  * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("testcontainers")
-@ConditionalOnRequestedSpringAzureDependency
+@ConditionalOnRequestedDependency("azure-storage")
 class SpringAzureTestcontainersProjectGenerationConfiguration {
 
 	@Bean
+	@ConditionalOnRequestedDependency("testcontainers")
 	BuildCustomizer<Build> springAzureTestcontainersBuildCustomizer() {
 		return (build) -> build.dependencies()
 			.add("spring-azure-testcontainers",
