@@ -19,10 +19,14 @@ package io.spring.start.site.extension.dependency.springai;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
+import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.spring.build.gradle.DevelopmentOnlyDependencyGradleBuildCustomizer;
+import io.spring.initializr.generator.spring.build.maven.OptionalDependencyMavenBuildCustomizer;
 import io.spring.initializr.generator.version.VersionProperty;
 import io.spring.initializr.generator.version.VersionReference;
 import io.spring.initializr.metadata.InitializrMetadata;
@@ -43,14 +47,13 @@ public class SpringAiDockerComposeProjectGenerationConfiguration {
 	 * Dependency id of
 	 * {@code org.springframework.ai:spring-ai-spring-boot-docker-compose}.
 	 */
-	public static final String DEPENDENCY_ID = "spring-ai-docker-compose";
+	private static final String DEPENDENCY_ID = "spring-ai-docker-compose";
 
 	@Bean
-	BuildCustomizer<Build> springAiDockerComposeBuildCustomizer(InitializrMetadata metadata,
-			ProjectDescription description) {
+	BuildCustomizer<Build> springAiDockerComposeBuildCustomizer(InitializrMetadata metadata) {
 		// spring-ai-spring-boot-docker-compose is not managed in the BOM
 		// See https://github.com/spring-projects/spring-ai/issues/1314
-		VersionProperty springAiBomVersion = getSpringAiVersion(metadata, description);
+		VersionProperty springAiBomVersion = getSpringAiVersion(metadata);
 		return (build) -> build.dependencies()
 			.add(DEPENDENCY_ID,
 					Dependency.withCoordinates("org.springframework.ai", "spring-ai-spring-boot-docker-compose")
@@ -58,7 +61,21 @@ public class SpringAiDockerComposeProjectGenerationConfiguration {
 						.scope(DependencyScope.RUNTIME));
 	}
 
-	private static VersionProperty getSpringAiVersion(InitializrMetadata metadata, ProjectDescription description) {
+	@Bean
+	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+	DevelopmentOnlyDependencyGradleBuildCustomizer springAiDockerComposeGradleBuildCustomizer() {
+		return new DevelopmentOnlyDependencyGradleBuildCustomizer(
+				SpringAiDockerComposeProjectGenerationConfiguration.DEPENDENCY_ID);
+	}
+
+	@Bean
+	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	OptionalDependencyMavenBuildCustomizer springAiDockerComposeMavenBuildCustomizer() {
+		return new OptionalDependencyMavenBuildCustomizer(
+				SpringAiDockerComposeProjectGenerationConfiguration.DEPENDENCY_ID);
+	}
+
+	private static VersionProperty getSpringAiVersion(InitializrMetadata metadata) {
 		return metadata.getConfiguration().getEnv().getBoms().get("spring-ai").getVersionProperty();
 	}
 
