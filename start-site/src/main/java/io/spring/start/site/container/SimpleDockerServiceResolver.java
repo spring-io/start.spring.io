@@ -37,6 +37,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("activeMQ", activeMQ());
 		this.dockerServices.put("activeMQClassic", activeMQClassic());
 		this.dockerServices.put("artemis", artemis());
+		this.dockerServices.put("azurite", azurite());
 		this.dockerServices.put("cassandra", cassandra());
 		this.dockerServices.put("chroma", chroma());
 		this.dockerServices.put("elasticsearch", elasticsearch());
@@ -78,6 +79,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("apache/activemq-artemis")
 			.website("https://hub.docker.com/r/apache/activemq-artemis")
 			.ports(61616)
+			.build();
+	}
+
+	private static DockerService azurite() {
+		return DockerService.withImageAndTag("mcr.microsoft.com/azure-storage/azurite")
+			.website("https://github.com/Azure/Azurite?tab=readme-ov-file#dockerhub")
+			.ports(10000, 10001, 10002)
 			.build();
 	}
 
