@@ -62,13 +62,13 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java22IsNotSupportedWithBoot323() {
-		assertThat(mavenPom(javaProject("22", "3.2.3"))).hasProperty("java.version", "21");
+	void java22IsNotSupportedWithKotlin() {
+		assertThat(mavenPom(kotlinProject("22", "3.2.9"))).hasProperty("java.version", "21");
 	}
 
 	@Test
-	void java22IsNotSupportedWithKotlin() {
-		assertThat(mavenPom(kotlinProject("22", "3.2.5"))).hasProperty("java.version", "21");
+	void java23IsNotSupportedWithKotlin() {
+		assertThat(mavenPom(kotlinProject("23", "3.2.9"))).hasProperty("java.version", "21");
 	}
 
 	static Stream<Arguments> supportedMavenParameters() {
@@ -81,8 +81,8 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedJavaParameters() {
-		return Stream.of(java("17", "3.2.0"), java("21", "3.2.0"), java("22", "3.2.4"), java("17", "3.3.0"),
-				java("21", "3.3.0"), java("22", "3.3.0"));
+		return Stream.of(java("17", "3.2.0"), java("21", "3.2.0"), java("23", "3.2.9"), java("17", "3.3.0"),
+				java("21", "3.3.0"), java("23", "3.3.0"));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
@@ -90,8 +90,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {
-		return Stream.of(groovy("21", "3.2.0"), groovy("22", "3.2.4"), groovy("21", "3.3.0-M2"),
-				groovy("22", "3.3.0-M3"));
+		return Stream.of(groovy("21", "3.2.0"), groovy("23", "3.2.9"), groovy("21", "3.3.0-M2"), groovy("23", "3.3.0"));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {
