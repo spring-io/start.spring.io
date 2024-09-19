@@ -81,7 +81,7 @@ initializr:
           - compatibilityRange: "[3.2.0,3.3.0-M1)"
             version: 4.1.0
           - compatibilityRange: "[3.3.0,3.4.0-M1)"
-            version: 4.4.0
+            version: 4.5.0
       spring-ai:
         groupId: org.springframework.ai
         artifactId: spring-ai-bom
