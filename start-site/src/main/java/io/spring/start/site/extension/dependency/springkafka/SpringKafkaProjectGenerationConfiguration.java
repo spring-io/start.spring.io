@@ -18,7 +18,10 @@ package io.spring.start.site.extension.dependency.springkafka;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
@@ -34,7 +37,17 @@ import org.springframework.context.annotation.Bean;
 @ProjectGenerationConfiguration
 class SpringKafkaProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.KafkaContainer";
+	private static final String TESTCONTAINERS_CONFLUENT_CLASS_NAME = "org.testcontainers.containers.KafkaContainer";
+
+	private static final String TESTCONTAINERS_APACHE_CLASS_NAME = "org.testcontainers.kafka.KafkaContainer";
+
+	private static final VersionRange SPRING_BOOT_3_4_M2_OR_LATER = VersionParser.DEFAULT.parseRange("3.4.0-M2");
+
+	private final boolean isSpringBoot34OrLater;
+
+	SpringKafkaProjectGenerationConfiguration(ProjectDescription projectDescription) {
+		this.isSpringBoot34OrLater = SPRING_BOOT_3_4_M2_OR_LATER.match(projectDescription.getPlatformVersion());
+	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("kafka")
@@ -47,8 +60,15 @@ class SpringKafkaProjectGenerationConfiguration {
 	ServiceConnectionsCustomizer kafkaServiceConnectionsCustomizer(Build build, DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> {
 			if (isKafkaEnabled(build)) {
-				serviceResolver.doWith("kafka", (service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("kafka", service, TESTCONTAINERS_CLASS_NAME, false)));
+				if (this.isSpringBoot34OrLater) {
+					serviceResolver.doWith("kafka-native", (service) -> serviceConnections.addServiceConnection(
+							ServiceConnection.ofContainer("kafka", service, TESTCONTAINERS_APACHE_CLASS_NAME, false)));
+				}
+				else {
+					serviceResolver.doWith("kafka",
+							(service) -> serviceConnections.addServiceConnection(ServiceConnection.ofContainer("kafka",
+									service, TESTCONTAINERS_CONFLUENT_CLASS_NAME, false)));
+				}
 			}
 		};
 	}
