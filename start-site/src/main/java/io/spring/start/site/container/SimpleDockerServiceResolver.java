@@ -121,7 +121,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService kafkaNative() {
 		return DockerService.withImageAndTag("apache/kafka-native")
-			.website("https://hub.docker.com/r/confluentinc/cp-kafka")
+			.website("https://hub.docker.com/r/apache/kafka-native")
 			.ports(9092)
 			.build();
 	}
