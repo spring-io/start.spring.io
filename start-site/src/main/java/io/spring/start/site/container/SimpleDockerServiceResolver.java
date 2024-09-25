@@ -42,6 +42,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("chroma", chroma());
 		this.dockerServices.put("elasticsearch", elasticsearch());
 		this.dockerServices.put("kafka", kafka());
+		this.dockerServices.put("kafka-native", kafkaNative());
 		this.dockerServices.put("mariaDb", mariaDb());
 		this.dockerServices.put("milvus", milvus());
 		this.dockerServices.put("mongoDb", mongoDb());
@@ -113,6 +114,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService kafka() {
 		return DockerService.withImageAndTag("confluentinc/cp-kafka")
+			.website("https://hub.docker.com/r/confluentinc/cp-kafka")
+			.ports(9092)
+			.build();
+	}
+
+	private static DockerService kafkaNative() {
+		return DockerService.withImageAndTag("apache/kafka-native")
 			.website("https://hub.docker.com/r/confluentinc/cp-kafka")
 			.ports(9092)
 			.build();
