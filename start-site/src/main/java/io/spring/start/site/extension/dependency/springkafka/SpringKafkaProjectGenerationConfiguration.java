@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.springkafka;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.DockerServiceResolver;
@@ -25,26 +26,35 @@ import io.spring.start.site.container.ServiceConnectionsCustomizer;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Configuration for generation of projects that depend on Spring Kafka.
+ * Configuration for generation of projects that depend on Spring Kafka and Kafka Streams.
  *
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("kafka")
 class SpringKafkaProjectGenerationConfiguration {
 
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.KafkaContainer";
 
 	@Bean
+	@ConditionalOnRequestedDependency("kafka")
 	SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
 		return new SpringKafkaBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer kafkaServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("kafka", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("kafka", service, TESTCONTAINERS_CLASS_NAME, false)));
+	ServiceConnectionsCustomizer kafkaServiceConnectionsCustomizer(Build build, DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> {
+			if (isKafkaEnabled(build)) {
+				serviceResolver.doWith("kafka", (service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("kafka", service, TESTCONTAINERS_CLASS_NAME, false)));
+			}
+		};
+	}
+
+	private boolean isKafkaEnabled(Build build) {
+		return build.dependencies().has("kafka") || build.dependencies().has("kafka-streams");
 	}
 
 }
