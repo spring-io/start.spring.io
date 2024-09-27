@@ -15,6 +15,7 @@ io.spring.start.site.extension.dependency.flyway.FlywayProjectGenerationConfigur
 io.spring.start.site.extension.dependency.graalvm.GraalVmProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.graphql.SpringGraphQlProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.htmx.HtmxProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.jte.JteProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mariadb.MariaDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mongodb.MongoDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mysql.MysqlProjectGenerationConfiguration,\

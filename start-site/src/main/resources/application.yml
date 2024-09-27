@@ -399,6 +399,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#web.servlet.spring-mvc.template-engines
+        - name: JTE
+          id: jte
+          description: Secure and lightweight template engine for Java and Kotlin.
+          groupId: gg.jte
+          artifactId: jte-spring-boot-starter-3
+          version: 3.1.12
+          starter: true
+          links:
+            - rel: reference
+              href: https://jte.gg/
     - name: Security
       content:
         - name: Spring Security

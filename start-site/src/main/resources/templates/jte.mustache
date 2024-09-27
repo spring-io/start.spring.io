@@ -1,0 +1,19 @@
+## JTE
+
+This project has been configured to use [JTE precompiled templates](https://jte.gg/pre-compiling/).
+
+However, to ease development, those are not enabled out of the box.
+For production deployments, you should remove
+
+```properties
+gg.jte.development-mode=true
+```
+
+from the `application.properties` file and set
+
+```properties
+gg.jte.use-precompiled-templates=true
+```
+
+instead.
+For more details, please take a look at [the official documentation](https://jte.gg/spring-boot-starter-3/).
