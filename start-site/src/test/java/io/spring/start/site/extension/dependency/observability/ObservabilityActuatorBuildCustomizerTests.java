@@ -34,7 +34,7 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	private static final String SPRING_BOOT_VERSION = "3.3.0";
 
 	@ParameterizedTest
-	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic", "otlp-metrics",
+	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic", "otlp-metrics", "prometheus",
 			"distributed-tracing", "zipkin", "wavefront" })
 	void actuatorIsAddedWithObservabilityEntries(String dependency) {
 		assertThat(generateProject(SPRING_BOOT_VERSION, dependency)).mavenBuild()

@@ -31,7 +31,7 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
 class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final List<String> STANDARD_REGISTRY_IDS = Arrays.asList("datadog", "distributed-tracing",
-			"dynatrace", "graphite", "influx", "new-relic", "otlp-metrics", "wavefront", "zipkin");
+			"dynatrace", "graphite", "influx", "new-relic", "otlp-metrics", "prometheus", "wavefront", "zipkin");
 
 	@Override
 	public void customize(Build build) {
