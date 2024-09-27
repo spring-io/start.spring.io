@@ -995,6 +995,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/index.html#actuator.metrics.export.newrelic
+        - name: OTLP for metrics
+          id: otlp-metrics
+          groupId: io.micrometer
+          artifactId: micrometer-registry-otlp
+          scope: runtime
+          starter: false
+          description: Publish Micrometer metrics to an OTLP capable backend.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/reference/actuator/metrics.html#actuator.metrics.export.otlp
         - name: Prometheus
           id: prometheus
           groupId: io.micrometer

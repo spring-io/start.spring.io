@@ -55,8 +55,8 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@ParameterizedTest
-	@ValueSource(
-			strings = { "actuator", "datadog", "graphite", "influx", "new-relic", "prometheus", "wavefront", "zipkin" })
+	@ValueSource(strings = { "actuator", "datadog", "graphite", "influx", "new-relic", "otlp-metrics", "prometheus",
+			"wavefront", "zipkin" })
 	void registersObservabilityStarterIfObservabilityDependencyIsPresent(String dependency) {
 		Build build = createBuild("modulith");
 		build.dependencies().add(dependency);

@@ -37,7 +37,7 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
 class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final Collection<String> OBSERVABILITY_DEPENDENCIES = List.of("actuator", "datadog", "graphite",
-			"influx", "new-relic", "prometheus", "wavefront", "zipkin");
+			"influx", "new-relic", "otlp-metrics", "prometheus", "wavefront", "zipkin");
 
 	private static final Collection<String> PERSISTENCE = List.of("jdbc", "jpa", "mongodb");
 
