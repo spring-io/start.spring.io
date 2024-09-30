@@ -1011,7 +1011,7 @@ initializr:
           artifactId: micrometer-registry-otlp
           scope: runtime
           starter: false
-          description: Publish Micrometer metrics to an OTLP capable backend.
+          description: Publish Micrometer metrics to an OpenTelemetry Protocol (OTLP) capable backend.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/reference/actuator/metrics.html#actuator.metrics.export.otlp
