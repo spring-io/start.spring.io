@@ -16,11 +16,11 @@
 
 package io.spring.start.site.extension.properties;
 
-import io.spring.initializr.generator.test.io.TextAssert;
-import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link DefaultApplicationPropertiesCustomizer}.
@@ -34,12 +34,7 @@ class DefaultApplicationPropertiesCustomizerTests extends AbstractExtensionTests
 		ProjectRequest request = createProjectRequest("web");
 		request.setJavaVersion("21");
 		request.setName("test");
-		assertApplicationProperties(request).lines().contains("spring.application.name=test");
-	}
-
-	private TextAssert assertApplicationProperties(ProjectRequest request) {
-		ProjectStructure project = generateProject(request);
-		return new TextAssert(project.getProjectDirectory().resolve("src/main/resources/application.properties"));
+		assertThat(applicationProperties(request)).lines().contains("spring.application.name=test");
 	}
 
 }

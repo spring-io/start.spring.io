@@ -17,10 +17,11 @@
 package io.spring.start.site.extension.description;
 
 import io.spring.initializr.generator.test.io.TextAssert;
-import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link InvalidPackageNameHelpDocumentCustomizer}.
@@ -44,8 +45,7 @@ class InvalidPackageNameHelpDocumentCustomizerTests extends AbstractExtensionTes
 	private TextAssert assertHelpDocument(String packageName) {
 		ProjectRequest request = createProjectRequest("web");
 		request.setPackageName(packageName);
-		ProjectStructure project = generateProject(request);
-		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
+		return assertThat(helpDocument(request));
 	}
 
 }

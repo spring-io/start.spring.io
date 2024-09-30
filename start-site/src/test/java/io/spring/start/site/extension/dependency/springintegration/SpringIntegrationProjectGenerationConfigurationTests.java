@@ -120,8 +120,7 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 
 	private TextAssert assertHelpDocument(String... dependencyIds) {
 		ProjectRequest request = createProjectRequest(dependencyIds);
-		ProjectStructure project = generateProject(request);
-		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
+		return assertThat(helpDocument(request));
 	}
 
 }

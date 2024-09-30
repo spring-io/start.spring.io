@@ -37,9 +37,8 @@ class KotlinCoroutinesCustomizerTests extends AbstractExtensionTests {
 		request.setLanguage("kotlin");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
-		assertThat(project).textFile("HELP.md")
-			.contains(
-					"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring/docs/6.1.8/spring-framework-reference/languages.html#coroutines)");
+		assertThat(helpDocument(request)).contains(
+				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring/docs/6.1.8/spring-framework-reference/languages.html#coroutines)");
 	}
 
 	@Test

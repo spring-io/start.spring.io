@@ -476,8 +476,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	private TextAssert assertHelpDocument(String platformVersion, String... dependencyIds) {
 		ProjectRequest request = createProjectRequest(dependencyIds);
 		request.setBootVersion(platformVersion);
-		ProjectStructure project = generateProject(request);
-		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
+		return assertThat(helpDocument(request));
 	}
 
 }

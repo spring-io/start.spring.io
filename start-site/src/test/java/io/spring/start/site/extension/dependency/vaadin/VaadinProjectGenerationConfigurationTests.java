@@ -113,14 +113,12 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldAddLaunchBrowserProperty() {
-		assertThat(generateProject(createProjectRequest("vaadin"))).textFile("src/main/resources/application.properties")
-				.contains("vaadin.launch-browser=true");
+		assertThat(applicationProperties(createProjectRequest("vaadin"))).lines().contains("vaadin.launch-browser=true");
 	}
 
 	@Test
 	void shouldNotAddLaunchBrowserPropertyIfVaadinIsNotSelected() {
-		assertThat(generateProject(createProjectRequest("data-jpa"))).textFile("src/main/resources/application.properties")
-				.doesNotContain("vaadin.launch-browser=true");
+		assertThat(applicationProperties(createProjectRequest("data-jpa"))).lines().doesNotContain("vaadin.launch-browser=true");
 	}
 
 	@Override

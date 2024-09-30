@@ -16,12 +16,12 @@
 
 package io.spring.start.site.extension.dependency.observability;
 
-import io.spring.initializr.generator.test.io.TextAssert;
-import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.assertj.core.api.ListAssert;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link ObservabilityHelpDocumentCustomizer}.
@@ -57,8 +57,7 @@ class ObservabilityHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest(dependencies);
 		request.setType("gradle-build");
 		request.setBootVersion(version);
-		ProjectStructure project = generateProject(request);
-		return new TextAssert(project.getProjectDirectory().resolve("HELP.md")).lines();
+		return assertThat(helpDocument(request)).lines();
 	}
 
 }

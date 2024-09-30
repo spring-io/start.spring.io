@@ -130,7 +130,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	}
 
 	private TextAssert assertThatHelpDocumentOf(ProjectStructure project) {
-		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
+		return assertThat(helpDocument(project));
 	}
 
 }

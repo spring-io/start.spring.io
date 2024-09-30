@@ -24,7 +24,6 @@ import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.test.io.TextAssert;
-import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
@@ -146,8 +145,7 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	private TextAssert assertHelpDocument(ProjectRequest request) {
-		ProjectStructure project = generateProject(request);
-		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
+		return assertThat(helpDocument(request));
 	}
 
 	private TextAssert assertHelpDocument(String type, String... dependencies) {

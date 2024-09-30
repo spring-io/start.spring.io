@@ -41,7 +41,7 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		request.setBootVersion(SPRING_BOOT_VERSION);
 		request.setType("maven-build");
 		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
-		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);
+		assertThat(helpDocument(request)).contains(AZURE_SECTION_TITLE);
 	}
 
 	@Test
@@ -50,13 +50,13 @@ class SpringCloudFunctionHelpDocumentCustomizerTests extends AbstractExtensionTe
 		request.setBootVersion(SPRING_BOOT_VERSION);
 		request.setType("gradle-build");
 		request.setDependencies(Arrays.asList("cloud-function", "azure-support"));
-		assertThat(generateProject(request)).textFile("HELP.md").contains(AZURE_SECTION_TITLE);
+		assertThat(helpDocument(request)).contains(AZURE_SECTION_TITLE);
 	}
 
 	@Test
 	void functionBuildSetupInfoSectionNotAddedWhenFunctionAndCloudDependenciesAbsent() {
 		ProjectRequest request = createProjectRequest();
-		assertThat(generateProject(request)).textFile("HELP.md").doesNotContain(AZURE_SECTION_TITLE);
+		assertThat(helpDocument(request)).doesNotContain(AZURE_SECTION_TITLE);
 	}
 
 }

@@ -18,12 +18,13 @@ package io.spring.start.site.extension.dependency.dgs;
 
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.test.io.TextAssert;
-import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link DgsCodegenHelpDocumentCustomizer}.
@@ -52,8 +53,7 @@ class DgsCodegenHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	private TextAssert assertHelpDocument(String type, String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
 		request.setType(type);
-		ProjectStructure project = generateProject(request);
-		return new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
+		return assertThat(helpDocument(request));
 	}
 
 }

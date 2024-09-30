@@ -101,6 +101,24 @@ public abstract class AbstractExtensionTests {
 		return () -> new TextAssert(project.getProjectDirectory().resolve("compose.yaml"));
 	}
 
+	protected AssertProvider<TextAssert> applicationProperties(ProjectRequest request) {
+		ProjectStructure project = generateProject(request);
+		return () -> new TextAssert(project.getProjectDirectory().resolve("src/main/resources/application.properties"));
+	}
+
+	protected AssertProvider<TextAssert> gitIgnore(ProjectRequest request) {
+		ProjectStructure project = generateProject(request);
+		return () -> new TextAssert(project.getProjectDirectory().resolve(".gitignore"));
+	}
+
+	protected AssertProvider<TextAssert> helpDocument(ProjectStructure project) {
+		return () -> new TextAssert(project.getProjectDirectory().resolve("HELP.md"));
+	}
+
+	protected AssertProvider<TextAssert> helpDocument(ProjectRequest request) {
+		return helpDocument(generateProject(request));
+	}
+
 	protected ProjectStructure generateProject(ProjectRequest request) {
 		ProjectGenerationResult result = getInvoker().invokeProjectStructureGeneration(request);
 		return new ProjectStructure(result.getRootDirectory());
