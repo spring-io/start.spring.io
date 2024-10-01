@@ -405,7 +405,7 @@ initializr:
           groupId: gg.jte
           artifactId: jte-spring-boot-starter-3
           version: 3.1.12
-          starter: true
+          starter: false # https://github.com/casid/jte/issues/386
           links:
             - rel: reference
               href: https://jte.gg/
