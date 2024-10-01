@@ -44,6 +44,7 @@ import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
 import io.spring.start.testsupport.Homes;
 import io.spring.start.testsupport.TemporaryFiles;
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.parallel.Execution;
@@ -163,17 +164,22 @@ class ProjectGenerationIntegrationTests {
 
 	private ProcessBuilder createProcessBuilder(BuildSystem buildSystem, Path home) {
 		if (buildSystem.id().equals(MavenBuildSystem.ID)) {
-			ProcessBuilder processBuilder = new ProcessBuilder("./mvnw",
+			ProcessBuilder processBuilder = new ProcessBuilder((isWindows()) ? "mvnw.cmd" : "./mvnw",
 					"-Dmaven.repo.local=" + home.resolve("repository").toFile(), "package");
 			processBuilder.environment().put("MAVEN_USER_HOME", home.toFile().getAbsolutePath());
 			return processBuilder;
 		}
 		if (buildSystem.id().equals(GradleBuildSystem.ID)) {
-			ProcessBuilder processBuilder = new ProcessBuilder("./gradlew", "--no-daemon", "build");
+			ProcessBuilder processBuilder = new ProcessBuilder((isWindows()) ? "gradlew.bat" : "./gradlew",
+					"--no-daemon", "build");
 			processBuilder.environment().put("GRADLE_USER_HOME", home.toFile().getAbsolutePath());
 			return processBuilder;
 		}
 		throw new IllegalStateException("Unknown build system '%s'".formatted(buildSystem.id()));
+	}
+
+	private boolean isWindows() {
+		return SystemUtils.IS_OS_WINDOWS;
 	}
 
 }
