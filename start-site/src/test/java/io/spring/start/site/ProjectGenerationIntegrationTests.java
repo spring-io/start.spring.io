@@ -132,8 +132,7 @@ class ProjectGenerationIntegrationTests {
 		Path project = this.invoker.invokeProjectStructureGeneration(request).getRootDirectory();
 		Path home = acquireHome(buildSystem);
 		try {
-			ProcessBuilder processBuilder = createProcessBuilder(buildSystem, home);
-			processBuilder.directory(project.toFile());
+			ProcessBuilder processBuilder = createProcessBuilder(project, buildSystem, home);
 			Path output = TemporaryFiles.newTemporaryDirectory("ProjectGenerationIntegrationTests-projectBuilds")
 				.resolve("output.log");
 			processBuilder.redirectError(output.toFile());
@@ -162,17 +161,21 @@ class ProjectGenerationIntegrationTests {
 		}
 	}
 
-	private ProcessBuilder createProcessBuilder(BuildSystem buildSystem, Path home) {
+	private ProcessBuilder createProcessBuilder(Path directory, BuildSystem buildSystem, Path home) {
 		if (buildSystem.id().equals(MavenBuildSystem.ID)) {
-			ProcessBuilder processBuilder = new ProcessBuilder((isWindows()) ? "./mvnw.cmd" : "./mvnw",
-					"-Dmaven.repo.local=" + home.resolve("repository").toFile(), "package");
-			processBuilder.environment().put("MAVEN_USER_HOME", home.toFile().getAbsolutePath());
+			String command = (isWindows()) ? "mvnw.cmd" : "mvnw";
+			ProcessBuilder processBuilder = new ProcessBuilder(directory.resolve(command).toAbsolutePath().toString(),
+					"-Dmaven.repo.local=" + home.resolve("repository").toAbsolutePath(), "package");
+			processBuilder.environment().put("MAVEN_USER_HOME", home.toAbsolutePath().toString());
+			processBuilder.directory(directory.toFile());
 			return processBuilder;
 		}
 		if (buildSystem.id().equals(GradleBuildSystem.ID)) {
-			ProcessBuilder processBuilder = new ProcessBuilder((isWindows()) ? "./gradlew.bat" : "./gradlew",
+			String command = (isWindows()) ? "gradlew.bat" : "gradlew";
+			ProcessBuilder processBuilder = new ProcessBuilder(directory.resolve(command).toAbsolutePath().toString(),
 					"--no-daemon", "build");
-			processBuilder.environment().put("GRADLE_USER_HOME", home.toFile().getAbsolutePath());
+			processBuilder.environment().put("GRADLE_USER_HOME", home.toAbsolutePath().toString());
+			processBuilder.directory(directory.toFile());
 			return processBuilder;
 		}
 		throw new IllegalStateException("Unknown build system '%s'".formatted(buildSystem.id()));
