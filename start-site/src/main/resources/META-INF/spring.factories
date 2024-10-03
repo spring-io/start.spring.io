@@ -31,6 +31,7 @@ io.spring.start.site.extension.dependency.solace.SolaceProjectGenerationConfigur
 io.spring.start.site.extension.dependency.springai.SpringAiChromaProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiDockerComposeProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiMilvusProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiMongoDbAtlasProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiOllamaProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiQdrantProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiTestcontainersProjectGenerationConfiguration,\
