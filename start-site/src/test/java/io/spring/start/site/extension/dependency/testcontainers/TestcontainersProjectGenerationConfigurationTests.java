@@ -38,6 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Eddú Meléndez
  * @author Chris Bono
  * @author Moritz Halbritter
+ * @author Ngoc Nhan
  */
 class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -191,7 +192,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		request.setLanguage("groovy");
 		assertThat(generateProject(request))
 			.textFile("src/test/groovy/com/example/demo/TestcontainersConfiguration.groovy")
-			.isEqualTo("""
+			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
 					import org.springframework.boot.test.context.TestConfiguration
@@ -219,7 +220,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("java");
 		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
-			.isEqualTo("""
+			.isEqualToNormalizingNewlines("""
 					package com.example.demo;
 
 					import org.springframework.boot.test.context.TestConfiguration;
@@ -247,7 +248,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("kotlin");
 		assertThat(generateProject(request)).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
-			.isEqualTo("""
+			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
 					import org.springframework.boot.test.context.TestConfiguration
@@ -276,7 +277,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		request.setLanguage("groovy");
 		ProjectStructure projectStructure = generateProject(request);
 		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
-			.isEqualTo("""
+			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
 					import org.springframework.boot.SpringApplication
@@ -290,7 +291,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					}
 					""");
 		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/TestcontainersConfiguration.groovy")
-			.isEqualTo("""
+			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
 					import org.springframework.boot.test.context.TestConfiguration
@@ -311,7 +312,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					}
 					""");
 		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/DemoApplicationTests.groovy")
-			.isEqualTo("""
+			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
 					import org.junit.jupiter.api.Test
@@ -336,21 +337,23 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("java");
 		ProjectStructure projectStructure = generateProject(request);
-		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestDemoApplication.java").isEqualTo("""
-				package com.example.demo;
+		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
+			.isEqualToNormalizingNewlines(
+					"""
+							package com.example.demo;
 
-				import org.springframework.boot.SpringApplication;
+							import org.springframework.boot.SpringApplication;
 
-				public class TestDemoApplication {
+							public class TestDemoApplication {
 
-					public static void main(String[] args) {
-						SpringApplication.from(DemoApplication::main).with(TestcontainersConfiguration.class).run(args);
-					}
+								public static void main(String[] args) {
+									SpringApplication.from(DemoApplication::main).with(TestcontainersConfiguration.class).run(args);
+								}
 
-				}
-				""");
+							}
+							""");
 		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
-			.isEqualTo("""
+			.isEqualToNormalizingNewlines("""
 					package com.example.demo;
 
 					import org.springframework.boot.test.context.TestConfiguration;
@@ -370,23 +373,24 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 					}
 					""");
-		assertThat(projectStructure).textFile("src/test/java/com/example/demo/DemoApplicationTests.java").isEqualTo("""
-				package com.example.demo;
+		assertThat(projectStructure).textFile("src/test/java/com/example/demo/DemoApplicationTests.java")
+			.isEqualToNormalizingNewlines("""
+					package com.example.demo;
 
-				import org.junit.jupiter.api.Test;
-				import org.springframework.boot.test.context.SpringBootTest;
-				import org.springframework.context.annotation.Import;
+					import org.junit.jupiter.api.Test;
+					import org.springframework.boot.test.context.SpringBootTest;
+					import org.springframework.context.annotation.Import;
 
-				@Import(TestcontainersConfiguration.class)
-				@SpringBootTest
-				class DemoApplicationTests {
+					@Import(TestcontainersConfiguration.class)
+					@SpringBootTest
+					class DemoApplicationTests {
 
-					@Test
-					void contextLoads() {
+						@Test
+						void contextLoads() {
+						}
+
 					}
-
-				}
-				""");
+					""");
 	}
 
 	@Test
@@ -395,19 +399,20 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		request.setBootVersion(SPRING_BOOT_VERSION_3_3);
 		request.setLanguage("kotlin");
 		ProjectStructure projectStructure = generateProject(request);
-		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt").isEqualTo("""
-				package com.example.demo
+		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt")
+			.isEqualToNormalizingNewlines("""
+					package com.example.demo
 
-				import org.springframework.boot.fromApplication
-				import org.springframework.boot.with
+					import org.springframework.boot.fromApplication
+					import org.springframework.boot.with
 
 
-				fun main(args: Array<String>) {
-					fromApplication<DemoApplication>().with(TestcontainersConfiguration::class).run(*args)
-				}
-				""");
+					fun main(args: Array<String>) {
+						fromApplication<DemoApplication>().with(TestcontainersConfiguration::class).run(*args)
+					}
+					""");
 		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
-			.isEqualTo("""
+			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
 					import org.springframework.boot.test.context.TestConfiguration
@@ -427,23 +432,24 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 					}
 					""");
-		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/DemoApplicationTests.kt").isEqualTo("""
-				package com.example.demo
+		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/DemoApplicationTests.kt")
+			.isEqualToNormalizingNewlines("""
+					package com.example.demo
 
-				import org.junit.jupiter.api.Test
-				import org.springframework.boot.test.context.SpringBootTest
-				import org.springframework.context.annotation.Import
+					import org.junit.jupiter.api.Test
+					import org.springframework.boot.test.context.SpringBootTest
+					import org.springframework.context.annotation.Import
 
-				@Import(TestcontainersConfiguration::class)
-				@SpringBootTest
-				class DemoApplicationTests {
+					@Import(TestcontainersConfiguration::class)
+					@SpringBootTest
+					class DemoApplicationTests {
 
-					@Test
-					fun contextLoads() {
+						@Test
+						fun contextLoads() {
+						}
+
 					}
-
-				}
-				""");
+					""");
 	}
 
 	@Test
