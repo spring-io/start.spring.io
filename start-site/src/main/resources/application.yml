@@ -808,6 +808,8 @@ initializr:
         - name: WebSocket
           id: websocket
           description: Build Servlet-based WebSocket applications with SockJS and STOMP.
+          facets:
+            - json
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-stomp-websocket/
