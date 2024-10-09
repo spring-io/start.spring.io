@@ -25,6 +25,9 @@ target
 /nbdist/
 /.nb-gradle/
 
+### Visual Studio Code ###
+.vscode/
+
 ### Start Client ###
 /start-client/public/
 /start-client/node_modules/
@@ -34,5 +37,3 @@ target
 /start-client/package-lock.json
 /start-client/yarn-error.log
 /start-client/analysis
-
-.vscode/

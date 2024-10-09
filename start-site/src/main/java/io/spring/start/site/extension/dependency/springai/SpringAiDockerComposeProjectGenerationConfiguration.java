@@ -28,7 +28,6 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.spring.build.gradle.DevelopmentOnlyDependencyGradleBuildCustomizer;
 import io.spring.initializr.generator.spring.build.maven.OptionalDependencyMavenBuildCustomizer;
 import io.spring.initializr.generator.version.VersionProperty;
-import io.spring.initializr.generator.version.VersionReference;
 import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
@@ -51,13 +50,9 @@ public class SpringAiDockerComposeProjectGenerationConfiguration {
 
 	@Bean
 	BuildCustomizer<Build> springAiDockerComposeBuildCustomizer(InitializrMetadata metadata) {
-		// spring-ai-spring-boot-docker-compose is not managed in the BOM
-		// See https://github.com/spring-projects/spring-ai/issues/1314
-		VersionProperty springAiBomVersion = getSpringAiVersion(metadata);
 		return (build) -> build.dependencies()
 			.add(DEPENDENCY_ID,
 					Dependency.withCoordinates("org.springframework.ai", "spring-ai-spring-boot-docker-compose")
-						.version(VersionReference.ofProperty(springAiBomVersion))
 						.scope(DependencyScope.RUNTIME));
 	}
 
