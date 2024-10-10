@@ -1475,6 +1475,7 @@ initializr:
           group-id: org.springframework.ai
           artifact-id: spring-ai-cassandra-store-spring-boot-starter
           description: Spring AI vector database support for Apache Cassandra.
+          bom: spring-ai
           starter: true
           links:
             - rel: reference
