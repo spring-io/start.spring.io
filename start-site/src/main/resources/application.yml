@@ -1692,17 +1692,17 @@ initializr:
           id: spring-ai-tika-document-reader
           group-id: org.springframework.ai
           artifact-id: spring-ai-tika-document-reader
-          description: Spring AI Tika document reader. It uses Apache Tika to extract text from a variety of document formats, such as PDF, DOC/DOCX, PPT/PPTX, and HTML. and converting them into a list of Spring AI Document objects.          
+          description: Spring AI Tika document reader. It uses Apache Tika to extract text from a variety of document formats, such as PDF, DOC/DOCX, PPT/PPTX, and HTML. The documents are converted into a list of Spring AI Document objects.
           bom: spring-ai
           starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html#_tika_docx_pptx_html
-        - name: PDF Document Readers
+        - name: PDF Document Reader
           id: spring-ai-pdf-document-reader
           group-id: org.springframework.ai
           artifact-id: spring-ai-pdf-document-reader
-          description: Spring AI PDF document readers. It uses Apache PdfBox to extract text from PDF documents and converting them into a list of Spring AI Document objects.          
+          description: Spring AI PDF document reader. It uses Apache PdfBox to extract text from PDF documents and converting them into a list of Spring AI Document objects.
           bom: spring-ai
           starter: false
           links:
