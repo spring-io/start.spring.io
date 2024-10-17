@@ -64,6 +64,20 @@ export default function Application() {
     }
   }, [dispatch, dispatchInitializr, windowsUtils.origin])
 
+  const onEscape = () => {
+    setBlob(null)
+    dispatch({
+      type: 'UPDATE',
+      payload: {
+        list: false,
+        share: false,
+        explore: false,
+        nav: false,
+        history: false,
+      },
+    })
+  }
+
   const onSubmit = async () => {
     if (generating || list) {
       return
@@ -74,8 +88,10 @@ export default function Application() {
       url,
       values,
       get(dependencies, 'list')
-    ).catch(() => {
-      toast.error(`Could not connect to server. Please check your network.`)
+    ).catch(err => {
+      toast.error(
+        err || `Could not connect to server. Please check your network.`
+      )
     })
     setGenerating(false)
     if (project) {
@@ -91,28 +107,17 @@ export default function Application() {
       url,
       values,
       get(dependencies, 'list')
-    ).catch(() => {
-      toast.error(`Could not connect to server. Please check your network.`)
+    ).catch(err => {
+      toast.error(
+        err || `Could not connect to server. Please check your network.`
+      )
+      onEscape()
     })
     setBlob(project)
   }
 
   const onShare = () => {
     dispatch({ type: 'UPDATE', payload: { share: true } })
-  }
-
-  const onEscape = () => {
-    setBlob(null)
-    dispatch({
-      type: 'UPDATE',
-      payload: {
-        list: false,
-        share: false,
-        explore: false,
-        nav: false,
-        history: false,
-      },
-    })
   }
 
   return (
