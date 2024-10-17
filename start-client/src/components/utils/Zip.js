@@ -7,6 +7,7 @@ const FILE_EXTENSION = {
   kts: 'kotlin',
   gradle: 'groovy',
   gitignore: 'git',
+  gitattributes: 'git',
   java: 'java',
   xml: 'xml',
   properties: 'properties',
