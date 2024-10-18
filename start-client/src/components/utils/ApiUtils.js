@@ -153,7 +153,7 @@ export const parseParams = (values, queryParams, lists) => {
             const depsWarning = []
             const newVal = value
               .split(',')
-              .filter(item => !!item) 
+              .filter(item => !!item)
               .map(item => {
                 const dep = get(lists, 'dependencies').find(
                   d => d.id === item.trim()
@@ -301,7 +301,13 @@ export const getProject = function getProject(url, values, config) {
           resolve(response.blob())
           return
         }
-        reject()
+        try {
+          response.json().then(res => {
+            reject(res?.message || '')
+          })
+        } catch (e) {
+          reject()
+        }
       },
       () => {
         reject()
