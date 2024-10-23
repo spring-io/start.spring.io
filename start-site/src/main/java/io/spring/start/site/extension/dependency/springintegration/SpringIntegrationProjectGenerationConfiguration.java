@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springintegration;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependencyBuildCustomizer;
@@ -37,8 +38,8 @@ class SpringIntegrationProjectGenerationConfiguration {
 
 	private final Iterable<ImplicitDependency> dependencies;
 
-	SpringIntegrationProjectGenerationConfiguration() {
-		this.dependencies = SpringIntegrationModuleRegistry.create();
+	SpringIntegrationProjectGenerationConfiguration(ProjectDescription projectDescription) {
+		this.dependencies = SpringIntegrationModuleRegistry.create(projectDescription.getPlatformVersion());
 	}
 
 	@Bean

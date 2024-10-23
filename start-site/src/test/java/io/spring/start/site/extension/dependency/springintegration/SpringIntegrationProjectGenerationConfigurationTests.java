@@ -36,6 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Artem Bilan
  * @author Brian Clozel
+ * @author Moritz Halbritter
  */
 class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -43,7 +44,7 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	void buildWithOnlySpringIntegration() {
 		Dependency integrationTest = integrationDependency("test");
 		integrationTest.setScope(Dependency.SCOPE_TEST);
-		assertThat(generateProject("integration")).mavenBuild()
+		assertThat(generateProject("3.2.0", "integration")).mavenBuild()
 			.hasDependency(getDependency("integration"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(integrationTest);
@@ -52,7 +53,7 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	@ParameterizedTest
 	@MethodSource("supportedEntries")
 	void buildWithSupportedEntries(String springBootDependencyId, String integrationModuleId) {
-		assertThat(generateProject("integration", springBootDependencyId)).mavenBuild()
+		assertThat(generateProject("3.2.0", "integration", springBootDependencyId)).mavenBuild()
 			.hasDependency(getDependency("integration"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(integrationDependency(integrationModuleId));
@@ -76,14 +77,14 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	@MethodSource("referenceLinks")
 	void linkToSupportedEntriesWhenSpringIntegrationIsPresentIsAdded(String dependencyId, String pageName) {
 		assertHelpDocument("integration", dependencyId)
-			.contains("https://docs.spring.io/spring-integration/reference/html/" + pageName + ".html");
+			.contains("https://docs.spring.io/spring-integration/reference/%s.html".formatted(pageName));
 	}
 
 	@ParameterizedTest
 	@MethodSource("referenceLinks")
 	void linkToSupportedEntriesWhenSpringIntegrationIsNotPresentIsNotAdded(String dependencyId, String pageName) {
 		assertHelpDocument(dependencyId)
-			.doesNotContain("https://docs.spring.io/spring-integration/reference/html/" + pageName + ".html");
+			.doesNotContain("https://docs.spring.io/spring-integration/reference/%s.html".formatted(pageName));
 	}
 
 	static Stream<Arguments> referenceLinks() {
@@ -106,14 +107,23 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 			.containsOnlyOnce("https://java.testcontainers.org/modules/databases/mongodb/");
 	}
 
+	@Test
+	void securityAddsSpringSecurityMessagingOnBoot3dot3() {
+		assertThat(generateProject("3.3.0", "integration", "security")).mavenBuild()
+			.hasDependency("org.springframework.security", "spring-security-messaging")
+			.doesNotHaveDependency("org.springframework.integration", "spring-integration-security");
+
+	}
+
 	private static Dependency integrationDependency(String id) {
 		String integrationModule = "spring-integration-" + id;
 		return io.spring.initializr.metadata.Dependency.withId(integrationModule, "org.springframework.integration",
 				integrationModule, null, io.spring.initializr.metadata.Dependency.SCOPE_COMPILE);
 	}
 
-	private ProjectStructure generateProject(String... dependencies) {
+	private ProjectStructure generateProject(String bootVersion, String... dependencies) {
 		ProjectRequest request = createProjectRequest(dependencies);
+		request.setBootVersion(bootVersion);
 		request.setType("maven-build");
 		return generateProject(request);
 	}
