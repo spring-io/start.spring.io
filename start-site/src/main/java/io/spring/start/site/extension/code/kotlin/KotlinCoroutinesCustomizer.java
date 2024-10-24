@@ -61,7 +61,7 @@ public class KotlinCoroutinesCustomizer {
 			String frameworkVersion = resolve.get("org.springframework:spring-core");
 			String versionToUse = (frameworkVersion != null) ? frameworkVersion : "current";
 			String href = String.format(
-					"https://docs.spring.io/spring/docs/%s/spring-framework-reference/languages.html#coroutines",
+					"https://docs.spring.io/spring-framework/reference/%s/languages/kotlin/coroutines.html",
 					versionToUse);
 			document.gettingStarted()
 				.addReferenceDocLink(href, "Coroutines section of the Spring Framework Documentation");

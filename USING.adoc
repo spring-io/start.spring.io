@@ -1,4 +1,3 @@
-:spring-boot-docs: https://docs.spring.io/spring-boot/docs/current/reference/html
 = User Guide
 
 If you're wondering how to use https://start.spring.io or what features are available,
@@ -190,7 +189,7 @@ Refer to the documentation of your favorite IDE for more details.
 The `spring` command line tool defines an `init` command that allows you to create a
 project using Spring Initializr. It defaults to start.spring.io.
 
-Check {spring-boot-docs}/spring-boot-cli.html#cli-init[the documentation for more details].
+Check https://docs.spring.io/spring-boot/cli/index.html[the documentation for more details].
 
 
 
