@@ -1646,6 +1646,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/chat/vertexai-gemini-chat.html
+        - name: Vertex AI Embeddings
+          id: spring-ai-vertexai-embeddings
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-vertex-ai-embedding-spring-boot-starter
+          description: Spring AI support for Google Vertex embeddings.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/embeddings/vertexai-embeddings-text.html
         - name: Qdrant Vector Database
           id: spring-ai-vectordb-qdrant
           group-id: org.springframework.ai
