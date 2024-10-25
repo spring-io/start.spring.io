@@ -1436,6 +1436,16 @@ initializr:
     - name: AI
       compatibilityRange: "[3.2.0,3.4.0-M1)"
       content:
+        - name: Anthropic Claude
+          id: spring-ai-anthropic
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-anthropic-spring-boot-starter
+          description: Spring AI support for Anthropic Claude AI models.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat/anthropic-chat.html
         - name: Azure OpenAI
           id: spring-ai-azure-openai
           group-id: org.springframework.ai
@@ -1640,7 +1650,7 @@ initializr:
           id: spring-ai-vertexai-gemini
           group-id: org.springframework.ai
           artifact-id: spring-ai-vertex-ai-gemini-spring-boot-starter
-          description: Spring AI support for Google Vertex Gemini chat.
+          description: Spring AI support for Google Vertex Gemini chat. Doesn't support embeddings.
           bom: spring-ai
           starter: true
           links:
@@ -1650,12 +1660,16 @@ initializr:
           id: spring-ai-vertexai-embeddings
           group-id: org.springframework.ai
           artifact-id: spring-ai-vertex-ai-embedding-spring-boot-starter
-          description: Spring AI support for Google Vertex embeddings.
+          description: Spring AI support for Google Vertex text and multimodal embedding models.
           bom: spring-ai
           starter: true
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/embeddings/vertexai-embeddings-text.html
+              description: Text embedding reference
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/embeddings/vertexai-embeddings-multimodal.html
+              description: Multimodal embedding reference
         - name: Qdrant Vector Database
           id: spring-ai-vectordb-qdrant
           group-id: org.springframework.ai
