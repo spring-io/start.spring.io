@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.spring.initializr.metadata.BillOfMaterials;
@@ -124,7 +123,7 @@ final class DependencyResolver {
 		return boms.stream()
 			.flatMap((bom) -> getManagedDependencies(bom.getGroupId(), bom.getArtifactId(), bom.getVersion(),
 					repositories))
-			.collect(Collectors.toList());
+			.toList();
 	}
 
 	private Stream<Dependency> getManagedDependencies(String groupId, String artifactId, String version,
