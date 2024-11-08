@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.springintegration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
@@ -37,6 +36,7 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  * @author Artem Bilan
  * @author Stephane Nicoll
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 abstract class SpringIntegrationModuleRegistry {
 
@@ -86,7 +86,7 @@ abstract class SpringIntegrationModuleRegistry {
 					.andThen(addReferenceLink("WebSocket Module", "web-sockets"))));
 		builders.add(onDependencies("web-services").customizeBuild(addDependency("ws"))
 			.customizeHelpDocument(addReferenceLink("Web Services Module", "ws")));
-		return builders.stream().map(Builder::build).collect(Collectors.toList());
+		return builders.stream().map(Builder::build).toList();
 	}
 
 	private static ImplicitDependency.Builder onDependencies(String... dependencyIds) {

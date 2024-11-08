@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.testcontainers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
@@ -102,7 +101,7 @@ abstract class TestcontainersModuleRegistry {
 			builders.add(onDependencies("spring-ai-vectordb-weaviate").customizeBuild(addModule("weaviate"))
 				.customizeHelpDocument(addReferenceLink("Weaviate Module", "testcontainers/")));
 		}
-		return builders.stream().map(Builder::build).collect(Collectors.toList());
+		return builders.stream().map(Builder::build).toList();
 	}
 
 	private static ImplicitDependency.Builder onDependencies(String... dependencyIds) {

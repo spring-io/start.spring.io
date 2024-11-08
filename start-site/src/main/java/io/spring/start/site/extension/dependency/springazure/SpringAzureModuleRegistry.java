@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.springazure;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
@@ -33,6 +32,7 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  * @author Andy Wilkinson
  * @author Yonghui Ye
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 abstract class SpringAzureModuleRegistry {
 
@@ -55,7 +55,7 @@ abstract class SpringAzureModuleRegistry {
 	}
 
 	private static Iterable<ImplicitDependency> create(ImplicitDependency.Builder... dependencies) {
-		return Arrays.stream(dependencies).map(Builder::build).collect(Collectors.toList());
+		return Arrays.stream(dependencies).map(Builder::build).toList();
 	}
 
 	private static ImplicitDependency.Builder onDependencies(String... dependencyIds) {
