@@ -32,27 +32,16 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ArtemisProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final String SPRING_BOOT_VERSION = "3.3.0";
-
 	@Test
 	void dockerComposeWhenDockerComposeIsNotSelectedDoesNotCreateService() {
 		ProjectRequest request = createProjectRequest("web", "artemis");
-		request.setBootVersion(SPRING_BOOT_VERSION);
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void dockerComposeWhenIncompatibleSpringBootVersionDoesNotCreateService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "artemis");
-		request.setBootVersion("3.2.0");
-		assertThat(composeFile(request)).doesNotContain("artemis");
-	}
-
-	@Test
 	void dockerComposeCreatesAppropriateService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "artemis");
-		request.setBootVersion(SPRING_BOOT_VERSION);
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/artemis.yaml"));
 	}
 

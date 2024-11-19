@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.dependency.activemq;
 
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
@@ -38,7 +37,6 @@ public class ArtemisProjectGenerationConfiguration {
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.activemq.ArtemisContainer";
 
 	@Bean
-	@ConditionalOnPlatformVersion("3.3.0-M2")
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer artemisServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("artemis", (service) -> serviceConnections
@@ -46,7 +44,6 @@ public class ArtemisProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("3.3.0-M2")
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer artemisComposeFileCustomizer(DockerServiceResolver serviceResolver) {
 		return (composeFile) -> serviceResolver.doWith("artemis",

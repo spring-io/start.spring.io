@@ -28,8 +28,6 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 
@@ -39,8 +37,6 @@ import io.spring.initializr.metadata.InitializrMetadata;
  * @author Stephane Nicoll
  */
 class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
-
-	private static final VersionRange SPRING_BOOT_3_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
 
 	private final InitializrMetadata metadata;
 
@@ -60,16 +56,12 @@ class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
 	@Override
 	public void customize(HelpDocument document) {
 		document.gettingStarted()
-			.addReferenceDocLink(String.format(SPRING_BOOT_3_3_0_OR_LATER.match(this.platformVersion)
-					? "https://docs.spring.io/spring-boot/%s/reference/packaging/native-image/introducing-graalvm-native-images.html"
-					: "https://docs.spring.io/spring-boot/docs/%s/reference/html/native-image.html#native-image",
+			.addReferenceDocLink(String.format(
+					"https://docs.spring.io/spring-boot/%s/reference/packaging/native-image/introducing-graalvm-native-images.html",
 					this.platformVersion), "GraalVM Native Image Support");
 		boolean mavenBuild = this.build instanceof MavenBuild;
 		boolean gradleBuild = this.build instanceof GradleBuild;
-		String url = SPRING_BOOT_3_3_0_OR_LATER.match(this.platformVersion)
-				? String.format("https://docs.spring.io/spring-boot/%s/how-to/aot.html", this.platformVersion)
-				: String.format("https://docs.spring.io/spring-boot/docs/%s/%s/reference/htmlsingle/#aot",
-						this.platformVersion, (mavenBuild) ? "maven-plugin" : "gradle-plugin");
+		String url = String.format("https://docs.spring.io/spring-boot/%s/how-to/aot.html", this.platformVersion);
 		document.gettingStarted().addAdditionalLink(url, "Configure AOT settings in Build Plugin");
 
 		Map<String, Object> model = new HashMap<>();

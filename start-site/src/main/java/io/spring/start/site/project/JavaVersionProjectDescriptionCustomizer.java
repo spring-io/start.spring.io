@@ -23,7 +23,6 @@ import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
-import io.spring.initializr.generator.version.Version;
 
 /**
  * Validate that the requested java version is compatible with the chosen Spring Boot
@@ -39,7 +38,6 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	@Override
 	public void customize(MutableProjectDescription description) {
-		Version platformVersion = description.getPlatformVersion();
 		String javaVersion = description.getLanguage().jvmVersion();
 		if (UNSUPPORTED_VERSIONS.contains(javaVersion)) {
 			updateTo(description, "17");

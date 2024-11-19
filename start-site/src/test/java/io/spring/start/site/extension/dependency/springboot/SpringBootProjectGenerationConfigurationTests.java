@@ -58,9 +58,8 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 		}
 
 		@Test
-		void springBoot32DoesNotConfigureJammyBaseBuilder() {
+		void springBootDoesNotConfigureJammyBaseBuilder() {
 			ProjectRequest request = createProjectRequest();
-			request.setBootVersion("3.2.0");
 			assertThat(mavenPom(request)).doesNotContain("<builder>");
 		}
 
@@ -100,16 +99,14 @@ class SpringBootProjectGenerationConfigurationTests extends AbstractExtensionTes
 		}
 
 		@Test
-		void springBoot32WithGroovyDslDoesNotConfigureJammyBaseBuilder() {
+		void springBootWithGroovyDslDoesNotConfigureJammyBaseBuilder() {
 			ProjectRequest request = createProjectRequest();
-			request.setBootVersion("3.2.0");
 			assertThat(gradleBuild(request)).doesNotContain("builder = '");
 		}
 
 		@Test
-		void springBoot32WithKotlinDslDoesNotConfigureJammyBaseBuilder() {
+		void springBootWithKotlinDslDoesNotConfigureJammyBaseBuilder() {
 			ProjectRequest request = createProjectRequest();
-			request.setBootVersion("3.2.0");
 			assertThat(gradleKotlinDslBuild(request)).doesNotContain("builder.set(\"");
 		}
 

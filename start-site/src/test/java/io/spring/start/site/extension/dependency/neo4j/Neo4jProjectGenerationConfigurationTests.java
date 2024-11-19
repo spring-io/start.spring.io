@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.neo4j;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,8 @@ class Neo4jProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void createsNeo4jServiceWhenSpringAiModuleIsSelected() {
-		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-neo4j");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_3, "docker-compose",
+				"spring-ai-vectordb-neo4j");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/neo4j.yaml"));
 	}
 

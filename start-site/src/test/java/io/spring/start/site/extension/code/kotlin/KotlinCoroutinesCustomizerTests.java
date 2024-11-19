@@ -33,12 +33,11 @@ class KotlinCoroutinesCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void kotlinCoroutinesIsAdded() {
 		ProjectRequest request = createProjectRequest("webflux");
-		request.setBootVersion("3.3.0");
 		request.setLanguage("kotlin");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor");
 		assertThat(helpDocument(request)).contains(
-				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring-framework/reference/6.1.8/languages/kotlin/coroutines.html)");
+				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring-framework/reference/6.2.0/languages/kotlin/coroutines.html)");
 	}
 
 	@Test

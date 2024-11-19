@@ -19,6 +19,7 @@ package io.spring.start.site.support;
 import java.util.Map;
 
 import io.spring.initializr.versionresolver.MavenVersionResolver;
+import io.spring.start.site.SupportedBootVersion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,10 +64,10 @@ class CacheableMavenVersionResolverTests {
 	@Test
 	void managedDependenciesAreCached() {
 		Map<String, String> dependencies = this.versionResolver.resolveDependencies("org.springframework.boot",
-				"spring-boot-dependencies", "3.2.0");
+				"spring-boot-dependencies", SupportedBootVersion.latest().getVersion());
 		assertThat(dependencies).isNotNull();
-		ValueWrapper valueWrapper = this.cache
-			.get("dependencies-org.springframework.boot:spring-boot-dependencies:3.2.0");
+		ValueWrapper valueWrapper = this.cache.get("dependencies-org.springframework.boot:spring-boot-dependencies:%s"
+			.formatted(SupportedBootVersion.latest().getVersion()));
 		assertThat(valueWrapper).isNotNull();
 		assertThat(valueWrapper.get()).isInstanceOf(Map.class);
 	}
@@ -74,9 +75,10 @@ class CacheableMavenVersionResolverTests {
 	@Test
 	void managedPluginsAreCached() {
 		Map<String, String> plugins = this.versionResolver.resolvePlugins("org.springframework.boot",
-				"spring-boot-dependencies", "3.2.0");
+				"spring-boot-dependencies", SupportedBootVersion.latest().getVersion());
 		assertThat(plugins).isNotNull();
-		ValueWrapper valueWrapper = this.cache.get("plugins-org.springframework.boot:spring-boot-dependencies:3.2.0");
+		ValueWrapper valueWrapper = this.cache.get("plugins-org.springframework.boot:spring-boot-dependencies:%s"
+			.formatted(SupportedBootVersion.latest().getVersion()));
 		assertThat(valueWrapper).isNotNull();
 		assertThat(valueWrapper.get()).isInstanceOf(Map.class);
 	}

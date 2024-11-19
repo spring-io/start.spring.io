@@ -1,5 +1,5 @@
 services:
   activemq:
-    image: 'symptoma/activemq:latest'
+    image: 'apache/activemq-classic:latest'
     ports:
       - '61616'

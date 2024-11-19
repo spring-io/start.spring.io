@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.elasticsearch;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +49,8 @@ class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtension
 
 	@Test
 	void createsElasticsearchServiceWhenSpringAiModuleIsSelected() {
-		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-elasticsearch");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_3, "docker-compose",
+				"spring-ai-vectordb-elasticsearch");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
 	}
 

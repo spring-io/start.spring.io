@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.redis;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -32,16 +33,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class RedisStackProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
+
 	@Test
 	void doesNothingWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest("spring-ai-vectordb-redis");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "spring-ai-vectordb-redis");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
 	void createsRedisStackService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-redis");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "spring-ai-vectordb-redis");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis-stack.yaml"));
 	}
 

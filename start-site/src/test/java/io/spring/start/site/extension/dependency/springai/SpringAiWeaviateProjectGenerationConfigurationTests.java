@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springai;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -32,16 +33,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringAiWeaviateProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
+
 	@Test
 	void doesNothingWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest("web", "spring-ai-vectordb-qdrant");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "spring-ai-vectordb-qdrant");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
 	void createsWeaviateService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-weaviate");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "spring-ai-vectordb-weaviate");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/weaviate.yaml"));
 	}
 

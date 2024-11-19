@@ -23,8 +23,6 @@ import java.util.Map;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import io.spring.start.site.container.DockerService;
 import io.spring.start.site.container.ServiceConnections;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -37,8 +35,6 @@ import io.spring.start.site.container.ServiceConnections.ServiceConnection;
  */
 class TestContainersHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
-	private static final VersionRange SPRING_BOOT_3_3_0_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
-
 	private final ProjectDescription description;
 
 	private final ServiceConnections serviceConnections;
@@ -50,9 +46,7 @@ class TestContainersHelpDocumentCustomizer implements HelpDocumentCustomizer {
 
 	@Override
 	public void customize(HelpDocument document) {
-		String referenceDocUrl = (SPRING_BOOT_3_3_0_OR_LATER.match(this.description.getPlatformVersion())
-				? "https://docs.spring.io/spring-boot/%s/reference/testing/testcontainers.html#testing.testcontainers"
-				: "https://docs.spring.io/spring-boot/docs/%s/reference/html/features.html#features.testing.testcontainers")
+		String referenceDocUrl = "https://docs.spring.io/spring-boot/%s/reference/testing/testcontainers.html#testing.testcontainers"
 			.formatted(this.description.getPlatformVersion());
 		document.gettingStarted().addReferenceDocLink(referenceDocUrl, "Spring Boot Testcontainers support");
 		Map<String, Object> model = new HashMap<>();
@@ -60,11 +54,9 @@ class TestContainersHelpDocumentCustomizer implements HelpDocumentCustomizer {
 			.map(ServiceConnection::dockerService)
 			.toList();
 		model.put("services", dockerServices);
-		model.put("testcontainersAtDevelopmentTimeLink", (SPRING_BOOT_3_3_0_OR_LATER
-			.match(this.description.getPlatformVersion())
-					? "https://docs.spring.io/spring-boot/%s/reference/features/dev-services.html#features.dev-services.testcontainers"
-					: "https://docs.spring.io/spring-boot/docs/%s/reference/html/features.html#features.testing.testcontainers.at-development-time")
-			.formatted(this.description.getPlatformVersion()));
+		model.put("testcontainersAtDevelopmentTimeLink",
+				"https://docs.spring.io/spring-boot/%s/reference/features/dev-services.html#features.dev-services.testcontainers"
+					.formatted(this.description.getPlatformVersion()));
 		document.addSection("testcontainers", model);
 	}
 

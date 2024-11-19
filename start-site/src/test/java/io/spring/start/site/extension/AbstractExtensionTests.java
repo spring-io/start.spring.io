@@ -33,6 +33,7 @@ import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.ProjectGenerationResult;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.initializr.web.project.WebProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import org.assertj.core.api.AssertProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,13 +126,25 @@ public abstract class AbstractExtensionTests {
 	}
 
 	/**
-	 * Create a Maven-based {@link ProjectRequest} with the specified dependencies.
+	 * Create a Maven-based {@link ProjectRequest} with the specified dependencies. Uses
+	 * the latest supported Spring Boot version.
 	 * @param dependencies the dependency identifiers to add
 	 * @return a project request
 	 */
 	protected ProjectRequest createProjectRequest(String... dependencies) {
+		return createProjectRequest(SupportedBootVersion.latest(), dependencies);
+	}
+
+	/**
+	 * Create a Maven-based {@link ProjectRequest} with the specified dependencies.
+	 * @param springBootVersion the Spring Boot version to use
+	 * @param dependencies the dependency identifiers to add
+	 * @return a project request
+	 */
+	protected ProjectRequest createProjectRequest(SupportedBootVersion springBootVersion, String... dependencies) {
 		WebProjectRequest request = new WebProjectRequest();
 		request.initialize(this.metadataProvider.get());
+		request.setBootVersion(springBootVersion.getVersion());
 		request.setType("maven-project");
 		request.getDependencies().addAll(Arrays.asList(dependencies));
 		return request;

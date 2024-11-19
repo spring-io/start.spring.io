@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.dependency.activemq;
 
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
@@ -38,15 +37,6 @@ public class ActiveMQProjectGenerationConfiguration {
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.activemq.ActiveMQContainer";
 
 	@Bean
-	@ConditionalOnPlatformVersion("[3.2.0,3.3.0-M2)")
-	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer activeMQServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("activeMQ", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofGenericContainer("activeMQ", service, "symptoma/activemq")));
-	}
-
-	@Bean
-	@ConditionalOnPlatformVersion("3.3.0-M2")
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer activeMQClassicServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
 		return (serviceConnections) -> serviceResolver.doWith("activeMQClassic",
@@ -55,15 +45,6 @@ public class ActiveMQProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("[3.2.0,3.3.0-M2)")
-	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer activeMQComposeFileCustomizer(DockerServiceResolver serviceResolver) {
-		return (composeFile) -> serviceResolver.doWith("activeMQ",
-				(service) -> composeFile.services().add("activemq", service));
-	}
-
-	@Bean
-	@ConditionalOnPlatformVersion("3.3.0-M2")
 	@ConditionalOnRequestedDependency("docker-compose")
 	ComposeFileCustomizer activeMQClassicComposeFileCustomizer(DockerServiceResolver serviceResolver) {
 		return (composeFile) -> serviceResolver.doWith("activeMQClassic",

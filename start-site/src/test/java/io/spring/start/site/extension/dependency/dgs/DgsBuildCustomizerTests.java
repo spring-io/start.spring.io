@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.dgs;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,8 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DgsBuildCustomizerTests extends AbstractExtensionTests {
+
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
 
 	private Dependency dgsTest;
 
@@ -37,7 +40,7 @@ class DgsBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldAddTestingDependency() {
-		ProjectRequest request = createProjectRequest("web", "netflix-dgs");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "netflix-dgs");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(this.dgsTest)

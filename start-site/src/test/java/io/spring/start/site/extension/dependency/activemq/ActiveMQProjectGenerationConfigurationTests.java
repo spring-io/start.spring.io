@@ -41,17 +41,9 @@ class ActiveMQProjectGenerationConfigurationTests extends AbstractExtensionTests
 	}
 
 	@Test
-	void dockerComposeCreatesAppropriateService() {
+	void dockerComposeCreatesAppropriateServiceWithVersion() {
 		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
-		request.setBootVersion("3.2.0");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq.yaml"));
-	}
-
-	@Test
-	void dockerComposeCreatesAppropriateServiceWithVersion33() {
-		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
-		request.setBootVersion("3.3.0");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq-classic.yaml"));
 	}
 
 }

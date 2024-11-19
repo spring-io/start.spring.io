@@ -47,9 +47,9 @@
         }
       },
       {
-        "version": "3.3.0-SNAPSHOT",
-        "apiDocUrl": "https://docs.spring.io/spring-boot/{version}/api/java",
-        "referenceDocUrl": "https://docs.spring.io/spring-boot/{version}",
+        "version": "3.3.7-SNAPSHOT",
+        "apiDocUrl": "https://docs.spring.io/spring-boot/{version}/api/java/index.html",
+        "referenceDocUrl": "https://docs.spring.io/spring-boot/{version}/index.html",
         "status": "SNAPSHOT",
         "current": false,
         "_links": {
@@ -57,44 +57,44 @@
             "href": "https://api.spring.io/repositories/spring-snapshots"
           },
           "self": {
-            "href": "https://api.spring.io/projects/spring-boot/releases/3.3.0-SNAPSHOT"
+            "href": "https://api.spring.io/projects/spring-boot/releases/3.3.7-SNAPSHOT"
           }
         }
       },
       {
-        "version": "3.3.0-RC1",
-        "apiDocUrl": "https://docs.spring.io/spring-boot/{version}/api/java",
-        "referenceDocUrl": "https://docs.spring.io/spring-boot/{version}",
-        "status": "PRERELEASE",
+        "version": "3.3.6",
+        "apiDocUrl": "https://docs.spring.io/spring-boot/{version}/api/java/index.html",
+        "referenceDocUrl": "https://docs.spring.io/spring-boot/{version}/index.html",
+        "status": "GENERAL_AVAILABILITY",
         "current": false,
         "_links": {
           "repository": {
-            "href": "https://api.spring.io/repositories/spring-milestones"
+            "href": "https://api.spring.io/repositories/spring-releases"
           },
           "self": {
-            "href": "https://api.spring.io/projects/spring-boot/releases/3.3.0-RC1"
+            "href": "https://api.spring.io/projects/spring-boot/releases/3.3.6"
           }
         }
       },
       {
-        "version": "3.2.7-SNAPSHOT",
+        "version": "3.2.12",
         "apiDocUrl": "https://docs.spring.io/spring-boot/docs/{version}/api/",
         "referenceDocUrl": "https://docs.spring.io/spring-boot/docs/{version}/reference/html/",
-        "status": "SNAPSHOT",
+        "status": "GENERAL_AVAILABILITY",
         "current": false,
         "_links": {
           "repository": {
-            "href": "https://api.spring.io/repositories/spring-snapshots"
+            "href": "https://api.spring.io/repositories/spring-releases"
           },
           "self": {
-            "href": "https://api.spring.io/projects/spring-boot/releases/3.2.7-SNAPSHOT"
+            "href": "https://api.spring.io/projects/spring-boot/releases/3.2.12"
           }
         }
       },
       {
-        "version": "3.2.6",
-        "apiDocUrl": "https://docs.spring.io/spring-boot/docs/{version}/api/",
-        "referenceDocUrl": "https://docs.spring.io/spring-boot/docs/{version}/reference/html/",
+        "version": "3.4.0",
+        "apiDocUrl": "https://docs.spring.io/spring-boot/{version}/api/java/index.html",
+        "referenceDocUrl": "https://docs.spring.io/spring-boot/{version}/index.html",
         "status": "GENERAL_AVAILABILITY",
         "current": true,
         "_links": {
@@ -102,7 +102,22 @@
             "href": "https://api.spring.io/repositories/spring-releases"
           },
           "self": {
-            "href": "https://api.spring.io/projects/spring-boot/releases/3.2.6"
+            "href": "https://api.spring.io/projects/spring-boot/releases/3.4.0"
+          }
+        }
+      },
+      {
+        "version": "3.4.1-SNAPSHOT",
+        "apiDocUrl": "https://docs.spring.io/spring-boot/{version}/api/java/index.html",
+        "referenceDocUrl": "https://docs.spring.io/spring-boot/{version}/index.html",
+        "status": "SNAPSHOT",
+        "current": false,
+        "_links": {
+          "repository": {
+            "href": "https://api.spring.io/repositories/spring-snapshots"
+          },
+          "self": {
+            "href": "https://api.spring.io/projects/spring-boot/releases/3.4.1-SNAPSHOT"
           }
         }
       }

@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.okta;
 
 import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
-	private static final String SPRING_BOOT_VERSION = "3.3.0";
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
 
 	@Test
 	void oktaSectionWithOktaDependencyIsPresent() {
@@ -43,8 +44,7 @@ class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	private TextAssert assertHelpDocument(String... dependencies) {
-		ProjectRequest request = createProjectRequest(dependencies);
-		request.setBootVersion(SPRING_BOOT_VERSION);
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, dependencies);
 		return assertThat(helpDocument(request));
 	}
 

@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -29,16 +30,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringAzureTestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
+
 	@Test
 	void springAzureTestcontainersDependencyIsAdded() {
-		ProjectRequest projectRequest = createProjectRequest("testcontainers", "azure-storage");
+		ProjectRequest projectRequest = createProjectRequest(BOOT_VERSION, "testcontainers", "azure-storage");
 		assertThat(mavenPom(projectRequest)).hasDependency("com.azure.spring", "spring-cloud-azure-testcontainers",
 				null, "test");
 	}
 
 	@Test
 	void shouldNotAddSpringAzureTestcontainersDependencyIfNoSpringAzureDependencyIsSelected() {
-		ProjectRequest projectRequest = createProjectRequest("testcontainers", "azure-keyvault");
+		ProjectRequest projectRequest = createProjectRequest(BOOT_VERSION, "testcontainers", "azure-keyvault");
 		assertThat(mavenPom(projectRequest)).doesNotHaveDependency("com.azure.spring",
 				"spring-cloud-azure-testcontainers");
 	}

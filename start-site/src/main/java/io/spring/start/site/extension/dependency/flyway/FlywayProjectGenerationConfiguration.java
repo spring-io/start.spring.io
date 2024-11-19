@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.dependency.flyway;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,8 +36,8 @@ class FlywayProjectGenerationConfiguration {
 	}
 
 	@Bean
-	FlywayBuildCustomizer flywayBuildCustomizer(ProjectDescription projectDescription) {
-		return new FlywayBuildCustomizer(projectDescription);
+	FlywayBuildCustomizer flywayBuildCustomizer() {
+		return new FlywayBuildCustomizer();
 	}
 
 }

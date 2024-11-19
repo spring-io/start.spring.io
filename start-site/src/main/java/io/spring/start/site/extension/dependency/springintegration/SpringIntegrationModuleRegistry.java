@@ -25,8 +25,6 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
 
@@ -39,8 +37,6 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  * @author Eddú Meléndez
  */
 abstract class SpringIntegrationModuleRegistry {
-
-	private static final VersionRange SPRING_BOOT_3_3_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
 
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<Builder> builders = new ArrayList<>();
@@ -66,16 +62,10 @@ abstract class SpringIntegrationModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Mail Module", "mail")));
 		builders.add(onDependencies("rsocket").customizeBuild(addDependency("rsocket"))
 			.customizeHelpDocument(addReferenceLink("RSocket Module", "rsocket")));
-		if (SPRING_BOOT_3_3_OR_LATER.match(platformVersion)) {
-			builders.add(onDependencies("security")
-				.customizeBuild(addDependency("spring-security-messaging", "org.springframework.security",
-						"spring-security-messaging", DependencyScope.COMPILE))
-				.customizeHelpDocument(addReferenceLink("Security Module", "security")));
-		}
-		else {
-			builders.add(onDependencies("security").customizeBuild(addDependency("security"))
-				.customizeHelpDocument(addReferenceLink("Security Module", "security")));
-		}
+		builders.add(onDependencies("security")
+			.customizeBuild(addDependency("spring-security-messaging", "org.springframework.security",
+					"spring-security-messaging", DependencyScope.COMPILE))
+			.customizeHelpDocument(addReferenceLink("Security Module", "security")));
 		builders.add(onDependencies("web").customizeBuild(addDependency("http"))
 			.customizeHelpDocument(addReferenceLink("HTTP Module", "http")));
 		builders.add(onDependencies("webflux").customizeBuild(addDependency("webflux"))

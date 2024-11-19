@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency.vaadin;
 
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ class VaadinMavenBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldAddProductionProfile() {
-		ProjectRequest projectRequest = createProjectRequest("vaadin", "web");
+		ProjectRequest projectRequest = createProjectRequest(SupportedBootVersion.V3_3, "vaadin", "web");
 		assertThat(mavenPom(projectRequest)).hasProfile("production").lines().containsSequence(
 		// @formatter:off
 			"		<profile>",

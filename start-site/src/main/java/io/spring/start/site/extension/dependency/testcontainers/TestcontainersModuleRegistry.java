@@ -25,8 +25,6 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
 
@@ -39,16 +37,12 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  */
 abstract class TestcontainersModuleRegistry {
 
-	private static final VersionRange SPRING_BOOT_3_3_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0");
-
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<ImplicitDependency.Builder> builders = new ArrayList<>();
-		if (SPRING_BOOT_3_3_OR_LATER.match(platformVersion)) {
-			builders.add(onDependencies("activemq").customizeBuild(addModule("activemq"))
-				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
-			builders.add(onDependencies("artemis").customizeBuild(addModule("activemq"))
-				.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
-		}
+		builders.add(onDependencies("activemq").customizeBuild(addModule("activemq"))
+			.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
+		builders.add(onDependencies("artemis").customizeBuild(addModule("activemq"))
+			.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
 		builders.add(onDependencies("amqp", "amqp-streams").customizeBuild(addModule("rabbitmq"))
 			.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")));
 		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud"))
@@ -89,18 +83,16 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Solace Module", "solace/")));
 		builders.add(onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
 			.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
-		if (SPRING_BOOT_3_3_OR_LATER.match(platformVersion)) {
-			builders.add(onDependencies("spring-ai-vectordb-chroma").customizeBuild(addModule("chromadb"))
-				.customizeHelpDocument(addReferenceLink("Chroma Module", "testcontainers/")));
-			builders.add(onDependencies("spring-ai-vectordb-milvus").customizeBuild(addModule("milvus"))
-				.customizeHelpDocument(addReferenceLink("Milvus Module", "testcontainers/")));
-			builders.add(onDependencies("spring-ai-ollama").customizeBuild(addModule("ollama"))
-				.customizeHelpDocument(addReferenceLink("Ollama Module", "testcontainers/")));
-			builders.add(onDependencies("spring-ai-vectordb-qdrant").customizeBuild(addModule("qdrant"))
-				.customizeHelpDocument(addReferenceLink("Qdrant Module", "testcontainers/")));
-			builders.add(onDependencies("spring-ai-vectordb-weaviate").customizeBuild(addModule("weaviate"))
-				.customizeHelpDocument(addReferenceLink("Weaviate Module", "testcontainers/")));
-		}
+		builders.add(onDependencies("spring-ai-vectordb-chroma").customizeBuild(addModule("chromadb"))
+			.customizeHelpDocument(addReferenceLink("Chroma Module", "testcontainers/")));
+		builders.add(onDependencies("spring-ai-vectordb-milvus").customizeBuild(addModule("milvus"))
+			.customizeHelpDocument(addReferenceLink("Milvus Module", "testcontainers/")));
+		builders.add(onDependencies("spring-ai-ollama").customizeBuild(addModule("ollama"))
+			.customizeHelpDocument(addReferenceLink("Ollama Module", "testcontainers/")));
+		builders.add(onDependencies("spring-ai-vectordb-qdrant").customizeBuild(addModule("qdrant"))
+			.customizeHelpDocument(addReferenceLink("Qdrant Module", "testcontainers/")));
+		builders.add(onDependencies("spring-ai-vectordb-weaviate").customizeBuild(addModule("weaviate"))
+			.customizeHelpDocument(addReferenceLink("Weaviate Module", "testcontainers/")));
 		return builders.stream().map(Builder::build).toList();
 	}
 

@@ -19,6 +19,7 @@ package io.spring.start.site.extension.dependency.springshell;
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +32,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringShellTestBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
+
 	@Test
 	void shellTestIsAddedWithSpringShell() {
-		ProjectRequest request = createProjectRequest("spring-shell");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "spring-shell");
 		BillOfMaterials bom = getBom("spring-shell", request.getBootVersion());
 		assertThat(mavenPom(request)).hasDependency(getDependency("spring-shell"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))

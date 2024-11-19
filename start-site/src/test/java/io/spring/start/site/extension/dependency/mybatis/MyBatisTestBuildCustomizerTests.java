@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.mybatis;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -30,12 +31,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class MyBatisTestBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final String SPRING_BOOT_VERSION = "3.3.0";
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
 
 	@Test
 	void mybatisIsAddedWithSecurity() {
-		ProjectRequest request = createProjectRequest("mybatis");
-		request.setBootVersion(SPRING_BOOT_VERSION);
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "mybatis");
 		assertThat(mavenPom(request)).hasDependency(mybatis())
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(mybatisTest())

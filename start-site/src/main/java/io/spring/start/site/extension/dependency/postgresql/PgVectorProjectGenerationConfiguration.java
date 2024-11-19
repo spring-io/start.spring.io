@@ -16,14 +16,7 @@
 
 package io.spring.start.site.extension.dependency.postgresql;
 
-import java.util.Map;
-
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
-import io.spring.initializr.versionresolver.MavenVersionResolver;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -44,29 +37,11 @@ class PgVectorProjectGenerationConfiguration {
 
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.PostgreSQLContainer";
 
-	private static final VersionRange TESTCONTAINERS_1_19_7_OR_LATER = VersionParser.DEFAULT.parseRange("1.19.7");
-
-	private final MavenVersionResolver versionResolver;
-
-	private final ProjectDescription description;
-
-	PgVectorProjectGenerationConfiguration(MavenVersionResolver versionResolver, ProjectDescription description) {
-		this.versionResolver = versionResolver;
-		this.description = description;
-	}
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer pgvectorServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		Map<String, String> resolve = this.versionResolver.resolveDependencies("org.springframework.boot",
-				"spring-boot-dependencies", this.description.getPlatformVersion().toString());
-		String testcontainersVersion = resolve.get("org.testcontainers:testcontainers");
-		return (serviceConnections) -> {
-			if (TESTCONTAINERS_1_19_7_OR_LATER.match(Version.parse(testcontainersVersion))) {
-				serviceResolver.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
-			}
-		};
+		return (serviceConnections) -> serviceResolver.doWith("pgvector", (service) -> serviceConnections
+			.addServiceConnection(ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
 	}
 
 	@Bean

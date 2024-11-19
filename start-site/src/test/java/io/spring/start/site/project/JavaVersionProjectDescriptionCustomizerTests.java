@@ -19,6 +19,7 @@ package io.spring.start.site.project;
 import java.util.stream.Stream;
 
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,13 +38,14 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void javaUnknownVersionIsLeftAsIs() {
-		assertThat(mavenPom(javaProject("9999999", "3.3.0"))).hasProperty("java.version", "9999999");
+		assertThat(mavenPom(javaProject("9999999", SupportedBootVersion.latest().getVersion())))
+			.hasProperty("java.version", "9999999");
 	}
 
 	@Test
 	void javaInvalidVersionIsLeftAsIs() {
-		assertThat(mavenPom(javaProject("${another.version}", "3.3.0"))).hasProperty("java.version",
-				"${another.version}");
+		assertThat(mavenPom(javaProject("${another.version}", SupportedBootVersion.latest().getVersion())))
+			.hasProperty("java.version", "${another.version}");
 	}
 
 	@ParameterizedTest(name = "{0} - Java {1} - Spring Boot {2}")
@@ -63,12 +65,14 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void java22IsNotSupportedWithKotlin() {
-		assertThat(mavenPom(kotlinProject("22", "3.2.9"))).hasProperty("java.version", "21");
+		assertThat(mavenPom(kotlinProject("22", SupportedBootVersion.latest().getVersion())))
+			.hasProperty("java.version", "21");
 	}
 
 	@Test
 	void java23IsNotSupportedWithKotlin() {
-		assertThat(mavenPom(kotlinProject("23", "3.2.9"))).hasProperty("java.version", "21");
+		assertThat(mavenPom(kotlinProject("23", SupportedBootVersion.latest().getVersion())))
+			.hasProperty("java.version", "21");
 	}
 
 	static Stream<Arguments> supportedMavenParameters() {
@@ -81,16 +85,18 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	private static Stream<Arguments> supportedJavaParameters() {
-		return Stream.of(java("17", "3.2.0"), java("21", "3.2.0"), java("23", "3.2.9"), java("17", "3.3.0"),
-				java("21", "3.3.0"), java("23", "3.3.0"));
+		return Stream.of(java("17", SupportedBootVersion.latest().getVersion()),
+				java("21", SupportedBootVersion.latest().getVersion()),
+				java("23", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
-		return Stream.of(kotlin("21", "3.2.0"), kotlin("21", "3.3.0"));
+		return Stream.of(kotlin("21", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Stream<Arguments> supportedGroovyParameters() {
-		return Stream.of(groovy("21", "3.2.0"), groovy("23", "3.2.9"), groovy("21", "3.3.0-M2"), groovy("23", "3.3.0"));
+		return Stream.of(groovy("21", SupportedBootVersion.latest().getVersion()),
+				groovy("23", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {

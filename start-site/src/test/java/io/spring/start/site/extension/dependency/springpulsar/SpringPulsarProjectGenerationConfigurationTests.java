@@ -22,6 +22,7 @@ import io.spring.initializr.generator.test.project.ProjectAssetTester;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
@@ -44,23 +45,19 @@ import static org.mockito.Mockito.mock;
  */
 class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final String SPRING_BOOT_VERSION = "3.2.0";
-
 	@Nested
 	class PulsarDependencyConfigurationTests {
 
 		@Test
-		void pulsarBootStarterUsedWhenBoot32Selected() {
+		void pulsarBootStarterUsed() {
 			ProjectRequest request = createProjectRequest("pulsar");
-			request.setBootVersion(SPRING_BOOT_VERSION);
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild().hasDependency("org.springframework.boot", "spring-boot-starter-pulsar");
 		}
 
 		@Test
-		void pulsarReactiveBootStarterUsedWhenBoot32Selected() {
+		void pulsarReactiveBootStarterUsed() {
 			ProjectRequest request = createProjectRequest("pulsar-reactive");
-			request.setBootVersion(SPRING_BOOT_VERSION);
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild()
 				.hasDependency("org.springframework.boot", "spring-boot-starter-pulsar-reactive");
@@ -74,7 +71,6 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void serviceNotCreatedWhenDockerComposeNotSelected() {
 			ProjectRequest request = createProjectRequest("pulsar");
-			request.setBootVersion(SPRING_BOOT_VERSION);
 			ProjectStructure structure = generateProject(request);
 			assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 		}
@@ -83,7 +79,6 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@ValueSource(strings = { "pulsar", "pulsar-reactive" })
 		void serviceCreatedWhenDockerComposeSelectedWithCompatibleBootVersion(String pulsarDependencyId) {
 			ProjectRequest request = createProjectRequest("docker-compose", pulsarDependencyId);
-			request.setBootVersion(SPRING_BOOT_VERSION);
 			assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/pulsar.yaml"));
 		}
 
@@ -99,7 +94,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void connectionNotAddedWhenTestcontainersNotSelected() {
 			MutableProjectDescription description = new MutableProjectDescription();
-			description.setPlatformVersion(Version.parse(SPRING_BOOT_VERSION));
+			description.setPlatformVersion(Version.parse(SupportedBootVersion.latest().getVersion()));
 			description.addDependency("pulsar", mock(Dependency.class));
 			this.projectTester.configure(description,
 					(context) -> assertThat(context).doesNotHaveBean("pulsarServiceConnectionsCustomizer"));
@@ -108,7 +103,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@Test
 		void connectionNotAddedWhenPulsarNotSelected() {
 			MutableProjectDescription description = new MutableProjectDescription();
-			description.setPlatformVersion(Version.parse(SPRING_BOOT_VERSION));
+			description.setPlatformVersion(Version.parse(SupportedBootVersion.latest().getVersion()));
 			description.addDependency("testcontainers", mock(Dependency.class));
 			this.projectTester.configure(description,
 					(context) -> assertThat(context).doesNotHaveBean("pulsarServiceConnectionsCustomizer"));
@@ -118,7 +113,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		@ValueSource(strings = { "pulsar", "pulsar-reactive" })
 		void connectionAddedWhenTestcontainersAndPulsarSelectedWithCompatibleBootVersion(String pulsarDependencyId) {
 			MutableProjectDescription description = new MutableProjectDescription();
-			description.setPlatformVersion(Version.parse(SPRING_BOOT_VERSION));
+			description.setPlatformVersion(Version.parse(SupportedBootVersion.latest().getVersion()));
 			description.addDependency("testcontainers", mock(Dependency.class));
 			description.addDependency(pulsarDependencyId, mock(Dependency.class));
 			this.projectTester.configure(description,

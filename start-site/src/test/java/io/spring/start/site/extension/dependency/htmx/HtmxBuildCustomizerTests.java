@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.htmx;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class HtmxBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
+
 	private final Dependency htmx = Dependency.withId("htmx", "io.github.wimdeblauwe", "htmx-spring-boot");
 
 	private final Dependency htmxThymeleaf = Dependency.withId("htmx", "io.github.wimdeblauwe",
@@ -37,14 +40,14 @@ class HtmxBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldUseHtmxThymleafIfThymeleafIsSelected() {
-		ProjectRequest request = createProjectRequest("htmx", "thymeleaf");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "htmx", "thymeleaf");
 		assertThat(mavenPom(request)).doesNotHaveDependency(this.htmx.getGroupId(), this.htmx.getArtifactId())
 			.hasDependency(this.htmxThymeleaf);
 	}
 
 	@Test
 	void shouldUsePlainHtmxIfThymeleafIsNotSelected() {
-		ProjectRequest request = createProjectRequest("htmx");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "htmx");
 		assertThat(mavenPom(request))
 			.doesNotHaveDependency(this.htmxThymeleaf.getGroupId(), this.htmxThymeleaf.getArtifactId())
 			.hasDependency(this.htmx);

@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.vaadin;
 
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -31,12 +32,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final String SPRING_BOOT_VERSION = "3.3.0";
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
 
 	@Test
 	void mavenBuildWithVaadinAddProductionProfileWithoutProductionModeFlag() {
-		ProjectRequest request = createProjectRequest("vaadin", "data-jpa");
-		request.setBootVersion(SPRING_BOOT_VERSION);
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "vaadin", "data-jpa");
 		assertThat(mavenPom(request)).hasProfile("production").lines().containsSequence(
 		// @formatter:off
 				"		<profile>",
@@ -84,7 +84,7 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void gradleBuildWithVaadinAddPlugin() {
-		ProjectRequest request = createProjectRequest("vaadin", "data-jpa");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "vaadin", "data-jpa");
 		String vaadinVersion = getMetadata().getConfiguration()
 			.getEnv()
 			.getBoms()
@@ -101,7 +101,7 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void gitIgnoreWithVaadinIgnoreNodeModules() {
-		assertThat(generateProject(createProjectRequest("vaadin", "data-jpa"))).textFile(".gitignore")
+		assertThat(generateProject(createProjectRequest(BOOT_VERSION, "vaadin", "data-jpa"))).textFile(".gitignore")
 			.contains("node_modules");
 	}
 
@@ -113,19 +113,12 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldAddLaunchBrowserProperty() {
-		assertThat(applicationProperties(createProjectRequest("vaadin"))).lines().contains("vaadin.launch-browser=true");
+		assertThat(applicationProperties(createProjectRequest(BOOT_VERSION, "vaadin"))).lines().contains("vaadin.launch-browser=true");
 	}
 
 	@Test
 	void shouldNotAddLaunchBrowserPropertyIfVaadinIsNotSelected() {
 		assertThat(applicationProperties(createProjectRequest("data-jpa"))).lines().doesNotContain("vaadin.launch-browser=true");
-	}
-
-	@Override
-	protected ProjectRequest createProjectRequest(String... dependencies) {
-		ProjectRequest request = super.createProjectRequest(dependencies);
-		request.setBootVersion(SPRING_BOOT_VERSION);
-		return request;
 	}
 
 }

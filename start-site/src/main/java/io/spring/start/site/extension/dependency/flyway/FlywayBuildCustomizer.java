@@ -19,10 +19,7 @@ package io.spring.start.site.extension.dependency.flyway;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Determine the appropriate Flyway dependency according to the database.
@@ -32,14 +29,6 @@ import io.spring.initializr.generator.version.VersionRange;
  * @author Moritz Halbritter
  */
 class FlywayBuildCustomizer implements BuildCustomizer<Build> {
-
-	private static final VersionRange SPRING_BOOT_3_3_M3_OR_LATER = VersionParser.DEFAULT.parseRange("3.3.0-M3");
-
-	private final boolean isSpringBoot33OrLater;
-
-	FlywayBuildCustomizer(ProjectDescription projectDescription) {
-		this.isSpringBoot33OrLater = SPRING_BOOT_3_3_M3_OR_LATER.match(projectDescription.getPlatformVersion());
-	}
 
 	@Override
 	public void customize(Build build) {
@@ -53,22 +42,19 @@ class FlywayBuildCustomizer implements BuildCustomizer<Build> {
 		if (dependencies.has("oracle")) {
 			dependencies.add("flyway-oracle", "org.flywaydb", "flyway-database-oracle", DependencyScope.COMPILE);
 		}
-		if (this.isSpringBoot33OrLater) {
-			if (dependencies.has("db2")) {
-				dependencies.add("flyway-database-db2", "org.flywaydb", "flyway-database-db2", DependencyScope.COMPILE);
-			}
-			if (dependencies.has("derby")) {
-				dependencies.add("flyway-database-derby", "org.flywaydb", "flyway-database-derby",
-						DependencyScope.COMPILE);
-			}
-			if (dependencies.has("hsql")) {
-				dependencies.add("flyway-database-hsqldb", "org.flywaydb", "flyway-database-hsqldb",
-						DependencyScope.COMPILE);
-			}
-			if (dependencies.has("postgresql")) {
-				dependencies.add("flyway-database-postgresql", "org.flywaydb", "flyway-database-postgresql",
-						DependencyScope.COMPILE);
-			}
+		if (dependencies.has("db2")) {
+			dependencies.add("flyway-database-db2", "org.flywaydb", "flyway-database-db2", DependencyScope.COMPILE);
+		}
+		if (dependencies.has("derby")) {
+			dependencies.add("flyway-database-derby", "org.flywaydb", "flyway-database-derby", DependencyScope.COMPILE);
+		}
+		if (dependencies.has("hsql")) {
+			dependencies.add("flyway-database-hsqldb", "org.flywaydb", "flyway-database-hsqldb",
+					DependencyScope.COMPILE);
+		}
+		if (dependencies.has("postgresql")) {
+			dependencies.add("flyway-database-postgresql", "org.flywaydb", "flyway-database-postgresql",
+					DependencyScope.COMPILE);
 		}
 	}
 
