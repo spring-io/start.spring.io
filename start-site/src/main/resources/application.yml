@@ -88,7 +88,7 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.2.0,3.4.0-M1)"
-            version: 1.0.0-M3
+            version: 1.0.0-M4
             repositories: spring-milestones
       spring-cloud:
         groupId: org.springframework.cloud
@@ -1476,6 +1476,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/bedrock-chat.html
+        - name: Amazon Bedrock Converse
+          id: spring-ai-bedrock-converse
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-bedrock-converse-spring-boot-starter
+          description: Spring AI support for Amazon Bedrock Converse. It provides a unified interface for conversational AI models with enhanced capabilities including function/tool calling, multimodal inputs, and streaming responses.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/bedrock-converse.html
         - name: Apache Cassandra Vector Database
           id: spring-ai-vectordb-cassandra
           group-id: org.springframework.ai
@@ -1636,16 +1646,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/embeddings/onnx.html
-        - name: Vertex AI PaLM2
-          id: spring-ai-vertexai-palm2
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-vertex-ai-palm2-spring-boot-starter
-          description: Spring AI support for Google Vertex PaLM2 chat and embedding models.
-          bom: spring-ai
-          starter: true
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/chat/vertexai-palm2-chat.html
         - name: Vertex AI Gemini
           id: spring-ai-vertexai-gemini
           group-id: org.springframework.ai
