@@ -1646,16 +1646,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/embeddings/onnx.html
-        - name: Vertex AI PaLM2
-          id: spring-ai-vertexai-palm2
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-vertex-ai-palm2-spring-boot-starter
-          description: Spring AI support for Google Vertex PaLM2 chat and embedding models.
-          bom: spring-ai
-          starter: true
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/chat/vertexai-palm2-chat.html
         - name: Vertex AI Gemini
           id: spring-ai-vertexai-gemini
           group-id: org.springframework.ai
