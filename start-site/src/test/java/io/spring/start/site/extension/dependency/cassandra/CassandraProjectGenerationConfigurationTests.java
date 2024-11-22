@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.cassandra;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -55,8 +54,7 @@ class CassandraProjectGenerationConfigurationTests extends AbstractExtensionTest
 
 	@Test
 	void createsCassandraServiceWhenSpringAiIsSelected() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_3, "docker-compose",
-				"spring-ai-vectordb-cassandra");
+		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-cassandra");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 

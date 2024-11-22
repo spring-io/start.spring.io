@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.oracle;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -49,8 +48,7 @@ class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void createsOracleFreeServiceSpringAi() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_3, "docker-compose",
-				"spring-ai-vectordb-oracle");
+		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-oracle");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle-free.yaml"));
 	}
 
