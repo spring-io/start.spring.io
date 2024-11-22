@@ -81,7 +81,7 @@ initializr:
         artifactId: spring-ai-bom
         versionProperty: spring-ai.version
         mappings:
-          - compatibilityRange: "[3.3.0,3.4.0-M1)"
+          - compatibilityRange: "[3.3.0,3.5.0-M1)"
             version: 1.0.0-M4
             repositories: spring-milestones
       spring-cloud:
