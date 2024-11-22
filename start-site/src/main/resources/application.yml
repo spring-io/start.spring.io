@@ -81,7 +81,7 @@ initializr:
         artifactId: spring-ai-bom
         versionProperty: spring-ai.version
         mappings:
-          - compatibilityRange: "[3.3.0,3.4.0-M1)"
+          - compatibilityRange: "[3.3.0,3.5.0-M1)"
             version: 1.0.0-M4
             repositories: spring-milestones
       spring-cloud:
@@ -1421,7 +1421,7 @@ initializr:
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
     - name: AI
-      compatibilityRange: "[3.3.0,3.4.0-M1)"
+      compatibilityRange: "[3.3.0,3.5.0-M1)"
       content:
         - name: Anthropic Claude
           id: spring-ai-anthropic
