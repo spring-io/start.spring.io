@@ -53,8 +53,8 @@ initializr:
         artifactId: graphql-dgs-platform-dependencies
         versionProperty: netflix-dgs.version
         mappings:
-          - compatibilityRange: "[3.3.0,3.4.0-M1)"
-            version: 9.1.3
+          - compatibilityRange: "[3.3.0,3.5.0-M1)"
+            version: 9.2.0
       sentry:
         groupId: io.sentry
         artifactId: sentry-bom
