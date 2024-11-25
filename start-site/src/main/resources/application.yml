@@ -47,7 +47,9 @@ initializr:
         versionProperty: spring-boot-admin.version
         mappings:
           - compatibilityRange: "[3.3.0,3.4.0-M1)"
-            version: 3.3.5
+            version: 3.3.6
+          - compatibilityRange: "[3.4.0,3.5.0-M1)"
+            version: 3.4.0
       netflix-dgs:
         groupId: com.netflix.graphql.dgs
         artifactId: graphql-dgs-platform-dependencies
@@ -914,7 +916,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Required for your application to register with a Codecentric's Spring Boot Admin Server instance.
-          compatibilityRange: "[3.3.0,3.4.0-M1)"
+          compatibilityRange: "[3.3.0,3.5.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -924,7 +926,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
-          compatibilityRange: "[3.3.0,3.4.0-M1)"
+          compatibilityRange: "[3.3.0,3.5.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
