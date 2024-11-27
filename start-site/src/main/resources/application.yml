@@ -513,13 +513,13 @@ initializr:
               description: R2DBC Homepage
         - name: MyBatis Framework
           id: mybatis
-          compatibilityRange: "[3.3.0,3.4.0-M1)"
+          compatibilityRange: "[3.3.0,3.5.0-M1)"
           description: Persistence framework with support for custom SQL, stored procedures and advanced mappings. MyBatis couples objects with stored procedures or SQL statements using a XML descriptor or annotations.
           groupId: org.mybatis.spring.boot
           artifactId: mybatis-spring-boot-starter
           mappings:
-            - compatibilityRange: "[3.3.0,3.4.0-M1)"
-              version: 3.0.3
+            - compatibilityRange: "[3.3.0,3.5.0-M1)"
+              version: 3.0.4
           links:
             - rel: guide
               href: https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start
