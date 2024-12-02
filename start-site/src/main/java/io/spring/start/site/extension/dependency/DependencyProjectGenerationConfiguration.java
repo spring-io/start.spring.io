@@ -22,7 +22,6 @@ import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.dependency.liquibase.LiquibaseProjectContributor;
 import io.spring.start.site.extension.dependency.lombok.LombokGradleBuildCustomizer;
@@ -87,7 +86,6 @@ public class DependencyProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnGradleVersion({ "6", "7", "8" })
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	@ConditionalOnRequestedDependency("lombok")
 	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer() {
