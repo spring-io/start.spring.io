@@ -225,6 +225,7 @@
     color: $light-color;
     word-wrap: normal;
     white-space: nowrap;
+    outline: 1px dotted transparent;
     .item-content {
       box-shadow: none;
       outline: none;
@@ -256,7 +257,6 @@
       width: 16px;
     }
 
-    outline: 1px dotted transparent;
     &:focus {
       outline: 1px dotted darken($light-background-seconday, 10);
     }

@@ -98,9 +98,9 @@ body {
     cursor: pointer;
     width: $size + 12px;
     height: $size + 12px;
-    @include transition(color $spring-transition-duration);
     border: 0 none;
     background: none;
+    @include transition(color $spring-transition-duration);
     .icon-history {
       width: 30px;
       margin-top: 6px;
@@ -148,11 +148,11 @@ body {
   h1.logo {
     max-width: 320px;
     padding: 2rem 0;
+    display: block;
     a {
-      @include outline;
-      display: block;
       margin-left: -6px;
       color: $light-color;
+      @include outline;
       .logo-content {
         display: block;
         outline: none;
@@ -252,8 +252,6 @@ hr.divider {
     .left {
       padding-right: 1rem;
     }
-  }
-  .right {
   }
 }
 
@@ -428,10 +426,10 @@ button.button {
   margin-right: 1rem;
   cursor: pointer;
   background: transparent;
-  @include transition(all calc($spring-transition-duration / 2));
   z-index: 1;
   background: $light-background;
   font-family: $spring-font-family;
+  @include transition(all calc($spring-transition-duration / 2));
   &:focus {
     outline: none;
     box-shadow: 0 0 0 4px $light-border;
@@ -463,8 +461,8 @@ button.button {
     bottom: 0;
     width: 100%;
     opacity: 0;
-    @include transition(all calc($spring-transition-duration / 2));
     z-index: -1;
+    @include transition(all calc($spring-transition-duration / 2));
   }
   &:hover,
   &:disabled {

@@ -1,21 +1,17 @@
 @mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
-}
-
-@mixin clearfix {
-  &:after {
-    content: '';
-    display: table;
-    clear: both;
+  & {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
   }
 }
 
 @mixin outline {
-  outline: 1px dotted transparent;
+  & {
+    outline: 1px dotted transparent;
+  }
   &:focus {
     outline: 1px dotted $light-outline;
     // outline: none;
