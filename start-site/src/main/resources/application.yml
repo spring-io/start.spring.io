@@ -95,8 +95,7 @@ initializr:
           - compatibilityRange: "[3.3.0,3.4.0-M1)"
             version: 2023.0.4
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 2024.0.0-RC1
-            repositories: spring-milestones
+            version: 2024.0.0
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
