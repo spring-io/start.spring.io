@@ -14,67 +14,66 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.lombok;
+package io.spring.start.site.extension.build.maven;
 
+import java.util.List;
+
+import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.language.java.JavaLanguage;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 
 /**
- * {@link BuildCustomizer} for Lombok when using Maven.
+ * Register annotation processor dependencies on the Maven compiler plugin.
  *
  * @author Moritz Halbritter
  */
-public class LombokMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
+class RegisterAnnotationProcessorsBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
 	private final InitializrMetadata metadata;
 
 	private final ProjectDescription projectDescription;
 
-	public LombokMavenBuildCustomizer(InitializrMetadata metadata, ProjectDescription projectDescription) {
+	RegisterAnnotationProcessorsBuildCustomizer(InitializrMetadata metadata, ProjectDescription projectDescription) {
 		this.metadata = metadata;
 		this.projectDescription = projectDescription;
 	}
 
 	@Override
 	public void customize(MavenBuild build) {
-		if (isAtLeastJava(23)) {
-			configureAnnotationProcessor(build);
+		if (!isJava()) {
+			return;
 		}
-	}
-
-	private void configureAnnotationProcessor(MavenBuild build) {
-		Dependency lombok = this.metadata.getDependencies().get("lombok");
+		List<Dependency> annotationProcessors = build.dependencies()
+			.ids()
+			.filter(this::isAnnotationProcessor)
+			.map((id) -> build.dependencies().get(id))
+			.toList();
+		if (annotationProcessors.isEmpty()) {
+			return;
+		}
 		build.plugins().add("org.apache.maven.plugins", "maven-compiler-plugin", (plugin) -> {
 			plugin.configuration((configuration) -> {
 				configuration.add("annotationProcessorPaths", (annotationProcessorPaths) -> {
-					annotationProcessorPaths.add("path", (path) -> {
-						path.add("groupId", lombok.getGroupId());
-						path.add("artifactId", lombok.getArtifactId());
-					});
+					for (Dependency annotationProcessor : annotationProcessors) {
+						annotationProcessorPaths.add("path", (path) -> {
+							path.add("groupId", annotationProcessor.getGroupId());
+							path.add("artifactId", annotationProcessor.getArtifactId());
+						});
+
+					}
 				});
 			});
 		});
+
 	}
 
-	private boolean isAtLeastJava(int version) {
-		if (!isJava()) {
-			return false;
-		}
-		return getJavaVersion() >= version;
-	}
-
-	private int getJavaVersion() {
-		String javaVersion = this.projectDescription.getLanguage().jvmVersion();
-		try {
-			return Integer.parseInt(javaVersion);
-		}
-		catch (NumberFormatException ex) {
-			return -1;
-		}
+	private boolean isAnnotationProcessor(String id) {
+		io.spring.initializr.metadata.Dependency dependency = this.metadata.getDependencies().get(id);
+		return (dependency != null)
+				&& io.spring.initializr.metadata.Dependency.SCOPE_ANNOTATION_PROCESSOR.equals(dependency.getScope());
 	}
 
 	private boolean isJava() {
