@@ -150,6 +150,7 @@ body {
     padding: 2rem 0;
     display: block;
     a {
+      display: block;
       margin-left: -6px;
       color: $light-color;
       @include outline;
