@@ -176,15 +176,7 @@ export default function Application() {
           open={exploreOpen || false}
           onClose={onEscape}
         />
-      </Suspense>
-      <Suspense fallback=''>
         <History open={historyOpen || false} onClose={onEscape} />
-        <Explore
-          projectName={`${get(values, 'meta.artifact')}.zip`}
-          blob={blob}
-          open={exploreOpen || false}
-          onClose={onEscape}
-        />
       </Suspense>
     </>
   )
