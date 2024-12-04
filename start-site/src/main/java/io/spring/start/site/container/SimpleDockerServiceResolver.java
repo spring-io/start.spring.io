@@ -46,6 +46,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("mariaDb", mariaDb());
 		this.dockerServices.put("milvus", milvus());
 		this.dockerServices.put("mongoDb", mongoDb());
+		this.dockerServices.put("mongoDbAtlas", mongoDbAtlas());
 		this.dockerServices.put("mysql", mysql());
 		this.dockerServices.put("neo4j", neo4j());
 		this.dockerServices.put("ollama", ollama());
@@ -139,6 +140,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService mongoDb() {
 		return DockerService.withImageAndTag("mongo").website("https://hub.docker.com/_/mongo").ports(27017).build();
+	}
+
+	private static DockerService mongoDbAtlas() {
+		return DockerService.withImageAndTag("mongodb/mongodb-atlas-local")
+			.website("https://hub.docker.com/r/mongodb/mongodb-atlas-local")
+			.ports(27017)
+			.build();
 	}
 
 	private static DockerService mysql() {
