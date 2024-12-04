@@ -337,7 +337,7 @@ initializr:
           groupId: com.netflix.graphql.dgs
           artifactId: graphql-dgs-spring-graphql-starter
           description: Build GraphQL applications with Netflix DGS and Spring for GraphQL.
-          compatibilityRange: "[3.3.0,3.4.0-M1)"
+          compatibilityRange: "[3.3.0,3.5.0-M1)"
           bom: netflix-dgs
           links:
             - rel: reference
