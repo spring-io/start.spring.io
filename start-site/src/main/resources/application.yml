@@ -117,8 +117,8 @@ initializr:
         versionProperty: spring-cloud-services.version
         additionalBoms: [ spring-cloud ]
         mappings:
-          - compatibilityRange: "[3.3.0,3.4.0-M1)"
-            version: 4.1.5
+          - compatibilityRange: "[3.3.0,3.5.0-M1)"
+            version: 4.2.0
       spring-modulith:
         groupId: org.springframework.modulith
         artifactId: spring-modulith-bom
@@ -1288,7 +1288,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-stream/reference/
     - name: VMware Tanzu Application Service
       bom: spring-cloud-services
-      compatibilityRange: "[3.3.0,3.4.0-M1)"
+      compatibilityRange: "[3.3.0,3.5.0-M1)"
       content:
         - name: Config Client (TAS)
           id: scs-config-client
