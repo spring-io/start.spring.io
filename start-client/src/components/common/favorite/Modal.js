@@ -1,76 +1,19 @@
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import React, { useEffect, useRef, useContext, useMemo } from 'react'
+import React, { useEffect, useRef, useContext } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import queryString from 'query-string'
 import { AppContext } from '../../reducer/App'
-import { Transform } from './Utils'
-import { IconFavorite } from '../icons'
+import { getLabelFromList, getLabelFromDepsList } from './Utils'
+import { IconEdit, IconDelete } from '../icons'
 
-function HistoryDate({ label, items, onClose }) {
-  return (
-    <>
-      <div className='date'>{label}</div>
-      <ul>
-        {items.map(item => (
-          <HistoryItem
-            key={item.value}
-            time={item.time}
-            value={item.value}
-            onClose={onClose}
-          />
-        ))}
-      </ul>
-    </>
-  )
-}
-
-HistoryDate.propTypes = {
-  label: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      time: PropTypes.string,
-      value: PropTypes.string,
-    })
-  ),
-  onClose: PropTypes.func.isRequired,
-}
-
-HistoryDate.defaultProps = {
-  items: [],
-}
-
-function getLabelFromList(list, key) {
-  return list.find(item => item.key === key)?.text || key
-}
-
-function getLabelFromDepsList(list, key) {
-  return list.find(item => item.id === key)?.name || key
-}
-
-function HistoryItem({ time, value, onClose }) {
-  const { config, dispatch } = useContext(AppContext)
+function FavoriteItem({ name, value, onClose, onRemove, onUpdate }) {
+  const { config } = useContext(AppContext)
   const params = queryString.parse(value)
   const deps = get(params, 'dependencies', '')
     .split(',')
     .filter(dep => !!dep)
-
-  const onFavorite = () => {
-    dispatch({
-      type: 'UPDATE',
-      payload: {
-        history: false,
-        favoriteAdd: true,
-        favoriteOptions: {
-          back: 'history',
-          favorite: {
-            value,
-          },
-        },
-      },
-    })
-  }
   return (
     <li>
       <a
@@ -80,7 +23,7 @@ function HistoryItem({ time, value, onClose }) {
           onClose()
         }}
       >
-        <span className='time'>{time}</span>
+        <span className='name'>{name}</span>
         <span className='desc'>
           <span className='main'>
             Project{' '}
@@ -127,24 +70,27 @@ function HistoryItem({ time, value, onClose }) {
           </span>
         </span>
       </a>
-      <button type='button' className='favorite' onClick={onFavorite}>
-        <IconFavorite />
+      <button type='button' className='edit' onClick={onUpdate}>
+        <IconEdit />
+      </button>
+      <button type='button' className='remove' onClick={onRemove}>
+        <IconDelete />
       </button>
     </li>
   )
 }
 
-HistoryItem.propTypes = {
-  time: PropTypes.string.isRequired,
+FavoriteItem.propTypes = {
+  name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 }
 
 function Modal({ open, onClose }) {
   const wrapper = useRef(null)
-  const { histories, dispatch } = useContext(AppContext)
-
-  const historiesTransform = useMemo(() => Transform(histories), [histories])
+  const { favorites, dispatch } = useContext(AppContext)
 
   useEffect(() => {
     const clickOutside = event => {
@@ -168,36 +114,48 @@ function Modal({ open, onClose }) {
     }
   }, [wrapper, open])
 
+  const onRemove = favorite => {
+    dispatch({ type: 'REMOVE_FAVORITE', payload: favorite })
+  }
+
+  const onUpdate = favorite => {
+    dispatch({
+      type: 'UPDATE',
+      payload: {
+        favorite: false,
+        favoriteAdd: true,
+        favoriteOptions: {
+          title: 'Edit bookmark',
+          button: 'Update',
+          back: 'favorite',
+          favorite,
+        },
+      },
+    })
+  }
+
   return (
     <TransitionGroup component={null}>
       {open && (
         <CSSTransition classNames='popup' timeout={300}>
-          <div className='modal-share'>
-            <div className='modal-history-container' ref={wrapper}>
+          <div className='modal-favorite'>
+            <div className='modal-favorite-container' ref={wrapper}>
               <div className='modal-header'>
-                <h1>History</h1>
-                <a
-                  href='/#'
-                  onClick={e => {
-                    e.preventDefault()
-                    dispatch({ type: 'CLEAR_HISTORY' })
-                    onClose()
-                  }}
-                  className='button'
-                >
-                  <span className='button-content' tabIndex='-1'>
-                    <span>Clear</span>
-                  </span>
-                </a>
+                <h1>Bookmarks</h1>
               </div>
               <div className='modal-content'>
                 <div className='list'>
-                  {historiesTransform.map(history => (
-                    <HistoryDate
-                      key={history.label}
-                      label={history.label}
-                      items={history.histories}
+                  {favorites.map(favorite => (
+                    <FavoriteItem
+                      name={favorite.name}
+                      value={favorite.value}
                       onClose={onClose}
+                      onRemove={() => {
+                        onRemove(favorite)
+                      }}
+                      onUpdate={() => {
+                        onUpdate(favorite)
+                      }}
                     />
                   ))}
                 </div>

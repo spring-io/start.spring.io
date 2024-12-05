@@ -25,6 +25,7 @@ const Explore = lazy(() => import('./common/explore/Explore'))
 const Share = lazy(() => import('./common/share/Share'))
 const History = lazy(() => import('./common/history/History'))
 const HotKeys = lazy(() => import('./common/builder/HotKeys'))
+const Favorite = lazy(() => import('./common/favorite/Favorite'))
 
 export default function Application() {
   const {
@@ -34,6 +35,9 @@ export default function Application() {
     share: shareOpen,
     explore: exploreOpen,
     history: historyOpen,
+    favorite: favoriteOpen,
+    favoriteAdd: favoriteAddOpen,
+    favoriteOptions,
     list,
     dependencies,
   } = useContext(AppContext)
@@ -73,7 +77,9 @@ export default function Application() {
         share: false,
         explore: false,
         nav: false,
-        history: false,
+        history: favoriteOptions.back === 'history',
+        favorite: favoriteOptions.back === 'favorite',
+        favoriteAdd: false,
       },
     })
   }
@@ -120,6 +126,10 @@ export default function Application() {
     dispatch({ type: 'UPDATE', payload: { share: true } })
   }
 
+  const onFavoriteAdd = () => {
+    dispatch({ type: 'UPDATE', payload: { favoriteAdd: true } })
+  }
+
   return (
     <>
       <BodyClassName className={theme} />
@@ -157,6 +167,7 @@ export default function Application() {
                 onSubmit={onSubmit}
                 onShare={onShare}
                 onExplore={onExplore}
+                onFavoriteAdd={onFavoriteAdd}
                 refExplore={buttonExplore}
                 refSubmit={buttonSubmit}
                 refDependency={buttonDependency}
@@ -177,6 +188,11 @@ export default function Application() {
           onClose={onEscape}
         />
         <History open={historyOpen || false} onClose={onEscape} />
+        <Favorite
+          add={favoriteAddOpen || false}
+          open={favoriteOpen || false}
+          onClose={onEscape}
+        />
       </Suspense>
     </>
   )

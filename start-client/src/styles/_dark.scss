@@ -401,15 +401,33 @@ body.dark {
     background: $dark-background;
   }
 
-  .modal-share .modal-header {
-    background: $dark-background;
-    border-bottom: 1px solid $dark-border;
+  .modal-share,
+  .modal-add-favorite,
+  .modal-favorite {
+    .modal-header {
+      background: $dark-background;
+      border-bottom: 1px solid $dark-border;
+    }
   }
-  .modal-history-container {
+  .modal-history-container,
+  .modal-favorite-container,
+  .modal-add-favorite-container {
     border: 1px solid $dark-border;
   }
   .modal-content {
     background: $dark-background;
+  }
+  .modal-add-favorite .favorite-desc {
+    background: $dark-background-secondary;
+    color: $dark-color;
+  }
+  .modal-favorite button.edit,
+  .modal-favorite button.remove,
+  .modal-share .modal-content button.favorite {
+    color: white;
+  }
+  .actions .button.clicked {
+    color: #000;
   }
   .modal-content .list a.item {
     background: $dark-background-secondary;

@@ -12,8 +12,9 @@ export default function Loading() {
           <div className='colset'>
             <div className='left'>
               <Control text='Project'>
-                <Placeholder type='radio' width='97px' />
-                <Placeholder type='radio' width='98px' />
+                <Placeholder type='radio' width='113px' />
+                <Placeholder type='radio' width='100px' />
+                <Placeholder type='radio' width='47px' />
               </Control>
             </div>
             <div className='right'>

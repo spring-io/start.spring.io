@@ -582,11 +582,30 @@ button.button {
     span {
       padding: 0.9rem 1.5rem 0.8rem;
     }
+    &.clicked {
+      color: white;
+      &:before {
+        opacity: 1;
+      }
+    }
     &:focus {
       box-shadow: 0 0 0 4px darken($light-border, 6);
     }
-    &:last-child {
+    &.last-child {
       margin-right: 0;
+    }
+  }
+  .dropdown {
+    position: relative;
+    .dropdown-items {
+      position: absolute;
+      bottom: 35px;
+      left: -50px;
+      text-align: center;
+      .button {
+        margin: 4px 0;
+        width: 160px;
+      }
     }
   }
 }
@@ -1320,7 +1339,7 @@ ul.dependencies-list {
     width: 249.42px;
   }
   &-share {
-    width: 119px;
+    width: 62.3px;
   }
   &-dep {
     width: 241.8px;
