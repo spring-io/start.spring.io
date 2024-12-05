@@ -228,7 +228,7 @@ function Fields({
                   setDropdown(false)
                 }}
               >
-                Share...
+                Share
               </Button>
             </div>
           )}
