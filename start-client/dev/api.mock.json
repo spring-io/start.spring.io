@@ -1388,7 +1388,10 @@
   "packaging": {
     "type": "single-select",
     "default": "jar",
-    "values": [{ "id": "jar", "name": "Jar" }, { "id": "war", "name": "War" }]
+    "values": [
+      { "id": "jar", "name": "Jar" },
+      { "id": "war", "name": "War" }
+    ]
   },
   "javaVersion": {
     "type": "single-select",
