@@ -399,3 +399,69 @@ export function IconHistory() {
     </svg>
   )
 }
+
+export function IconFavorite() {
+  return (
+    <svg
+      aria-hidden='true'
+      focusable='false'
+      viewBox='0 0 512 512'
+      role='img'
+      className='icon-favorite'
+      xmlns='http://www.w3.org/2000/svg'
+    >
+      <title />
+      <g data-name='1' id='_1'>
+        <path
+          fill='currentColor'
+          d='M370.24,425.59a14.89,14.89,0,0,1-7-1.72L257,368,150.74,423.87A15,15,0,0,1,129,408.06l20.3-118.32-86-83.8a15,15,0,0,1,8.31-25.59l118.81-17.26L243.55,55.43a15,15,0,0,1,26.9,0l53.13,107.66,118.8,17.26a15,15,0,0,1,8.32,25.59l-86,83.8L385,408.06a15,15,0,0,1-14.78,17.53ZM106,205.67l69.85,68.09A15,15,0,0,1,180.17,287l-16.49,96.14L250,337.78a15,15,0,0,1,14,0l86.34,45.39L333.83,287a15,15,0,0,1,4.31-13.27L408,205.67l-96.53-14a15,15,0,0,1-11.29-8.2L257,96l-43.17,87.47a15,15,0,0,1-11.3,8.2Z'
+        />
+      </g>
+    </svg>
+  )
+}
+
+export function IconDelete() {
+  return (
+    <svg
+      aria-hidden='true'
+      focusable='false'
+      className='icon-edit'
+      xmlns='http://www.w3.org/2000/svg'
+      version='1.1'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='currentColor'
+        d='M5.3,18.7c.2.2.4.3.7.3s.5-.1.7-.3l5.3-5.3,5.3,5.3c.2.2.5.3.7.3s.5-.1.7-.3c.4-.4.4-1,0-1.4l-5.3-5.3,5.3-5.3c.4-.4.4-1,0-1.4s-1-.4-1.4,0l-5.3,5.3-5.3-5.3c-.4-.4-1-.4-1.4,0s-.4,1,0,1.4l5.3,5.3-5.3,5.3c-.4.4-.4,1,0,1.4Z'
+      />
+    </svg>
+  )
+}
+
+export function IconEdit() {
+  return (
+    <svg
+      aria-hidden='true'
+      focusable='false'
+      className='icon-edit'
+      fill='none'
+      stroke='currentColor'
+      viewBox='0 0 24 24'
+      xmlns='http://www.w3.org/2000/svg'
+    >
+      <path
+        strokeWidth='2'
+        strokeLinejoin='round'
+        strokeLinecap='round'
+        d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'
+      />
+      <path
+        strokeWidth='2'
+        strokeLinejoin='round'
+        strokeLinecap='round'
+        d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'
+      />
+    </svg>
+  )
+}

@@ -5,14 +5,14 @@ import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 
 import Header from './Header'
 import { AppContext } from '../../reducer/App'
-import { IconGithub, IconHistory } from '../icons'
+import { IconGithub, IconHistory, IconFavorite } from '../icons'
 
 function SideLeft() {
   const [isOpen, setIsOpen] = useState(false)
   const [lock, setLock] = useState(false)
   const wrapper = useRef(null)
 
-  const { nav, histories, dispatch } = useContext(AppContext)
+  const { nav, histories, dispatch, favorites } = useContext(AppContext)
 
   useEffect(() => {
     if (get(wrapper, 'current') && nav) {
@@ -61,20 +61,43 @@ function SideLeft() {
                 <span className='hamburger-inner' />
               </span>
             </button>
-            {!isOpen && !lock && histories.length > 0 && (
+            {!isOpen && !lock && (
               <>
-                <div className='navigation-divider' />
-                <button
-                  type='button'
-                  aria-label='Menu'
-                  aria-controls='navigation'
-                  className='navigation-item'
-                  onClick={() => {
-                    dispatch({ type: 'UPDATE', payload: { history: true } })
-                  }}
-                >
-                  <IconHistory />
-                </button>
+                {favorites.length > 0 && (
+                  <>
+                    <div className='navigation-divider' />
+                    <button
+                      type='button'
+                      aria-label='Menu'
+                      aria-controls='navigation'
+                      className='navigation-item'
+                      onClick={() => {
+                        dispatch({
+                          type: 'UPDATE',
+                          payload: { favorite: true },
+                        })
+                      }}
+                    >
+                      <IconFavorite />
+                    </button>
+                  </>
+                )}
+                {histories.length > 0 && (
+                  <>
+                    <div className='navigation-divider' />
+                    <button
+                      type='button'
+                      aria-label='Menu'
+                      aria-controls='navigation'
+                      className='navigation-item'
+                      onClick={() => {
+                        dispatch({ type: 'UPDATE', payload: { history: true } })
+                      }}
+                    >
+                      <IconHistory />
+                    </button>
+                  </>
+                )}
               </>
             )}
           </div>

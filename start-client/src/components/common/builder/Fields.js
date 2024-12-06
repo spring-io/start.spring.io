@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState, useEffect } from 'react'
 
 import Actions from './Actions'
 import Control from './Control'
@@ -18,12 +18,15 @@ function Fields({
   onSubmit,
   onExplore,
   onShare,
+  onFavoriteAdd,
   refExplore,
   refSubmit,
   refDependency,
   generating,
 }) {
+  const wrapper = useRef(null)
   const windowsUtils = useWindowsUtils()
+  const [dropdown, setDropdown] = useState(false)
   const { config, dispatch, dependencies } = useContext(AppContext)
   const {
     values,
@@ -33,6 +36,19 @@ function Fields({
   const update = args => {
     dispatchInitializr({ type: 'UPDATE', payload: args })
   }
+
+  useEffect(() => {
+    const clickOutside = event => {
+      const children = get(wrapper, 'current')
+      if (children && !children.contains(event.target)) {
+        setDropdown(false)
+      }
+    }
+    document.addEventListener('mousedown', clickOutside)
+    return () => {
+      document.removeEventListener('mousedown', clickOutside)
+    }
+  }, [])
 
   return (
     <>
@@ -183,9 +199,40 @@ function Fields({
         >
           Explore
         </Button>
-        <Button id='share-project' onClick={onShare}>
-          Share...
-        </Button>
+
+        <span className='dropdown' ref={wrapper}>
+          <Button
+            className={`last-child ${dropdown ? 'clicked' : ''}`}
+            id='favorite-add'
+            onClick={() => {
+              setDropdown(true)
+            }}
+          >
+            ...
+          </Button>
+          {dropdown && (
+            <div className='dropdown-items'>
+              <Button
+                id='favorite-add'
+                onClick={() => {
+                  onFavoriteAdd()
+                  setDropdown(false)
+                }}
+              >
+                Bookmark
+              </Button>
+              <Button
+                id='share-project'
+                onClick={() => {
+                  onShare()
+                  setDropdown(false)
+                }}
+              >
+                Share
+              </Button>
+            </div>
+          )}
+        </span>
       </Actions>
     </>
   )
@@ -196,6 +243,7 @@ Fields.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onExplore: PropTypes.func.isRequired,
   onShare: PropTypes.func.isRequired,
+  onFavoriteAdd: PropTypes.func.isRequired,
   refExplore: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),

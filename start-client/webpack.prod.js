@@ -25,7 +25,7 @@ const config = {
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
-      openAnalyzer: true,
+      openAnalyzer: false,
       generateStatsFile: true,
       statsFilename: '../analysis/stats.json',
       reportFilename: '../analysis/bundle-analyzer.html',

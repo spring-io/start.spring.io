@@ -6,13 +6,16 @@ function Button({
   onClick,
   children,
   variant,
+  className,
   hotkey,
   refButton,
   disabled,
 }) {
   return (
     <button
-      className={`button ${variant === 'primary' ? 'primary' : ''}`}
+      className={`button ${className} ${
+        variant === 'primary' ? 'primary' : ''
+      }`}
       type='button'
       ref={refButton}
       id={id}
@@ -36,6 +39,7 @@ Button.defaultProps = {
   children: null,
   variant: '',
   hotkey: '',
+  className: '',
   refButton: null,
   disabled: false,
 }
@@ -43,6 +47,7 @@ Button.defaultProps = {
 Button.propTypes = {
   id: PropTypes.string.isRequired,
   variant: PropTypes.string,
+  className: PropTypes.string,
   hotkey: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node,
