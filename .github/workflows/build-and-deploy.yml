@@ -25,14 +25,14 @@ jobs:
       - name: Cache Maven/Gradle repositories for tests
         uses: actions/cache@v4
         with:
-          path: /tmp/start-spring-io-cache
+          path: /tmp/start-spring-io-cache-2024-12-11
           # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
           key: test-repositories-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: test-repositories-${{ runner.os }}-
+          restore-keys: test-repositories-${{ runner.os }}
 
       - name: Build with Maven
         env:
-          START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache
+          START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
         run: ./mvnw --batch-mode --update-snapshots verify
 
       - name: Set up Azure
