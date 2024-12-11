@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import io.spring.initializr.generator.version.Version;
@@ -59,6 +60,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Execution(ExecutionMode.CONCURRENT)
 @ActiveProfiles("test")
 class MetadataVerificationTests {
+
+	private static final Pattern MILESTONE_PATTERN = Pattern.compile("M\\d+");
 
 	private final InitializrMetadata metadata;
 
@@ -138,11 +141,11 @@ class MetadataVerificationTests {
 		}
 		if (bootVersion.getQualifier() != null) {
 			String qualifier = bootVersion.getQualifier().getId();
-			if (!qualifier.equals("RELEASE")) {
+			if (qualifier.contains("SNAPSHOT")) {
+				repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
+			}
+			else if (MILESTONE_PATTERN.matcher(qualifier).matches()) {
 				repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
-				if (qualifier.contains("SNAPSHOT")) {
-					repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
-				}
 			}
 		}
 		return new ArrayList<>(repositories.values());

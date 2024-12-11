@@ -16,8 +16,6 @@
 
 package io.spring.start.testsupport;
 
-import java.nio.file.Path;
-
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,14 +28,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class HomesTests {
 
 	@Test
-	void shouldAcquireNewHome() {
-		Homes homes = new Homes("test");
-		Path home1 = homes.acquire();
-		Path home2 = homes.acquire();
-		assertThat(home1).isNotEqualTo(home2);
-		homes.release(home1);
-		Path home3 = homes.acquire();
-		assertThat(home3).isEqualTo(home1);
+	void shouldGetNewHome() {
+		Homes test1 = new Homes("test1");
+		Homes test1Again = new Homes("test1");
+		Homes test2 = new Homes("test2");
+		assertThat(test1.get()).isEmptyDirectory();
+		assertThat(test1.get()).isEqualTo(test1.get());
+		assertThat(test1.get()).isEqualTo(test1Again.get());
+		assertThat(test1.get()).isNotEqualTo(test2.get());
 	}
 
 }

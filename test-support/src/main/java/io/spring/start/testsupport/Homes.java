@@ -20,13 +20,6 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Queue;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.springframework.util.Assert;
 
 /**
  * Manages Maven and Gradle home directories.
@@ -48,46 +41,23 @@ public class Homes {
 	 */
 	public static final Homes GRADLE = new Homes("gradle-home");
 
-	private final Set<Path> homes = ConcurrentHashMap.newKeySet();
+	private final Path path;
 
-	private final Queue<Path> freeHomes = new ConcurrentLinkedQueue<>();
-
-	private final AtomicInteger counter = new AtomicInteger();
-
-	private final String prefix;
-
-	public Homes(String prefix) {
-		this.prefix = prefix;
+	Homes(String name) {
+		this.path = createTempDirectory(name);
 	}
 
 	/**
-	 * Acquires a path to the home. Callers are responsible to call {@link #release(Path)}
-	 * when done.
+	 * Returns the path to the home.
 	 * @return the path to the home
 	 */
-	public Path acquire() {
-		Path home = this.freeHomes.poll();
-		if (home == null) {
-			home = createTempDirectory();
-			this.homes.add(home);
-		}
-		return home;
+	public Path get() {
+		return this.path;
 	}
 
-	/**
-	 * Releases a path to the home.
-	 * @param home the path to the home
-	 */
-	public void release(Path home) {
-		Assert.state(this.homes.contains(home), "Invalid home '%s'".formatted(home));
-		this.freeHomes.add(home);
-	}
-
-	private Path createTempDirectory() {
+	private static Path createTempDirectory(String name) {
 		try {
-			Path path = TemporaryFiles.getTempDir()
-				.resolve("homes")
-				.resolve(this.prefix + "-" + this.counter.getAndIncrement());
+			Path path = TemporaryFiles.getTempDir().resolve("homes").resolve(name);
 			Files.createDirectories(path);
 			return path;
 		}

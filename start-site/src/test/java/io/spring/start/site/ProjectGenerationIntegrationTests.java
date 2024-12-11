@@ -130,35 +130,22 @@ class ProjectGenerationIntegrationTests {
 		request.setApplicationName("DemoApplication");
 		request.setDependencies(Arrays.asList("devtools", "configuration-processor"));
 		Path project = this.invoker.invokeProjectStructureGeneration(request).getRootDirectory();
-		Path home = acquireHome(buildSystem);
-		try {
-			ProcessBuilder processBuilder = createProcessBuilder(project, buildSystem, home);
-			Path output = TemporaryFiles.newTemporaryDirectory("ProjectGenerationIntegrationTests-projectBuilds")
-				.resolve("output.log");
-			processBuilder.redirectError(output.toFile());
-			processBuilder.redirectOutput(output.toFile());
-			assertThat(processBuilder.start().waitFor()).describedAs(String.join("\n", Files.readAllLines(output)))
-				.isEqualTo(0);
-		}
-		finally {
-			releaseHome(buildSystem, home);
-		}
+		Path home = getHome(buildSystem);
+		ProcessBuilder processBuilder = createProcessBuilder(project, buildSystem, home);
+		Path output = TemporaryFiles.newTemporaryDirectory("ProjectGenerationIntegrationTests-projectBuilds")
+			.resolve("output.log");
+		processBuilder.redirectError(output.toFile());
+		processBuilder.redirectOutput(output.toFile());
+		assertThat(processBuilder.start().waitFor()).describedAs(String.join("\n", Files.readAllLines(output)))
+			.isEqualTo(0);
 	}
 
-	private Path acquireHome(BuildSystem buildSystem) {
+	private Path getHome(BuildSystem buildSystem) {
 		return switch (buildSystem.id()) {
-			case MavenBuildSystem.ID -> Homes.MAVEN.acquire();
-			case GradleBuildSystem.ID -> Homes.GRADLE.acquire();
+			case MavenBuildSystem.ID -> Homes.MAVEN.get();
+			case GradleBuildSystem.ID -> Homes.GRADLE.get();
 			default -> throw new IllegalStateException("Unknown build system '%s'".formatted(buildSystem.id()));
 		};
-	}
-
-	private void releaseHome(BuildSystem buildSystem, Path home) {
-		switch (buildSystem.id()) {
-			case MavenBuildSystem.ID -> Homes.MAVEN.release(home);
-			case GradleBuildSystem.ID -> Homes.GRADLE.release(home);
-			default -> throw new IllegalStateException("Unknown build system '%s'".formatted(buildSystem.id()));
-		}
 	}
 
 	private ProcessBuilder createProcessBuilder(Path directory, BuildSystem buildSystem, Path home) {

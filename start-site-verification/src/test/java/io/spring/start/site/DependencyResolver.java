@@ -49,13 +49,20 @@ import org.eclipse.aether.resolution.ArtifactDescriptorRequest;
 import org.eclipse.aether.spi.connector.RepositoryConnectorFactory;
 import org.eclipse.aether.spi.connector.transport.TransporterFactory;
 import org.eclipse.aether.spi.locator.ServiceLocator;
+import org.eclipse.aether.transfer.AbstractTransferListener;
+import org.eclipse.aether.transfer.TransferEvent;
+import org.eclipse.aether.transfer.TransferResource;
 import org.eclipse.aether.transport.http.HttpTransporterFactory;
 import org.eclipse.aether.util.artifact.JavaScopes;
 import org.eclipse.aether.util.filter.DependencyFilterUtils;
 import org.eclipse.aether.util.graph.visitor.FilteringDependencyVisitor;
 import org.eclipse.aether.util.repository.SimpleArtifactDescriptorPolicy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class DependencyResolver {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DependencyResolver.class);
 
 	static final RemoteRepository mavenCentral = createRemoteRepository("central", "https://repo1.maven.org/maven2",
 			false);
@@ -70,12 +77,14 @@ final class DependencyResolver {
 		try {
 			ServiceLocator serviceLocator = createServiceLocator();
 			DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
+			session.setTransferListener(new Slf4jTransferListener());
 			session.setArtifactDescriptorPolicy(new SimpleArtifactDescriptorPolicy(false, false));
 			LocalRepository localRepository = new LocalRepository(localRepositoryLocation.toFile());
 			this.repositorySystem = serviceLocator.getService(RepositorySystem.class);
 			session
 				.setLocalRepositoryManager(this.repositorySystem.newLocalRepositoryManager(session, localRepository));
 			session.setUserProperties(System.getProperties());
+			session.setIgnoreArtifactDescriptorRepositories(true);
 			session.setReadOnly();
 			this.repositorySystemSession = session;
 		}
@@ -98,24 +107,18 @@ final class DependencyResolver {
 
 	static List<String> resolveDependencies(Homes homes, String groupId, String artifactId, String version,
 			List<BillOfMaterials> boms, List<RemoteRepository> repositories) {
-		Path home = homes.acquire();
+		DependencyResolver resolver = new DependencyResolver(homes.get().resolve("repository"));
+		List<Dependency> managedDependencies = resolver.getManagedDependencies(boms, repositories);
+		Dependency aetherDependency = new Dependency(new DefaultArtifact(groupId, artifactId, "pom",
+				resolver.getVersion(groupId, artifactId, version, managedDependencies)), "compile");
+		CollectRequest collectRequest = new CollectRequest(aetherDependency, repositories);
+		collectRequest.setManagedDependencies(managedDependencies);
 		try {
-			DependencyResolver instance = new DependencyResolver(home.resolve("repository"));
-			List<Dependency> managedDependencies = instance.getManagedDependencies(boms, repositories);
-			Dependency aetherDependency = new Dependency(new DefaultArtifact(groupId, artifactId, "pom",
-					instance.getVersion(groupId, artifactId, version, managedDependencies)), "compile");
-			CollectRequest collectRequest = new CollectRequest(aetherDependency, repositories);
-			collectRequest.setManagedDependencies(managedDependencies);
-			try {
-				CollectResult result = instance.collectDependencies(collectRequest);
-				return DependencyCollector.collect(result.getRoot(), RuntimeTransitiveOnlyDependencyFilter.INSTANCE);
-			}
-			catch (DependencyCollectionException ex) {
-				throw new RuntimeException(ex);
-			}
+			CollectResult result = resolver.collectDependencies(collectRequest);
+			return DependencyCollector.collect(result.getRoot(), RuntimeTransitiveOnlyDependencyFilter.INSTANCE);
 		}
-		finally {
-			homes.release(home);
+		catch (DependencyCollectionException ex) {
+			throw new RuntimeException(ex);
 		}
 	}
 
@@ -149,6 +152,7 @@ final class DependencyResolver {
 	}
 
 	private CollectResult collectDependencies(CollectRequest dependencyRequest) throws DependencyCollectionException {
+		LOGGER.info("Resolving {} from {}", dependencyRequest.getRoot(), dependencyRequest.getRepositories());
 		return this.repositorySystem.collectDependencies(this.repositorySystemSession, dependencyRequest);
 	}
 
@@ -206,6 +210,35 @@ final class DependencyResolver {
 		@Override
 		public boolean accept(DependencyNode node, List<DependencyNode> parents) {
 			return !node.getDependency().isOptional() && this.runtimeFilter.accept(node, parents);
+		}
+
+	}
+
+	private static final class Slf4jTransferListener extends AbstractTransferListener {
+
+		@Override
+		public void transferStarted(TransferEvent event) {
+			LOGGER.info("Started downloading {}", resourceToString(event.getResource()));
+		}
+
+		@Override
+		public void transferCorrupted(TransferEvent event) {
+			LOGGER.warn("Found corrupted download {}", resourceToString(event.getResource()));
+		}
+
+		@Override
+		public void transferSucceeded(TransferEvent event) {
+			LOGGER.info("Done downloading {} bytes for {}", event.getTransferredBytes(),
+					resourceToString(event.getResource()));
+		}
+
+		@Override
+		public void transferFailed(TransferEvent event) {
+			LOGGER.info("Failed downloading {}", resourceToString(event.getResource()));
+		}
+
+		private String resourceToString(TransferResource resource) {
+			return resource.getRepositoryUrl() + resource.getResourceName();
 		}
 
 	}
