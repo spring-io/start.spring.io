@@ -77,6 +77,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 						all()*.plugins {
 							grpc {
 								option 'jakarta_omit'
+								option '@generated=omit'
 							}
 						}
 					}
@@ -105,6 +106,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 								it.plugins {
 									id("grpc") {
 										option("jakarta_omit")
+										option("@generated=omit")
 									}
 								}
 							}
@@ -159,6 +161,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 										</goals>
 										<configuration>
 											<pluginParameter>jakarta_omit</pluginParameter>
+											<pluginParameter>@generated=omit</pluginParameter>
 										</configuration>
 									</execution>
 								</executions>
