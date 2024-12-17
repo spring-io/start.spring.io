@@ -38,10 +38,11 @@ class GrpcGradleKotlinBuildCustomizer extends AbstractGrpcGradleBuildCustomizer 
 			protobuf.importType("com.google.protobuf.gradle.id");
 			protobuf.nested("plugins", (plugins) -> plugins.nested("id(\"grpc\")",
 					(grpc) -> grpc.attribute("artifact", quote("io.grpc:protoc-gen-grpc-java"))));
-			protobuf.nested("generateProtoTasks",
-					(generateProtoTasks) -> generateProtoTasks.nested("all().forEach",
-							(forEach) -> forEach.nested("it.plugins", (plugins) -> plugins.nested("id(\"grpc\")",
-									(grpc) -> grpc.invoke("option", quote("jakarta_omit"))))));
+			protobuf.nested("generateProtoTasks", (generateProtoTasks) -> generateProtoTasks.nested("all().forEach",
+					(forEach) -> forEach.nested("it.plugins", (plugins) -> plugins.nested("id(\"grpc\")", (grpc) -> {
+						grpc.invoke("option", quote("jakarta_omit") + " /* legacy (v1.63) param */");
+						grpc.invoke("option", quote("@generated=omit") + " /* param name starting v1.64 */");
+					}))));
 		});
 	}
 
