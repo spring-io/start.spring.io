@@ -152,7 +152,6 @@ final class DependencyResolver {
 	}
 
 	private CollectResult collectDependencies(CollectRequest dependencyRequest) throws DependencyCollectionException {
-		LOGGER.info("Resolving {} from {}", dependencyRequest.getRoot(), dependencyRequest.getRepositories());
 		return this.repositorySystem.collectDependencies(this.repositorySystemSession, dependencyRequest);
 	}
 
