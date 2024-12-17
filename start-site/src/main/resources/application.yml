@@ -119,6 +119,14 @@ initializr:
         mappings:
           - compatibilityRange: "[3.3.0,3.5.0-M1)"
             version: 4.2.0
+      spring-grpc:
+        groupId: org.springframework.grpc
+        artifactId: spring-grpc-dependencies
+        versionProperty: spring-grpc.version
+        mappings:
+          - compatibilityRange: "[3.4.0,3.5.0-M1)"
+            version: 0.3.0-SNAPSHOT
+            repositories: spring-snapshots
       spring-modulith:
         groupId: org.springframework.modulith
         artifactId: spring-modulith-bom
@@ -891,6 +899,19 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-shell/reference/index.html
+        - name: Spring gRPC [Experimental]
+          id: spring-grpc
+          groupId: org.springframework.grpc
+          artifactId: spring-grpc-spring-boot-starter
+          compatibilityRange: "[3.4.0,3.5.0-M1)"
+          description: Experimental support for gRPC, a high performance, open source universal RPC framework.
+          bom: spring-grpc
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-grpc/reference/index.html
+            - rel: sample
+              href: https://github.com/spring-projects-experimental/spring-grpc/tree/main/samples
+              description: Various sample apps using Spring gRPC
     - name: Ops
       content:
         - name: Spring Boot Actuator
