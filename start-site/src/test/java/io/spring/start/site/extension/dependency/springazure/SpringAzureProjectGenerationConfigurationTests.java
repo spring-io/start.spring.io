@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_3;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@ParameterizedTest
 	@MethodSource("azureDependencies")
