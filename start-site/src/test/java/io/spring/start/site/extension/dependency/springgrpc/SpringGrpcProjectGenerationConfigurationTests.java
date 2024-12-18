@@ -76,8 +76,8 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 					generateProtoTasks {
 						all()*.plugins {
 							grpc {
-								option 'jakarta_omit' // legacy (v1.63) param
-								option '@generated=omit' // param name starting v1.64
+								option 'jakarta_omit'
+								option '@generated=omit'
 							}
 						}
 					}
@@ -105,8 +105,8 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 							all().forEach {
 								it.plugins {
 									id("grpc") {
-										option("jakarta_omit" /* legacy (v1.63) param */)
-										option("@generated=omit" /* param name starting v1.64 */)
+										option("jakarta_omit")
+										option("@generated=omit")
 									}
 								}
 							}
