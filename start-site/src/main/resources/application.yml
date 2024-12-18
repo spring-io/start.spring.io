@@ -359,8 +359,10 @@ initializr:
           groupId: io.github.wimdeblauwe
           artifactId: htmx-spring-boot
           description: Build modern user interfaces with the simplicity and power of hypertext.
-          compatibilityRange: "[3.3.0,3.4.0-M1)"
-          version: 3.5.0
+          compatibilityRange: "[3.4.0,3.5.0-M1)"
+          mappings:
+            - compatibilityRange: "[3.4.0,3.5.0-M1)"
+              version: 4.0.1
           links:
             - rel: reference
               href: https://github.com/wimdeblauwe/htmx-spring-boot
