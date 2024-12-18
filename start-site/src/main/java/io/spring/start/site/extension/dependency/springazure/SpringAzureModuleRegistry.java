@@ -37,7 +37,7 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
 abstract class SpringAzureModuleRegistry {
 
 	static Iterable<ImplicitDependency> createSpringBootRegistry() {
-		return create(
+		return create(onDependencies("azure-support").customizeHelpDocument(addDeploySection()),
 				onDependencies("actuator").customizeBuild(addDependency("spring-cloud-azure-starter-actuator"))
 					.customizeHelpDocument(addReferenceLink("actuator", "Azure Actuator")),
 				onDependencies("integration", "azure-storage")
@@ -78,6 +78,32 @@ abstract class SpringAzureModuleRegistry {
 		return (helpDocument) -> {
 			String href = String.format("https://aka.ms/spring/docs/%s", id);
 			helpDocument.gettingStarted().addReferenceDocLink(href, description);
+		};
+	}
+
+	private static Consumer<HelpDocument> addDeploySection() {
+		return (helpDocument) -> {
+			helpDocument.addSection((writer) -> {
+				writer.println("### Deploy to Azure");
+				writer.println();
+				writer.println("This project can be deployed to Azure with maven support.");
+				writer.println();
+				writer.println(
+						"In your `pom.xml`, replace the following placeholder variables with your specific Azure details:");
+				writer.println("- `subscriptionId`");
+				writer.println("- `resourceGroup`");
+				writer.println("- `appEnvironmentName`");
+				writer.println("- `region`");
+				writer.println();
+				writer.println("Deploy with:");
+				writer.println("""
+						```bash
+						mvn azure-container-apps:deploy
+						```
+						""");
+				writer.println(
+						"Learn more about [Java on Azure Container Apps](https://learn.microsoft.com/azure/container-apps/java-overview).");
+			});
 		};
 	}
 
