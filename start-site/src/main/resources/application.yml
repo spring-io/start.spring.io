@@ -56,7 +56,7 @@ initializr:
         versionProperty: netflix-dgs.version
         mappings:
           - compatibilityRange: "[3.3.0,3.5.0-M1)"
-            version: 9.2.2
+            version: 10.0.0
       sentry:
         groupId: io.sentry
         artifactId: sentry-bom
@@ -174,7 +174,7 @@ initializr:
           id: dgs-codegen
           groupId: com.netflix.graphql.dgs.codegen
           artifactId: graphql-dgs-codegen-gradle
-          version: 6.2.1
+          version: 7.0.3
           description: Generate data types and type-safe APIs for querying GraphQL APIs by parsing schema files.
           starter: false
         - name: Spring Boot DevTools
