@@ -17,6 +17,8 @@
 package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependencyBuildCustomizer;
@@ -48,6 +50,12 @@ class SpringAzureProjectGenerationConfiguration {
 	@Bean
 	ImplicitDependencyHelpDocumentCustomizer azureDependencyHelpDocumentCustomizer(Build build) {
 		return new ImplicitDependencyHelpDocumentCustomizer(this.azureDependencies, build);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("azure-support")
+	SpringAzureMavenBuildCustomizer azureDependencyMavenBuildCustomizer(ProjectDescription projectDescription) {
+		return new SpringAzureMavenBuildCustomizer(projectDescription);
 	}
 
 }
