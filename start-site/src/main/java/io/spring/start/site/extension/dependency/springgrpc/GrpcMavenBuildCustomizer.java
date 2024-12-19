@@ -79,7 +79,10 @@ class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 			});
 			plugin.execution("compile", (execution) -> {
 				execution.goal("compile").goal("compile-custom");
-				execution.configuration((configuration) -> configuration.add("pluginParameter", "jakarta_omit"));
+				execution.configuration((configuration) -> {
+					configuration.add("pluginParameter", "jakarta_omit");
+					configuration.add("pluginParameter", "@generated=omit");
+				});
 			});
 		});
 	}
