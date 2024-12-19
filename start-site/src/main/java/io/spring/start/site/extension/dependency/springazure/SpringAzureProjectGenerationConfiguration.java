@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,10 @@
 package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependencyBuildCustomizer;
@@ -48,6 +52,13 @@ class SpringAzureProjectGenerationConfiguration {
 	@Bean
 	ImplicitDependencyHelpDocumentCustomizer azureDependencyHelpDocumentCustomizer(Build build) {
 		return new ImplicitDependencyHelpDocumentCustomizer(this.azureDependencies, build);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("azure-support")
+	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	SpringAzureMavenBuildCustomizer azureDependencyMavenBuildCustomizer(ProjectDescription projectDescription) {
+		return new SpringAzureMavenBuildCustomizer(projectDescription);
 	}
 
 }

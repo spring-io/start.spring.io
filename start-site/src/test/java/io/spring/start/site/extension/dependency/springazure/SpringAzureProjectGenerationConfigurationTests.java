@@ -118,6 +118,12 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 			.doesNotContain("https://aka.ms/spring/msdocs/mysql");
 	}
 
+	@Test
+	void DeploytoAzureSectionAddedWhenAzureSupportPresent() {
+		ProjectStructure project = generateProject("azure-support");
+		assertThatHelpDocumentOf(project).contains("### Deploy to Azure");
+	}
+
 	private static Stream<Arguments> azureDependencies() {
 		return Stream.of(Arguments.of("azure-active-directory"), Arguments.of("azure-keyvault"),
 				Arguments.of("azure-storage"), Arguments.of("azure-support"));
