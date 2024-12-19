@@ -26,15 +26,21 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringAzureMavenBuildCustomizer}.
  *
  * @author Muyao Feng
+ * @author Moritz Halbritter
  */
 class SpringAzureMavenBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
+	void shouldDoNothingIfAzureSupportIsntSelected() {
+		ProjectRequest request = createProjectRequest("web");
+		assertThat(mavenPom(request)).doesNotContain("azure-container-apps-maven-plugin");
+	}
+
+	@Test
 	void azureContainerAppsMavenPluginAddedWhenAzureSupportPresent() {
 		ProjectRequest request = createProjectRequest("azure-support");
-		assertThat(mavenPom(request)).hasText("/project/build/plugins/plugin[1]/groupId", "com.microsoft.azure");
-		assertThat(mavenPom(request)).hasText("/project/build/plugins/plugin[1]/artifactId",
-				"azure-container-apps-maven-plugin");
+		assertThat(mavenPom(request)).hasText("/project/build/plugins/plugin[1]/groupId", "com.microsoft.azure")
+			.hasText("/project/build/plugins/plugin[1]/artifactId", "azure-container-apps-maven-plugin");
 	}
 
 }

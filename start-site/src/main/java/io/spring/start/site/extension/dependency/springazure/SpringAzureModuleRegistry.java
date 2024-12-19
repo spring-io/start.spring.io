@@ -86,19 +86,20 @@ abstract class SpringAzureModuleRegistry {
 			helpDocument.addSection((writer) -> {
 				writer.println("### Deploy to Azure");
 				writer.println();
-				writer.println("This project can be deployed to Azure with maven support.");
+				writer.println("This project can be deployed to Azure with Maven.");
 				writer.println();
 				writer.println(
-						"In your `pom.xml`, replace the following placeholder variables with your specific Azure details:");
+						"To get started, replace the following placeholder in your `pom.xml` with your specific Azure details:");
+				writer.println();
 				writer.println("- `subscriptionId`");
 				writer.println("- `resourceGroup`");
 				writer.println("- `appEnvironmentName`");
 				writer.println("- `region`");
 				writer.println();
-				writer.println("Deploy with:");
+				writer.println("Now you can deploy your application:");
 				writer.println("""
 						```bash
-						mvn azure-container-apps:deploy
+						./mvnw azure-container-apps:deploy
 						```
 						""");
 				writer.println(

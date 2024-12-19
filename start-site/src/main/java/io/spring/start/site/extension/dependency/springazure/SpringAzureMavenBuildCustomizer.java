@@ -21,11 +21,13 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * A {@link BuildCustomizer} that adds a maven plugin when azure-support is selected.
+ * A {@link BuildCustomizer} that adds a Maven plugin when azure-support is selected.
  *
  * @author Muyao Feng
  */
 class SpringAzureMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
+
+	private static final String PLUGIN_VERSION = "0.1.0";
 
 	private final ProjectDescription projectDescription;
 
@@ -36,7 +38,7 @@ class SpringAzureMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 	@Override
 	public void customize(MavenBuild build) {
 		build.plugins().add("com.microsoft.azure", "azure-container-apps-maven-plugin", (plugin) -> {
-			plugin.version("0.1.0");
+			plugin.version(PLUGIN_VERSION);
 			plugin.configuration((configuration) -> {
 				configuration.add("subscriptionId", "your-subscription-id");
 				configuration.add("resourceGroup", "your-resource-group");

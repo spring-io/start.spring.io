@@ -121,7 +121,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 	@Test
 	void DeploytoAzureSectionAddedWhenAzureSupportPresent() {
 		ProjectStructure project = generateProject("azure-support");
-		assertThatHelpDocumentOf(project).contains("Deploy to Azure");
+		assertThatHelpDocumentOf(project).contains("### Deploy to Azure");
 	}
 
 	private static Stream<Arguments> azureDependencies() {
