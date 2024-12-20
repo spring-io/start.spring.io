@@ -160,8 +160,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 											<goal>compile-custom</goal>
 										</goals>
 										<configuration>
-											<pluginParameter>jakarta_omit</pluginParameter>
-											<pluginParameter>@generated=omit</pluginParameter>
+											<pluginParameter>jakarta_omit,@generated=omit</pluginParameter>
 										</configuration>
 									</execution>
 								</executions>
