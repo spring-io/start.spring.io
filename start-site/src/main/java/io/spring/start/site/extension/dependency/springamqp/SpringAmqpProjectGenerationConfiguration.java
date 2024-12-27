@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.springamqp;
 
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
@@ -29,35 +30,47 @@ import org.springframework.context.annotation.Bean;
  * Configuration for generation of projects that depend on Spring AMQP.
  *
  * @author Stephane Nicoll
- * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("amqp")
 class SpringAmqpProjectGenerationConfiguration {
 
 	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.RabbitMQContainer";
 
 	@Bean
+	@ConditionalOnRequestedDependency("amqp")
 	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
 		return new SpringRabbitTestBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer rabbitServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("rabbit", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("rabbit", service, TESTCONTAINERS_CLASS_NAME, false)));
+	ServiceConnectionsCustomizer rabbitServiceConnectionsCustomizer(Build build,
+			DockerServiceResolver serviceResolver) {
+		return (serviceConnections) -> serviceResolver.doWith("rabbit", (service) -> {
+			if (isAmqpEnabled(build)) {
+				serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("rabbit", service, TESTCONTAINERS_CLASS_NAME, false));
+			}
+		});
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer rabbitComposeFileCustomizer(DockerServiceResolver serviceResolver) {
-		return (composeFile) -> serviceResolver.doWith("rabbit",
-				(service) -> composeFile.services()
+	ComposeFileCustomizer rabbitComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("rabbit", (service) -> {
+			if (isAmqpEnabled(build)) {
+				composeFile.services()
 					.add("rabbitmq",
 							service.andThen((builder) -> builder.environment("RABBITMQ_DEFAULT_USER", "myuser")
 								.environment("RABBITMQ_DEFAULT_PASS", "secret")
-								.ports(5672))));
+								.ports(5672)));
+			}
+		});
+	}
+
+	private boolean isAmqpEnabled(Build build) {
+		return build.dependencies().has("amqp") || build.dependencies().has("amqp-streams");
 	}
 
 }
