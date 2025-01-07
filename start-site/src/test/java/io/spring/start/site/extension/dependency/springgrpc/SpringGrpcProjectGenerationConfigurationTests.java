@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -139,7 +139,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void shouldAddProtobufPluginForMaven() {
 		ProjectRequest request = createProjectRequest(SPRING_GRPC);
-		assertThat(mavenPom(request)).hasProperty("grpc.version", "1.63.2")
+		assertThat(mavenPom(request)).hasProperty("grpc.version", "1.69.0")
 			.hasProperty("protobuf-java.version", "3.25.5")
 			.containsIgnoringWhitespaces(
 					"""
