@@ -781,6 +781,26 @@ button.button {
   @include transition(transform 500ms);
 }
 
+.navgiation-actions {
+  transition: opacity 0.15s;
+}
+.navgiation-actions-enter {
+  opacity: 0;
+  transition-delay: .3s;
+}
+
+.navgiation-actions-enter-active {
+  opacity: 1;
+}
+
+.navgiation-actions-exit {
+  opacity: 1;
+}
+
+.navgiation-actions-exit-active {
+  opacity: 0;
+}
+
 #side-left {
   background: white;
   @include transition(all 100ms);

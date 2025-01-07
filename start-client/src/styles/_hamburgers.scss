@@ -16,12 +16,12 @@ $hamburger-layer-height: 3px;
 $hamburger-layer-spacing: 6px;
 $hamburger-layer-color: $light-color;
 $hamburger-layer-border-radius: 4px;
-$hamburger-hover-opacity: 0.7;
+$hamburger-hover-opacity: 1;
 $hamburger-active-layer-color: white;
 $hamburger-active-hover-opacity: $hamburger-hover-opacity;
 
 $hamburger-hover-use-filter: false;
-$hamburger-hover-filter: opacity(50%);
+$hamburger-hover-filter: opacity(100%);
 $hamburger-active-hover-filter: $hamburger-hover-filter;
 
 $hamburger-types: (spin);
@@ -40,5 +40,45 @@ $hamburger-types: (spin);
     display: block;
     outline: none;
     box-shadow: none;
+  }
+  &:hover {
+    .hamburger-inner,
+    .hamburger-inner::before,
+    .hamburger-inner::after {
+      background: $light-primary;
+    }
+  }
+}
+
+#side-left {
+  &.is-open {
+    .hamburger {
+      &:hover {
+        .hamburger-inner,
+        .hamburger-inner::before,
+        .hamburger-inner::after {
+          background: white;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+  &.is-opening {
+    .hamburger {
+      .hamburger-inner,
+      .hamburger-inner::before,
+      .hamburger-inner::after {
+        background: white;
+      }
+    }
+  }
+  &.is-closing {
+    .hamburger {
+      .hamburger-inner,
+      .hamburger-inner::before,
+      .hamburger-inner::after {
+        background: $light-color;
+      }
+    }
   }
 }

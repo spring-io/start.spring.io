@@ -20,7 +20,8 @@ body.dark {
     color: white;
     transition: all 0.15s;
     &:hover {
-      opacity: 0.7;
+      color: $light-primary;
+      opacity: 1;
     }
   }
   #side-left .navigation-divider {
@@ -64,13 +65,31 @@ body.dark {
   #side-left a {
     color: $dark-color;
     &:hover {
-      color: $dark-primary;
+      color: $light-primary;
+      opacity: 1;
+    }
+  }
+  #side-left.is-open {
+    a {
+      &:hover {
+        color: white;
+        opacity: 0.7;
+      }
     }
   }
   .hamburger-inner,
   .hamburger-inner::before,
   .hamburger-inner::after {
     background: white;
+  }
+  #side-left.is-closing {
+    .hamburger {
+      .hamburger-inner,
+      .hamburger-inner::before,
+      .hamburger-inner::after {
+        background: white;
+      }
+    }
   }
   a.button,
   button.button {
@@ -107,10 +126,6 @@ body.dark {
     .colset-explorer .head {
       border-color: $dark-border;
     }
-  }
-  #side-left a:hover {
-    color: $dark-color;
-    opacity: 0.8;
   }
   .explorer-actions {
     background: $dark-background-secondary;
