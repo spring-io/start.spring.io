@@ -23,6 +23,9 @@ body.dark {
       opacity: 0.7;
     }
   }
+  #side-left .navigation-divider {
+    border-color: $dark-border;
+  }
 
   #side-right .side-container {
     border-color: $dark-border;
