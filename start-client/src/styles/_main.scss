@@ -913,10 +913,11 @@ button.button {
           background: $light-primary;
           color: #fff;
           font-size: $spring-font-size - 2;
-          padding: 4px 0.6rem 1px;
+          padding: 2px 0.4rem 1px;
           line-height: 18px;
           margin-left: 0.6rem;
           text-transform: uppercase;
+          border-radius: 4px;
         }
         strong {
           font-size: $spring-font-size + 2;
@@ -996,7 +997,8 @@ button.button {
         background: $light-primary;
         color: #fff;
         font-size: $spring-font-size - 2;
-        padding: 4px 0.6rem 1px;
+        padding: 2px 0.4rem 1px;
+        border-radius: 4px;
         line-height: 18px;
         margin-left: 0.6rem;
         text-transform: uppercase;
@@ -1089,11 +1091,12 @@ ul.dependencies-list {
         display: inline-block;
         background: $light-primary;
         font-size: $spring-font-size - 2;
-        padding: 4px 0.6rem 1px;
+        padding: 2px 0.4rem 1px;
         line-height: 18px;
         margin-left: 0.6rem;
         text-transform: uppercase;
         color: #fff;
+        border-radius: 4px;
       }
       span.invalid {
         color: #d60000;
