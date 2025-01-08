@@ -62,7 +62,7 @@ function Explore({ open, onClose, projectName, blob }) {
   const onCopy = () => {
     setButton('Copied!')
     setTimeout(() => {
-      setButton('Copy!')
+      setButton('Copy')
     }, 3000)
   }
 
