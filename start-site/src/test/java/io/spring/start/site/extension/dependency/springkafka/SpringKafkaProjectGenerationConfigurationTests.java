@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Wonwoo Lee
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -47,6 +48,42 @@ class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTe
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependenciesSize(2);
+	}
+
+	@Test
+	void customizesBuildpacksBuilderWhenUsingMavenAndKafkaStreams() {
+		ProjectRequest request = createProjectRequest("kafka-streams");
+		assertThat(mavenPom(request)).containsIgnoringWhitespaces("""
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<image>
+							<builder>paketobuildpacks/builder-jammy-base:latest</builder>
+						</image>
+					</configuration>
+				</plugin>
+				""");
+	}
+
+	@Test
+	void customizesBuildpacksBuilderWhenUsingGradleGroovyAndKafkaStreams() {
+		ProjectRequest request = createProjectRequest("kafka-streams");
+		assertThat(gradleBuild(request)).containsIgnoringWhitespaces("""
+				tasks.named('bootBuildImage') {
+					builder = 'paketobuildpacks/builder-jammy-base:latest'
+				}
+				""");
+	}
+
+	@Test
+	void customizesBuildpacksBuilderWhenUsingGradleKotlinAndKafkaStreams() {
+		ProjectRequest request = createProjectRequest("kafka-streams");
+		assertThat(gradleKotlinDslBuild(request)).containsIgnoringWhitespaces("""
+				tasks.bootBuildImage {
+				    builder = "paketobuildpacks/builder-jammy-base:latest"
+				}
+				""");
 	}
 
 }
