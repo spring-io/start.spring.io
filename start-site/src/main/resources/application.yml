@@ -125,8 +125,7 @@ initializr:
         versionProperty: spring-grpc.version
         mappings:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 0.3.0-SNAPSHOT
-            repositories: spring-snapshots
+            version: 0.3.0
       spring-modulith:
         groupId: org.springframework.modulith
         artifactId: spring-modulith-bom
