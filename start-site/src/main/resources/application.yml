@@ -84,7 +84,7 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.3.0,3.5.0-M1)"
-            version: 1.0.0-M4
+            version: 1.0.0-M5
             repositories: spring-milestones
       spring-cloud:
         groupId: org.springframework.cloud
@@ -1653,6 +1653,36 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/redis.html
+        - name: MariaDB Vector Database
+          id: spring-ai-vectordb-mariadb
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-mariadb-store-spring-boot-starter
+          description: Spring AI support for MariaDB. MariaDB Vector Store support is part of MariaDB 11.7. It provides efficient vector similarity search capabilities using vector indexes, supporting both cosine similarity and Euclidean distance metrics.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/mariadb.html
+        - name: Oracle Coherence Vector Database
+          id: spring-ai-vectordb-coherence
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-coherence-store-spring-boot-starter
+          description: Spring AI support for Oracle Coherence. Oracle Coherence Vector Store is a key-value store with optional persistence, offering fault-tolerant automatic sharding, polyglot and REST interfaces, querying, transactions, eventing, and in-place processing, as well as change data capture, multi-site federation, messaging, and integrations with popular frameworks.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs.html
+        - name: Azure Cosmos DB Vector Store
+          id: spring-ai-vectordb-azurecosmosdb
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-azure-cosmos-db-store-spring-boot-starter
+          description: Spring AI support for Azure Cosmos DB. Azure Cosmos DB is Microsoft’s globally distributed cloud-native database service designed for mission-critical applications.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/azure-cosmos-db.html
         - name: Stability AI
           id: spring-ai-stabilityai
           group-id: org.springframework.ai
