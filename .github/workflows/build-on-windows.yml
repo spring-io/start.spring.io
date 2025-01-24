@@ -24,3 +24,5 @@ jobs:
 
       - name: Build with Maven
         run: ./mvnw.cmd --batch-mode --update-snapshots --no-transfer-progress verify
+        env:
+          JUNIT_MAX_PARALLELISM: "1"

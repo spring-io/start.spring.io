@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ import org.junit.platform.engine.ConfigurationParameters;
 import org.junit.platform.engine.support.hierarchical.ParallelExecutionConfiguration;
 import org.junit.platform.engine.support.hierarchical.ParallelExecutionConfigurationStrategy;
 
+import org.springframework.util.StringUtils;
+
 /**
  * A parallel execution strategy for JUnit, which limits the maximum number of
  * parallelism.
@@ -31,15 +33,24 @@ import org.junit.platform.engine.support.hierarchical.ParallelExecutionConfigura
  */
 public class JunitMaxParallelismStrategy implements ParallelExecutionConfigurationStrategy {
 
-	private static final int MAX_PARALLELISM = 4;
+	private static final int DEFAULT_MAX_PARALLELISM = Integer.MAX_VALUE;
 
 	@Override
 	public ParallelExecutionConfiguration createConfiguration(ConfigurationParameters configurationParameters) {
+		int maxParallelism = getMaxParallelism();
 		int parallelism = Runtime.getRuntime().availableProcessors();
-		if (parallelism > MAX_PARALLELISM) {
-			parallelism = MAX_PARALLELISM;
+		if (parallelism > maxParallelism) {
+			parallelism = maxParallelism;
 		}
 		return new FixedParallelExecutionConfiguration(parallelism);
+	}
+
+	private int getMaxParallelism() {
+		String maxParallelism = System.getenv("JUNIT_MAX_PARALLELISM");
+		if (StringUtils.hasText(maxParallelism)) {
+			return Integer.parseInt(maxParallelism);
+		}
+		return DEFAULT_MAX_PARALLELISM;
 	}
 
 	private static final class FixedParallelExecutionConfiguration implements ParallelExecutionConfiguration {
