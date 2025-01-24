@@ -96,7 +96,7 @@ initializr:
             version: 2023.0.5
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
             version: 2024.0.0
-          - compatibilityRange: "[3.5.0-SNAPSHOT,3.6.0-M1)"
+          - compatibilityRange: "[3.5.0-M1,3.6.0-M1)"
             version: 2025.0.0-SNAPSHOT
             repositories:
               - spring-snapshots
@@ -1247,7 +1247,7 @@ initializr:
             - compatibility-range: "[3.3.0,3.5.0-M1)"
               groupId: org.springframework.cloud
               artifactId: spring-cloud-starter-gateway-mvc
-            - compatibility-range: "[3.5.0-SNAPSHOT,3.6.0-M1)"
+            - compatibility-range: "[3.5.0-M1,3.6.0-M1)"
               groupId: org.springframework.cloud
               artifactId: spring-cloud-starter-gateway-server-webmvc
           description: Provides a simple, yet effective way to route to APIs in Servlet-based applications. Provides cross-cutting concerns to those APIs such as security, monitoring/metrics, and resiliency.
@@ -1260,7 +1260,7 @@ initializr:
             - compatibility-range: "[3.3.0,3.5.0-M1)"
               groupId: org.springframework.cloud
               artifactId: spring-cloud-starter-gateway
-            - compatibility-range: "[3.5.0-SNAPSHOT,3.6.0-M1)"
+            - compatibility-range: "[3.5.0-M1,3.6.0-M1)"
               groupId: org.springframework.cloud
               artifactId: spring-cloud-starter-gateway-server-webflux
           description: Provides a simple, yet effective way to route to APIs in reactive applications. Provides cross-cutting concerns to those APIs such as security, monitoring/metrics, and resiliency.
