@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import io.spring.initializr.generator.version.Version;
@@ -60,8 +59,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Execution(ExecutionMode.CONCURRENT)
 @ActiveProfiles("test")
 class MetadataVerificationTests {
-
-	private static final Pattern MILESTONE_PATTERN = Pattern.compile("M\\d+");
 
 	private final InitializrMetadata metadata;
 
@@ -145,7 +142,7 @@ class MetadataVerificationTests {
 				repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
 				repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
 			}
-			else if (MILESTONE_PATTERN.matcher(qualifier).matches()) {
+			else if (qualifier.equals("M")) {
 				repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
 			}
 		}
