@@ -31,6 +31,7 @@ function Dialog({ onClose }) {
   const wrapper = useRef(null)
   const input = useRef(null)
   const dialog = useRef(null)
+  const selectedDependencies = useRef(null)
 
   const { values, dispatch } = useContext(InitializrContext)
   const [query, setQuery] = useState('')
@@ -45,6 +46,14 @@ function Dialog({ onClose }) {
       type: 'ADD_DEPENDENCY',
       payload: { id },
     })
+  }
+
+  const remove = (id) => {
+    dispatch({
+      type: 'REMOVE_DEPENDENCY',
+      payload: { id },
+    })
+    textFocus()
   }
 
   useEffect(() => {
@@ -100,10 +109,12 @@ function Dialog({ onClose }) {
   useEffect(() => {
     const clickOutside = event => {
       const children = get(wrapper, 'current')
+      const selectedDeps = get(selectedDependencies, 'current')
       if (
-        children &&
-        !children.contains(event.target) &&
-        event.target.id !== 'input-quicksearch'
+        (children &&
+          !children.contains(event.target) &&
+          event.target.id !== 'input-quicksearch') &&
+        (!selectedDeps || (selectedDeps && !selectedDeps.contains(event.target)))
       ) {
         onClose()
       }
@@ -202,7 +213,7 @@ function Dialog({ onClose }) {
 
   const onEnded = () => {
     setMultiple(false)
-    setTimeout(() => {}, 300)
+    setTimeout(() => { }, 300)
   }
 
   let currentIndex = -1
@@ -248,53 +259,79 @@ function Dialog({ onClose }) {
                   Press {windowsUtils.symb} for multiple adds{' '}
                 </span>
               </div>
-              <ul ref={wrapper}>
+              {values.dependencies.length > 0 &&
+                <div
+                  id='selected-dependencies'
+                  className='selected-dependencies'
+                  ref={selectedDependencies}
+                >
+                  <span>Selected</span>
+                  {values.dependencies.map(dep => (
+                    <div className="selected">
+                      <span>{
+                        depsContext.list
+                          .filter(item => item.id === dep)
+                          .map(item => item.name)
+                          .at(0)
+                      }
+                      </span>
+                      <span
+                        className='dialog-remove-dependency'
+                        onClick={() => remove(dep)}
+                      >
+                        <IconTimes />
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              }
+              <ul ref={wrapper} style={{ top: values.dependencies.length > 0 ? '100px' : '50px' }}>
                 {query.trim()
                   ? result.map((item, index) => (
-                      <Item
-                        selected={selected === index}
-                        item={item}
-                        index={index}
-                        key={item.id}
-                        onAdd={() => {
-                          textFocus()
-                          if (item.valid && !multiple) {
-                            onClose()
-                          }
-                        }}
-                        onSelect={() => {
-                          setSelected(index)
-                        }}
-                      />
-                    ))
+                    <Item
+                      selected={selected === index}
+                      item={item}
+                      index={index}
+                      key={item.id}
+                      onAdd={() => {
+                        textFocus()
+                        if (item.valid && !multiple) {
+                          onClose()
+                        }
+                      }}
+                      onSelect={() => {
+                        setSelected(index)
+                      }}
+                    />
+                  ))
                   : groups.map(group => (
-                      <>
-                        <li key={group.group} className='group-title'>
-                          <span>{group.group}</span>
-                        </li>
-                        {group.items.map(itemGroup => {
-                          currentIndex = +`${currentIndex + 1}`
-                          return (
-                            <Item
-                              selected={selected === currentIndex}
-                              item={itemGroup}
-                              key={itemGroup.id}
-                              index={currentIndex}
-                              group={false}
-                              onAdd={() => {
-                                textFocus()
-                                if (itemGroup.valid && !multiple) {
-                                  onClose()
-                                }
-                              }}
-                              onSelect={i => {
-                                setSelected(i)
-                              }}
-                            />
-                          )
-                        })}
-                      </>
-                    ))}
+                    <>
+                      <li key={group.group} className='group-title'>
+                        <span>{group.group}</span>
+                      </li>
+                      {group.items.map(itemGroup => {
+                        currentIndex = +`${currentIndex + 1}`
+                        return (
+                          <Item
+                            selected={selected === currentIndex}
+                            item={itemGroup}
+                            key={itemGroup.id}
+                            index={currentIndex}
+                            group={false}
+                            onAdd={() => {
+                              textFocus()
+                              if (itemGroup.valid && !multiple) {
+                                onClose()
+                              }
+                            }}
+                            onSelect={i => {
+                              setSelected(i)
+                            }}
+                          />
+                        )
+                      })}
+                    </>
+                  ))}
               </ul>
             </div>
           </CSSTransition>

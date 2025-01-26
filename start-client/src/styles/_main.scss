@@ -892,6 +892,27 @@ button.button {
     padding: 1.5rem 0 0.5rem;
     font-size: 24px;
   }
+  .selected-dependencies {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50px;
+    height: 50px; 
+    overflow-x: auto;
+    white-space: nowrap;
+    &::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+      background: $light-background;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(black, 0.3);
+    }
+  }
   ul {
     padding: 0;
     margin: 0;
