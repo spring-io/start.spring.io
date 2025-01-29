@@ -76,8 +76,8 @@ initializr:
         artifactId: solace-spring-cloud-bom
         versionProperty: solace-spring-cloud.version
         mappings:
-          - compatibilityRange: "[3.3.0,3.4.0-M1)"
-            version: 4.6.0
+          - compatibilityRange: "[3.3.0,3.5.0-M1)"
+            version: 4.7.0
       spring-ai:
         groupId: org.springframework.ai
         artifactId: spring-ai-bom
