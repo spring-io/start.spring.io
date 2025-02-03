@@ -85,7 +85,6 @@ initializr:
         mappings:
           - compatibilityRange: "[3.3.0,3.5.0-M1)"
             version: 1.0.0-M5
-            repositories: spring-milestones
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
