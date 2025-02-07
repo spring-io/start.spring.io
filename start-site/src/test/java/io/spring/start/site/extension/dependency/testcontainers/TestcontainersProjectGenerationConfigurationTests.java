@@ -416,21 +416,21 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void shouldAddHelpSection() {
 		assertHelpDocument("testcontainers", "data-mongodb", "postgresql").contains(
-				"https://docs.spring.io/spring-boot/3.3.0/reference/testing/testcontainers.html#testing.testcontainers")
+				"https://docs.spring.io/spring-boot/3.4.0/reference/testing/testcontainers.html#testing.testcontainers")
 			.contains(
-					"https://docs.spring.io/spring-boot/3.3.0/reference/features/dev-services.html#features.dev-services.testcontainers")
+					"https://docs.spring.io/spring-boot/3.4.0/reference/features/dev-services.html#features.dev-services.testcontainers")
 			.contains("mongo:latest")
 			.contains("postgres:latest");
 	}
 
 	private ProjectStructure generateProject(String... dependencies) {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_3, dependencies);
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), dependencies);
 		request.setType("maven-build");
 		return generateProject(request);
 	}
 
 	private TextAssert assertHelpDocument(String... dependencyIds) {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_3, dependencyIds);
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), dependencyIds);
 		return assertThat(helpDocument(request));
 	}
 
