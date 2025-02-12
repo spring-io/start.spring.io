@@ -182,23 +182,6 @@ body.dark {
   ul.dependencies-list li div span.group {
     color: $dark-background;
   }
-  .dialog-dependencies div.selected {
-    display: inline-flex;
-    gap: 4px;
-    background-color: $dark-primary;
-    border-radius: 4px;
-    margin: 0px 4px;
-    padding: 2px 4px;
-    z-index: 100; 
-
-    .dialog-remove-dependency {
-      cursor: pointer;
-      svg {
-        height: 10px;
-        width: 10px;
-      }
-    }
-  }
   ul.dependencies-list li {
     border-color: $dark-border;
   }
@@ -405,6 +388,9 @@ body.dark {
   }
   #header .switch-mobile button {
     color: $dark-color;
+  }
+  .dialog-dependencies ul li a.dependency.added {
+    background: darken($dark-primary, 10);
   }
   .dialog-dependencies ul li.group-title span,
   .dialog-dependencies ul li a.dependency.selected,
