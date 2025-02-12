@@ -79,9 +79,6 @@ function Dialog({ onClose }) {
       if (query.trim()) {
         vals = sortResult(search.search(query))
       }
-      vals = vals.filter(
-        item => !get(values, 'dependencies', []).find(o => o === item.id)
-      )
       setResult(vals)
     }
     onSearch()
