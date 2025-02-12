@@ -256,6 +256,9 @@ function Dialog({ onClose }) {
                       }}
                       onRemoved={(item) => {
                         setSelectedDeps(selectedDeps.filter(id => id !== item.id))
+                        if (item.valid && !multiple) {
+                          onClose()
+                        }
                       }}
                       onSelect={() => {
                         setSelected(index)
@@ -286,6 +289,9 @@ function Dialog({ onClose }) {
                             }}
                             onRemoved={(item) => {
                               setSelectedDeps(selectedDeps.filter(id => id !== item.id))
+                              if (item.valid && !multiple) {
+                                onClose()
+                              }
                             }}
                             onSelect={i => {
                               setSelected(i)
