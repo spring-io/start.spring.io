@@ -31,7 +31,6 @@ function Dialog({ onClose }) {
   const wrapper = useRef(null)
   const input = useRef(null)
   const dialog = useRef(null)
-  const selectedDependencies = useRef(null)
 
   const { values, dispatch } = useContext(InitializrContext)
   const [query, setQuery] = useState('')
@@ -40,20 +39,13 @@ function Dialog({ onClose }) {
   const [search, setSearch] = useState(null)
   const [multiple, setMultiple] = useState(false)
   const [groups, setGroups] = useState([])
+  const [selectedDeps, setSelectedDeps] = useState([])
 
   const add = id => {
     dispatch({
       type: 'ADD_DEPENDENCY',
       payload: { id },
     })
-  }
-
-  const remove = (id) => {
-    dispatch({
-      type: 'REMOVE_DEPENDENCY',
-      payload: { id },
-    })
-    textFocus()
   }
 
   useEffect(() => {
@@ -65,19 +57,8 @@ function Dialog({ onClose }) {
     jsSearchUp.addDocuments(get(depsContext, 'list'))
     setSearch(jsSearchUp)
 
-    setGroups(
-      get(depsContext, 'groups', [])
-        .map(group => {
-          return {
-            group: group.group,
-            items: group.items.filter(
-              itemGroup =>
-                !get(values, 'dependencies', []).find(o => o === itemGroup.id)
-            ),
-          }
-        })
-        .filter(group => group.items.length > 0)
-    )
+    setGroups(get(depsContext, 'groups', []).filter(group => group.items.length > 0))
+    setSelectedDeps(values.dependencies)
   }, [values, depsContext, values.dependencies])
 
   useEffect(() => {
@@ -109,12 +90,10 @@ function Dialog({ onClose }) {
   useEffect(() => {
     const clickOutside = event => {
       const children = get(wrapper, 'current')
-      const selectedDeps = get(selectedDependencies, 'current')
       if (
-        (children &&
-          !children.contains(event.target) &&
-          event.target.id !== 'input-quicksearch') &&
-        (!selectedDeps || (selectedDeps && !selectedDeps.contains(event.target)))
+        children &&
+        !children.contains(event.target) &&
+        event.target.id !== 'input-quicksearch'
       ) {
         onClose()
       }
@@ -259,33 +238,7 @@ function Dialog({ onClose }) {
                   Press {windowsUtils.symb} for multiple adds{' '}
                 </span>
               </div>
-              {values.dependencies.length > 0 &&
-                <div
-                  id='selected-dependencies'
-                  className='selected-dependencies'
-                  ref={selectedDependencies}
-                >
-                  <span>Selected</span>
-                  {values.dependencies.map(dep => (
-                    <div className="selected">
-                      <span>{
-                        depsContext.list
-                          .filter(item => item.id === dep)
-                          .map(item => item.name)
-                          .at(0)
-                      }
-                      </span>
-                      <span
-                        className='dialog-remove-dependency'
-                        onClick={() => remove(dep)}
-                      >
-                        <IconTimes />
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              }
-              <ul ref={wrapper} style={{ top: values.dependencies.length > 0 ? '100px' : '50px' }}>
+              <ul ref={wrapper}>
                 {query.trim()
                   ? result.map((item, index) => (
                     <Item
@@ -293,11 +246,16 @@ function Dialog({ onClose }) {
                       item={item}
                       index={index}
                       key={item.id}
-                      onAdd={() => {
+                      added={selectedDeps.includes(item.id)}
+                      onAdd={(item) => {
                         textFocus()
+                        setSelectedDeps([...selectedDeps, item.id])
                         if (item.valid && !multiple) {
                           onClose()
                         }
+                      }}
+                      onRemoved={(item) => {
+                        setSelectedDeps(selectedDeps.filter(id => id !== item.id))
                       }}
                       onSelect={() => {
                         setSelected(index)
@@ -314,15 +272,20 @@ function Dialog({ onClose }) {
                         return (
                           <Item
                             selected={selected === currentIndex}
+                            added={selectedDeps.includes(itemGroup.id)}
                             item={itemGroup}
                             key={itemGroup.id}
                             index={currentIndex}
                             group={false}
-                            onAdd={() => {
+                            onAdd={(item) => {
                               textFocus()
+                              setSelectedDeps([...selectedDeps, item.id])
                               if (itemGroup.valid && !multiple) {
                                 onClose()
                               }
+                            }}
+                            onRemoved={(item) => {
+                              setSelectedDeps(selectedDeps.filter(id => id !== item.id))
                             }}
                             onSelect={i => {
                               setSelected(i)
