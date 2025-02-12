@@ -48,6 +48,13 @@ function Dialog({ onClose }) {
     })
   }
 
+  const remove = id => {
+    dispatch({
+      type: 'REMOVE_DEPENDENCY',
+      payload: { id: id },
+    })
+  }
+
   useEffect(() => {
     const jsSearchUp = new JsSearch.Search('name')
     jsSearchUp.addIndex('name')
@@ -157,7 +164,11 @@ function Dialog({ onClose }) {
       case 13: // Enter
         event.preventDefault()
         if (selected < result.length && result[selected].valid) {
-          add(result[selected].id)
+          if (!selectedDeps.find(id => id === result[selected].id)) {
+            add(result[selected].id)
+          } else {
+            remove(result[selected].id)
+          }
         }
         if (!multiple) {
           onClose()
