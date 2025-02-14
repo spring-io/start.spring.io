@@ -84,7 +84,7 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.3.0,3.5.0-M1)"
-            version: 1.0.0-M5
+            version: 1.0.0-M6
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1498,7 +1498,7 @@ initializr:
           id: spring-ai-bedrock
           group-id: org.springframework.ai
           artifact-id: spring-ai-bedrock-ai-spring-boot-starter
-          description: Spring AI support for Amazon Bedrock. It is a managed service that provides foundation models from various AI providers, available through a unified API.
+          description: Spring AI support for Amazon Bedrock Cohere and Titan Embedding Models.
           bom: spring-ai
           starter: true
           links:
