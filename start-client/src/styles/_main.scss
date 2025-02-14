@@ -953,6 +953,27 @@ button.button {
           height: $height;
           right: 15px;
         }
+        &.added {
+          color: white;
+          background: darken($light-primary, 10);
+          margin-bottom: -1px;
+          margin-top: -1px;
+          padding: 13px 1rem;
+          padding-right: 45px;
+          box-shadow: inset 0 1px 0 rgba(white, 0.2);
+          &:hover {
+            strong {
+              color: white;
+            }
+          }
+          span.group {
+            background: white;
+            color: $light-color;
+          }
+          .icon-enter {
+            display: block;
+          }
+        }
         &.selected {
           color: white;
           background: $light-primary;

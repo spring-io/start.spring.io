@@ -5,26 +5,31 @@ import React, { useContext } from 'react'
 import { IconEnter } from '../icons'
 import { InitializrContext } from '../../reducer/Initializr'
 
-function Item({ item, selected, onSelect, onAdd, group, index }) {
+function Item({ item, selected, onSelect, onAdd, onRemoved, group, index, added }) {
   const { dispatch } = useContext(InitializrContext)
 
   const onClick = event => {
     event.preventDefault()
-    if (item.valid) {
+    if (item.valid && !added) {
       dispatch({
         type: 'ADD_DEPENDENCY',
         payload: { id: item.id },
       })
+      onAdd(item)
+    } else if (item.valid && added) {
+      dispatch({
+        type: 'REMOVE_DEPENDENCY',
+        payload: { id: item.id },
+      })
+      onRemoved(item)
     }
-    onAdd()
   }
   return (
     <li key={`li-${get(item, 'id')}`}>
       <a
         href='/'
-        className={`dependency ${selected ? 'selected' : ''} ${
-          !item.valid ? 'disabled' : ''
-        }`}
+        className={`dependency ${selected ? 'selected' : ''} ${added ? 'added' : ''} ${!item.valid ? 'disabled' : ''
+          }`}
         onClick={onClick}
         onMouseMove={() => {
           onSelect(index)

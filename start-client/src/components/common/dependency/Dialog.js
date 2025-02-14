@@ -39,11 +39,19 @@ function Dialog({ onClose }) {
   const [search, setSearch] = useState(null)
   const [multiple, setMultiple] = useState(false)
   const [groups, setGroups] = useState([])
+  const [selectedDeps, setSelectedDeps] = useState([])
 
   const add = id => {
     dispatch({
       type: 'ADD_DEPENDENCY',
       payload: { id },
+    })
+  }
+
+  const remove = id => {
+    dispatch({
+      type: 'REMOVE_DEPENDENCY',
+      payload: { id: id },
     })
   }
 
@@ -56,19 +64,8 @@ function Dialog({ onClose }) {
     jsSearchUp.addDocuments(get(depsContext, 'list'))
     setSearch(jsSearchUp)
 
-    setGroups(
-      get(depsContext, 'groups', [])
-        .map(group => {
-          return {
-            group: group.group,
-            items: group.items.filter(
-              itemGroup =>
-                !get(values, 'dependencies', []).find(o => o === itemGroup.id)
-            ),
-          }
-        })
-        .filter(group => group.items.length > 0)
-    )
+    setGroups(get(depsContext, 'groups', []).filter(group => group.items.length > 0))
+    setSelectedDeps(values.dependencies)
   }, [values, depsContext, values.dependencies])
 
   useEffect(() => {
@@ -89,9 +86,6 @@ function Dialog({ onClose }) {
       if (query.trim()) {
         vals = sortResult(search.search(query))
       }
-      vals = vals.filter(
-        item => !get(values, 'dependencies', []).find(o => o === item.id)
-      )
       setResult(vals)
     }
     onSearch()
@@ -170,7 +164,11 @@ function Dialog({ onClose }) {
       case 13: // Enter
         event.preventDefault()
         if (selected < result.length && result[selected].valid) {
-          add(result[selected].id)
+          if (!selectedDeps.find(id => id === result[selected].id)) {
+            add(result[selected].id)
+          } else {
+            remove(result[selected].id)
+          }
         }
         if (!multiple) {
           onClose()
@@ -202,7 +200,7 @@ function Dialog({ onClose }) {
 
   const onEnded = () => {
     setMultiple(false)
-    setTimeout(() => {}, 300)
+    setTimeout(() => { }, 300)
   }
 
   let currentIndex = -1
@@ -251,50 +249,66 @@ function Dialog({ onClose }) {
               <ul ref={wrapper}>
                 {query.trim()
                   ? result.map((item, index) => (
-                      <Item
-                        selected={selected === index}
-                        item={item}
-                        index={index}
-                        key={item.id}
-                        onAdd={() => {
-                          textFocus()
-                          if (item.valid && !multiple) {
-                            onClose()
-                          }
-                        }}
-                        onSelect={() => {
-                          setSelected(index)
-                        }}
-                      />
-                    ))
+                    <Item
+                      selected={selected === index}
+                      item={item}
+                      index={index}
+                      key={item.id}
+                      added={selectedDeps.includes(item.id)}
+                      onAdd={(item) => {
+                        textFocus()
+                        setSelectedDeps([...selectedDeps, item.id])
+                        if (item.valid && !multiple) {
+                          onClose()
+                        }
+                      }}
+                      onRemoved={(item) => {
+                        setSelectedDeps(selectedDeps.filter(id => id !== item.id))
+                        if (item.valid && !multiple) {
+                          onClose()
+                        }
+                      }}
+                      onSelect={() => {
+                        setSelected(index)
+                      }}
+                    />
+                  ))
                   : groups.map(group => (
-                      <>
-                        <li key={group.group} className='group-title'>
-                          <span>{group.group}</span>
-                        </li>
-                        {group.items.map(itemGroup => {
-                          currentIndex = +`${currentIndex + 1}`
-                          return (
-                            <Item
-                              selected={selected === currentIndex}
-                              item={itemGroup}
-                              key={itemGroup.id}
-                              index={currentIndex}
-                              group={false}
-                              onAdd={() => {
-                                textFocus()
-                                if (itemGroup.valid && !multiple) {
-                                  onClose()
-                                }
-                              }}
-                              onSelect={i => {
-                                setSelected(i)
-                              }}
-                            />
-                          )
-                        })}
-                      </>
-                    ))}
+                    <>
+                      <li key={group.group} className='group-title'>
+                        <span>{group.group}</span>
+                      </li>
+                      {group.items.map(itemGroup => {
+                        currentIndex = +`${currentIndex + 1}`
+                        return (
+                          <Item
+                            selected={selected === currentIndex}
+                            added={selectedDeps.includes(itemGroup.id)}
+                            item={itemGroup}
+                            key={itemGroup.id}
+                            index={currentIndex}
+                            group={false}
+                            onAdd={(item) => {
+                              textFocus()
+                              setSelectedDeps([...selectedDeps, item.id])
+                              if (itemGroup.valid && !multiple) {
+                                onClose()
+                              }
+                            }}
+                            onRemoved={(item) => {
+                              setSelectedDeps(selectedDeps.filter(id => id !== item.id))
+                              if (item.valid && !multiple) {
+                                onClose()
+                              }
+                            }}
+                            onSelect={i => {
+                              setSelected(i)
+                            }}
+                          />
+                        )
+                      })}
+                    </>
+                  ))}
               </ul>
             </div>
           </CSSTransition>
