@@ -1544,6 +1544,26 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/elasticsearch.html
+        - name: Model Context Protocol Server
+          id: spring-ai-mcp-server
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-mcp-server-spring-boot-starter
+          description: Spring AI support for setting up Model Context Protocol (MCP) servers.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html
+        - name: Model Context Protocol Client
+          id: spring-ai-mcp-client
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-mcp-client-spring-boot-starter
+          description: Spring AI support for Model Context Protocol (MCP) clients.
+          bom: spring-ai
+          starter: true
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html
         - name: Milvus Vector Database
           id: spring-ai-vectordb-milvus
           group-id: org.springframework.ai

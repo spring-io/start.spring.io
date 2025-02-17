@@ -30,6 +30,7 @@ io.spring.start.site.extension.dependency.sbom.SbomProjectGenerationConfiguratio
 io.spring.start.site.extension.dependency.solace.SolaceProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiChromaProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiDockerComposeProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiMcpProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiMilvusProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiMongoDbAtlasProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiOllamaProjectGenerationConfiguration,\
