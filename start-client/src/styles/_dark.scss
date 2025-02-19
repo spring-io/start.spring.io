@@ -390,13 +390,28 @@ body.dark {
     color: $dark-color;
   }
   .dialog-dependencies ul li a.dependency.added {
-    background: darken($dark-primary, 10);
+    background: #145374;
+    color: $dark-color;
+  }
+  .dialog-dependencies ul li a.dependency.added:hover {
+    background: darken(#145374, 5%);
+    color: $dark-color;
+  }
+  .dialog-dependencies ul li a.dependency.added:hover strong {
+    color: $dark-color;
+  }
+  .dialog-dependencies ul li a.dependency.added .icon-enter {
+    fill: $dark-color;
   }
   .dialog-dependencies ul li.group-title span,
   .dialog-dependencies ul li a.dependency.selected,
   ul.dependencies-list li div span.group,
   .dialog-dependencies ul li a.dependency span.group {
     background: $dark-primary;
+  }
+  .dialog-dependencies ul li a.dependency.added.selected {
+    background: darken(#145374, 5%);
+    color: $dark-color;
   }
   .dialog-dependencies ul li a.dependency.selected span.group {
     background: white;
