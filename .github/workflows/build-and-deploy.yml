@@ -44,7 +44,7 @@ jobs:
       - name: Set up Azure
         uses: azure/login@a65d910e8af852a8061c627c456678983e180302 # v2.2.0
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS_SPRING_IO }}
+          creds: ${{ secrets.AZURE_CREDENTIALS_SPRING_ASA }}
 
       - name: Set up Azure Spring Extension
         run: az extension add --name spring
@@ -53,8 +53,8 @@ jobs:
         run: |
           az spring app deploy \
             --name start-spring-io \
-            --service spring-io \
-            --resource-group spring-io \
+            --service spring-asa \
+            --resource-group spring-asa \
             --artifact-path start-site/target/start-site-exec.jar
 
       - name: Send notification
