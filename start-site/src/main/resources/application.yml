@@ -56,7 +56,7 @@ initializr:
         versionProperty: netflix-dgs.version
         mappings:
           - compatibilityRange: "[3.3.0,3.5.0-M1)"
-            version: 10.0.3
+            version: 10.0.4
       sentry:
         groupId: io.sentry
         artifactId: sentry-bom
