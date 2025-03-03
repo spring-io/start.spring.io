@@ -102,6 +102,7 @@ class DgsCodegenProjectGenerationConfigurationTests extends AbstractExtensionTes
 				"							</schemaPaths>",
 				"							<packageName>com.example.demo.codegen</packageName>",
 				"							<addGeneratedAnnotation>true</addGeneratedAnnotation>",
+				"							<disableDatesInGeneratedAnnotation>true</disableDatesInGeneratedAnnotation>",
 				"						</configuration>",
 				"					</execution>",
 				"				</executions>",
