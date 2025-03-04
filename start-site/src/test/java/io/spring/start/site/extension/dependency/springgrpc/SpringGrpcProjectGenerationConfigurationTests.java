@@ -174,4 +174,20 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 		assertThat(generateProject(request)).containsDirectories("src/main/proto");
 	}
 
+	@Test
+	void shouldNotReplaceStarterIfWebMvcIsntSelected() {
+		ProjectRequest request = createProjectRequest(SPRING_GRPC);
+		assertThat(mavenPom(request)).hasDependency("org.springframework.grpc", "spring-grpc-spring-boot-starter", null,
+				Dependency.SCOPE_COMPILE);
+	}
+
+	@Test
+	void shouldReplaceStarterIfWebMvcIsSelected() {
+		ProjectRequest request = createProjectRequest(SPRING_GRPC, "web");
+		assertThat(mavenPom(request))
+			.hasDependency("org.springframework.grpc", "spring-grpc-server-web-spring-boot-starter", null,
+					Dependency.SCOPE_COMPILE)
+			.doesNotHaveDependency("org.springframework.grpc", "spring-grpc-spring-boot-starter");
+	}
+
 }
