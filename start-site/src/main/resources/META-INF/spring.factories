@@ -51,6 +51,7 @@ io.spring.start.site.extension.dependency.springmodulith.SpringModulithProjectGe
 io.spring.start.site.extension.dependency.springpulsar.SpringPulsarProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springrestdocs.SpringRestDocsProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.sqlserver.SqlServerProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.tanzu.spring.enterprise.TanzuEnterpriseProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.testcontainers.TestcontainersProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.vaadin.VaadinProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.zipkin.ZipkinProjectGenerationConfiguration,\
