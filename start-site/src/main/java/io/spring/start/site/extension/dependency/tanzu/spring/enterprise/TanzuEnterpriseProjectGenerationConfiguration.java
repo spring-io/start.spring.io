@@ -39,4 +39,9 @@ class TanzuEnterpriseProjectGenerationConfiguration {
 		return new TanzuEnterpriseHelpDocumentCustomizer(metadata, description, templateRenderer, build);
 	}
 
+	@Bean
+	TanzuEnterpriseScgExtensionsBuildCustomizer tanzuEnterpriseScgExtensionsBuildCustomizer() {
+		return new TanzuEnterpriseScgExtensionsBuildCustomizer();
+	}
+
 }
