@@ -837,9 +837,9 @@ initializr:
           compatibilityRange: "[3.3.0,3.5.0-M1)"
           mappings:
             - compatibilityRange: "[3.3.0,3.4.0-M1)"
-              version: 4.8.4
+              version: 4.8.5
             - compatibilityRange: "[3.4.0,3.5.0-M1)"
-              version: 4.10.1
+              version: 4.10.2
           description: Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
           groupId: org.apache.camel.springboot
           artifactId: camel-spring-boot-starter
