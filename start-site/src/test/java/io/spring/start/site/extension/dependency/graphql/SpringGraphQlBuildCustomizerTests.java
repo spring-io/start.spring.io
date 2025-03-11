@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency.graphql;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,40 +27,16 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringGraphQlBuildCustomizer}.
  *
  * @author Brian Clozel
+ * @author Moritz Halbritter
  */
 class SpringGraphQlBuildCustomizerTests extends AbstractExtensionTests {
 
-	private Dependency graphQlTest;
-
-	private Dependency webFlux;
-
-	@BeforeEach
-	void setup() {
-		this.graphQlTest = Dependency.withId("spring-graphql-test", "org.springframework.graphql",
-				"spring-graphql-test");
-		this.graphQlTest.setScope(Dependency.SCOPE_TEST);
-		this.webFlux = Dependency.withId("spring-webflux", "org.springframework", "spring-webflux");
-		this.webFlux.setScope(Dependency.SCOPE_TEST);
-	}
-
 	@Test
-	void shouldAddTestingDependencyWhenWebFlux() {
-		ProjectRequest request = createProjectRequest("webflux", "graphql");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webflux"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependency(this.graphQlTest)
-			.doesNotHaveDependency("org.springframework", "spring-webflux")
-			.hasDependenciesSize(5);
-	}
-
-	@Test
-	void shouldAddTestingDependencyAndWebFluxWhenWeb() {
-		ProjectRequest request = createProjectRequest("web", "graphql");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependency(this.graphQlTest)
-			.hasDependency(this.webFlux)
-			.hasDependenciesSize(5);
+	void shouldAddGraphQlTestDependency() {
+		ProjectRequest request = createProjectRequest("graphql");
+		assertThat(mavenPom(request))
+			.hasDependency("org.springframework.graphql", "spring-graphql-test", null, Dependency.SCOPE_TEST)
+			.doesNotHaveDependency("org.springframework", "spring-webflux");
 	}
 
 }
