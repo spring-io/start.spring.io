@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,6 +75,18 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 			.hasProperty("java.version", "21");
 	}
 
+	@Test
+	void java24IsNotSupportedWithKotlin() {
+		assertThat(mavenPom(kotlinProject("24", SupportedBootVersion.latest().getVersion())))
+			.hasProperty("java.version", "21");
+	}
+
+	@Test
+	void springBoot33usesJava23() {
+		assertThat(mavenPom(javaProject("24", SupportedBootVersion.V3_3.getVersion()))).hasProperty("java.version",
+				"23");
+	}
+
 	static Stream<Arguments> supportedMavenParameters() {
 		return Stream.concat(supportedJavaParameters(),
 				Stream.concat(supportedKotlinParameters(), supportedGroovyParameters()));
@@ -87,7 +99,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	private static Stream<Arguments> supportedJavaParameters() {
 		return Stream.of(java("17", SupportedBootVersion.latest().getVersion()),
 				java("21", SupportedBootVersion.latest().getVersion()),
-				java("23", SupportedBootVersion.latest().getVersion()));
+				java("24", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
@@ -96,7 +108,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	private static Stream<Arguments> supportedGroovyParameters() {
 		return Stream.of(groovy("21", SupportedBootVersion.latest().getVersion()),
-				groovy("23", SupportedBootVersion.latest().getVersion()));
+				groovy("24", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {
