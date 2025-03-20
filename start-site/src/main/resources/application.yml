@@ -94,7 +94,7 @@ initializr:
           - compatibilityRange: "[3.3.0,3.4.0-M1)"
             version: 2023.0.5
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 2024.0.0
+            version: 2024.0.1
           - compatibilityRange: "[3.5.0-M1,3.6.0-M1)"
             version: 2025.0.0-M2
             repositories:
