@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@
 package io.spring.start.site.extension.dependency.sbom;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 /**
  * {@link BuildCustomizer} that adds the CycloneDX Gradle plugin.
@@ -26,11 +28,27 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 class SbomCycloneDxGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private static final String PLUGIN_VERSION = "1.10.0";
+	private static final String DEFAULT_PLUGIN_VERSION = "1.10.0";
+
+	private final MavenVersionResolver versionResolver;
+
+	private final ProjectDescription description;
+
+	SbomCycloneDxGradleBuildCustomizer(MavenVersionResolver versionResolver, ProjectDescription description) {
+		this.versionResolver = versionResolver;
+		this.description = description;
+	}
 
 	@Override
 	public void customize(GradleBuild build) {
-		build.plugins().add("org.cyclonedx.bom", (plugin) -> plugin.setVersion(PLUGIN_VERSION));
+		String pluginVersion = this.versionResolver
+			.resolveDependencies("org.springframework.boot", "spring-boot-parent",
+					this.description.getPlatformVersion().toString())
+			.get("org.cyclonedx:cyclonedx-gradle-plugin");
+
+		build.plugins()
+			.add("org.cyclonedx.bom",
+					(plugin) -> plugin.setVersion((pluginVersion != null) ? pluginVersion : DEFAULT_PLUGIN_VERSION));
 	}
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,9 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 import org.springframework.context.annotation.Bean;
 
@@ -46,8 +48,9 @@ class SbomProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
-	SbomCycloneDxGradleBuildCustomizer sbomCycloneDxGradleBuildCustomizer() {
-		return new SbomCycloneDxGradleBuildCustomizer();
+	SbomCycloneDxGradleBuildCustomizer sbomCycloneDxGradleBuildCustomizer(MavenVersionResolver versionResolver,
+			ProjectDescription description) {
+		return new SbomCycloneDxGradleBuildCustomizer(versionResolver, description);
 	}
 
 }
