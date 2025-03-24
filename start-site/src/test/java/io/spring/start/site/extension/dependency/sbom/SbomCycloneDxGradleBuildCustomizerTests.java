@@ -96,10 +96,4 @@ class SbomCycloneDxGradleBuildCustomizerTests {
 		return this.description.getPlatformVersion().toString();
 	}
 
-	private GradlePlugin plugin(String version) {
-		StandardGradlePlugin plugin = new StandardGradlePlugin("org.cyclonedx.bom");
-		plugin.setVersion(version);
-		return plugin;
-	}
-
 }
