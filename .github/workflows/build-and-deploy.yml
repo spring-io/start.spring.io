@@ -42,7 +42,7 @@ jobs:
         run: ./mvnw --batch-mode --update-snapshots verify
 
       - name: Set up Azure
-        uses: azure/login@a65d910e8af852a8061c627c456678983e180302 # v2.2.0
+        uses: azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5 # v2.3.0
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS_SPRING_ASA }}
 
