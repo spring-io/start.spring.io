@@ -151,6 +151,13 @@ initializr:
         mappings:
           - compatibilityRange: "[3.3.0,3.5.0-M1)"
             version: 3.4.0
+      tanzu-scg-extensions:
+        groupId: com.vmware.tanzu.springcloudgateway.extensions
+        artifactId: extensions-bom
+        versionProperty: tanzu-scg-extensions.version
+        mappings:
+          - compatibilityRange: "[3.3.0,3.5.0-M1)"
+            version: 1.0.0
       timefold-solver:
         groupId: ai.timefold.solver
         artifactId: timefold-solver-bom
@@ -1351,6 +1358,86 @@ initializr:
           links:
             - rel: reference
               href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
+    - name: VMware Tanzu Spring Enterprise Extensions
+      compatibilityRange: "[3.3.0,3.5.0-M1)"
+      content:
+        - name: Governance Starter [Enterprise]
+          id: tanzu-governance-starter
+          description: The Enterprise Spring Boot Governance Starter library enforces cipher and TLS security based on the industry standard, and empowers Spring developers to auto-generate compliance and governance reporting information for their applications.
+          groupId: com.vmware.tanzu.spring.governance
+          artifactId: governance-starter
+          version: 1.3.1
+          facets:
+            - tanzu-spring-enterprise
+          links:
+            - rel: reference
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring/commercial/spring-tanzu/index-sbgs.html
+        - name: Spring Cloud Gateway Access Control [Enterprise]
+          id: tanzu-scg-access-control
+          bom: tanzu-scg-extensions
+          description: Spring Cloud Gateway filters for access control based on API keys or JWT Tokens.
+          groupId: com.vmware.tanzu.springcloudgateway.extensions
+          artifactId: access-control
+          facets:
+            - tanzu-spring-enterprise
+          links:
+            - rel: reference
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/access-control.html
+        - name: Spring Cloud Gateway Custom [Enterprise]
+          id: tanzu-scg-custom
+          bom: tanzu-scg-extensions
+          description: Spring Cloud Gateway filters to help develop custom filters.
+          groupId: com.vmware.tanzu.springcloudgateway.extensions
+          artifactId: custom
+          facets:
+            - tanzu-spring-enterprise
+          links:
+            - rel: reference
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/custom.html
+        - name: Spring Cloud Gateway GraphQL [Enterprise]
+          id: tanzu-scg-graphql
+          bom: tanzu-scg-extensions
+          description: Spring Cloud Gateway filters to restrict GraphQL operations.
+          groupId: com.vmware.tanzu.springcloudgateway.extensions
+          artifactId: graphql
+          facets:
+            - tanzu-spring-enterprise
+          links:
+            - rel: reference
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/graphql.html
+        - name: Spring Cloud Gateway Single Sign On [Enterprise]
+          id: tanzu-scg-sso
+          bom: tanzu-scg-extensions
+          description: Spring Cloud Gateway filters to add single sign-on (SSO) and restrict traffic based on roles or scopes.
+          groupId: com.vmware.tanzu.springcloudgateway.extensions
+          artifactId: sso
+          facets:
+            - tanzu-spring-enterprise
+          links:
+            - rel: reference
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/sso.html
+        - name: Spring Cloud Gateway Traffic Control [Enterprise]
+          id: tanzu-scg-traffic-control
+          bom: tanzu-scg-extensions
+          description: Spring Cloud Gateway filters to restrict traffic based on request parameters and add circuit breakers.
+          groupId: com.vmware.tanzu.springcloudgateway.extensions
+          artifactId: traffic-control
+          facets:
+            - tanzu-spring-enterprise
+          links:
+            - rel: reference
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/traffic-control.html
+        - name: Spring Cloud Gateway Transformation [Enterprise]
+          id: tanzu-scg-transformation
+          bom: tanzu-scg-extensions
+          description: Spring Cloud Gateway filters to transform the response before returning downstream.
+          groupId: com.vmware.tanzu.springcloudgateway.extensions
+          artifactId: transformation
+          facets:
+            - tanzu-spring-enterprise
+          links:
+            - rel: reference
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/transformation.html
     - name: Microsoft Azure
       bom: spring-cloud-azure
       compatibilityRange: "[3.3.0,3.5.0-M1)"
