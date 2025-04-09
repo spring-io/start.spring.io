@@ -101,7 +101,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>flatten-maven-plugin</artifactId>
-					<version>1.6.0</version>
+					<version>1.7.0</version>
 				</plugin>
 				<plugin>
 					<groupId>io.spring.javaformat</groupId>
@@ -141,7 +141,7 @@
 						<dependency>
 							<groupId>com.puppycrawl.tools</groupId>
 							<artifactId>checkstyle</artifactId>
-							<version>10.21.2</version>
+							<version>10.21.4</version>
 						</dependency>
 						<dependency>
 							<groupId>io.spring.javaformat</groupId>
@@ -163,7 +163,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.5.2</version>
+					<version>3.5.3</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
