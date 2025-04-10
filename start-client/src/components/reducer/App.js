@@ -82,7 +82,7 @@ export function reducer(state, action) {
       const keys = Object.keys(get(action, 'payload', {}))
       keys.map(key => {
         if (keysContext.indexOf(key) === -1) {
-          throw Error('Error AppProvider, invalid paylaod field action')
+          throw Error('Error AppProvider, invalid payload field action')
         }
         const value = get(action, `payload.${key}`)
         set(newState, key, value)
