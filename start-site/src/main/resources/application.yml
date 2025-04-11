@@ -83,8 +83,8 @@ initializr:
         artifactId: spring-ai-bom
         versionProperty: spring-ai.version
         mappings:
-          - compatibilityRange: "[3.3.0,3.5.0-M1)"
-            version: 1.0.0-M6
+          - compatibilityRange: "[3.4.0,3.5.0-M1)"
+            version: 1.0.0-M7
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1553,12 +1553,12 @@ initializr:
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
     - name: AI
-      compatibilityRange: "[3.3.0,3.5.0-M1)"
+      compatibilityRange: "[3.4.0,3.5.0-M1)"
       content:
         - name: Anthropic Claude
           id: spring-ai-anthropic
           group-id: org.springframework.ai
-          artifact-id: spring-ai-anthropic-spring-boot-starter
+          artifact-id: spring-ai-starter-model-anthropic
           description: Spring AI support for Anthropic Claude AI models.
           bom: spring-ai
           starter: true
@@ -1568,7 +1568,7 @@ initializr:
         - name: Azure OpenAI
           id: spring-ai-azure-openai
           group-id: org.springframework.ai
-          artifact-id: spring-ai-azure-openai-spring-boot-starter
+          artifact-id: spring-ai-starter-model-azure-openai
           description: Spring AI support for Azure’s OpenAI offering, powered by ChatGPT. It extends beyond traditional OpenAI capabilities, delivering AI-driven text generation with enhanced functionality.
           bom: spring-ai
           starter: true
@@ -1578,7 +1578,7 @@ initializr:
         - name: Azure AI Search
           id: spring-ai-vectordb-azure
           group-id: org.springframework.ai
-          artifact-id: spring-ai-azure-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-azure
           description: Spring AI vector database support for Azure AI Search. It is an AI-powered information retrieval platform and part of Microsoft’s larger AI platform. Among other features, it allows users to query information using vector-based storage and retrieval.
           bom: spring-ai
           starter: true
@@ -1588,7 +1588,7 @@ initializr:
         - name: Amazon Bedrock
           id: spring-ai-bedrock
           group-id: org.springframework.ai
-          artifact-id: spring-ai-bedrock-ai-spring-boot-starter
+          artifact-id: spring-ai-starter-model-bedrock
           description: Spring AI support for Amazon Bedrock Cohere and Titan Embedding Models.
           bom: spring-ai
           starter: true
@@ -1598,7 +1598,7 @@ initializr:
         - name: Amazon Bedrock Converse
           id: spring-ai-bedrock-converse
           group-id: org.springframework.ai
-          artifact-id: spring-ai-bedrock-converse-spring-boot-starter
+          artifact-id: spring-ai-starter-model-bedrock-converse
           description: Spring AI support for Amazon Bedrock Converse. It provides a unified interface for conversational AI models with enhanced capabilities including function/tool calling, multimodal inputs, and streaming responses.
           bom: spring-ai
           starter: true
@@ -1608,7 +1608,7 @@ initializr:
         - name: Apache Cassandra Vector Database
           id: spring-ai-vectordb-cassandra
           group-id: org.springframework.ai
-          artifact-id: spring-ai-cassandra-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-cassandra
           description: Spring AI vector database support for Apache Cassandra.
           bom: spring-ai
           starter: true
@@ -1618,7 +1618,7 @@ initializr:
         - name: Chroma Vector Database
           id: spring-ai-vectordb-chroma
           group-id: org.springframework.ai
-          artifact-id: spring-ai-chroma-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-chroma
           description: Spring AI vector database support for Chroma. It is an open-source embedding database and gives you the tools to store document embeddings, content, and metadata. It also allows to search through those embeddings, including metadata filtering.
           bom: spring-ai
           starter: true
@@ -1628,7 +1628,7 @@ initializr:
         - name: Elasticsearch Vector Database
           id: spring-ai-vectordb-elasticsearch
           group-id: org.springframework.ai
-          artifact-id: spring-ai-elasticsearch-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-elasticsearch
           description: Spring AI vector database support for Elasticsearch.
           bom: spring-ai
           starter: true
@@ -1638,8 +1638,8 @@ initializr:
         - name: Model Context Protocol Server
           id: spring-ai-mcp-server
           group-id: org.springframework.ai
-          artifact-id: spring-ai-mcp-server-spring-boot-starter
-          description: Spring AI support for setting up Model Context Protocol (MCP) servers.
+          artifact-id: spring-ai-starter-mcp-server
+          description: Spring AI support for Model Context Protocol (MCP) servers.
           bom: spring-ai
           starter: true
           links:
@@ -1648,7 +1648,7 @@ initializr:
         - name: Model Context Protocol Client
           id: spring-ai-mcp-client
           group-id: org.springframework.ai
-          artifact-id: spring-ai-mcp-client-spring-boot-starter
+          artifact-id: spring-ai-starter-mcp-client
           description: Spring AI support for Model Context Protocol (MCP) clients.
           bom: spring-ai
           starter: true
@@ -1658,7 +1658,7 @@ initializr:
         - name: Milvus Vector Database
           id: spring-ai-vectordb-milvus
           group-id: org.springframework.ai
-          artifact-id: spring-ai-milvus-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-milvus
           description: Spring AI vector database support for Milvus. It is an open-source vector database that has garnered significant attention in the fields of data science and machine learning. One of its standout features lies in its robust support for vector indexing and querying.
           bom: spring-ai
           starter: true
@@ -1668,7 +1668,7 @@ initializr:
         - name: Mistral AI
           id: spring-ai-mistral
           group-id: org.springframework.ai
-          artifact-id: spring-ai-mistral-ai-spring-boot-starter
+          artifact-id: spring-ai-starter-model-mistral-ai
           description: Spring AI support for Mistral AI, the open and portable generative AI for devs and businesses.
           bom: spring-ai
           starter: true
@@ -1678,7 +1678,7 @@ initializr:
         - name: MongoDB Atlas Vector Database
           id: spring-ai-vectordb-mongodb-atlas
           group-id: org.springframework.ai
-          artifact-id: spring-ai-mongodb-atlas-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-mongodb-atlas
           description: Spring AI vector database support for MongoDB Atlas. Is is a fully managed cloud database service that provides an easy way to deploy, operate, and scale a MongoDB database in the cloud.
           bom: spring-ai
           starter: true
@@ -1688,7 +1688,7 @@ initializr:
         - name: Neo4j Vector Database
           id: spring-ai-vectordb-neo4j
           group-id: org.springframework.ai
-          artifact-id: spring-ai-neo4j-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-neo4j
           description: Spring AI vector database support for Neo4j's Vector Search. It allows users to query vector embeddings from large datasets.
           bom: spring-ai
           starter: true
@@ -1698,7 +1698,7 @@ initializr:
         - name: Ollama
           id: spring-ai-ollama
           group-id: org.springframework.ai
-          artifact-id: spring-ai-ollama-spring-boot-starter
+          artifact-id: spring-ai-starter-model-ollama
           description: Spring AI support for Ollama. It allows you to run various Large Language Models (LLMs) locally and generate text from them.
           bom: spring-ai
           starter: true
@@ -1708,7 +1708,7 @@ initializr:
         - name: OpenAI
           id: spring-ai-openai
           group-id: org.springframework.ai
-          artifact-id: spring-ai-openai-spring-boot-starter
+          artifact-id: spring-ai-starter-model-openai
           description: Spring AI support for ChatGPT, the AI language model and DALL-E, the Image generation model from OpenAI.
           bom: spring-ai
           starter: true
@@ -1718,7 +1718,7 @@ initializr:
         - name: Oracle Vector Database
           id: spring-ai-vectordb-oracle
           group-id: org.springframework.ai
-          artifact-id: spring-ai-oracle-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-oracle
           description: Spring AI vector database support for Oracle. Enables storing, indexing and searching vector embeddings in Oracle Database 23ai.
           bom: spring-ai
           starter: true
@@ -1728,7 +1728,7 @@ initializr:
         - name: PGvector Vector Database
           id: spring-ai-vectordb-pgvector
           group-id: org.springframework.ai
-          artifact-id: spring-ai-pgvector-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-pgvector
           description: Spring AI vector database support for PGvector. It is an open-source extension for PostgreSQL that enables storing and searching over machine learning-generated embeddings.
           bom: spring-ai
           starter: true
@@ -1738,7 +1738,7 @@ initializr:
         - name: Pinecone Vector Database
           id: spring-ai-vectordb-pinecone
           group-id: org.springframework.ai
-          artifact-id: spring-ai-pinecone-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-pinecone
           description: Spring AI vector database support for Pinecone. It is a popular cloud-based vector database and allows you to store and search vectors efficiently.
           bom: spring-ai
           starter: true
@@ -1748,7 +1748,7 @@ initializr:
         - name: PostgresML
           id: spring-ai-postgresml
           group-id: org.springframework.ai
-          artifact-id: spring-ai-postgresml-spring-boot-starter
+          artifact-id: spring-ai-starter-model-postgresml-embedding
           description: Spring AI support for the PostgresML text embeddings models.
           bom: spring-ai
           starter: true
@@ -1758,7 +1758,7 @@ initializr:
         - name: Redis Search and Query Vector Database
           id: spring-ai-vectordb-redis
           group-id: org.springframework.ai
-          artifact-id: spring-ai-redis-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-redis
           description: Spring AI vector database support for Redis Search and Query. It extends the core features of Redis OSS and allows you to use Redis as a vector database.
           bom: spring-ai
           starter: true
@@ -1768,27 +1768,17 @@ initializr:
         - name: MariaDB Vector Database
           id: spring-ai-vectordb-mariadb
           group-id: org.springframework.ai
-          artifact-id: spring-ai-mariadb-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-mariadb
           description: Spring AI support for MariaDB. MariaDB Vector Store support is part of MariaDB 11.7. It provides efficient vector similarity search capabilities using vector indexes, supporting both cosine similarity and Euclidean distance metrics.
           bom: spring-ai
           starter: true
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/mariadb.html
-        - name: Oracle Coherence Vector Database
-          id: spring-ai-vectordb-coherence
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-coherence-store-spring-boot-starter
-          description: Spring AI support for Oracle Coherence. Oracle Coherence Vector Store is a key-value store with optional persistence, offering fault-tolerant automatic sharding, polyglot and REST interfaces, querying, transactions, eventing, and in-place processing, as well as change data capture, multi-site federation, messaging, and integrations with popular frameworks.
-          bom: spring-ai
-          starter: true
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/vectordbs.html
         - name: Azure Cosmos DB Vector Store
           id: spring-ai-vectordb-azurecosmosdb
           group-id: org.springframework.ai
-          artifact-id: spring-ai-azure-cosmos-db-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-azure-cosmos-db
           description: Spring AI support for Azure Cosmos DB. Azure Cosmos DB is Microsoft’s globally distributed cloud-native database service designed for mission-critical applications.
           bom: spring-ai
           starter: true
@@ -1798,7 +1788,7 @@ initializr:
         - name: Stability AI
           id: spring-ai-stabilityai
           group-id: org.springframework.ai
-          artifact-id: spring-ai-stability-ai-spring-boot-starter
+          artifact-id: spring-ai-starter-model-stability-ai
           description: Spring AI support for Stability AI's text to image generation model.
           bom: spring-ai
           starter: true
@@ -1808,7 +1798,7 @@ initializr:
         - name: Transformers (ONNX) Embeddings
           id: spring-ai-transformers
           group-id: org.springframework.ai
-          artifact-id: spring-ai-transformers-spring-boot-starter
+          artifact-id: spring-ai-starter-model-transformers
           description: Spring AI support for pre-trained transformer models, serialized into the Open Neural Network Exchange (ONNX) format.
           bom: spring-ai
           starter: true
@@ -1818,7 +1808,7 @@ initializr:
         - name: Vertex AI Gemini
           id: spring-ai-vertexai-gemini
           group-id: org.springframework.ai
-          artifact-id: spring-ai-vertex-ai-gemini-spring-boot-starter
+          artifact-id: spring-ai-starter-model-vertex-ai-gemini
           description: Spring AI support for Google Vertex Gemini chat. Doesn't support embeddings.
           bom: spring-ai
           starter: true
@@ -1828,7 +1818,7 @@ initializr:
         - name: Vertex AI Embeddings
           id: spring-ai-vertexai-embeddings
           group-id: org.springframework.ai
-          artifact-id: spring-ai-vertex-ai-embedding-spring-boot-starter
+          artifact-id: spring-ai-starter-model-vertex-ai-embedding
           description: Spring AI support for Google Vertex text and multimodal embedding models.
           bom: spring-ai
           starter: true
@@ -1842,7 +1832,7 @@ initializr:
         - name: Qdrant Vector Database
           id: spring-ai-vectordb-qdrant
           group-id: org.springframework.ai
-          artifact-id: spring-ai-qdrant-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-qdrant
           description: Spring AI vector database support for Qdrant. It is an open-source, high-performance vector search engine/database.
           bom: spring-ai
           starter: true
@@ -1852,7 +1842,7 @@ initializr:
         - name: Typesense Vector Database
           id: spring-ai-vectordb-typesense
           group-id: org.springframework.ai
-          artifact-id: spring-ai-typesense-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-typesense
           description: Spring AI vector database support for Typesense.
           bom: spring-ai
           starter: true
@@ -1862,7 +1852,7 @@ initializr:
         - name: Weaviate Vector Database
           id: spring-ai-vectordb-weaviate
           group-id: org.springframework.ai
-          artifact-id: spring-ai-weaviate-store-spring-boot-starter
+          artifact-id: spring-ai-starter-vector-store-weaviate
           description: Spring AI vector database support for Weaviate, an open-source vector database. It allows you to store data objects and vector embeddings from your favorite ML-models and scale seamlessly into billions of data objects.
           bom: spring-ai
           starter: true

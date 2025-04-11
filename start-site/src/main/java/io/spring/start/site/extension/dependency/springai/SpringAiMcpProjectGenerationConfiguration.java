@@ -29,6 +29,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on MCP server or client.
  *
  * @author Moritz Halbritter
+ * @author Ilayaperumal Gopinathan
  */
 @ProjectGenerationConfiguration
 class SpringAiMcpProjectGenerationConfiguration {
@@ -46,7 +47,7 @@ class SpringAiMcpProjectGenerationConfiguration {
 				Dependency dependency = build.dependencies().get(DEPENDENCY_ID);
 				build.dependencies().remove(DEPENDENCY_ID);
 				build.dependencies()
-					.add(DEPENDENCY_ID, dependency.getGroupId(), "spring-ai-mcp-server-webmvc-spring-boot-starter",
+					.add(DEPENDENCY_ID, dependency.getGroupId(), "spring-ai-starter-mcp-server-webmvc",
 							dependency.getScope());
 			};
 		}
@@ -58,7 +59,7 @@ class SpringAiMcpProjectGenerationConfiguration {
 				Dependency dependency = build.dependencies().get(DEPENDENCY_ID);
 				build.dependencies().remove(DEPENDENCY_ID);
 				build.dependencies()
-					.add(DEPENDENCY_ID, dependency.getGroupId(), "spring-ai-mcp-server-webflux-spring-boot-starter",
+					.add(DEPENDENCY_ID, dependency.getGroupId(), "spring-ai-starter-mcp-server-webflux",
 							dependency.getScope());
 			};
 		}
@@ -78,7 +79,7 @@ class SpringAiMcpProjectGenerationConfiguration {
 				Dependency dependency = build.dependencies().get(DEPENDENCY_ID);
 				build.dependencies().remove(DEPENDENCY_ID);
 				build.dependencies()
-					.add(DEPENDENCY_ID, dependency.getGroupId(), "spring-ai-mcp-client-webflux-spring-boot-starter",
+					.add(DEPENDENCY_ID, dependency.getGroupId(), "spring-ai-starter-mcp-client-webflux",
 							dependency.getScope());
 			};
 		}
