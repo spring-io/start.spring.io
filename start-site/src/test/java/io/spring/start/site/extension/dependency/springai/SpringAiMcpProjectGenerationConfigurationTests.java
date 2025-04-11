@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringAiMcpProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
+ * @author Ilayaperumal Gopinathan
  */
 class SpringAiMcpProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -36,35 +37,35 @@ class SpringAiMcpProjectGenerationConfigurationTests extends AbstractExtensionTe
 	void shouldUseMvcServerIfWebMvcIsSelected() {
 		ProjectRequest project = createProject("web", "spring-ai-mcp-server");
 		assertThat(mavenPom(project)).hasDependency("org.springframework.ai",
-				"spring-ai-mcp-server-webmvc-spring-boot-starter");
+				"spring-ai-starter-mcp-server-webmvc");
 	}
 
 	@Test
 	void shouldUseWebFluxServerIfWebFluxIsSelected() {
 		ProjectRequest project = createProject("webflux", "spring-ai-mcp-server");
 		assertThat(mavenPom(project)).hasDependency("org.springframework.ai",
-				"spring-ai-mcp-server-webflux-spring-boot-starter");
+				"spring-ai-starter-mcp-server-webflux");
 	}
 
 	@Test
 	void shouldUseStandardServerIfNeitherWebMvcNorWebFluxIsSelected() {
 		ProjectRequest project = createProject("spring-ai-mcp-server");
 		assertThat(mavenPom(project)).hasDependency("org.springframework.ai",
-				"spring-ai-mcp-server-spring-boot-starter");
+				"spring-ai-starter-mcp-server");
 	}
 
 	@Test
 	void shouldUseWebFluxClientIfWebfluxIsSelected() {
 		ProjectRequest project = createProject("webflux", "spring-ai-mcp-client");
 		assertThat(mavenPom(project)).hasDependency("org.springframework.ai",
-				"spring-ai-mcp-client-webflux-spring-boot-starter");
+				"spring-ai-starter-mcp-client-webflux");
 	}
 
 	@Test
 	void shouldUseStandardClientIfWebFluxIsNotSelected() {
 		ProjectRequest project = createProject("spring-ai-mcp-client");
 		assertThat(mavenPom(project)).hasDependency("org.springframework.ai",
-				"spring-ai-mcp-client-spring-boot-starter");
+				"spring-ai-starter-mcp-client");
 	}
 
 	private ProjectRequest createProject(String... styles) {
