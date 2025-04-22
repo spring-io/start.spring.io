@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,12 @@ package io.spring.start.site.extension.dependency.jte;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.contributor.ProjectContributor;
-import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.spring.properties.ApplicationPropertiesCustomizer;
 import io.spring.initializr.generator.spring.scm.git.GitIgnoreCustomizer;
 
@@ -53,16 +50,6 @@ class JteProjectGenerationConfiguration {
 	@Bean
 	ApplicationPropertiesCustomizer jteApplicationPropertiesCustomizer() {
 		return (properties) -> properties.add("gg.jte.development-mode", true);
-	}
-
-	@Bean
-	BuildCustomizer<Build> jteBuildCustomizer() {
-		// https://github.com/casid/jte/issues/381
-		return (build) -> {
-			Dependency jteStarter = build.dependencies().get("jte");
-			build.dependencies()
-				.add("jte-core", Dependency.withCoordinates("gg.jte", "jte").version(jteStarter.getVersion()).build());
-		};
 	}
 
 	@Bean
