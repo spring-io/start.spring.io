@@ -153,7 +153,7 @@ class MetadataVerificationTests {
 				repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
 				repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
 			}
-			else if (qualifier.equals("M")) {
+			else if (qualifier.equals("M") || qualifier.equals("RC")) {
 				repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
 			}
 		}
