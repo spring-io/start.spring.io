@@ -232,7 +232,7 @@ initializr:
         - name: Spring Modulith
           id: modulith
           bom: spring-modulith
-          compatibilityRange: "[3.3.0,3.6.0-RC1)"
+          compatibilityRange: "[3.3.0,3.6.0-M1)"
           group-id: org.springframework.modulith
           artifact-id: spring-modulith-starter-core
           description: Support for building modular monolithic applications.
