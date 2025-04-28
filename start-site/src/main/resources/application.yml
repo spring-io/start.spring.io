@@ -918,7 +918,7 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-shell/reference/index.html
-        - name: Spring gRPC [Experimental]
+        - name: Spring gRPC
           id: spring-grpc
           groupId: org.springframework.grpc
           artifactId: spring-grpc-spring-boot-starter
