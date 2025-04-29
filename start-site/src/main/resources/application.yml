@@ -923,13 +923,13 @@ initializr:
           groupId: org.springframework.grpc
           artifactId: spring-grpc-spring-boot-starter
           compatibilityRange: "[3.4.0,3.6.0-M1)"
-          description: Experimental support for gRPC, a high performance, open source universal RPC framework.
+          description: Support for gRPC, a high performance, open source universal RPC framework.
           bom: spring-grpc
           links:
             - rel: reference
               href: https://docs.spring.io/spring-grpc/reference/index.html
             - rel: sample
-              href: https://github.com/spring-projects-experimental/spring-grpc/tree/main/samples
+              href: https://github.com/spring-projects/spring-grpc/tree/main/samples
               description: Various sample apps using Spring gRPC
     - name: Ops
       content:
