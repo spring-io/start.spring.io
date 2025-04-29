@@ -173,7 +173,7 @@ initializr:
           - compatibilityRange: "[3.3.0,3.4.0-M1)"
             version: 24.5.14
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 24.7.2
+            version: 24.7.3
     platform:
       compatibilityRange: "3.3.0"
   dependencies:
