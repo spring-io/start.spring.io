@@ -83,7 +83,7 @@ initializr:
         artifactId: spring-ai-bom
         versionProperty: spring-ai.version
         mappings:
-          - compatibilityRange: "[3.4.0,3.5.0-M3)"
+          - compatibilityRange: "[3.4.0,3.6.0-M1)"
             version: 1.0.0-M8
       spring-cloud:
         groupId: org.springframework.cloud
