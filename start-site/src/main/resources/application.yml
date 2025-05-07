@@ -1385,7 +1385,7 @@ initializr:
         - name: Spring Cloud Gateway Custom [Enterprise]
           id: tanzu-scg-custom
           bom: tanzu-scg-extensions
-          description: Spring Cloud Gateway filters to help develop custom filters.
+          description: Spring Cloud Gateway utilities to help develop custom filters and predicates.
           groupId: com.vmware.tanzu.springcloudgateway.extensions
           artifactId: custom
           facets:
