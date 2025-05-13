@@ -84,7 +84,7 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.4.0,3.6.0-M1)"
-            version: 1.0.0-M8
+            version: 1.0.0-RC1
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1698,6 +1698,33 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/chat/openai-chat.html
+        - name: JDBC Chat Memory Repository
+          id: spring-ai-chat-memory-repository-jdbc
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-chat-memory-repository-jdbc
+          description: Spring AI Starter - JDBC Chat Memory Repository.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
+        - name: Cassandra Chat Memory Repository
+          id: spring-ai-chat-memory-repository-cassandra
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-chat-memory-repository-cassandra
+          description: Spring AI Starter - Cassandra Chat Memory Repository.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
+        - name: Neo4j Chat Memory Repository
+          id: spring-ai-chat-memory-repository-neo4j
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-chat-memory-repository-neo4j
+          description: Spring AI Starter - Neo4j Chat Memory Repository.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
         - name: Oracle Vector Database
           id: spring-ai-vectordb-oracle
           group-id: org.springframework.ai
