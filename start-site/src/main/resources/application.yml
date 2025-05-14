@@ -1702,7 +1702,7 @@ initializr:
           id: spring-ai-chat-memory-repository-jdbc
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-jdbc
-          description: Spring AI Starter - JDBC Chat Memory Repository.
+          description: Spring AI support for JDBC based chat memory.
           bom: spring-ai
           links:
             - rel: reference
@@ -1711,7 +1711,7 @@ initializr:
           id: spring-ai-chat-memory-repository-cassandra
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-cassandra
-          description: Spring AI Starter - Cassandra Chat Memory Repository.
+          description: Spring AI support for Cassandra based chat memory.
           bom: spring-ai
           links:
             - rel: reference
@@ -1720,7 +1720,7 @@ initializr:
           id: spring-ai-chat-memory-repository-neo4j
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-neo4j
-          description: Spring AI Starter - Neo4j Chat Memory Repository.
+          description: Spring AI support for Neo4j based chat memory.
           bom: spring-ai
           links:
             - rel: reference
