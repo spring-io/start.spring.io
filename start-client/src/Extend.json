@@ -74,5 +74,13 @@
   {
     "id": "solace",
     "weight": 100
+  },
+  {
+    "id": "cloud-gateway",
+    "weight": 60
+  },
+  {
+    "id": "cloud-gateway-reactive",
+    "weight": 60
   }
 ]
