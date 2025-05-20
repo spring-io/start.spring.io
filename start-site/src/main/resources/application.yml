@@ -84,7 +84,7 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.4.0,3.6.0-M1)"
-            version: 1.0.0-RC1
+            version: 1.0.0
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1698,6 +1698,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/chat/openai-chat.html
+        - name: In-memory Chat Memory Repository
+          id: spring-ai-chat-memory-repository-in-memory
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-chat-memory
+          description: Spring AI support for in-memory chat memory repository.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
         - name: JDBC Chat Memory Repository
           id: spring-ai-chat-memory-repository-jdbc
           group-id: org.springframework.ai
