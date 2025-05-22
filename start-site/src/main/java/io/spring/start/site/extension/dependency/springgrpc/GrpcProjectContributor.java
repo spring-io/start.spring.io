@@ -23,7 +23,7 @@ import java.nio.file.Path;
 import io.spring.initializr.generator.project.contributor.ProjectContributor;
 
 /**
- * A {@link ProjectContributor} that creates the "src/main/proto" directory.
+ * A {@link ProjectContributor} that creates the "src/main/protobuf" directory.
  *
  * @author Moritz Halbritter
  */
@@ -31,7 +31,7 @@ class GrpcProjectContributor implements ProjectContributor {
 
 	@Override
 	public void contribute(Path projectRoot) throws IOException {
-		Path protoDirectory = projectRoot.resolve("src/main/proto");
+		Path protoDirectory = projectRoot.resolve("src/main/protobuf");
 		Files.createDirectories(protoDirectory);
 	}
 
