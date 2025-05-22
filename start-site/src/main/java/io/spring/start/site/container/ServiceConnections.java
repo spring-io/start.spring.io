@@ -64,7 +64,5 @@ public class ServiceConnections {
 		public boolean isGenericContainer() {
 			return this.containerClassName.equals(GENERIC_CONTAINER_CLASS_NAME);
 		}
-
 	}
-
 }
