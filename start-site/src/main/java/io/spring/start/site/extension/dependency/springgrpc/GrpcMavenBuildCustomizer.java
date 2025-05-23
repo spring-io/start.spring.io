@@ -31,7 +31,7 @@ class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
 	private static final String OS_PLUGIN_VERSION = "1.7.1";
 
-	private static final String PROTOBUF_PLUGIN_VERSION = "0.6.1";
+	private static final String PROTOBUF_PLUGIN_VERSION = "3.1.2";
 
 	private final String protobufJavaVersion;
 
@@ -68,20 +68,21 @@ class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 	}
 
 	private void addProtobufPlugin(MavenPluginContainer plugins, VersionProperty protobufJava, VersionProperty grpc) {
-		plugins.add("org.xolstice.maven.plugins", "protobuf-maven-plugin", (plugin) -> {
+		plugins.add("io.github.ascopes", "protobuf-maven-plugin", (plugin) -> {
 			plugin.version(PROTOBUF_PLUGIN_VERSION);
 			plugin.configuration((configuration) -> {
-				configuration.add("protocArtifact", "com.google.protobuf:protoc:${%s}:exe:${os.detected.classifier}"
-					.formatted(protobufJava.toStandardFormat()));
-				configuration.add("pluginId", "grpc-java");
-				configuration.add("pluginArtifact", "io.grpc:protoc-gen-grpc-java:${%s}:exe:${os.detected.classifier}"
-					.formatted(grpc.toStandardFormat()));
+				configuration.add("protocVersion", "${%s}".formatted(protobufJava.toStandardFormat()));
+				configuration.add("binaryMavenPlugins", (builder) -> {
+					builder.add("binaryMavenPlugin", (binary) -> {
+						binary.add("groupId", "io.grpc");
+						binary.add("artifactId", "protoc-gen-grpc-java");
+						binary.add("version", "${%s}".formatted(grpc.toStandardFormat()));
+						binary.add("classifier", "${os.detected.classifier}");
+						binary.add("options", "jakarta_omit,@generated=omit");
+					});
+				});
 			});
-			plugin.execution("compile", (execution) -> {
-				execution.goal("compile").goal("compile-custom");
-				execution.configuration(
-						(configuration) -> configuration.add("pluginParameter", "jakarta_omit,@generated=omit"));
-			});
+			plugin.execution("generate", (execution) -> execution.goal("generate"));
 		});
 	}
 
