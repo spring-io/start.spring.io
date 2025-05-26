@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -150,22 +150,30 @@ class ProjectGenerationIntegrationTests {
 
 	private ProcessBuilder createProcessBuilder(Path directory, BuildSystem buildSystem, Path home) {
 		if (buildSystem.id().equals(MavenBuildSystem.ID)) {
-			String command = (isWindows()) ? "mvnw.cmd" : "mvnw";
-			ProcessBuilder processBuilder = new ProcessBuilder(directory.resolve(command).toAbsolutePath().toString(),
-					"-Dmaven.repo.local=" + home.resolve("repository").toAbsolutePath(), "package");
-			processBuilder.environment().put("MAVEN_USER_HOME", home.toAbsolutePath().toString());
-			processBuilder.directory(directory.toFile());
-			return processBuilder;
+			return createMavenProcessBuilder(directory, home);
 		}
 		if (buildSystem.id().equals(GradleBuildSystem.ID)) {
-			String command = (isWindows()) ? "gradlew.bat" : "gradlew";
-			ProcessBuilder processBuilder = new ProcessBuilder(directory.resolve(command).toAbsolutePath().toString(),
-					"--no-daemon", "build");
-			processBuilder.environment().put("GRADLE_USER_HOME", home.toAbsolutePath().toString());
-			processBuilder.directory(directory.toFile());
-			return processBuilder;
+			return createGradleProcessBuilder(directory, home);
 		}
 		throw new IllegalStateException("Unknown build system '%s'".formatted(buildSystem.id()));
+	}
+
+	private ProcessBuilder createGradleProcessBuilder(Path directory, Path home) {
+		String command = (isWindows()) ? "gradlew.bat" : "gradlew";
+		ProcessBuilder processBuilder = new ProcessBuilder(directory.resolve(command).toAbsolutePath().toString(),
+				"--no-daemon", "build");
+		processBuilder.environment().put("GRADLE_USER_HOME", home.toAbsolutePath().toString());
+		processBuilder.directory(directory.toFile());
+		return processBuilder;
+	}
+
+	private ProcessBuilder createMavenProcessBuilder(Path directory, Path home) {
+		String command = (isWindows()) ? "mvnw.cmd" : "mvnw";
+		ProcessBuilder processBuilder = new ProcessBuilder(directory.resolve(command).toAbsolutePath().toString(),
+				"-Dmaven.repo.local=" + home.resolve("repository").toAbsolutePath(), "package");
+		processBuilder.environment().put("MAVEN_USER_HOME", home.toAbsolutePath().toString());
+		processBuilder.directory(directory.toFile());
+		return processBuilder;
 	}
 
 	private boolean isWindows() {

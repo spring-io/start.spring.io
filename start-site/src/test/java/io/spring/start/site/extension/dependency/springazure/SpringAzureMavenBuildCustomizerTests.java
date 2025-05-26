@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency.springazure;
 
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -30,15 +31,17 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringAzureMavenBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_4;
+
 	@Test
 	void shouldDoNothingIfAzureSupportIsntSelected() {
-		ProjectRequest request = createProjectRequest("web");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web");
 		assertThat(mavenPom(request)).doesNotContain("azure-container-apps-maven-plugin");
 	}
 
 	@Test
 	void azureContainerAppsMavenPluginAddedWhenAzureSupportPresent() {
-		ProjectRequest request = createProjectRequest("azure-support");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "azure-support");
 		assertThat(mavenPom(request)).hasText("/project/build/plugins/plugin[1]/groupId", "com.microsoft.azure")
 			.hasText("/project/build/plugins/plugin[1]/artifactId", "azure-container-apps-maven-plugin");
 	}
