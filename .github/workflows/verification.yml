@@ -1,4 +1,6 @@
 name: Verification
+permissions:
+  contents: read
 on:
   schedule:
     - cron: '15 3 * * *'
