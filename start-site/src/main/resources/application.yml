@@ -141,7 +141,7 @@ initializr:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
             version: 1.3.5
           - compatibilityRange: "[3.5.0-M1,3.6.0-M1)"
-            version: 1.4.0-RC1
+            version: 1.4.0
             repositories:
               - spring-milestones
       spring-shell:
