@@ -142,8 +142,6 @@ initializr:
             version: 1.3.5
           - compatibilityRange: "[3.5.0-M1,3.6.0-M1)"
             version: 1.4.0
-            repositories:
-              - spring-milestones
       spring-shell:
         groupId: org.springframework.shell
         artifactId: spring-shell-dependencies
