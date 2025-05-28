@@ -81,6 +81,14 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 						}
 					}
 				}
+				""").containsIgnoringWhitespaces("""
+				sourceSets {
+					main {
+						proto {
+							srcDir 'src/main/protobuf'
+						}
+					}
+				}
 				""");
 	}
 
@@ -145,7 +153,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 							</execution>
 						</executions>
 					</plugin>
-						""");
+					""");
 	}
 
 	@Test
