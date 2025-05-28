@@ -29,9 +29,7 @@ import io.spring.initializr.generator.version.VersionProperty;
  */
 class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
-	private static final String OS_PLUGIN_VERSION = "1.7.1";
-
-	private static final String PROTOBUF_PLUGIN_VERSION = "3.2.3";
+	private static final String PROTOBUF_PLUGIN_VERSION = "3.3.0";
 
 	private final String protobufJavaVersion;
 
@@ -70,7 +68,10 @@ class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 					});
 				});
 			});
-			plugin.execution("generate", (execution) -> execution.goal("generate"));
+			plugin.execution("generate", (execution) -> {
+				execution.m2e("execute onConfiguration,onIncremental");
+				execution.goal("generate");
+			});
 		});
 	}
 
