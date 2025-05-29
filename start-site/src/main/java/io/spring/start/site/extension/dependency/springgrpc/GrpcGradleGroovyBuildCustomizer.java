@@ -33,8 +33,6 @@ class GrpcGradleGroovyBuildCustomizer extends AbstractGrpcGradleBuildCustomizer 
 
 	@Override
 	protected void customizeExtensions(GradleExtensionContainer extensions) {
-		extensions.customize("sourceSets", (sourceSets) -> sourceSets.nested("main",
-				(main) -> main.nested("proto", (java) -> java.invoke("srcDir", "'src/main/protobuf'"))));
 		extensions.customize("protobuf", (protobuf) -> {
 			protobuf.nested("protoc", (protoc) -> protoc.attribute("artifact", quote("com.google.protobuf:protoc")));
 			protobuf.nested("plugins", (plugins) -> plugins.nested("grpc",
