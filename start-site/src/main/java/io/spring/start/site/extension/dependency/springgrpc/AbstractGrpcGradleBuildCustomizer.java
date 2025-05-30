@@ -39,9 +39,6 @@ abstract class AbstractGrpcGradleBuildCustomizer implements BuildCustomizer<Grad
 	@Override
 	public void customize(GradleBuild build) {
 		build.plugins().add("com.google.protobuf", (plugin) -> plugin.setVersion(GRPC_PLUGIN_VERSION));
-		build.extensions()
-			.customize("sourceSets", (sourceSets) -> sourceSets.nested("main",
-					(main) -> main.nested("proto", (java) -> java.invoke("srcDir", quote("src/main/protobuf")))));
 		customizeExtensions(build.extensions());
 	}
 

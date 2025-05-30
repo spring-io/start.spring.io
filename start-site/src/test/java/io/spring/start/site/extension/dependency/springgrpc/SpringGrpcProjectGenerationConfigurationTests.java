@@ -40,7 +40,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 			.doesNotContain("protobuf-maven-plugin")
 			.doesNotHaveProperty("grpc.version")
 			.doesNotHaveProperty("protobuf-java.version");
-		assertThat(generateProject(request)).doesNotContainDirectories("src/main/protobuf");
+		assertThat(generateProject(request)).doesNotContainDirectories("src/main/proto");
 	}
 
 	@Test
@@ -78,14 +78,6 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 								option 'jakarta_omit'
 								option '@generated=omit'
 							}
-						}
-					}
-				}
-				""").containsIgnoringWhitespaces("""
-				sourceSets {
-					main {
-						proto {
-							srcDir 'src/main/protobuf'
 						}
 					}
 				}
@@ -131,8 +123,11 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 					<plugin>
 						<groupId>io.github.ascopes</groupId>
 						<artifactId>protobuf-maven-plugin</artifactId>
-						<version>3.3.0</version>
+						<version>3.3.1</version>
 						<configuration>
+							<sourceDirectories>
+								<sourceDirectory>src/main/proto</sourceDirectory>
+							</sourceDirectories>
 							<protocVersion>${protobuf-java.version}</protocVersion>
 							<binaryMavenPlugins>
 								<binaryMavenPlugin>
@@ -159,7 +154,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void shouldCreateSrcMainProtoDirectory() {
 		ProjectRequest request = createProjectRequest(SPRING_GRPC);
-		assertThat(generateProject(request)).containsDirectories("src/main/protobuf");
+		assertThat(generateProject(request)).containsDirectories("src/main/proto");
 	}
 
 	@Test
