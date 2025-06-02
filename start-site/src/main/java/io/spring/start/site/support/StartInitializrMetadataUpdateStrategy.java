@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class StartInitializrMetadataUpdateStrategy extends SpringIoInitializrMetadataUpdateStrategy {
 
-	private static final Version MINIMUM_BOOT_VERSION = Version.parse("3.3.0");
+	private static final Version MINIMUM_BOOT_VERSION = Version.parse("3.4.0");
 
 	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate, ObjectMapper objectMapper) {
 		super(restTemplate, objectMapper);
