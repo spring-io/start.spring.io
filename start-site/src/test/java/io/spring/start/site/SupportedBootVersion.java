@@ -24,10 +24,6 @@ package io.spring.start.site;
 public enum SupportedBootVersion {
 
 	/**
-	 * 3.3.0.
-	 */
-	V3_3("3.3.0"),
-	/**
 	 * 3.4.0.
 	 */
 	V3_4("3.4.0"),
