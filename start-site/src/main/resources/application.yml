@@ -124,6 +124,8 @@ initializr:
         mappings:
           - compatibilityRange: "[3.3.0,3.5.0-M1)"
             version: 4.2.0
+          - compatibilityRange: "[3.5.0-M1,3.6.0-M1)"
+            version: 4.3.0
       spring-grpc:
         groupId: org.springframework.grpc
         artifactId: spring-grpc-dependencies
@@ -1337,7 +1339,7 @@ initializr:
               href: https://docs.spring.io/spring-cloud-stream/reference/
     - name: VMware Tanzu Application Service
       bom: spring-cloud-services
-      compatibilityRange: "[3.3.0,3.5.0-M1)"
+      compatibilityRange: "[3.3.0,3.6.0-M1)"
       content:
         - name: Config Client (TAS)
           id: scs-config-client
