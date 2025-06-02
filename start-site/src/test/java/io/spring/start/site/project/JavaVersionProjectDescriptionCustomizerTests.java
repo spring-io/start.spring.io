@@ -81,12 +81,6 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 			.hasProperty("java.version", "21");
 	}
 
-	@Test
-	void springBoot33usesJava23() {
-		assertThat(mavenPom(javaProject("24", SupportedBootVersion.V3_3.getVersion()))).hasProperty("java.version",
-				"23");
-	}
-
 	static Stream<Arguments> supportedMavenParameters() {
 		return Stream.concat(supportedJavaParameters(),
 				Stream.concat(supportedKotlinParameters(), supportedGroovyParameters()));
