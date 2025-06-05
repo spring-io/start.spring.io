@@ -1063,6 +1063,7 @@ initializr:
           starter: false
         - name: Wavefront
           id: wavefront
+          compatibilityRange: "[3.3.0,3.6.0-M1)"
           description: Publish metrics and optionally distributed traces to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
           groupId: io.micrometer
           artifactId: micrometer-registry-wavefront
