@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2023 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,7 +127,8 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 		protected Builder(String imageAndTag) {
 			String[] split = imageAndTag.split(":", 2);
 			String tag = (split.length == 1) ? "latest" : split[1];
-			image(split[0]).imageTag(tag);
+			this.image = split[0];
+			this.imageTag = tag;
 		}
 
 		public Builder image(String image) {
