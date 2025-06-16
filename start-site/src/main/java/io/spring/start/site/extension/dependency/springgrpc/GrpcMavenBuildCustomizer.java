@@ -29,7 +29,7 @@ import io.spring.initializr.generator.version.VersionProperty;
  */
 class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
-	private static final String PROTOBUF_PLUGIN_VERSION = "3.3.1";
+	private static final String PROTOBUF_PLUGIN_VERSION = "3.4.2";
 
 	private final String protobufJavaVersion;
 
@@ -58,7 +58,6 @@ class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 		plugins.add("io.github.ascopes", "protobuf-maven-plugin", (plugin) -> {
 			plugin.version(PROTOBUF_PLUGIN_VERSION);
 			plugin.configuration((configuration) -> {
-				configuration.add("sourceDirectories", (builder) -> builder.add("sourceDirectory", "src/main/proto"));
 				configuration.add("protocVersion", "${%s}".formatted(protobufJava.toStandardFormat()));
 				configuration.add("binaryMavenPlugins", (builder) -> {
 					builder.add("binaryMavenPlugin", (binary) -> {
@@ -69,10 +68,7 @@ class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 					});
 				});
 			});
-			plugin.execution("generate", (execution) -> {
-				execution.m2e("execute onConfiguration,onIncremental");
-				execution.goal("generate");
-			});
+			plugin.execution("generate", (execution) -> execution.goal("generate"));
 		});
 	}
 
