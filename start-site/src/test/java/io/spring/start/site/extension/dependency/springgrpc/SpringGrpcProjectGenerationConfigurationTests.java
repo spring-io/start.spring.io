@@ -123,11 +123,8 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 					<plugin>
 						<groupId>io.github.ascopes</groupId>
 						<artifactId>protobuf-maven-plugin</artifactId>
-						<version>3.3.1</version>
+						<version>3.4.2</version>
 						<configuration>
-							<sourceDirectories>
-								<sourceDirectory>src/main/proto</sourceDirectory>
-							</sourceDirectories>
 							<protocVersion>${protobuf-java.version}</protocVersion>
 							<binaryMavenPlugins>
 								<binaryMavenPlugin>
@@ -140,7 +137,6 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 						</configuration>
 						<executions>
 							<execution>
-								<?m2e execute onConfiguration,onIncremental?>
 								<id>generate</id>
 								<goals>
 									<goal>generate</goal>
