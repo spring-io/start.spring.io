@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2012-2024 the original author or authors.
+  ~ Copyright 2012 - present the original author or authors.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -129,7 +129,7 @@
 							<phase>validate</phase>
 							<configuration>
 								<skip>${disable.checks}</skip>
-								<configLocation>io/spring/javaformat/checkstyle/checkstyle.xml</configLocation>
+								<configLocation>src/checkstyle/checkstyle.xml</configLocation>
 								<includeTestSourceDirectory>true</includeTestSourceDirectory>
 							</configuration>
 							<goals>
