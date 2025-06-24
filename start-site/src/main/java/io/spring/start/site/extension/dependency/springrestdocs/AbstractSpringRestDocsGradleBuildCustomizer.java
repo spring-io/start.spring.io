@@ -21,7 +21,7 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
  * Abstract {@link BuildCustomizer Customizer} for a {@link GradleBuild} when the
- * generated project * depends on Spring REST Docs.
+ * generated project depends on Spring REST Docs.
  *
  * @author Moritz Halbritter
  */
