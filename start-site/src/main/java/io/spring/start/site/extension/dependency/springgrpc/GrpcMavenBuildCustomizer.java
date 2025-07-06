@@ -64,7 +64,7 @@ class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 						binary.add("groupId", "io.grpc");
 						binary.add("artifactId", "protoc-gen-grpc-java");
 						binary.add("version", "${%s}".formatted(grpc.toStandardFormat()));
-						binary.add("options", "jakarta_omit,@generated=omit");
+						binary.add("options", "@generated=omit");
 					});
 				});
 			});
