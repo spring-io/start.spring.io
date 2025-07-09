@@ -31,7 +31,6 @@ import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomi
 import io.spring.start.site.extension.dependency.springbatch.SpringBatchTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityRSocketBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityTestBuildCustomizer;
-import io.spring.start.site.extension.dependency.springsession.SpringSessionBuildCustomizer;
 import io.spring.start.site.extension.dependency.springshell.SpringShellTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.thymeleaf.ThymeleafBuildCustomizer;
 
@@ -90,12 +89,6 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("lombok")
 	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer() {
 		return new LombokGradleBuildCustomizer(this.metadata);
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("session")
-	public SpringSessionBuildCustomizer springSessionBuildCustomizer() {
-		return new SpringSessionBuildCustomizer();
 	}
 
 	@Bean

@@ -293,11 +293,54 @@ initializr:
               description: Accessing MongoDB Data with REST
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/data-access.html#howto.data-access.exposing-spring-data-repositories-as-rest
-        - name: Spring Session
-          id: session
-          groupId: org.springframework.session
-          artifactId: spring-session-core
-          description: Provides an API and implementations for managing user session information.
+        - name: Spring Session for Spring Data MongoDB
+          id: session-data-mongodb
+          description: Provides an API and a Spring Data MongoDB implementation for managing user session information.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-session-data-mongodb
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              group-id: org.springframework.session
+              artifact-id: spring-session-data-mongodb
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-session/reference/
+        - name: Spring Session for Spring Data Redis
+          id: session-data-redis
+          description: Provides an API and a Spring Data Redis implementation for managing user session information.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-session-data-redis
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              group-id: org.springframework.session
+              artifact-id: spring-session-data-redis
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-session/reference/
+        - name: Spring Session for Hazelcast
+          id: session-hazelcast
+          description: Provides an API and a Hazelcast implementation for managing user session information.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-session-hazelcast
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              group-id: org.springframework.session
+              artifact-id: spring-session-hazelcast
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-session/reference/
+        - name: Spring Session for JDBC
+          id: session-jdbc
+          description: Provides an API and a JDBC implementation for managing user session information.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-session-jdbc
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              group-id: org.springframework.session
+              artifact-id: spring-session-jdbc
           starter: false
           links:
             - rel: reference
