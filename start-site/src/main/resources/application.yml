@@ -569,8 +569,12 @@ initializr:
         - name: Liquibase Migration
           id: liquibase
           description: Liquibase database migration and source control library.
-          groupId: org.liquibase
-          artifactId: liquibase-core
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              group-id: org.liquibase
+              artifact-id: liquibase-core
+          groupId: org.springframework.boot
+          artifactId: spring-boot-liquibase
           starter: false
           links:
             - rel: reference
