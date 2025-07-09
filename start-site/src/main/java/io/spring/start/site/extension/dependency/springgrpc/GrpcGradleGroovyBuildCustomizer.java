@@ -38,9 +38,7 @@ class GrpcGradleGroovyBuildCustomizer extends AbstractGrpcGradleBuildCustomizer 
 			protobuf.nested("plugins", (plugins) -> plugins.nested("grpc",
 					(grpc) -> grpc.attribute("artifact", quote("io.grpc:protoc-gen-grpc-java"))));
 			protobuf.nested("generateProtoTasks", (generateProtoTasks) -> generateProtoTasks.nested("all()*.plugins",
-					(plugins) -> plugins.nested("grpc", (grpc) -> {
-						grpc.invoke("option", quote("@generated=omit"));
-					})));
+					(plugins) -> plugins.nested("grpc", (grpc) -> grpc.invoke("option", quote("@generated=omit")))));
 		});
 	}
 
