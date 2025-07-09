@@ -582,8 +582,12 @@ initializr:
         - name: Flyway Migration
           id: flyway
           description: Version control for your database so you can migrate from any version (incl. an empty database) to the latest version of the schema.
-          groupId: org.flywaydb
-          artifactId: flyway-core
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              group-id: org.flywaydb
+              artifact-id: flyway-core
+          groupId: org.springframework.boot
+          artifactId: spring-boot-flyway
           starter: false
           links:
             - rel: reference
