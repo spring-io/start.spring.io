@@ -788,8 +788,12 @@ initializr:
         - name: Spring for Apache Kafka
           id: kafka
           description: Publish, subscribe, store, and process streams of records.
-          groupId: org.springframework.kafka
-          artifactId: spring-kafka
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              group-id: org.springframework.kafka
+              artifact-id: spring-kafka
+          groupId: org.springframework.boot
+          artifactId: spring-boot-kafka
           starter: false
           links:
             - rel: reference

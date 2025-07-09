@@ -14,49 +14,21 @@
  * limitations under the License.
  */
 
-package io.spring.start.site;
+package io.spring.start.site.extension.dependency.springkafka;
+
+import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * Supported Spring Boot versions.
+ * Adds a dependency to Kafka.
  *
  * @author Moritz Halbritter
  */
-public enum SupportedBootVersion {
-
-	/**
-	 * 3.4.0.
-	 */
-	V3_4("3.4.0"),
-	/**
-	 * 3.5.0.
-	 */
-	V3_5("3.5.0"),
-	/**
-	 * 4.0.0.
-	 */
-	V4_0("4.0.0-SNAPSHOT");
-
-	private final String version;
-
-	SupportedBootVersion(String version) {
-		this.version = version;
-	}
-
-	public String getVersion() {
-		return this.version;
-	}
+class SpringKafkaStreamsBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
-	public String toString() {
-		return getVersion();
-	}
-
-	/**
-	 * Returns the latest supported Spring Boot version.
-	 * @return the latest supported Spring Boot version
-	 */
-	public static SupportedBootVersion latest() {
-		return V3_5;
+	public void customize(Build build) {
+		build.dependencies().add("kafka");
 	}
 
 }

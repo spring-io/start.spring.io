@@ -20,6 +20,7 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -71,6 +72,13 @@ class SpringKafkaProjectGenerationConfiguration {
 				}
 			}
 		};
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("kafka-streams")
+	@ConditionalOnPlatformVersion("4.0.0-M1")
+	SpringKafkaStreamsBuildCustomizer springKafkaStreamsBuildCustomizer() {
+		return new SpringKafkaStreamsBuildCustomizer();
 	}
 
 	@Bean

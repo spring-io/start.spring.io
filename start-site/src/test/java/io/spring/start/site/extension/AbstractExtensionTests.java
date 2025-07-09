@@ -71,7 +71,11 @@ public abstract class AbstractExtensionTests {
 	}
 
 	protected Dependency getDependency(String id) {
-		return getMetadata().getDependencies().get(id);
+		return getDependency(SupportedBootVersion.latest(), id);
+	}
+
+	protected Dependency getDependency(SupportedBootVersion bootVersion, String id) {
+		return getMetadata().getDependencies().get(id).resolve(Version.parse(bootVersion.getVersion()));
 	}
 
 	protected BillOfMaterials getBom(String id, String version) {
