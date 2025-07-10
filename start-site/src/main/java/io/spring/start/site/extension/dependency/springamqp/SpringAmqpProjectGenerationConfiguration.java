@@ -24,40 +24,57 @@ import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Configuration for generation of projects that depend on Spring AMQP.
  *
  * @author Stephane Nicoll
- * @author Stephane Nicoll
  */
 @ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("amqp")
 class SpringAmqpProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.RabbitMQContainer";
+	@Configuration(proxyBeanMethods = false)
+	@ConditionalOnRequestedDependency("amqp")
+	static class AmqpConfiguration {
 
-	@Bean
-	SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
-		return new SpringRabbitTestBuildCustomizer();
+		private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.RabbitMQContainer";
+
+		@Bean
+		SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
+			return new SpringRabbitTestBuildCustomizer();
+		}
+
+		@Bean
+		@ConditionalOnRequestedDependency("testcontainers")
+		ServiceConnectionsCustomizer rabbitServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+			return (serviceConnections) -> serviceResolver.doWith("rabbit",
+					(service) -> serviceConnections.addServiceConnection(
+							ServiceConnection.ofContainer("rabbit", service, TESTCONTAINERS_CLASS_NAME, false)));
+		}
+
+		@Bean
+		@ConditionalOnRequestedDependency("docker-compose")
+		ComposeFileCustomizer rabbitComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+			return (composeFile) -> serviceResolver.doWith("rabbit",
+					(service) -> composeFile.services()
+						.add("rabbitmq",
+								service.andThen((builder) -> builder.environment("RABBITMQ_DEFAULT_USER", "myuser")
+									.environment("RABBITMQ_DEFAULT_PASS", "secret")
+									.ports(5672))));
+		}
+
 	}
 
-	@Bean
-	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer rabbitServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("rabbit", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("rabbit", service, TESTCONTAINERS_CLASS_NAME, false)));
-	}
+	@ConditionalOnRequestedDependency("amqp-streams")
+	@Configuration(proxyBeanMethods = false)
+	static class AmqpStreamsConfiguration {
 
-	@Bean
-	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer rabbitComposeFileCustomizer(DockerServiceResolver serviceResolver) {
-		return (composeFile) -> serviceResolver.doWith("rabbit",
-				(service) -> composeFile.services()
-					.add("rabbitmq",
-							service.andThen((builder) -> builder.environment("RABBITMQ_DEFAULT_USER", "myuser")
-								.environment("RABBITMQ_DEFAULT_PASS", "secret")
-								.ports(5672))));
+		@Bean
+		SpringRabbitStreamsBuildCustomizer springRabbitStreamsBuildCustomizer() {
+			return new SpringRabbitStreamsBuildCustomizer();
+		}
+
 	}
 
 }
