@@ -21,23 +21,7 @@ jobs:
           distribution: 'liberica'
           cache: 'maven'
 
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: start-client/node_modules
-          key: node-modules-${{ hashFiles('start-client/yarn.lock') }}
-
-      - name: Cache Maven/Gradle repositories for tests
-        uses: actions/cache@v4
-        with:
-          path: /tmp/start-spring-io-cache-2024-12-11
-          # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
-          key: test-repositories-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: test-repositories-${{ runner.os }}
-
       - name: Build with Maven
-        env:
-          START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
         run: ./mvnw --batch-mode --update-snapshots --activate-profiles verification verify
 
       - name: Send notification
