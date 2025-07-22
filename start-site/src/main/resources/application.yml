@@ -1551,7 +1551,7 @@ initializr:
               description: Azure Storage Sample
     - name: Google Cloud
       bom: spring-cloud-gcp
-      compatibilityRange: "[3.4.0,3.5.0-M1)"
+      compatibilityRange: "[3.4.0,3.6.0-M1)"
       content:
         - name: Google Cloud Support
           id: cloud-gcp
