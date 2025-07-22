@@ -101,7 +101,7 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 		T testcontainersConfiguration = testcontainersConfigurationUnit
 			.createTypeDeclaration(TESTCONTAINERS_CONFIGURATION_CLASS_NAME.getSimpleName());
 		testcontainersConfiguration.annotations()
-			.add(TEST_CONFIGURATION_CLASS_NAME, (annotation) -> annotation.set("proxyBeanMethods", false));
+			.addSingle(TEST_CONFIGURATION_CLASS_NAME, (annotation) -> annotation.set("proxyBeanMethods", false));
 		this.serviceConnections.values()
 			.forEach((serviceConnection) -> configureServiceConnection(testcontainersConfiguration, serviceConnection));
 	}
@@ -122,8 +122,8 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 	}
 
 	protected void annotateContainerMethod(Annotatable annotable, String name) {
-		annotable.annotations().add(BEAN_CLASS_NAME);
-		annotable.annotations().add(SERVICE_CONNECTION_CLASS_NAME, (annotation) -> {
+		annotable.annotations().addSingle(BEAN_CLASS_NAME);
+		annotable.annotations().addSingle(SERVICE_CONNECTION_CLASS_NAME, (annotation) -> {
 			if (name != null) {
 				annotation.set("name", name);
 			}

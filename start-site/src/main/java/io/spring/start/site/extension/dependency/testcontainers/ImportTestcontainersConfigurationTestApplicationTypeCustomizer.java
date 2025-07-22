@@ -32,8 +32,8 @@ class ImportTestcontainersConfigurationTestApplicationTypeCustomizer
 	@Override
 	public void customize(TypeDeclaration typeDeclaration) {
 		typeDeclaration.annotations()
-			.add(ClassName.of("org.springframework.context.annotation.Import"), (annotation) -> annotation.set("value",
-					TestContainersApplicationCodeProjectContributor.TESTCONTAINERS_CONFIGURATION_CLASS_NAME));
+			.addSingle(ClassName.of("org.springframework.context.annotation.Import"), (annotation) -> annotation
+				.set("value", TestContainersApplicationCodeProjectContributor.TESTCONTAINERS_CONFIGURATION_CLASS_NAME));
 	}
 
 }
