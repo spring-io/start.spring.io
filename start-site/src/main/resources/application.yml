@@ -267,6 +267,29 @@ initializr:
               description: Building a Reactive RESTful Web Service
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/reactive.html
+        - name: HTTP Client
+          id: spring-restclient
+          description: Spring Boot integration for RestClient and RestTemplate to make HTTP requests.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-restclient
+          compatibilityRange: "4.0.0-M1"
+          facets:
+            - json
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/io/rest-client.html#io.rest-client.restclient
+        - name: Reactive HTTP Client
+          id: spring-webclient
+          description: Spring Boot integration for WebClient to make reactive HTTP requests.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-webclient
+          compatibilityRange: "4.0.0-M1"
+          facets:
+            - json
+            - reactive
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/io/rest-client.html#io.rest-client.webclient
         - name: Spring for GraphQL
           id: graphql
           description: Build GraphQL applications with Spring for GraphQL and GraphQL Java.
