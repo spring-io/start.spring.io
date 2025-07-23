@@ -299,12 +299,12 @@ initializr:
           id: session-data-mongodb
           description: Provides an API and a Spring Data MongoDB implementation for managing user session information.
           groupId: org.springframework.boot
-          artifactId: spring-boot-session-data-mongodb
+          artifactId: spring-boot-starter-session-data-mongodb
           mappings:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: org.springframework.session
               artifact-id: spring-session-data-mongodb
-          starter: false
+              starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-session/reference/
@@ -312,12 +312,12 @@ initializr:
           id: session-data-redis
           description: Provides an API and a Spring Data Redis implementation for managing user session information.
           groupId: org.springframework.boot
-          artifactId: spring-boot-session-data-redis
+          artifactId: spring-boot-starter-session-data-redis
           mappings:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: org.springframework.session
               artifact-id: spring-session-data-redis
-          starter: false
+              starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-session/reference/
@@ -325,12 +325,12 @@ initializr:
           id: session-hazelcast
           description: Provides an API and a Hazelcast implementation for managing user session information.
           groupId: org.springframework.boot
-          artifactId: spring-boot-session-hazelcast
+          artifactId: spring-boot-starter-session-hazelcast
           mappings:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: org.springframework.session
               artifact-id: spring-session-hazelcast
-          starter: false
+              starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-session/reference/
@@ -338,12 +338,12 @@ initializr:
           id: session-jdbc
           description: Provides an API and a JDBC implementation for managing user session information.
           groupId: org.springframework.boot
-          artifactId: spring-boot-session-jdbc
+          artifactId: spring-boot-starter-session-jdbc
           mappings:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: org.springframework.session
               artifact-id: spring-session-jdbc
-          starter: false
+              starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-session/reference/
@@ -365,6 +365,11 @@ initializr:
         - name: Spring Web Services
           id: web-services
           description: Facilitates contract-first SOAP development. Allows for the creation of flexible web services using one of the many ways to manipulate XML payloads.
+          group-id: org.springframework.boot
+          artifact-id: spring-boot-starter-webservices
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              artifact-id: spring-boot-starter-web-services
           aliases:
             - ws
           links:
@@ -575,9 +580,9 @@ initializr:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: org.liquibase
               artifact-id: liquibase-core
+              starter: false
           groupId: org.springframework.boot
-          artifactId: spring-boot-liquibase
-          starter: false
+          artifactId: spring-boot-starter-liquibase
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/data-initialization.html#howto.data-initialization.migration-tool.liquibase
@@ -588,9 +593,9 @@ initializr:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: org.flywaydb
               artifact-id: flyway-core
+              starter: false
           groupId: org.springframework.boot
-          artifactId: spring-boot-flyway
-          starter: false
+          artifactId: spring-boot-starter-flyway
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/data-initialization.html#howto.data-initialization.migration-tool.flyway
@@ -794,9 +799,9 @@ initializr:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: org.springframework.kafka
               artifact-id: spring-kafka
+              starter: false
           groupId: org.springframework.boot
-          artifactId: spring-boot-kafka
-          starter: false
+          artifactId: spring-boot-starter-kafka
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/messaging/kafka.html
@@ -1100,9 +1105,13 @@ initializr:
         - name: Zipkin
           id: zipkin
           description: Enable and expose span and trace IDs to Zipkin.
-          groupId: io.zipkin.reporter2
-          artifactId: zipkin-reporter-brave
-          starter: false
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              group-id: io.zipkin.reporter2
+              artifact-id: zipkin-reporter-brave
+              starter: false
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-zipkin
     - name: Testing
       content:
         - name: Spring REST Docs
@@ -1154,10 +1163,10 @@ initializr:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: com.unboundid
               artifact-id: unboundid-ldapsdk
+              starter: false
           groupId: org.springframework.boot
-          artifactId: spring-boot-ldap
+          artifactId: spring-boot-starter-ldap
           scope: test
-          starter: false
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.ldap.embedded
