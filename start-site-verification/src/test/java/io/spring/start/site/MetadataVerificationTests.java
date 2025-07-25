@@ -18,7 +18,6 @@ package io.spring.start.site;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +32,6 @@ import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.DependencyGroup;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
-import io.spring.initializr.metadata.Repository;
 import io.spring.start.testsupport.Homes;
 import org.eclipse.aether.repository.RemoteRepository;
 import org.junit.jupiter.api.TestInstance;
@@ -101,13 +99,13 @@ class MetadataVerificationTests {
 	Stream<Arguments> parameters() {
 		List<Arguments> parameters = new ArrayList<>();
 		for (Version bootVersion : bootVersions()) {
+			Repositories repositories = new Repositories(this.metadata, bootVersion);
 			for (DependencyGroup group : groups()) {
 				for (Dependency dependency : dependenciesForBootVersion(group, bootVersion)) {
 					dependency = dependency.resolve(bootVersion);
 					List<BillOfMaterials> boms = getBoms(dependency, bootVersion);
-					List<RemoteRepository> repositories = getRepositories(dependency, bootVersion, boms);
-					parameters
-						.add(Arguments.of(dependency, boms, repositories, bootVersion + " " + dependency.getId()));
+					parameters.add(Arguments.of(dependency, boms, repositories.getRepositories(dependency, boms),
+							bootVersion + " " + dependency.getId()));
 				}
 			}
 		}
@@ -132,38 +130,6 @@ class MetadataVerificationTests {
 			consumer.accept(bom.resolve(bootVersion));
 			bom.getAdditionalBoms().forEach((additionalBomId) -> bomsForId(additionalBomId, bootVersion, consumer));
 		}
-	}
-
-	private List<RemoteRepository> getRepositories(Dependency dependency, Version bootVersion,
-			List<BillOfMaterials> boms) {
-		Map<String, RemoteRepository> repositories = new HashMap<>();
-		repositories.put("central", DependencyResolver.mavenCentral);
-		String dependencyRepository = dependency.getRepository();
-		if (dependencyRepository != null) {
-			repositories.computeIfAbsent(dependencyRepository, this::repositoryForId);
-		}
-		for (BillOfMaterials bom : boms) {
-			for (String repository : bom.getRepositories()) {
-				repositories.computeIfAbsent(repository, this::repositoryForId);
-			}
-		}
-		if (bootVersion.getQualifier() != null) {
-			String qualifier = bootVersion.getQualifier().getId();
-			if (qualifier.contains("SNAPSHOT")) {
-				repositories.computeIfAbsent("spring-snapshots", this::repositoryForId);
-				repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
-			}
-			else if (qualifier.equals("M") || qualifier.equals("RC")) {
-				repositories.computeIfAbsent("spring-milestones", this::repositoryForId);
-			}
-		}
-		return new ArrayList<>(repositories.values());
-	}
-
-	private RemoteRepository repositoryForId(String id) {
-		Repository repository = this.metadata.getConfiguration().getEnv().getRepositories().get(id);
-		return DependencyResolver.createRemoteRepository(id, repository.getUrl().toExternalForm(),
-				repository.isSnapshotsEnabled());
 	}
 
 	private Collection<Version> bootVersions() {
