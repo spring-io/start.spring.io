@@ -45,12 +45,12 @@ import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDeclaration, C extends CompilationUnit<T>, S extends SourceCode<T, C>>
 		implements ProjectContributor {
 
-	public static final ClassName TEST_CONFIGURATION_CLASS_NAME = ClassName
+	private static final ClassName TEST_CONFIGURATION_CLASS_NAME = ClassName
 		.of("org.springframework.boot.test.context.TestConfiguration");
 
-	public static final ClassName BEAN_CLASS_NAME = ClassName.of("org.springframework.context.annotation.Bean");
+	private static final ClassName BEAN_CLASS_NAME = ClassName.of("org.springframework.context.annotation.Bean");
 
-	public static final ClassName SERVICE_CONNECTION_CLASS_NAME = ClassName
+	private static final ClassName SERVICE_CONNECTION_CLASS_NAME = ClassName
 		.of("org.springframework.boot.testcontainers.service.connection.ServiceConnection");
 
 	private static final ClassName DOCKER_IMAGE_NAME_CLASS_NAME = ClassName
