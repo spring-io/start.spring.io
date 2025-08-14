@@ -2040,6 +2040,13 @@ initializr:
     - name: Groovy
       id: groovy
       default: false
+  configuration-file-formats:
+    - name: Properties
+      id: properties
+      default: true
+    - name: YAML
+      id: yaml
+      default: false
   bootVersions:
     - name: 3.5.0 (SNAPSHOT)
       id: 3.5.0-SNAPSHOT

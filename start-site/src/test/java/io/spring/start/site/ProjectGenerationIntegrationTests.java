@@ -129,6 +129,7 @@ class ProjectGenerationIntegrationTests {
 		request.setArtifactId("demo");
 		request.setApplicationName("DemoApplication");
 		request.setDependencies(Arrays.asList("devtools", "configuration-processor"));
+		request.setConfigurationFileFormat("properties");
 		Path project = this.invoker.invokeProjectStructureGeneration(request).getRootDirectory();
 		Path home = getHome(buildSystem);
 		ProcessBuilder processBuilder = createProcessBuilder(project, buildSystem, home);
