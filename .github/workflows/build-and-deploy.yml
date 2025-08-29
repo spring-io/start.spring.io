@@ -41,6 +41,7 @@ jobs:
       - name: Build with Maven
         env:
           START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
+          GOOGLE_TAGMANAGER_ID: ${{ vars.GOOGLE_TAGMANAGER_ID }}
         run: ./mvnw --batch-mode --update-snapshots verify
 
       - name: Set up Azure
