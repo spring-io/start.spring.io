@@ -529,6 +529,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-security.html#web.security.oauth2.server
+        - name: WebAuthn for Spring Security
+          id: spring-security-webauthn
+          starter: false
+          compatibility-range: "4.0.0-M1"
+          group-id: org.springframework.security
+          artifact-id: spring-security-webauthn
+          description: Support for WebAuthn in Spring Security.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-security/reference/servlet/authentication/passkeys.html
         - name: Spring LDAP
           id: data-ldap
           description: Makes it easier to build Spring based applications that use the Lightweight Directory Access Protocol.
