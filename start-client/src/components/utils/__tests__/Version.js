@@ -8,6 +8,7 @@ import {
   parseReleases,
   parseVersion,
   rangeToText,
+  RELEASE_ORDER,
 } from '../Version'
 
 /**
@@ -24,9 +25,9 @@ describe('parseQualifier', () => {
   })
   it('should return a specific qualifier', () => {
     let release = parseQualifier('1.0.0.M2')
-    expect(release).toBe('M')
+    expect(release).toBe('M2')
     release = parseQualifier('1.0.0.RC1')
-    expect(release).toBe('RC')
+    expect(release).toBe('RC1')
     release = parseQualifier('1.0.0.BUILD-SNAPSHOT')
     expect(release).toBe('BUILD-SNAPSHOT')
   })
@@ -41,7 +42,7 @@ describe('parseVersion', () => {
     expect(get(version, 'version')).toBe('1.0.1.RELEASE')
     expect(get(version, 'short')).toBe('1.0.1')
     expect(get(version, 'major')).toBe('1.0.x')
-    expect(get(version, 'qualify')).toBe(3)
+    expect(get(version, 'qualify')).toBe(RELEASE_ORDER)
     expect(get(version, 'minor')).toBe(1)
   })
 
@@ -89,7 +90,7 @@ describe('parseReleases', () => {
     expect(get(result[0], 'version')).toBe('1.0.1.RELEASE')
     expect(get(result[0], 'short')).toBe('1.0.1')
     expect(get(result[0], 'major')).toBe('1.0.x')
-    expect(get(result[0], 'qualify')).toBe(3)
+    expect(get(result[0], 'qualify')).toBe(RELEASE_ORDER)
     expect(get(result[0], 'minor')).toBe(1)
   })
 })
@@ -111,6 +112,26 @@ describe('isInRange', () => {
     expect(result).toBe(false)
     result = isInRange('2.0.0.M1', '[2.0.0.RELEASE,2.2.0.M1)')
     expect(result).toBe(false)
+  })
+  it('should match backend logic', () => {
+    const rangeInclusive = '[3.4.0,4.0.0-M2]'
+    const rangeExclusive = '[3.4.0,4.0.0-M3)'
+    expect(isInRange('3.4.9', rangeInclusive)).toBe(true)
+    expect(isInRange('3.4.9', rangeExclusive)).toBe(true)
+    expect(isInRange('3.4.10-SNAPSHOT', rangeInclusive)).toBe(true)
+    expect(isInRange('3.4.10-SNAPSHOT', rangeExclusive)).toBe(true)
+    expect(isInRange('3.5.5', rangeInclusive)).toBe(true)
+    expect(isInRange('3.5.5', rangeExclusive)).toBe(true)
+    expect(isInRange('3.5.6-SNAPSHOT', rangeInclusive)).toBe(true)
+    expect(isInRange('3.5.6-SNAPSHOT', rangeExclusive)).toBe(true)
+    expect(isInRange('4.0.0-M1', rangeInclusive)).toBe(true)
+    expect(isInRange('4.0.0-M1', rangeExclusive)).toBe(true)
+    expect(isInRange('4.0.0-M2', rangeInclusive)).toBe(true)
+    expect(isInRange('4.0.0-M2', rangeExclusive)).toBe(true)
+    expect(isInRange('4.0.0-M3', rangeInclusive)).toBe(false)
+    expect(isInRange('4.0.0-M3', rangeExclusive)).toBe(false)
+    expect(isInRange('4.0.0-SNAPSHOT', rangeInclusive)).toBe(false)
+    expect(isInRange('4.0.0-SNAPSHOT', rangeExclusive)).toBe(false)
   })
 })
 
