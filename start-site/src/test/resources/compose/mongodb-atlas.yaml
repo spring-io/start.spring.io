@@ -1,0 +1,5 @@
+services:
+  mongodbatlas:
+    image: 'mongodb/mongodb-atlas-local:latest'
+    ports:
+      - '27017'

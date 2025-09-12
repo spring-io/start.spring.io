@@ -1,0 +1,49 @@
+{
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended",
+    "prettier",
+  ],
+  "parser": "@babel/eslint-parser",
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "plugins": [
+    "prettier",
+    "jest"
+  ],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js"
+        ]
+      }
+    ],
+    "react/no-find-dom-node": 0,
+    "class-methods-use-this": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "to",
+          "hrefLeft",
+          "hrefRight"
+        ],
+        "aspects": [
+          "noHref",
+          "invalidHref",
+          "preferButton"
+        ]
+      }
+    ]
+  }
+}

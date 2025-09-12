@@ -1,0 +1,33 @@
+name: Verification
+permissions:
+  contents: read
+on:
+  schedule:
+    - cron: '15 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  verification:
+    name: Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v5
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: '17'
+          distribution: 'liberica'
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: ./mvnw --batch-mode --update-snapshots --activate-profiles verification verify
+
+      - name: Send notification
+        uses: ./.github/actions/send-notification
+        if: always()
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+          status: ${{ job.status }}
+          run-name: ${{ format('start.spring.io (Verification) | {0}', github.ref_name) }}

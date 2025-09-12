@@ -1,0 +1,70 @@
+$rt-color-default: #222;
+$rt-color-info: #3498db;
+$rt-color-success: #6db33f;
+$rt-color-warning: #e8ba00;
+$rt-color-error: #e74c3c;
+$rt-toast-width: 400px;
+
+@import '../../node_modules/react-toastify/scss/variables';
+
+@import '../../node_modules/react-toastify/scss/toastContainer';
+@import '../../node_modules/react-toastify/scss/toast';
+@import '../../node_modules/react-toastify/scss/closeButton';
+@import '../../node_modules/react-toastify/scss/progressBar';
+
+@import '../../node_modules/react-toastify/scss/animations/bounce.scss';
+@import '../../node_modules/react-toastify/scss/animations/zoom.scss';
+@import '../../node_modules/react-toastify/scss/animations/flip.scss';
+@import '../../node_modules/react-toastify/scss/animations/slide.scss';
+
+.#{$rt-namespace}__toast-container {
+  line-height: 22px;
+}
+
+.#{$rt-namespace}__toast {
+  padding: $spring-8points * 2;
+}
+
+.Toastify__toast {
+  position: relative;
+  min-height: 32px;
+  padding: 12px;
+  background: white;
+  color: $light-color;
+  box-shadow: 0 0 0 6px rgba($light-border, 0.3);
+  border: 1px solid $light-border;
+  border-left: 6px solid $rt-color-default;
+  font-weight: 600;
+  .toast-close {
+    display: block;
+    position: absolute;
+    top: 50%;
+    margin-top: -14px;
+    right: 2px;
+    padding: 6px 8px;
+    height: 30px;
+    cursor: pointer;
+    opacity: 0;
+    color: $light-color;
+    svg {
+      width: 16px;
+    }
+  }
+  &:hover {
+    .toast-close {
+      opacity: 1;
+    }
+  }
+  &--info {
+    border-left-color: $rt-color-info;
+  }
+  &--success {
+    border-left-color: $rt-color-success;
+  }
+  &--warning {
+    border-left-color: $rt-color-warning;
+  }
+  &--error {
+    border-left-color: $rt-color-error;
+  }
+}

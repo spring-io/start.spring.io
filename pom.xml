@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2012 - present the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.5</version>
+	</parent>
+	<groupId>io.spring.start</groupId>
+	<artifactId>start-parent</artifactId>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
+	<name>start.spring.io</name>
+
+	<properties>
+		<revision>0.0.1-SNAPSHOT</revision>
+		<disable.checks>false</disable.checks>
+		<spring-initializr.version>0.22.1-SNAPSHOT</spring-initializr.version>
+		<spring-javaformat.version>0.0.47</spring-javaformat.version>
+	</properties>
+
+	<modules>
+		<module>start-client</module>
+		<module>start-site</module>
+		<module>test-support</module>
+	</modules>
+
+	<profiles>
+		<profile>
+			<id>verification</id>
+			<modules>
+				<module>start-site-verification</module>
+			</modules>
+			<properties>
+				<skipTests>true</skipTests>
+			</properties>
+		</profile>
+		<profile>
+			<id>full</id>
+			<modules>
+				<module>start-site-verification</module>
+			</modules>
+		</profile>
+	</profiles>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.spring.initializr</groupId>
+				<artifactId>initializr-bom</artifactId>
+				<version>${spring-initializr.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.start</groupId>
+				<artifactId>start-client</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.start</groupId>
+				<artifactId>start-site</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.spring.start</groupId>
+				<artifactId>test-support</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.azure.spring</groupId>
+				<artifactId>spring-cloud-azure-dependencies</artifactId>
+				<version>5.23.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>flatten-maven-plugin</artifactId>
+					<version>1.7.1</version>
+				</plugin>
+				<plugin>
+					<groupId>io.spring.javaformat</groupId>
+					<artifactId>spring-javaformat-maven-plugin</artifactId>
+					<version>${spring-javaformat.version}</version>
+					<executions>
+						<execution>
+							<phase>validate</phase>
+							<configuration>
+								<skip>${disable.checks}</skip>
+							</configuration>
+							<goals>
+								<goal>validate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>3.6.0</version>
+					<executions>
+						<execution>
+							<id>checkstyle-validation</id>
+							<phase>validate</phase>
+							<configuration>
+								<skip>${disable.checks}</skip>
+								<configLocation>src/checkstyle/checkstyle.xml</configLocation>
+								<includeTestSourceDirectory>true</includeTestSourceDirectory>
+							</configuration>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>10.26.1</version>
+						</dependency>
+						<dependency>
+							<groupId>io.spring.javaformat</groupId>
+							<artifactId>spring-javaformat-checkstyle</artifactId>
+							<version>${spring-javaformat.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>1.15.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<failOnWarning>true</failOnWarning>
+						<compilerArgs>
+							<arg>-Xlint:all</arg>
+							<arg>-Xlint:-processing</arg>
+						</compilerArgs>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<inherited>true</inherited>
+				<executions>
+					<execution>
+						<!-- Tidy up all POMs before they are published -->
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+						<configuration>
+							<updatePomFile>true</updatePomFile>
+							<flattenMode>oss</flattenMode>
+							<pomElements>
+								<parent>expand</parent>
+								<distributionManagement>remove</distributionManagement>
+								<repositories>remove</repositories>
+							</pomElements>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+</project>

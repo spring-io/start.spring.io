@@ -1,0 +1,3 @@
+application:
+  maven-version-resolver:
+    cache-directory: "${START_SPRING_IO_TMPDIR:${java.io.tmpdir}}/maven-version-resolver-cache"

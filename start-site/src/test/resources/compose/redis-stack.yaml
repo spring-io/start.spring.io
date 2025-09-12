@@ -1,0 +1,7 @@
+services:
+  redis:
+    image: 'redis/redis-stack:latest'
+    labels:
+      - "org.springframework.boot.service-connection=redis"
+    ports:
+      - '6379'

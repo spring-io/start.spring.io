@@ -1,0 +1,295 @@
+@media (min-width: 1650px) {
+  #header {
+    // h2 {
+    //   strong {
+    //     font-size: 50px;
+    //     line-height: 3rem;
+    //   }
+    //   span {
+    //     font-size: 35px;
+    //     line-height: 2.3rem;
+    //   }
+    // }
+    p {
+      font-size: 20px;
+      line-height: 2rem;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  body.light,
+  body.dark {
+    #header {
+      width: auto;
+    }
+    .colset-main {
+      background: none;
+    }
+    .colset-main {
+      > .right {
+        padding-bottom: 2rem;
+      }
+    }
+    .colset {
+      display: block;
+      > .left,
+      > .right {
+        flex: none;
+        padding-right: 0;
+      }
+    }
+    .desktop-only {
+      display: none !important;
+    }
+  }
+  .placeholder-button {
+    &-explore {
+      width: 125px;
+    }
+    &-submit {
+      width: 136px;
+    }
+    &-dep {
+      width: 85.45px;
+    }
+    &-download {
+      width: 148.13px;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .dependency-header {
+    .button span span .desktop-only {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1000px) {
+  .placeholder-button-dep {
+    width: 87.45px;
+  }
+}
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .placeholder-button-dep {
+    width: 134.73px;
+  }
+  .placeholder-button-download {
+    width: 144.13px;
+  }
+}
+
+.not-mobile {
+  display: block;
+}
+.is-mobile {
+  display: none;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  #side-left,
+  #side-right {
+    display: none;
+  }
+  .control-inline input {
+    max-width: none;
+  }
+  .control-placeholder .placeholder-input {
+    max-width: none;
+  }
+  #main {
+    padding: 0 12px;
+  }
+  .actions,
+  .explorer-actions {
+    left: 0;
+    right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    .actions-container {
+      padding: 8px 0;
+      height: 44px;
+    }
+    .button > span > span {
+      padding: 0.7rem 0.6rem 0.6rem;
+    }
+    .button {
+      font-size: 14px;
+    }
+  }
+
+  .explorer-actions {
+    padding: 8px 0;
+    height: 44px;
+  }
+
+  a.button,
+  button.button {
+    margin-right: 6px;
+    font-size: 14px;
+    &:last-child {
+      margin-right: 0;
+    }
+    > span > span {
+      padding: 0.7rem 0.6rem 0.6rem;
+    }
+  }
+
+  .popup-share .popop-share-container {
+    width: auto;
+  }
+  .explorer {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .colset-explorer {
+      padding: 0 5px;
+      .left {
+        display: none;
+      }
+      .right {
+        .head {
+          display: none;
+        }
+        .explorer-content {
+          top: 45px;
+          right: 0;
+          left: 0;
+          bottom: 65px;
+          margin: 0;
+        }
+      }
+    }
+  }
+  .more {
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  .not-mobile {
+    display: none;
+  }
+  .is-mobile {
+    display: block;
+  }
+  .navigation .navigation-content {
+    padding: 0 10px;
+    margin: 0 auto;
+    .navigation-content-wrap {
+      margin: 0;
+    }
+    #header {
+      h2,
+      .header-mobile {
+        margin-bottom: 0.4rem;
+        border-bottom: 1px solid rgba(#fff, 0.4);
+      }
+    }
+    ul {
+      margin: 0 -10px;
+      padding: 0;
+      li {
+        border-bottom: 1px solid rgba(#fff, 0.2);
+        a {
+          display: block;
+          font-size: 16px;
+          line-height: 1.5rem;
+          padding: 16px;
+        }
+      }
+    }
+  }
+  .dialog-dependencies {
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    bottom: 0;
+    width: auto;
+    .control-input {
+      .input {
+        padding: 7px 10px 3px;
+        padding-right: 45px;
+        &::placeholder {
+          font-size: $spring-font-size - 2;
+        }
+      }
+      .help {
+        display: none;
+      }
+    }
+
+    ul li a.dependency.selected .icon-enter {
+      display: none;
+    }
+    ul li a.dependency {
+      padding: 13px 10px;
+    }
+  }
+  .actions .placeholder-button,
+  .explorer-actions .placeholder-button {
+    height: 41.5px;
+    margin-right: 6px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .placeholder-button-submit {
+    width: 98.39px;
+  }
+  .placeholder-button-explore {
+    width: 88.55px;
+  }
+  .placeholder-button-share {
+    width: 33px;
+  }
+  .placeholder-button-download {
+    width: 108.73px;
+  }
+  .placeholder-button-dep {
+    width: 87.45px;
+  }
+  .explorer-select .placeholder-select {
+    margin: 0 -5px;
+    height: 33px;
+  }
+  ul.dependencies-list li a {
+    opacity: 1;
+  }
+
+  #header {
+    h2 {
+      text-align: center;
+      padding: 0.5rem 0;
+      strong {
+        font-size: 32px;
+        line-height: 2rem;
+      }
+      span {
+        font-size: 22px;
+        line-height: 2rem;
+        font-weight: 600;
+      }
+    }
+  }
+  hr.divider {
+    display: none;
+  }
+  .control-inline,
+  .control-placeholder {
+    display: block;
+    label,
+    .placeholder-label {
+      flex: none;
+      text-align: left;
+    }
+    input,
+    .group-radio,
+    .placeholder-input {
+      margin-left: 0;
+    }
+  }
+}

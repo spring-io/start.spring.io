@@ -1,0 +1,122 @@
+code[class*='language-'],
+pre[class*='language-'] {
+  color: #393a34;
+  font-family: 'Consolas', 'Bitstream Vera Sans Mono', 'Courier New', Courier,
+    monospace;
+  font-size: 14px;
+}
+
+pre[class*='language-']::-moz-selection,
+pre[class*='language-'] ::-moz-selection,
+code[class*='language-']::-moz-selection,
+code[class*='language-'] ::-moz-selection {
+  background: #b3d4fc;
+}
+
+pre[class*='language-']::selection,
+pre[class*='language-'] ::selection,
+code[class*='language-']::selection,
+code[class*='language-'] ::selection {
+  background: #b3d4fc;
+}
+
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999988;
+  font-style: italic;
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.string,
+.token.attr-value {
+  color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+  color: #393a34; /* no highlight */
+}
+
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+  color: #36acaa;
+}
+
+.token.atrule,
+.token.keyword,
+.token.attr-name,
+.language-autohotkey .token.selector {
+  color: #00bfff;
+}
+
+.token.function,
+.token.deleted,
+.language-autohotkey .token.tag {
+  color: #f14f00;
+}
+
+.token.tag,
+.token.selector,
+.language-autohotkey .token.keyword {
+  color: #00009f;
+}
+
+.token.important,
+.token.function,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.language-java {
+  .token.annotation {
+    color: #e3116c; /* no highlight */
+  }
+}
+
+.gatsby-highlight-code-line {
+  background-color: #f9f9f9;
+  display: block;
+  margin-right: -1em;
+  margin-left: -1em;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+pre.language-xml {
+  .token.tag,
+  .token.selector,
+  .language-autohotkey .token.keyword {
+    color: #e3116c;
+  }
+  .token {
+    &.attr-value {
+      color: rgb(80, 161, 79);
+    }
+    &.attr-name {
+      color: rgb(193, 132, 1);
+    }
+    &.punctuation {
+      color: #888;
+    }
+  }
+}

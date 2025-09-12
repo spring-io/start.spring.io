@@ -1,0 +1,126 @@
+= start.spring.io image:https://badges.gitter.im/spring-io/initializr.svg[link="https://gitter.im/spring-io/initializr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"]
+:library: https://github.com/spring-io/initializr
+
+This repository configures a {library}[Spring Initializr] instance with a custom UI
+running at https://start.spring.io. The following modules are available:
+
+* `start-client`: client-side assets
+* `start-site`: server infrastructure and metadata configuration
+* `start-site-verification`: tests to verify the validity of the metadata
+
+[[using]]
+== Using
+There is a link:USING.adoc[dedicated page] that describes how you can interact with the
+service.
+
+
+
+[[build]]
+== Building from Source
+
+You need Java 17 and a bash-like shell.
+
+[[building]]
+=== Building
+
+Invoke the build at the root of the project
+
+[indent=0]
+----
+    $ ./mvnw clean install
+----
+
+The project also includes a number of longer-running verification tests. They
+can be built and run using the `verification` profile:
+
+[indent=0]
+----
+    $ ./mvnw -Pverification clean install
+----
+
+The project's other tests are not included in the `verification` profile. All of
+the project's tests can be run using the `full` profile:
+
+[indent=0]
+----
+    $ ./mvnw -Pfull clean install
+----
+
+If building `start-client` fails, you may have an outdated cache that can be deleted as
+follows:
+
+[indent=0]
+----
+    $ cd start-client
+    $ rm -rf .cache node_modules
+----
+
+
+
+[[run-app]]
+=== Running the app locally
+As long as you've built the project beforehand (in particular `start-client`), you can
+easily start the app as any other Spring Boot app:
+
+[indent=0]
+----
+    $ cd start-site
+    $ ../mvnw spring-boot:run
+----
+
+[[run-ide]]
+=== Running the app in an IDE
+You should be able to import the project into your IDE with no problems. Once there you
+can run the `StartApplication` from its main method and debug it. If you also need to
+work on the library, adding the `initializr` project in your workspace would make sure
+to reload the app whenever you make any change.
+
+This is the recommended way to operate while you are developing the application,
+especially the UI.
+
+== Reusing the Web UI
+This instance has a thin layer with our opinions about getting started with Spring Boot.
+You can reuse them but please keep in mind that this is not supported with the same
+level as the Spring Initializr library. The Web UI, in particular, is for our own
+purpose and is not particularly engineered to be easily extended.
+
+
+
+== Deploying to Cloud Foundry
+
+If you are on a Mac and using https://brew.sh/[homebrew], install the Cloud Foundry
+CLI:
+
+[indent=0]
+----
+    $ brew install cloudfoundry-cli
+----
+
+Alternatively, download a suitable binary for your platform from
+https://console.run.pivotal.io/tools[Pivotal Web Services].
+
+You should ensure that the application name and URL (name and host values) are
+suitable for your environment before running `cf push`.
+
+First, make sure that you have <<building, built the application>>, then make sure first
+that the jar has been created:
+
+[indent=0]
+----
+    $ cd start-site
+    $ ../mvnw package
+----
+
+The project creates a regular library jar and a repackaged archive that can be used to
+start the application with the `exec` classifier. Once the build as completed, you can
+push the application:
+
+[indent=0]
+----
+    $ cf push your-start -p target/start-site-exec.jar
+----
+
+
+== License
+The start.spring.io website is Open Source software released under the
+https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].

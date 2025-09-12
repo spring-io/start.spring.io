@@ -1,0 +1,39 @@
+target
+!.mvn/wrapper/maven-wrapper.jar
+.flattened-pom.xml
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Visual Studio Code ###
+.vscode/
+
+### Start Client ###
+/start-client/public/
+/start-client/node_modules/
+/start-client/node/
+/start-client/.env
+/start-client/.cache/
+/start-client/package-lock.json
+/start-client/yarn-error.log
+/start-client/analysis

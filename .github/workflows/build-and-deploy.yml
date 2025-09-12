@@ -1,0 +1,69 @@
+name: Build and deploy
+permissions:
+  contents: read
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v5
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: '17'
+          distribution: 'liberica'
+          cache: 'maven'
+
+      - name: Cache Maven/Gradle repositories for tests
+        uses: actions/cache@v4
+        with:
+          path: /tmp/start-spring-io-cache-2024-12-11
+          # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
+          key: test-repositories-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: test-repositories-${{ runner.os }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: start-client/node_modules
+          key: node-modules-${{ hashFiles('start-client/yarn.lock') }}
+
+      - name: Build with Maven
+        env:
+          START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
+          GOOGLE_TAGMANAGER_ID: ${{ vars.GOOGLE_TAGMANAGER_ID }}
+        run: ./mvnw --batch-mode --update-snapshots verify
+
+      - name: Set up Azure
+        uses: azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5 # v2.3.0
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS_SPRING_ASA }}
+
+      - name: Set up Azure Spring Extension
+        run: az extension add --name spring
+
+      - name: Deploy
+        run: |
+          az spring app deploy \
+            --name start-spring-io \
+            --service spring-asa \
+            --resource-group spring-asa \
+            --artifact-path start-site/target/start-site-exec.jar
+
+      - name: Send notification
+        uses: ./.github/actions/send-notification
+        if: always()
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+          status: ${{ job.status }}
+          run-name: ${{ format('start.spring.io | {0}', github.ref_name) }}

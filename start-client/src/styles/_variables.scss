@@ -1,0 +1,30 @@
+// Theme Light
+
+$light-background: #fff;
+$light-background-seconday: #ecf2f2;
+$light-color: #000;
+$light-border: #dce8e8;
+$light-primary: #6db33f;
+$light-link: #086dc3;
+$light-placeholder: lighten($light-border, 5);
+$light-outline: darken($light-border, 15);
+
+// Theme Dark
+
+$dark-background: #1b1f23;
+$dark-background-secondary: #262a2d;
+$dark-color: #fff;
+$dark-border: #4a5053;
+$dark-primary: #6db33f;
+$dark-link: #086dc3;
+$dark-placeholder: #262a2d;
+
+// Global
+
+$spring-8points: 8px;
+$spring-font-size: 15px;
+$spring-font-size-sm: 14px;
+$spring-font-family: 'Metropolis', Arial, sans-serif;
+$spring-radius: 4px;
+$spring-transition-duration: 0.15s;
+$spring-max-width: 1680px;

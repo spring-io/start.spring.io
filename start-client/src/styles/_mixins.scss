@@ -1,0 +1,20 @@
+@mixin transition($args...) {
+  & {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+  }
+}
+
+@mixin outline {
+  & {
+    outline: 1px dotted transparent;
+  }
+  &:focus {
+    outline: 1px dotted $light-outline;
+    // outline: none;
+    // box-shadow: 0 0 0 2px $light-border;
+  }
+}
