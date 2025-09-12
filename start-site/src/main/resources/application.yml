@@ -132,7 +132,7 @@ initializr:
         versionProperty: spring-grpc.version
         mappings:
           - compatibilityRange: "[3.4.0,4.0.0-M1)"
-            version: 0.10.0
+            version: 0.11.0
       spring-modulith:
         groupId: org.springframework.modulith
         artifactId: spring-modulith-bom
