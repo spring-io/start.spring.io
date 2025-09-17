@@ -19,7 +19,8 @@ package io.spring.start.site.extension.dependency.sbom;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.versionresolver.MavenVersionResolver;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * {@link BuildCustomizer} that adds the CycloneDX Gradle plugin.
@@ -28,27 +29,23 @@ import io.spring.initializr.versionresolver.MavenVersionResolver;
  */
 class SbomCycloneDxGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private static final String DEFAULT_PLUGIN_VERSION = "1.10.0";
+	private static final String PLUGIN_VERSION_BOOT_3_4 = "1.10.0";
 
-	private final MavenVersionResolver versionResolver;
+	private static final String PLUGIN_VERSION = "2.3.0";
+
+	private static final VersionRange BOOT_3_5_OR_LATER = VersionParser.DEFAULT.parseRange("3.5.0-M1");
 
 	private final ProjectDescription description;
 
-	SbomCycloneDxGradleBuildCustomizer(MavenVersionResolver versionResolver, ProjectDescription description) {
-		this.versionResolver = versionResolver;
+	SbomCycloneDxGradleBuildCustomizer(ProjectDescription description) {
 		this.description = description;
 	}
 
 	@Override
 	public void customize(GradleBuild build) {
-		String pluginVersion = this.versionResolver
-			.resolveDependencies("org.springframework.boot", "spring-boot-parent",
-					this.description.getPlatformVersion().toString())
-			.get("org.cyclonedx:cyclonedx-gradle-plugin");
-
-		build.plugins()
-			.add("org.cyclonedx.bom",
-					(plugin) -> plugin.setVersion((pluginVersion != null) ? pluginVersion : DEFAULT_PLUGIN_VERSION));
+		boolean boot35orLater = BOOT_3_5_OR_LATER.match(this.description.getPlatformVersion());
+		String pluginVersion = boot35orLater ? PLUGIN_VERSION : PLUGIN_VERSION_BOOT_3_4;
+		build.plugins().add("org.cyclonedx.bom", (plugin) -> plugin.setVersion(pluginVersion));
 	}
 
 }

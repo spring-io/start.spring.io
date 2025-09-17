@@ -22,7 +22,6 @@ import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 import org.springframework.context.annotation.Bean;
 
@@ -48,9 +47,8 @@ class SbomProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
-	SbomCycloneDxGradleBuildCustomizer sbomCycloneDxGradleBuildCustomizer(MavenVersionResolver versionResolver,
-			ProjectDescription description) {
-		return new SbomCycloneDxGradleBuildCustomizer(versionResolver, description);
+	SbomCycloneDxGradleBuildCustomizer sbomCycloneDxGradleBuildCustomizer(ProjectDescription description) {
+		return new SbomCycloneDxGradleBuildCustomizer(description);
 	}
 
 }
