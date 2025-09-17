@@ -37,9 +37,11 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 public class JavaVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final VersionRange SPRING_BOOT_3_4_OR_LATER = VersionParser.DEFAULT.parseRange("3.4.0");
+	private static final VersionRange SPRING_BOOT_3_5_OR_LATER = VersionParser.DEFAULT.parseRange("3.5.0");
 
 	private static final List<String> UNSUPPORTED_VERSIONS = Arrays.asList("1.6", "1.7", "1.8");
+
+	private static final int MAX_JAVA_VERSION = 25;
 
 	@Override
 	public void customize(MutableProjectDescription description) {
@@ -61,11 +63,11 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 				updateTo(description, "21");
 			}
 		}
-		if (javaGeneration >= 24) {
-			// Spring Boot < 3.4.x supports Java 23 at most
+		if (javaGeneration >= 25) {
+			// Spring Boot < 3.5.x supports Java 24 at most
 			Version platformVersion = description.getPlatformVersion();
-			if (!SPRING_BOOT_3_4_OR_LATER.match(platformVersion)) {
-				updateTo(description, "23");
+			if (!SPRING_BOOT_3_5_OR_LATER.match(platformVersion)) {
+				updateTo(description, "24");
 			}
 		}
 	}
@@ -82,7 +84,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private Integer determineJavaGeneration(String javaVersion) {
 		try {
 			int generation = Integer.parseInt(javaVersion);
-			return (generation > 9 && generation <= 24) ? generation : null;
+			return (generation >= 9 && generation <= MAX_JAVA_VERSION) ? generation : null;
 		}
 		catch (NumberFormatException ex) {
 			return null;

@@ -76,8 +76,8 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java24IsNotSupportedWithKotlin() {
-		assertThat(mavenPom(kotlinProject("24", SupportedBootVersion.latest().getVersion())))
+	void java25IsNotSupportedWithKotlin() {
+		assertThat(mavenPom(kotlinProject("25", SupportedBootVersion.latest().getVersion())))
 			.hasProperty("java.version", "21");
 	}
 
@@ -93,7 +93,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	private static Stream<Arguments> supportedJavaParameters() {
 		return Stream.of(java("17", SupportedBootVersion.latest().getVersion()),
 				java("21", SupportedBootVersion.latest().getVersion()),
-				java("24", SupportedBootVersion.latest().getVersion()));
+				java("25", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
@@ -102,7 +102,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	private static Stream<Arguments> supportedGroovyParameters() {
 		return Stream.of(groovy("21", SupportedBootVersion.latest().getVersion()),
-				groovy("24", SupportedBootVersion.latest().getVersion()));
+				groovy("25", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {
