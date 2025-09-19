@@ -151,7 +151,7 @@ initializr:
           - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
             version: 1.4.4
           - compatibilityRange: "[4.0.0-M1,4.1.0-M1)"
-            version: 2.0.0-RC1
+            version: 2.0.0
       spring-shell:
         groupId: org.springframework.shell
         artifactId: spring-shell-dependencies
