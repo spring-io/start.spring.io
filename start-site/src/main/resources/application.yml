@@ -1709,6 +1709,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/elasticsearch.html
+        - name: GemFire Vector Database
+          id: spring-ai-vectordb-gemfire
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-vector-store-gemfire
+          description: Spring AI vector database support for GemFire.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/gemfire.html
         - name: Model Context Protocol Server
           id: spring-ai-mcp-server
           group-id: org.springframework.ai
