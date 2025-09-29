@@ -249,6 +249,11 @@ initializr:
           facets:
             - web
             - json
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-webmvc
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              artifact-id: spring-boot-starter-web
           links:
             - rel: guide
               href: https://spring.io/guides/gs/rest-service/
@@ -517,18 +522,33 @@ initializr:
         - name: OAuth2 Client
           id: oauth2-client
           description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-security-oauth2-client
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              artifact-id: spring-boot-starter-oauth2-client
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-security.html#web.security.oauth2.client
         - name: OAuth2 Authorization Server
           id: oauth2-authorization-server
           description: Spring Boot integration for Spring Authorization Server.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-security-oauth2-authorization-server
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              artifact-id: spring-boot-starter-oauth2-authorization-server
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-security.html#web.security.oauth2.authorization-server
         - name: OAuth2 Resource Server
           id: oauth2-resource-server
           description: Spring Boot integration for Spring Security's OAuth2 resource server features.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-security-oauth2-resource-server
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              artifact-id: spring-boot-starter-oauth2-resource-server
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-security.html#web.security.oauth2.server
