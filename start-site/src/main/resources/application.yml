@@ -86,7 +86,7 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.4.0,4.0.0-M1)"
-            version: 1.0.2
+            version: 1.0.3
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
