@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_4;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@Test
 	void binderNotAddedWhenSolaceNotSelected() {

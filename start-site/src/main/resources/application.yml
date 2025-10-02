@@ -73,6 +73,8 @@ initializr:
         mappings:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
             version: 2.2.0
+          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            version: 2.5.0
       solace-spring-cloud:
         groupId: com.solace.spring.cloud
         artifactId: solace-spring-cloud-bom
@@ -80,6 +82,8 @@ initializr:
         mappings:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
             version: 4.8.0
+          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            version: 4.10.0
       spring-ai:
         groupId: org.springframework.ai
         artifactId: spring-ai-bom
@@ -950,7 +954,7 @@ initializr:
         - name: Solace PubSub+
           bom: solace-spring-boot
           id: solace
-          compatibilityRange: "[3.4.0,3.5.0-M1)"
+          compatibilityRange: "[3.4.0,4.0.0-M1)"
           description: Connect to a Solace PubSub+ Advanced Event Broker to publish, subscribe, request/reply and store/replay messages
           groupId: com.solace.spring.boot
           artifactId: solace-spring-boot-starter
