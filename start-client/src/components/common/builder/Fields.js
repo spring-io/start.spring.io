@@ -159,6 +159,15 @@ function Fields({
                 }}
               />
               <FieldRadio
+                id='input-configurationFileFormat'
+                value={get(values, 'meta.configurationFileFormat')}
+                text='Configuration'
+                options={get(config, 'lists.meta.configurationFileFormat')}
+                onChange={value => {
+                  update({ meta: { configurationFileFormat: value } })
+                }}
+              />
+              <FieldRadio
                 id='input-java'
                 value={get(values, 'meta.java')}
                 text='Java'

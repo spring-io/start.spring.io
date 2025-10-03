@@ -10,6 +10,7 @@ const PROPERTIES_MAPPING_URL = {
   language: 'language',
   platformVersion: 'boot',
   packaging: 'meta.packaging',
+  configurationFileFormat: 'meta.configurationFileFormat',
   jvmVersion: 'meta.java',
   groupId: 'meta.group',
   artifactId: 'meta.artifact',
@@ -24,7 +25,7 @@ export const getInfo = function getInfo(url) {
     fetch(`${url}`, {
       method: 'GET',
       headers: {
-        Accept: 'application/vnd.initializr.v2.2+json',
+        Accept: 'application/vnd.initializr.v2.3+json',
       },
     })
       .then(
@@ -82,6 +83,7 @@ export const parseParams = (values, queryParams, lists) => {
           case 'project':
           case 'language':
           case 'meta.packaging':
+          case 'meta.configurationFileFormat':
           case 'meta.java': {
             const list = get(lists, key, [])
             const res = list.find(a => a.key.toLowerCase() === value)
@@ -228,6 +230,10 @@ export const getLists = json => {
         key: `${packaging.id}`,
         text: `${packaging.name}`,
       })),
+      configurationFileFormat: get(json, 'configurationFileFormat.values', []).map(configurationFileFormat => ({
+        key: `${configurationFileFormat.id}`,
+        text: `${configurationFileFormat.name}`,
+      })),
     },
     dependencies: deps,
   }
@@ -246,6 +252,7 @@ export const getDefaultValues = json => {
       packaging: get(json, 'packaging.default'),
       packageName: get(json, 'packageName.default'),
       java: get(json, 'javaVersion.default'),
+      configurationFileFormat: get(json, 'configurationFileFormat.default'),
     },
     dependencies: [],
   }
@@ -281,6 +288,7 @@ export const getProject = function getProject(url, values, config) {
       packageName: get(values, 'meta.packageName'),
       packaging: get(values, 'meta.packaging'),
       javaVersion: get(values, 'meta.java'),
+      configurationFileFormat: get(values, 'meta.configurationFileFormat'),
     })
     let paramsDependencies = get(values, 'dependencies', [])
       .map(dependency => {
