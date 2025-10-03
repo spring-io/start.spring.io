@@ -10,6 +10,7 @@ export const defaultInitializrContext = {
     project: '',
     language: '',
     boot: '',
+    configurationFileFormat: '',
     meta: {
       name: '',
       group: '',
@@ -41,6 +42,8 @@ const getPersistedOrDefault = json => {
     language:
       localStorage.getItem('language') || get(json, 'defaultValues').language,
     boot: get(json, 'defaultValues').boot,
+    configurationFileFormat:
+      localStorage.getItem('configurationFileFormat') || get(json, 'defaultValues').configurationFileFormat,
     meta: {
       name: get(json, 'defaultValues.meta').name,
       group: get(json, 'defaultValues.meta').group,
@@ -55,7 +58,7 @@ const getPersistedOrDefault = json => {
     },
     dependencies: [],
   }
-  const checks = ['project', 'language', 'meta.java', 'meta.packaging']
+  const checks = ['project', 'language', 'meta.java', 'meta.packaging', 'configurationFileFormat',]
   checks.forEach(key => {
     const item = get(json, `lists.${key}`)?.find(
       it => it.key === get(values, key)
@@ -79,6 +82,9 @@ const persist = changes => {
   }
   if (get(changes, 'meta.java')) {
     localStorage.setItem('java', get(changes, 'meta.java'))
+  }
+  if (get(changes, 'configurationFileFormat')) {
+    localStorage.setItem('configurationFileFormat', get(changes, 'configurationFileFormat'))
   }
 }
 

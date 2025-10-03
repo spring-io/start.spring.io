@@ -23,6 +23,7 @@ describe('COMPLETE action', () => {
         project: '',
         language: '',
         boot: '',
+        configurationFileFormat: '',
         meta: {
           name: '',
           group: '',
@@ -47,7 +48,7 @@ describe('COMPLETE action', () => {
       },
     })
     expect(get(result, 'share')).toBe(
-      'type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies='
+      'type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&configurationFileFormat=properties&jvmVersion=1.8&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies='
     )
     expect(get(result, 'values.project')).toBe('maven-project')
     expect(get(result, 'values.language')).toBe('java')
@@ -181,6 +182,15 @@ describe('UPDATE action', () => {
     })
     expect(get(result, 'values.meta.packaging')).toBe('war')
   })
+  it('should reduce the state (configuration file format)', () => {
+    const result = reducer(state, {
+      type: 'UPDATE',
+      payload: {
+        configurationFileFormat: 'yaml',
+      },
+    })
+    expect(get(result, 'values.configurationFileFormat')).toBe('yaml')
+  })
   it('should reduce the state (meta packageName)', () => {
     const result = reducer(state, {
       type: 'UPDATE',
@@ -217,6 +227,7 @@ describe('LOAD action', () => {
           description: 'Demo1 project for Spring Boot',
           groupId: 'com.example1',
           jvmVersion: '1.8',
+          configurationFileFormat: 'yaml',
           language: 'java',
           name: 'demo1',
           packageName: 'com.example1.demo1',
@@ -239,6 +250,7 @@ describe('LOAD action', () => {
     expect(get(result, 'values.meta.packaging')).toBe('war')
     expect(get(result, 'values.meta.packageName')).toBe('com.example1.demo1')
     expect(get(result, 'values.meta.java')).toBe('1.8')
+    expect(get(result, 'values.configurationFileFormat')).toBe('yaml')
     expect(get(result, 'values.dependencies').length).toBe(0)
     expect(Object.keys(get(result, 'errors')).length).toBe(0)
     expect(Object.keys(get(result, 'warnings')).length).toBe(0)
