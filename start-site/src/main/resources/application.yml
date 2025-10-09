@@ -145,9 +145,9 @@ initializr:
         versionProperty: spring-modulith.version
         mappings:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 1.3.7
+            version: 1.3.9
           - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
-            version: 1.4.1
+            version: 1.4.3
           - compatibilityRange: "[4.0.0-M1,4.1.0-M1)"
             version: 2.0.0-M3
       spring-shell:
