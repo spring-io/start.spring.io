@@ -49,7 +49,7 @@ initializr:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
             version: 3.4.7
           - compatibilityRange: "[3.5.0,4.0.0-M1)"
-            version: 3.5.0
+            version: 3.5.5
       netflix-dgs:
         groupId: com.netflix.graphql.dgs
         artifactId: graphql-dgs-platform-dependencies
