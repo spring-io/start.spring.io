@@ -566,7 +566,7 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-security/reference/servlet/authentication/passkeys.html
-        - name: Spring LDAP
+        - name: Spring Data LDAP
           id: data-ldap
           description: Makes it easier to build Spring based applications that use the Lightweight Directory Access Protocol.
           links:
