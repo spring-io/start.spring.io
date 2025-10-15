@@ -28,6 +28,8 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 
@@ -35,8 +37,11 @@ import io.spring.initializr.metadata.InitializrMetadata;
  * Provide additional information when GraalVM Native Support is selected.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
+
+	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0-M1");
 
 	private final InitializrMetadata metadata;
 
@@ -74,6 +79,7 @@ class GraalVmHelpDocumentCustomizer implements HelpDocumentCustomizer {
 		model.put("nbtBuildImageCommand", mavenBuild ? "./mvnw native:compile -Pnative" : "./gradlew nativeCompile");
 		model.put("nbtRunImageCommand", String.format("%s/%s", mavenBuild ? "target" : "build/native/nativeCompile",
 				this.build.getSettings().getArtifact()));
+		model.put("minNativeImageVersion", SPRING_BOOT_4_OR_LATER.match(this.platformVersion) ? "25" : "22.3");
 		// Tests execution
 		model.put("testsExecutionCommand", mavenBuild ? "./mvnw test -PnativeTest" : "./gradlew nativeTest");
 

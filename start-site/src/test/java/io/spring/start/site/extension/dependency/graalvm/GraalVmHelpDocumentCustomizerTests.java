@@ -117,6 +117,20 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 			.doesNotContain("There are some limitations regarding Native Build Tools and Gradle toolchains.");
 	}
 
+	@Test
+	void shouldHaveGraalVM223asBaseline() {
+		ProjectRequest request = createProjectRequest("native");
+		request.setType("maven-project");
+		assertHelpDocument(request).contains("GraalVM 22.3+ is required");
+	}
+
+	@Test
+	void shouldHaveGraalVM223asBaselineWhenUsingBoot4() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "native");
+		request.setType("maven-project");
+		assertHelpDocument(request).contains("GraalVM 25+ is required");
+	}
+
 	private TextAssert assertHelpDocument(ProjectRequest request) {
 		return assertThat(helpDocument(request));
 	}
