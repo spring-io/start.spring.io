@@ -338,6 +338,7 @@ initializr:
           description: Provides an API and a Spring Data MongoDB implementation for managing user session information.
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-session-data-mongodb
+          compatibilityRange: "[3.4.0,4.0.0-M3]"
           mappings:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               group-id: org.springframework.session
@@ -361,6 +362,7 @@ initializr:
               href: https://docs.spring.io/spring-session/reference/
         - name: Spring Session for Hazelcast
           id: session-hazelcast
+          compatibilityRange: "[3.4.0,4.0.0-M3]"
           description: Provides an API and a Hazelcast implementation for managing user session information.
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-session-hazelcast
