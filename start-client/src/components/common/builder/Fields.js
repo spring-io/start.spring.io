@@ -108,6 +108,16 @@ function Fields({
                 </FieldError>
               )}
             </Control>
+            <Control text='Configuration File Format'>
+              <Radio
+                  name='configurationFileFormat'
+                  selected={get(values, 'configurationFileFormat')}
+                  options={get(config, 'lists.configurationFileFormat')}
+                  onChange={value => {
+                    update({ configurationFileFormat: value })
+                  }}
+              />
+            </Control>
             <Control text='Project Metadata'>
               <FieldInput
                 id='input-group'
