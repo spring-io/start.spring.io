@@ -22,6 +22,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -34,13 +37,14 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("spring-ai-vectordb-qdrant")
 class SpringAiQdrantProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.qdrant.QdrantContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer qdrantServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("qdrant", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("qdrant", service, TESTCONTAINERS_CLASS_NAME, false)));
+	ServiceConnectionsCustomizer qdrantServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
+			Testcontainers testcontainers) {
+		Container container = testcontainers.getContainer(SupportedContainer.QDRANT);
+		return (serviceConnections) -> serviceResolver.doWith("qdrant",
+				(service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("qdrant", service, container.className(), container.generic())));
 	}
 
 	@Bean

@@ -22,6 +22,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,15 +37,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 public class Neo4jProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.Neo4jContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer neo4jServiceConnectionsCustomizer(Build build, DockerServiceResolver serviceResolver) {
+	ServiceConnectionsCustomizer neo4jServiceConnectionsCustomizer(Build build, DockerServiceResolver serviceResolver,
+			Testcontainers testcontainers) {
 		return (serviceConnections) -> {
 			if (isNeo4jEnabled(build)) {
-				serviceResolver.doWith("neo4j", (service) -> serviceConnections
-					.addServiceConnection(ServiceConnection.ofContainer("neo4j", service, TESTCONTAINERS_CLASS_NAME)));
+				Container container = testcontainers.getContainer(SupportedContainer.NEO4J);
+				serviceResolver.doWith("neo4j", (service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("neo4j", service, container.className(), container.generic())));
 			}
 		};
 	}

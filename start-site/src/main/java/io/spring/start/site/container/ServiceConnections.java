@@ -28,8 +28,6 @@ import java.util.stream.Stream;
  */
 public class ServiceConnections {
 
-	private static final String GENERIC_CONTAINER_CLASS_NAME = "org.testcontainers.containers.GenericContainer";
-
 	private final Map<String, ServiceConnection> connectionsById = new HashMap<>();
 
 	public void addServiceConnection(ServiceConnection serviceConnection) {
@@ -49,11 +47,8 @@ public class ServiceConnections {
 
 		public static ServiceConnection ofGenericContainer(String id, DockerService dockerService,
 				String connectionName) {
-			return new ServiceConnection(id, dockerService, GENERIC_CONTAINER_CLASS_NAME, true, connectionName);
-		}
-
-		public static ServiceConnection ofContainer(String id, DockerService dockerService, String containerClassName) {
-			return ofContainer(id, dockerService, containerClassName, true);
+			return new ServiceConnection(id, dockerService, Testcontainers.GENERIC_CONTAINER_CLASS_NAME, true,
+					connectionName);
 		}
 
 		public static ServiceConnection ofContainer(String id, DockerService dockerService, String containerClassName,
@@ -62,7 +57,7 @@ public class ServiceConnections {
 		}
 
 		public boolean isGenericContainer() {
-			return this.containerClassName.equals(GENERIC_CONTAINER_CLASS_NAME);
+			return this.containerClassName.equals(Testcontainers.GENERIC_CONTAINER_CLASS_NAME);
 		}
 
 	}

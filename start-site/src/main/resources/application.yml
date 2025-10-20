@@ -1194,7 +1194,10 @@ initializr:
           id: testcontainers
           description: Provide lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
           groupId: org.testcontainers
-          artifactId: junit-jupiter
+          mappings:
+            - compatibility-range: "[3.4.0,4.0.0-M3]"
+              artifactId: junit-jupiter
+          artifactId: testcontainers-junit-jupiter
           scope: test
           starter: false
           links:

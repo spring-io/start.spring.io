@@ -21,6 +21,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,13 +38,14 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnRequestedDependency("spring-ai-vectordb-pgvector")
 class PgVectorProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.PostgreSQLContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer pgvectorServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("pgvector", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("pgvector", service, TESTCONTAINERS_CLASS_NAME)));
+	ServiceConnectionsCustomizer pgvectorServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
+			Testcontainers testcontainers) {
+		Container container = testcontainers.getContainer(SupportedContainer.POSTGRESQL);
+		return (serviceConnections) -> serviceResolver
+			.doWith("pgvector", (service) -> serviceConnections.addServiceConnection(
+					ServiceConnection.ofContainer("pgvector", service, container.className(), container.generic())));
 	}
 
 	@Bean

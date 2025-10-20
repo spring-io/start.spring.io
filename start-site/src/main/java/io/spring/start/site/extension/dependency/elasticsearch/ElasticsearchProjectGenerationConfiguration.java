@@ -22,6 +22,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,16 +39,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 class ElasticsearchProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.elasticsearch.ElasticsearchContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer elasticsearchServiceConnectionsCustomizer(Build build,
-			DockerServiceResolver serviceResolver) {
+			DockerServiceResolver serviceResolver, Testcontainers testcontainers) {
+		Container container = testcontainers.getContainer(SupportedContainer.ELASTICSEARCH);
 		return (serviceConnections) -> {
 			if (isElasticsearchEnabled(build)) {
-				serviceResolver.doWith("elasticsearch", (service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("elasticsearch", service, TESTCONTAINERS_CLASS_NAME, false)));
+				serviceResolver.doWith("elasticsearch",
+						(service) -> serviceConnections.addServiceConnection(ServiceConnection
+							.ofContainer("elasticsearch", service, container.className(), container.generic())));
 			}
 		};
 	}

@@ -31,6 +31,7 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.start.site.container.DockerService;
 import io.spring.start.site.container.ServiceConnections;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
+import io.spring.start.site.container.Testcontainers;
 import org.codehaus.plexus.util.StringUtils;
 
 import org.springframework.util.ClassUtils;
@@ -82,7 +83,7 @@ class KotlinTestContainersApplicationCodeProjectContributor extends
 		KotlinFunctionDeclaration method = KotlinFunctionDeclaration.function(functionName)
 			.returning("GenericContainer<*>")
 			.body(CodeBlock.ofStatement("return $T($L).withExposedPorts($L)",
-					"org.testcontainers.containers.GenericContainer", generatedDockerImageNameCode(imageId),
+					Testcontainers.GENERIC_CONTAINER_CLASS_NAME, generatedDockerImageNameCode(imageId),
 					portsParameter));
 		annotateContainerMethod(method, connectionName);
 		return method;

@@ -262,7 +262,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.test.context.TestConfiguration
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 					import org.springframework.context.annotation.Bean
-					import org.testcontainers.containers.CassandraContainer
+					import org.testcontainers.cassandra.CassandraContainer
 					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
@@ -271,7 +271,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 						@Bean
 						@ServiceConnection
 						CassandraContainer cassandraContainer() {
-							new CassandraContainer<>(DockerImageName.parse("cassandra:latest"))
+							new CassandraContainer(DockerImageName.parse("cassandra:latest"))
 						}
 
 					}
@@ -323,7 +323,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.test.context.TestConfiguration;
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 					import org.springframework.context.annotation.Bean;
-					import org.testcontainers.containers.CassandraContainer;
+					import org.testcontainers.cassandra.CassandraContainer;
 					import org.testcontainers.utility.DockerImageName;
 
 					@TestConfiguration(proxyBeanMethods = false)
@@ -331,8 +331,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 						@Bean
 						@ServiceConnection
-						CassandraContainer<?> cassandraContainer() {
-							return new CassandraContainer<>(DockerImageName.parse("cassandra:latest"));
+						CassandraContainer cassandraContainer() {
+							return new CassandraContainer(DockerImageName.parse("cassandra:latest"));
 						}
 
 					}
@@ -381,7 +381,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 					import org.springframework.boot.test.context.TestConfiguration
 					import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 					import org.springframework.context.annotation.Bean
-					import org.testcontainers.containers.CassandraContainer
+					import org.testcontainers.cassandra.CassandraContainer
 					import org.testcontainers.utility.DockerImageName
 
 					@TestConfiguration(proxyBeanMethods = false)
@@ -389,7 +389,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 						@Bean
 						@ServiceConnection
-						fun cassandraContainer(): CassandraContainer<*> {
+						fun cassandraContainer(): CassandraContainer {
 							return CassandraContainer(DockerImageName.parse("cassandra:latest"))
 						}
 

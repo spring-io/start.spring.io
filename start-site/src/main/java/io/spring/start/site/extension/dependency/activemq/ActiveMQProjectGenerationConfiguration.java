@@ -22,6 +22,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -34,14 +37,14 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("activemq")
 public class ActiveMQProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.activemq.ActiveMQContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer activeMQClassicServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("activeMQClassic",
-				(service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("activemq", service, TESTCONTAINERS_CLASS_NAME, false)));
+	ServiceConnectionsCustomizer activeMQClassicServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
+			Testcontainers testcontainers) {
+		Container container = testcontainers.getContainer(SupportedContainer.ACTIVEMQ);
+		return (serviceConnections) -> serviceResolver
+			.doWith("activeMQClassic", (service) -> serviceConnections.addServiceConnection(
+					ServiceConnection.ofContainer("activemq", service, container.className(), container.generic())));
 	}
 
 	@Bean

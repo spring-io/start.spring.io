@@ -24,7 +24,9 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
-import io.spring.initializr.generator.version.Version;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
 
@@ -37,62 +39,79 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  */
 abstract class TestcontainersModuleRegistry {
 
-	static Iterable<ImplicitDependency> create(Version platformVersion) {
+	static Iterable<ImplicitDependency> create(Testcontainers testcontainers) {
 		List<ImplicitDependency.Builder> builders = new ArrayList<>();
-		builders.add(onDependencies("activemq").customizeBuild(addModule("activemq"))
+		builders.add(onDependencies("activemq")
+			.customizeBuild(addModule("activemq", testcontainers, SupportedContainer.ACTIVEMQ))
 			.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
-		builders.add(onDependencies("artemis").customizeBuild(addModule("activemq"))
+		builders.add(onDependencies("artemis")
+			.customizeBuild(addModule("activemq", testcontainers, SupportedContainer.ARTEMIS))
 			.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
-		builders.add(onDependencies("amqp", "amqp-streams").customizeBuild(addModule("rabbitmq"))
+		builders.add(onDependencies("amqp", "amqp-streams")
+			.customizeBuild(addModule("rabbitmq", testcontainers, SupportedContainer.RABBITMQ))
 			.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")));
-		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud"))
+		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud", testcontainers))
 			.customizeHelpDocument(addReferenceLink("GCloud Module", "gcloud/")));
-		builders.add(onDependencies("cloud-starter-consul-config").customizeBuild(addModule("consul"))
+		builders.add(onDependencies("cloud-starter-consul-config").customizeBuild(addModule("consul", testcontainers))
 			.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")));
-		builders.add(onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault"))
+		builders.add(onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault", testcontainers))
 			.customizeHelpDocument(addReferenceLink("Vault Module", "vault/")));
 		builders.add(onDependencies("data-cassandra", "data-cassandra-reactive", "spring-ai-vectordb-cassandra")
-			.customizeBuild(addModule("cassandra"))
+			.customizeBuild(addModule("cassandra", testcontainers, SupportedContainer.CASSANDRA))
 			.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")));
-		builders.add(onDependencies("data-couchbase", "data-couchbase-reactive").customizeBuild(addModule("couchbase"))
+		builders.add(onDependencies("data-couchbase", "data-couchbase-reactive")
+			.customizeBuild(addModule("couchbase", testcontainers))
 			.customizeHelpDocument(addReferenceLink("Couchbase Module", "databases/couchbase/")));
 		builders.add(onDependencies("data-elasticsearch", "spring-ai-vectordb-elasticsearch")
-			.customizeBuild(addModule("elasticsearch"))
+			.customizeBuild(addModule("elasticsearch", testcontainers, SupportedContainer.ELASTICSEARCH))
 			.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")));
 		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive", "spring-ai-vectordb-mongodb-atlas")
-			.customizeBuild(addModule("mongodb"))
+			.customizeBuild(addModule("mongodb", testcontainers, SupportedContainer.MONGODB))
 			.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")));
-		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j").customizeBuild(addModule("neo4j"))
+		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j")
+			.customizeBuild(addModule("neo4j", testcontainers, SupportedContainer.NEO4J))
 			.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")));
-		builders.add(onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc"))
+		builders.add(onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc", testcontainers))
 			.customizeHelpDocument(addReferenceLink("R2DBC support", "databases/r2dbc/")));
-		builders.add(onDependencies("db2").customizeBuild(addModule("db2"))
+		builders.add(onDependencies("db2").customizeBuild(addModule("db2", testcontainers))
 			.customizeHelpDocument(addReferenceLink("DB2 Module", "databases/db2/")));
-		builders.add(onDependencies("kafka", "kafka-streams").customizeBuild(addModule("kafka"))
+		builders.add(onDependencies("kafka", "kafka-streams")
+			.customizeBuild(addModule("kafka", testcontainers, SupportedContainer.KAFKA))
 			.customizeHelpDocument(addReferenceLink("Kafka Modules", "kafka/")));
-		builders.add(onDependencies("mariadb").customizeBuild(addModule("mariadb"))
+		builders.add(onDependencies("mariadb")
+			.customizeBuild(addModule("mariadb", testcontainers, SupportedContainer.MARIADB))
 			.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")));
-		builders.add(onDependencies("mysql").customizeBuild(addModule("mysql"))
-			.customizeHelpDocument(addReferenceLink("MySQL Module", "databases/mysql/")));
-		builders.add(onDependencies("oracle", "spring-ai-vectordb-oracle").customizeBuild(addModule("oracle-free"))
+		builders
+			.add(onDependencies("mysql").customizeBuild(addModule("mysql", testcontainers, SupportedContainer.MYSQL))
+				.customizeHelpDocument(addReferenceLink("MySQL Module", "databases/mysql/")));
+		builders.add(onDependencies("oracle", "spring-ai-vectordb-oracle")
+			.customizeBuild(addModule("oracle-free", testcontainers, SupportedContainer.ORACLE))
 			.customizeHelpDocument(addReferenceLink("Oracle-Free Module", "databases/oraclefree/")));
-		builders.add(onDependencies("postgresql", "spring-ai-vectordb-pgvector").customizeBuild(addModule("postgresql"))
+		builders.add(onDependencies("postgresql", "spring-ai-vectordb-pgvector")
+			.customizeBuild(addModule("postgresql", testcontainers, SupportedContainer.POSTGRESQL))
 			.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")));
-		builders.add(onDependencies("pulsar", "pulsar-reactive").customizeBuild(addModule("pulsar"))
+		builders.add(onDependencies("pulsar", "pulsar-reactive")
+			.customizeBuild(addModule("pulsar", testcontainers, SupportedContainer.PULSAR))
 			.customizeHelpDocument(addReferenceLink("Pulsar Module", "pulsar/")));
-		builders.add(onDependencies("solace").customizeBuild(addModule("solace"))
+		builders.add(onDependencies("solace").customizeBuild(addModule("solace", testcontainers))
 			.customizeHelpDocument(addReferenceLink("Solace Module", "solace/")));
-		builders.add(onDependencies("sqlserver").customizeBuild(addModule("mssqlserver"))
+		builders.add(onDependencies("sqlserver")
+			.customizeBuild(addModule("mssqlserver", testcontainers, SupportedContainer.MSSQL))
 			.customizeHelpDocument(addReferenceLink("MS SQL Server Module", "databases/mssqlserver/")));
-		builders.add(onDependencies("spring-ai-vectordb-chroma").customizeBuild(addModule("chromadb"))
+		builders.add(onDependencies("spring-ai-vectordb-chroma")
+			.customizeBuild(addModule("chromadb", testcontainers, SupportedContainer.CHROMADB))
 			.customizeHelpDocument(addReferenceLink("Chroma Module", "testcontainers/")));
-		builders.add(onDependencies("spring-ai-vectordb-milvus").customizeBuild(addModule("milvus"))
+		builders.add(onDependencies("spring-ai-vectordb-milvus")
+			.customizeBuild(addModule("milvus", testcontainers, SupportedContainer.MILVUS))
 			.customizeHelpDocument(addReferenceLink("Milvus Module", "testcontainers/")));
-		builders.add(onDependencies("spring-ai-ollama").customizeBuild(addModule("ollama"))
+		builders.add(onDependencies("spring-ai-ollama")
+			.customizeBuild(addModule("ollama", testcontainers, SupportedContainer.OLLAMA))
 			.customizeHelpDocument(addReferenceLink("Ollama Module", "testcontainers/")));
-		builders.add(onDependencies("spring-ai-vectordb-qdrant").customizeBuild(addModule("qdrant"))
+		builders.add(onDependencies("spring-ai-vectordb-qdrant")
+			.customizeBuild(addModule("qdrant", testcontainers, SupportedContainer.QDRANT))
 			.customizeHelpDocument(addReferenceLink("Qdrant Module", "testcontainers/")));
-		builders.add(onDependencies("spring-ai-vectordb-weaviate").customizeBuild(addModule("weaviate"))
+		builders.add(onDependencies("spring-ai-vectordb-weaviate")
+			.customizeBuild(addModule("weaviate", testcontainers, SupportedContainer.WEAVIATE))
 			.customizeHelpDocument(addReferenceLink("Weaviate Module", "testcontainers/")));
 		return builders.stream().map(Builder::build).toList();
 	}
@@ -101,10 +120,19 @@ abstract class TestcontainersModuleRegistry {
 		return new Builder().matchAnyDependencyIds(dependencyIds);
 	}
 
-	private static Consumer<Build> addModule(String id) {
+	private static Consumer<Build> addModule(String id, Testcontainers testcontainers) {
 		return (build) -> build.dependencies()
 			.add("testcontainers-" + id,
-					Dependency.withCoordinates("org.testcontainers", id).scope(DependencyScope.TEST_COMPILE));
+					Dependency.withCoordinates("org.testcontainers", testcontainers.resolveArtifactId(id))
+						.scope(DependencyScope.TEST_COMPILE));
+	}
+
+	private static Consumer<Build> addModule(String id, Testcontainers testcontainers,
+			Testcontainers.SupportedContainer supportedContainer) {
+		Container container = testcontainers.getContainer(supportedContainer);
+		return (build) -> build.dependencies()
+			.add("testcontainers-" + id, Dependency.withCoordinates("org.testcontainers", container.module())
+				.scope(DependencyScope.TEST_COMPILE));
 	}
 
 	private static Consumer<HelpDocument> addReferenceLink(String name, String modulePath) {

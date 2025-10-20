@@ -21,6 +21,9 @@ import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -33,13 +36,14 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("spring-ai-vectordb-milvus")
 class SpringAiMilvusProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.milvus.MilvusContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer milvusServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("milvus", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("milvus", service, TESTCONTAINERS_CLASS_NAME, false)));
+	ServiceConnectionsCustomizer milvusServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
+			Testcontainers testcontainers) {
+		Container container = testcontainers.getContainer(SupportedContainer.MILVUS);
+		return (serviceConnections) -> serviceResolver.doWith("milvus",
+				(service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("milvus", service, container.className(), container.generic())));
 	}
 
 }

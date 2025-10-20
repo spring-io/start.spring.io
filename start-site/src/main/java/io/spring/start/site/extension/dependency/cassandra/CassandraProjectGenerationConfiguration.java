@@ -22,6 +22,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,16 +39,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 class CassandraProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.CassandraContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer cassandraServiceConnectionsCustomizer(Build build,
-			DockerServiceResolver serviceResolver) {
+			DockerServiceResolver serviceResolver, Testcontainers testcontainers) {
 		return (serviceConnections) -> {
 			if (isCassandraEnabled(build)) {
-				serviceResolver.doWith("cassandra", (service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("cassandra", service, TESTCONTAINERS_CLASS_NAME)));
+				Container container = testcontainers.getContainer(SupportedContainer.CASSANDRA);
+				serviceResolver.doWith("cassandra",
+						(service) -> serviceConnections.addServiceConnection(ServiceConnection.ofContainer("cassandra",
+								service, container.className(), container.generic())));
 			}
 		};
 	}

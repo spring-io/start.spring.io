@@ -23,6 +23,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -36,14 +39,14 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("spring-ai-vectordb-mongodb-atlas")
 class SpringAiMongoDbAtlasProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.mongodb.MongoDBAtlasLocalContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer mongodbAtlasServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
+	ServiceConnectionsCustomizer mongodbAtlasServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
+			Testcontainers testcontainers) {
+		Container container = testcontainers.getContainer(SupportedContainer.MONGODB_ATLAS);
 		return (serviceConnections) -> serviceResolver.doWith("mongoDbAtlas",
-				(service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("mongoDbAtlas", service, TESTCONTAINERS_CLASS_NAME, false)));
+				(service) -> serviceConnections.addServiceConnection(ServiceConnection.ofContainer("mongoDbAtlas",
+						service, container.className(), container.generic())));
 	}
 
 	@Bean

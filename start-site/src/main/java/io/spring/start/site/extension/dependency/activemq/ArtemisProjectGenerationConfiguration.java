@@ -22,6 +22,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 
@@ -34,13 +37,14 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("artemis")
 public class ArtemisProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.activemq.ArtemisContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer artemisServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("artemis", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("artemis", service, TESTCONTAINERS_CLASS_NAME, false)));
+	ServiceConnectionsCustomizer artemisServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
+			Testcontainers testcontainers) {
+		Container container = testcontainers.getContainer(SupportedContainer.ARTEMIS);
+		return (serviceConnections) -> serviceResolver.doWith("artemis",
+				(service) -> serviceConnections.addServiceConnection(
+						ServiceConnection.ofContainer("artemis", service, container.className(), container.generic())));
 	}
 
 	@Bean

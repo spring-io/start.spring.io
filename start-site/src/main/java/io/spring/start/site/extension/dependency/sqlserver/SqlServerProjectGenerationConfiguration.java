@@ -21,6 +21,9 @@ import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
+import io.spring.start.site.container.Testcontainers;
+import io.spring.start.site.container.Testcontainers.Container;
+import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,13 +38,14 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnRequestedDependency("sqlserver")
 class SqlServerProjectGenerationConfiguration {
 
-	private static final String TESTCONTAINERS_CLASS_NAME = "org.testcontainers.containers.MSSQLServerContainer";
-
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer sqlServerServiceConnectionsCustomizer(DockerServiceResolver serviceResolver) {
-		return (serviceConnections) -> serviceResolver.doWith("sqlServer", (service) -> serviceConnections
-			.addServiceConnection(ServiceConnection.ofContainer("sqlServer", service, TESTCONTAINERS_CLASS_NAME)));
+	ServiceConnectionsCustomizer sqlServerServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
+			Testcontainers testcontainers) {
+		Container container = testcontainers.getContainer(SupportedContainer.MSSQL);
+		return (serviceConnections) -> serviceResolver
+			.doWith("sqlServer", (service) -> serviceConnections.addServiceConnection(
+					ServiceConnection.ofContainer("sqlServer", service, container.className(), container.generic())));
 	}
 
 	@Bean
