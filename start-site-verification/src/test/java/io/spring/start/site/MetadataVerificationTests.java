@@ -34,7 +34,6 @@ import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.start.testsupport.Homes;
 import org.eclipse.aether.repository.RemoteRepository;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.parallel.Execution;
@@ -80,11 +79,6 @@ class MetadataVerificationTests {
 	@MethodSource("parameters")
 	void dependencyStarterConfigurationIsCorrect(Dependency dependency, List<BillOfMaterials> boms,
 			List<RemoteRepository> repositories, String description) {
-		if (description.equals("4.0.0-M3 cloud-config-server")
-				|| description.equals("4.0.0-SNAPSHOT cloud-config-server")) {
-			Assumptions.abort(
-					"Spring Cloud 2025.1.0-M2 cloud-config-server references spring-credhub-core:3.5.0-RC1 which isn't on Maven central. @spencergibb said that's no problem. See #1907 and #1910");
-		}
 		List<String> dependencies = collectDependencies(dependency, boms, repositories);
 		if (dependencies != null) {
 			if (dependency.isStarter()) {
