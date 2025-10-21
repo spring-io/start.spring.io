@@ -914,6 +914,7 @@ initializr:
         - name: Spring for Apache Pulsar (Reactive)
           id: pulsar-reactive
           description: Build reactive messaging applications with Apache Pulsar
+          compatibilityRange: "[3.4.0,4.0.0-M3]"
           facets:
             - reactive
           links:
