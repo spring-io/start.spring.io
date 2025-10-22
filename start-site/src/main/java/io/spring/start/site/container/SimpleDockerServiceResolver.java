@@ -51,6 +51,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("neo4j", neo4j());
 		this.dockerServices.put("ollama", ollama());
 		this.dockerServices.put("oracleFree", oracleFree());
+		this.dockerServices.put("grafanaLgtm", grafanaLgtm());
 		this.dockerServices.put("pgvector", pgvector());
 		this.dockerServices.put("postgres", postgres());
 		this.dockerServices.put("pulsar", pulsar());
@@ -168,6 +169,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("gvenzl/oracle-free")
 			.website("https://hub.docker.com/r/gvenzl/oracle-free")
 			.ports(1521)
+			.build();
+	}
+
+	private static DockerService grafanaLgtm() {
+		return DockerService.withImageAndTag("grafana/otel-lgtm")
+			.website("https://hub.docker.com/r/grafana/otel-lgtm")
+			.ports(3000, 4317, 4318)
 			.build();
 	}
 

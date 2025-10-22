@@ -36,6 +36,7 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  * @author Stephane Nicoll
  * @author Eddú Meléndez
  * @author Chris Bono
+ * @author Moritz Halbritter
  */
 abstract class TestcontainersModuleRegistry {
 
@@ -71,6 +72,9 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j")
 			.customizeBuild(addModule("neo4j", testcontainers, SupportedContainer.NEO4J))
 			.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")));
+		builders.add(onDependencies("opentelemetry")
+			.customizeBuild(addModule("grafana-lgtm", testcontainers, SupportedContainer.GRAFANA_LGTM))
+			.customizeHelpDocument(addReferenceLink("Grafana Module", "grafana/")));
 		builders.add(onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc", testcontainers))
 			.customizeHelpDocument(addReferenceLink("R2DBC support", "databases/r2dbc/")));
 		builders.add(onDependencies("db2").customizeBuild(addModule("db2", testcontainers))

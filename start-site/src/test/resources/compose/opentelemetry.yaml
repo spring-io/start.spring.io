@@ -1,0 +1,7 @@
+services:
+  grafana-lgtm:
+    image: 'grafana/otel-lgtm:latest'
+    ports:
+      - '3000'
+      - '4317'
+      - '4318'

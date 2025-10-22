@@ -1162,6 +1162,15 @@ initializr:
           groupId: io.micrometer
           artifactId: micrometer-tracing-bridge-brave
           starter: false
+        - name: OpenTelemetry
+          id: opentelemetry
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-opentelemetry
+          description: Publish metrics and traces in OpenTelemetry's OTLP format.
+          compatibilityRange: "4.0.0-M1"
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/actuator/observability.html#actuator.observability.opentelemetry
         - name: Wavefront
           id: wavefront
           compatibilityRange: "[3.4.0,4.0.0-M1)"

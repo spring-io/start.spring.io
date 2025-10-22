@@ -65,6 +65,9 @@ public class Testcontainers {
 							"testcontainers-elasticsearch")
 					: Container.of("org.testcontainers.elasticsearch.ElasticsearchContainer", false, "elasticsearch");
 			case GENERIC -> Container.of(GENERIC_CONTAINER_CLASS_NAME, true, null);
+			case GRAFANA_LGTM -> (hasTc2())
+					? Container.of("org.testcontainers.grafana.LgtmStackContainer", false, "testcontainers-grafana")
+					: Container.of("org.testcontainers.grafana.LgtmStackContainer", false, "grafana");
 			case KAFKA ->
 				(hasTc2()) ? Container.of("org.testcontainers.kafka.KafkaContainer", false, "testcontainers-kafka")
 						: Container.of("org.testcontainers.kafka.KafkaContainer", false, "kafka");
@@ -158,6 +161,10 @@ public class Testcontainers {
 		 * Generic container.
 		 */
 		GENERIC,
+		/**
+		 * Grafana LGTM stack.
+		 */
+		GRAFANA_LGTM,
 		/**
 		 * Apache Kafka.
 		 */
