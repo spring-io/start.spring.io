@@ -21,10 +21,10 @@ import io.spring.initializr.generator.buildsystem.gradle.GradlePlugin;
 import io.spring.initializr.generator.buildsystem.gradle.StandardGradlePlugin;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.version.Version;
-import io.spring.start.site.SupportedBootVersion;
 import org.assertj.core.api.ThrowingConsumer;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,26 +45,24 @@ class SbomCycloneDxGradleBuildCustomizerTests {
 		this.customizer = new SbomCycloneDxGradleBuildCustomizer(this.description);
 	}
 
-	@Test
-	void springBoot34() {
-		GradleBuild gradleBuild = gradleBuildFor(SupportedBootVersion.V3_4);
-		assertThat(gradleBuild.plugins().values()).anySatisfy(sbomPlugin("1.10.0"));
+	@ParameterizedTest
+	@CsvSource(textBlock = """
+			3.4.0,			1.10.0
+			3.5.0,			2.3.0
+			4.0.0-M1,		2.3.0
+			4.0.0-M2,		2.3.0
+			4.0.0-M3,		2.3.0
+			4.0.0-RC1,		3.0.1
+			4.0.0-SNAPSHOT,	3.0.1
+			4.0.0,			3.0.1
+			""")
+	void shouldUseCorrectPluginVersion(String bootVersion, String pluginVersion) {
+		GradleBuild gradleBuild = gradleBuildFor(bootVersion);
+		assertThat(gradleBuild.plugins().values()).anySatisfy(sbomPlugin(pluginVersion));
 	}
 
-	@Test
-	void springBoot35() {
-		GradleBuild gradleBuild = gradleBuildFor(SupportedBootVersion.V3_5);
-		assertThat(gradleBuild.plugins().values()).anySatisfy(sbomPlugin("2.3.0"));
-	}
-
-	@Test
-	void springBoot40() {
-		GradleBuild gradleBuild = gradleBuildFor(SupportedBootVersion.V4_0);
-		assertThat(gradleBuild.plugins().values()).anySatisfy(sbomPlugin("2.3.0"));
-	}
-
-	private GradleBuild gradleBuildFor(SupportedBootVersion bootVersion) {
-		this.description.setPlatformVersion(Version.parse(bootVersion.getVersion()));
+	private GradleBuild gradleBuildFor(String bootVersion) {
+		this.description.setPlatformVersion(Version.parse(bootVersion));
 		GradleBuild gradleBuild = new GradleBuild();
 		this.customizer.customize(gradleBuild);
 		return gradleBuild;

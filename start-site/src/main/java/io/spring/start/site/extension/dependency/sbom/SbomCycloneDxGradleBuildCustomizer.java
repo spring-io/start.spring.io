@@ -16,9 +16,13 @@
 
 package io.spring.start.site.extension.dependency.sbom;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionRange;
 
@@ -29,23 +33,49 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 class SbomCycloneDxGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private static final String PLUGIN_VERSION_BOOT_3_4 = "1.10.0";
-
-	private static final String PLUGIN_VERSION = "2.3.0";
-
-	private static final VersionRange BOOT_3_5_OR_LATER = VersionParser.DEFAULT.parseRange("3.5.0-M1");
-
 	private final ProjectDescription description;
+
+	private final PluginVersionMapping pluginVersionMapping;
 
 	SbomCycloneDxGradleBuildCustomizer(ProjectDescription description) {
 		this.description = description;
+		this.pluginVersionMapping = new PluginVersionMapping("3.0.1");
+		this.pluginVersionMapping.addVersion("[1.0.0,3.5.0-M1)", "1.10.0");
+		this.pluginVersionMapping.addVersion("[3.5.0-M1,4.0.0-RC1)", "2.3.0");
 	}
 
 	@Override
 	public void customize(GradleBuild build) {
-		boolean boot35orLater = BOOT_3_5_OR_LATER.match(this.description.getPlatformVersion());
-		String pluginVersion = boot35orLater ? PLUGIN_VERSION : PLUGIN_VERSION_BOOT_3_4;
+		String pluginVersion = this.pluginVersionMapping.getPluginVersion(this.description.getPlatformVersion());
 		build.plugins().add("org.cyclonedx.bom", (plugin) -> plugin.setVersion(pluginVersion));
+	}
+
+	private static final class PluginVersionMapping {
+
+		private final String defaultVersion;
+
+		private final List<Mapping> mappings = new ArrayList<>();
+
+		PluginVersionMapping(String defaultVersion) {
+			this.defaultVersion = defaultVersion;
+		}
+
+		void addVersion(String bootVersion, String pluginVersion) {
+			this.mappings.add(new Mapping(VersionParser.DEFAULT.parseRange(bootVersion), pluginVersion));
+		}
+
+		String getPluginVersion(Version bootVersion) {
+			for (Mapping mapping : this.mappings) {
+				if (mapping.bootVersion().match(bootVersion)) {
+					return mapping.pluginVersion();
+				}
+			}
+			return this.defaultVersion;
+		}
+
+		private record Mapping(VersionRange bootVersion, String pluginVersion) {
+		}
+
 	}
 
 }
