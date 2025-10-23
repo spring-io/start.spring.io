@@ -979,6 +979,15 @@ initializr:
               description: Creating a Batch Service
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/batch.html
+        - name: Spring Batch JDBC
+          id: batch-jdbc
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-batch-jdbc
+          description: JDBC support for Spring Batch applications.
+          compatibilityRange: "4.0.0-RC1"
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/batch.html
         - name: Validation
           id: validation
           description: Bean Validation with Hibernate validator.
