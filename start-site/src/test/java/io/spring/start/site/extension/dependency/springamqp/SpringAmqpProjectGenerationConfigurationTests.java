@@ -21,7 +21,9 @@ import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.test.project.ProjectAssetTester;
 import io.spring.initializr.generator.test.project.ProjectStructure;
+import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +46,7 @@ class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void springAmqpTestWithAmqp() {
 		MutableProjectDescription description = new MutableProjectDescription();
+		description.setPlatformVersion(Version.parse(SupportedBootVersion.latest().getVersion()));
 		description.addDependency("amqp", mock(Dependency.class));
 		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
 			.containsKeys("springAmqpTestBuildCustomizer"));

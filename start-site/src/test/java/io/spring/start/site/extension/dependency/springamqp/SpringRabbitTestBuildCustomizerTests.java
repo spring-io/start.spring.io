@@ -16,10 +16,10 @@
 
 package io.spring.start.site.extension.dependency.springamqp;
 
-import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.Dependency;
-import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
+import io.spring.initializr.metadata.Dependency;
+import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
+import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,18 +28,21 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringRabbitTestBuildCustomizer}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
-class SpringRabbitTestBuildCustomizerTests {
+class SpringRabbitTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void customizeAddsSpringRabbitTest() {
-		Build build = new MavenBuild();
-		new SpringRabbitTestBuildCustomizer().customize(build);
-		assertThat(build.dependencies().ids()).containsOnly("spring-rabbit-test");
-		Dependency springRabbitTest = build.dependencies().get("spring-rabbit-test");
-		assertThat(springRabbitTest.getGroupId()).isEqualTo("org.springframework.amqp");
-		assertThat(springRabbitTest.getArtifactId()).isEqualTo("spring-rabbit-test");
-		assertThat(springRabbitTest.getScope()).isEqualTo(DependencyScope.TEST_COMPILE);
+	void shouldAddSpringRabbitTest() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "amqp");
+		assertThat(mavenPom(request)).hasDependency("org.springframework.amqp", "spring-rabbit-test", null,
+				Dependency.SCOPE_TEST);
+	}
+
+	@Test
+	void shouldNotAddSpringRabbitTestForBoot4() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "amqp");
+		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.amqp", "spring-rabbit-test");
 	}
 
 }

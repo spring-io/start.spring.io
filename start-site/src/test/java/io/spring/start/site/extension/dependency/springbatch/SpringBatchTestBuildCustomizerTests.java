@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springbatch;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -27,24 +28,28 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringBatchTestBuildCustomizer}.
  *
  * @author Tim Riemer
+ * @author Moritz Halbritter
  */
 class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void batchTestIsAddedWithBatch() {
-		ProjectRequest request = createProjectRequest("batch");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("batch"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependency(springBatchTest())
-			.hasDependenciesSize(3);
+	void shouldAddTestDependency() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "batch");
+		assertThat(mavenPom(request)).hasDependency(springBatchTest());
 	}
 
 	@Test
-	void batchTestIsNotAddedWithoutSpringBatch() {
-		ProjectRequest request = createProjectRequest("web");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependenciesSize(2);
+	void shouldNotAddTestDependencyWithoutSpringBatch() {
+		Dependency dependency = springBatchTest();
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "web");
+		assertThat(mavenPom(request)).doesNotHaveDependency(dependency.getGroupId(), dependency.getArtifactId());
+	}
+
+	@Test
+	void shouldNotAddTestDependencyForBoot4() {
+		Dependency dependency = springBatchTest();
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "batch");
+		assertThat(mavenPom(request)).doesNotHaveDependency(dependency.getGroupId(), dependency.getArtifactId());
 	}
 
 	private static Dependency springBatchTest() {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.reactor;
+package io.spring.start.site.extension.dependency;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
@@ -25,29 +25,20 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ReactorTestBuildCustomizer}.
+ * Tests for {@link AddTestStartersBuildCustomizer}.
  *
- * @author Stephane Nicoll
  * @author Moritz Halbritter
  */
-class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
+class AddTestStartersBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void shouldAddTestDependency() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "webflux");
-		assertThat(mavenPom(request)).hasDependency("io.projectreactor", "reactor-test", null, Dependency.SCOPE_TEST);
-	}
-
-	@Test
-	void shouldNotAddTestDependencyWithoutReactiveFacet() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "web");
-		assertThat(mavenPom(request)).doesNotHaveDependency("io.projectreactor", "reactor-test");
-	}
-
-	@Test
-	void shouldNotAddTestDependencyForBoot4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "webflux");
-		assertThat(mavenPom(request)).doesNotHaveDependency("io.projectreactor", "reactor-test");
+	void shouldAddTestStarter() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web", "devtools");
+		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webmvc"))
+			.hasDependency(Dependency.createSpringBootStarter("webmvc-test", Dependency.SCOPE_TEST))
+			.hasDependency(Dependency.create("org.springframework.boot", "spring-boot-devtools", null,
+					Dependency.SCOPE_RUNTIME))
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-devtools-test");
 	}
 
 }

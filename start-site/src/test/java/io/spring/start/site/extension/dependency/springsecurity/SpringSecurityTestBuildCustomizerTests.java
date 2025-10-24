@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springsecurity;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -32,29 +33,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SpringSecurityTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void securityTestIsAddedWithSecurity() {
-		ProjectRequest request = createProjectRequest("security");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("security"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependency(springSecurityTest())
-			.hasDependenciesSize(3);
+	void shouldAddTestDependencyForSecurity() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "security");
+		assertThat(mavenPom(request)).hasDependency(springSecurityTest());
 	}
 
 	@Test
-	void securityTestIsAddedWithOAuth2Client() {
-		ProjectRequest request = createProjectRequest("oauth2-client");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("oauth2-client"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependency(springSecurityTest())
-			.hasDependenciesSize(3);
+	void shouldAddTestDependencyForOauth2Client() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "oauth2-client");
+		assertThat(mavenPom(request)).hasDependency(springSecurityTest());
 	}
 
 	@Test
-	void securityTestIsNotAddedWithoutSpringSecurity() {
-		ProjectRequest request = createProjectRequest("web");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependenciesSize(2);
+	void shouldNotAddTestDependencyIfSecurityIsNotSelected() {
+		Dependency dependency = springSecurityTest();
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "web");
+		assertThat(mavenPom(request)).doesNotHaveDependency(dependency.getArtifactId(), dependency.getGroupId());
+	}
+
+	@Test
+	void shouldNotAddTestDependencyForBoot4() {
+		Dependency dependency = springSecurityTest();
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "security");
+		assertThat(mavenPom(request)).doesNotHaveDependency(dependency.getArtifactId(), dependency.getGroupId());
 	}
 
 	private static Dependency springSecurityTest() {

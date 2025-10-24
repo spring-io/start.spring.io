@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.graphql;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -33,10 +34,16 @@ class SpringGraphQlBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldAddGraphQlTestDependency() {
-		ProjectRequest request = createProjectRequest("graphql");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "graphql");
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.graphql", "spring-graphql-test", null, Dependency.SCOPE_TEST)
 			.doesNotHaveDependency("org.springframework", "spring-webflux");
+	}
+
+	@Test
+	void shouldNotAddGraphQlTestDependencyForBoot4() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "graphql");
+		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.graphql", "spring-graphql-test");
 	}
 
 }

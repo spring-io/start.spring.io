@@ -45,6 +45,7 @@ class SpringKafkaProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("kafka")
+	@ConditionalOnPlatformVersion("[3.4.0,4.0.0-RC1]")
 	SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
 		return new SpringKafkaBuildCustomizer();
 	}
