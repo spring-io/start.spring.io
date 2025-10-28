@@ -81,9 +81,9 @@ initializr:
         versionProperty: solace-spring-cloud.version
         mappings:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 4.8.0
+            version: 4.8.1
           - compatibilityRange: "[3.5.0,4.0.0-M1)"
-            version: 4.10.0
+            version: 4.11.0
       spring-ai:
         groupId: org.springframework.ai
         artifactId: spring-ai-bom
