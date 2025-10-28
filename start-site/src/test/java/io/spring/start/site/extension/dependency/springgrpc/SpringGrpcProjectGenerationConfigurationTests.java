@@ -116,7 +116,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	void shouldAddProtobufPluginForMaven() {
 		ProjectRequest request = createProjectRequest(SPRING_GRPC);
 		assertThat(mavenPom(request)).hasProperty("grpc.version", "1.76.0")
-			.hasProperty("protobuf-java.version", "4.33.0")
+			.hasProperty("protobuf-java.version", "4.32.1")
 			.containsIgnoringWhitespaces("""
 					<plugin>
 						<groupId>io.github.ascopes</groupId>
