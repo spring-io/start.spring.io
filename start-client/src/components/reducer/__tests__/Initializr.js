@@ -23,7 +23,6 @@ describe('COMPLETE action', () => {
         project: '',
         language: '',
         boot: '',
-        configurationFileFormat: '',
         meta: {
           name: '',
           group: '',
@@ -32,6 +31,7 @@ describe('COMPLETE action', () => {
           packaging: '',
           packageName: '',
           java: '',
+          configurationFileFormat: '',
         },
         dependencies: [],
       },
@@ -186,10 +186,12 @@ describe('UPDATE action', () => {
     const result = reducer(state, {
       type: 'UPDATE',
       payload: {
-        configurationFileFormat: 'yaml',
+        meta: {
+          configurationFileFormat: 'yaml',
+        },
       },
     })
-    expect(get(result, 'values.configurationFileFormat')).toBe('yaml')
+    expect(get(result, 'values.meta.configurationFileFormat')).toBe('yaml')
   })
   it('should reduce the state (meta packageName)', () => {
     const result = reducer(state, {
@@ -250,7 +252,7 @@ describe('LOAD action', () => {
     expect(get(result, 'values.meta.packaging')).toBe('war')
     expect(get(result, 'values.meta.packageName')).toBe('com.example1.demo1')
     expect(get(result, 'values.meta.java')).toBe('1.8')
-    expect(get(result, 'values.configurationFileFormat')).toBe('yaml')
+    expect(get(result, 'values.meta.configurationFileFormat')).toBe('yaml')
     expect(get(result, 'values.dependencies').length).toBe(0)
     expect(Object.keys(get(result, 'errors')).length).toBe(0)
     expect(Object.keys(get(result, 'warnings')).length).toBe(0)
