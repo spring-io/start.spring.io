@@ -36,8 +36,9 @@ class ObservabilityProjectGenerationConfiguration {
 	}
 
 	@Bean
-	ObservabilityDistributedTracingBuildCustomizer observabilityDistributedTracingBuildCustomizer() {
-		return new ObservabilityDistributedTracingBuildCustomizer();
+	ObservabilityDistributedTracingBuildCustomizer observabilityDistributedTracingBuildCustomizer(
+			ProjectDescription description) {
+		return new ObservabilityDistributedTracingBuildCustomizer(description.getPlatformVersion());
 	}
 
 	@Bean

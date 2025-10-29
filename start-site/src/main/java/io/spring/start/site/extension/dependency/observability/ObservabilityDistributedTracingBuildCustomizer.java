@@ -20,13 +20,25 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Configures distributed tracing if necessary.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<Build> {
+
+	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0-M1");
+
+	private final Version bootVersion;
+
+	ObservabilityDistributedTracingBuildCustomizer(Version bootVersion) {
+		this.bootVersion = bootVersion;
+	}
 
 	@Override
 	public void customize(Build build) {
@@ -40,6 +52,19 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 						Dependency.withCoordinates("io.micrometer", "micrometer-tracing-reporter-wavefront")
 							.scope(DependencyScope.RUNTIME));
 		}
+		if (build.dependencies().has("distributed-tracing") && isBoot4OrLater()) {
+			build.dependencies()
+				.add("spring-boot-micrometer-tracing",
+						Dependency.withCoordinates("org.springframework.boot", "spring-boot-micrometer-tracing"));
+			build.dependencies()
+				.add("spring-boot-micrometer-tracing-test",
+						Dependency.withCoordinates("org.springframework.boot", "spring-boot-micrometer-tracing-test")
+							.scope(DependencyScope.TEST_COMPILE));
+		}
+	}
+
+	private boolean isBoot4OrLater() {
+		return SPRING_BOOT_4_OR_LATER.match(this.bootVersion);
 	}
 
 }
