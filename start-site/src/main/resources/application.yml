@@ -129,7 +129,7 @@ initializr:
         additionalBoms: [ spring-cloud ]
         mappings:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 4.2.0
+            version: 4.2.1
           - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
             version: 4.3.0
       spring-grpc:
