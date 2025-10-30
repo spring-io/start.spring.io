@@ -119,6 +119,20 @@ function Dialog({ onClose }) {
     setSelected(0)
     setQuery('')
     textFocus()
+    requestAnimationFrame(scrollToLastAddedDependency)
+  }
+  
+  const scrollToLastAddedDependency = () => {
+    const wrapperElement = get(wrapper, 'current')
+    const addedDependencies = wrapperElement.querySelectorAll('a.added')
+    if (!addedDependencies.length) return
+    const lastAddedDependency = addedDependencies[addedDependencies.length - 1]
+    const wrapperRect = wrapperElement.getBoundingClientRect()
+    const dependencyRect = lastAddedDependency.getBoundingClientRect()
+    wrapperElement.scrollBy({
+      top: dependencyRect.top - wrapperRect.top - 40,
+      behavior: 'smooth'
+    })
   }
 
   const updateScroll = () => {
@@ -132,7 +146,7 @@ function Dialog({ onClose }) {
       wrapperElement.scrollTop = selectedElement.offsetTop - top
     }
   }
-  
+
   const onKeyUp = event => {
     if (event.keyCode === 91 || event.keyCode === 93 || event.keyCode === 17) {
       setMultiple(false)
