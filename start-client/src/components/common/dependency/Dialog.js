@@ -121,12 +121,6 @@ function Dialog({ onClose }) {
     textFocus()
   }
 
-  const onKeyUp = event => {
-    if (event.keyCode === 91 || event.keyCode === 93 || event.keyCode === 17) {
-      setMultiple(false)
-    }
-  }
-
   const updateScroll = () => {
     const wrapperElement = get(wrapper, 'current')
     const dialogElement = get(dialog, 'current')
@@ -136,6 +130,12 @@ function Dialog({ onClose }) {
     if (position - 50 < 0 || position > dialogElement.clientHeight - 160) {
       const top = query.trim() === '' ? 50 : 10
       wrapperElement.scrollTop = selectedElement.offsetTop - top
+    }
+  }
+  
+  const onKeyUp = event => {
+    if (event.keyCode === 91 || event.keyCode === 93 || event.keyCode === 17) {
+      setMultiple(false)
     }
   }
 
