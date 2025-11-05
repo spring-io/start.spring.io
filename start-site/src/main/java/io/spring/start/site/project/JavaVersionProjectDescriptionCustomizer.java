@@ -18,6 +18,7 @@ package io.spring.start.site.project;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.project.MutableProjectDescription;
@@ -31,51 +32,94 @@ import io.spring.initializr.generator.version.Version;
  * @author Stephane Nicoll
  * @author Madhura Bhave
  * @author Moritz Halbritter
+ * @author Mukesh Lilawat
  */
 public class JavaVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final List<String> UNSUPPORTED_VERSIONS = Arrays.asList("1.6", "1.7", "1.8");
+    private static final List<String> UNSUPPORTED_VERSIONS = Arrays.asList("1.6", "1.7", "1.8");
 
-	private static final int MAX_JAVA_VERSION = 25;
+    private static final int MAX_JAVA_VERSION = 25;
 
-	private final JavaVersionMapping mapping = new JavaVersionMapping();
+    private final JavaVersionMapping mapping = new JavaVersionMapping();
 
-	@Override
-	public void customize(MutableProjectDescription description) {
-		Language language = description.getLanguage();
-		Version bootVersion = description.getPlatformVersion();
-		int minSupported = this.mapping.getMinJavaVersion(bootVersion, language);
-		int maxSupported = this.mapping.getMaxJavaVersion(bootVersion, language);
-		String javaVersion = language.jvmVersion();
-		if (UNSUPPORTED_VERSIONS.contains(javaVersion)) {
-			updateTo(description, minSupported);
-			return;
-		}
-		Integer javaGeneration = determineJavaGeneration(javaVersion);
-		if (javaGeneration == null) {
-			return;
-		}
-		if (javaGeneration < minSupported) {
-			updateTo(description, minSupported);
-		}
-		if (javaGeneration > maxSupported) {
-			updateTo(description, maxSupported);
-		}
-	}
+    @Override
+    public void customize(MutableProjectDescription description) {
+        if (description == null || description.getLanguage() == null) {
+            // Defensive: Avoid null pointer situations
+            return;
+        }
 
-	private void updateTo(MutableProjectDescription description, int jvmVersion) {
-		Language language = Language.forId(description.getLanguage().id(), Integer.toString(jvmVersion));
-		description.setLanguage(language);
-	}
+        Language language = description.getLanguage();
+        Version bootVersion = description.getPlatformVersion();
+        String javaVersion = language.jvmVersion();
 
-	private Integer determineJavaGeneration(String javaVersion) {
-		try {
-			int generation = Integer.parseInt(javaVersion);
-			return (generation >= 9 && generation <= MAX_JAVA_VERSION) ? generation : null;
-		}
-		catch (NumberFormatException ex) {
-			return null;
-		}
-	}
+        if (javaVersion == null || javaVersion.isBlank()) {
+            // Default fallback if JVM version not specified
+            updateTo(description, mapping.getMinJavaVersion(bootVersion, language));
+            return;
+        }
 
+        int minSupported = mapping.getMinJavaVersion(bootVersion, language);
+        int maxSupported = mapping.getMaxJavaVersion(bootVersion, language);
+
+        // 1️⃣ Handle unsupported legacy versions (Java 6,7,8)
+        if (UNSUPPORTED_VERSIONS.contains(javaVersion)) {
+            updateTo(description, minSupported);
+            return;
+        }
+
+        // 2️⃣ Determine actual Java generation
+        Integer javaGeneration = determineJavaGeneration(javaVersion);
+
+        if (javaGeneration == null) {
+            // If unable to parse version, fallback to min supported
+            updateTo(description, minSupported);
+            return;
+        }
+
+        // 3️⃣ Validate version boundaries
+        if (javaGeneration < minSupported) {
+            updateTo(description, minSupported);
+            return;
+        }
+
+        if (javaGeneration > maxSupported) {
+            updateTo(description, maxSupported);
+            return;
+        }
+
+        // 4️⃣ If within valid range, ensure consistency
+        if (!Objects.equals(javaGeneration, Integer.valueOf(javaVersion))) {
+            updateTo(description, javaGeneration);
+        }
+    }
+
+    private void updateTo(MutableProjectDescription description, int jvmVersion) {
+        if (description == null || description.getLanguage() == null) {
+            return;
+        }
+
+        Language currentLang = description.getLanguage();
+        Language updatedLang = Language.forId(currentLang.id(), Integer.toString(jvmVersion));
+
+        // Only update if different (avoid unnecessary reset)
+        if (!currentLang.jvmVersion().equals(updatedLang.jvmVersion())) {
+            description.setLanguage(updatedLang);
+        }
+    }
+
+    private Integer determineJavaGeneration(String javaVersion) {
+        try {
+            int generation = Integer.parseInt(javaVersion.trim());
+            // Enforce reasonable version boundaries
+            if (generation >= 9 && generation <= MAX_JAVA_VERSION) {
+                return generation;
+            }
+        }
+        catch (NumberFormatException ex) {
+            // Log ignored invalid versions gracefully
+            System.err.println("[WARN] Invalid Java version format: " + javaVersion);
+        }
+        return null;
+    }
 }
