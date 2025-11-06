@@ -588,6 +588,20 @@ initializr:
               description: Managing Transactions
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/sql.html
+        - name: R2DBC API
+          id: r2dbc
+          description: Reactive Database Connectivity API that defines how a client may connect and query a database.
+          compatibility-range: "4.0.0-RC1"
+          group-id: org.springframework.boot
+          artifact-id: spring-boot-starter-r2dbc
+          facets:
+            - reactive
+          links:
+            - rel: home
+              href: https://r2dbc.io
+              description: R2DBC Homepage
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/sql.html#data.sql.r2dbc
         - name: Spring Data JPA
           id: data-jpa
           description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
