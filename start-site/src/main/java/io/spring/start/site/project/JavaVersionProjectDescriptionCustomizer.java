@@ -27,7 +27,9 @@ import io.spring.initializr.generator.version.Version;
 
 /**
  * Validate that the requested java version is compatible with the chosen Spring Boot
- * generation and adapt the request if necessary.
+ * generation and adapt the request if necessary. Also includes a compatibility
+ * check between selected Gradle build versions and Java versions to avoid
+ * unsupported build setups.
  *
  * @author Stephane Nicoll
  * @author Madhura Bhave
@@ -77,7 +79,17 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
             return;
         }
 
-        // 3️⃣ Validate version boundaries
+        // ⚙️ 3️⃣ Handle Gradle–JDK incompatibility (Issue #1937)
+        if (isGradleBuild(description) && isIncompatibleGradleVersion(javaGeneration, bootVersion)) {
+            System.err.println("[WARN] Selected Gradle version is incompatible with Java "
+                    + javaGeneration + ". Falling back to a supported version.");
+            // Fallback to the nearest supported Java version
+            int fallbackVersion = Math.min(javaGeneration - 1, maxSupported);
+            updateTo(description, Math.max(fallbackVersion, minSupported));
+            return;
+        }
+
+        // 4️⃣ Validate version boundaries
         if (javaGeneration < minSupported) {
             updateTo(description, minSupported);
             return;
@@ -88,7 +100,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
             return;
         }
 
-        // 4️⃣ If within valid range, ensure consistency
+        // 5️⃣ If within valid range, ensure consistency
         if (!Objects.equals(javaGeneration, Integer.valueOf(javaVersion))) {
             updateTo(description, javaGeneration);
         }
@@ -117,9 +129,24 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
             }
         }
         catch (NumberFormatException ex) {
-            // Log ignored invalid versions gracefully
             System.err.println("[WARN] Invalid Java version format: " + javaVersion);
         }
         return null;
+    }
+
+    private boolean isGradleBuild(MutableProjectDescription description) {
+        return description.getBuildSystem() != null
+                && "gradle".equalsIgnoreCase(description.getBuildSystem().id());
+    }
+
+    private boolean isIncompatibleGradleVersion(int javaVersion, Version bootVersion) {
+        // Simple compatibility heuristic
+        // Example: Gradle 7.x (used in Boot < 3.0) is incompatible with Java 22+
+        if (bootVersion != null) {
+            if (bootVersion.getMajor() < 3 && javaVersion >= 22) {
+                return true;
+            }
+        }
+        return false;
     }
 }
