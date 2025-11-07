@@ -65,7 +65,6 @@ public class DependencyProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("[3.4.0,4.0.0-RC1]")
 	public ReactorTestBuildCustomizer reactorTestBuildCustomizer(ProjectDescription description) {
 		return new ReactorTestBuildCustomizer(this.metadata, description);
 	}

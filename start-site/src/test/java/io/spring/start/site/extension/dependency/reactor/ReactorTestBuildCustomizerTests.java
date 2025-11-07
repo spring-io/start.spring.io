@@ -45,9 +45,21 @@ class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
+	void shouldNotAddTestDependencyForBoot4WithoutReactiveFacet() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web");
+		assertThat(mavenPom(request)).doesNotHaveDependency("io.projectreactor", "reactor-test");
+	}
+
+	@Test
 	void shouldNotAddTestDependencyForBoot4() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "webflux");
 		assertThat(mavenPom(request)).doesNotHaveDependency("io.projectreactor", "reactor-test");
+	}
+
+	@Test
+	void shouldAddTestDependencyForBoot4IfNonBootStarterIsUsed() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "cloud-gateway-reactive");
+		assertThat(mavenPom(request)).hasDependency("io.projectreactor", "reactor-test", null, Dependency.SCOPE_TEST);
 	}
 
 }
