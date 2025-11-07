@@ -421,7 +421,6 @@ initializr:
         - name: Jersey
           id: jersey
           description: Framework for developing RESTful Web Services in Java that provides support for JAX-RS APIs.
-          compatibilityRange: "[3.4.0,4.0.0-M2]"
           facets:
             - json
           links:
