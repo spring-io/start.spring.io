@@ -57,7 +57,7 @@ class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTe
 					<artifactId>spring-boot-maven-plugin</artifactId>
 					<configuration>
 						<image>
-							<runImage>paketobuildpacks/ubuntu-noble-run-base:latest</runImage>
+							<runImage>paketobuildpacks/ubuntu-noble-run:latest</runImage>
 						</image>
 					</configuration>
 				</plugin>
@@ -79,7 +79,7 @@ class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTe
 		ProjectRequest request = createProjectRequest("kafka-streams");
 		assertThat(gradleBuild(request)).containsIgnoringWhitespaces("""
 				tasks.named('bootBuildImage') {
-					runImage = 'paketobuildpacks/ubuntu-noble-run-base:latest'
+					runImage = 'paketobuildpacks/ubuntu-noble-run:latest'
 				}
 				""");
 	}
@@ -99,7 +99,7 @@ class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTe
 		ProjectRequest request = createProjectRequest("kafka-streams");
 		assertThat(gradleKotlinDslBuild(request)).containsIgnoringWhitespaces("""
 				tasks.bootBuildImage {
-				    runImage = "paketobuildpacks/ubuntu-noble-run-base:latest"
+				    runImage = "paketobuildpacks/ubuntu-noble-run:latest"
 				}
 				""");
 	}
