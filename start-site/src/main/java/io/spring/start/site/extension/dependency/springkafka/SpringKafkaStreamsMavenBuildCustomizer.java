@@ -43,7 +43,7 @@ class SpringKafkaStreamsMavenBuildCustomizer implements BuildCustomizer<MavenBui
 			.add("org.springframework.boot", "spring-boot-maven-plugin",
 					(plugin) -> plugin.configuration((configuration) -> configuration.configure("image", (image) -> {
 						if (isBoot35orLater()) {
-							image.add("runImage", "paketobuildpacks/ubuntu-noble-run-base:latest");
+							image.add("runImage", "paketobuildpacks/ubuntu-noble-run:latest");
 						}
 						else {
 							image.add("builder", "paketobuildpacks/builder-jammy-base:latest");

@@ -45,7 +45,7 @@ class SpringKafkaStreamsGradleBuildCustomizer implements BuildCustomizer<GradleB
 		build.tasks().customize("bootBuildImage", (bootBuildImage) -> {
 			if (isBoot35orLater()) {
 				bootBuildImage.attribute("runImage",
-						this.quote + "paketobuildpacks/ubuntu-noble-run-base:latest" + this.quote);
+						this.quote + "paketobuildpacks/ubuntu-noble-run:latest" + this.quote);
 			}
 			else {
 				bootBuildImage.attribute("builder",
