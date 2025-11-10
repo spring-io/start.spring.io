@@ -619,7 +619,7 @@ initializr:
           description: Persist data in SQL stores with plain JDBC using Spring Data.
           links:
             - rel: guide
-              href: https://github.com/spring-projects/spring-data-examples/tree/master/jdbc/basics
+              href: https://github.com/spring-projects/spring-data-examples/tree/main/jdbc/basics
               description: Using Spring Data JDBC
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/sql.html#data.sql.jdbc
@@ -892,7 +892,7 @@ initializr:
           starter: false
           links:
             - rel: guide
-              href: https://github.com/spring-cloud/spring-cloud-stream-samples/tree/master/kafka-streams-samples
+              href: https://github.com/spring-cloud/spring-cloud-stream-samples/tree/main/kafka-streams-samples
               description: Samples for using Apache Kafka Streams with Spring Cloud stream
             - rel: reference
               href: https://docs.spring.io/spring-kafka/reference/streams.html
