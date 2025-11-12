@@ -29,7 +29,7 @@ abstract class AbstractSpringRestDocsGradleBuildCustomizer implements BuildCusto
 
 	@Override
 	public void customize(GradleBuild build) {
-		build.plugins().add("org.asciidoctor.jvm.convert", (plugin) -> plugin.setVersion("3.3.2"));
+		build.plugins().add("org.asciidoctor.jvm.convert", (plugin) -> plugin.setVersion("4.0.5"));
 		build.properties().property("snippetsDir", "file(\"build/generated-snippets\")");
 		customizeForDialect(build);
 	}

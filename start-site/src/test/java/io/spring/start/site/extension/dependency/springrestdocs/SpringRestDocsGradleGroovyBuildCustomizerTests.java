@@ -41,7 +41,7 @@ class SpringRestDocsGradleGroovyBuildCustomizerTests {
 		this.customizer.customize(build);
 		assertThat(build.plugins().values()).singleElement().satisfies((plugin) -> {
 			assertThat(plugin.getId()).isEqualTo("org.asciidoctor.jvm.convert");
-			assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("3.3.2");
+			assertThat(((StandardGradlePlugin) plugin).getVersion()).isEqualTo("4.0.5");
 		});
 		assertThat(build.properties().values()).contains(entry("snippetsDir", "file(\"build/generated-snippets\")"));
 		GradleTask testTask = build.tasks().get("test");
