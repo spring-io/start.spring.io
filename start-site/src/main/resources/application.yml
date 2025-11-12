@@ -162,7 +162,7 @@ initializr:
         artifactId: extensions-bom
         versionProperty: tanzu-scg-extensions.version
         mappings:
-          - compatibilityRange: "[3.4.0,3.5.0-M1)"
+          - compatibilityRange: "[3.4.0,4.0.0-M1)"
             version: 1.0.0
       timefold-solver:
         groupId: ai.timefold.solver
@@ -1502,7 +1502,7 @@ initializr:
             - rel: reference
               href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
     - name: VMware Tanzu Spring Enterprise Extensions
-      compatibilityRange: "[3.4.0,3.5.0-M1)"
+      compatibilityRange: "[3.4.0,4.0.0-M1)"
       content:
         - name: Governance Starter [Enterprise]
           id: tanzu-governance-starter
