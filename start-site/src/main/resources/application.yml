@@ -803,6 +803,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.elasticsearch
+        - name: Cassandra
+          id: cassandra
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-cassandra
+          compatibilityRange: "4.0.0-RC1"
+          description: Cassandra is an open source, distributed database management system designed to handle large amounts of data across many commodity servers.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.cassandra
         - name: Spring Data for Apache Cassandra
           id: data-cassandra
           description: A free and open-source, distributed, NoSQL database management system that offers high-scalability and high-performance.
