@@ -569,6 +569,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-security/reference/servlet/authentication/passkeys.html
+        - name: LDAP
+          id: ldap
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-ldap
+          compatibilityRange: "4.0.0-RC1"
+          description: LDAP is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services over an IP network.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.ldap
         - name: Spring Data LDAP
           id: data-ldap
           description: Makes it easier to build Spring based applications that use the Lightweight Directory Access Protocol.
