@@ -1003,6 +1003,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/batch.html
+        - name: Hazelcast
+          id: hazelcast
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-hazelcast
+          compatibilityRange: "4.0.0-RC1"
+          description: Hazelcast is a distributed cache with in-memory compute and stream processing that accelerates applications with data caching, data integration, and distributed computing.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/io/hazelcast.html
         - name: Validation
           id: validation
           description: Bean Validation with Hibernate validator.
