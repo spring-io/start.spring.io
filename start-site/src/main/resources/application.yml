@@ -786,6 +786,15 @@ initializr:
               description: Messaging with Redis
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.redis
+        - name: MongoDB
+          id: mongodb
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-mongodb
+          compatibilityRange: "4.0.0-RC1"
+          description: MongoDB is an open-source NoSQL document database that uses a JSON-like schema instead of traditional table-based relational data.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.mongodb
         - name: Spring Data MongoDB
           id: data-mongodb
           description: Store data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time.
