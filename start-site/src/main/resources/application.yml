@@ -797,6 +797,15 @@ initializr:
               description: Accessing Data with MongoDB
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.mongodb
+        - name: Elasticsearch
+          id: elasticsearch
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-elasticsearch
+          compatibilityRange: "4.0.0-RC1"
+          description: Elasticsearch is an open source, distributed, RESTful search and analytics engine.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.elasticsearch
         - name: Spring Data Elasticsearch (Access+Driver)
           id: data-elasticsearch
           description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
