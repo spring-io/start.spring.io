@@ -89,8 +89,10 @@ initializr:
         artifactId: spring-ai-bom
         versionProperty: spring-ai.version
         mappings:
-          - compatibilityRange: "[3.4.0,4.0.0-M1)"
+          - compatibilityRange: "[3.4.0,3.5.0-M1)"
             version: 1.0.3
+          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            version: 1.1.0
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1743,6 +1745,86 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/bedrock-converse.html
+        - name: DeepSeek
+          id: spring-ai-deepseek
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-deepseek
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for DeepSeek AI models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat/deepseek-chat.html
+        - name: ElevenLabs
+          id: spring-ai-elevenlabs
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-elevenlabs
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for ElevenLabs text-to-speech models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/speech/elevenlabs-speech.html
+        - name: Google GenAI
+          id: spring-ai-google-genai
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-google-genai
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for Google GenAI (Gemini) models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat/google-genai-chat.html
+        - name: Google GenAI Embeddings
+          id: spring-ai-google-genai-embedding
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-google-genai-embedding
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for Google GenAI embedding models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/embeddings/google-genai-embeddings.html
+        - name: HuggingFace
+          id: spring-ai-huggingface
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-huggingface
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for HuggingFace AI models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat/huggingface.html
+        - name: MiniMax
+          id: spring-ai-minimax
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-minimax
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for MiniMax AI models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat/minimax-chat.html
+        - name: OCI GenAI
+          id: spring-ai-oci-genai
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-oci-genai
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for Oracle Cloud Infrastructure (OCI) GenAI models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat/oci-genai-chat.html
+        - name: ZhipuAI
+          id: spring-ai-zhipuai
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-zhipuai
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for ZhipuAI models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat/zhipuai-chat.html
         - name: Apache Cassandra Vector Database
           id: spring-ai-vectordb-cassandra
           group-id: org.springframework.ai
@@ -1761,6 +1843,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/chroma.html
+        - name: Couchbase Vector Database
+          id: spring-ai-vectordb-couchbase
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-vector-store-couchbase
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI vector database support for Couchbase.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/couchbase.html
         - name: Elasticsearch Vector Database
           id: spring-ai-vectordb-elasticsearch
           group-id: org.springframework.ai
@@ -1833,6 +1925,26 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/neo4j.html
+        - name: OpenSearch Vector Database
+          id: spring-ai-vectordb-opensearch
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-vector-store-opensearch
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI vector database support for OpenSearch.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/opensearch.html
+        - name: AWS OpenSearch Vector Database
+          id: spring-ai-vectordb-aws-opensearch
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-vector-store-aws-opensearch
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI vector database support for AWS OpenSearch Service.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/opensearch.html
         - name: Ollama
           id: spring-ai-ollama
           group-id: org.springframework.ai
@@ -1874,6 +1986,16 @@ initializr:
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-cassandra
           description: Spring AI support for Cassandra based chat memory.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
+        - name: MongoDB Chat Memory Repository
+          id: spring-ai-chat-memory-repository-mongodb
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-chat-memory-repository-mongodb
+          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          description: Spring AI support for MongoDB based chat memory.
           bom: spring-ai
           links:
             - rel: reference
