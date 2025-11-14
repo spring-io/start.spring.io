@@ -580,7 +580,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.ldap
         - name: Spring Data LDAP
           id: data-ldap
-          description: Makes it easier to build Spring based applications that use the Lightweight Directory Access Protocol.
+          description: Spring Data support for LDAP.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.ldap
@@ -797,7 +797,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.mongodb
         - name: Spring Data MongoDB
           id: data-mongodb
-          description: Store data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time.
+          description: Spring Data support for MongoDB.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-mongodb/
@@ -806,7 +806,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.mongodb
         - name: Spring Data Reactive MongoDB
           id: data-mongodb-reactive
-          description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB.
+          description: Reactive Spring Data support for MongoDB.
           facets:
             - reactive
           links:
@@ -826,7 +826,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.elasticsearch
         - name: Spring Data Elasticsearch
           id: data-elasticsearch
-          description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
+          description: Spring Data support for Elasticsearch.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.elasticsearch
@@ -841,7 +841,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.cassandra
         - name: Spring Data for Apache Cassandra
           id: data-cassandra
-          description: A free and open-source, distributed, NoSQL database management system that offers high-scalability and high-performance.
+          description: Spring Data support for Cassandra.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-cassandra/
@@ -849,7 +849,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.cassandra
         - name: Spring Data Reactive for Apache Cassandra
           id: data-cassandra-reactive
-          description: Access Cassandra NoSQL Database in a reactive fashion.
+          description: Reactive Spring Data support for Cassandra.
           facets:
             - reactive
           links:
@@ -868,13 +868,13 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.couchbase
         - name: Spring Data Couchbase
           id: data-couchbase
-          description: NoSQL document-oriented database that offers in memory-first architecture, geo-distributed deployments, and workload isolation.
+          description: Spring Data support for Couchbase.
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.couchbase
         - name: Spring Data Reactive Couchbase
           id: data-couchbase-reactive
-          description: Access Couchbase NoSQL database in a reactive fashion with Spring Data Couchbase.
+          description: Reactive Spring Data support for Couchbase.
           facets:
             - reactive
           links:
@@ -891,7 +891,7 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.neo4j
         - name: Spring Data Neo4j
           id: data-neo4j
-          description: An open source NoSQL database that stores data structured as graphs consisting of nodes, connected by relationships.
+          description: Spring Data support for Neo4j.
           links:
             - rel: guide
               href: https://spring.io/guides/gs/accessing-data-neo4j/
