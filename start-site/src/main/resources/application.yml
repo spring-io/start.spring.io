@@ -880,6 +880,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.couchbase
+        - name: Neo4j
+          id: neo4j
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-neo4j
+          compatibilityRange: "4.0.0-RC1"
+          description: Neo4j is an open-source NoSQL graph database that uses a rich data model of nodes connected by first class relationships, which is better suited for connected big data than traditional RDBMS approaches.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.neo4j
         - name: Spring Data Neo4j
           id: data-neo4j
           description: An open source NoSQL database that stores data structured as graphs consisting of nodes, connected by relationships.
