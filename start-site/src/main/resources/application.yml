@@ -806,7 +806,7 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.elasticsearch
-        - name: Spring Data Elasticsearch (Access+Driver)
+        - name: Spring Data Elasticsearch
           id: data-elasticsearch
           description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
           links:
