@@ -73,6 +73,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Execution(ExecutionMode.CONCURRENT)
 class ProjectGenerationIntegrationTests {
 
+	private static final boolean FORCE_REFRESH_DEPENDENCIES = false;
+
 	private final ProjectGenerationInvoker<ProjectRequest> invoker;
 
 	private final InitializrMetadata metadata;
@@ -160,18 +162,30 @@ class ProjectGenerationIntegrationTests {
 	}
 
 	private ProcessBuilder createGradleProcessBuilder(Path directory, Path home) {
-		String command = (isWindows()) ? "gradlew.bat" : "gradlew";
-		ProcessBuilder processBuilder = new ProcessBuilder(directory.resolve(command).toAbsolutePath().toString(),
-				"--no-daemon", "build");
+		String executable = (isWindows()) ? "gradlew.bat" : "gradlew";
+		List<String> command = new ArrayList<>();
+		command.add(directory.resolve(executable).toAbsolutePath().toString());
+		command.add("--no-daemon");
+		if (FORCE_REFRESH_DEPENDENCIES) {
+			command.add("--refresh-dependencies");
+		}
+		command.add("build");
+		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		processBuilder.environment().put("GRADLE_USER_HOME", home.toAbsolutePath().toString());
 		processBuilder.directory(directory.toFile());
 		return processBuilder;
 	}
 
 	private ProcessBuilder createMavenProcessBuilder(Path directory, Path home) {
-		String command = (isWindows()) ? "mvnw.cmd" : "mvnw";
-		ProcessBuilder processBuilder = new ProcessBuilder(directory.resolve(command).toAbsolutePath().toString(),
-				"-Dmaven.repo.local=" + home.resolve("repository").toAbsolutePath(), "package");
+		String executable = (isWindows()) ? "mvnw.cmd" : "mvnw";
+		List<String> command = new ArrayList<>();
+		command.add(directory.resolve(executable).toAbsolutePath().toString());
+		command.add("-Dmaven.repo.local=" + home.resolve("repository").toAbsolutePath());
+		if (FORCE_REFRESH_DEPENDENCIES) {
+			command.add("--update-snapshots");
+		}
+		command.add("package");
+		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		processBuilder.environment().put("MAVEN_USER_HOME", home.toAbsolutePath().toString());
 		processBuilder.directory(directory.toFile());
 		return processBuilder;
