@@ -830,6 +830,15 @@ initializr:
               href: https://spring.io/guides/gs/accessing-data-cassandra/
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.cassandra
+        - name: Couchbase
+          id: couchbase
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-couchbase
+          compatibilityRange: "4.0.0-RC1"
+          description: Couchbase is an open-source, distributed, multi-model NoSQL document-oriented database that is optimized for interactive applications.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.couchbase
         - name: Spring Data Couchbase
           id: data-couchbase
           description: NoSQL document-oriented database that offers in memory-first architecture, geo-distributed deployments, and workload isolation.
