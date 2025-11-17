@@ -53,7 +53,7 @@ class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 		if (!hasActuator(build) && needsActuator(build)) {
 			build.dependencies().add("actuator");
 		}
-		if (isBoot4OrLater() && hasPushBasedMetrics(build)) {
+		if (isBoot4OrLater() && hasPushBasedMetrics(build) && !hasActuator(build)) {
 			build.dependencies()
 				.add("spring-boot-micrometer-metrics", "org.springframework.boot", "spring-boot-micrometer-metrics",
 						DependencyScope.COMPILE);

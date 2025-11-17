@@ -21,6 +21,7 @@ import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -66,6 +67,14 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 			.doesNotHaveDependency(actuator.getGroupId(), actuator.getArtifactId())
 			.hasDependency("org.springframework.boot", "spring-boot-micrometer-metrics")
 			.hasDependency("org.springframework.boot", "spring-boot-micrometer-metrics-test", null, "test");
+	}
+
+	@Test
+	void shouldNotAddMicrometerMetricsIfActuatorIsThere() {
+		assertThat(generateProject(SupportedBootVersion.V4_0, "distributed-tracing", "datadog")).mavenBuild()
+			.hasDependency(getDependency("actuator"))
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-metrics")
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-metrics-test");
 	}
 
 	private ProjectStructure generateProject(SupportedBootVersion springBootVersion, String... dependencies) {
