@@ -31,8 +31,8 @@ import org.springframework.context.annotation.Bean;
 class ObservabilityProjectGenerationConfiguration {
 
 	@Bean
-	ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer() {
-		return new ObservabilityActuatorBuildCustomizer();
+	ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer(ProjectDescription description) {
+		return new ObservabilityActuatorBuildCustomizer(description.getPlatformVersion());
 	}
 
 	@Bean

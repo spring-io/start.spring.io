@@ -16,32 +16,67 @@
 
 package io.spring.start.site.extension.dependency.observability;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Adds the actuator if necessary.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final List<String> DEPENDENCIES = Arrays.asList("datadog", "distributed-tracing", "dynatrace",
-			"graphite", "influx", "new-relic", "otlp-metrics", "prometheus", "wavefront", "zipkin");
+	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0-RC1");
+
+	private static final Set<String> TRACING = Set.of("distributed-tracing", "zipkin");
+
+	private static final Set<String> PUSH_BASED_METRICS = Set.of("datadog", "dynatrace", "graphite", "influx",
+			"new-relic", "otlp-metrics", "wavefront");
+
+	private static final Set<String> PULL_BASED_METRICS = Set.of("prometheus");
+
+	private final Version bootVersion;
+
+	ObservabilityActuatorBuildCustomizer(Version bootVersion) {
+		this.bootVersion = bootVersion;
+	}
 
 	@Override
 	public void customize(Build build) {
-		if (!build.dependencies().has("actuator") && match(build.dependencies())) {
+		if (!hasActuator(build) && needsActuator(build)) {
 			build.dependencies().add("actuator");
 		}
 	}
 
-	protected boolean match(DependencyContainer dependencies) {
-		return dependencies.ids().anyMatch(DEPENDENCIES::contains);
+	private boolean hasActuator(Build build) {
+		return build.dependencies().has("actuator");
+	}
+
+	private boolean needsActuator(Build build) {
+		if (SPRING_BOOT_4_OR_LATER.match(this.bootVersion)) {
+			return hasTracing(build) || hasPullBasedMetrics(build);
+		}
+		else {
+			return hasTracing(build) || hasPullBasedMetrics(build) || hasPushBasedMetrics(build);
+		}
+	}
+
+	private boolean hasPullBasedMetrics(Build build) {
+		return build.dependencies().ids().anyMatch(PULL_BASED_METRICS::contains);
+	}
+
+	private boolean hasPushBasedMetrics(Build build) {
+		return build.dependencies().ids().anyMatch(PUSH_BASED_METRICS::contains);
+	}
+
+	private boolean hasTracing(Build build) {
+		return build.dependencies().ids().anyMatch(TRACING::contains);
 	}
 
 }
