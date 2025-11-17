@@ -53,7 +53,9 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	@ValueSource(strings = { "prometheus" })
 	void actuatorIsAddedWithPullBasedMetricsEntriesForBoot4(String dependency) {
 		assertThat(generateProject(SupportedBootVersion.V4_0, dependency)).mavenBuild()
-			.hasDependency(getDependency("actuator"));
+			.hasDependency(getDependency("actuator"))
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-metrics")
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-metrics-test");
 	}
 
 	@ParameterizedTest
@@ -61,7 +63,9 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	void actuatorIsNotAddedWithPushBasedMetricsEntriesForBoot4(String dependency) {
 		Dependency actuator = getDependency("actuator");
 		assertThat(generateProject(SupportedBootVersion.V4_0, dependency)).mavenBuild()
-			.doesNotHaveDependency(actuator.getGroupId(), actuator.getArtifactId());
+			.doesNotHaveDependency(actuator.getGroupId(), actuator.getArtifactId())
+			.hasDependency("org.springframework.boot", "spring-boot-micrometer-metrics")
+			.hasDependency("org.springframework.boot", "spring-boot-micrometer-metrics-test", null, "test");
 	}
 
 	private ProjectStructure generateProject(SupportedBootVersion springBootVersion, String... dependencies) {

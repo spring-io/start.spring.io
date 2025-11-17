@@ -19,6 +19,7 @@ package io.spring.start.site.extension.dependency.observability;
 import java.util.Set;
 
 import io.spring.initializr.generator.buildsystem.Build;
+import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
@@ -52,6 +53,14 @@ class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 		if (!hasActuator(build) && needsActuator(build)) {
 			build.dependencies().add("actuator");
 		}
+		if (isBoot4OrLater() && hasPushBasedMetrics(build)) {
+			build.dependencies()
+				.add("spring-boot-micrometer-metrics", "org.springframework.boot", "spring-boot-micrometer-metrics",
+						DependencyScope.COMPILE);
+			build.dependencies()
+				.add("spring-boot-micrometer-metrics-test", "org.springframework.boot",
+						"spring-boot-micrometer-metrics-test", DependencyScope.TEST_COMPILE);
+		}
 	}
 
 	private boolean hasActuator(Build build) {
@@ -59,12 +68,16 @@ class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	private boolean needsActuator(Build build) {
-		if (SPRING_BOOT_4_OR_LATER.match(this.bootVersion)) {
+		if (isBoot4OrLater()) {
 			return hasTracing(build) || hasPullBasedMetrics(build);
 		}
 		else {
 			return hasTracing(build) || hasPullBasedMetrics(build) || hasPushBasedMetrics(build);
 		}
+	}
+
+	private boolean isBoot4OrLater() {
+		return SPRING_BOOT_4_OR_LATER.match(this.bootVersion);
 	}
 
 	private boolean hasPullBasedMetrics(Build build) {
