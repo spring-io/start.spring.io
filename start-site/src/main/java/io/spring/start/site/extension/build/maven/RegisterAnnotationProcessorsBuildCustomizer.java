@@ -16,7 +16,9 @@
 
 package io.spring.start.site.extension.build.maven;
 
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
@@ -32,6 +34,13 @@ import io.spring.initializr.metadata.InitializrMetadata;
  */
 class RegisterAnnotationProcessorsBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
+	/**
+	 * Some annotation processors must stay on the compile classpath, so that users can
+	 * use classes from them. Those dependencies are both annotation processors and
+	 * libraries.
+	 */
+	private static final Set<String> ANNOTATION_PROCESSORS_ON_COMPILE_CLASSPATH = Set.of("lombok");
+
 	private final InitializrMetadata metadata;
 
 	private final ProjectDescription projectDescription;
@@ -46,18 +55,28 @@ class RegisterAnnotationProcessorsBuildCustomizer implements BuildCustomizer<Mav
 		if (!isJava()) {
 			return;
 		}
-		List<Dependency> annotationProcessors = build.dependencies()
-			.ids()
-			.filter(this::isAnnotationProcessor)
-			.map((id) -> build.dependencies().get(id))
-			.toList();
+		Map<String, Dependency> annotationProcessors = getAnnotationProcessors(build);
 		if (annotationProcessors.isEmpty()) {
 			return;
 		}
+		configureOnMavenCompilerPlugin(build, annotationProcessors);
+		removeFromDependencies(build, annotationProcessors);
+	}
+
+	private Map<String, Dependency> getAnnotationProcessors(MavenBuild build) {
+		Map<String, Dependency> annotationProcessors = new LinkedHashMap<>();
+		build.dependencies()
+			.ids()
+			.filter(this::isAnnotationProcessor)
+			.forEach((id) -> annotationProcessors.put(id, build.dependencies().get(id)));
+		return annotationProcessors;
+	}
+
+	private void configureOnMavenCompilerPlugin(MavenBuild build, Map<String, Dependency> annotationProcessors) {
 		build.plugins().add("org.apache.maven.plugins", "maven-compiler-plugin", (plugin) -> {
 			plugin.configuration((configuration) -> {
 				configuration.add("annotationProcessorPaths", (annotationProcessorPaths) -> {
-					for (Dependency annotationProcessor : annotationProcessors) {
+					for (Dependency annotationProcessor : annotationProcessors.values()) {
 						annotationProcessorPaths.add("path", (path) -> {
 							path.add("groupId", annotationProcessor.getGroupId());
 							path.add("artifactId", annotationProcessor.getArtifactId());
@@ -67,7 +86,14 @@ class RegisterAnnotationProcessorsBuildCustomizer implements BuildCustomizer<Mav
 				});
 			});
 		});
+	}
 
+	private void removeFromDependencies(MavenBuild build, Map<String, Dependency> annotationProcessors) {
+		annotationProcessors.keySet().forEach((id) -> {
+			if (!ANNOTATION_PROCESSORS_ON_COMPILE_CLASSPATH.contains(id)) {
+				build.dependencies().remove(id);
+			}
+		});
 	}
 
 	private boolean isAnnotationProcessor(String id) {

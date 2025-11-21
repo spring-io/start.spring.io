@@ -52,7 +52,7 @@ class RegisterAnnotationProcessorsBuildCustomizerTests extends AbstractExtension
 							</path>
 						</annotationProcessorPaths>
 					</configuration>
-				</plugin>""");
+				</plugin>""").hasDependency("org.projectlombok", "lombok");
 	}
 
 	@Test
@@ -70,7 +70,7 @@ class RegisterAnnotationProcessorsBuildCustomizerTests extends AbstractExtension
 							</path>
 						</annotationProcessorPaths>
 					</configuration>
-				</plugin>""");
+				</plugin>""").doesNotHaveDependency("org.springframework.boot", "spring-boot-configuration-processor");
 	}
 
 	@Test
@@ -92,7 +92,9 @@ class RegisterAnnotationProcessorsBuildCustomizerTests extends AbstractExtension
 							</path>
 						</annotationProcessorPaths>
 					</configuration>
-				</plugin>""");
+				</plugin>""")
+			.hasDependency("org.projectlombok", "lombok")
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-configuration-processor");
 	}
 
 	@ParameterizedTest
