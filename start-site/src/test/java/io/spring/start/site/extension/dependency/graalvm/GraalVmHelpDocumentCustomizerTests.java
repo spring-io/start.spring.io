@@ -52,7 +52,7 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		HelpDocument document = customize(description, new MavenBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
-			assertThat(link.getHref()).isEqualTo("https://docs.spring.io/spring-boot/3.5.0/how-to/aot.html");
+			assertThat(link.getHref()).isEqualTo("https://docs.spring.io/spring-boot/4.0.0/how-to/aot.html");
 		});
 	}
 
@@ -63,7 +63,7 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 		HelpDocument document = customize(description, new GradleBuild());
 		assertThat(document.gettingStarted().additionalLinks().getItems()).singleElement().satisfies((link) -> {
 			assertThat(link.getDescription()).isEqualTo("Configure AOT settings in Build Plugin");
-			assertThat(link.getHref()).isEqualTo("https://docs.spring.io/spring-boot/3.5.0/how-to/aot.html");
+			assertThat(link.getHref()).isEqualTo("https://docs.spring.io/spring-boot/4.0.0/how-to/aot.html");
 		});
 	}
 
@@ -118,8 +118,8 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void shouldHaveGraalVM223asBaseline() {
-		ProjectRequest request = createProjectRequest("native");
+	void shouldHaveGraalVM223asBaselineWhenUsingBoot3() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "native");
 		request.setType("maven-project");
 		assertHelpDocument(request).contains("GraalVM 22.3+ is required");
 	}

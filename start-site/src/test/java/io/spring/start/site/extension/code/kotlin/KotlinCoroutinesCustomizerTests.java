@@ -40,7 +40,7 @@ class KotlinCoroutinesCustomizerTests extends AbstractExtensionTests {
 			.hasDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor")
 			.hasDependency("org.jetbrains.kotlinx", "kotlinx-coroutines-test", null, "test");
 		assertThat(helpDocument(request)).contains(
-				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring-framework/reference/6.2.7/languages/kotlin/coroutines.html)");
+				"* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring-framework/reference/7.0.1/languages/kotlin/coroutines.html)");
 	}
 
 	@Test

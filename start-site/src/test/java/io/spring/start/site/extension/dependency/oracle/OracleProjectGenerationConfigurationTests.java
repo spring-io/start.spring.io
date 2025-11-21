@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.oracle;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -33,28 +34,31 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
+
 	@Test
 	void doesNotGenerateComposeYamlWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest("web", "oracle");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "oracle");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
 	void createsOracleFreeService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "oracle");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "oracle");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle-free.yaml"));
 	}
 
 	@Test
 	void createsOracleFreeServiceSpringAi() {
-		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-oracle");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
+				"spring-ai-vectordb-oracle");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle-free.yaml"));
 	}
 
 	@Test
 	void declaresOracleFreeContainerBean() {
-		ProjectRequest request = createProjectRequest("testcontainers", "oracle");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "testcontainers", "oracle");
 		request.setLanguage("java");
 		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
 			.contains("import org.testcontainers.oracle.OracleContainer;")

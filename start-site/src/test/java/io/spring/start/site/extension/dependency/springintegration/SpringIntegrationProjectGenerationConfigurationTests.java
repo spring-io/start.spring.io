@@ -22,6 +22,7 @@ import io.spring.initializr.generator.test.io.TextAssert;
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -44,7 +45,7 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 	void buildWithOnlySpringIntegration() {
 		Dependency integrationTest = integrationDependency("test");
 		integrationTest.setScope(Dependency.SCOPE_TEST);
-		assertThat(generateProject("integration")).mavenBuild()
+		assertThat(generateProject(SupportedBootVersion.V4_0, "integration")).mavenBuild()
 			.hasDependency(getDependency("integration"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(integrationTest);
@@ -52,10 +53,18 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 
 	@ParameterizedTest
 	@MethodSource("supportedEntries")
-	void buildWithSupportedEntries(String springBootDependencyId, String integrationModuleId) {
-		assertThat(generateProject("integration", springBootDependencyId)).mavenBuild()
+	void buildWithSupportedEntriesForBoot35(String springBootDependencyId, String integrationModuleId) {
+		assertThat(generateProject(SupportedBootVersion.V3_5, "integration", springBootDependencyId)).mavenBuild()
 			.hasDependency(getDependency("integration"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
+			.hasDependency(integrationDependency(integrationModuleId));
+	}
+
+	@ParameterizedTest
+	@MethodSource("supportedEntries")
+	void buildWithSupportedEntriesForBoot4(String springBootDependencyId, String integrationModuleId) {
+		assertThat(generateProject(SupportedBootVersion.V4_0, "integration", springBootDependencyId)).mavenBuild()
+			.hasDependency(getDependency("integration"))
 			.hasDependency(integrationDependency(integrationModuleId));
 	}
 
@@ -108,7 +117,7 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 
 	@Test
 	void securityAddsSpringSecurityMessaging() {
-		assertThat(generateProject("integration", "security")).mavenBuild()
+		assertThat(generateProject(SupportedBootVersion.V4_0, "integration", "security")).mavenBuild()
 			.hasDependency("org.springframework.security", "spring-security-messaging")
 			.doesNotHaveDependency("org.springframework.integration", "spring-integration-security");
 
@@ -120,8 +129,8 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 				integrationModule, null, io.spring.initializr.metadata.Dependency.SCOPE_COMPILE);
 	}
 
-	private ProjectStructure generateProject(String... dependencies) {
-		ProjectRequest request = createProjectRequest(dependencies);
+	private ProjectStructure generateProject(SupportedBootVersion bootVersion, String... dependencies) {
+		ProjectRequest request = createProjectRequest(bootVersion, dependencies);
 		request.setType("maven-build");
 		return generateProject(request);
 	}

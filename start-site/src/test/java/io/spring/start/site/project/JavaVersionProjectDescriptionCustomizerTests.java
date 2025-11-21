@@ -64,21 +64,21 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@Test
-	void java22IsNotSupportedWithKotlin() {
-		assertThat(mavenPom(kotlinProject("22", SupportedBootVersion.latest().getVersion())))
-			.hasProperty("java.version", "21");
+	void java22IsNotSupportedWithKotlinAndBoot35() {
+		assertThat(mavenPom(kotlinProject("22", SupportedBootVersion.V3_5.getVersion()))).hasProperty("java.version",
+				"21");
 	}
 
 	@Test
-	void java23IsNotSupportedWithKotlin() {
-		assertThat(mavenPom(kotlinProject("23", SupportedBootVersion.latest().getVersion())))
-			.hasProperty("java.version", "21");
+	void java23IsNotSupportedWithKotlinAndBoot35() {
+		assertThat(mavenPom(kotlinProject("23", SupportedBootVersion.V3_5.getVersion()))).hasProperty("java.version",
+				"21");
 	}
 
 	@Test
-	void java25IsNotSupportedWithKotlin() {
-		assertThat(mavenPom(kotlinProject("25", SupportedBootVersion.latest().getVersion())))
-			.hasProperty("java.version", "21");
+	void java25IsNotSupportedWithKotlinAndBoot35() {
+		assertThat(mavenPom(kotlinProject("25", SupportedBootVersion.V3_5.getVersion()))).hasProperty("java.version",
+				"21");
 	}
 
 	static Stream<Arguments> supportedMavenParameters() {

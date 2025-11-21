@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.thymeleaf;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,7 @@ class ThymeleafBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void thymeleafWithOAuth2ClientAndSpringBootAddsExtrasDependency() {
-		ProjectRequest projectRequest = createProjectRequest("thymeleaf", "oauth2-client");
+		ProjectRequest projectRequest = createProjectRequest(SupportedBootVersion.V3_5, "thymeleaf", "oauth2-client");
 		assertThat(mavenPom(projectRequest)).hasDependency(Dependency.createSpringBootStarter("thymeleaf"))
 			.hasDependency(Dependency.createSpringBootStarter("oauth2-client"))
 			.hasDependency(Dependency.withId("thymeleaf-extras-spring-security", "org.thymeleaf.extras",

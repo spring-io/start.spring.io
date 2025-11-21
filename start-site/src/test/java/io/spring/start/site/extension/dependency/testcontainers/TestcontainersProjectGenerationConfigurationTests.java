@@ -47,7 +47,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	@Test
 	void buildWithOnlyTestContainers() {
-		assertThat(generateProject("testcontainers")).mavenBuild().hasDependency(getDependency("testcontainers"));
+		assertThat(generateProject("testcontainers")).mavenBuild()
+			.hasDependency(getDependency(BOOT_VERSION, "testcontainers"));
 	}
 
 	@ParameterizedTest
@@ -59,7 +60,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency(springBootDependencyId)
 				.resolve(Version.parse(SupportedBootVersion.latest().getVersion())))
 			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
-			.hasDependency(getDependency("testcontainers"));
+			.hasDependency(getDependency(BOOT_VERSION, "testcontainers"));
 	}
 
 	@ParameterizedTest
@@ -71,7 +72,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency(springBootDependencyId)
 				.resolve(Version.parse(SupportedBootVersion.latest().getVersion())))
 			.hasDependency("org.testcontainers", testcontainersArtifactId, null, "test")
-			.hasDependency(getDependency("testcontainers"));
+			.hasDependency(getDependency(BOOT_VERSION, "testcontainers"));
 	}
 
 	static Stream<Arguments> supportedTestcontainersActiveMQEntriesBuild() {
@@ -140,7 +141,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	void buildWithSpringBoot31DoesNotIncludeBom() {
 		assertThat(generateProject("testcontainers")).mavenBuild()
 			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
-			.hasDependency(getDependency("testcontainers"));
+			.hasDependency(getDependency(BOOT_VERSION, "testcontainers"));
 	}
 
 	@Test

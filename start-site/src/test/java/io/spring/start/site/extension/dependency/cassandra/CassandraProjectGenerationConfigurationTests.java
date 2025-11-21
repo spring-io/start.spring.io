@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.cassandra;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -33,34 +34,38 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class CassandraProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
+
 	@Test
 	void doesNothingWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest("web", "data-cassandra", "data-cassandra-reactive");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "data-cassandra", "data-cassandra-reactive");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
 	void createsCassandraService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "data-cassandra");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "data-cassandra");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 
 	@Test
 	void createsCassandraServiceWhenReactive() {
-		ProjectRequest request = createProjectRequest("docker-compose", "data-cassandra-reactive");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "data-cassandra-reactive");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 
 	@Test
 	void createsCassandraServiceWhenSpringAiIsSelected() {
-		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-cassandra");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
+				"spring-ai-vectordb-cassandra");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 
 	@Test
 	void doesNotFailWhenBothCassandraAndReactiveCassandraAreSelected() {
-		ProjectRequest request = createProjectRequest("docker-compose", "data-cassandra", "data-cassandra-reactive");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "data-cassandra",
+				"data-cassandra-reactive");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 

@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringShellTestBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
 
 	@Test
 	void shellTestIsAddedWithSpringShell() {
@@ -49,7 +49,7 @@ class SpringShellTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void shellTestIsNotAddedWithoutSpringShell() {
-		ProjectRequest request = createProjectRequest("web");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependenciesSize(2);

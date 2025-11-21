@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springai;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -30,16 +31,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringAiAdvisorsVectorStoreBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+
 	@Test
 	void shouldAddAdvisorsVectorStoreIfModelAndVectorStoreIsSelected() {
-		ProjectRequest request = createProjectRequest("spring-ai-ollama", "spring-ai-vectordb-azure");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "spring-ai-ollama", "spring-ai-vectordb-azure");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasDependency("org.springframework.ai", "spring-ai-advisors-vector-store");
 	}
 
 	@Test
 	void shouldNotAddAdvisorsVectorStoreIfOnlyModelIsSelected() {
-		ProjectRequest request = createProjectRequest("spring-ai-ollama");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "spring-ai-ollama");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild()
 			.doesNotHaveDependency("org.springframework.ai", "spring-ai-advisors-vector-store");
@@ -47,7 +50,7 @@ class SpringAiAdvisorsVectorStoreBuildCustomizerTests extends AbstractExtensionT
 
 	@Test
 	void shouldNotAddAdvisorsVectorStoreIfOnlyVectorStoreIsSelected() {
-		ProjectRequest request = createProjectRequest("spring-ai-vectordb-azure");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "spring-ai-vectordb-azure");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild()
 			.doesNotHaveDependency("org.springframework.ai", "spring-ai-advisors-vector-store");

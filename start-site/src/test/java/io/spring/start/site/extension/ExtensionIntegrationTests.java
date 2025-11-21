@@ -20,15 +20,18 @@ import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 /**
  * Tests with combined extensions.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 public class ExtensionIntegrationTests extends AbstractExtensionTests {
 
@@ -37,8 +40,9 @@ public class ExtensionIntegrationTests extends AbstractExtensionTests {
 	void projectWithAllDependenciesCanBeGenerated(String type) {
 		InitializrMetadata metadata = getMetadata();
 		String platformVersion = metadata.getBootVersions().getDefault().getId();
+		assertThat(platformVersion).isEqualTo(SupportedBootVersion.latest().getVersion());
 		String[] dependencies = allDependencies(metadata, platformVersion);
-		ProjectRequest request = createProjectRequest(dependencies);
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), dependencies);
 		request.setType(type);
 		assertThatCode(() -> generateProject(request)).doesNotThrowAnyException();
 	}

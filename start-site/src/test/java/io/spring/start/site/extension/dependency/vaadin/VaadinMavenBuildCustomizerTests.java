@@ -30,9 +30,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class VaadinMavenBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+
 	@Test
 	void shouldAddProductionProfile() {
-		ProjectRequest projectRequest = createProjectRequest(SupportedBootVersion.latest(), "vaadin", "web");
+		ProjectRequest projectRequest = createProjectRequest(BOOT_VERSION, "vaadin", "web");
 		assertThat(mavenPom(projectRequest)).hasProfile("production").lines().containsSequence(
 		// @formatter:off
 			"		<profile>",

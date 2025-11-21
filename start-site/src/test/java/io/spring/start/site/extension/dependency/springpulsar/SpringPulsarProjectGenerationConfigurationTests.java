@@ -61,7 +61,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 
 		@Test
 		void pulsarReactiveBootStarterUsed() {
-			ProjectRequest request = createProjectRequest("pulsar-reactive");
+			ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "pulsar-reactive");
 			ProjectStructure project = generateProject(request);
 			assertThat(project).mavenBuild()
 				.hasDependency("org.springframework.boot", "spring-boot-starter-pulsar-reactive");
@@ -81,8 +81,15 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 
 		@ParameterizedTest
 		@ValueSource(strings = { "pulsar", "pulsar-reactive" })
-		void serviceCreatedWhenDockerComposeSelectedWithCompatibleBootVersion(String pulsarDependencyId) {
-			ProjectRequest request = createProjectRequest("docker-compose", pulsarDependencyId);
+		void serviceCreatedWhenDockerComposeSelectedWithBoot35(String pulsarDependencyId) {
+			ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
+					pulsarDependencyId);
+			assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/pulsar.yaml"));
+		}
+
+		@Test
+		void serviceCreatedWhenDockerComposeSelectedWithCompatibleBootVersion() {
+			ProjectRequest request = createProjectRequest("docker-compose", "pulsar");
 			assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/pulsar.yaml"));
 		}
 
@@ -135,7 +142,7 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 		private void assertPulsarServiceConnectionAdded(ServiceConnections connections) {
 			assertThat(connections.values()).first().satisfies((connection) -> {
 				assertThat(connection.id()).isEqualTo("pulsar");
-				assertThat(connection.containerClassName()).isEqualTo("org.testcontainers.containers.PulsarContainer");
+				assertThat(connection.containerClassName()).isEqualTo("org.testcontainers.pulsar.PulsarContainer");
 				assertThat(connection.isGenericContainer()).isFalse();
 				assertThat(connection.containerClassNameGeneric()).isFalse();
 				assertThat(connection.dockerService()).satisfies((dockerService) -> {

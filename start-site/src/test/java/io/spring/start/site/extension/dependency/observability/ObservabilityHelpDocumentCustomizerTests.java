@@ -34,7 +34,7 @@ class ObservabilityHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	void linksAddedToHelpDocumentForGradleBuild() {
 		assertHelpDocument("distributed-tracing").contains(
 				"* [Distributed Tracing Reference Guide](https://docs.micrometer.io/tracing/reference/index.html)",
-				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/3.5.0/reference/actuator/tracing.html)");
+				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/4.0.0/reference/actuator/tracing.html)");
 	}
 
 	@Test

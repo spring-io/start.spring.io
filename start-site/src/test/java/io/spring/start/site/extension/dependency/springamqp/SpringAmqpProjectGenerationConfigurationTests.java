@@ -46,7 +46,7 @@ class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void springAmqpTestWithAmqp() {
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse(SupportedBootVersion.latest().getVersion()));
+		description.setPlatformVersion(Version.parse(SupportedBootVersion.V3_5.getVersion()));
 		description.addDependency("amqp", mock(Dependency.class));
 		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
 			.containsKeys("springAmqpTestBuildCustomizer"));

@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.elasticsearch;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -33,22 +34,25 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
+
 	@Test
 	void doesNothingWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest("web", "data-elasticsearch");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "data-elasticsearch");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
 	void createsElasticsearchService() {
-		ProjectRequest request = createProjectRequest("docker-compose", "data-elasticsearch");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "data-elasticsearch");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
 	}
 
 	@Test
 	void createsElasticsearchServiceWhenSpringAiModuleIsSelected() {
-		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-elasticsearch");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
+				"spring-ai-vectordb-elasticsearch");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
 	}
 
