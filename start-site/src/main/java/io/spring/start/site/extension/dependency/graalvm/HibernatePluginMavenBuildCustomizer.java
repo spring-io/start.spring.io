@@ -44,7 +44,8 @@ class HibernatePluginMavenBuildCustomizer implements BuildCustomizer<MavenBuild>
 		if (isSpringBoot4OrLater()) {
 			build.plugins()
 				.add("org.hibernate.orm", "hibernate-maven-plugin", (plugin) -> plugin.version("${hibernate.version}")
-					.execution("enhance", (execution) -> execution.goal("enhance")));
+					.execution("enhance", (execution) -> execution.goal("enhance")
+						.configuration((configuration) -> configuration.add("enableAssociationManagement", "true"))));
 		}
 		else {
 			build.plugins()

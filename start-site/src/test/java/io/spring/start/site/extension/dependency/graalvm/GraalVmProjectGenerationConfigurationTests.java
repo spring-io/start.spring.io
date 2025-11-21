@@ -126,6 +126,9 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 				"						<goals>",
 				"							<goal>enhance</goal>",
 				"						</goals>",
+				"						<configuration>",
+				"							<enableAssociationManagement>true</enableAssociationManagement>",
+				"						</configuration>",
 				"					</execution>",
 				"				</executions>",
 				"			</plugin>");
