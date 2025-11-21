@@ -32,8 +32,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link GraalVmProjectGenerationConfiguration}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests {
+
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@Test
 	void gradleBuildWithoutNativeDoesNotConfigureNativeBuildTools() {
@@ -48,8 +51,8 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void mavenBuildConfigureNativeBuildtoolsPlugint() {
-		ProjectRequest request = createNativeProjectRequest();
+	void mavenBuildConfigureNativeBuildtoolsPlugin() {
+		ProjectRequest request = createNativeProjectRequest(BOOT_VERSION);
 		assertThat(mavenPom(request)).lines().containsSequence(
 		// @formatter:off
 				"			<plugin>",
@@ -63,18 +66,18 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	void gradleBuildConfigureNativeBuildToolsPlugin(@Autowired MavenVersionResolver mavenVersionResolver) {
 		String nbtVersion = NativeBuildtoolsVersionResolver.resolve(mavenVersionResolver,
 				Version.parse(SupportedBootVersion.latest().getVersion()));
-		ProjectRequest request = createNativeProjectRequest();
+		ProjectRequest request = createNativeProjectRequest(BOOT_VERSION);
 		assertThat(gradleBuild(request)).hasPlugin("org.graalvm.buildtools.native", nbtVersion);
 	}
 
 	@Test
 	void gradleBuildWithoutJpaDoesNotConfigureHibernateEnhancePlugin() {
-		assertThat(gradleBuild(createNativeProjectRequest())).doesNotContain("org.hibernate.orm");
+		assertThat(gradleBuild(createNativeProjectRequest(BOOT_VERSION))).doesNotContain("org.hibernate.orm");
 	}
 
 	@Test
 	void gradleBuildAndGroovyDslWithJpaConfiguresHibernateEnhancePlugin() {
-		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		ProjectRequest request = createNativeProjectRequest(BOOT_VERSION, "data-jpa");
 		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
 		// @formatter:off
 				"hibernate {",
@@ -87,7 +90,7 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 
 	@Test
 	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePlugin() {
-		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		ProjectRequest request = createNativeProjectRequest(BOOT_VERSION, "data-jpa");
 		assertThat(gradleKotlinDslBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
 		// @formatter:off
 						"hibernate {",
@@ -100,13 +103,40 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 
 	@Test
 	void mavenBuildWithoutJpaDoesNotConfigureHibernateEnhancePlugin() {
-		assertThat(mavenPom(createNativeProjectRequest())).doesNotContain("hibernate-enhance-maven-plugin");
+		assertThat(mavenPom(createNativeProjectRequest(BOOT_VERSION))).doesNotContain("hibernate-maven-plugin");
+	}
+
+	@Test
+	void mavenBuildWithoutJpaDoesNotConfigureHibernateEnhancePluginForBoot35() {
+		assertThat(mavenPom(createNativeProjectRequest(SupportedBootVersion.V3_5)))
+			.doesNotContain("hibernate-enhance-maven-plugin");
 	}
 
 	@Test
 	void mavenBuildWithJpaConfigureHibernateEnhancePlugin() {
-		assertThat(mavenPom(createNativeProjectRequest("data-jpa"))).lines().containsSequence(
+		assertThat(mavenPom(createNativeProjectRequest(BOOT_VERSION, "data-jpa"))).lines().containsSequence(
 		// @formatter:off
+				"			<plugin>",
+				"				<groupId>org.hibernate.orm</groupId>",
+				"				<artifactId>hibernate-maven-plugin</artifactId>",
+				"				<version>${hibernate.version}</version>",
+				"				<executions>",
+				"					<execution>",
+				"						<id>enhance</id>",
+				"						<goals>",
+				"							<goal>enhance</goal>",
+				"						</goals>",
+				"					</execution>",
+				"				</executions>",
+				"			</plugin>");
+		// @formatter:on
+	}
+
+	@Test
+	void mavenBuildWithJpaConfigureHibernateEnhancePluginForBoot35() {
+		assertThat(mavenPom(createNativeProjectRequest(SupportedBootVersion.V3_5, "data-jpa"))).lines()
+			.containsSequence(
+			// @formatter:off
 				"			<plugin>",
 				"				<groupId>org.hibernate.orm.tooling</groupId>",
 				"				<artifactId>hibernate-enhance-maven-plugin</artifactId>",
@@ -130,13 +160,13 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 
 	@Test
 	void groovyProjectDoesNotConfigureGraalVm() {
-		ProjectRequest request = createNativeProjectRequest("data-jpa");
+		ProjectRequest request = createNativeProjectRequest(BOOT_VERSION, "data-jpa");
 		request.setLanguage(GroovyLanguage.ID);
 		assertThat(gradleBuild(request)).doesNotContain("graalvm").doesNotContain("org.hibernate.orm");
 	}
 
-	private ProjectRequest createNativeProjectRequest(String... dependencies) {
-		ProjectRequest projectRequest = createProjectRequest(dependencies);
+	private ProjectRequest createNativeProjectRequest(SupportedBootVersion bootVersion, String... dependencies) {
+		ProjectRequest projectRequest = createProjectRequest(bootVersion, dependencies);
 		projectRequest.getDependencies().add(0, "native");
 		return projectRequest;
 	}
