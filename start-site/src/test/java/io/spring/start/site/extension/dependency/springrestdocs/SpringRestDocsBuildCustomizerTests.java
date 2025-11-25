@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency.springrestdocs;
 
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -31,26 +32,38 @@ class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void restDocsWithWebMvc() {
-		ProjectRequest request = createProjectRequest("web", "restdocs");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "web", "restdocs");
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
-			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient");
+			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient")
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-restdocs");
 	}
 
 	@Test
 	void restDocsWithWebFlux() {
-		ProjectRequest request = createProjectRequest("webflux", "restdocs");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "webflux", "restdocs");
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
-			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
+			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc")
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-restdocs");
 	}
 
 	@Test
 	void restDocsWithJersey() {
-		ProjectRequest request = createProjectRequest("jersey", "restdocs");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "jersey", "restdocs");
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
-			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc");
+			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc")
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-restdocs");
+	}
+
+	@Test
+	void restDocsWithBoot4() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web", "restdocs");
+		assertThat(mavenPom(request))
+			.hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
+			.hasDependency("org.springframework.boot", "spring-boot-restdocs", null, "test")
+			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient");
 	}
 
 }

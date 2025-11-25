@@ -18,7 +18,11 @@ package io.spring.start.site.extension.dependency.springrestdocs;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * A {@link BuildCustomizer} that tunes the REST Docs dependency based on the web
@@ -28,8 +32,21 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 public class SpringRestDocsBuildCustomizer implements BuildCustomizer<Build> {
 
+	private static final VersionRange SPRING_BOOT_4_0_0_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0");
+
+	private final Version bootVersion;
+
+	public SpringRestDocsBuildCustomizer(ProjectDescription projectDescription) {
+		this.bootVersion = projectDescription.getPlatformVersion();
+	}
+
 	@Override
 	public void customize(Build build) {
+		if (SPRING_BOOT_4_0_0_OR_LATER.match(this.bootVersion)) {
+			build.dependencies()
+				.add("spring-boot-restdocs", "org.springframework.boot", "spring-boot-restdocs",
+						DependencyScope.TEST_COMPILE);
+		}
 		if (switchToWebTestClient(build)) {
 			build.dependencies().remove("restdocs");
 			build.dependencies()
