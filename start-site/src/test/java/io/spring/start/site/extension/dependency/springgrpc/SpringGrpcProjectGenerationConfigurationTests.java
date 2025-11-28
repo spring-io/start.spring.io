@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V4_0;
 
 	private static final String SPRING_GRPC = "spring-grpc";
 
@@ -118,13 +118,13 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void shouldAddProtobufPluginForMaven() {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, SPRING_GRPC);
-		assertThat(mavenPom(request)).hasProperty("grpc.version", "1.76.0")
-			.hasProperty("protobuf-java.version", "4.32.1")
+		assertThat(mavenPom(request)).hasProperty("grpc.version", "1.77.0")
+			.hasProperty("protobuf-java.version", "4.33.1")
 			.containsIgnoringWhitespaces("""
 					<plugin>
 						<groupId>io.github.ascopes</groupId>
 						<artifactId>protobuf-maven-plugin</artifactId>
-						<version>3.8.0</version>
+						<version>3.10.2</version>
 						<configuration>
 							<protocVersion>${protobuf-java.version}</protocVersion>
 							<binaryMavenPlugins>
