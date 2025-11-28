@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V4_0;
 
 	private static final String SPRING_GRPC = "spring-grpc";
 
@@ -124,7 +124,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 					<plugin>
 						<groupId>io.github.ascopes</groupId>
 						<artifactId>protobuf-maven-plugin</artifactId>
-						<version>3.8.0</version>
+						<version>3.10.2</version>
 						<configuration>
 							<protocVersion>${protobuf-java.version}</protocVersion>
 							<binaryMavenPlugins>
