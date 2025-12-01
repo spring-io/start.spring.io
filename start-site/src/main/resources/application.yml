@@ -657,7 +657,7 @@ initializr:
           mappings:
             - compatibilityRange: "[3.4.0,4.0.0-M1)"
               version: 3.0.5
-            - compatibilityRange: "4.0.0"
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
               version: 4.0.0
           links:
             - rel: guide
