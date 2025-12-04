@@ -34,7 +34,7 @@ class ObservabilityDistributedTracingBuildCustomizerTests extends AbstractExtens
 	@Test
 	void shouldAddMicrometerTracingOnBoot4OrLater() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "distributed-tracing");
-		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-micrometer-tracing");
+		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-micrometer-tracing-brave");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-micrometer-tracing-test",
 				null, Dependency.SCOPE_TEST);
 	}
@@ -43,7 +43,7 @@ class ObservabilityDistributedTracingBuildCustomizerTests extends AbstractExtens
 	void shouldNotAddMicrometerTracingOnBootBefore4() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "distributed-tracing");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot",
-				"spring-boot-micrometer-tracing");
+				"spring-boot-micrometer-tracing-brave");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot",
 				"spring-boot-micrometer-tracing-test");
 	}
