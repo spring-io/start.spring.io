@@ -126,7 +126,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 						<artifactId>protobuf-maven-plugin</artifactId>
 						<version>4.0.3</version>
 						<configuration>
-							<protocVersion>${protobuf-java.version}</protocVersion>
+							<protoc>${protobuf-java.version}</protoc>
 							<binaryMavenPlugins>
 								<binaryMavenPlugin>
 									<groupId>io.grpc</groupId>
