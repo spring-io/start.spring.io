@@ -29,7 +29,7 @@ import io.spring.initializr.generator.version.VersionProperty;
  */
 class GrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
-	private static final String PROTOBUF_PLUGIN_VERSION = "3.10.2";
+	private static final String PROTOBUF_PLUGIN_VERSION = "4.0.3";
 
 	private final String protobufJavaVersion;
 

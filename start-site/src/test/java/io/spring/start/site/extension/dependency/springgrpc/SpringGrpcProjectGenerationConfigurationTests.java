@@ -65,7 +65,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	void shouldAddGrpcPluginAndConfigurationForGradleGroovy() {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, SPRING_GRPC);
 		request.setType("gradle-project");
-		assertThat(gradleBuild(request)).hasPlugin("com.google.protobuf", "0.9.4").containsIgnoringWhitespaces("""
+		assertThat(gradleBuild(request)).hasPlugin("com.google.protobuf", "0.9.5").containsIgnoringWhitespaces("""
 				protobuf {
 					protoc {
 						artifact = 'com.google.protobuf:protoc'
@@ -90,7 +90,7 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	void shouldAddGrpcPluginAndConfigurationForGradleKotlin() {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, SPRING_GRPC);
 		request.setType("gradle-project-kotlin");
-		assertThat(gradleKotlinDslBuild(request)).hasPlugin("com.google.protobuf", "0.9.4")
+		assertThat(gradleKotlinDslBuild(request)).hasPlugin("com.google.protobuf", "0.9.5")
 			.contains("import com.google.protobuf.gradle.id")
 			.containsIgnoringWhitespaces("""
 					protobuf {
@@ -118,13 +118,13 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void shouldAddProtobufPluginForMaven() {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, SPRING_GRPC);
-		assertThat(mavenPom(request)).hasProperty("grpc.version", "1.76.0")
-			.hasProperty("protobuf-java.version", "4.32.1")
+		assertThat(mavenPom(request)).hasProperty("grpc.version", "1.77.0")
+			.hasProperty("protobuf-java.version", "4.33.1")
 			.containsIgnoringWhitespaces("""
 					<plugin>
 						<groupId>io.github.ascopes</groupId>
 						<artifactId>protobuf-maven-plugin</artifactId>
-						<version>3.10.2</version>
+						<version>4.0.3</version>
 						<configuration>
 							<protocVersion>${protobuf-java.version}</protocVersion>
 							<binaryMavenPlugins>
