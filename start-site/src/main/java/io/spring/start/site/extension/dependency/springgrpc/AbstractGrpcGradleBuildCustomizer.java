@@ -28,7 +28,7 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 abstract class AbstractGrpcGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
-	private static final String GRPC_PLUGIN_VERSION = "0.9.4";
+	private static final String GRPC_PLUGIN_VERSION = "0.9.5";
 
 	private final char quote;
 
