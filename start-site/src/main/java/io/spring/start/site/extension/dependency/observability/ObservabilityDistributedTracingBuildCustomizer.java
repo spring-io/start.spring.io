@@ -54,8 +54,8 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 		}
 		if (build.dependencies().has("distributed-tracing") && isBoot4OrLater()) {
 			build.dependencies()
-				.add("spring-boot-micrometer-tracing",
-						Dependency.withCoordinates("org.springframework.boot", "spring-boot-micrometer-tracing"));
+				.add("spring-boot-micrometer-tracing-brave",
+						Dependency.withCoordinates("org.springframework.boot", "spring-boot-micrometer-tracing-brave"));
 			build.dependencies()
 				.add("spring-boot-micrometer-tracing-test",
 						Dependency.withCoordinates("org.springframework.boot", "spring-boot-micrometer-tracing-test")
