@@ -404,7 +404,7 @@ initializr:
               description: Building a Hypermedia-Driven RESTful Web Service
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-hateoas.html
-        - name: Spring Webservices
+        - name: Spring Web Services
           id: web-services
           description: Facilitates contract-first SOAP development using Spring WS. Allows for the creation of flexible web services using one of the many ways to manipulate XML payloads.
           group-id: org.springframework.boot
