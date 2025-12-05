@@ -109,7 +109,7 @@ function Fields({
               )}
             </Control>
             <Control text='Project Metadata'>
-              <div className="control control-inline">
+              <div className="control-row">
                 <FieldInput
                   id='input-group'
                   value={get(values, 'meta.group')}
