@@ -35,9 +35,9 @@ class H2ProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@ParameterizedTest
 	@EnumSource(value = SupportedBootVersion.class, names = { "V3_4", "V3_5" })
-	void shouldAddH2inRuntimeScopeForBootBelow4(SupportedBootVersion bootVersion) {
+	void shouldNotAddH2ConsoleModule(SupportedBootVersion bootVersion) {
 		ProjectRequest request = createProjectRequest(bootVersion, "h2");
-		assertThat(mavenPom(request)).hasDependency("com.h2database", "h2", null, Dependency.SCOPE_RUNTIME);
+		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot", "spring-boot-h2console");
 	}
 
 	@Test
