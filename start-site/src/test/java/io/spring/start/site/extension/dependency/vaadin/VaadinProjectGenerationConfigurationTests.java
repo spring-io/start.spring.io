@@ -35,10 +35,13 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
 
 	@Test
-	void mavenBuildWithVaadinAddProductionProfileWithoutProductionModeFlag() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "vaadin", "data-jpa");
-		assertThat(mavenPom(request)).hasProfile("production").lines().containsSequence(
-		// @formatter:off
+	void mavenBuildWithVaadinAddProductionProfileWithoutProductionModeFlagOnBoot35() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "vaadin", "data-jpa");
+		assertThat(mavenPom(request)).hasProfile("production")
+			.doesNotHaveDependency("com.vaadin", "vaadin-dev")
+			.lines()
+			.containsSequence(
+			// @formatter:off
 				"		<profile>",
 				"			<id>production</id>",
 				"			<dependencies>",
@@ -78,6 +81,36 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	}
 
 	@Test
+	void mavenBuildWithVaadinAddsVaadinDevDependencyWithBoot4() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin", "data-jpa");
+		assertThat(mavenPom(request)).doesNotHaveProfile("production")
+				.containsIgnoringWhitespaces(
+					"""
+					<dependency>
+						<groupId>com.vaadin</groupId>
+						<artifactId>vaadin-dev</artifactId>
+						<optional>true</optional>
+					</dependency>
+					""")
+				.containsIgnoringWhitespaces(
+					"""
+					<plugin>
+						<groupId>com.vaadin</groupId>
+						<artifactId>vaadin-maven-plugin</artifactId>
+						<version>${vaadin.version}</version>
+						<executions>
+							<execution>
+								<id>build-frontend</id>
+								<goals>
+									<goal>build-frontend</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					""");
+	}
+
+	@Test
 	void mavenBuildWithoutVaadinDoesNotAddProductionProfile() {
 		assertThat(mavenPom(createProjectRequest("data-jpa"))).doesNotHaveProfile("production");
 	}
@@ -91,7 +124,15 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 			.get("vaadin")
 			.resolve(Version.parse(request.getBootVersion()))
 			.getVersion();
-		assertThat(gradleBuild(request)).hasPlugin("com.vaadin", vaadinVersion);
+		assertThat(gradleBuild(request)).hasPlugin("com.vaadin", vaadinVersion)
+				.doesNotContain("developmentOnly 'com.vaadin:vaadin-dev'");
+	}
+
+	@Test
+	void gradleBuildWithVaadinAddsVaadinDevDependencyWithBoot4() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin", "data-jpa");
+		assertThat(gradleBuild(request))
+				.contains("developmentOnly 'com.vaadin:vaadin-dev'");
 	}
 
 	@Test

@@ -17,8 +17,11 @@
 package io.spring.start.site.extension.dependency.vaadin;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
+import io.spring.initializr.generator.buildsystem.gradle.GradleDependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.initializr.metadata.InitializrMetadata;
 
 /**
@@ -28,9 +31,14 @@ import io.spring.initializr.metadata.InitializrMetadata;
  */
 class VaadinGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
+	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0");
+
+	private final Version springBootVersion;
+
 	private final String vaadinVersion;
 
 	VaadinGradleBuildCustomizer(InitializrMetadata metadata, Version platformVersion) {
+		this.springBootVersion = platformVersion;
 		this.vaadinVersion = metadata.getConfiguration()
 			.getEnv()
 			.getBoms()
@@ -42,6 +50,15 @@ class VaadinGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 	@Override
 	public void customize(GradleBuild build) {
 		build.plugins().add("com.vaadin", (plugin) -> plugin.setVersion(this.vaadinVersion));
+		if (isBoot4OrLater()) {
+			build.dependencies()
+				.add("vaadin-dev",
+						GradleDependency.withCoordinates("com.vaadin", "vaadin-dev").configuration("developmentOnly"));
+		}
+	}
+
+	private boolean isBoot4OrLater() {
+		return SPRING_BOOT_4_OR_LATER.match(this.springBootVersion);
 	}
 
 }
