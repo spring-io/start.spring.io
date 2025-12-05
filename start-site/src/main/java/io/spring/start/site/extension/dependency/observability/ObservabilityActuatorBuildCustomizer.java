@@ -55,11 +55,11 @@ class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 		}
 		if (isBoot4OrLater() && hasPushBasedMetrics(build) && !hasActuator(build)) {
 			build.dependencies()
-				.add("spring-boot-micrometer-metrics", "org.springframework.boot", "spring-boot-micrometer-metrics",
-						DependencyScope.COMPILE);
+				.add("spring-boot-starter-micrometer-metrics", "org.springframework.boot",
+						"spring-boot-starter-micrometer-metrics", DependencyScope.COMPILE);
 			build.dependencies()
-				.add("spring-boot-micrometer-metrics-test", "org.springframework.boot",
-						"spring-boot-micrometer-metrics-test", DependencyScope.TEST_COMPILE);
+				.add("spring-boot-starter-micrometer-metrics-test", "org.springframework.boot",
+						"spring-boot-starter-micrometer-metrics-test", DependencyScope.TEST_COMPILE);
 		}
 	}
 

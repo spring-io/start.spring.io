@@ -92,7 +92,7 @@ initializr:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
             version: 1.0.3
           - compatibilityRange: "[3.5.0,4.0.0-M1)"
-            version: 1.1.0
+            version: 1.1.1
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -404,7 +404,7 @@ initializr:
               description: Building a Hypermedia-Driven RESTful Web Service
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-hateoas.html
-        - name: Spring Webservices
+        - name: Spring Web Services
           id: web-services
           description: Facilitates contract-first SOAP development using Spring WS. Allows for the creation of flexible web services using one of the many ways to manipulate XML payloads.
           group-id: org.springframework.boot
@@ -716,12 +716,9 @@ initializr:
         - name: H2 Database
           id: h2
           description: Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
-          mappings:
-            - compatibility-range: "[3.4.0,4.0.0)"
-              groupId: com.h2database
-              artifactId: h2
-          groupId: org.springframework.boot
-          artifactId: spring-boot-h2console
+          groupId: com.h2database
+          artifactId: h2
+          scope: runtime
           starter: false
         - name: HyperSQL Database
           id: hsql

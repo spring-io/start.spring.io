@@ -55,8 +55,8 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	void actuatorIsAddedWithPullBasedMetricsEntriesForBoot4(String dependency) {
 		assertThat(generateProject(SupportedBootVersion.V4_0, dependency)).mavenBuild()
 			.hasDependency(getDependency("actuator"))
-			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-metrics")
-			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-metrics-test");
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics")
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics-test");
 	}
 
 	@ParameterizedTest
@@ -65,16 +65,16 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 		Dependency actuator = getDependency("actuator");
 		assertThat(generateProject(SupportedBootVersion.V4_0, dependency)).mavenBuild()
 			.doesNotHaveDependency(actuator.getGroupId(), actuator.getArtifactId())
-			.hasDependency("org.springframework.boot", "spring-boot-micrometer-metrics")
-			.hasDependency("org.springframework.boot", "spring-boot-micrometer-metrics-test", null, "test");
+			.hasDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics")
+			.hasDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics-test", null, "test");
 	}
 
 	@Test
 	void shouldNotAddMicrometerMetricsIfActuatorIsThere() {
 		assertThat(generateProject(SupportedBootVersion.V4_0, "distributed-tracing", "datadog")).mavenBuild()
 			.hasDependency(getDependency("actuator"))
-			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-metrics")
-			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-metrics-test");
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics")
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics-test");
 	}
 
 	private ProjectStructure generateProject(SupportedBootVersion springBootVersion, String... dependencies) {
