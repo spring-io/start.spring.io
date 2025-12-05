@@ -75,7 +75,7 @@ abstract class SpringIntegrationModuleRegistry {
 				.customizeHelpDocument(addReferenceLink("STOMP Module", "stomp")
 					.andThen(addReferenceLink("WebSocket Module", "web-sockets"))));
 		builders.add(onDependencies("web-services").customizeBuild(addDependency("ws"))
-			.customizeHelpDocument(addReferenceLink("Webservices Module", "ws")));
+			.customizeHelpDocument(addReferenceLink("Web Services Module", "ws")));
 		return builders.stream().map(Builder::build).toList();
 	}
 
