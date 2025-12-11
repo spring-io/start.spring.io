@@ -181,7 +181,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[3.4.0-M1,4.0.0-M1)"
-            version: 24.9.6
+            version: 24.9.7
     platform:
       compatibilityRange: "3.4.0"
   dependencies:
