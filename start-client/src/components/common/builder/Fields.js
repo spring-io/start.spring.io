@@ -109,22 +109,24 @@ function Fields({
               )}
             </Control>
             <Control text='Project Metadata'>
-              <FieldInput
-                id='input-group'
-                value={get(values, 'meta.group')}
-                text='Group'
-                onChange={event => {
-                  update({ meta: { group: event.target.value } })
-                }}
-              />
-              <FieldInput
-                id='input-artifact'
-                value={get(values, 'meta.artifact')}
-                text='Artifact'
-                onChange={event => {
-                  update({ meta: { artifact: event.target.value } })
-                }}
-              />
+              <div className="control-row">
+                <FieldInput
+                  id='input-group'
+                  value={get(values, 'meta.group')}
+                  text='Group'
+                  onChange={event => {
+                    update({ meta: { group: event.target.value } })
+                  }}
+                />
+                <FieldInput
+                  id='input-artifact'
+                  value={get(values, 'meta.artifact')}
+                  text='Artifact'
+                  onChange={event => {
+                    update({ meta: { artifact: event.target.value } })
+                  }}
+                  />
+              </div>
               <FieldInput
                 id='input-name'
                 value={get(values, 'meta.name')}
