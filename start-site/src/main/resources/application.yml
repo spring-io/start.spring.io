@@ -100,7 +100,7 @@ initializr:
         order: 50
         mappings:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 2024.0.2
+            version: 2024.0.3
           - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
             version: 2025.0.0
           - compatibilityRange: "[4.0.0-M1,4.1.0-M1)"
