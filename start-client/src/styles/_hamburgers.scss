@@ -8,6 +8,8 @@
 
 // Settings
 // ==================================================
+@use 'variables' as *;
+@use 'mixins';
 
 $hamburger-padding-x: 8px;
 $hamburger-padding-y: 8px;
@@ -26,14 +28,14 @@ $hamburger-active-hover-filter: $hamburger-hover-filter;
 
 $hamburger-types: (spin);
 
-@import '../../node_modules/hamburgers/_sass/hamburgers/hamburgers';
+@use '../../node_modules/hamburgers/_sass/hamburgers/hamburgers';
 
 .hamburger {
   margin-top: 16px;
   height: 38px;
   padding: 0;
   &:focus {
-    @include outline;
+    @include mixins.outline;
   }
   span.hamburger-box {
     padding: 8px;

@@ -1,7 +1,8 @@
-@import 'variables';
-@import 'mixins';
-@import 'prism';
-
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'prism';
+@use 'responsive';
+@use 'sass:color';
 .explorer {
   > div {
     height: 100%;
@@ -258,7 +259,7 @@
     }
 
     &:focus {
-      outline: 1px dotted darken($light-background-seconday, 10);
+      outline: 1px dotted color.adjust($light-background-seconday, $lightness: -10%);
     }
 
     &.disabled {
@@ -382,7 +383,7 @@ pre.prism-code {
       width: 20px;
       left: 0;
       top: 9px;
-      background-color: lighten($light-border, 8);
+      background-color: color.adjust($light-border, $lightness: 8%);
       padding-right: 10px;
       height: 25px;
     }
@@ -410,7 +411,7 @@ pre.prism-code {
     display: block;
     width: 30px;
     content: '';
-    background-color: lighten($light-border, 8);
+    background-color: color.adjust($light-border, $lightness: 8%);
   }
 }
 
@@ -493,7 +494,7 @@ pre.prism-code {
       padding: 0.9rem 1.5rem 0.8rem;
     }
     &:focus {
-      box-shadow: 0 0 0 4px darken($light-border, 6);
+      box-shadow: 0 0 0 4px color.adjust($light-border, $lightness: -6%);
     }
   }
 }
@@ -517,4 +518,3 @@ pre.prism-code {
   width: 212.27px;
 }
 
-@import 'responsive';

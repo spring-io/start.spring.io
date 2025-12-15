@@ -1,3 +1,5 @@
+@use 'sass:color';
+@use 'variables' as *;
 body.dark {
   background: $dark-background;
   color: $dark-color;
@@ -172,7 +174,7 @@ body.dark {
       color: rgba($dark-color, 0.5);
     }
     span.group {
-      color: lighten($dark-background, 0.6);
+      color: color.adjust($dark-background, $lightness: 0.6%);
     }
   }
   ul.dependencies-list li div.disabled strong {
@@ -361,7 +363,7 @@ body.dark {
   a.button,
   button.button {
     &:focus {
-      box-shadow: 0 0 0 4px lighten($dark-border, 4);
+      box-shadow: 0 0 0 4px color.adjust($dark-border, $lightness: 4%);
     }
   }
 
@@ -394,7 +396,7 @@ body.dark {
     color: $dark-color;
   }
   .dialog-dependencies ul li a.dependency.added:hover {
-    background: darken(#145374, 5%);
+    background: color.adjust(#145374, $lightness: -5%);
     color: $dark-color;
   }
   .dialog-dependencies ul li a.dependency.added:hover strong {
@@ -410,7 +412,7 @@ body.dark {
     background: $dark-primary;
   }
   .dialog-dependencies ul li a.dependency.added.selected {
-    background: darken(#145374, 5%);
+    background: color.adjust(#145374, $lightness: -5%);
     color: $dark-color;
   }
   .dialog-dependencies ul li a.dependency.selected span.group {
@@ -469,7 +471,7 @@ body.dark {
     background: $dark-background-secondary;
     color: $dark-color;
     &:hover {
-      background: lighten($dark-background-secondary, 2);
+      background: color.adjust($dark-background-secondary, $lightness: 2%);
     }
   }
   .modal-action {
