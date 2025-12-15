@@ -305,13 +305,13 @@ hr.divider {
     max-width: 550px;
   }
 }
-.control-row{
+.control-row {
   display: flex;
-  .control-inline{
+  .control-inline {
     max-width: 340px;
     flex: 1 1 0;
   }
-  .control-inline:nth-child(2) label {
+  .control-inline.artifact label {
     flex: 70px 0;
   }
   input{

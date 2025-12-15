@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import React, { useContext, useRef, useState, useEffect } from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 
 import Actions from './Actions'
 import Control from './Control'
@@ -9,10 +9,10 @@ import FieldInput from './FieldInput'
 import FieldRadio from './FieldRadio'
 import Warnings from './Warnings'
 import useWindowsUtils from '../../utils/WindowsUtils'
-import { AppContext } from '../../reducer/App'
-import { Button, Radio } from '../form'
-import { Dependency } from '../dependency'
-import { InitializrContext } from '../../reducer/Initializr'
+import {AppContext} from '../../reducer/App'
+import {Button, Radio} from '../form'
+import {Dependency} from '../dependency'
+import {InitializrContext} from '../../reducer/Initializr'
 
 function Fields({
   onSubmit,
@@ -125,6 +125,7 @@ function Fields({
                   onChange={event => {
                     update({ meta: { artifact: event.target.value } })
                   }}
+                  className='artifact'
                   />
               </div>
               <FieldInput

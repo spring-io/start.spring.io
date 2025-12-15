@@ -82,11 +82,11 @@
   }
   .control-row {
     display: block;
-    .control-inline{
+    .control-inline {
       max-width: none;
     }
-    .control-inline:nth-child(2) label,label{
-      flex: 110px 0 ;
+    .control-inline.artifact label, label {
+      flex: 110px 0;
     }
     input {
       max-width: 520px;
