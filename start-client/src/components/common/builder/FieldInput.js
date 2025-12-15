@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-function FieldInput({ id, text, value, onChange, disabled, inputRef }) {
+function FieldInput({ id, text, value, onChange, disabled, inputRef, className }) {
   return (
-    <div className='control control-inline'>
+    <div className={`control control-inline ${className || ''}`}>
       <label htmlFor={id}>{text}</label>
       <input
         type='text'
@@ -21,6 +21,7 @@ function FieldInput({ id, text, value, onChange, disabled, inputRef }) {
 FieldInput.defaultProps = {
   disabled: false,
   inputRef: null,
+  className: null,
 }
 
 FieldInput.propTypes = {
@@ -32,6 +33,7 @@ FieldInput.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
+  className: PropTypes.string,
   disabled: PropTypes.bool,
 }
 

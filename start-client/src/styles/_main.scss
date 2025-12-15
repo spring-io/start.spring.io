@@ -302,7 +302,20 @@ hr.divider {
   input {
     color: $light-color;
     background: $light-background;
-    max-width: 520px;
+    max-width: 550px;
+  }
+}
+.control-row {
+  display: flex;
+  .control-inline {
+    max-width: 340px;
+    flex: 1 1 0;
+  }
+  .control-inline.artifact label {
+    flex: 70px 0;
+  }
+  input{
+    max-width: 250px;
   }
 }
 
@@ -572,7 +585,7 @@ button.button {
   left: 75px;
   .actions-container {
     background: $light-background-seconday;
-    padding: 20px 0.5rem;
+    padding: 18px 0.5rem;
     margin: 0 auto;
     max-width: $spring-max-width - (82 * 2);
     height: 50px;

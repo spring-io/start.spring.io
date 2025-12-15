@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import React, { useContext, useRef, useState, useEffect } from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 
 import Actions from './Actions'
 import Control from './Control'
@@ -9,10 +9,10 @@ import FieldInput from './FieldInput'
 import FieldRadio from './FieldRadio'
 import Warnings from './Warnings'
 import useWindowsUtils from '../../utils/WindowsUtils'
-import { AppContext } from '../../reducer/App'
-import { Button, Radio } from '../form'
-import { Dependency } from '../dependency'
-import { InitializrContext } from '../../reducer/Initializr'
+import {AppContext} from '../../reducer/App'
+import {Button, Radio} from '../form'
+import {Dependency} from '../dependency'
+import {InitializrContext} from '../../reducer/Initializr'
 
 function Fields({
   onSubmit,
@@ -109,22 +109,25 @@ function Fields({
               )}
             </Control>
             <Control text='Project Metadata'>
-              <FieldInput
-                id='input-group'
-                value={get(values, 'meta.group')}
-                text='Group'
-                onChange={event => {
-                  update({ meta: { group: event.target.value } })
-                }}
-              />
-              <FieldInput
-                id='input-artifact'
-                value={get(values, 'meta.artifact')}
-                text='Artifact'
-                onChange={event => {
-                  update({ meta: { artifact: event.target.value } })
-                }}
-              />
+              <div className="control-row">
+                <FieldInput
+                  id='input-group'
+                  value={get(values, 'meta.group')}
+                  text='Group'
+                  onChange={event => {
+                    update({ meta: { group: event.target.value } })
+                  }}
+                />
+                <FieldInput
+                  id='input-artifact'
+                  value={get(values, 'meta.artifact')}
+                  text='Artifact'
+                  onChange={event => {
+                    update({ meta: { artifact: event.target.value } })
+                  }}
+                  className='artifact'
+                  />
+              </div>
               <FieldInput
                 id='input-name'
                 value={get(values, 'meta.name')}
