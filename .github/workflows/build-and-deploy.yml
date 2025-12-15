@@ -25,7 +25,7 @@ jobs:
           cache: 'maven'
 
       - name: Cache Maven/Gradle repositories for tests
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /tmp/start-spring-io-cache-2024-12-11
           # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
@@ -33,7 +33,7 @@ jobs:
           restore-keys: test-repositories-${{ runner.os }}
 
       - name: Cache node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: start-client/node_modules
           key: node-modules-${{ hashFiles('start-client/yarn.lock') }}
