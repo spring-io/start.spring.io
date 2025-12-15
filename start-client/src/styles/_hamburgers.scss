@@ -8,13 +8,15 @@
 
 // Settings
 // ==================================================
+@use 'variables' as *;
+@use 'mixins';
 
 $hamburger-padding-x: 8px;
 $hamburger-padding-y: 8px;
 $hamburger-layer-width: 26px;
 $hamburger-layer-height: 3px;
 $hamburger-layer-spacing: 6px;
-$hamburger-layer-color: $light-color;
+$hamburger-layer-color:  $light-color;
 $hamburger-layer-border-radius: 4px;
 $hamburger-hover-opacity: 1;
 $hamburger-active-layer-color: white;
@@ -26,14 +28,14 @@ $hamburger-active-hover-filter: $hamburger-hover-filter;
 
 $hamburger-types: (spin);
 
-@import '../../node_modules/hamburgers/_sass/hamburgers/hamburgers';
+@use '../../node_modules/hamburgers/_sass/hamburgers/hamburgers';
 
 .hamburger {
   margin-top: 16px;
   height: 38px;
   padding: 0;
   &:focus {
-    @include outline;
+    @include mixins.outline;
   }
   span.hamburger-box {
     padding: 8px;
@@ -45,7 +47,7 @@ $hamburger-types: (spin);
     .hamburger-inner,
     .hamburger-inner::before,
     .hamburger-inner::after {
-      background: $light-primary;
+      background:  $light-primary;
     }
   }
 }
@@ -77,7 +79,7 @@ $hamburger-types: (spin);
       .hamburger-inner,
       .hamburger-inner::before,
       .hamburger-inner::after {
-        background: $light-color;
+        background:  $light-color;
       }
     }
   }

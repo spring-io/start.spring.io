@@ -1,3 +1,4 @@
+@use 'variables';
 @mixin transition($args...) {
   & {
     -webkit-transition: $args;
@@ -13,7 +14,7 @@
     outline: 1px dotted transparent;
   }
   &:focus {
-    outline: 1px dotted $light-outline;
+    outline: 1px dotted variables.$light-outline;
     // outline: none;
     // box-shadow: 0 0 0 2px $light-border;
   }

@@ -1,3 +1,4 @@
+@use 'sass:color';
 // Theme Light
 
 $light-background: #fff;
@@ -6,8 +7,8 @@ $light-color: #000;
 $light-border: #dce8e8;
 $light-primary: #6db33f;
 $light-link: #086dc3;
-$light-placeholder: lighten($light-border, 5);
-$light-outline: darken($light-border, 15);
+$light-placeholder: color.adjust($light-border, $lightness: 5%);
+$light-outline: color.adjust($light-border, $lightness: -15%);
 
 // Theme Dark
 
