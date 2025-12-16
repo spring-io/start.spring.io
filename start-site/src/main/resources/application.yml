@@ -1250,6 +1250,17 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/actuator/metrics.html#actuator.metrics.export.prometheus
+        - name: Datasource Micrometer
+          id: datasource-micrometer
+          description: Add Micrometer observability instrumentation for JDBC operations.
+          groupId: net.ttddyy.observation
+          artifactId: datasource-micrometer-spring-boot
+          starter: false
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              version: 1.2.1
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              version: 2.0.1
         - name: Distributed Tracing
           id: distributed-tracing
           description: Enable span and trace IDs in logs.
