@@ -167,7 +167,7 @@ initializr:
         versionProperty: tanzu-scg-extensions.version
         mappings:
           - compatibilityRange: "[3.4.0,4.0.0-M1)"
-            version: 1.0.0
+            version: 1.0.1
       timefold-solver:
         groupId: ai.timefold.solver
         artifactId: timefold-solver-bom
