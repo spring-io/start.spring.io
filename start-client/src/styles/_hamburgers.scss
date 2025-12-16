@@ -16,7 +16,7 @@ $hamburger-padding-y: 8px;
 $hamburger-layer-width: 26px;
 $hamburger-layer-height: 3px;
 $hamburger-layer-spacing: 6px;
-$hamburger-layer-color:  $light-color;
+$hamburger-layer-color: $light-color;
 $hamburger-layer-border-radius: 4px;
 $hamburger-hover-opacity: 1;
 $hamburger-active-layer-color: white;
@@ -47,7 +47,7 @@ $hamburger-types: (spin);
     .hamburger-inner,
     .hamburger-inner::before,
     .hamburger-inner::after {
-      background:  $light-primary;
+      background: $light-primary;
     }
   }
 }
@@ -79,7 +79,7 @@ $hamburger-types: (spin);
       .hamburger-inner,
       .hamburger-inner::before,
       .hamburger-inner::after {
-        background:  $light-color;
+        background: $light-color;
       }
     }
   }
