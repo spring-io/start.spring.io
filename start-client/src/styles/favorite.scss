@@ -1,5 +1,7 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'responsive';
+@use 'sass:color';
 
 $w_arrow: 12px;
 $w: 1000px;
@@ -65,7 +67,7 @@ $w2: 500px;
         color: $light-color;
         padding-right: 80px;
         &:hover {
-          background: lighten($light-background-seconday, 2);
+          background: color.adjust($light-background-seconday, $lightness: 2%);
           a {
             opacity: 1;
           }
@@ -194,4 +196,3 @@ $w2: 500px;
   }
 }
 
-@import 'responsive';

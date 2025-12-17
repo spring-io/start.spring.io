@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'variables' as *;
+@use 'mixins' as *;
 html {
   font-size: $spring-font-size;
   font-family: $spring-font-family;
@@ -36,7 +39,7 @@ body {
 
 #side-left {
   .side-container {
-    border-right: 1px solid rgba(darken($light-border, 15), 0.4);
+    border-right: 1px solid rgba(color.adjust( $light-border, $lightness: -15%), 0.4);
   }
   a {
     $size: 30px;
@@ -602,7 +605,7 @@ button.button {
       }
     }
     &:focus {
-      box-shadow: 0 0 0 4px darken($light-border, 6);
+      box-shadow: 0 0 0 4px color.adjust( $light-border, $lightness: -6%);
     }
     &.last-child {
       margin-right: 0;
@@ -669,7 +672,7 @@ button.button {
 
   border: 1px solid $light-border;
   border-left: 6px solid $color;
-  color: darken($color, 8);
+  color: color.adjust($color, $lightness: -8%);
   font-weight: 600;
   .close {
     display: block;
@@ -696,7 +699,7 @@ button.button {
     font-weight: 300;
   }
   strong.warn {
-    color: darken($color, 8);
+    color: color.adjust($color, $lightness: -8%);
   }
   li {
     padding: 0;
@@ -861,7 +864,7 @@ button.button {
         padding: 0.9rem 1.5rem 0.8rem;
       }
       &:focus {
-        box-shadow: 0 0 0 4px darken($light-border, 6);
+        box-shadow: 0 0 0 4px color.adjust( $light-border, $lightness: -6%);
       }
     }
   }
@@ -976,7 +979,7 @@ button.button {
           box-shadow: inset 0 1px 0 rgba(black, 0.1);
           &:hover {
             color: $light-color;
-            background: darken(#e8f5f9, 5%);
+            background: color.adjust(#e8f5f9, $lightness: -5%);
             strong {
               color: $light-color;
             }
@@ -1012,13 +1015,13 @@ button.button {
           }
           &.added {
             color: $light-color;
-            background: darken(#e8f5f9, 5%);
+            background: color.adjust(#e8f5f9, $lightness: -5%);
             .icon-enter {
               fill: $light-color;
             }
             &:hover {
               color: $light-color;
-              background: darken(#e8f5f9, 5%);
+              background: color.adjust(#e8f5f9, $lightness: -5%);
               strong {
                 color: $light-color;
               }
