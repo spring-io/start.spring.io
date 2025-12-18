@@ -45,7 +45,7 @@ class SpringKafkaProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("kafka")
-	@ConditionalOnPlatformVersion("[3.4.0,4.0.0-RC1]")
+	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1]")
 	SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
 		return new SpringKafkaBuildCustomizer();
 	}
@@ -73,23 +73,22 @@ class SpringKafkaProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnRequestedDependency("kafka-streams")
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-	SpringKafkaStreamsMavenBuildCustomizer springKafkaStreamsMavenBuildCustomizer(ProjectDescription description) {
-		return new SpringKafkaStreamsMavenBuildCustomizer(description);
+	SpringKafkaStreamsMavenBuildCustomizer springKafkaStreamsMavenBuildCustomizer() {
+		return new SpringKafkaStreamsMavenBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("kafka-streams")
 	@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
-	SpringKafkaStreamsGradleBuildCustomizer springKafkaStreamsGradleBuildCustomizer(ProjectDescription description) {
-		return new SpringKafkaStreamsGradleBuildCustomizer(description, '\'');
+	SpringKafkaStreamsGradleBuildCustomizer springKafkaStreamsGradleBuildCustomizer() {
+		return new SpringKafkaStreamsGradleBuildCustomizer('\'');
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("kafka-streams")
 	@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
-	SpringKafkaStreamsGradleBuildCustomizer springKafkaStreamsGradleKotlinBuildCustomizer(
-			ProjectDescription description) {
-		return new SpringKafkaStreamsGradleBuildCustomizer(description, '\"');
+	SpringKafkaStreamsGradleBuildCustomizer springKafkaStreamsGradleKotlinBuildCustomizer() {
+		return new SpringKafkaStreamsGradleBuildCustomizer('\"');
 	}
 
 	private boolean isKafkaEnabled(Build build) {

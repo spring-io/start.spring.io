@@ -37,7 +37,7 @@ class SpringGraphQlProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("[3.4.0,4.0.0-RC1)")
+	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1)")
 	SpringGraphQlBuildCustomizer SpringGraphQlBuildCustomizer() {
 		return new SpringGraphQlBuildCustomizer();
 	}

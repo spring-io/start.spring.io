@@ -31,7 +31,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TestcontainersTests {
 
 	@CsvSource(textBlock = """
-			3.4.0,			false
 			3.5.0,			false
 			4.0.0-M1,		false
 			4.0.0-M2,		false

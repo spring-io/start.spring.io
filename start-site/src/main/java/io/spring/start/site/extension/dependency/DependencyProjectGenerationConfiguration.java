@@ -71,14 +71,14 @@ public class DependencyProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("security")
-	@ConditionalOnPlatformVersion("[3.4.0,4.0.0-RC1)")
+	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1)")
 	public SpringSecurityTestBuildCustomizer securityTestBuildCustomizer() {
 		return new SpringSecurityTestBuildCustomizer();
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("oauth2-client")
-	@ConditionalOnPlatformVersion("[3.4.0,4.0.0-RC1)")
+	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1)")
 	SpringSecurityTestBuildCustomizer oauth2ClientTestBuildCustomizer() {
 		return new SpringSecurityTestBuildCustomizer();
 	}
@@ -97,7 +97,7 @@ public class DependencyProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("batch")
-	@ConditionalOnPlatformVersion("[3.4.0,4.0.0-RC1]")
+	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1]")
 	public SpringBatchTestBuildCustomizer batchTestBuildCustomizer() {
 		return new SpringBatchTestBuildCustomizer();
 	}

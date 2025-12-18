@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.dependency.springkafka;
 
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -31,22 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Moritz Halbritter
  */
 class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTests {
-
-	@Test
-	void customizesBuildpacksBuilderWhenUsingMavenAndKafkaStreamsAndBoot34() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_4, "kafka-streams");
-		assertThat(mavenPom(request)).containsIgnoringWhitespaces("""
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<image>
-							<builder>paketobuildpacks/builder-jammy-base:latest</builder>
-						</image>
-					</configuration>
-				</plugin>
-				""");
-	}
 
 	@Test
 	void customizesBuildpacksBuilderWhenUsingMavenAndKafkaStreams() {
@@ -65,31 +48,11 @@ class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTe
 	}
 
 	@Test
-	void customizesBuildpacksBuilderWhenUsingGradleGroovyAndKafkaStreamsAndBoot34() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_4, "kafka-streams");
-		assertThat(gradleBuild(request)).containsIgnoringWhitespaces("""
-				tasks.named('bootBuildImage') {
-					builder = 'paketobuildpacks/builder-jammy-base:latest'
-				}
-				""");
-	}
-
-	@Test
 	void customizesBuildpacksBuilderWhenUsingGradleGroovyAndKafkaStreams() {
 		ProjectRequest request = createProjectRequest("kafka-streams");
 		assertThat(gradleBuild(request)).containsIgnoringWhitespaces("""
 				tasks.named('bootBuildImage') {
 					runImage = 'paketobuildpacks/ubuntu-noble-run:latest'
-				}
-				""");
-	}
-
-	@Test
-	void customizesBuildpacksBuilderWhenUsingGradleKotlinAndKafkaStreamsAndBoot34() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_4, "kafka-streams");
-		assertThat(gradleKotlinDslBuild(request)).containsIgnoringWhitespaces("""
-				tasks.bootBuildImage {
-				    builder = "paketobuildpacks/builder-jammy-base:latest"
 				}
 				""");
 	}

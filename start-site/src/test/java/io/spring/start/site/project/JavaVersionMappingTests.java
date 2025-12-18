@@ -36,7 +36,6 @@ class JavaVersionMappingTests {
 	private final JavaVersionMapping mapping = new JavaVersionMapping();
 
 	@CsvSource(textBlock = """
-			3.4.0,17,24
 			3.5.0,17,25
 			4.0.0,17,25
 			""")
@@ -51,7 +50,6 @@ class JavaVersionMappingTests {
 	}
 
 	@CsvSource(textBlock = """
-			3.4.0,17,21
 			3.5.0,17,21
 			4.0.0,17,24
 			""")

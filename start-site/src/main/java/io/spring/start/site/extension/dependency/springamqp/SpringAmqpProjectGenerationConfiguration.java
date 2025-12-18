@@ -43,7 +43,7 @@ class SpringAmqpProjectGenerationConfiguration {
 	static class AmqpConfiguration {
 
 		@Bean
-		@ConditionalOnPlatformVersion("[3.4.0,4.0.0-RC1]")
+		@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1]")
 		SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
 			return new SpringRabbitTestBuildCustomizer();
 		}

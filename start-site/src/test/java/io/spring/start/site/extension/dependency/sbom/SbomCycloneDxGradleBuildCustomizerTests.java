@@ -47,7 +47,6 @@ class SbomCycloneDxGradleBuildCustomizerTests {
 
 	@ParameterizedTest
 	@CsvSource(textBlock = """
-			3.4.0,			1.10.0
 			3.5.0,			2.3.0
 			4.0.0-M1,		2.3.0
 			4.0.0-M2,		2.3.0

@@ -43,7 +43,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_4;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
 
 	@Test
 	void buildWithOnlyTestContainers() {
@@ -419,9 +419,9 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	@Test
 	void shouldAddHelpSection() {
 		assertHelpDocument("testcontainers", "data-mongodb", "postgresql").contains(
-				"https://docs.spring.io/spring-boot/3.4.0/reference/testing/testcontainers.html#testing.testcontainers")
+				"https://docs.spring.io/spring-boot/3.5.0/reference/testing/testcontainers.html#testing.testcontainers")
 			.contains(
-					"https://docs.spring.io/spring-boot/3.4.0/reference/features/dev-services.html#features.dev-services.testcontainers")
+					"https://docs.spring.io/spring-boot/3.5.0/reference/features/dev-services.html#features.dev-services.testcontainers")
 			.contains("mongo:latest")
 			.contains("postgres:latest");
 	}

@@ -36,7 +36,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class StartInitializrMetadataUpdateStrategy extends SpringIoInitializrMetadataUpdateStrategy {
 
-	private static final Version MINIMUM_BOOT_VERSION = Version.parse("3.4.0");
+	private static final Version MINIMUM_BOOT_VERSION = Version.parse("3.5.0");
 
 	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate, ObjectMapper objectMapper) {
 		super(restTemplate, objectMapper);

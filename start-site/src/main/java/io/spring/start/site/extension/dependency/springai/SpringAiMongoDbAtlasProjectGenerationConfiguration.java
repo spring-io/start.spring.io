@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.dependency.springai;
 
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
@@ -35,7 +34,6 @@ import org.springframework.context.annotation.Bean;
  * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
-@ConditionalOnPlatformVersion("3.4.0")
 @ConditionalOnRequestedDependency("spring-ai-vectordb-mongodb-atlas")
 class SpringAiMongoDbAtlasProjectGenerationConfiguration {
 

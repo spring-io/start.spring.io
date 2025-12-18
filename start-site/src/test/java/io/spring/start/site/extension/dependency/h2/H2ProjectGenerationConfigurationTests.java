@@ -21,8 +21,6 @@ import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,10 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class H2ProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	@ParameterizedTest
-	@EnumSource(value = SupportedBootVersion.class, names = { "V3_4", "V3_5" })
-	void shouldNotAddH2ConsoleModule(SupportedBootVersion bootVersion) {
-		ProjectRequest request = createProjectRequest(bootVersion, "h2");
+	@Test
+	void shouldNotAddH2ConsoleModule() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "h2");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot", "spring-boot-h2console");
 	}
 

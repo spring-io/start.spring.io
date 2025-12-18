@@ -17,10 +17,7 @@
 package io.spring.start.site.extension.dependency.springkafka;
 
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * {@link BuildCustomizer} for Maven builds to configure the buildpack builder.
@@ -29,30 +26,12 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 class SpringKafkaStreamsMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
-	private static final VersionRange SPRING_BOOT_3_5_OR_LATER = VersionParser.DEFAULT.parseRange("3.5.0");
-
-	private final ProjectDescription description;
-
-	SpringKafkaStreamsMavenBuildCustomizer(ProjectDescription description) {
-		this.description = description;
-	}
-
 	@Override
 	public void customize(MavenBuild build) {
 		build.plugins()
 			.add("org.springframework.boot", "spring-boot-maven-plugin",
-					(plugin) -> plugin.configuration((configuration) -> configuration.configure("image", (image) -> {
-						if (isBoot35orLater()) {
-							image.add("runImage", "paketobuildpacks/ubuntu-noble-run:latest");
-						}
-						else {
-							image.add("builder", "paketobuildpacks/builder-jammy-base:latest");
-						}
-					})));
-	}
-
-	private boolean isBoot35orLater() {
-		return SPRING_BOOT_3_5_OR_LATER.match(this.description.getPlatformVersion());
+					(plugin) -> plugin.configuration((configuration) -> configuration.configure("image",
+							(image) -> image.add("runImage", "paketobuildpacks/ubuntu-noble-run:latest"))));
 	}
 
 }
