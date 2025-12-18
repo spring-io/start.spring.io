@@ -46,14 +46,14 @@ initializr:
         artifactId: spring-boot-admin-dependencies
         versionProperty: spring-boot-admin.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 3.5.6
       netflix-dgs:
         groupId: com.netflix.graphql.dgs
         artifactId: graphql-dgs-platform-dependencies
         versionProperty: netflix-dgs.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 10.4.0
       sentry:
         groupId: io.sentry
@@ -67,21 +67,21 @@ initializr:
         artifactId: solace-spring-boot-bom
         versionProperty: solace-spring-boot.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 2.5.0
       solace-spring-cloud:
         groupId: com.solace.spring.cloud
         artifactId: solace-spring-cloud-bom
         versionProperty: solace-spring-cloud.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 4.11.0
       spring-ai:
         groupId: org.springframework.ai
         artifactId: spring-ai-bom
         versionProperty: spring-ai.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.1.2
       spring-cloud:
         groupId: org.springframework.cloud
@@ -89,16 +89,16 @@ initializr:
         versionProperty: spring-cloud.version
         order: 50
         mappings:
-          - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 2025.0.1
-          - compatibilityRange: "[4.0.0-M1,4.1.0-M1)"
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
             version: 2025.1.0
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
         versionProperty: spring-cloud-azure.version
         mappings:
-          - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 6.0.0
       spring-cloud-gcp:
         groupId: com.google.cloud
@@ -106,7 +106,7 @@ initializr:
         versionProperty: spring-cloud-gcp.version
         additionalBoms: [ spring-cloud ]
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 7.4.1
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
@@ -114,9 +114,9 @@ initializr:
         versionProperty: spring-cloud-services.version
         additionalBoms: [ spring-cloud ]
         mappings:
-          - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 4.3.0
-          - compatibilityRange: "[4.0.0-M1,4.1.0-M1)"
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
             version: 4.4.0
       spring-grpc:
         groupId: org.springframework.grpc
@@ -130,37 +130,37 @@ initializr:
         artifactId: spring-modulith-bom
         versionProperty: spring-modulith.version
         mappings:
-          - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.4.4
-          - compatibilityRange: "[4.0.0-M1,4.1.0-M1)"
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
             version: 2.0.0
       spring-shell:
         groupId: org.springframework.shell
         artifactId: spring-shell-dependencies
         versionProperty: spring-shell.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 3.4.1
       tanzu-scg-extensions:
         groupId: com.vmware.tanzu.springcloudgateway.extensions
         artifactId: extensions-bom
         versionProperty: tanzu-scg-extensions.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.0.1
       timefold-solver:
         groupId: ai.timefold.solver
         artifactId: timefold-solver-bom
         versionProperty: timefold-solver.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.29.0
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
         versionProperty: vaadin.version
         mappings:
-          - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 24.9.7
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
             version: 25.0.0
@@ -240,7 +240,7 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-webmvc
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               artifact-id: spring-boot-starter-web
           links:
             - rel: guide
@@ -271,7 +271,7 @@ initializr:
           description: Spring Boot integration for RestClient and RestTemplate to make HTTP requests.
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-restclient
-          compatibilityRange: "4.0.0-M1"
+          compatibilityRange: "4.0.0"
           facets:
             - json
           links:
@@ -282,7 +282,7 @@ initializr:
           description: Spring Boot integration for WebClient to make reactive HTTP requests.
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-webclient
-          compatibilityRange: "4.0.0-M1"
+          compatibilityRange: "4.0.0"
           facets:
             - json
             - reactive
@@ -322,9 +322,9 @@ initializr:
           description: Provides an API and a Spring Data MongoDB implementation for managing user session information.
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-session-data-mongodb
-          compatibilityRange: "[3.5.0,4.0.0-M3]"
+          compatibilityRange: "[3.5.0,4.0.0)"
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: org.springframework.session
               artifact-id: spring-session-data-mongodb
               starter: false
@@ -337,7 +337,7 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-session-data-redis
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: org.springframework.session
               artifact-id: spring-session-data-redis
               starter: false
@@ -346,12 +346,12 @@ initializr:
               href: https://docs.spring.io/spring-session/reference/
         - name: Spring Session for Hazelcast
           id: session-hazelcast
-          compatibilityRange: "[3.5.0,4.0.0-M3]"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Provides an API and a Hazelcast implementation for managing user session information.
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-session-hazelcast
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: org.springframework.session
               artifact-id: spring-session-hazelcast
               starter: false
@@ -364,7 +364,7 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-session-jdbc
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: org.springframework.session
               artifact-id: spring-session-jdbc
               starter: false
@@ -392,7 +392,7 @@ initializr:
           group-id: org.springframework.boot
           artifact-id: spring-boot-starter-webservices
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               artifact-id: spring-boot-starter-web-services
           aliases:
             - ws
@@ -430,7 +430,7 @@ initializr:
           groupId: com.netflix.graphql.dgs
           artifactId: graphql-dgs-spring-graphql-starter
           description: Build GraphQL applications with Netflix DGS and Spring for GraphQL.
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           bom: netflix-dgs
           links:
             - rel: reference
@@ -444,7 +444,7 @@ initializr:
           description: Build modern user interfaces with the simplicity and power of hypertext.
           compatibilityRange: "[3.5.0,4.1.0-M1)"
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               version: 4.0.2
             - compatibilityRange: "[4.0.0,4.1.0-M1)"
               version: 5.0.0
@@ -516,7 +516,7 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-security-oauth2-client
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               artifact-id: spring-boot-starter-oauth2-client
           links:
             - rel: reference
@@ -527,7 +527,7 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-security-oauth2-authorization-server
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               artifact-id: spring-boot-starter-oauth2-authorization-server
           links:
             - rel: reference
@@ -538,7 +538,7 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-security-oauth2-resource-server
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               artifact-id: spring-boot-starter-oauth2-resource-server
           links:
             - rel: reference
@@ -546,7 +546,7 @@ initializr:
         - name: WebAuthn for Spring Security
           id: spring-security-webauthn
           starter: false
-          compatibility-range: "4.0.0-M1"
+          compatibility-range: "4.0.0"
           group-id: org.springframework.security
           artifact-id: spring-security-webauthn
           description: Support for WebAuthn in Spring Security.
@@ -557,7 +557,7 @@ initializr:
           id: ldap
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-ldap
-          compatibilityRange: "4.0.0-RC1"
+          compatibilityRange: "4.0.0"
           description: LDAP is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services over an IP network.
           links:
             - rel: reference
@@ -585,7 +585,7 @@ initializr:
         - name: R2DBC API
           id: r2dbc
           description: Reactive Database Connectivity API that defines how a client may connect and query a database.
-          compatibility-range: "4.0.0-RC1"
+          compatibility-range: "4.0.0"
           group-id: org.springframework.boot
           artifact-id: spring-boot-starter-r2dbc
           facets:
@@ -639,7 +639,7 @@ initializr:
           groupId: org.mybatis.spring.boot
           artifactId: mybatis-spring-boot-starter
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               version: 3.0.5
             - compatibilityRange: "[4.0.0,4.1.0-M1)"
               version: 4.0.0
@@ -653,7 +653,7 @@ initializr:
           id: liquibase
           description: Liquibase database migration and source control library.
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: org.liquibase
               artifact-id: liquibase-core
               starter: false
@@ -666,7 +666,7 @@ initializr:
           id: flyway
           description: Version control for your database so you can migrate from any version (incl. an empty database) to the latest version of the schema.
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: org.flywaydb
               artifact-id: flyway-core
               starter: false
@@ -776,7 +776,7 @@ initializr:
           id: mongodb
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-mongodb
-          compatibilityRange: "4.0.0-RC1"
+          compatibilityRange: "4.0.0"
           description: MongoDB is an open-source NoSQL document database that uses a JSON-like schema instead of traditional table-based relational data.
           links:
             - rel: reference
@@ -805,7 +805,7 @@ initializr:
           id: elasticsearch
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-elasticsearch
-          compatibilityRange: "4.0.0-RC1"
+          compatibilityRange: "4.0.0"
           description: Elasticsearch is an open source, distributed, RESTful search and analytics engine.
           links:
             - rel: reference
@@ -820,7 +820,7 @@ initializr:
           id: cassandra
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-cassandra
-          compatibilityRange: "4.0.0-RC1"
+          compatibilityRange: "4.0.0"
           description: Cassandra is an open source, distributed database management system designed to handle large amounts of data across many commodity servers.
           links:
             - rel: reference
@@ -847,7 +847,7 @@ initializr:
           id: couchbase
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-couchbase
-          compatibilityRange: "4.0.0-RC1"
+          compatibilityRange: "4.0.0"
           description: Couchbase is an open-source, distributed, multi-model NoSQL document-oriented database that is optimized for interactive applications.
           links:
             - rel: reference
@@ -870,7 +870,7 @@ initializr:
           id: neo4j
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-neo4j
-          compatibilityRange: "4.0.0-RC1"
+          compatibilityRange: "4.0.0"
           description: Neo4j is an open-source NoSQL graph database that uses a rich data model of nodes connected by first class relationships, which is better suited for connected big data than traditional RDBMS approaches.
           links:
             - rel: reference
@@ -917,7 +917,7 @@ initializr:
           id: kafka
           description: Publish, subscribe, store, and process streams of records.
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: org.springframework.kafka
               artifact-id: spring-kafka
               starter: false
@@ -969,7 +969,7 @@ initializr:
         - name: Spring for Apache Pulsar (Reactive)
           id: pulsar-reactive
           description: Build reactive messaging applications with Apache Pulsar
-          compatibilityRange: "[3.5.0,4.0.0-M3]"
+          compatibilityRange: "[3.5.0,4.0.0)"
           facets:
             - reactive
           links:
@@ -996,9 +996,9 @@ initializr:
               href: https://rsocket.io/
         - name: Apache Camel
           id: camel
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               version: 4.15.0
           description: Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
           groupId: org.apache.camel.springboot
@@ -1010,7 +1010,7 @@ initializr:
         - name: Solace PubSub+
           bom: solace-spring-boot
           id: solace
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Connect to a Solace PubSub+ Advanced Event Broker to publish, subscribe, request/reply and store/replay messages
           groupId: com.solace.spring.boot
           artifactId: solace-spring-boot-starter
@@ -1037,7 +1037,7 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-batch-jdbc
           description: JDBC support for Spring Batch applications.
-          compatibilityRange: "4.0.0-RC1"
+          compatibilityRange: "4.0.0"
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/batch.html
@@ -1045,7 +1045,7 @@ initializr:
           id: hazelcast
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-hazelcast
-          compatibilityRange: "4.0.0-RC1"
+          compatibilityRange: "4.0.0"
           description: Hazelcast is a distributed cache with in-memory compute and stream processing that accelerates applications with data caching, data integration, and distributed computing.
           links:
             - rel: reference
@@ -1083,7 +1083,7 @@ initializr:
           id: spring-shell
           groupId: org.springframework.shell
           artifactId: spring-shell-starter
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Build command line applications with spring.
           bom: spring-shell
           links:
@@ -1127,7 +1127,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Required for your application to register with a Codecentric's Spring Boot Admin Server instance.
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1137,7 +1137,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1150,7 +1150,7 @@ initializr:
           groupId: io.sentry
           artifactId: sentry-spring-boot-4-starter
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               artifactId: sentry-spring-boot-starter-jakarta
           links:
             - rel: guide
@@ -1237,7 +1237,7 @@ initializr:
           artifactId: datasource-micrometer-spring-boot
           starter: false
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               version: 1.2.1
             - compatibilityRange: "[4.0.0,4.1.0-M1)"
               version: 2.0.1
@@ -1252,13 +1252,13 @@ initializr:
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-opentelemetry
           description: Publish metrics and traces in OpenTelemetry's OTLP format.
-          compatibilityRange: "4.0.0-M1"
+          compatibilityRange: "4.0.0"
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/actuator/observability.html#actuator.observability.opentelemetry
         - name: Wavefront
           id: wavefront
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Publish metrics and optionally distributed traces to Tanzu Observability by Wavefront, a SaaS-based metrics monitoring and analytics platform that lets you visualize, query, and alert over data from across your entire stack.
           groupId: io.micrometer
           artifactId: micrometer-registry-wavefront
@@ -1267,7 +1267,7 @@ initializr:
           id: zipkin
           description: Enable and expose span and trace IDs to Zipkin.
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: io.zipkin.reporter2
               artifact-id: zipkin-reporter-brave
               starter: false
@@ -1290,7 +1290,7 @@ initializr:
           description: Provide lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
           groupId: org.testcontainers
           mappings:
-            - compatibility-range: "[3.5.0,4.0.0-M3]"
+            - compatibility-range: "[3.5.0,4.0.0)"
               artifactId: junit-jupiter
           artifactId: testcontainers-junit-jupiter
           scope: test
@@ -1324,7 +1324,7 @@ initializr:
           id: unboundid-ldap
           description: Provides a platform neutral way for running a LDAP server in unit tests.
           mappings:
-            - compatibilityRange: "[3.5.0,4.0.0-M1)"
+            - compatibilityRange: "[3.5.0,4.0.0)"
               group-id: com.unboundid
               artifact-id: unboundid-ldapsdk
               starter: false
@@ -1462,7 +1462,7 @@ initializr:
         - name: Gateway
           id: cloud-gateway
           mappings:
-            - compatibility-range: "[3.5.0-M1,4.1.0-M1)"
+            - compatibility-range: "[3.5.0,4.1.0-M1)"
               groupId: org.springframework.cloud
               artifactId: spring-cloud-starter-gateway-server-webmvc
           description: Provides a simple, yet effective way to route to APIs in Servlet-based applications. Provides cross-cutting concerns to those APIs such as security, monitoring/metrics, and resiliency.
@@ -1472,7 +1472,7 @@ initializr:
         - name: Reactive Gateway
           id: cloud-gateway-reactive
           mappings:
-            - compatibility-range: "[3.5.0-M1,4.1.0-M1)"
+            - compatibility-range: "[3.5.0,4.1.0-M1)"
               groupId: org.springframework.cloud
               artifactId: spring-cloud-starter-gateway-server-webflux
           description: Provides a simple, yet effective way to route to APIs in reactive applications. Provides cross-cutting concerns to those APIs such as security, monitoring/metrics, and resiliency.
@@ -1559,7 +1559,7 @@ initializr:
             - rel: reference
               href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
     - name: VMware Tanzu Spring Enterprise Extensions
-      compatibilityRange: "[3.5.0,4.0.0-M1)"
+      compatibilityRange: "[3.5.0,4.0.0)"
       content:
         - name: Governance Starter [Enterprise]
           id: tanzu-governance-starter
@@ -1640,7 +1640,7 @@ initializr:
               href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/transformation.html
     - name: Microsoft Azure
       bom: spring-cloud-azure
-      compatibilityRange: "[3.5.0,4.0.0-M1)"
+      compatibilityRange: "[3.5.0,4.0.0)"
       content:
         - name: Azure Support
           id: azure-support
@@ -1718,7 +1718,7 @@ initializr:
               description: Azure Storage Sample
     - name: Google Cloud
       bom: spring-cloud-gcp
-      compatibilityRange: "[3.5.0,4.0.0-M1)"
+      compatibilityRange: "[3.5.0,4.0.0)"
       content:
         - name: Google Cloud Support
           id: cloud-gcp
@@ -1753,7 +1753,7 @@ initializr:
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
     - name: AI
-      compatibilityRange: "[3.5.0,4.0.0-M1)"
+      compatibilityRange: "[3.5.0,4.0.0)"
       content:
         - name: Anthropic Claude
           id: spring-ai-anthropic
@@ -1804,7 +1804,7 @@ initializr:
           id: spring-ai-deepseek
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-deepseek
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for DeepSeek AI models.
           bom: spring-ai
           links:
@@ -1814,7 +1814,7 @@ initializr:
           id: spring-ai-elevenlabs
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-elevenlabs
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for ElevenLabs text-to-speech models.
           bom: spring-ai
           links:
@@ -1824,7 +1824,7 @@ initializr:
           id: spring-ai-google-genai
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-google-genai
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for Google GenAI (Gemini) models.
           bom: spring-ai
           links:
@@ -1834,7 +1834,7 @@ initializr:
           id: spring-ai-google-genai-embedding
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-google-genai-embedding
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for Google GenAI embedding models.
           bom: spring-ai
           links:
@@ -1844,7 +1844,7 @@ initializr:
           id: spring-ai-huggingface
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-huggingface
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for HuggingFace AI models.
           bom: spring-ai
           links:
@@ -1854,7 +1854,7 @@ initializr:
           id: spring-ai-minimax
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-minimax
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for MiniMax AI models.
           bom: spring-ai
           links:
@@ -1864,7 +1864,7 @@ initializr:
           id: spring-ai-oci-genai
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-oci-genai
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for Oracle Cloud Infrastructure (OCI) GenAI models.
           bom: spring-ai
           links:
@@ -1874,7 +1874,7 @@ initializr:
           id: spring-ai-zhipuai
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-zhipuai
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for ZhipuAI models.
           bom: spring-ai
           links:
@@ -1902,7 +1902,7 @@ initializr:
           id: spring-ai-vectordb-couchbase
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-vector-store-couchbase
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI vector database support for Couchbase.
           bom: spring-ai
           links:
@@ -1984,7 +1984,7 @@ initializr:
           id: spring-ai-vectordb-opensearch
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-vector-store-opensearch
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI vector database support for OpenSearch.
           bom: spring-ai
           links:
@@ -1994,7 +1994,7 @@ initializr:
           id: spring-ai-vectordb-aws-opensearch
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-vector-store-aws-opensearch
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI vector database support for AWS OpenSearch Service.
           bom: spring-ai
           links:
@@ -2049,7 +2049,7 @@ initializr:
           id: spring-ai-chat-memory-repository-mongodb
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-mongodb
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for MongoDB based chat memory.
           bom: spring-ai
           links:
@@ -2226,7 +2226,7 @@ initializr:
               href: https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html#_pdf_page
         - name: Timefold Solver
           id: timefold-solver
-          compatibilityRange: "[3.5.0,4.0.0-M1)"
+          compatibilityRange: "[3.5.0,4.0.0)"
           groupId: ai.timefold.solver
           artifactId: timefold-solver-spring-boot-starter
           description: AI solver to optimize operations and scheduling.
