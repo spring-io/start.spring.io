@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.10</version>
+		<version>4.0.2</version>
 	</parent>
 	<groupId>io.spring.start</groupId>
 	<artifactId>start-parent</artifactId>
@@ -33,7 +33,7 @@
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
-		<spring-initializr.version>0.23.0</spring-initializr.version>
+		<spring-initializr.version>0.24.0-SNAPSHOT</spring-initializr.version>
 		<spring-javaformat.version>0.0.47</spring-javaformat.version>
 	</properties>
 
@@ -88,7 +88,7 @@
 			<dependency>
 				<groupId>com.azure.spring</groupId>
 				<artifactId>spring-cloud-azure-dependencies</artifactId>
-				<version>5.23.0</version>
+				<version>7.0.0</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

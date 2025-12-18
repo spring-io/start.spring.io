@@ -19,14 +19,9 @@ server:
     enabled: true
     mime-types: application/json,text/css,text/html
     min-response-size: 2048
-  error:
-    include-message: always
   forward-headers-strategy: native
 
 spring:
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
   task:
     execution:
       thread-name-prefix: initializr-
@@ -34,6 +29,8 @@ spring:
     resources:
       cache:
         use-last-modified: false
+    error:
+      include-message: always
 
 initializr:
   stats:
