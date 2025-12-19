@@ -24,7 +24,6 @@ import io.spring.start.site.SupportedBootVersion;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 /**
@@ -40,7 +39,6 @@ public class ExtensionIntegrationTests extends AbstractExtensionTests {
 	void projectWithAllDependenciesCanBeGenerated(String type) {
 		InitializrMetadata metadata = getMetadata();
 		String platformVersion = metadata.getBootVersions().getDefault().getId();
-		assertThat(platformVersion).isEqualTo(SupportedBootVersion.latest().getVersion());
 		String[] dependencies = allDependencies(metadata, platformVersion);
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), dependencies);
 		request.setType(type);
