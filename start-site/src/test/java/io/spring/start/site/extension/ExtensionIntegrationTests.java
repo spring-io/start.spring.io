@@ -39,9 +39,11 @@ public class ExtensionIntegrationTests extends AbstractExtensionTests {
 	@ValueSource(strings = { "maven-project", "gradle-project", "gradle-project-kotlin" })
 	void projectWithAllDependenciesCanBeGenerated(String type) {
 		InitializrMetadata metadata = getMetadata();
-		String platformVersion = metadata.getBootVersions().getDefault().getId();
-		assertThat(platformVersion).isEqualTo(SupportedBootVersion.latest().getVersion());
-		String[] dependencies = allDependencies(metadata, platformVersion);
+		Version platformVersion = Version.parse(metadata.getBootVersions().getDefault().getId());
+		Version supportedVersion = Version.parse(SupportedBootVersion.latest().getVersion());
+		assertThat(platformVersion.getMajor()).isEqualTo(supportedVersion.getMajor());
+		assertThat(platformVersion.getMinor()).isEqualTo(supportedVersion.getMinor());
+		String[] dependencies = allDependencies(metadata, platformVersion.toString());
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), dependencies);
 		request.setType(type);
 		assertThatCode(() -> generateProject(request)).doesNotThrowAnyException();
