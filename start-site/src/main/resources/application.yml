@@ -132,11 +132,9 @@ initializr:
         artifactId: spring-modulith-bom
         versionProperty: spring-modulith.version
         mappings:
-          - compatibilityRange: "[3.4.0,3.5.0-M1)"
-            version: 1.3.12
-          - compatibilityRange: "[3.5.0-M1,4.0.0-M1)"
+          - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.4.6
-          - compatibilityRange: "[4.0.0-M1,4.1.0-M1)"
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
             version: 2.0.1
       spring-shell:
         groupId: org.springframework.shell
