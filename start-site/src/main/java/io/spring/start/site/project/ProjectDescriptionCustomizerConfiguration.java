@@ -17,6 +17,7 @@
 package io.spring.start.site.project;
 
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
+import io.spring.start.site.extension.dependency.vaadin.VaadinVersionProjectDescriptionCustomizer;
 import io.spring.start.site.project.dependency.springcloud.SpringCloudResilience4JProjectDescriptionCustomizer;
 
 import org.springframework.context.annotation.Bean;
@@ -38,6 +39,11 @@ public class ProjectDescriptionCustomizerConfiguration {
 	@Bean
 	public SpringCloudResilience4JProjectDescriptionCustomizer springCloudResilience4JProjectDescriptionCustomizer() {
 		return new SpringCloudResilience4JProjectDescriptionCustomizer();
+	}
+
+	@Bean
+	public VaadinVersionProjectDescriptionCustomizer vaadinVersionProjectDescriptionCustomizer() {
+		return new VaadinVersionProjectDescriptionCustomizer();
 	}
 
 }

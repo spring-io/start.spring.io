@@ -21,6 +21,8 @@ import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,6 +35,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+
+	@ParameterizedTest
+	@ValueSource(strings = { "17", "18", "19", "20" })
+	void java21IsRequiredWithBoot40(String jvmVersion) {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin");
+		request.setJavaVersion(jvmVersion);
+		assertThat(mavenPom(request)).hasProperty("java.version", "21");
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "21", "25" })
+	void java21OrLaterIsLeftAsIsWithBoot40(String jvmVersion) {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin");
+		request.setJavaVersion(jvmVersion);
+		assertThat(mavenPom(request)).hasProperty("java.version", jvmVersion);
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "17", "21", "25" })
+	void javaVersionIsLeftAsIsWithBoot35(String jvmVersion) {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "vaadin");
+		request.setJavaVersion(jvmVersion);
+		assertThat(mavenPom(request)).hasProperty("java.version", jvmVersion);
+	}
 
 	@Test
 	void mavenBuildWithVaadinAddProductionProfileWithoutProductionModeFlagOnBoot35() {
