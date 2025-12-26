@@ -58,7 +58,7 @@ initializr:
           - compatibilityRange: "[3.4.0,3.5.0-M1)"
             version: 10.1.2
           - compatibilityRange: "[3.5.0,4.0.0-M1)"
-            version: 10.4.0
+            version: 11.0.0
       sentry:
         groupId: io.sentry
         artifactId: sentry-bom
