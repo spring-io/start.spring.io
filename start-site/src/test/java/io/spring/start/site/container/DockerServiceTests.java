@@ -18,6 +18,7 @@ package io.spring.start.site.container;
 
 import java.util.List;
 
+import io.spring.initializr.generator.container.docker.compose.PortMapping;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,6 +38,7 @@ class DockerServiceTests {
 		assertThat(service.getWebsite()).isNull();
 		assertThat(service.getCommand()).isNull();
 		assertThat(service.getPorts()).isEmpty();
+		assertThat(service.getPortMappings()).isEmpty();
 	}
 
 	@Test
@@ -72,6 +74,33 @@ class DockerServiceTests {
 	void builderWithCollectionOfPorts() {
 		DockerService service = DockerService.withImageAndTag("acme/toolbox").ports(List.of(8007, 8008)).build();
 		assertThat(service.getPorts()).containsExactly(8007, 8008);
+	}
+
+	@Test
+	void builderWithFixedPortMapping() {
+		DockerService service = DockerService.withImageAndTag("acme/toolbox").portMapping(3000, 3000).build();
+		assertThat(service.getPorts()).containsExactly(3000);
+		assertThat(service.getPortMappings()).hasSize(1);
+		PortMapping mapping = service.getPortMappings().iterator().next();
+		assertThat(mapping.isFixed()).isTrue();
+		assertThat(mapping.getHostPort()).isEqualTo(3000);
+		assertThat(mapping.getContainerPort()).isEqualTo(3000);
+	}
+
+	@Test
+	void builderWithMixedPortMappings() {
+		DockerService service = DockerService.withImageAndTag("acme/toolbox")
+			.portMapping(3000, 3000) // Fixed
+			.ports(8080, 8081) // Random
+			.portMapping(9090) // Random
+			.build();
+		assertThat(service.getPorts()).containsExactly(3000, 8080, 8081, 9090);
+		assertThat(service.getPortMappings()).hasSize(4);
+
+		long fixedCount = service.getPortMappings().stream().filter((pm) -> pm.isFixed()).count();
+		long randomCount = service.getPortMappings().stream().filter((pm) -> !pm.isFixed()).count();
+		assertThat(fixedCount).isEqualTo(1);
+		assertThat(randomCount).isEqualTo(3);
 	}
 
 }
