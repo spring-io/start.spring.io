@@ -23,6 +23,7 @@ import java.util.TreeSet;
 import java.util.function.Consumer;
 
 import io.spring.initializr.generator.container.docker.compose.ComposeService;
+import io.spring.initializr.generator.container.docker.compose.PortMapping;
 
 /**
  * Description of a Docker service.
@@ -40,14 +41,14 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 
 	private final String command;
 
-	private final int[] ports;
+	private final Set<PortMapping> portMappings;
 
 	private DockerService(Builder builder) {
 		this.image = builder.image;
 		this.imageTag = builder.imageTag;
 		this.website = builder.website;
 		this.command = builder.command;
-		this.ports = builder.ports.stream().mapToInt(Integer::intValue).toArray();
+		this.portMappings = new TreeSet<>(builder.portMappings);
 	}
 
 	/**
@@ -97,7 +98,15 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 	 * @return the ports to expose
 	 */
 	public int[] getPorts() {
-		return this.ports;
+		return this.portMappings.stream().mapToInt((pm) -> pm.getContainerPort()).toArray();
+	}
+
+	/**
+	 * Return the port mappings for the service.
+	 * @return the port mappings
+	 */
+	public Set<PortMapping> getPortMappings() {
+		return this.portMappings;
 	}
 
 	@Override
@@ -106,7 +115,7 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 			.imageTag(this.imageTag)
 			.imageWebsite(this.website)
 			.command(this.command)
-			.ports(this.ports);
+			.portMappings(this.portMappings);
 	}
 
 	/**
@@ -123,6 +132,8 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 		private String command;
 
 		private final Set<Integer> ports = new TreeSet<>();
+
+		private final Set<PortMapping> portMappings = new TreeSet<>();
 
 		protected Builder(String imageAndTag) {
 			String[] split = imageAndTag.split(":", 2);
@@ -152,12 +163,22 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 		}
 
 		public Builder ports(Collection<Integer> ports) {
-			this.ports.addAll(ports);
+			ports.forEach((port) -> this.portMappings.add(PortMapping.random(port)));
 			return this;
 		}
 
 		public Builder ports(int... ports) {
 			return ports(Arrays.stream(ports).boxed().toList());
+		}
+
+		public Builder portMapping(int hostPort, int containerPort) {
+			this.portMappings.add(PortMapping.fixed(hostPort, containerPort));
+			return this;
+		}
+
+		public Builder portMapping(int containerPort) {
+			this.portMappings.add(PortMapping.random(containerPort));
+			return this;
 		}
 
 		/**

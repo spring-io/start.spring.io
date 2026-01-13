@@ -175,7 +175,8 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	private static DockerService grafanaLgtm() {
 		return DockerService.withImageAndTag("grafana/otel-lgtm")
 			.website("https://hub.docker.com/r/grafana/otel-lgtm")
-			.ports(3000, 4317, 4318)
+			.portMapping(3000, 3000) // Fixed port for web UI
+			.ports(4317, 4318) // Random ports for OTLP
 			.build();
 	}
 
