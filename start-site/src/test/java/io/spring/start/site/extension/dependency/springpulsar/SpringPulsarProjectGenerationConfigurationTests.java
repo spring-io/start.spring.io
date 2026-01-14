@@ -19,6 +19,7 @@ package io.spring.start.site.extension.dependency.springpulsar;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
+import io.spring.initializr.generator.container.docker.compose.PortMapping;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.test.project.ProjectAssetTester;
 import io.spring.initializr.generator.test.project.ProjectStructure;
@@ -150,7 +151,8 @@ class SpringPulsarProjectGenerationConfigurationTests extends AbstractExtensionT
 					assertThat(dockerService.getImageTag()).isEqualTo("latest");
 					assertThat(dockerService.getWebsite()).isEqualTo("https://hub.docker.com/r/apachepulsar/pulsar");
 					assertThat(dockerService.getCommand()).isEqualTo("bin/pulsar standalone");
-					assertThat(dockerService.getPorts()).containsExactlyInAnyOrder(8080, 6650);
+					assertThat(dockerService.getPorts()).extracting(PortMapping::getContainerPort)
+						.containsExactlyInAnyOrder(8080, 6650);
 				});
 			});
 		}

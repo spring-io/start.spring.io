@@ -38,7 +38,6 @@ class DockerServiceTests {
 		assertThat(service.getWebsite()).isNull();
 		assertThat(service.getCommand()).isNull();
 		assertThat(service.getPorts()).isEmpty();
-		assertThat(service.getPortMappings()).isEmpty();
 	}
 
 	@Test
@@ -47,13 +46,13 @@ class DockerServiceTests {
 			.imageTag("1.0")
 			.website("acme/toolbox-dot-com")
 			.command("bin/acme run")
-			.ports(8007, 8008)
+			.randomPorts(8007, 8008)
 			.build();
 		assertThat(service.getImage()).isEqualTo("acme/toolbox");
 		assertThat(service.getImageTag()).isEqualTo("1.0");
 		assertThat(service.getWebsite()).isEqualTo("acme/toolbox-dot-com");
 		assertThat(service.getCommand()).isEqualTo("bin/acme run");
-		assertThat(service.getPorts()).containsExactly(8007, 8008);
+		assertThat(service.getPorts()).extracting(PortMapping::getContainerPort).containsExactly(8007, 8008);
 	}
 
 	@Test
@@ -72,16 +71,16 @@ class DockerServiceTests {
 
 	@Test
 	void builderWithCollectionOfPorts() {
-		DockerService service = DockerService.withImageAndTag("acme/toolbox").ports(List.of(8007, 8008)).build();
-		assertThat(service.getPorts()).containsExactly(8007, 8008);
+		DockerService service = DockerService.withImageAndTag("acme/toolbox").randomPorts(List.of(8007, 8008)).build();
+		assertThat(service.getPorts()).extracting(PortMapping::getContainerPort).containsExactly(8007, 8008);
 	}
 
 	@Test
 	void builderWithFixedPortMapping() {
-		DockerService service = DockerService.withImageAndTag("acme/toolbox").portMapping(3000, 3000).build();
-		assertThat(service.getPorts()).containsExactly(3000);
-		assertThat(service.getPortMappings()).hasSize(1);
-		PortMapping mapping = service.getPortMappings().iterator().next();
+		DockerService service = DockerService.withImageAndTag("acme/toolbox").fixedPort(3000, 3000).build();
+		assertThat(service.getPorts()).extracting(PortMapping::getContainerPort).containsExactly(3000);
+		assertThat(service.getPorts()).hasSize(1);
+		PortMapping mapping = service.getPorts().iterator().next();
 		assertThat(mapping.isFixed()).isTrue();
 		assertThat(mapping.getHostPort()).isEqualTo(3000);
 		assertThat(mapping.getContainerPort()).isEqualTo(3000);
@@ -90,15 +89,15 @@ class DockerServiceTests {
 	@Test
 	void builderWithMixedPortMappings() {
 		DockerService service = DockerService.withImageAndTag("acme/toolbox")
-			.portMapping(3000, 3000) // Fixed
-			.ports(8080, 8081) // Random
-			.portMapping(9090) // Random
+			.fixedPort(3000, 3000)
+			.randomPorts(8080, 8081)
+			.randomPort(9090)
 			.build();
-		assertThat(service.getPorts()).containsExactly(3000, 8080, 8081, 9090);
-		assertThat(service.getPortMappings()).hasSize(4);
-
-		long fixedCount = service.getPortMappings().stream().filter((pm) -> pm.isFixed()).count();
-		long randomCount = service.getPortMappings().stream().filter((pm) -> !pm.isFixed()).count();
+		assertThat(service.getPorts()).extracting(PortMapping::getContainerPort)
+			.containsExactly(3000, 8080, 8081, 9090);
+		assertThat(service.getPorts()).hasSize(4);
+		long fixedCount = service.getPorts().stream().filter(PortMapping::isFixed).count();
+		long randomCount = service.getPorts().stream().filter((pm) -> !pm.isFixed()).count();
 		assertThat(fixedCount).isEqualTo(1);
 		assertThat(randomCount).isEqualTo(3);
 	}

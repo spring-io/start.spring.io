@@ -17,9 +17,10 @@
 package io.spring.start.site.extension.dependency.testcontainers;
 
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.spring.initializr.generator.container.docker.compose.PortMapping;
 import io.spring.initializr.generator.io.IndentingWriterFactory;
 import io.spring.initializr.generator.language.CodeBlock;
 import io.spring.initializr.generator.language.Parameter;
@@ -82,8 +83,10 @@ class JavaTestContainersApplicationCodeProjectContributor extends
 	}
 
 	private JavaMethodDeclaration usingGenericContainer(String methodName, String imageId, String connectionName,
-			int... ports) {
-		String portsParameter = Arrays.stream(ports).mapToObj(String::valueOf).collect(Collectors.joining(", "));
+			Set<PortMapping> ports) {
+		String portsParameter = ports.stream()
+			.map((port) -> String.valueOf(port.getContainerPort()))
+			.collect(Collectors.joining(", "));
 		JavaMethodDeclaration method = JavaMethodDeclaration.method(methodName)
 			.returning("GenericContainer<?>")
 			.body(CodeBlock.ofStatement("return new $T<>($L).withExposedPorts($L)",

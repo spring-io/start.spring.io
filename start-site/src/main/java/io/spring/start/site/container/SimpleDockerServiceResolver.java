@@ -67,42 +67,42 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	private static DockerService activeMQ() {
 		return DockerService.withImageAndTag("symptoma/activemq")
 			.website("https://hub.docker.com/r/symptoma/activemq")
-			.ports(61616)
+			.randomPort(61616)
 			.build();
 	}
 
 	private static DockerService activeMQClassic() {
 		return DockerService.withImageAndTag("apache/activemq-classic")
 			.website("https://hub.docker.com/r/apache/activemq-classic")
-			.ports(61616)
+			.randomPort(61616)
 			.build();
 	}
 
 	private static DockerService artemis() {
 		return DockerService.withImageAndTag("apache/activemq-artemis")
 			.website("https://hub.docker.com/r/apache/activemq-artemis")
-			.ports(61616)
+			.randomPort(61616)
 			.build();
 	}
 
 	private static DockerService azurite() {
 		return DockerService.withImageAndTag("mcr.microsoft.com/azure-storage/azurite")
 			.website("https://github.com/Azure/Azurite?tab=readme-ov-file#dockerhub")
-			.ports(10000, 10001, 10002)
+			.randomPorts(10000, 10001, 10002)
 			.build();
 	}
 
 	private static DockerService cassandra() {
 		return DockerService.withImageAndTag("cassandra")
 			.website("https://hub.docker.com/_/cassandra")
-			.ports(9042)
+			.randomPort(9042)
 			.build();
 	}
 
 	private static DockerService chroma() {
 		return DockerService.withImageAndTag("chromadb/chroma")
 			.website("https://hub.docker.com/r/chromadb/chroma")
-			.ports(8000)
+			.randomPort(8000)
 			.build();
 	}
 
@@ -110,87 +110,99 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		// They don't provide a 'latest' tag
 		return DockerService.withImageAndTag("docker.elastic.co/elasticsearch/elasticsearch:7.17.10")
 			.website("https://www.docker.elastic.co/r/elasticsearch")
-			.ports(9200, 9300)
+			.randomPorts(9200, 9300)
 			.build();
 	}
 
 	private static DockerService kafka() {
 		return DockerService.withImageAndTag("confluentinc/cp-kafka")
 			.website("https://hub.docker.com/r/confluentinc/cp-kafka")
-			.ports(9092)
+			.randomPort(9092)
 			.build();
 	}
 
 	private static DockerService kafkaNative() {
 		return DockerService.withImageAndTag("apache/kafka-native")
 			.website("https://hub.docker.com/r/apache/kafka-native")
-			.ports(9092)
+			.randomPort(9092)
 			.build();
 	}
 
 	private static DockerService mariaDb() {
-		return DockerService.withImageAndTag("mariadb").website("https://hub.docker.com/_/mariadb").ports(3306).build();
+		return DockerService.withImageAndTag("mariadb")
+			.website("https://hub.docker.com/_/mariadb")
+			.randomPort(3306)
+			.build();
 	}
 
 	private static DockerService milvus() {
 		return DockerService.withImageAndTag("milvusdb/milvus")
 			.website("https://hub.docker.com/r/milvusdb/milvus")
-			.ports(19530)
+			.randomPort(19530)
 			.build();
 	}
 
 	private static DockerService mongoDb() {
-		return DockerService.withImageAndTag("mongo").website("https://hub.docker.com/_/mongo").ports(27017).build();
+		return DockerService.withImageAndTag("mongo")
+			.website("https://hub.docker.com/_/mongo")
+			.randomPort(27017)
+			.build();
 	}
 
 	private static DockerService mongoDbAtlas() {
 		return DockerService.withImageAndTag("mongodb/mongodb-atlas-local")
 			.website("https://hub.docker.com/r/mongodb/mongodb-atlas-local")
-			.ports(27017)
+			.randomPort(27017)
 			.build();
 	}
 
 	private static DockerService mysql() {
-		return DockerService.withImageAndTag("mysql").website("https://hub.docker.com/_/mysql").ports(3306).build();
+		return DockerService.withImageAndTag("mysql")
+			.website("https://hub.docker.com/_/mysql")
+			.randomPort(3306)
+			.build();
 	}
 
 	private static DockerService neo4j() {
-		return DockerService.withImageAndTag("neo4j").website("https://hub.docker.com/_/neo4j").ports(7687).build();
+		return DockerService.withImageAndTag("neo4j")
+			.website("https://hub.docker.com/_/neo4j")
+			.randomPort(7687)
+			.build();
 	}
 
 	private static DockerService ollama() {
 		return DockerService.withImageAndTag("ollama/ollama")
 			.website("https://hub.docker.com/r/ollama/ollama")
-			.ports(11434)
+			.randomPort(11434)
 			.build();
 	}
 
 	private static DockerService oracleFree() {
 		return DockerService.withImageAndTag("gvenzl/oracle-free")
 			.website("https://hub.docker.com/r/gvenzl/oracle-free")
-			.ports(1521)
+			.randomPort(1521)
 			.build();
 	}
 
 	private static DockerService grafanaLgtm() {
 		return DockerService.withImageAndTag("grafana/otel-lgtm")
 			.website("https://hub.docker.com/r/grafana/otel-lgtm")
-			.portMapping(3000, 3000) // Fixed port for web UI
-			.ports(4317, 4318) // Random ports for OTLP
+			.fixedPort(3000, 3000) // Web UI
+			.randomPorts(4317, 4318) // OTLP
 			.build();
 	}
 
 	private static DockerService pgvector() {
 		return DockerService.withImageAndTag("pgvector/pgvector:pg16")
 			.website("https://hub.docker.com/r/pgvector/pgvector")
-			.ports(5432)
+			.randomPort(5432)
 			.build();
 	}
 
 	private static DockerService postgres() {
 		return DockerService.withImageAndTag("postgres")
 			.website("https://hub.docker.com/_/postgres")
-			.ports(5432)
+			.randomPort(5432)
 			.build();
 	}
 
@@ -198,53 +210,56 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("apachepulsar/pulsar")
 			.website("https://hub.docker.com/r/apachepulsar/pulsar")
 			.command("bin/pulsar standalone")
-			.ports(8080, 6650)
+			.randomPorts(8080, 6650)
 			.build();
 	}
 
 	private static DockerService qdrant() {
 		return DockerService.withImageAndTag("qdrant/qdrant")
 			.website("https://hub.docker.com/r/qdrant/qdrant")
-			.ports(6334)
+			.randomPort(6334)
 			.build();
 	}
 
 	private static DockerService rabbit() {
 		return DockerService.withImageAndTag("rabbitmq")
 			.website("https://hub.docker.com/_/rabbitmq")
-			.ports(5672)
+			.randomPort(5672)
 			.build();
 	}
 
 	private static DockerService redis() {
-		return DockerService.withImageAndTag("redis").website("https://hub.docker.com/_/redis").ports(6379).build();
+		return DockerService.withImageAndTag("redis")
+			.website("https://hub.docker.com/_/redis")
+			.randomPort(6379)
+			.build();
 	}
 
 	private static DockerService redisStack() {
 		return DockerService.withImageAndTag("redis/redis-stack")
 			.website("https://hub.docker.com/r/redis/redis-stack")
-			.ports(6379)
+			.randomPort(6379)
 			.build();
 	}
 
 	private static DockerService sqlServer() {
 		return DockerService.withImageAndTag("mcr.microsoft.com/mssql/server")
 			.website("https://mcr.microsoft.com/en-us/product/mssql/server/about/")
-			.ports(1433)
+			.randomPort(1433)
 			.build();
 	}
 
 	private static DockerService weaviate() {
 		return DockerService.withImageAndTag("semitechnologies/weaviate")
 			.website("https://hub.docker.com/r/semitechnologies/weaviate")
-			.ports(8080)
+			.randomPort(8080)
 			.build();
 	}
 
 	private static DockerService zipkin() {
 		return DockerService.withImageAndTag("openzipkin/zipkin")
 			.website("https://hub.docker.com/r/openzipkin/zipkin/")
-			.ports(9411)
+			.randomPort(9411)
 			.build();
 	}
 

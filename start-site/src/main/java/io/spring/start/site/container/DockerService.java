@@ -16,8 +16,6 @@
 
 package io.spring.start.site.container;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Consumer;
@@ -41,14 +39,14 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 
 	private final String command;
 
-	private final Set<PortMapping> portMappings;
+	private final Set<PortMapping> ports;
 
 	private DockerService(Builder builder) {
 		this.image = builder.image;
 		this.imageTag = builder.imageTag;
 		this.website = builder.website;
 		this.command = builder.command;
-		this.portMappings = new TreeSet<>(builder.portMappings);
+		this.ports = new TreeSet<>(builder.ports);
 	}
 
 	/**
@@ -94,19 +92,11 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 	}
 
 	/**
-	 * Return the ports that should be exposed by the service.
-	 * @return the ports to expose
+	 * Return the ports for the service.
+	 * @return the ports
 	 */
-	public int[] getPorts() {
-		return this.portMappings.stream().mapToInt((pm) -> pm.getContainerPort()).toArray();
-	}
-
-	/**
-	 * Return the port mappings for the service.
-	 * @return the port mappings
-	 */
-	public Set<PortMapping> getPortMappings() {
-		return this.portMappings;
+	public Set<PortMapping> getPorts() {
+		return this.ports;
 	}
 
 	@Override
@@ -115,7 +105,7 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 			.imageTag(this.imageTag)
 			.imageWebsite(this.website)
 			.command(this.command)
-			.portMappings(this.portMappings);
+			.portMappings(this.ports);
 	}
 
 	/**
@@ -131,9 +121,7 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 
 		private String command;
 
-		private final Set<Integer> ports = new TreeSet<>();
-
-		private final Set<PortMapping> portMappings = new TreeSet<>();
+		private final Set<PortMapping> ports = new TreeSet<>();
 
 		protected Builder(String imageAndTag) {
 			String[] split = imageAndTag.split(":", 2);
@@ -162,22 +150,27 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 			return this;
 		}
 
-		public Builder ports(Collection<Integer> ports) {
-			ports.forEach((port) -> this.portMappings.add(PortMapping.random(port)));
+		public Builder fixedPort(int hostPort, int containerPort) {
+			this.ports.add(PortMapping.fixed(hostPort, containerPort));
 			return this;
 		}
 
-		public Builder ports(int... ports) {
-			return ports(Arrays.stream(ports).boxed().toList());
-		}
-
-		public Builder portMapping(int hostPort, int containerPort) {
-			this.portMappings.add(PortMapping.fixed(hostPort, containerPort));
+		public Builder randomPort(int containerPort) {
+			this.ports.add(PortMapping.random(containerPort));
 			return this;
 		}
 
-		public Builder portMapping(int containerPort) {
-			this.portMappings.add(PortMapping.random(containerPort));
+		public Builder randomPorts(int... ports) {
+			for (int port : ports) {
+				randomPort(port);
+			}
+			return this;
+		}
+
+		public Builder randomPorts(Iterable<Integer> ports) {
+			for (Integer port : ports) {
+				randomPort(port);
+			}
 			return this;
 		}
 
