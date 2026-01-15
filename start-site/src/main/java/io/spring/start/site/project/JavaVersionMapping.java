@@ -32,7 +32,7 @@ import io.spring.initializr.generator.version.VersionRange;
 class JavaVersionMapping {
 
 	private static final List<Mapping> mappings = List.of(Mapping.of("[3.5.0-M1,4.0.0-M1)", 17, 25, "1.9.25"),
-			Mapping.of("[4.0.0-M1,4.1.0-M1)", 17, 25, "2.2.0"));
+			Mapping.of("[4.0.0-M1,4.1.0-M1)", 17, 25, "2.2.0"), Mapping.of("[4.1.0-M1,4.2.0-M1)", 17, 25, "2.3.0"));
 
 	private final KotlinVersionMapping kotlinMapping = new KotlinVersionMapping();
 

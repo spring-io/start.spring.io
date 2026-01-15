@@ -38,6 +38,7 @@ class KotlinVersionMappingTests {
 			2.0.0,17,22
 			2.1.0,17,23
 			2.2.0,17,24
+			2.3.0,17,25
 			""")
 	@ParameterizedTest(name = "Kotlin {0} | min {1} | max {2}")
 	void test(String kotlinVersion, int expectedJavaMin, int expectedJavaMax) {

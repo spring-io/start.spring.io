@@ -31,7 +31,8 @@ class KotlinVersionMapping {
 
 	private static final List<Mapping> mappings = List.of(Mapping.of("[1.9.0,1.9.20)", 17, 20),
 			Mapping.of("[1.9.20,2.0.0)", 17, 21), Mapping.of("[2.0.0,2.1.0)", 17, 22),
-			Mapping.of("[2.1.0,2.2.0)", 17, 23), Mapping.of("[2.2.0,2.3.0)", 17, 24));
+			Mapping.of("[2.1.0,2.2.0)", 17, 23), Mapping.of("[2.2.0,2.3.0)", 17, 24),
+			Mapping.of("[2.3.0,2.4.0)", 17, 25));
 
 	/**
 	 * Returns the minimum supported Java version.
