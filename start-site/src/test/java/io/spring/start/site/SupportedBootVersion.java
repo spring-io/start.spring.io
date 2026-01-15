@@ -30,7 +30,11 @@ public enum SupportedBootVersion {
 	/**
 	 * 4.0.0.
 	 */
-	V4_0("4.0.0");
+	V4_0("4.0.0"),
+	/**
+	 * 4.0.0.
+	 */
+	V4_1("4.1.0-SNAPSHOT");
 
 	private final String version;
 
