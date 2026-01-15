@@ -1162,6 +1162,15 @@ initializr:
               description: Getting Started with Sentry
             - rel: reference
               href: https://docs.sentry.io/platforms/java/
+        - name: Cloud Foundry
+          id: cloudfoundry
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-cloudfoundry
+          description: Cloud Foundry provides a highly efficient, open source platform for cloud-native application development.
+          compatibilityRange: "4.0.0"
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/actuator/cloud-foundry.html
     - name: Observability
       content:
         - name: Datadog
