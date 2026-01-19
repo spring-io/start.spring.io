@@ -576,6 +576,28 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.ldap
+        - name: Okta
+          id: okta
+          compatibilityRange: "[3.4.0,4.0.0-M1)"
+          description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features. Enable your Spring Boot application to work with Okta via OAuth 2.0/OIDC.
+          groupId: com.okta.spring
+          artifactId: okta-spring-boot-starter
+          mappings:
+            - compatibilityRange: "[3.4.0,4.0.0-M1)"
+              version: 3.0.9
+          links:
+            - rel: guide
+              href: https://github.com/okta/samples-java-spring/tree/master/okta-hosted-login
+              description: Okta-Hosted Login Page Example
+            - rel: guide
+              href: https://github.com/okta/samples-java-spring/tree/master/custom-login
+              description: Custom Login Page Example
+            - rel: guide
+              href: https://github.com/okta/samples-java-spring/tree/master/resource-server
+              description: Okta Spring Security Resource Server Example
+            - rel: reference
+              href: https://github.com/okta/okta-spring-boot#readme
+              description: Okta Spring Boot documentation
     - name: SQL
       content:
         - name: JDBC API
