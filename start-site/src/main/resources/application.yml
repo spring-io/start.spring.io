@@ -1952,16 +1952,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/gemfire.html
-        - name: Infinispan Vector Database
-          id: spring-ai-vectordb-infinispan
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-starter-vector-store-infinispan
-          compatibilityRange: "[4.0.0,4.2.0)"
-          description: Spring AI vector database support for Infinispan.
-          bom: spring-ai
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/infinispan.html
         - name: Model Context Protocol Server
           id: spring-ai-mcp-server
           group-id: org.springframework.ai
@@ -2114,15 +2104,6 @@ initializr:
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-cosmos-db
           description: Spring AI support for Azure Cosmos DB based chat memory.
-          bom: spring-ai
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
-        - name: Redis Chat Memory Repository
-          id: spring-ai-chat-memory-repository-redis
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-starter-model-chat-memory-repository-redis
-          description: Spring AI support for Redis based chat memory.
           bom: spring-ai
           links:
             - rel: reference
