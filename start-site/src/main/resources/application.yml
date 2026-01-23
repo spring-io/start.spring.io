@@ -47,7 +47,7 @@ initializr:
         versionProperty: spring-boot-admin.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 3.5.6
+            version: 3.5.7
       netflix-dgs:
         groupId: com.netflix.graphql.dgs
         artifactId: graphql-dgs-platform-dependencies
