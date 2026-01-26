@@ -85,6 +85,8 @@ initializr:
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.1.2
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+            version: 2.0.0-M2
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1769,7 +1771,7 @@ initializr:
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
     - name: AI
-      compatibilityRange: "[3.5.0,4.0.0)"
+      compatibilityRange: "[3.5.0,4.1.0-M1)"
       content:
         - name: Anthropic Claude
           id: spring-ai-anthropic
@@ -1816,6 +1818,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/bedrock-converse.html
+        - name: Amazon Bedrock Knowledge Base
+          id: spring-ai-vectordb-bedrock-knowledgebase
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-vector-store-bedrock-knowledgebase
+          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          description: Spring AI vector database support for Amazon Bedrock Knowledge Base. It provides fully managed Retrieval-Augmented Generation (RAG) capabilities with enterprise-grade security and privacy.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/bedrock-knowledgebase.html
         - name: DeepSeek
           id: spring-ai-deepseek
           group-id: org.springframework.ai
@@ -2034,6 +2046,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/chat/openai-chat.html
+        - name: OpenAI SDK
+          id: spring-ai-openai-sdk
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-openai-sdk
+          description: Spring AI support for OpenAI using the official OpenAI SDK. Alternative implementation with enhanced features and compatibility.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat/openai-sdk-chat.html
         - name: In-memory Chat Memory Repository
           id: spring-ai-chat-memory-repository-in-memory
           group-id: org.springframework.ai
@@ -2076,6 +2097,15 @@ initializr:
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-neo4j
           description: Spring AI support for Neo4j based chat memory.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
+        - name: Azure Cosmos DB Chat Memory Repository
+          id: spring-ai-chat-memory-repository-cosmos-db
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-chat-memory-repository-cosmos-db
+          description: Spring AI support for Azure Cosmos DB based chat memory.
           bom: spring-ai
           links:
             - rel: reference
@@ -2125,6 +2155,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/vectordbs/redis.html
+        - name: S3 Vector Database
+          id: spring-ai-vectordb-s3
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-vector-store-s3
+          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          description: Spring AI vector database support for AWS S3. Store and retrieve vector embeddings using Amazon S3 object storage with efficient search capabilities.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/s3.html
         - name: MariaDB Vector Database
           id: spring-ai-vectordb-mariadb
           group-id: org.springframework.ai
@@ -2240,6 +2280,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html#_pdf_page
+        - name: JSoup Document Reader
+          id: spring-ai-jsoup-document-reader
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-jsoup-document-reader
+          description: Spring AI HTML document reader using JSoup. It parses HTML documents and converts them into a list of Spring AI Document objects.
+          bom: spring-ai
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html
         - name: Timefold Solver
           id: timefold-solver
           compatibilityRange: "[3.5.0,4.0.0)"
