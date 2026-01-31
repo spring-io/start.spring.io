@@ -1,24 +1,28 @@
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import React, { useEffect, useRef, useContext, useMemo } from 'react'
+import React, { useEffect, useRef, useContext, useMemo, useState } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import queryString from 'query-string'
 import { AppContext } from '../../reducer/App'
 import { Transform } from './Utils'
-import { IconFavorite } from '../icons'
+import { IconFavorite, IconEdit, IconCheck, IconTimes } from '../icons'
 
-function HistoryDate({ label, items, onClose }) {
+function HistoryDate({ label, items, onClose, editingId, setEditingId }) {
   return (
     <>
       <div className='date'>{label}</div>
       <ul>
         {items.map(item => (
           <HistoryItem
-            key={item.value}
+            key={`${item.value}-${item.isoDate}`}
             time={item.time}
             value={item.value}
+            name={item.name}
+            isoDate={item.isoDate}
             onClose={onClose}
+            editingId={editingId}
+            setEditingId={setEditingId}
           />
         ))}
       </ul>
@@ -35,6 +39,8 @@ HistoryDate.propTypes = {
     })
   ),
   onClose: PropTypes.func.isRequired,
+  editingId: PropTypes.string,
+  setEditingId: PropTypes.func.isRequired,
 }
 
 HistoryDate.defaultProps = {
@@ -49,12 +55,26 @@ function getLabelFromDepsList(list, key) {
   return list.find(item => item.id === key)?.name || key
 }
 
-function HistoryItem({ time, value, onClose }) {
+function HistoryItem({ time, value, name, isoDate, onClose, editingId, setEditingId }) {
   const { config, dispatch } = useContext(AppContext)
+  const itemId = `${value}-${isoDate}`
+  const isEditing = editingId === itemId
+  const [newName, setNewName] = useState(name || '')
   const params = queryString.parse(value)
   const deps = get(params, 'dependencies', '')
     .split(',')
     .filter(dep => !!dep)
+
+  const defaultLabel = `Project ${getLabelFromList(
+    get(config, 'lists.project'),
+    get(params, 'type')
+  )}, Language ${getLabelFromList(
+    get(config, 'lists.language'),
+    get(params, 'language')
+  )}, Spring Boot ${getLabelFromList(
+    get(config, 'lists.boot'),
+    get(params, 'platformVersion')
+  )}`
 
   const onFavorite = () => {
     dispatch({
@@ -71,6 +91,64 @@ function HistoryItem({ time, value, onClose }) {
       },
     })
   }
+
+  const onEdit = () => {
+    setNewName(name || defaultLabel)
+    setEditingId(itemId)
+  }
+
+  const onSave = () => {
+    if (newName.trim()) {
+      dispatch({
+        type: 'UPDATE_HISTORY',
+        payload: {
+          date: isoDate,
+          value,
+          name: newName.trim(),
+        },
+      })
+    }
+    setEditingId(null)
+  }
+
+  const onCancel = () => {
+    setNewName(name || defaultLabel)
+    setEditingId(null)
+  }
+
+  if (isEditing) {
+    return (
+      <li>
+        <div className='item editing'>
+          <span className='time'>{time}</span>
+          <input
+            type='text'
+            value={newName}
+            onChange={e => setNewName(e.target.value)}
+            autoFocus
+            onClick={e => e.stopPropagation()}
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                onSave()
+              }
+              if (e.key === 'Escape') {
+                e.preventDefault()
+                onCancel()
+              }
+            }}
+          />
+          <button type='button' className='save' onClick={onSave} title='Save'>
+            <IconCheck />
+          </button>
+          <button type='button' className='cancel' onClick={onCancel} title='Cancel'>
+            <IconTimes />
+          </button>
+        </div>
+      </li>
+    )
+  }
+
   return (
     <li>
       <a
@@ -82,31 +160,37 @@ function HistoryItem({ time, value, onClose }) {
       >
         <span className='time'>{time}</span>
         <span className='desc'>
-          <span className='main'>
-            Project{' '}
-            <strong>
-              {getLabelFromList(
-                get(config, 'lists.project'),
-                get(params, 'type')
-              )}
-            </strong>
-            {`, `}
-            Language{' '}
-            <strong>
-              {getLabelFromList(
-                get(config, 'lists.language'),
-                get(params, 'language')
-              )}
-            </strong>
-            {`, `}
-            Spring Boot{' '}
-            <strong>
-              {getLabelFromList(
-                get(config, 'lists.boot'),
-                get(params, 'platformVersion')
-              )}
-            </strong>
-          </span>
+          {name ? (
+            <span className='main'>
+              <strong>{name}</strong>
+            </span>
+          ) : (
+            <span className='main'>
+              Project{' '}
+              <strong>
+                {getLabelFromList(
+                  get(config, 'lists.project'),
+                  get(params, 'type')
+                )}
+              </strong>
+              {`, `}
+              Language{' '}
+              <strong>
+                {getLabelFromList(
+                  get(config, 'lists.language'),
+                  get(params, 'language')
+                )}
+              </strong>
+              {`, `}
+              Spring Boot{' '}
+              <strong>
+                {getLabelFromList(
+                  get(config, 'lists.boot'),
+                  get(params, 'platformVersion')
+                )}
+              </strong>
+            </span>
+          )}
           <span className='deps'>
             {deps.length === 0 && 'No dependency'}
             {deps.length > 0 && (
@@ -115,10 +199,7 @@ function HistoryItem({ time, value, onClose }) {
                 <strong>
                   {deps
                     .map(dep =>
-                      getLabelFromDepsList(
-                        get(config, 'lists.dependencies'),
-                        dep
-                      )
+                      getLabelFromDepsList(get(config, 'lists.dependencies'), dep)
                     )
                     .join(', ')}
                 </strong>
@@ -127,8 +208,11 @@ function HistoryItem({ time, value, onClose }) {
           </span>
         </span>
       </a>
-      <button type='button' className='favorite' onClick={onFavorite}>
+      <button type='button' className='favorite' onClick={onFavorite} title='Favorite'>
         <IconFavorite />
+      </button>
+      <button type='button' className='edit' onClick={onEdit} title='Rename'>
+        <IconEdit />
       </button>
     </li>
   )
@@ -138,11 +222,16 @@ HistoryItem.propTypes = {
   time: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  isoDate: PropTypes.string,
+  editingId: PropTypes.string,
+  setEditingId: PropTypes.func.isRequired,
 }
 
 function Modal({ open, onClose }) {
   const wrapper = useRef(null)
   const { histories, dispatch } = useContext(AppContext)
+  const [editingId, setEditingId] = useState(null)
 
   const historiesTransform = useMemo(() => Transform(histories), [histories])
 
@@ -198,6 +287,8 @@ function Modal({ open, onClose }) {
                       label={history.label}
                       items={history.histories}
                       onClose={onClose}
+                      editingId={editingId}
+                      setEditingId={setEditingId}
                     />
                   ))}
                 </div>

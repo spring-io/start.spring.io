@@ -451,16 +451,10 @@ export function IconEdit() {
       xmlns='http://www.w3.org/2000/svg'
     >
       <path
-        strokeWidth='2'
+        strokeWidth='1.5'
         strokeLinejoin='round'
         strokeLinecap='round'
-        d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'
-      />
-      <path
-        strokeWidth='2'
-        strokeLinejoin='round'
-        strokeLinecap='round'
-        d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'
+        d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'
       />
     </svg>
   )
