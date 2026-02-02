@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency.okta;
 
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -29,18 +30,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+
 	@Test
 	void linksAddedToHelpDocumentForGradleBuild() {
 		assertHelpDocument("gradle-build", "okta").contains("## OAuth 2.0 and OIDC with Okta",
-				"If you don't have a free Okta developer account, you can create one with [the Okta CLI](https://cli.okta.com):",
-				"You can also use the Okta Admin Console to create your app. See [Create a Spring Boot App](https://developer.okta.com/docs/guides/sign-into-web-app-redirect/spring-boot/main/) for more information.");
+				"If you don't have a free Okta developer account, you can create one with [the Okta CLI](https://cli.okta.com):");
 	}
 
 	@Test
 	void linksAddedToHelpDocumentForMavenBuild() {
 		assertHelpDocument("maven-build", "okta").contains("## OAuth 2.0 and OIDC with Okta",
-				"If you don't have a free Okta developer account, you can create one with [the Okta CLI](https://cli.okta.com):",
-				"You can also use the Okta Admin Console to create your app. See [Create a Spring Boot App](https://developer.okta.com/docs/guides/sign-into-web-app-redirect/spring-boot/main/) for more information.");
+				"If you don't have a free Okta developer account, you can create one with [the Okta CLI](https://cli.okta.com):");
 	}
 
 	@Test
@@ -49,7 +50,7 @@ class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	private org.assertj.core.api.ListAssert<String> assertHelpDocument(String type, String... dependencies) {
-		ProjectRequest request = createProjectRequest(dependencies);
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, dependencies);
 		request.setType(type);
 		return assertThat(helpDocument(request)).lines();
 	}
