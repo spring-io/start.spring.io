@@ -41,6 +41,15 @@ initializr:
       uri: ${elastic-uri:}
   env:
     boms:
+      datasource-micrometer:
+        groupId: net.ttddyy.observation
+        artifactId: datasource-micrometer-bom
+        versionProperty: datasource-micrometer.version
+        mappings:
+          - compatibilityRange: "[3.5.0,4.0.0)"
+            version: 1.3.0
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+            version: 2.1.0
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
@@ -1271,16 +1280,12 @@ initializr:
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/actuator/metrics.html#actuator.metrics.export.prometheus
         - name: Datasource Micrometer
           id: datasource-micrometer
-          description: Add Micrometer observability instrumentation for JDBC operations.
+          bom: datasource-micrometer
+          compatibilityRange: "[3.5.0,4.1.0-M1)"
           groupId: net.ttddyy.observation
           artifactId: datasource-micrometer-spring-boot
+          description: Add Micrometer observability instrumentation for JDBC operations.
           starter: false
-          compatibilityRange: "[3.5.0,4.1.0-M1)"
-          mappings:
-            - compatibilityRange: "[3.5.0,4.0.0)"
-              version: 1.2.1
-            - compatibilityRange: "[4.0.0,4.1.0-M1)"
-              version: 2.0.1
         - name: Distributed Tracing
           id: distributed-tracing
           description: Enable span and trace IDs in logs.
