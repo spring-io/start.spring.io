@@ -1,12 +1,15 @@
 @use 'sass:color';
 @use 'variables' as *;
+
 body.dark {
   background: $dark-background;
   color: $dark-color;
+
   #header {
     h1.logo {
       a {
         color: $dark-color;
+
         .st0 {
           fill: $dark-primary;
         }
@@ -21,11 +24,13 @@ body.dark {
   #side-left .navigation-item {
     color: white;
     transition: all 0.15s;
+
     &:hover {
       color: $light-primary;
       opacity: 1;
     }
   }
+
   #side-left .navigation-divider {
     border-color: $dark-border;
   }
@@ -34,43 +39,53 @@ body.dark {
     border-color: $dark-border;
     background: $dark-background;
   }
+
   .colset-main {
-    background: linear-gradient($dark-border, $dark-border) no-repeat center/1px
-      100%;
+    background: linear-gradient($dark-border, $dark-border) no-repeat center/1px 100%;
   }
+
   hr.divider,
   .dependency-header {
     border-color: $dark-border;
   }
+
   .radio {
     color: $dark-color;
+
     .caret {
       background: $dark-background;
       border-color: $dark-color;
     }
+
     &:hover {
       .caret {
         border-color: $dark-primary;
       }
     }
+
     &.checked {
       color: $dark-primary;
+
       .caret {
         border-color: $dark-primary;
         background: $dark-primary;
       }
     }
   }
+
   .actions .actions-container {
     background: $dark-background-secondary;
   }
+
   #side-left a {
     color: $dark-color;
+
     &:hover {
       color: $light-primary;
       opacity: 1;
     }
   }
+
   #side-left.is-open {
     a {
       &:hover {
@@ -79,13 +94,16 @@ body.dark {
       }
     }
   }
+
   .hamburger-inner,
   .hamburger-inner::before,
   .hamburger-inner::after {
     background: white;
   }
+
   #side-left.is-closing {
     .hamburger {
+
       .hamburger-inner,
       .hamburger-inner::before,
       .hamburger-inner::after {
@@ -93,75 +111,94 @@ body.dark {
       }
     }
   }
+
   a.button,
   button.button {
     border-color: $dark-color;
     background: $dark-background;
     color: $dark-color;
+
     &:before {
       background: $dark-color;
     }
+
     &:hover {
       color: $dark-background;
     }
   }
+
   a.button.inverse.active,
   button.button.inverse.active {
     color: $dark-background;
   }
+
   .input {
     background: $dark-background;
     border-color: $dark-color;
     color: $dark-color;
+
     &:focus {
       border-color: $dark-primary;
     }
+
     &::selection {
       color: $dark-color;
       background: #80ea6e;
     }
   }
+
   .explorer {
     background: $dark-background;
     color: $dark-color;
+
     .colset-explorer .explorer-content,
     .colset-explorer .head {
       border-color: $dark-border;
     }
   }
+
   .explorer-actions {
     background: $dark-background-secondary;
   }
+
   .explorer-ul .file,
   .explorer-ul .folder {
     color: $dark-color;
   }
+
   .overlay {
     background: rgba($dark-background, 0.9);
   }
+
   .dialog-dependencies .control-input {
     background: $dark-background-secondary;
     border-color: $dark-border;
+
     .input {
       background: $dark-background-secondary;
       color: $dark-color;
+
       &::placeholder {
         color: rgba($dark-color, 0.5);
       }
     }
+
     .close {
       .st0 {
         stroke: $dark-color;
       }
     }
   }
+
   .dialog-dependencies ul li {
     background: $dark-background-secondary;
     border-color: $dark-border;
+
     a {
       color: $dark-color;
     }
   }
+
   .dialog-dependencies ul li a.dependency.disabled,
   .dialog-dependencies ul li a.dependency.disabled:hover,
   .dialog-dependencies ul li a.dependency.disabled.selected,
@@ -170,37 +207,46 @@ body.dark {
     color: rgba($dark-color, 0.5);
     box-shadow: 0 0 0 transparent !important;
     margin: 0;
+
     strong {
       color: rgba($dark-color, 0.5);
     }
+
     span.group {
       color: color.adjust($dark-background, $lightness: 0.6%);
     }
   }
+
   ul.dependencies-list li div.disabled strong {
     color: rgba($dark-color, 0.5);
   }
+
   .dialog-dependencies ul li a.dependency span.group,
   ul.dependencies-list li div span.group {
     color: $dark-background;
   }
+
   ul.dependencies-list li {
     border-color: $dark-border;
   }
+
   .explorer-ul .file .icon,
   .explorer-ul .folder .icon {
     color: $dark-color;
   }
+
   .explorer-ul .file.selected,
   .explorer-ul .folder.selected {
     color: $dark-primary;
     background: $dark-background-secondary;
   }
+
   .explorer-ul .file,
   .explorer-ul .folder {
     &:hover {
       background: $dark-background-secondary;
     }
+
     &.disabled,
     &.disabled:hover {
       background: $dark-background;
@@ -210,11 +256,13 @@ body.dark {
   pre.prism-code {
     span.explorer-number {
       color: rgba($dark-color, 0.5);
+
       &:before {
         background-color: $dark-background-secondary;
         color: rgba($dark-color, 0.5);
       }
     }
+
     &:before {
       color: rgba($dark-color, 0.5);
       background-color: $dark-background-secondary;
@@ -235,25 +283,32 @@ body.dark {
   .token.operator {
     color: $dark-color;
   }
+
   .popup-share {
     .popop-share-container {
       background: $dark-background-secondary;
     }
+
     .popup-content label {
       color: $dark-color;
     }
+
     .input {
       background: $dark-background-secondary;
     }
+
     .popup-header {
       border-color: $dark-border;
     }
+
     a.button,
     button.button {
       background: $dark-background-secondary;
     }
+
     .popup-header .close {
       color: $dark-color;
+
       .st0 {
         stroke: $dark-color;
       }
@@ -267,29 +322,36 @@ body.dark {
   .placeholder-text {
     background: $dark-placeholder;
   }
+
   .placeholder-input {
     background: $dark-background;
     box-shadow: inset 0 -4px 0 0 $dark-placeholder;
   }
+
   .placeholder-button {
     box-shadow: inset 0 0 0 2px $dark-placeholder;
     background: $dark-background;
   }
+
   .actions {
     .placeholder-button:after {
       background: $dark-background;
     }
+
     .placeholder-button {
       background: $dark-background-secondary;
       box-shadow: inset 0 0 0 2px $dark-background;
     }
   }
+
   .explorer-actions .placeholder-button {
     box-shadow: inset 0 0 0 2px $dark-background;
+
     &:after {
       background: $dark-background;
     }
   }
+
   .Toastify__toast {
     box-shadow: 0 0 0 6px rgba(#000, 0.2);
     background: $dark-background;
@@ -297,48 +359,59 @@ body.dark {
     border-top-color: $dark-border;
     border-right-color: $dark-border;
     border-bottom-color: $dark-border;
+
     .toast-close {
       .icon-time .st0 {
         stroke: $dark-color;
       }
     }
   }
+
   .popup-share .popup-action {
     border-top-color: $dark-border;
   }
+
   .dialog-dependencies ul {
     &::-webkit-scrollbar {
       background: $dark-background-secondary;
     }
+
     &::-webkit-scrollbar-thumb {
       background: rgba($dark-color, 0.3);
     }
   }
+
   .explorer .colset-explorer .right .explorer-content {
     &::-webkit-scrollbar {
       background: $dark-background;
     }
+
     &::-webkit-scrollbar-thumb {
       background: rgba($dark-color, 0.3);
     }
   }
+
   .warnings {
     background: $dark-background;
     color: $dark-color;
     border-top-color: $dark-border;
     border-right-color: $dark-border;
     border-bottom-color: $dark-border;
+
     .icon-time .st0 {
       stroke: $dark-color;
     }
+
     ul {
       color: $dark-color;
     }
   }
+
   .radio.err {
     color: #d60000;
     cursor: not-allowed;
   }
+
   .radio.err .caret {
     background: #d60000;
     border: 2px solid #d60000;
@@ -355,6 +428,7 @@ body.dark {
       outline: 1px dotted $dark-border;
     }
   }
+
   .explorer-ul .file.disabled,
   .explorer-ul .folder.disabled {
     outline: none;
@@ -373,13 +447,16 @@ body.dark {
       background: $dark-background;
       color: $dark-color;
     }
+
     &:before {
       border-bottom: 6px solid $dark-color;
     }
+
     &:after {
       border-top: 6px solid $dark-color;
     }
   }
+
   .placeholder-select {
     border: 1px solid $dark-border;
     background: $dark-background;
@@ -388,36 +465,45 @@ body.dark {
   #header .switch-mobile {
     border-color: $dark-border;
   }
+
   #header .switch-mobile button {
     color: $dark-color;
   }
+
   .dialog-dependencies ul li a.dependency.added {
     background: #145374;
     color: $dark-color;
   }
+
   .dialog-dependencies ul li a.dependency.added:hover {
     background: color.adjust(#145374, $lightness: -5%);
     color: $dark-color;
   }
+
   .dialog-dependencies ul li a.dependency.added:hover strong {
     color: $dark-color;
   }
+
   .dialog-dependencies ul li a.dependency.added .icon-enter {
     fill: $dark-color;
   }
+
   .dialog-dependencies ul li.group-title span,
   .dialog-dependencies ul li a.dependency.selected,
   ul.dependencies-list li div span.group,
   .dialog-dependencies ul li a.dependency span.group {
     background: $dark-primary;
   }
+
   .dialog-dependencies ul li a.dependency.added.selected {
     background: color.adjust(#145374, $lightness: -5%);
     color: $dark-color;
   }
+
   .dialog-dependencies ul li a.dependency.selected span.group {
     background: white;
   }
+
   .dialog-dependencies ul li a.dependency.disabled span.group,
   .dialog-dependencies ul li a.dependency.disabled:hover span.group,
   .dialog-dependencies ul li a.dependency.disabled.selected span.group,
@@ -428,6 +514,7 @@ body.dark {
 
   .markdown,
   .markdown-source {
+
     a,
     a:hover {
       color: $dark-link;
@@ -447,33 +534,42 @@ body.dark {
       border-bottom: 1px solid $dark-border;
     }
   }
+
   .modal-history-container,
   .modal-favorite-container,
   .modal-add-favorite-container {
     border: 1px solid $dark-border;
   }
+
   .modal-content {
     background: $dark-background;
   }
+
   .modal-add-favorite .favorite-desc {
     background: $dark-background-secondary;
     color: $dark-color;
   }
+
   .modal-favorite button.edit,
   .modal-favorite button.remove,
-  .modal-share .modal-content button.favorite {
+  .modal-share .modal-content button.favorite,
+  .modal-share .modal-content button.edit {
     color: white;
   }
+
   .actions .button.clicked {
     color: #000;
   }
+
   .modal-content .list a.item {
     background: $dark-background-secondary;
     color: $dark-color;
+
     &:hover {
       background: color.adjust($dark-background-secondary, $lightness: 2%);
     }
   }
+
   .modal-action {
     background: $dark-background;
     border-top: 1px solid $dark-border;
