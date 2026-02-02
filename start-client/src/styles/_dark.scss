@@ -7,6 +7,7 @@ body.dark {
     h1.logo {
       a {
         color: $dark-color;
+
         .st0 {
           fill: $dark-primary;
         }
@@ -35,8 +36,7 @@ body.dark {
     background: $dark-background;
   }
   .colset-main {
-    background: linear-gradient($dark-border, $dark-border) no-repeat center/1px
-      100%;
+    background: linear-gradient($dark-border, $dark-border) no-repeat center/1px 100%;
   }
   hr.divider,
   .dependency-header {
@@ -206,10 +206,10 @@ body.dark {
       background: $dark-background;
     }
   }
-
   pre.prism-code {
     span.explorer-number {
       color: rgba($dark-color, 0.5);
+
       &:before {
         background-color: $dark-background-secondary;
         color: rgba($dark-color, 0.5);
@@ -220,14 +220,12 @@ body.dark {
       background-color: $dark-background-secondary;
     }
   }
-
   .token.cdata,
   .token.comment,
   .token.doctype,
   .token.prolog {
     color: $dark-color;
   }
-
   code[class*='language-'],
   pre[class*='language-'],
   .token.operator,
@@ -259,7 +257,6 @@ body.dark {
       }
     }
   }
-
   .placeholder-radio,
   .placeholder-radio:after,
   .placeholder-input:after,
@@ -267,18 +264,22 @@ body.dark {
   .placeholder-text {
     background: $dark-placeholder;
   }
+
   .placeholder-input {
     background: $dark-background;
     box-shadow: inset 0 -4px 0 0 $dark-placeholder;
   }
+
   .placeholder-button {
     box-shadow: inset 0 0 0 2px $dark-placeholder;
     background: $dark-background;
   }
+
   .actions {
     .placeholder-button:after {
       background: $dark-background;
     }
+
     .placeholder-button {
       background: $dark-background-secondary;
       box-shadow: inset 0 0 0 2px $dark-background;
@@ -343,7 +344,6 @@ body.dark {
     background: #d60000;
     border: 2px solid #d60000;
   }
-
   .radio,
   .hamburger,
   #side-left a,
@@ -359,14 +359,12 @@ body.dark {
   .explorer-ul .folder.disabled {
     outline: none;
   }
-
   a.button,
   button.button {
     &:focus {
       box-shadow: 0 0 0 4px color.adjust($dark-border, $lightness: 4%);
     }
   }
-
   .explorer-select {
     select {
       border: 1px solid $dark-border;
@@ -384,7 +382,6 @@ body.dark {
     border: 1px solid $dark-border;
     background: $dark-background;
   }
-
   #header .switch-mobile {
     border-color: $dark-border;
   }
@@ -438,7 +435,6 @@ body.dark {
     box-shadow: inset 0 0 0 2px $dark-color;
     background: $dark-background;
   }
-
   .modal-share,
   .modal-add-favorite,
   .modal-favorite {
@@ -461,7 +457,8 @@ body.dark {
   }
   .modal-favorite button.edit,
   .modal-favorite button.remove,
-  .modal-share .modal-content button.favorite {
+  .modal-share .modal-content button.favorite,
+  .modal-share .modal-content button.edit {
     color: white;
   }
   .actions .button.clicked {
@@ -477,5 +474,32 @@ body.dark {
   .modal-action {
     background: $dark-background;
     border-top: 1px solid $dark-border;
+  }
+
+  .modal-content .list .item.editing {
+    background: $dark-background-secondary;
+
+    input {
+      background: $dark-background;
+      border-color: $dark-border;
+      color: $dark-color;
+
+      &:focus {
+        outline: none;
+        border-color: $dark-primary;
+      }
+    }
+
+    button {
+      color: white;
+
+      &.save {
+        color: #6cc644;
+      }
+
+      &.cancel {
+        color: #bd2c00;
+      }
+    }
   }
 }

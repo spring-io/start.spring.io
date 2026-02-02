@@ -22,9 +22,11 @@ export function Transform(histories) {
     }
     return {
       date: dateLuxon,
+      isoDate: history.date,
       time: `${dateLuxon.toFormat('HH:mm')}`,
       label: `${label}${dateLuxon.toFormat('cccc, d LLLL yyyy')}`,
       value: history.value,
+      name: history.name,
     }
   })
   return parsed.reduce((acc, history) => {
