@@ -8,7 +8,7 @@ import { AppContext } from '../../reducer/App'
 import { Transform } from './Utils'
 import { IconFavorite, IconEdit, IconCheck, IconTimes } from '../icons'
 
-function HistoryDate({ label, items, onClose }) {
+function HistoryDate({ label, items, onClose, editingId, setEditingId }) {
   return (
     <>
       <div className='date'>{label}</div>
@@ -21,6 +21,8 @@ function HistoryDate({ label, items, onClose }) {
             name={item.name}
             isoDate={item.isoDate}
             onClose={onClose}
+            editingId={editingId}
+            setEditingId={setEditingId}
           />
         ))}
       </ul>
@@ -37,6 +39,8 @@ HistoryDate.propTypes = {
     })
   ),
   onClose: PropTypes.func.isRequired,
+  editingId: PropTypes.string,
+  setEditingId: PropTypes.func.isRequired,
 }
 
 HistoryDate.defaultProps = {
@@ -51,9 +55,10 @@ function getLabelFromDepsList(list, key) {
   return list.find(item => item.id === key)?.name || key
 }
 
-function HistoryItem({ time, value, name, isoDate, onClose }) {
+function HistoryItem({ time, value, name, isoDate, onClose, editingId, setEditingId }) {
   const { config, dispatch } = useContext(AppContext)
-  const [editing, setEditing] = useState(false)
+  const itemId = `${value}-${isoDate}`
+  const isEditing = editingId === itemId
   const [newName, setNewName] = useState(name || '')
   const params = queryString.parse(value)
   const deps = get(params, 'dependencies', '')
@@ -89,7 +94,7 @@ function HistoryItem({ time, value, name, isoDate, onClose }) {
 
   const onEdit = () => {
     setNewName(name || defaultLabel)
-    setEditing(true)
+    setEditingId(itemId)
   }
 
   const onSave = () => {
@@ -103,14 +108,15 @@ function HistoryItem({ time, value, name, isoDate, onClose }) {
         },
       })
     }
-    setEditing(false)
+    setEditingId(null)
   }
 
   const onCancel = () => {
-    setEditing(false)
+    setNewName(name || defaultLabel)
+    setEditingId(null)
   }
 
-  if (editing) {
+  if (isEditing) {
     return (
       <li>
         <div className='item editing'>
@@ -218,11 +224,14 @@ HistoryItem.propTypes = {
   onClose: PropTypes.func.isRequired,
   name: PropTypes.string,
   isoDate: PropTypes.string,
+  editingId: PropTypes.string,
+  setEditingId: PropTypes.func.isRequired,
 }
 
 function Modal({ open, onClose }) {
   const wrapper = useRef(null)
   const { histories, dispatch } = useContext(AppContext)
+  const [editingId, setEditingId] = useState(null)
 
   const historiesTransform = useMemo(() => Transform(histories), [histories])
 
@@ -278,6 +287,8 @@ function Modal({ open, onClose }) {
                       label={history.label}
                       items={history.histories}
                       onClose={onClose}
+                      editingId={editingId}
+                      setEditingId={setEditingId}
                     />
                   ))}
                 </div>
