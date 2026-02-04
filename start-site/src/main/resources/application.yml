@@ -2319,6 +2319,20 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html
+        - name: MCP Security [Experimental]
+          id: mcp-security
+          group-id: org.springaicommunity
+          artifact-id: mcp-server-security
+          description: Provides security for Spring AI's MCP server and client, and for the OAuth2 Authorization Server.
+          starter: false
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              version: 0.0.6
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              version: 0.1.1
+          links:
+            - rel: reference
+              href: https://github.com/spring-ai-community/mcp-security?tab=readme-ov-file#mcp-security
         - name: Timefold Solver
           id: timefold-solver
           compatibilityRange: "[3.5.0,4.0.0)"
