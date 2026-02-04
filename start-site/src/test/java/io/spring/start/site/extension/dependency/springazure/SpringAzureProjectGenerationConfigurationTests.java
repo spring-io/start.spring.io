@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V4_0;
 
 	@ParameterizedTest
 	@MethodSource("azureDependencies")
@@ -58,9 +58,7 @@ class SpringAzureProjectGenerationConfigurationTests extends AbstractExtensionTe
 		ProjectStructure project = generateProject("actuator");
 		assertThat(project).mavenBuild()
 			.doesNotHaveBom("com.azure.spring", "spring-cloud-azure-dependencies")
-			.hasDependenciesSize(2)
-			.hasDependency("org.springframework.boot", "spring-boot-starter-actuator")
-			.hasDependency("org.springframework.boot", "spring-boot-starter-test", null, "test");
+			.hasDependency("org.springframework.boot", "spring-boot-starter-actuator");
 	}
 
 	@ParameterizedTest

@@ -113,6 +113,8 @@ initializr:
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
             version: 6.1.0
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+            version: 7.0.0
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
@@ -1685,7 +1687,7 @@ initializr:
               href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/transformation.html
     - name: Microsoft Azure
       bom: spring-cloud-azure
-      compatibilityRange: "[3.5.0,4.0.0)"
+      compatibilityRange: "[3.5.0,4.1.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
