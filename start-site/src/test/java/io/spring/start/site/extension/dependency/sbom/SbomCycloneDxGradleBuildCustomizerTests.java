@@ -47,13 +47,10 @@ class SbomCycloneDxGradleBuildCustomizerTests {
 
 	@ParameterizedTest
 	@CsvSource(textBlock = """
-			3.5.0,			2.3.0
-			4.0.0-M1,		2.3.0
-			4.0.0-M2,		2.3.0
-			4.0.0-M3,		2.3.0
-			4.0.0-RC1,		3.0.1
-			4.0.0-SNAPSHOT,	3.0.1
-			4.0.0,			3.0.1
+			3.5.0,			2.4.1
+			4.0.0,			3.1.0
+			4.1.0-M1,		3.1.0
+			4.1.0-SNAPSHOT,	3.1.0
 			""")
 	void shouldUseCorrectPluginVersion(String bootVersion, String pluginVersion) {
 		GradleBuild gradleBuild = gradleBuildFor(bootVersion);
