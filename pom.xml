@@ -33,7 +33,7 @@
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
-		<spring-initializr.version>0.22.1-SNAPSHOT</spring-initializr.version>
+		<spring-initializr.version>0.23.0</spring-initializr.version>
 		<spring-javaformat.version>0.0.47</spring-javaformat.version>
 	</properties>
 
