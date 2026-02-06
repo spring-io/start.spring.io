@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import React, { useEffect, useRef, useContext, useMemo, useState } from 'react'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import {clearAllBodyScrollLocks, disableBodyScroll} from 'body-scroll-lock'
 import queryString from 'query-string'
-import { AppContext } from '../../reducer/App'
-import { Transform } from './Utils'
-import { IconFavorite, IconEdit, IconCheck, IconTimes } from '../icons'
+import {AppContext} from '../../reducer/App'
+import {Transform} from './Utils'
+import {IconCheck, IconEditSlim, IconFavorite, IconTimes} from '../icons'
 
 function HistoryDate({ label, items, onClose, editingId, setEditingId }) {
   return (
@@ -36,6 +36,8 @@ HistoryDate.propTypes = {
     PropTypes.shape({
       time: PropTypes.string,
       value: PropTypes.string,
+      name: PropTypes.string,
+      isoDate: PropTypes.string,
     })
   ),
   onClose: PropTypes.func.isRequired,
@@ -123,6 +125,7 @@ function HistoryItem({ time, value, name, isoDate, onClose, editingId, setEditin
           <span className='time'>{time}</span>
           <input
             type='text'
+            className='input'
             value={newName}
             onChange={e => setNewName(e.target.value)}
             autoFocus
@@ -212,7 +215,7 @@ function HistoryItem({ time, value, name, isoDate, onClose, editingId, setEditin
         <IconFavorite />
       </button>
       <button type='button' className='edit' onClick={onEdit} title='Rename'>
-        <IconEdit />
+        <IconEditSlim />
       </button>
     </li>
   )

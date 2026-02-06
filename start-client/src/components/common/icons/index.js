@@ -19,6 +19,7 @@ export { IconEnter } from './Icons'
 export { IconHistory } from './Icons'
 export { IconFavorite } from './Icons'
 export { IconEdit } from './Icons'
+export { IconEditSlim } from './Icons'
 export { IconDelete } from './Icons'
 
 export { IconSpring } from './IconSpring'

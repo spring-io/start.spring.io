@@ -35,7 +35,6 @@ $w: 1000px;
     padding-bottom: $spring-8points * 2;
     max-height: 70vh;
     overflow: auto;
-
     .list {
       .date {
         font-weight: bold;
@@ -60,7 +59,6 @@ $w: 1000px;
         padding: 5px 10px;
         color: $light-color;
         padding-right: 90px;
-
         &:hover {
           background: color.adjust($light-background-seconday, $lightness: 2%);
           a {
@@ -75,15 +73,12 @@ $w: 1000px;
         background: $light-background-seconday;
         border-radius: 3px;
 
-        input {
+        input.input {
           flex: 1;
+          min-width: 0;
           margin-left: 10px;
           margin-right: 10px;
-          padding: 8px;
-          border: 1px solid #ccc;
-          border-radius: 3px;
-          font-size: 14px;
-          line-height: 1.4;
+          background: $light-background-seconday;
         }
 
         button {
@@ -139,11 +134,9 @@ $w: 1000px;
       svg {
         display: block;
       }
-
       &:hover {
         opacity: 0.8;
       }
-
       &:focus {
         opacity: 1;
       }
@@ -183,7 +176,6 @@ $w: 1000px;
       line-height: $spring-8points * 2.5;
       font-weight: 600;
     }
-
     .button {
       position: absolute;
       top: 11px;
@@ -193,7 +185,6 @@ $w: 1000px;
       margin-right: 0;
     }
   }
-
   .modal-action {
     text-align: center;
     border-top: 1px solid $light-border;
@@ -213,6 +204,7 @@ $w: 1000px;
 .modal-exit {
   opacity: 1;
 }
+
 .modal-exit-active {
   opacity: 0;
   transition: all 300ms;
