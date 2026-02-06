@@ -73,10 +73,10 @@ class StartApplicationIntegrationTests {
 		RequestEntity<Void> request = RequestEntity.get(new URI("/metadata/config"))
 			.accept(MediaType.APPLICATION_JSON)
 			.build();
-		ResponseEntity<String> response = this.restTemplate.exchange(request, String.class);
+		ResponseEntity<byte[]> response = this.restTemplate.exchange(request, byte[].class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		InitializrMetadata actual = InitializrMetadataBuilder.create()
-			.withInitializrMetadata(new ByteArrayResource(response.getBody().getBytes()))
+			.withInitializrMetadata(new ByteArrayResource(response.getBody()))
 			.build();
 		assertThat(actual).isNotNull();
 		InitializrMetadata expected = this.metadataProvider.get();
