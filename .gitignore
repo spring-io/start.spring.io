@@ -27,6 +27,7 @@ target
 
 ### Visual Studio Code ###
 .vscode/
+.DS_Store
 
 ### Start Client ###
 /start-client/public/
