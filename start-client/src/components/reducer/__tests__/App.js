@@ -172,3 +172,22 @@ describe('COMPLETE action', () => {
     expect(get(result, 'dependencies.list').length).toBe(1)
   })
 })
+
+describe('UPDATE_HISTORY action', () => {
+  it('should rename a history item', () => {
+    state.histories = [
+      { date: '2023-10-27T10:00:00.000Z', value: 'foo=bar' },
+      { date: '2023-10-26T10:00:00.000Z', value: 'baz=qux' },
+    ]
+    const result = reducer(state, {
+      type: 'UPDATE_HISTORY',
+      payload: {
+        date: '2023-10-27T10:00:00.000Z',
+        value: 'foo=bar',
+        name: 'My Project',
+      },
+    })
+    expect(result.histories[0].name).toBe('My Project')
+    expect(result.histories[1].name).toBeUndefined()
+  })
+})

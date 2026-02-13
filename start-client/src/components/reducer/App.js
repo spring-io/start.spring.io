@@ -156,6 +156,23 @@ export function reducer(state, action) {
       localStorage.setItem('histories', JSON.stringify([]))
       return { ...state, histories: [] }
     }
+    case 'UPDATE_HISTORY': {
+      const historyToUpdate = get(action, 'payload')
+      const histories = state.histories.map(item => {
+        if (
+          item.value === historyToUpdate.value &&
+          item.date === historyToUpdate.date
+        ) {
+          return {
+            ...item,
+            name: historyToUpdate.name,
+          }
+        }
+        return item
+      })
+      localStorage.setItem('histories', JSON.stringify(histories))
+      return { ...state, histories }
+    }
     case 'ADD_FAVORITE': {
       const favorites = [
         {
