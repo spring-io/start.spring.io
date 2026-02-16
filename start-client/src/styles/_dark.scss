@@ -35,8 +35,7 @@ body.dark {
     background: $dark-background;
   }
   .colset-main {
-    background: linear-gradient($dark-border, $dark-border) no-repeat center/1px
-      100%;
+    background: linear-gradient($dark-border, $dark-border) no-repeat center/1px 100%;
   }
   hr.divider,
   .dependency-header {
@@ -461,7 +460,8 @@ body.dark {
   }
   .modal-favorite button.edit,
   .modal-favorite button.remove,
-  .modal-share .modal-content button.favorite {
+  .modal-share .modal-content button.favorite,
+  .modal-share .modal-content button.edit {
     color: white;
   }
   .actions .button.clicked {
@@ -477,5 +477,21 @@ body.dark {
   .modal-action {
     background: $dark-background;
     border-top: 1px solid $dark-border;
+  }
+
+  .modal-content .list .item.editing {
+    background: $dark-background-secondary;
+
+    input.input {
+      background: $dark-background-secondary;
+    }
+
+    button {
+      color: white;
+
+      &.cancel .icon-time .st0 {
+        stroke: white;
+      }
+    }
   }
 }
