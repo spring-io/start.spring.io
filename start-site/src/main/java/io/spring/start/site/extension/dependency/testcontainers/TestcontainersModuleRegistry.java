@@ -69,7 +69,7 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive", "spring-ai-vectordb-mongodb-atlas")
 			.customizeBuild(addModule("mongodb", testcontainers, SupportedContainer.MONGODB))
 			.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")));
-		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j")
+		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j", "spring-ai-chat-memory-repository-neo4j")
 			.customizeBuild(addModule("neo4j", testcontainers, SupportedContainer.NEO4J))
 			.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")));
 		builders.add(onDependencies("opentelemetry")
