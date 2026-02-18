@@ -68,7 +68,8 @@ class CassandraProjectGenerationConfiguration {
 
 	private boolean isCassandraEnabled(Build build) {
 		return build.dependencies().has("data-cassandra") || build.dependencies().has("data-cassandra-reactive")
-				|| build.dependencies().has("spring-ai-vectordb-cassandra");
+				|| build.dependencies().has("spring-ai-vectordb-cassandra")
+				|| build.dependencies().has("spring-ai-chat-memory-repository-cassandra");
 	}
 
 }
