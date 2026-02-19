@@ -87,6 +87,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("spring-ai-vectordb-milvus", "milvus"),
 				Arguments.arguments("spring-ai-vectordb-mongodb-atlas", "mongodb"),
 				Arguments.arguments("spring-ai-vectordb-qdrant", "qdrant"),
+				Arguments.arguments("spring-ai-vectordb-typesense", "typesense"),
 				Arguments.arguments("spring-ai-vectordb-weaviate", "weaviate"));
 	}
 

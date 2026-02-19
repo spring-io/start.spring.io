@@ -41,6 +41,7 @@ io.spring.start.site.extension.dependency.springai.SpringAiOllamaProjectGenerati
 io.spring.start.site.extension.dependency.springai.SpringAiProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiQdrantProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiTestcontainersProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiTypesenseProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiWeaviateProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springamqp.SpringAmqpProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springazure.SpringAzureDockerComposeProjectGenerationConfiguration,\
