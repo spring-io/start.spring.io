@@ -82,7 +82,7 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("kafka", "kafka-streams")
 			.customizeBuild(addModule("kafka", testcontainers, SupportedContainer.KAFKA))
 			.customizeHelpDocument(addReferenceLink("Kafka Modules", "kafka/")));
-		builders.add(onDependencies("mariadb")
+		builders.add(onDependencies("mariadb", "spring-ai-vectordb-mariadb")
 			.customizeBuild(addModule("mariadb", testcontainers, SupportedContainer.MARIADB))
 			.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")));
 		builders
