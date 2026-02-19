@@ -114,6 +114,9 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("spring-ai-vectordb-qdrant")
 			.customizeBuild(addModule("qdrant", testcontainers, SupportedContainer.QDRANT))
 			.customizeHelpDocument(addReferenceLink("Qdrant Module", "testcontainers/")));
+		builders.add(onDependencies("spring-ai-vectordb-typesense")
+			.customizeBuild(addModule("typesense", testcontainers, SupportedContainer.TYPESENSE))
+			.customizeHelpDocument(addReferenceLink("Typesense Module", "testcontainers/")));
 		builders.add(onDependencies("spring-ai-vectordb-weaviate")
 			.customizeBuild(addModule("weaviate", testcontainers, SupportedContainer.WEAVIATE))
 			.customizeHelpDocument(addReferenceLink("Weaviate Module", "testcontainers/")));
