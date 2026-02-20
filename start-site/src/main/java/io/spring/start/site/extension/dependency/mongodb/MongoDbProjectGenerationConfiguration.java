@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Moritz Halbritter
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @Configuration(proxyBeanMethods = false)
 class MongoDbProjectGenerationConfiguration {
@@ -66,7 +67,8 @@ class MongoDbProjectGenerationConfiguration {
 	}
 
 	private boolean isMongoEnabled(Build build) {
-		return build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive");
+		return build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive")
+				|| build.dependencies().has("session-data-mongodb");
 	}
 
 }
