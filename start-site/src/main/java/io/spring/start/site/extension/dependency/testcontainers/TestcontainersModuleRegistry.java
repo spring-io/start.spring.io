@@ -57,7 +57,8 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")));
 		builders.add(onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault", testcontainers))
 			.customizeHelpDocument(addReferenceLink("Vault Module", "vault/")));
-		builders.add(onDependencies("data-cassandra", "data-cassandra-reactive", "spring-ai-vectordb-cassandra")
+		builders.add(onDependencies("data-cassandra", "data-cassandra-reactive", "spring-ai-vectordb-cassandra",
+				"spring-ai-chat-memory-repository-cassandra")
 			.customizeBuild(addModule("cassandra", testcontainers, SupportedContainer.CASSANDRA))
 			.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")));
 		builders.add(onDependencies("data-couchbase", "data-couchbase-reactive")
