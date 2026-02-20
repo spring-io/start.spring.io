@@ -43,9 +43,9 @@ class MariaDbProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer mariaDbServiceConnectionsCustomizer(Build build, DockerServiceResolver serviceResolver,
 			Testcontainers testcontainers) {
-		Container container = testcontainers.getContainer(SupportedContainer.MARIADB);
 		return (serviceConnections) -> {
 			if (isMariaDbEnabled(build)) {
+				Container container = testcontainers.getContainer(SupportedContainer.MARIADB);
 				serviceResolver.doWith("mariaDb", (service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("mariaDb", service, container.className(), container.generic())));
 			}
