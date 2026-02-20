@@ -24,6 +24,7 @@ import io.spring.initializr.generator.version.VersionRange;
  * Manages testcontainers with their container names and modules.
  *
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 public class Testcontainers {
 
@@ -113,6 +114,9 @@ public class Testcontainers {
 			case RABBITMQ -> (hasTc2())
 					? Container.of("org.testcontainers.rabbitmq.RabbitMQContainer", false, "testcontainers-rabbitmq")
 					: Container.of("org.testcontainers.containers.RabbitMQContainer", false, "rabbitmq");
+			case TYPESENSE -> (hasTc2())
+					? Container.of("org.testcontainers.typesense.TypesenseContainer", false, "testcontainers-typesense")
+					: Container.of("org.testcontainers.typesense.TypesenseContainer", false, "typesense");
 			case WEAVIATE -> (hasTc2())
 					? Container.of("org.testcontainers.weaviate.WeaviateContainer", false, "testcontainers-weaviate")
 					: Container.of("org.testcontainers.weaviate.WeaviateContainer", false, "weaviate");
@@ -221,6 +225,10 @@ public class Testcontainers {
 		 * RabbitMQ.
 		 */
 		RABBITMQ,
+		/**
+		 * Typesense.
+		 */
+		TYPESENSE,
 		/**
 		 * Weaviate.
 		 */

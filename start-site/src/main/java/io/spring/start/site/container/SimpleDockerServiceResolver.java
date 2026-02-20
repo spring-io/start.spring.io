@@ -60,6 +60,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("redis", redis());
 		this.dockerServices.put("redisStack", redisStack());
 		this.dockerServices.put("sqlServer", sqlServer());
+		this.dockerServices.put("typesense", typesense());
 		this.dockerServices.put("weaviate", weaviate());
 		this.dockerServices.put("zipkin", zipkin());
 	}
@@ -246,6 +247,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("mcr.microsoft.com/mssql/server")
 			.website("https://mcr.microsoft.com/en-us/product/mssql/server/about/")
 			.randomPort(1433)
+			.build();
+	}
+
+	private static DockerService typesense() {
+		return DockerService.withImageAndTag("typesense/typesense:30.1")
+			.website("https://hub.docker.com/r/typesense/typesense")
+			.randomPort(8108)
 			.build();
 	}
 
