@@ -63,7 +63,8 @@ public class Neo4jProjectGenerationConfiguration {
 	}
 
 	private boolean isNeo4jEnabled(Build build) {
-		return build.dependencies().has("data-neo4j") || build.dependencies().has("spring-ai-vectordb-neo4j");
+		return build.dependencies().has("data-neo4j") || build.dependencies().has("spring-ai-vectordb-neo4j")
+				|| build.dependencies().has("spring-ai-chat-memory-repository-neo4j");
 	}
 
 }
