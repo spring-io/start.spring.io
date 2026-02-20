@@ -251,7 +251,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	}
 
 	private static DockerService typesense() {
-		return DockerService.withImageAndTag("typesense/typesense")
+		return DockerService.withImageAndTag("typesense/typesense:30.1")
 			.website("https://hub.docker.com/r/typesense/typesense")
 			.randomPort(8108)
 			.build();
