@@ -83,6 +83,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		return Stream.of(Arguments.arguments("spring-ai-chat-memory-repository-cassandra", "cassandra"),
 				Arguments.arguments("spring-ai-chat-memory-repository-neo4j", "neo4j"),
 				Arguments.arguments("spring-ai-vectordb-chroma", "chromadb"),
+				Arguments.arguments("spring-ai-vectordb-mariadb", "mariadb"),
 				Arguments.arguments("spring-ai-vectordb-milvus", "milvus"),
 				Arguments.arguments("spring-ai-vectordb-mongodb-atlas", "mongodb"),
 				Arguments.arguments("spring-ai-vectordb-qdrant", "qdrant"),
