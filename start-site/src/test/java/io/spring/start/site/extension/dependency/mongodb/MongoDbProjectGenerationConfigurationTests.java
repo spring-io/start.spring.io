@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link MongoDbProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 class MongoDbProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -54,6 +55,12 @@ class MongoDbProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void doesNotFailWhenBothMongoDbAndReactiveMongoDbAreSelected() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-mongodb", "data-mongodb-reactive");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
+	}
+
+	@Test
+	void createsMongoDbServiceWhenSession() {
+		ProjectRequest request = createProjectRequest("docker-compose", "data-mongodb-reactive");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
 	}
 
