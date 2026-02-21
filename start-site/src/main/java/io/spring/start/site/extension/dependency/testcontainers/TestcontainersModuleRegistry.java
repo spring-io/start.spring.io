@@ -67,7 +67,8 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("data-elasticsearch", "spring-ai-vectordb-elasticsearch")
 			.customizeBuild(addModule("elasticsearch", testcontainers, SupportedContainer.ELASTICSEARCH))
 			.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")));
-		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive", "spring-ai-vectordb-mongodb-atlas")
+		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive", "spring-ai-vectordb-mongodb-atlas",
+				"session-data-mongodb")
 			.customizeBuild(addModule("mongodb", testcontainers, SupportedContainer.MONGODB))
 			.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")));
 		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j", "spring-ai-chat-memory-repository-neo4j")
