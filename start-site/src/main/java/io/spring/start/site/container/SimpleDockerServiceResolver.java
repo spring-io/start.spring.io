@@ -73,8 +73,8 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	}
 
 	private static DockerService activeMQClassic() {
-		return DockerService.withImageAndTag("apache/activemq-classic")
-			.website("https://hub.docker.com/r/apache/activemq-classic")
+		return DockerService.withImageAndTag("apache/activemq")
+			.website("https://hub.docker.com/r/apache/activemq")
 			.randomPort(61616)
 			.build();
 	}

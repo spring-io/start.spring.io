@@ -1,5 +1,5 @@
 services:
   activemq:
-    image: 'apache/activemq-classic:latest'
+    image: 'apache/activemq:latest'
     ports:
       - '61616'
