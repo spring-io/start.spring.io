@@ -471,6 +471,36 @@ initializr:
               href: https://github.com/wimdeblauwe/htmx-spring-boot
             - rel: guide
               href: https://www.youtube.com/watch?v=j-rfPoXe5aE
+        - name: SpringDoc OpenAPI (WebMVC UI)
+          id: springdoc-openapi-webmvc
+          groupId: org.springdoc
+          artifactId: springdoc-openapi-starter-webmvc-ui
+          description: Generate OpenAPI 3 specification and Swagger UI for Spring WebMVC applications.
+          compatibilityRange: "[3.5.0,4.1.0-M1)"
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              version: 2.8.15
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              version: 3.0.1
+          starter: false
+          links:
+            - rel: reference
+              href: https://springdoc.org/
+        - name: SpringDoc OpenAPI (WebFlux UI)
+          id: springdoc-openapi-webflux
+          groupId: org.springdoc
+          artifactId: springdoc-openapi-starter-webflux-ui
+          description: Generate OpenAPI 3 specification and Swagger UI for Spring WebFlux applications.
+          compatibilityRange: "[3.5.0,4.1.0-M1)"
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              version: 2.8.15
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              version: 3.0.1
+          starter: false
+          links:
+            - rel: reference
+              href: https://springdoc.org/
     - name: Template Engines
       content:
         - name: Thymeleaf
