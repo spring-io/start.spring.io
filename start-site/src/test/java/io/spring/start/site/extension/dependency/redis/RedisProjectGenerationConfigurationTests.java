@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link RedisProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 class RedisProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -54,6 +55,12 @@ class RedisProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void doesNotFailWhenBothRedisAndReactiveRedisAreSelected() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-redis", "data-redis-reactive");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis.yaml"));
+	}
+
+	@Test
+	void createsRedisServiceWhenSession() {
+		ProjectRequest request = createProjectRequest("docker-compose", "session-data-redis");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis.yaml"));
 	}
 
