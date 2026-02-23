@@ -34,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link SpringModulithBuildCustomizer}.
  *
  * @author Oliver Drotbohm
+ * @author Eddú Meléndez
  */
 class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -65,7 +66,7 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "jdbc", "jpa", "mongodb" })
+	@ValueSource(strings = { "jdbc", "jpa", "mongodb", "neo4j" })
 	void presenceOfSpringDataModuleAddsModuleEventStarter(String store) {
 		Build build = createBuild("modulith");
 		build.dependencies().add("data-" + store);

@@ -33,13 +33,14 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  *
  * @author Oliver Drotbohm
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final Collection<String> OBSERVABILITY_DEPENDENCIES = List.of("actuator", "datadog", "graphite",
 			"influx", "new-relic", "otlp-metrics", "prometheus", "wavefront", "zipkin");
 
-	private static final Collection<String> PERSISTENCE = List.of("jdbc", "jpa", "mongodb");
+	private static final Collection<String> PERSISTENCE = List.of("jdbc", "jpa", "mongodb", "neo4j");
 
 	private static final Collection<String> BROKERS = List.of("activemq", "amqp", "artemis", "kafka");
 
