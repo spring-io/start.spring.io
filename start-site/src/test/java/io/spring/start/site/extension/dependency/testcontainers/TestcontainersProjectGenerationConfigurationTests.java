@@ -120,6 +120,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("data-mongodb", "https://java.testcontainers.org/modules/databases/mongodb/"),
 				Arguments.arguments("data-mongodb-reactive",
 						"https://java.testcontainers.org/modules/databases/mongodb/"),
+				Arguments.arguments("session-data-mongodb",
+						"https://java.testcontainers.org/modules/databases/mongodb/"),
 				Arguments.arguments("data-neo4j", "https://java.testcontainers.org/modules/databases/neo4j/"),
 				Arguments.arguments("data-r2dbc", "https://java.testcontainers.org/modules/databases/r2dbc/"),
 				Arguments.arguments("db2", "https://java.testcontainers.org/modules/databases/db2"),
