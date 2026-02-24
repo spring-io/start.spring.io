@@ -75,6 +75,17 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency(BOOT_VERSION, "testcontainers"));
 	}
 
+	@Test
+	void buildWithSpringBootAndTestcontainersSpringAi2Module() {
+		String springBootDependencyId = "spring-ai-chat-memory-repository-redis";
+		SupportedBootVersion bootVersion = SupportedBootVersion.V4_0;
+		assertThat(generateProject(bootVersion, "testcontainers", springBootDependencyId)).mavenBuild()
+			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
+			.hasDependency(getDependency(springBootDependencyId)
+				.resolve(Version.parse(SupportedBootVersion.latest().getVersion())))
+			.hasDependency(getDependency(bootVersion, "testcontainers"));
+	}
+
 	static Stream<Arguments> supportedTestcontainersActiveMQEntriesBuild() {
 		return Stream.of(Arguments.arguments("activemq", "activemq"), Arguments.arguments("artemis", "activemq"));
 	}
@@ -433,7 +444,11 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	}
 
 	private ProjectStructure generateProject(String... dependencies) {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, dependencies);
+		return generateProject(BOOT_VERSION, dependencies);
+	}
+
+	private ProjectStructure generateProject(SupportedBootVersion bootVersion, String... dependencies) {
+		ProjectRequest request = createProjectRequest(bootVersion, dependencies);
 		request.setType("maven-build");
 		return generateProject(request);
 	}

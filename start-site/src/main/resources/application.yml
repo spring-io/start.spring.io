@@ -2169,6 +2169,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
+        - name: Redis Chat Memory Repository
+          id: spring-ai-chat-memory-repository-redis
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-chat-memory-repository-redis
+          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          description: Spring AI support for Redis based chat memory.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
         - name: Oracle Vector Database
           id: spring-ai-vectordb-oracle
           group-id: org.springframework.ai
