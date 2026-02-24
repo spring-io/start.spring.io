@@ -50,6 +50,7 @@ io.spring.start.site.extension.dependency.springazure.SpringAzureTestcontainersP
 io.spring.start.site.extension.dependency.springboot.SpringBootProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springcloud.SpringCloudProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springdata.SpringDataProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springdocopenapi.SpringDocOpenApiProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springgrpc.SpringGrpcProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springintegration.SpringIntegrationProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springkafka.SpringKafkaProjectGenerationConfiguration,\
