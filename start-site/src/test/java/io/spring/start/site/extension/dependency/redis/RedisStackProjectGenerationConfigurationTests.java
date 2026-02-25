@@ -48,4 +48,11 @@ class RedisStackProjectGenerationConfigurationTests extends AbstractExtensionTes
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis-stack.yaml"));
 	}
 
+	@Test
+	void createsRedisStackServiceWithChatMemory() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "docker-compose",
+				"spring-ai-chat-memory-repository-redis");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis-stack.yaml"));
+	}
+
 }
