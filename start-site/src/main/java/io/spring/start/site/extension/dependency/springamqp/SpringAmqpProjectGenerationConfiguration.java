@@ -16,9 +16,14 @@
 
 package io.spring.start.site.extension.dependency.springamqp;
 
+import java.util.function.Consumer;
+
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.container.docker.compose.ComposeConfig;
+import io.spring.initializr.generator.container.docker.compose.ComposeService;
+import io.spring.initializr.generator.container.docker.compose.ComposeServiceConfig;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
@@ -68,18 +73,36 @@ class SpringAmqpProjectGenerationConfiguration {
 		@ConditionalOnRequestedDependency("docker-compose")
 		ComposeFileCustomizer rabbitComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
 			return (composeFile) -> {
-				if (isAmqpEnabled(build)) {
-					serviceResolver.doWith("rabbit", (service) -> composeFile.services()
-						.add("rabbitmq",
-								service.andThen((builder) -> builder.environment("RABBITMQ_DEFAULT_USER", "myuser")
-									.environment("RABBITMQ_DEFAULT_PASS", "secret")
-									.ports(5672))));
-				}
+				serviceResolver.doWith("rabbit", (service) -> {
+					if (isAmqpEnabled(build)) {
+						Consumer<ComposeService.Builder> composeService = (builder) -> builder
+							.environment("RABBITMQ_DEFAULT_USER", "myuser")
+							.environment("RABBITMQ_DEFAULT_PASS", "secret")
+							.ports(5672);
+						if (isAmqpStreamsEnabled(build)) {
+							composeFile.configs()
+								.add("plugins", ComposeConfig.Builder.forContent("[rabbitmq_stream].").build());
+							composeFile.services()
+								.add("rabbitmq",
+										service.andThen(composeService)
+											.andThen((builder) -> builder.ports(5552)
+												.config(ComposeServiceConfig.ofLong("plugins",
+														"/etc/rabbitmq/enabled_plugins"))));
+						}
+						else {
+							composeFile.services().add("rabbitmq", service.andThen(composeService));
+						}
+					}
+				});
 			};
 		}
 
 		private boolean isAmqpEnabled(Build build) {
-			return build.dependencies().has("amqp") || build.dependencies().has("amqp-streams");
+			return build.dependencies().has("amqp");
+		}
+
+		private boolean isAmqpStreamsEnabled(Build build) {
+			return build.dependencies().has("amqp-streams");
 		}
 
 	}

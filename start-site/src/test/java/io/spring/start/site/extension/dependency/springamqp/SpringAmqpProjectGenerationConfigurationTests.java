@@ -84,7 +84,7 @@ class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTes
 	@Test
 	void springAmqpStreamsWithDockerCompose() {
 		ProjectRequest request = createProjectRequest("docker-compose", "amqp-streams");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/rabbitmq.yaml"));
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/rabbitmq-streams.yaml"));
 	}
 
 }
