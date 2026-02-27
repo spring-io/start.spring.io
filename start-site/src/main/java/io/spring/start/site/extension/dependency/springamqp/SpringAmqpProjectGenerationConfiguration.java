@@ -16,8 +16,14 @@
 
 package io.spring.start.site.extension.dependency.springamqp;
 
+import java.util.function.Consumer;
+
+import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.container.docker.compose.ComposeConfig;
+import io.spring.initializr.generator.container.docker.compose.ComposeService;
+import io.spring.initializr.generator.container.docker.compose.ComposeServiceConfig;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
@@ -34,39 +40,69 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on Spring AMQP.
  *
  * @author Stephane Nicoll
+ * @author Eddú Meléndez
  */
 @ProjectGenerationConfiguration
 class SpringAmqpProjectGenerationConfiguration {
 
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnRequestedDependency("amqp")
 	static class AmqpConfiguration {
 
 		@Bean
 		@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1]")
+		@ConditionalOnRequestedDependency("amqp")
 		SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
 			return new SpringRabbitTestBuildCustomizer();
 		}
 
 		@Bean
 		@ConditionalOnRequestedDependency("testcontainers")
-		ServiceConnectionsCustomizer rabbitServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
-				Testcontainers testcontainers) {
-			Container container = testcontainers.getContainer(SupportedContainer.RABBITMQ);
-			return (serviceConnections) -> serviceResolver
-				.doWith("rabbit", (service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("rabbit", service, container.className(), container.generic())));
+		ServiceConnectionsCustomizer rabbitServiceConnectionsCustomizer(Build build,
+				DockerServiceResolver serviceResolver, Testcontainers testcontainers) {
+			return (serviceConnections) -> {
+				if (isAmqpEnabled(build)) {
+					Container container = testcontainers.getContainer(SupportedContainer.RABBITMQ);
+					serviceResolver.doWith("rabbit",
+							(service) -> serviceConnections.addServiceConnection(ServiceConnection.ofContainer("rabbit",
+									service, container.className(), container.generic())));
+				}
+			};
 		}
 
 		@Bean
 		@ConditionalOnRequestedDependency("docker-compose")
-		ComposeFileCustomizer rabbitComposeFileCustomizer(DockerServiceResolver serviceResolver) {
-			return (composeFile) -> serviceResolver.doWith("rabbit",
-					(service) -> composeFile.services()
-						.add("rabbitmq",
-								service.andThen((builder) -> builder.environment("RABBITMQ_DEFAULT_USER", "myuser")
-									.environment("RABBITMQ_DEFAULT_PASS", "secret")
-									.ports(5672))));
+		ComposeFileCustomizer rabbitComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
+			return (composeFile) -> {
+				serviceResolver.doWith("rabbit", (service) -> {
+					if (isAmqpEnabled(build)) {
+						Consumer<ComposeService.Builder> composeService = (builder) -> builder
+							.environment("RABBITMQ_DEFAULT_USER", "myuser")
+							.environment("RABBITMQ_DEFAULT_PASS", "secret")
+							.ports(5672);
+						if (isAmqpStreamsEnabled(build)) {
+							composeFile.configs()
+								.add("plugins", ComposeConfig.Builder.forContent("[rabbitmq_stream].").build());
+							composeFile.services()
+								.add("rabbitmq",
+										service.andThen(composeService)
+											.andThen((builder) -> builder.ports(5552)
+												.config(ComposeServiceConfig.ofLong("plugins",
+														"/etc/rabbitmq/enabled_plugins"))));
+						}
+						else {
+							composeFile.services().add("rabbitmq", service.andThen(composeService));
+						}
+					}
+				});
+			};
+		}
+
+		private boolean isAmqpEnabled(Build build) {
+			return build.dependencies().has("amqp");
+		}
+
+		private boolean isAmqpStreamsEnabled(Build build) {
+			return build.dependencies().has("amqp-streams");
 		}
 
 	}
