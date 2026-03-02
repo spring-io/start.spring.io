@@ -519,12 +519,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/servlet.html#web.servlet.spring-mvc.template-engines
-        - name: JTE
+        - name: jte
           id: jte
           description: Secure and lightweight template engine for Java and Kotlin.
+          compatibilityRange: "[3.5.0,4.1.0-M1)"
           groupId: gg.jte
-          artifactId: jte-spring-boot-starter-3
-          version: 3.1.16
+          artifactId: jte-spring-boot-starter-4
+          version: 3.2.3
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              artifact-id: jte-spring-boot-starter-3
           links:
             - rel: reference
               href: https://jte.gg/

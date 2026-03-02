@@ -31,7 +31,7 @@ import io.spring.initializr.generator.spring.scm.git.GitIgnoreCustomizer;
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link ProjectGenerationConfiguration} for JTE.
+ * {@link ProjectGenerationConfiguration} for jte.
  *
  * @author Moritz Halbritter
  */
@@ -54,7 +54,7 @@ class JteProjectGenerationConfiguration {
 
 	@Bean
 	GitIgnoreCustomizer jteGitIgnoreCustomizer() {
-		return (gitignore) -> gitignore.addSectionIfAbsent("JTE").add("/jte-classes/");
+		return (gitignore) -> gitignore.addSectionIfAbsent("jte").add("/jte-classes/");
 	}
 
 	@Bean

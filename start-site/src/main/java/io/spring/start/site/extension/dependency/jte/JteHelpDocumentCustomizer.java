@@ -22,7 +22,7 @@ import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 
 /**
- * {@link HelpDocumentCustomizer} to add a JTE section.
+ * {@link HelpDocumentCustomizer} to add a jte section.
  *
  * @author Moritz Halbritter
  */

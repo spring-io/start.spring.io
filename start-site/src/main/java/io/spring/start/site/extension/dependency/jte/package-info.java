@@ -15,6 +15,6 @@
  */
 
 /**
- * Extensions for generation of projects that depend on JTE.
+ * Extensions for generation of projects that depend on jte.
  */
 package io.spring.start.site.extension.dependency.jte;

@@ -21,7 +21,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * {@link BuildCustomizer} to configure the JTE Gradle plugin.
+ * {@link BuildCustomizer} to configure the jte Gradle plugin.
  *
  * @author Moritz Halbritter
  */
