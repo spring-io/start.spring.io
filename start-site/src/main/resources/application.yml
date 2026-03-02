@@ -476,7 +476,7 @@ initializr:
           groupId: org.springdoc
           artifactId: springdoc-openapi-starter-webmvc-ui
           description: Add OpenAPI / Swagger documentation to web-based Spring applications.
-          starter: false
+          starter: true
           compatibilityRange: "[3.5.0,4.1.0-M1)"
           mappings:
             - compatibilityRange: "[3.5.0,4.0.0)"
