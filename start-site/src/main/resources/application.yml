@@ -184,6 +184,10 @@ initializr:
             version: 25.0.6
     platform:
       compatibilityRange: "3.5.0"
+    repositories:
+      shibboleth-releases:
+        name: Shibboleth Releases Repository
+        url: "https://build.shibboleth.net/maven/releases"
   dependencies:
     - name: Developer Tools
       content:
@@ -582,6 +586,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-security.html#web.security.oauth2.server
+        - name: SAML 2.0
+          id: security-saml2
+          description: Spring Boot integration for Spring Security's SAML 2.0 features.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-security-saml2
+          compatibilityRange: "4.0.0"
+          repository: shibboleth-releases
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-security.html#web.security.saml2
         - name: WebAuthn for Spring Security
           id: spring-security-webauthn
           starter: false
