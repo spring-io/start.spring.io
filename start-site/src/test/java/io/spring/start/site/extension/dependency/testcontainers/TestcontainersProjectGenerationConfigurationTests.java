@@ -75,15 +75,30 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency(BOOT_VERSION, "testcontainers"));
 	}
 
+	@Test
+	void buildWithSpringBootAndTestcontainersSpringAi2Module() {
+		String springBootDependencyId = "spring-ai-chat-memory-repository-redis";
+		SupportedBootVersion bootVersion = SupportedBootVersion.V4_0;
+		assertThat(generateProject(bootVersion, "testcontainers", springBootDependencyId)).mavenBuild()
+			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
+			.hasDependency(getDependency(springBootDependencyId)
+				.resolve(Version.parse(SupportedBootVersion.latest().getVersion())))
+			.hasDependency(getDependency(bootVersion, "testcontainers"));
+	}
+
 	static Stream<Arguments> supportedTestcontainersActiveMQEntriesBuild() {
 		return Stream.of(Arguments.arguments("activemq", "activemq"), Arguments.arguments("artemis", "activemq"));
 	}
 
 	static Stream<Arguments> supportedTestcontainersSpringAiEntriesBuild() {
-		return Stream.of(Arguments.arguments("spring-ai-vectordb-chroma", "chromadb"),
+		return Stream.of(Arguments.arguments("spring-ai-chat-memory-repository-cassandra", "cassandra"),
+				Arguments.arguments("spring-ai-chat-memory-repository-neo4j", "neo4j"),
+				Arguments.arguments("spring-ai-vectordb-chroma", "chromadb"),
+				Arguments.arguments("spring-ai-vectordb-mariadb", "mariadb"),
 				Arguments.arguments("spring-ai-vectordb-milvus", "milvus"),
 				Arguments.arguments("spring-ai-vectordb-mongodb-atlas", "mongodb"),
 				Arguments.arguments("spring-ai-vectordb-qdrant", "qdrant"),
+				Arguments.arguments("spring-ai-vectordb-typesense", "typesense"),
 				Arguments.arguments("spring-ai-vectordb-weaviate", "weaviate"));
 	}
 
@@ -115,6 +130,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("data-elasticsearch", "https://java.testcontainers.org/modules/elasticsearch/"),
 				Arguments.arguments("data-mongodb", "https://java.testcontainers.org/modules/databases/mongodb/"),
 				Arguments.arguments("data-mongodb-reactive",
+						"https://java.testcontainers.org/modules/databases/mongodb/"),
+				Arguments.arguments("session-data-mongodb",
 						"https://java.testcontainers.org/modules/databases/mongodb/"),
 				Arguments.arguments("data-neo4j", "https://java.testcontainers.org/modules/databases/neo4j/"),
 				Arguments.arguments("data-r2dbc", "https://java.testcontainers.org/modules/databases/r2dbc/"),
@@ -427,7 +444,11 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	}
 
 	private ProjectStructure generateProject(String... dependencies) {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, dependencies);
+		return generateProject(BOOT_VERSION, dependencies);
+	}
+
+	private ProjectStructure generateProject(SupportedBootVersion bootVersion, String... dependencies) {
+		ProjectRequest request = createProjectRequest(bootVersion, dependencies);
 		request.setType("maven-build");
 		return generateProject(request);
 	}

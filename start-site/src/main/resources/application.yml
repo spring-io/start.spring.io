@@ -19,14 +19,9 @@ server:
     enabled: true
     mime-types: application/json,text/css,text/html
     min-response-size: 2048
-  error:
-    include-message: always
   forward-headers-strategy: native
 
 spring:
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
   task:
     execution:
       thread-name-prefix: initializr-
@@ -34,6 +29,8 @@ spring:
     resources:
       cache:
         use-last-modified: false
+    error:
+      include-message: always
 
 initializr:
   stats:
@@ -47,16 +44,18 @@ initializr:
         versionProperty: datasource-micrometer.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 1.3.0
+            version: 1.3.1
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 2.1.0
+            version: 2.1.1
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
         versionProperty: spring-boot-admin.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 3.5.7
+            version: 3.5.8
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+            version: 4.0.2
       netflix-dgs:
         groupId: com.netflix.graphql.dgs
         artifactId: graphql-dgs-platform-dependencies
@@ -113,6 +112,8 @@ initializr:
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
             version: 6.1.0
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+            version: 7.0.0
       spring-cloud-gcp:
         groupId: com.google.cloud
         artifactId: spring-cloud-gcp-dependencies
@@ -144,11 +145,11 @@ initializr:
         versionProperty: spring-modulith.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 1.4.7
+            version: 1.4.8
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 2.0.2
+            version: 2.0.3
           - compatibilityRange: "[4.1.0-M1,4.2.0-M1)"
-            version: 2.1.0-M1
+            version: 2.1.0-M2
       spring-shell:
         groupId: org.springframework.shell
         artifactId: spring-shell-dependencies
@@ -171,18 +172,22 @@ initializr:
         versionProperty: timefold-solver.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 1.30.0
+            version: 1.32.0
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 24.9.10
+            version: 24.9.13
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 25.0.4
+            version: 25.0.7
     platform:
       compatibilityRange: "3.5.0"
+    repositories:
+      shibboleth-releases:
+        name: Shibboleth Releases Repository
+        url: "https://build.shibboleth.net/maven/releases"
   dependencies:
     - name: Developer Tools
       content:
@@ -470,6 +475,23 @@ initializr:
               href: https://github.com/wimdeblauwe/htmx-spring-boot
             - rel: guide
               href: https://www.youtube.com/watch?v=j-rfPoXe5aE
+        - name: SpringDoc OpenAPI
+          id: springdoc-openapi
+          groupId: org.springdoc
+          artifactId: springdoc-openapi-starter-webmvc-ui
+          description: Add OpenAPI / Swagger documentation to web-based Spring applications.
+          starter: true
+          compatibilityRange: "[3.5.0,4.1.0-M1)"
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              version: 2.8.16
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              version: 3.0.2
+          links:
+            - rel: reference
+              href: https://springdoc.org/
+            - rel: guide
+              href: https://github.com/springdoc/springdoc-openapi-demos/
     - name: Template Engines
       content:
         - name: Thymeleaf
@@ -501,12 +523,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/servlet.html#web.servlet.spring-mvc.template-engines
-        - name: JTE
+        - name: jte
           id: jte
           description: Secure and lightweight template engine for Java and Kotlin.
+          compatibilityRange: "[3.5.0,4.1.0-M1)"
           groupId: gg.jte
-          artifactId: jte-spring-boot-starter-3
-          version: 3.1.16
+          artifactId: jte-spring-boot-starter-4
+          version: 3.2.3
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              artifact-id: jte-spring-boot-starter-3
           links:
             - rel: reference
               href: https://jte.gg/
@@ -560,6 +586,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-security.html#web.security.oauth2.server
+        - name: SAML 2.0
+          id: security-saml2
+          description: Spring Boot integration for Spring Security's SAML 2.0 features.
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-security-saml2
+          compatibilityRange: "4.0.0"
+          repository: shibboleth-releases
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/reference/web/spring-security.html#web.security.saml2
         - name: WebAuthn for Spring Security
           id: spring-security-webauthn
           starter: false
@@ -1038,7 +1074,7 @@ initializr:
           compatibilityRange: "[3.5.0,4.0.0)"
           mappings:
             - compatibilityRange: "[3.5.0,4.0.0)"
-              version: 4.17.0
+              version: 4.18.0
           description: Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
           groupId: org.apache.camel.springboot
           artifactId: camel-spring-boot-starter
@@ -1128,16 +1164,29 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-shell/reference/index.html
-        - name: Spring gRPC
-          id: spring-grpc
+        - name: Spring gRPC Server
+          id: spring-grpc-server
           groupId: org.springframework.grpc
-          artifactId: spring-grpc-spring-boot-starter
+          artifactId: spring-grpc-server-spring-boot-starter
           compatibilityRange: "[4.0.0,4.1.0-M1)"
-          description: Support for gRPC, a high performance, open source universal RPC framework.
+          description: Server support for gRPC, a high performance, open source universal RPC framework.
           bom: spring-grpc
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-grpc/reference/index.html
+              href: https://docs.spring.io/spring-grpc/reference/server.html
+            - rel: sample
+              href: https://github.com/spring-projects/spring-grpc/tree/main/samples
+              description: Various sample apps using Spring gRPC
+        - name: Spring gRPC Client
+          id: spring-grpc-client
+          groupId: org.springframework.grpc
+          artifactId: spring-grpc-client-spring-boot-starter
+          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          description: Client support for gRPC, a high performance, open source universal RPC framework.
+          bom: spring-grpc
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-grpc/reference/client.html
             - rel: sample
               href: https://github.com/spring-projects/spring-grpc/tree/main/samples
               description: Various sample apps using Spring gRPC
@@ -1166,7 +1215,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-client
           description: Required for your application to register with a Codecentric's Spring Boot Admin Server instance.
-          compatibilityRange: "[3.5.0,4.0.0)"
+          compatibilityRange: "[3.5.0,4.1.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1176,7 +1225,7 @@ initializr:
           groupId: de.codecentric
           artifactId: spring-boot-admin-starter-server
           description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
-          compatibilityRange: "[3.5.0,4.0.0)"
+          compatibilityRange: "[3.5.0,4.1.0-M1)"
           bom: codecentric-spring-boot-admin
           links:
             - rel: reference
@@ -1685,7 +1734,7 @@ initializr:
               href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/transformation.html
     - name: Microsoft Azure
       bom: spring-cloud-azure
-      compatibilityRange: "[3.5.0,4.0.0)"
+      compatibilityRange: "[3.5.0,4.1.0-M1)"
       content:
         - name: Azure Support
           id: azure-support
@@ -1999,6 +2048,20 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html
+        - name: Model Context Protocol Security [Experimental]
+          id: mcp-security
+          group-id: org.springaicommunity
+          artifact-id: mcp-server-security
+          description: Provides security for Spring AI's MCP server and client, and for the OAuth2 Authorization Server.
+          starter: false
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              version: 0.0.6
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              version: 0.1.1
+          links:
+            - rel: reference
+              href: https://github.com/spring-ai-community/mcp-security?tab=readme-ov-file#mcp-security
         - name: Milvus Vector Database
           id: spring-ai-vectordb-milvus
           group-id: org.springframework.ai
@@ -2133,6 +2196,16 @@ initializr:
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-cosmos-db
           description: Spring AI support for Azure Cosmos DB based chat memory.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
+        - name: Redis Chat Memory Repository
+          id: spring-ai-chat-memory-repository-redis
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-chat-memory-repository-redis
+          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          description: Spring AI support for Redis based chat memory.
           bom: spring-ai
           links:
             - rel: reference

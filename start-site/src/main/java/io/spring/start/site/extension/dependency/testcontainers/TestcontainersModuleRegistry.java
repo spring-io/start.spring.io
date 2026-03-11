@@ -57,7 +57,8 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")));
 		builders.add(onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault", testcontainers))
 			.customizeHelpDocument(addReferenceLink("Vault Module", "vault/")));
-		builders.add(onDependencies("data-cassandra", "data-cassandra-reactive", "spring-ai-vectordb-cassandra")
+		builders.add(onDependencies("data-cassandra", "data-cassandra-reactive", "spring-ai-vectordb-cassandra",
+				"spring-ai-chat-memory-repository-cassandra")
 			.customizeBuild(addModule("cassandra", testcontainers, SupportedContainer.CASSANDRA))
 			.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")));
 		builders.add(onDependencies("data-couchbase", "data-couchbase-reactive")
@@ -66,10 +67,11 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("data-elasticsearch", "spring-ai-vectordb-elasticsearch")
 			.customizeBuild(addModule("elasticsearch", testcontainers, SupportedContainer.ELASTICSEARCH))
 			.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")));
-		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive", "spring-ai-vectordb-mongodb-atlas")
+		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive", "spring-ai-vectordb-mongodb-atlas",
+				"session-data-mongodb")
 			.customizeBuild(addModule("mongodb", testcontainers, SupportedContainer.MONGODB))
 			.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")));
-		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j")
+		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j", "spring-ai-chat-memory-repository-neo4j")
 			.customizeBuild(addModule("neo4j", testcontainers, SupportedContainer.NEO4J))
 			.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")));
 		builders.add(onDependencies("opentelemetry")
@@ -82,7 +84,7 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("kafka", "kafka-streams")
 			.customizeBuild(addModule("kafka", testcontainers, SupportedContainer.KAFKA))
 			.customizeHelpDocument(addReferenceLink("Kafka Modules", "kafka/")));
-		builders.add(onDependencies("mariadb")
+		builders.add(onDependencies("mariadb", "spring-ai-vectordb-mariadb")
 			.customizeBuild(addModule("mariadb", testcontainers, SupportedContainer.MARIADB))
 			.customizeHelpDocument(addReferenceLink("MariaDB Module", "databases/mariadb/")));
 		builders
@@ -114,6 +116,9 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("spring-ai-vectordb-qdrant")
 			.customizeBuild(addModule("qdrant", testcontainers, SupportedContainer.QDRANT))
 			.customizeHelpDocument(addReferenceLink("Qdrant Module", "testcontainers/")));
+		builders.add(onDependencies("spring-ai-vectordb-typesense")
+			.customizeBuild(addModule("typesense", testcontainers, SupportedContainer.TYPESENSE))
+			.customizeHelpDocument(addReferenceLink("Typesense Module", "testcontainers/")));
 		builders.add(onDependencies("spring-ai-vectordb-weaviate")
 			.customizeBuild(addModule("weaviate", testcontainers, SupportedContainer.WEAVIATE))
 			.customizeHelpDocument(addReferenceLink("Weaviate Module", "testcontainers/")));

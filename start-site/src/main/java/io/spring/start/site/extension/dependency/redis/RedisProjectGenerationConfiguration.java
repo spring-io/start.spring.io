@@ -30,6 +30,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for generation of projects that depend on Redis.
  *
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 @Configuration(proxyBeanMethods = false)
 class RedisProjectGenerationConfiguration {
@@ -56,7 +57,8 @@ class RedisProjectGenerationConfiguration {
 	}
 
 	private boolean isRedisEnabled(Build build) {
-		return (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive"));
+		return (build.dependencies().has("data-redis") || build.dependencies().has("data-redis-reactive")
+				|| build.dependencies().has("session-data-redis"));
 	}
 
 }

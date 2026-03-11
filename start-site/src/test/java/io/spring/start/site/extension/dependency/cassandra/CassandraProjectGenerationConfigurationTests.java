@@ -69,4 +69,11 @@ class CassandraProjectGenerationConfigurationTests extends AbstractExtensionTest
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
 	}
 
+	@Test
+	void createsCassandraServiceWhenSpringAiChatMemoryIsSelected() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
+				"spring-ai-chat-memory-repository-cassandra");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
+	}
+
 }

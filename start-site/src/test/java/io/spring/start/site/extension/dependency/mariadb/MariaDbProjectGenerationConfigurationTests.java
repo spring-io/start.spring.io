@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link MariaDbProjectGenerationConfiguration}.
  *
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 class MariaDbProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -42,6 +43,12 @@ class MariaDbProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	@Test
 	void createsMariaDbService() {
 		ProjectRequest request = createProjectRequest("docker-compose", "mariadb");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mariadb.yaml"));
+	}
+
+	@Test
+	void createsMariaDbServiceSpringAi() {
+		ProjectRequest request = createProjectRequest("docker-compose", "spring-ai-vectordb-mariadb");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mariadb.yaml"));
 	}
 

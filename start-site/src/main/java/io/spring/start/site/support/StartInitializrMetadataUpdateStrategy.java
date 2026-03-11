@@ -18,11 +18,11 @@ package io.spring.start.site.support;
 
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.DefaultMetadataElement;
 import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
 import io.spring.initializr.web.support.SpringIoInitializrMetadataUpdateStrategy;
+import tools.jackson.databind.json.JsonMapper;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -38,8 +38,8 @@ public class StartInitializrMetadataUpdateStrategy extends SpringIoInitializrMet
 
 	private static final Version MINIMUM_BOOT_VERSION = Version.parse("3.5.0");
 
-	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate, ObjectMapper objectMapper) {
-		super(restTemplate, objectMapper);
+	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate, JsonMapper jsonMapper) {
+		super(restTemplate, jsonMapper);
 	}
 
 	@Override

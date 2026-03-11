@@ -58,10 +58,45 @@ $w: 1000px;
         text-decoration: none;
         padding: 5px 10px;
         color: $light-color;
-        padding-right: 60px;
+        padding-right: 90px;
         &:hover {
           background: color.adjust($light-background-seconday, $lightness: 2%);
           a {
+            opacity: 1;
+          }
+        }
+      }
+      .item.editing {
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        background: $light-background-seconday;
+        border-radius: 3px;
+
+        input.input {
+          flex: 1;
+          min-width: 0;
+          margin-left: 10px;
+          margin-right: 10px;
+          background: $light-background-seconday;
+        }
+
+        button {
+          margin-left: 5px;
+          border: 0;
+          background: transparent;
+          cursor: pointer;
+          opacity: 0.6;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+          &:hover {
             opacity: 1;
           }
         }
@@ -83,7 +118,7 @@ $w: 1000px;
       width: $size;
       right: 10px;
       top: 50%;
-      margin-top: -(calc($size / 2)-4);
+      margin-top: -(calc($size / 2) - 4);
       border: 0 none;
       cursor: pointer;
       background: transparent;
@@ -96,6 +131,31 @@ $w: 1000px;
         box-shadow: none;
         padding: 8px;
       }
+      svg {
+        display: block;
+      }
+      &:hover {
+        opacity: 0.8;
+      }
+      &:focus {
+        opacity: 1;
+      }
+    }
+
+    button.edit {
+      $size: 42px;
+      display: block;
+      position: absolute;
+      width: $size;
+      right: 50px;
+      top: 50%;
+      margin-top: -(calc($size / 2) - 4);
+      border: 0 none;
+      cursor: pointer;
+      background: transparent;
+      opacity: 0.4;
+      @include outline;
+      @include transition(all 150ms);
       svg {
         display: block;
       }
@@ -149,4 +209,3 @@ $w: 1000px;
   opacity: 0;
   transition: all 300ms;
 }
-

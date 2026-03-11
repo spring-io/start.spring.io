@@ -24,8 +24,12 @@ import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
+import io.spring.start.site.extension.dependency.springgrpc.SpringGrpcProjectGenerationConfiguration.SpringGrpcCondition;
 
+import org.springframework.boot.autoconfigure.condition.AnyNestedCondition;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Configuration for generation of projects that depend on Spring gRPC.
@@ -33,7 +37,7 @@ import org.springframework.context.annotation.Bean;
  * @author Moritz Halbritter
  */
 @ProjectGenerationConfiguration
-@ConditionalOnRequestedDependency("spring-grpc")
+@Conditional(SpringGrpcCondition.class)
 class SpringGrpcProjectGenerationConfiguration {
 
 	@Bean
@@ -77,10 +81,34 @@ class SpringGrpcProjectGenerationConfiguration {
 		return new GrpcProjectContributor();
 	}
 
-	@Bean
-	@ConditionalOnRequestedDependency("web")
-	GrpcWebMvcBuildCustomizer grpcMvcBuildCustomizer() {
-		return new GrpcWebMvcBuildCustomizer();
+	@Configuration(proxyBeanMethods = false)
+	@ConditionalOnRequestedDependency("spring-grpc-server")
+	static class GrpcServerConfiguration {
+
+		@Bean
+		@ConditionalOnRequestedDependency("web")
+		GrpcServerWebMvcBuildCustomizer grpcMvcBuildCustomizer() {
+			return new GrpcServerWebMvcBuildCustomizer();
+		}
+
+	}
+
+	static class SpringGrpcCondition extends AnyNestedCondition {
+
+		SpringGrpcCondition() {
+			super(ConfigurationPhase.PARSE_CONFIGURATION);
+		}
+
+		@ConditionalOnRequestedDependency("spring-grpc-server")
+		static class SpringGrpcServer {
+
+		}
+
+		@ConditionalOnRequestedDependency("spring-grpc-client")
+		static class SpringGrpcClient {
+
+		}
+
 	}
 
 }

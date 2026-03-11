@@ -15,6 +15,6 @@
  */
 
 /**
- * Extensions for generation of projects that depend on jte.
+ * Extensions for generation of projects that depend on SpringDoc OpenAPI.
  */
-package io.spring.start.site.extension.dependency.jte;
+package io.spring.start.site.extension.dependency.springdocopenapi;

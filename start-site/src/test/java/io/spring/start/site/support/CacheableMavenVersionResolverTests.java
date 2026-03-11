@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheType;
-import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
+import org.springframework.boot.cache.test.autoconfigure.AutoConfigureCache;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;

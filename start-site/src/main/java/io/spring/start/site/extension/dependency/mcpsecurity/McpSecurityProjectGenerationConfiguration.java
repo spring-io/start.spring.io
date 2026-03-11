@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.jte;
+package io.spring.start.site.extension.dependency.mcpsecurity;
 
-import java.util.Collections;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
-import io.spring.initializr.generator.spring.documentation.HelpDocument;
-import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
+import org.springframework.context.annotation.Bean;
 
 /**
- * {@link HelpDocumentCustomizer} to add a jte section.
+ * {@link ProjectGenerationConfiguration} for projects that depend on MCP security.
  *
  * @author Moritz Halbritter
  */
-class JteHelpDocumentCustomizer implements HelpDocumentCustomizer {
+@ProjectGenerationConfiguration
+@ConditionalOnRequestedDependency("mcp-security")
+class McpSecurityProjectGenerationConfiguration {
 
-	@Override
-	public void customize(HelpDocument document) {
-		document.addSection("jte", Collections.emptyMap());
+	@Bean
+	McpSecurityBuildCustomizer mcpSecurityBuildCustomizer() {
+		return new McpSecurityBuildCustomizer();
 	}
 
 }

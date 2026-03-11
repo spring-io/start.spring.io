@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.neo4j;
+package io.spring.start.site.extension.dependency.springai;
 
-import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -27,44 +27,33 @@ import io.spring.start.site.container.Testcontainers.Container;
 import io.spring.start.site.container.Testcontainers.SupportedContainer;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for generation of projects that depend on Neo4j.
+ * Configuration for generation of projects that depend on Typesense.
  *
  * @author Eddú Meléndez
  */
-@Configuration(proxyBeanMethods = false)
-public class Neo4jProjectGenerationConfiguration {
+@ProjectGenerationConfiguration
+@ConditionalOnRequestedDependency("spring-ai-vectordb-typesense")
+class SpringAiTypesenseProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
-	ServiceConnectionsCustomizer neo4jServiceConnectionsCustomizer(Build build, DockerServiceResolver serviceResolver,
+	ServiceConnectionsCustomizer typesenseServiceConnectionsCustomizer(DockerServiceResolver serviceResolver,
 			Testcontainers testcontainers) {
-		return (serviceConnections) -> {
-			if (isNeo4jEnabled(build)) {
-				Container container = testcontainers.getContainer(SupportedContainer.NEO4J);
-				serviceResolver.doWith("neo4j", (service) -> serviceConnections.addServiceConnection(
-						ServiceConnection.ofContainer("neo4j", service, container.className(), container.generic())));
-			}
-		};
+		Container container = testcontainers.getContainer(SupportedContainer.TYPESENSE);
+		return (serviceConnections) -> serviceResolver
+			.doWith("typesense", (service) -> serviceConnections.addServiceConnection(
+					ServiceConnection.ofContainer("typesense", service, container.className(), container.generic())));
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer neo4jComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
-		return (composeFile) -> {
-			if (isNeo4jEnabled(build)) {
-				serviceResolver.doWith("neo4j", (service) -> composeFile.services()
-					.add("neo4j",
-							service.andThen((builder) -> builder.environment("NEO4J_AUTH", "neo4j/notverysecret"))));
-			}
-		};
-	}
-
-	private boolean isNeo4jEnabled(Build build) {
-		return build.dependencies().has("data-neo4j") || build.dependencies().has("spring-ai-vectordb-neo4j")
-				|| build.dependencies().has("spring-ai-chat-memory-repository-neo4j");
+	ComposeFileCustomizer typesenseComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("typesense",
+				(service) -> composeFile.services()
+					.add("typesense", service.andThen((builder) -> builder.environment("TYPESENSE_API_KEY", "secret")
+						.environment("TYPESENSE_DATA_DIR", "/tmp"))));
 	}
 
 }

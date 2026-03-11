@@ -21,18 +21,21 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * {@link BuildCustomizer} to replace 'spring-grpc-spring-boot-starter' with
+ * {@link BuildCustomizer} to replace 'spring-grpc-server-spring-boot-starter' with
  * 'spring-grpc-server-web-spring-boot-starter' if WebMVC is selected.
  *
  * @author Moritz Halbritter
  */
-class GrpcWebMvcBuildCustomizer implements BuildCustomizer<Build> {
+class GrpcServerWebMvcBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final String DEPENDENCY_ID = "spring-grpc";
+	private static final String DEPENDENCY_ID = "spring-grpc-server";
 
 	@Override
 	public void customize(Build build) {
 		Dependency dependency = build.dependencies().get(DEPENDENCY_ID);
+		if (dependency == null) {
+			return;
+		}
 		build.dependencies().remove(DEPENDENCY_ID);
 		build.dependencies()
 			.add(DEPENDENCY_ID, dependency.getGroupId(), "spring-grpc-server-web-spring-boot-starter",

@@ -19,6 +19,7 @@ io.spring.start.site.extension.dependency.h2.H2ProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.htmx.HtmxProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.jte.JteProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mariadb.MariaDbProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.mcpsecurity.McpSecurityProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mongodb.MongoDbProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.mysql.MysqlProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.neo4j.Neo4jProjectGenerationConfiguration,\
@@ -40,6 +41,7 @@ io.spring.start.site.extension.dependency.springai.SpringAiOllamaProjectGenerati
 io.spring.start.site.extension.dependency.springai.SpringAiProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiQdrantProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiTestcontainersProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springai.SpringAiTypesenseProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springai.SpringAiWeaviateProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springamqp.SpringAmqpProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springazure.SpringAzureDockerComposeProjectGenerationConfiguration,\
@@ -48,6 +50,7 @@ io.spring.start.site.extension.dependency.springazure.SpringAzureTestcontainersP
 io.spring.start.site.extension.dependency.springboot.SpringBootProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springcloud.SpringCloudProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springdata.SpringDataProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.springdocopenapi.SpringDocOpenApiProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springgrpc.SpringGrpcProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springintegration.SpringIntegrationProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.springkafka.SpringKafkaProjectGenerationConfiguration,\

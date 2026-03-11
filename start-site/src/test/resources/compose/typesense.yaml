@@ -1,0 +1,8 @@
+services:
+  typesense:
+    image: 'typesense/typesense:30.1'
+    environment:
+      - 'TYPESENSE_API_KEY=secret'
+      - 'TYPESENSE_DATA_DIR=/tmp'
+    ports:
+      - '8108'

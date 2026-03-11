@@ -21,7 +21,7 @@ import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * {@link BuildCustomizer} to configure the JTE Maven plugin.
+ * {@link BuildCustomizer} to configure the jte Maven plugin.
  *
  * @author Moritz Halbritter
  */

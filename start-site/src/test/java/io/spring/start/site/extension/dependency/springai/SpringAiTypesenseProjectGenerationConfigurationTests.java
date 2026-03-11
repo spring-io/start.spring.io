@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.spring.start.site.extension.dependency.neo4j;
+package io.spring.start.site.extension.dependency.springai;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
@@ -27,39 +27,25 @@ import org.springframework.core.io.ClassPathResource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link Neo4jProjectGenerationConfiguration}.
+ * Tests for {@link SpringAiWeaviateProjectGenerationConfiguration}
  *
  * @author Eddú Meléndez
  */
-class Neo4jProjectGenerationConfigurationTests extends AbstractExtensionTests {
+class SpringAiTypesenseProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
 
 	@Test
 	void doesNothingWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "data-neo4j");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "spring-ai-vectordb-typesense");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void createsNeo4jService() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "data-neo4j");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/neo4j.yaml"));
-	}
-
-	@Test
-	void createsNeo4jServiceWhenSpringAiModuleIsSelected() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
-				"spring-ai-vectordb-neo4j");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/neo4j.yaml"));
-	}
-
-	@Test
-	void createsNeo4jServiceWhenSpringAiChatMemoryModuleIsSelected() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
-				"spring-ai-chat-memory-repository-neo4j");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/neo4j.yaml"));
+	void createsTypesenseService() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "spring-ai-vectordb-typesense");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/typesense.yaml"));
 	}
 
 }
