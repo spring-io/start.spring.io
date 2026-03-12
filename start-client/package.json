@@ -144,7 +144,8 @@
     ]
   },
   "resolutions": {
-    "serialize-javascript": "^7.0.3"
+    "serialize-javascript": "^7.0.3",
+    "tmp": "^0.2.4"
   },
   "on-save": {
     "**/*.{ts,tsx,js}": "import-sort --write",
