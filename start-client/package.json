@@ -143,6 +143,9 @@
       "tsx"
     ]
   },
+  "resolutions": {
+    "serialize-javascript": "^7.0.3"
+  },
   "on-save": {
     "**/*.{ts,tsx,js}": "import-sort --write",
     "**/*.{{c,le,sc}ss,g?(raph)ql,htm?(l),js?(on|on5|onl|x|s),md?(x|wn),m?(ark)down,mkdn,ts?(x),vue,y?(a)ml}": [
