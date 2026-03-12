@@ -15,7 +15,7 @@ const config = {
     historyApiFallback: true,
     compress: true,
     open: false,
-    onAfterSetupMiddleware: function (devServer) {
+    setupMiddlewares: function (middlewares, devServer) {
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined')
       }
@@ -41,6 +41,7 @@ const config = {
           }, 800)
         })
       })
+      return middlewares
     },
   },
 }
