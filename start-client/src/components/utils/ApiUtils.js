@@ -3,7 +3,7 @@ import querystring from 'querystring'
 import set from 'lodash/set'
 
 import Extend from '../../Extend.json'
-import { isInRange, parseReleases, parseVersion } from './Version'
+import {isInRange, parseReleases, parseVersion} from './Version'
 
 const PROPERTIES_MAPPING_URL = {
   type: 'project',
@@ -14,8 +14,6 @@ const PROPERTIES_MAPPING_URL = {
   jvmVersion: 'meta.java',
   groupId: 'meta.group',
   artifactId: 'meta.artifact',
-  name: 'meta.name',
-  description: 'meta.description',
   packageName: 'meta.packageName',
   dependencies: 'dependencies',
 }
@@ -245,10 +243,8 @@ export const getDefaultValues = json => {
     language: get(json, 'language.default'),
     boot: get(json, 'bootVersion.default'),
     meta: {
-      name: get(json, 'name.default'),
       group: get(json, 'groupId.default'),
       artifact: get(json, 'artifactId.default'),
-      description: get(json, 'description.default'),
       packaging: get(json, 'packaging.default'),
       packageName: get(json, 'packageName.default'),
       java: get(json, 'javaVersion.default'),
@@ -283,8 +279,6 @@ export const getProject = function getProject(url, values, config) {
       baseDir: get(values, 'meta.artifact'),
       groupId: get(values, 'meta.group'),
       artifactId: get(values, 'meta.artifact'),
-      name: get(values, 'meta.name'),
-      description: get(values, 'meta.description'),
       packageName: get(values, 'meta.packageName'),
       packaging: get(values, 'meta.packaging'),
       javaVersion: get(values, 'meta.java'),

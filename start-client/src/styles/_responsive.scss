@@ -81,18 +81,6 @@
   .placeholder-button-download {
     width: 144.13px;
   }
-  .control-row {
-    display: block;
-    .control-inline {
-      max-width: none;
-    }
-    .control-inline.artifact label, label {
-      flex: 110px 0;
-    }
-    input {
-      max-width: 520px;
-    }
-  }
 }
 
 .not-mobile {
@@ -291,7 +279,7 @@
   hr.divider {
     display: none;
   }
-  .control-inline,.control-row,
+  .control-inline,
   .control-placeholder {
     display: block;
     label,
@@ -305,7 +293,4 @@
       margin-left: 0;
     }
   }
-  .control-row{
-    .control-inline{max-width: none;}
-  } 
 }

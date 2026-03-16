@@ -23,17 +23,11 @@ describe('getDefaultValues', () => {
     expect(get(defaultValues, 'language')).toBe(
       get(MockClient, 'language.default')
     )
-    expect(get(defaultValues, 'meta.name')).toBe(
-      get(MockClient, 'name.default')
-    )
     expect(get(defaultValues, 'meta.group')).toBe(
       get(MockClient, 'groupId.default')
     )
     expect(get(defaultValues, 'meta.artifact')).toBe(
       get(MockClient, 'artifactId.default')
-    )
-    expect(get(defaultValues, 'meta.description')).toBe(
-      get(MockClient, 'description.default')
     )
     expect(get(defaultValues, 'meta.packaging')).toBe(
       get(MockClient, 'packaging.default')
@@ -170,8 +164,6 @@ describe('parseParams', () => {
         jvmVersion: '11',
         groupId: 'com.example2',
         artifactId: 'demo2',
-        name: 'demo2',
-        description: 'Demo project for Spring Boot2',
         packageName: 'com.example2.demo2',
         dependencies: ' devtools , lombok ',
       },
@@ -188,10 +180,6 @@ describe('parseParams', () => {
     expect(get(result, 'values.meta.java')).toBe('11')
     expect(get(result, 'values.meta.group')).toBe('com.example2')
     expect(get(result, 'values.meta.artifact')).toBe('demo2')
-    expect(get(result, 'values.meta.name')).toBe('demo2')
-    expect(get(result, 'values.meta.description')).toBe(
-      'Demo project for Spring Boot2'
-    )
     expect(get(result, 'values.meta.packageName')).toBe('com.example2.demo2')
     expect(get(result, 'values.dependencies').length).toBe(2)
   })
@@ -212,8 +200,6 @@ describe('parseParams', () => {
         jvmVersion: '1',
         groupId: 'com.example',
         artifactId: 'demo',
-        name: 'demo',
-        description: 'Demo project for Spring Boot',
         packageName: 'com.example.demo',
         dependencies: 'a,devtools,b,lombok',
       },
@@ -227,10 +213,6 @@ describe('parseParams', () => {
 
     expect(get(result, 'values.meta.group')).toBe('com.example')
     expect(get(result, 'values.meta.artifact')).toBe('demo')
-    expect(get(result, 'values.meta.name')).toBe('demo')
-    expect(get(result, 'values.meta.description')).toBe(
-      'Demo project for Spring Boot'
-    )
 
     expect(get(result, 'values.dependencies').length).toBe(2)
     expect(get(result, 'warnings.dependencies.value')).toBe('a, b')
@@ -259,8 +241,6 @@ describe('parseParams', () => {
         jvmVersion: '11',
         groupId: 'com.example2',
         artifactId: 'demo2',
-        name: 'demo2',
-        description: 'Demo project for Spring Boot2',
         packageName: 'com.example2.demo2',
         dependencies: ' devtools , lombok ',
       },
@@ -277,10 +257,6 @@ describe('parseParams', () => {
     expect(get(result, 'values.meta.configurationFileFormat')).toBe('properties')
     expect(get(result, 'values.meta.group')).toBe('com.example2')
     expect(get(result, 'values.meta.artifact')).toBe('demo2')
-    expect(get(result, 'values.meta.name')).toBe('demo2')
-    expect(get(result, 'values.meta.description')).toBe(
-      'Demo project for Spring Boot2'
-    )
     expect(get(result, 'values.meta.packageName')).toBe('com.example2.demo2')
     expect(get(result, 'values.dependencies').length).toBe(2)
     expect(get(result, 'errors.boot.value')).toBe('1.1.1')
@@ -302,8 +278,6 @@ describe('parseParams', () => {
         jvmVersion: '1',
         groupId: 'com.example',
         artifactId: 'demo',
-        name: 'demo',
-        description: 'Demo project for Spring Boot',
         packageName: 'com.example.demo',
         dependencies: 'a,devtools,b,lombok',
       },
@@ -319,10 +293,6 @@ describe('parseParams', () => {
 
     expect(get(result, 'values.meta.group')).toBe('com.example')
     expect(get(result, 'values.meta.artifact')).toBe('demo')
-    expect(get(result, 'values.meta.name')).toBe('demo')
-    expect(get(result, 'values.meta.description')).toBe(
-      'Demo project for Spring Boot'
-    )
 
     expect(get(result, 'values.dependencies').length).toBe(2)
     expect(get(result, 'warnings.dependencies.value')).toBe('a, b')
@@ -350,15 +320,13 @@ describe('getShareUrl', () => {
         java: 'foo5',
         group: 'foo6',
         artifact: 'foo7',
-        name: 'foo8',
-        description: 'foo9',
         packageName: 'foo10',
         configurationFileFormat: 'foo11',
       },
       dependencies: ['foo12', 'foo13'],
     })
     expect(result).toBe(
-      'type=foo1&language=foo2&platformVersion=foo3&packaging=foo4&configurationFileFormat=foo11&jvmVersion=foo5&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&dependencies=foo12,foo13'
+      'type=foo1&language=foo2&platformVersion=foo3&packaging=foo4&configurationFileFormat=foo11&jvmVersion=foo5&groupId=foo6&artifactId=foo7&packageName=foo10&dependencies=foo12,foo13'
     )
   })
 })
@@ -381,8 +349,6 @@ describe('getProject', () => {
         java: 'foo5',
         group: 'foo6',
         artifact: 'foo7',
-        name: 'foo8',
-        description: 'foo9',
         packageName: 'foo10',
         configurationFileFormat: 'foo11',
       },
@@ -394,7 +360,7 @@ describe('getProject', () => {
     ])
     expect(fetch.mock.calls.length).toEqual(1)
     expect(fetch.mock.calls[0][0]).toEqual(
-      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&packaging=foo4&javaVersion=foo5&configurationFileFormat=foo11&dependencies=foo12,foo13'
+      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&packageName=foo10&packaging=foo4&javaVersion=foo5&configurationFileFormat=foo11&dependencies=foo12,foo13'
     )
   })
 
@@ -408,8 +374,6 @@ describe('getProject', () => {
         java: 'foo5',
         group: 'foo6',
         artifact: 'foo7',
-        name: 'foo8',
-        description: 'foo9',
         packageName: 'foo10',
         configurationFileFormat: 'foo11',
       },
@@ -418,7 +382,7 @@ describe('getProject', () => {
     getProject('http://demo/starter.zip', values, [{ id: 'foo12' }])
     expect(fetch.mock.calls.length).toEqual(1)
     expect(fetch.mock.calls[0][0]).toEqual(
-      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&packaging=foo4&javaVersion=foo5&configurationFileFormat=foo11&dependencies=foo12'
+      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&packageName=foo10&packaging=foo4&javaVersion=foo5&configurationFileFormat=foo11&dependencies=foo12'
     )
   })
 
@@ -432,8 +396,6 @@ describe('getProject', () => {
         java: 'foo5',
         group: 'foo6',
         artifact: 'foo7',
-        name: 'foo8',
-        description: 'foo9',
         packageName: 'foo10',
         configurationFileFormat: 'foo11',
       },
@@ -441,7 +403,7 @@ describe('getProject', () => {
     getProject('http://demo/starter.zip', values, [])
     expect(fetch.mock.calls.length).toEqual(1)
     expect(fetch.mock.calls[0][0]).toEqual(
-      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&packaging=foo4&javaVersion=foo5&configurationFileFormat=foo11'
+      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&packageName=foo10&packaging=foo4&javaVersion=foo5&configurationFileFormat=foo11'
     )
   })
 })

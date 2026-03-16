@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import set from 'lodash/set'
-import React, { useReducer } from 'react'
+import React, {useReducer} from 'react'
 
-import { getShareUrl, parseParams } from '../utils/ApiUtils'
+import {getShareUrl, parseParams} from '../utils/ApiUtils'
 
 export const defaultInitializrContext = {
   values: {
@@ -11,10 +11,8 @@ export const defaultInitializrContext = {
     language: '',
     boot: '',
     meta: {
-      name: '',
       group: '',
       artifact: '',
-      description: '',
       packaging: '',
       packageName: '',
       java: '',
@@ -43,10 +41,8 @@ const getPersistedOrDefault = json => {
       localStorage.getItem('language') || get(json, 'defaultValues').language,
     boot: get(json, 'defaultValues').boot,
     meta: {
-      name: get(json, 'defaultValues.meta').name,
       group: get(json, 'defaultValues.meta').group,
       artifact: get(json, 'defaultValues.meta').artifact,
-      description: get(json, 'defaultValues.meta').description,
       packageName: get(json, 'defaultValues.meta').packageName,
       packaging:
         localStorage.getItem('packaging') ||
@@ -124,7 +120,6 @@ export function reducer(state, action) {
           'packageName',
           `${get(meta, 'group')}.${get(meta, 'artifact')}`
         )
-        set(meta, 'name', `${get(meta, 'artifact')}`)
       }
       persist(changes)
       const values = {

@@ -1,8 +1,8 @@
 import get from 'lodash/get'
 
 import MockClient from '../../../../dev/api.mock.json'
-import { getDefaultValues, getLists } from '../../utils/ApiUtils'
-import { reducer } from '../Initializr'
+import {getDefaultValues, getLists} from '../../utils/ApiUtils'
+import {reducer} from '../Initializr'
 
 const defaultValues = getDefaultValues({ ...MockClient })
 
@@ -24,10 +24,8 @@ describe('COMPLETE action', () => {
         language: '',
         boot: '',
         meta: {
-          name: '',
           group: '',
           artifact: '',
-          description: '',
           packaging: '',
           packageName: '',
           java: '',
@@ -48,17 +46,13 @@ describe('COMPLETE action', () => {
       },
     })
     expect(get(result, 'share')).toBe(
-      'type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&configurationFileFormat=properties&jvmVersion=1.8&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies='
+      'type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&configurationFileFormat=properties&jvmVersion=1.8&groupId=com.example&artifactId=demo&packageName=com.example.demo&dependencies='
     )
     expect(get(result, 'values.project')).toBe('maven-project')
     expect(get(result, 'values.language')).toBe('java')
     expect(get(result, 'values.boot')).toBe('2.2.0.RELEASE')
-    expect(get(result, 'values.meta.name')).toBe('demo')
     expect(get(result, 'values.meta.group')).toBe('com.example')
     expect(get(result, 'values.meta.artifact')).toBe('demo')
-    expect(get(result, 'values.meta.description')).toBe(
-      'Demo project for Spring Boot'
-    )
     expect(get(result, 'values.meta.packaging')).toBe('jar')
     expect(get(result, 'values.meta.packageName')).toBe('com.example.demo')
     expect(get(result, 'values.meta.java')).toBe('1.8')
@@ -96,17 +90,6 @@ describe('UPDATE action', () => {
     })
     expect(get(result, 'values.boot')).toBe('2.1.10.BUILD-SNAPSHOT')
   })
-  it('should reduce the state (meta name)', () => {
-    const result = reducer(state, {
-      type: 'UPDATE',
-      payload: {
-        meta: {
-          name: 'demo1',
-        },
-      },
-    })
-    expect(get(result, 'values.meta.name')).toBe('demo1')
-  })
   it('should reduce the state (meta group)', () => {
     state.values.meta.artifact = 'demo3'
     const result = reducer(state, {
@@ -136,7 +119,7 @@ describe('UPDATE action', () => {
 
   it('should reduce the state (meta artifact, empty value)', () => {
     state.values.meta.group = 'com.example3'
-    let result = reducer(state, {
+    const result = reducer(state, {
       type: 'UPDATE',
       payload: {
         meta: {
@@ -145,32 +128,9 @@ describe('UPDATE action', () => {
       },
     })
     expect(get(result, 'values.meta.artifact')).toBe('')
-    expect(get(result, 'values.meta.name')).toBe('')
-    expect(get(result, 'values.meta.packageName')).toBe('com.example3.')
-    result = reducer(result, {
-      type: 'UPDATE',
-      payload: {
-        meta: {
-          name: 'demo',
-        },
-      },
-    })
-    expect(get(result, 'values.meta.artifact')).toBe('')
-    expect(get(result, 'values.meta.name')).toBe('demo')
     expect(get(result, 'values.meta.packageName')).toBe('com.example3.')
   })
 
-  it('should reduce the state (meta description)', () => {
-    const result = reducer(state, {
-      type: 'UPDATE',
-      payload: {
-        meta: {
-          description: 'desc',
-        },
-      },
-    })
-    expect(get(result, 'values.meta.description')).toBe('desc')
-  })
   it('should reduce the state (meta packaging)', () => {
     const result = reducer(state, {
       type: 'UPDATE',
@@ -226,12 +186,10 @@ describe('LOAD action', () => {
       payload: {
         params: {
           artifactId: 'demo1',
-          description: 'Demo1 project for Spring Boot',
           groupId: 'com.example1',
           jvmVersion: '1.8',
           configurationFileFormat: 'yaml',
           language: 'java',
-          name: 'demo1',
           packageName: 'com.example1.demo1',
           packaging: 'war',
           platformVersion: '2.2.0.RELEASE',
@@ -243,12 +201,8 @@ describe('LOAD action', () => {
     expect(get(result, 'values.project')).toBe('gradle-project')
     expect(get(result, 'values.language')).toBe('java')
     expect(get(result, 'values.boot')).toBe('2.2.0.RELEASE')
-    expect(get(result, 'values.meta.name')).toBe('demo1')
     expect(get(result, 'values.meta.group')).toBe('com.example1')
     expect(get(result, 'values.meta.artifact')).toBe('demo1')
-    expect(get(result, 'values.meta.description')).toBe(
-      'Demo1 project for Spring Boot'
-    )
     expect(get(result, 'values.meta.packaging')).toBe('war')
     expect(get(result, 'values.meta.packageName')).toBe('com.example1.demo1')
     expect(get(result, 'values.meta.java')).toBe('1.8')
