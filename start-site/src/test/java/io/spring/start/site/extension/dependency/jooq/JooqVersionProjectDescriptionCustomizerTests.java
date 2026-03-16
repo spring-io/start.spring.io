@@ -40,7 +40,7 @@ class JooqVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "21", "25" })
+	@ValueSource(strings = { "21", "25", "26" })
 	void java21OrLaterIsLeftAsIsWithBoot41(String jvmVersion) {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "jooq");
 		request.setJavaVersion(jvmVersion);
@@ -48,7 +48,7 @@ class JooqVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "17", "21", "25" })
+	@ValueSource(strings = { "17", "21", "25", "26" })
 	void javaVersionIsLeftAsIsWithBoot40(String jvmVersion) {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "jooq");
 		request.setJavaVersion(jvmVersion);

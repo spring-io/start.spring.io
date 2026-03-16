@@ -36,7 +36,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final List<String> UNSUPPORTED_VERSIONS = Arrays.asList("1.6", "1.7", "1.8");
 
-	private static final int MAX_JAVA_VERSION = 25;
+	private static final int MAX_JAVA_VERSION = 26;
 
 	private final JavaVersionMapping mapping = new JavaVersionMapping();
 

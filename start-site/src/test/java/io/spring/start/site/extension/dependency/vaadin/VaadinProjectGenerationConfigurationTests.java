@@ -45,7 +45,7 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "21", "25" })
+	@ValueSource(strings = { "21", "25", "26" })
 	void java21OrLaterIsLeftAsIsWithBoot40(String jvmVersion) {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin");
 		request.setJavaVersion(jvmVersion);

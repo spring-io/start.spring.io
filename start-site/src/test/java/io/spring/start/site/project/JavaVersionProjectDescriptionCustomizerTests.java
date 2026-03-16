@@ -93,7 +93,8 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	private static Stream<Arguments> supportedJavaParameters() {
 		return Stream.of(java("17", SupportedBootVersion.latest().getVersion()),
 				java("21", SupportedBootVersion.latest().getVersion()),
-				java("25", SupportedBootVersion.latest().getVersion()));
+				java("25", SupportedBootVersion.latest().getVersion()),
+				java("26", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
@@ -102,7 +103,8 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	private static Stream<Arguments> supportedGroovyParameters() {
 		return Stream.of(groovy("21", SupportedBootVersion.latest().getVersion()),
-				groovy("25", SupportedBootVersion.latest().getVersion()));
+				groovy("25", SupportedBootVersion.latest().getVersion()),
+				groovy("26", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {

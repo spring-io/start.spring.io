@@ -37,8 +37,8 @@ class JavaVersionMappingTests {
 
 	@CsvSource(textBlock = """
 			3.5.0,17,25
-			4.0.0,17,25
-			4.1.0,17,25
+			4.0.0,17,26
+			4.1.0,17,26
 			""")
 	@ParameterizedTest(name = "Spring Boot {0} with Java | min {1} | max {2}")
 	void java(String bootVersion, int expectedJavaMin, int expectedJavaMax) {

@@ -2463,6 +2463,8 @@ initializr:
       id: war
       default: false
   javaVersions:
+    - id: 26
+      default: false
     - id: 25
       default: false
     - id: 21
