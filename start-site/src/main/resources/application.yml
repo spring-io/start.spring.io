@@ -33,6 +33,12 @@ spring:
       include-message: always
 
 initializr:
+  name:
+    value: ""
+  description:
+    value: ""
+  artifact-id:
+    value: "demo"
   stats:
     elastic:
       uri: ${elastic-uri:}

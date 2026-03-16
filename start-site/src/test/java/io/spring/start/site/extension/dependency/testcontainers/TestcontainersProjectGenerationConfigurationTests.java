@@ -259,16 +259,16 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
 		request.setLanguage("groovy");
 		ProjectStructure projectStructure = generateProject(request);
-		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/TestDemoApplication.groovy")
+		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/TestApplication.groovy")
 			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
 					import org.springframework.boot.SpringApplication
 
-					class TestDemoApplication {
+					class TestApplication {
 
 						static void main(String[] args) {
-							SpringApplication.from(DemoApplication::main).with(TestcontainersConfiguration).run(args)
+							SpringApplication.from(Application::main).with(TestcontainersConfiguration).run(args)
 						}
 
 					}
@@ -294,7 +294,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 					}
 					""");
-		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/DemoApplicationTests.groovy")
+		assertThat(projectStructure).textFile("src/test/groovy/com/example/demo/ApplicationTests.groovy")
 			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
@@ -304,7 +304,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 					@Import(TestcontainersConfiguration)
 					@SpringBootTest
-					class DemoApplicationTests {
+					class ApplicationTests {
 
 						@Test
 						void contextLoads() {
@@ -319,21 +319,20 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
 		request.setLanguage("java");
 		ProjectStructure projectStructure = generateProject(request);
-		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestDemoApplication.java")
-			.isEqualToNormalizingNewlines(
-					"""
-							package com.example.demo;
+		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestApplication.java")
+			.isEqualToNormalizingNewlines("""
+					package com.example.demo;
 
-							import org.springframework.boot.SpringApplication;
+					import org.springframework.boot.SpringApplication;
 
-							public class TestDemoApplication {
+					public class TestApplication {
 
-								public static void main(String[] args) {
-									SpringApplication.from(DemoApplication::main).with(TestcontainersConfiguration.class).run(args);
-								}
+						public static void main(String[] args) {
+							SpringApplication.from(Application::main).with(TestcontainersConfiguration.class).run(args);
+						}
 
-							}
-							""");
+					}
+					""");
 		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
 			.isEqualToNormalizingNewlines("""
 					package com.example.demo;
@@ -355,7 +354,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 					}
 					""");
-		assertThat(projectStructure).textFile("src/test/java/com/example/demo/DemoApplicationTests.java")
+		assertThat(projectStructure).textFile("src/test/java/com/example/demo/ApplicationTests.java")
 			.isEqualToNormalizingNewlines("""
 					package com.example.demo;
 
@@ -365,7 +364,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 					@Import(TestcontainersConfiguration.class)
 					@SpringBootTest
-					class DemoApplicationTests {
+					class ApplicationTests {
 
 						@Test
 						void contextLoads() {
@@ -380,7 +379,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 		ProjectRequest request = createProjectRequest("testcontainers", "data-cassandra");
 		request.setLanguage("kotlin");
 		ProjectStructure projectStructure = generateProject(request);
-		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/TestDemoApplication.kt")
+		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/TestApplication.kt")
 			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
@@ -389,7 +388,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 
 					fun main(args: Array<String>) {
-						fromApplication<DemoApplication>().with(TestcontainersConfiguration::class).run(*args)
+						fromApplication<Application>().with(TestcontainersConfiguration::class).run(*args)
 					}
 					""");
 		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
@@ -413,7 +412,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 					}
 					""");
-		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/DemoApplicationTests.kt")
+		assertThat(projectStructure).textFile("src/test/kotlin/com/example/demo/ApplicationTests.kt")
 			.isEqualToNormalizingNewlines("""
 					package com.example.demo
 
@@ -423,7 +422,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 					@Import(TestcontainersConfiguration::class)
 					@SpringBootTest
-					class DemoApplicationTests {
+					class ApplicationTests {
 
 						@Test
 						fun contextLoads() {
