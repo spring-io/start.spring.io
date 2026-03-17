@@ -98,9 +98,9 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 1.1.2
-          - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 2.0.0-M2
+            version: 1.1.3
+          - compatibilityRange: "[4.0.0,4.2.0-M1)"
+            version: 2.0.0-M3
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -2056,6 +2056,28 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html
+        - name: MCP Spring WebFlux
+          id: spring-ai-mcp-spring-webflux
+          group-id: org.springframework.ai
+          artifact-id: mcp-spring-webflux
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
+          description: WebFlux implementation for the SSE and Streamable Http Client and Server transports.
+          bom: spring-ai
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-streamable-http-server-boot-starter-docs.html
+        - name: MCP Spring WebMvc
+          id: spring-ai-mcp-spring-webmvc
+          group-id: org.springframework.ai
+          artifact-id: mcp-spring-webmvc
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
+          description: Web MVC implementation for the SSE and Streamable Http Server transports.
+          bom: spring-ai
+          starter: false
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-streamable-http-server-boot-starter-docs.html
         - name: Model Context Protocol Security [Experimental]
           id: mcp-security
           group-id: org.springaicommunity
