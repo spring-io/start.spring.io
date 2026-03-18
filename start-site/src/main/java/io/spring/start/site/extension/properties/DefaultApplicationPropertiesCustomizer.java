@@ -40,6 +40,11 @@ class DefaultApplicationPropertiesCustomizer implements ApplicationPropertiesCus
 		String name = this.projectDescription.getName();
 		if (StringUtils.hasLength(name)) {
 			properties.add("spring.application.name", name);
+			return;
+		}
+		String artifactId = this.projectDescription.getArtifactId();
+		if (StringUtils.hasLength(artifactId)) {
+			properties.add("spring.application.name", artifactId);
 		}
 	}
 

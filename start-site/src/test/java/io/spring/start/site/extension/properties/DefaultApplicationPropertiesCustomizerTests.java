@@ -30,11 +30,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DefaultApplicationPropertiesCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void shouldAddSpringApplicationName() {
+	void shouldUseNameForSpringApplicationName() {
 		ProjectRequest request = createProjectRequest("web");
-		request.setJavaVersion("21");
-		request.setName("test");
-		assertThat(applicationProperties(request)).lines().contains("spring.application.name=test");
+		request.setName("my-name");
+		assertThat(applicationProperties(request)).lines().contains("spring.application.name=my-name");
+	}
+
+	@Test
+	void shouldFallbackToArtifactIdWhenNameIsEmpty() {
+		ProjectRequest request = createProjectRequest("web");
+		request.setName("");
+		request.setArtifactId("my-artifact");
+		assertThat(applicationProperties(request)).lines().contains("spring.application.name=my-artifact");
+	}
+
+	@Test
+	void defaultSetupShouldHaveSpringApplicationName() {
+		ProjectRequest request = createProjectRequest("web");
+		assertThat(applicationProperties(request)).lines().contains("spring.application.name=demo");
 	}
 
 }
