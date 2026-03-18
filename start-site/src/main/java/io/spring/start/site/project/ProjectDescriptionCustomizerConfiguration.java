@@ -17,6 +17,7 @@
 package io.spring.start.site.project;
 
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
+import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.start.site.extension.dependency.jooq.JooqVersionProjectDescriptionCustomizer;
 import io.spring.start.site.extension.dependency.vaadin.VaadinVersionProjectDescriptionCustomizer;
 import io.spring.start.site.project.dependency.springcloud.SpringCloudResilience4JProjectDescriptionCustomizer;
@@ -31,6 +32,12 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class ProjectDescriptionCustomizerConfiguration {
+
+	@Bean
+	ApplicationNameProjectDescriptionCustomizer applicationNameProjectDescriptionCustomizer(
+			InitializrMetadataProvider metadataProvider) {
+		return new ApplicationNameProjectDescriptionCustomizer(metadataProvider.get().getConfiguration());
+	}
 
 	@Bean
 	public JavaVersionProjectDescriptionCustomizer javaVersionProjectDescriptionCustomizer() {
