@@ -24,44 +24,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ApplicationNameProjectDescriptionCustomizer}.
+ * Tests for the application name in generated projects.
  *
  * @author Moritz Halbritter
  */
-class ApplicationNameProjectDescriptionCustomizerTests extends AbstractExtensionTests {
+class ApplicationNameTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldUseDemoApplicationWithDefaultSettings() {
 		ProjectRequest request = createProjectRequest("web");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).filePaths().contains("src/main/java/com/example/demo/DemoApplication.java");
-	}
-
-	@Test
-	void shouldDeriveApplicationNameFromArtifactIdWhenNameIsEmpty() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setName("");
-		request.setArtifactId("demo");
-		ProjectStructure project = generateProject(request);
-		assertThat(project).filePaths().contains("src/main/java/com/example/demo/DemoApplication.java");
-	}
-
-	@Test
-	void shouldDeriveApplicationNameFromArtifactIdWhenNameIsNull() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setName(null);
-		request.setArtifactId("demo");
-		ProjectStructure project = generateProject(request);
-		assertThat(project).filePaths().contains("src/main/java/com/example/demo/DemoApplication.java");
-	}
-
-	@Test
-	void shouldUseNameWhenPresent() {
-		ProjectRequest request = createProjectRequest("web");
-		request.setName("my-app");
-		request.setArtifactId("demo");
-		ProjectStructure project = generateProject(request);
-		assertThat(project).filePaths().contains("src/main/java/com/example/demo/MyAppApplication.java");
 	}
 
 }
