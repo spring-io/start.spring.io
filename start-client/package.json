@@ -144,6 +144,7 @@
     ]
   },
   "resolutions": {
+    "flatted": "^3.4.2",
     "serialize-javascript": "^7.0.3",
     "tmp": "^0.2.4"
   },
