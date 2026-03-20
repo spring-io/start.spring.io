@@ -44,7 +44,7 @@ public class SpringRestDocsBuildCustomizer implements BuildCustomizer<Build> {
 	public void customize(Build build) {
 		if (SPRING_BOOT_4_0_0_OR_LATER.match(this.bootVersion)) {
 			build.dependencies()
-				.add("spring-boot-restdocs", "org.springframework.boot", "spring-boot-restdocs",
+				.add("spring-boot-restdocs", "org.springframework.boot", "spring-boot-starter-restdocs",
 						DependencyScope.TEST_COMPILE);
 		}
 		if (switchToWebTestClient(build)) {

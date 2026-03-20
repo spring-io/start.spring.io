@@ -36,7 +36,7 @@ class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
 			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient")
-			.doesNotHaveDependency("org.springframework.boot", "spring-boot-restdocs");
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-restdocs");
 	}
 
 	@Test
@@ -45,7 +45,7 @@ class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
 			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc")
-			.doesNotHaveDependency("org.springframework.boot", "spring-boot-restdocs");
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-restdocs");
 	}
 
 	@Test
@@ -54,7 +54,7 @@ class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.restdocs", "spring-restdocs-webtestclient", null, "test")
 			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-mockmvc")
-			.doesNotHaveDependency("org.springframework.boot", "spring-boot-restdocs");
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-restdocs");
 	}
 
 	@Test
@@ -62,7 +62,7 @@ class SpringRestDocsBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web", "restdocs");
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.restdocs", "spring-restdocs-mockmvc", null, "test")
-			.hasDependency("org.springframework.boot", "spring-boot-restdocs", null, "test")
+			.hasDependency("org.springframework.boot", "spring-boot-starter-restdocs", null, "test")
 			.doesNotHaveDependency("org.springframework.restdocs", "spring-restdocs-webtestclient");
 	}
 
