@@ -31,16 +31,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SpringRabbitStreamsBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void shouldDoNothingIfAmqpStreamsIsNotSelected() {
+	void shouldDoNothingIfRabbitMqStreamsIsNotSelected() {
 		ProjectRequest project = createProjectRequest("web");
-		Dependency amqp = getDependency("amqp");
+		Dependency amqp = getDependency("rabbitmq");
 		assertThat(mavenPom(project)).doesNotHaveDependency(amqp.getGroupId(), amqp.getArtifactId());
 	}
 
 	@Test
-	void shouldAddAmqpIfAmqpStreamsIsSelected() {
-		ProjectRequest project = createProjectRequest("amqp-streams");
-		assertThat(mavenPom(project)).hasDependency(getDependency("amqp"));
+	void shouldAddAmqpIfRabbitMqStreamsIsSelected() {
+		ProjectRequest project = createProjectRequest("rabbitmq-streams");
+		assertThat(mavenPom(project)).hasDependency(getDependency("rabbitmq"));
 	}
 
 }

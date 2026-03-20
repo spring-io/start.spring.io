@@ -89,18 +89,24 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "amqp", "kafka" })
-	void addsExternalizationDependency(String broker) {
-		Build build = createBuild(BOOT_VERSION, "modulith", broker);
-		assertThat(build.dependencies().ids()).contains("modulith-events-" + broker);
-		assertThat(build.dependencies().ids()).contains("modulith-events-api");
-	}
-
-	@ParameterizedTest
 	@ValueSource(strings = { "activemq", "artemis" })
 	void addsJmsExternalizationDependency(String broker) {
 		Build build = createBuild(BOOT_VERSION, "modulith", broker);
 		assertThat(build.dependencies().ids()).contains("modulith-events-jms");
+		assertThat(build.dependencies().ids()).contains("modulith-events-api");
+	}
+
+	@Test
+	void addsKafkaExternalizationDependency() {
+		Build build = createBuild(BOOT_VERSION, "modulith", "kafka");
+		assertThat(build.dependencies().ids()).contains("modulith-events-kafka");
+		assertThat(build.dependencies().ids()).contains("modulith-events-api");
+	}
+
+	@Test
+	void addsRabbitMqExternalizationDependency() {
+		Build build = createBuild(BOOT_VERSION, "modulith", "rabbitmq");
+		assertThat(build.dependencies().ids()).contains("modulith-events-amqp");
 		assertThat(build.dependencies().ids()).contains("modulith-events-api");
 	}
 

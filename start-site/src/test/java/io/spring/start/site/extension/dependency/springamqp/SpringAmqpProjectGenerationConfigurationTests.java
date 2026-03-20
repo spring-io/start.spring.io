@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.springamqp;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -34,15 +35,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void springAmqpWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest("web", "amqp");
+	void amqpStarterIsAddedPriorToSpringBoot41() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "rabbitmq");
+		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-amqp");
+	}
+
+	@Test
+	void rabbitMqStarterIsAddedAsOfSpringBoot41() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "rabbitmq");
+		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-rabbitmq");
+	}
+
+	@Test
+	void springRabbitMqWithoutDockerCompose() {
+		ProjectRequest request = createProjectRequest("web", "rabbitmq");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void springAmqpWithDockerCompose() {
-		ProjectRequest request = createProjectRequest("docker-compose", "amqp");
+	void springRabbitMqWithDockerCompose() {
+		ProjectRequest request = createProjectRequest("docker-compose", "rabbitmq");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/rabbitmq.yaml"));
 	}
 
