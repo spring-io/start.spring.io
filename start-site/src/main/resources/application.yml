@@ -147,8 +147,6 @@ initializr:
         mappings:
           - compatibilityRange: "[4.0.0,4.1.0-M2)"
             version: 1.0.2
-          - compatibilityRange: "[4.1.0-M3,4.2.0-M1)"
-            version: 1.1.0-M1
       spring-modulith:
         groupId: org.springframework.modulith
         artifactId: spring-modulith-bom
@@ -1175,10 +1173,10 @@ initializr:
             - rel: reference
               href: https://docs.spring.io/spring-shell/reference/index.html
         - name: Spring gRPC Server
-          id: spring-grpc-server
+          id: spring-grpc-server-legacy
           groupId: org.springframework.grpc
           artifactId: spring-grpc-server-spring-boot-starter
-          compatibilityRange: "[4.0.0,4.2.0-M1)"
+          compatibilityRange: "[4.0.0,4.1.0-M3)"
           description: Server support for gRPC, a high performance, open source universal RPC framework.
           bom: spring-grpc
           links:
@@ -1187,11 +1185,35 @@ initializr:
             - rel: sample
               href: https://github.com/spring-projects/spring-grpc/tree/main/samples
               description: Various sample apps using Spring gRPC
+        - name: Spring gRPC Server
+          id: spring-grpc-server
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-grpc-server
+          compatibilityRange: "[4.1.0-M3,4.2.0-M1)"
+          description: Server support for gRPC, a high performance, open source universal RPC framework.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-grpc/reference/server.html
+            - rel: sample
+              href: https://github.com/spring-projects/spring-grpc/tree/main/samples
+              description: Various sample apps using Spring gRPC
         - name: Spring gRPC Client
-          id: spring-grpc-client
+          id: spring-grpc-client-legacy
           groupId: org.springframework.grpc
           artifactId: spring-grpc-client-spring-boot-starter
-          compatibilityRange: "[4.0.0,4.2.0-M1)"
+          compatibilityRange: "[4.0.0,4.1.0-M3)"
+          description: Client support for gRPC, a high performance, open source universal RPC framework.
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-grpc/reference/client.html
+            - rel: sample
+              href: https://github.com/spring-projects/spring-grpc/tree/main/samples
+              description: Various sample apps using Spring gRPC
+        - name: Spring gRPC Client
+          id: spring-grpc-client
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-grpc-client
+          compatibilityRange: "[4.1.0-M3,4.2.0-M1)"
           description: Client support for gRPC, a high performance, open source universal RPC framework.
           bom: spring-grpc
           links:
