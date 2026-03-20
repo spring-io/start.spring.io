@@ -145,8 +145,10 @@ initializr:
         artifactId: spring-grpc-dependencies
         versionProperty: spring-grpc.version
         mappings:
-          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+          - compatibilityRange: "[4.0.0,4.1.0-M2)"
             version: 1.0.2
+          - compatibilityRange: "[4.1.0-M3,4.2.0-M1)"
+            version: 1.1.0-M1
       spring-modulith:
         groupId: org.springframework.modulith
         artifactId: spring-modulith-bom
@@ -1176,7 +1178,7 @@ initializr:
           id: spring-grpc-server
           groupId: org.springframework.grpc
           artifactId: spring-grpc-server-spring-boot-starter
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
           description: Server support for gRPC, a high performance, open source universal RPC framework.
           bom: spring-grpc
           links:
@@ -1189,7 +1191,7 @@ initializr:
           id: spring-grpc-client
           groupId: org.springframework.grpc
           artifactId: spring-grpc-client-spring-boot-starter
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
           description: Client support for gRPC, a high performance, open source universal RPC framework.
           bom: spring-grpc
           links:
