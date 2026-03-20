@@ -1181,11 +1181,15 @@ initializr:
               href: https://docs.spring.io/spring-shell/reference/index.html
         - name: Spring gRPC Server
           id: spring-grpc-server
-          groupId: org.springframework.grpc
-          artifactId: spring-grpc-server-spring-boot-starter
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-grpc-server
+          compatibilityRange: "4.0.0"
           description: Server support for gRPC, a high performance, open source universal RPC framework.
-          bom: spring-grpc
+          mappings:
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              bom: spring-grpc
+              group-id: org.springframework.grpc
+              artifact-id: spring-grpc-server-spring-boot-starter
           links:
             - rel: reference
               href: https://docs.spring.io/spring-grpc/reference/server.html
@@ -1194,11 +1198,15 @@ initializr:
               description: Various sample apps using Spring gRPC
         - name: Spring gRPC Client
           id: spring-grpc-client
-          groupId: org.springframework.grpc
-          artifactId: spring-grpc-client-spring-boot-starter
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-grpc-client
+          compatibilityRange: "4.0.0"
           description: Client support for gRPC, a high performance, open source universal RPC framework.
-          bom: spring-grpc
+          mappings:
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              bom: spring-grpc
+              group-id: org.springframework.grpc
+              artifact-id: spring-grpc-client-spring-boot-starter
           links:
             - rel: reference
               href: https://docs.spring.io/spring-grpc/reference/client.html

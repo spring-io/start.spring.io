@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency;
 
 import java.util.List;
+import java.util.Map;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
@@ -31,17 +32,35 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 class AddTestStartersBuildCustomizer implements BuildCustomizer<Build> {
 
+	// See https://github.com/spring-projects/spring-boot/issues/49690
+	private static final Map<String, String> TEST_STARTER_MAPPING = Map.of(
+			"org.springframework.boot:spring-boot-starter-grpc-client", "spring-boot-starter-grpc-test",
+			"org.springframework.boot:spring-boot-starter-grpc-server", "spring-boot-starter-grpc-test");
+
 	@Override
 	public void customize(Build build) {
 		List<String> ids = build.dependencies().ids().toList();
 		for (String id : ids) {
 			Dependency dependency = build.dependencies().get(id);
-			if (isBootStarter(dependency)) {
+			if (hasMapping(dependency)) {
+				Dependency mapping = getMapping(dependency);
+				build.dependencies().add(mapping.getArtifactId(), mapping);
+			}
+			else if (isBootStarter(dependency)) {
 				build.dependencies()
 					.add(id + "-test", dependency.getGroupId(), dependency.getArtifactId() + "-test",
 							DependencyScope.TEST_COMPILE);
 			}
 		}
+	}
+
+	private Dependency getMapping(Dependency dependency) {
+		String newArtifactId = TEST_STARTER_MAPPING.get(dependency.getGroupId() + ":" + dependency.getArtifactId());
+		return Dependency.from(dependency).artifactId(newArtifactId).scope(DependencyScope.TEST_COMPILE).build();
+	}
+
+	private boolean hasMapping(Dependency dependency) {
+		return TEST_STARTER_MAPPING.containsKey(dependency.getGroupId() + ":" + dependency.getArtifactId());
 	}
 
 	private boolean isBootStarter(Dependency dependency) {
