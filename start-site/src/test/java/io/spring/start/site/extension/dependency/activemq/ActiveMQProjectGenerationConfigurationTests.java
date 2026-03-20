@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.activemq;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +45,12 @@ class ActiveMQProjectGenerationConfigurationTests extends AbstractExtensionTests
 	void dockerComposeCreatesAppropriateServiceWithVersion() {
 		ProjectRequest request = createProjectRequest("docker-compose", "activemq");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/activemq.yaml"));
+	}
+
+	@Test
+	void dockerComposeCreatesApacheActiveMQ() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "docker-compose", "activemq");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/apache-activemq.yaml"));
 	}
 
 }
