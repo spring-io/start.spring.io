@@ -139,7 +139,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	private static DockerService milvus() {
 		return DockerService.withImageAndTag("milvusdb/milvus")
 			.website("https://hub.docker.com/r/milvusdb/milvus")
-			.randomPort(19530)
+			.randomPorts(9091, 19530)
 			.build();
 	}
 
