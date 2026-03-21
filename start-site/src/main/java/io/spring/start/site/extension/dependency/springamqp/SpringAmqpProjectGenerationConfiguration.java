@@ -39,12 +39,12 @@ import org.springframework.context.annotation.Configuration;
 class SpringAmqpProjectGenerationConfiguration {
 
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnRequestedDependency("amqp")
-	static class AmqpConfiguration {
+	@ConditionalOnRequestedDependency("rabbitmq")
+	static class RabbitMqConfiguration {
 
 		@Bean
 		@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1]")
-		SpringRabbitTestBuildCustomizer springAmqpTestBuildCustomizer() {
+		SpringRabbitTestBuildCustomizer springRabbitTestBuildCustomizer() {
 			return new SpringRabbitTestBuildCustomizer();
 		}
 
@@ -71,9 +71,9 @@ class SpringAmqpProjectGenerationConfiguration {
 
 	}
 
-	@ConditionalOnRequestedDependency("amqp-streams")
+	@ConditionalOnRequestedDependency("rabbitmq-streams")
 	@Configuration(proxyBeanMethods = false)
-	static class AmqpStreamsConfiguration {
+	static class RabbityMqStreamsConfiguration {
 
 		@Bean
 		SpringRabbitStreamsBuildCustomizer springRabbitStreamsBuildCustomizer() {

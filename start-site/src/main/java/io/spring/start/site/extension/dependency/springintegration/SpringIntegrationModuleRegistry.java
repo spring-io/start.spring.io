@@ -42,7 +42,7 @@ abstract class SpringIntegrationModuleRegistry {
 		List<Builder> builders = new ArrayList<>();
 		builders.add(onDependencies("activemq", "artemis").customizeBuild(addDependency("jms"))
 			.customizeHelpDocument(addReferenceLink("JMS Module", "jms")));
-		builders.add(onDependencies("amqp", "amqp-streams").customizeBuild(addDependency("amqp"))
+		builders.add(onDependencies("rabbitmq", "rabbitmq-streams").customizeBuild(addDependency("amqp"))
 			.customizeHelpDocument(addReferenceLink("AMQP Module", "amqp")));
 		builders.add(onDependencies("data-jdbc", "jdbc").customizeBuild(addDependency("jdbc"))
 			.customizeHelpDocument(addReferenceLink("JDBC Module", "jdbc")));

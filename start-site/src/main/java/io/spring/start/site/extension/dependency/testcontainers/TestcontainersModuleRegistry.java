@@ -48,7 +48,7 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("artemis")
 			.customizeBuild(addModule("activemq", testcontainers, SupportedContainer.ARTEMIS))
 			.customizeHelpDocument(addReferenceLink("ActiveMQ Module", "activemq/")));
-		builders.add(onDependencies("amqp", "amqp-streams")
+		builders.add(onDependencies("rabbitmq", "rabbitmq-streams")
 			.customizeBuild(addModule("rabbitmq", testcontainers, SupportedContainer.RABBITMQ))
 			.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")));
 		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud", testcontainers))
