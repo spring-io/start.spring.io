@@ -66,7 +66,7 @@ public class ActiveMQProjectGenerationConfiguration {
 				(service) -> composeFile.services().add("activemq", service));
 	}
 
-	String getId() {
+	private String getId() {
 		return this.isSpringBoot4OrLater ? "apacheActiveMQ" : "activeMQClassic";
 	}
 
