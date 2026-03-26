@@ -46,7 +46,7 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, "solace");
 		ProjectStructure project = generateProject(request);
 		assertNoBinder(project);
-		assertThat(project).mavenBuild().hasDependency(getDependency("solace"));
+		assertThat(project).mavenBuild().hasDependency(getDependency(BOOT_VERSION, "solace"));
 	}
 
 	@Test
@@ -77,7 +77,7 @@ class SolaceBinderBuildCustomizerTests extends AbstractExtensionTests {
 	void solaceStarterRemovedWhenSolaceAndCloudStreamSelected() {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, "solace", "cloud-stream");
 		ProjectStructure project = generateProject(request);
-		Dependency solace = getDependency("solace");
+		Dependency solace = getDependency(BOOT_VERSION, "solace");
 		assertThat(project).mavenBuild().doesNotHaveDependency(solace.getGroupId(), solace.getArtifactId());
 	}
 

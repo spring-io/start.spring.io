@@ -1100,7 +1100,10 @@ initializr:
           compatibilityRange: "[3.5.0,4.1.0-M1)"
           description: Connect to a Solace PubSub+ Advanced Event Broker to publish, subscribe, request/reply and store/replay messages
           groupId: com.solace.spring.boot
-          artifactId: solace-spring-boot-starter
+          artifactId: solace-jms-spring-boot-starter
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              artifactId: solace-spring-boot-starter
           links:
             - rel: reference
               href: https://www.solace.dev/start-spring-io-help/
