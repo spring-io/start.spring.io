@@ -50,6 +50,9 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 		if (dependencies.has("actuator")) {
 			dependencies.add("modulith-actuator", modulithDependency("actuator").scope(DependencyScope.RUNTIME));
 		}
+		if (dependencies.has("flyway")) {
+			dependencies.add("modulith-runtime", modulithDependency("runtime").scope(DependencyScope.RUNTIME));
+		}
 		if (OBSERVABILITY_DEPENDENCIES.stream().anyMatch(dependencies::has)) {
 			dependencies.add("modulith-observability",
 					modulithDependency("observability").scope(DependencyScope.RUNTIME));
