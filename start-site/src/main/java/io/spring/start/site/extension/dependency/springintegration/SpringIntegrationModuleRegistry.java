@@ -25,6 +25,8 @@ import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.documentation.HelpDocument;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.start.site.support.implicit.ImplicitDependency;
 import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
 
@@ -37,6 +39,8 @@ import io.spring.start.site.support.implicit.ImplicitDependency.Builder;
  * @author Eddú Meléndez
  */
 abstract class SpringIntegrationModuleRegistry {
+
+	private static final VersionRange SPRING_BOOT_4_1_OR_LATER = VersionParser.DEFAULT.parseRange("4.1.0-M1");
 
 	static Iterable<ImplicitDependency> create(Version platformVersion) {
 		List<Builder> builders = new ArrayList<>();
@@ -76,6 +80,11 @@ abstract class SpringIntegrationModuleRegistry {
 					.andThen(addReferenceLink("WebSocket Module", "web-sockets"))));
 		builders.add(onDependencies("web-services").customizeBuild(addDependency("ws"))
 			.customizeHelpDocument(addReferenceLink("Web Services Module", "ws")));
+		if (SPRING_BOOT_4_1_OR_LATER.match(platformVersion)) {
+			builders
+				.add(onDependencies("spring-grpc-server", "spring-grpc-client").customizeBuild(addDependency("grpc"))
+					.customizeHelpDocument(addReferenceLink("gRPC Module", "grpc")));
+		}
 		return builders.stream().map(Builder::build).toList();
 	}
 

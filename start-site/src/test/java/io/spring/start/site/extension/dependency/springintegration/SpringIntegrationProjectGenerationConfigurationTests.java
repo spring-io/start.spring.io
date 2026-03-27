@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -120,7 +121,24 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 		assertThat(generateProject(SupportedBootVersion.V4_0, "integration", "security")).mavenBuild()
 			.hasDependency("org.springframework.security", "spring-security-messaging")
 			.doesNotHaveDependency("org.springframework.integration", "spring-integration-security");
+	}
 
+	@ParameterizedTest
+	@ValueSource(strings = { "spring-grpc-server", "spring-grpc-client" })
+	void grpcAddsSpringIntegrationGrpcOnBoot41(String grpcDependency) {
+		assertThat(generateProject(SupportedBootVersion.V4_1, "integration", grpcDependency)).mavenBuild()
+			.hasDependency("org.springframework.integration", "spring-integration-grpc");
+		assertHelpDocument(SupportedBootVersion.V4_1, "integration", grpcDependency)
+			.contains("https://docs.spring.io/spring-integration/reference/grpc.html");
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "spring-grpc-server", "spring-grpc-client" })
+	void grpcDoesNotAddSpringIntegrationGrpcOnBoot40(String grpcDependency) {
+		assertThat(generateProject(SupportedBootVersion.V4_0, "integration", grpcDependency)).mavenBuild()
+			.doesNotHaveDependency("org.springframework.integration", "spring-integration-grpc");
+		assertHelpDocument(SupportedBootVersion.V4_0, "integration", grpcDependency)
+			.doesNotContain("https://docs.spring.io/spring-integration/reference/grpc.html");
 	}
 
 	private static Dependency integrationDependency(String id) {
@@ -137,6 +155,11 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 
 	private TextAssert assertHelpDocument(String... dependencyIds) {
 		ProjectRequest request = createProjectRequest(dependencyIds);
+		return assertThat(helpDocument(request));
+	}
+
+	private TextAssert assertHelpDocument(SupportedBootVersion bootVersion, String... dependencyIds) {
+		ProjectRequest request = createProjectRequest(bootVersion, dependencyIds);
 		return assertThat(helpDocument(request));
 	}
 
