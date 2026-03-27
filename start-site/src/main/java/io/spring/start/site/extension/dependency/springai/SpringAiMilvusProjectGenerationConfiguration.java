@@ -16,8 +16,12 @@
 
 package io.spring.start.site.extension.dependency.springai;
 
+import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.container.docker.compose.ComposeConfig;
+import io.spring.initializr.generator.container.docker.compose.ComposeServiceConfig;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
 import io.spring.start.site.container.ServiceConnectionsCustomizer;
@@ -44,6 +48,28 @@ class SpringAiMilvusProjectGenerationConfiguration {
 		return (serviceConnections) -> serviceResolver.doWith("milvus",
 				(service) -> serviceConnections.addServiceConnection(
 						ServiceConnection.ofContainer("milvus", service, container.className(), container.generic())));
+	}
+
+	@Bean
+	@ConditionalOnPlatformVersion("4.1.0-RC1")
+	@ConditionalOnRequestedDependency("docker-compose")
+	ComposeFileCustomizer mongodbAtlasComposeFileCustomizer(DockerServiceResolver serviceResolver) {
+		return (composeFile) -> serviceResolver.doWith("milvus", (service) -> {
+			String embedEtcd = """
+					listen-client-urls: http://0.0.0.0:2379
+					advertise-client-urls: http://0.0.0.0:2379
+					""";
+			composeFile.configs().add("embedEtcd", ComposeConfig.Builder.forContent(embedEtcd).build());
+			composeFile.services()
+				.add("milvus",
+						service.andThen((builder) -> builder.environment("COMMON_STORAGETYPE", "local")
+							.environment("DEPLOY_MODE", "STANDALONE")
+							.environment("ETCD_USE_EMBED", "true")
+							.environment("ETCD_DATA_DIR", "/var/lib/milvus/etcd")
+							.environment("ETCD_CONFIG_PATH", "/milvus/configs/embedEtcd.yaml")
+							.command("milvus run standalone")
+							.config(ComposeServiceConfig.ofLong("embedEtcd", "/milvus/configs/embedEtcd.yaml"))));
+		});
 	}
 
 }
