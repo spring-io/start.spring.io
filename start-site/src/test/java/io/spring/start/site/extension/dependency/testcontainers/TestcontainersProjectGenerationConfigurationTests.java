@@ -115,8 +115,8 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 	}
 
 	static Stream<Arguments> supportedEntriesHelpDocument() {
-		return Stream.of(Arguments.arguments("amqp", "https://java.testcontainers.org/modules/rabbitmq/"),
-				Arguments.arguments("amqp-streams", "https://java.testcontainers.org/modules/rabbitmq/"),
+		return Stream.of(Arguments.arguments("rabbitmq", "https://java.testcontainers.org/modules/rabbitmq/"),
+				Arguments.arguments("rabbitmq-streams", "https://java.testcontainers.org/modules/rabbitmq/"),
 				Arguments.arguments("cloud-gcp", "https://java.testcontainers.org/modules/gcloud/"),
 				Arguments.arguments("cloud-gcp-pubsub", "https://java.testcontainers.org/modules/gcloud/"),
 				Arguments.arguments("cloud-starter-consul-config", "https://java.testcontainers.org/modules/consul/"),
