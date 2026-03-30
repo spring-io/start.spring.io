@@ -835,6 +835,13 @@ initializr:
           artifactId: postgresql
           scope: runtime
           starter: false
+        - name: SQLite Driver
+          id: sqlite
+          description: JDBC driver for SQLite, a lightweight, embedded SQL database engine.
+          groupId: org.xerial
+          artifactId: sqlite-jdbc
+          scope: runtime
+          starter: false
     - name: NoSQL
       content:
         - name: Spring Data Redis (Access+Driver)
