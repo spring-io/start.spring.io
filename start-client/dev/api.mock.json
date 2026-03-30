@@ -485,11 +485,6 @@
             "id": "postgresql",
             "name": "PostgreSQL Driver",
             "description": "A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code."
-          },
-          {
-            "id": "sqlite",
-            "name": "SQLite Driver",
-            "description": "JDBC driver for SQLite, a lightweight, embedded SQL database engine."
           }
         ]
       },
