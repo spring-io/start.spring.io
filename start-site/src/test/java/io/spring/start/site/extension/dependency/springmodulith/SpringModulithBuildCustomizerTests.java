@@ -55,6 +55,13 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(build.dependencies().ids()).contains("modulith-actuator");
 	}
 
+	@Test
+	void registersRuntimeIfFlywayIsPresent() {
+		Build build = createBuild("modulith", "flyway");
+		this.customizer.customize(build);
+		assertThat(build.dependencies().ids()).contains("modulith-runtime");
+	}
+
 	@ParameterizedTest
 	@ValueSource(strings = { "actuator", "datadog", "graphite", "influx", "new-relic", "otlp-metrics", "prometheus",
 			"wavefront", "zipkin" })
