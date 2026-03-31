@@ -27,6 +27,7 @@ import io.spring.initializr.metadata.InitializrMetadata;
  * scope as well.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 public class LombokGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 
@@ -41,6 +42,12 @@ public class LombokGradleBuildCustomizer implements BuildCustomizer<GradleBuild>
 		Dependency lombok = this.metadata.getDependencies().get("lombok");
 		build.dependencies()
 			.add("lombok-compileOnly", lombok.getGroupId(), lombok.getArtifactId(), DependencyScope.COMPILE_ONLY);
+		build.dependencies()
+			.add("lombok-testAnnotationProcessor", lombok.getGroupId(), lombok.getArtifactId(),
+					DependencyScope.TEST_ANNOTATION_PROCESSOR);
+		build.dependencies()
+			.add("lombok-testCompileOnly", lombok.getGroupId(), lombok.getArtifactId(),
+					DependencyScope.TEST_COMPILE_ONLY);
 	}
 
 }

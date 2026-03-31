@@ -30,10 +30,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LombokGradleBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void lombokConfiguredWithCompileOnlyScope() {
+	void shouldConfigureLombokAsAnnotationProcessorsAndClasspathDependencies() {
 		ProjectRequest request = createProjectRequest("lombok");
 		assertThat(gradleBuild(request)).contains("annotationProcessor 'org.projectlombok:lombok'")
-			.contains("compileOnly 'org.projectlombok:lombok'");
+			.contains("compileOnly 'org.projectlombok:lombok'")
+			.contains("testAnnotationProcessor 'org.projectlombok:lombok'")
+			.contains("testCompileOnly 'org.projectlombok:lombok'");
 	}
 
 	@Test
