@@ -20,6 +20,7 @@ import io.spring.initializr.generator.test.buildsystem.maven.MavenBuildAssert;
 import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.assertj.core.api.AssertProvider;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,66 +29,132 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests for {@link McpSecurityBuildCustomizer}.
  *
  * @author Moritz Halbritter
+ * @author Daniel Garnier-Moiroux
  */
 class McpSecurityBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V4_0;
+	private static final SupportedBootVersion BOOT_4 = SupportedBootVersion.V4_0;
 
-	@Test
-	void shouldDoNothingIfMcpSecurityIsntSelected() {
-		AssertProvider<MavenBuildAssert> pom = getPom("web");
-		assertThat(pom).doesNotHaveDependency("org.springaicommunity", "mcp-server-security")
-			.doesNotHaveDependency("org.springaicommunity", "mcp-client-security")
-			.doesNotHaveDependency("org.springaicommunity", "mcp-authorization-server");
+	private static final SupportedBootVersion BOOT_3 = SupportedBootVersion.V3_5;
+
+	private AssertProvider<MavenBuildAssert> getPom(SupportedBootVersion bootVersion, String... dependencies) {
+		return mavenPom(createProjectRequest(bootVersion, dependencies));
 	}
 
-	@Test
-	void shouldAddDefaultSetupIfNothingElseIsSelected() {
-		AssertProvider<MavenBuildAssert> pom = getPom("mcp-security");
-		assertThat(pom).hasDependency("org.springframework.ai", "spring-ai-starter-mcp-client");
-		assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security");
-		assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
+	@Nested
+	class BootModules {
+
+		@Test
+		void shouldDoNothingIfMcpSecurityIsntSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "web");
+			assertThat(pom).doesNotHaveDependency("org.springaicommunity", "mcp-server-security-boot")
+				.doesNotHaveDependency("org.springaicommunity", "mcp-client-security-boot")
+				.doesNotHaveDependency("org.springaicommunity", "mcp-authorization-server-boot");
+		}
+
+		@Test
+		void shouldAddDefaultSetupIfNothingElseIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security");
+			assertThat(pom).hasDependency("org.springframework.ai", "spring-ai-starter-mcp-client");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security-boot");
+			assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
+		}
+
+		@Test
+		void shouldAddServerSecurityIfMcpServerIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "spring-ai-mcp-server");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-server-security-boot");
+		}
+
+		@Test
+		void shouldAddSpringSecurityIfMcpServerIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "spring-ai-mcp-server");
+			assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
+		}
+
+		@Test
+		void shouldNotAddSpringSecurityIfResourceServerIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "spring-ai-mcp-server",
+					"oauth2-resource-server");
+			assertThat(pom).doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-security");
+		}
+
+		@Test
+		void shouldAddClientSecurityIfMcpClientIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "spring-ai-mcp-client");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security-boot");
+		}
+
+		@Test
+		void shouldAddSpringSecurityIfMcpClientIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "spring-ai-mcp-client");
+			assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
+		}
+
+		@Test
+		void shouldAddAuthServerSecurityIfAuthServerIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "oauth2-authorization-server");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-authorization-server-boot");
+		}
+
 	}
 
-	@Test
-	void shouldAddServerSecurityIfMcpServerIsSelected() {
-		AssertProvider<MavenBuildAssert> pom = getPom("mcp-security", "spring-ai-mcp-server");
-		assertThat(pom).hasDependency("org.springaicommunity", "mcp-server-security");
-	}
+	@Nested
+	class BaseModules {
 
-	@Test
-	void shouldAddSpringSecurityIfMcpServerIsSelected() {
-		AssertProvider<MavenBuildAssert> pom = getPom("mcp-security", "spring-ai-mcp-server");
-		assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
-	}
+		@Test
+		void shouldDoNothingIfMcpSecurityIsntSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_3, "web");
+			assertThat(pom).doesNotHaveDependency("org.springaicommunity", "mcp-server-security")
+				.doesNotHaveDependency("org.springaicommunity", "mcp-client-security")
+				.doesNotHaveDependency("org.springaicommunity", "mcp-authorization-server");
+		}
 
-	@Test
-	void shouldNotAddSpringSecurityIfResourceServerIsSelected() {
-		AssertProvider<MavenBuildAssert> pom = mavenPom(
-				createProjectRequest(BOOT_VERSION, "mcp-security", "spring-ai-mcp-server", "oauth2-resource-server"));
-		assertThat(pom).doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-security");
-	}
+		@Test
+		void shouldAddDefaultSetupIfNothingElseIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_3, "mcp-security");
+			assertThat(pom).hasDependency("org.springframework.ai", "spring-ai-starter-mcp-client");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security");
+			assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
+		}
 
-	@Test
-	void shouldAddClientSecurityIfMcpClientIsSelected() {
-		AssertProvider<MavenBuildAssert> pom = getPom("mcp-security", "spring-ai-mcp-client");
-		assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security");
-	}
+		@Test
+		void shouldAddServerSecurityIfMcpServerIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_3, "mcp-security", "spring-ai-mcp-server");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-server-security");
+		}
 
-	@Test
-	void shouldAddSpringSecurityIfMcpClientIsSelected() {
-		AssertProvider<MavenBuildAssert> pom = getPom("mcp-security", "spring-ai-mcp-client");
-		assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
-	}
+		@Test
+		void shouldAddSpringSecurityIfMcpServerIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_3, "mcp-security", "spring-ai-mcp-server");
+			assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
+		}
 
-	@Test
-	void shouldAddAuthServerSecurityIfAuthServerIsSelected() {
-		AssertProvider<MavenBuildAssert> pom = getPom("mcp-security", "oauth2-authorization-server");
-		assertThat(pom).hasDependency("org.springaicommunity", "mcp-authorization-server");
-	}
+		@Test
+		void shouldNotAddSpringSecurityIfResourceServerIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_3, "mcp-security", "spring-ai-mcp-server",
+					"oauth2-resource-server");
+			assertThat(pom).doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-security");
+		}
 
-	private AssertProvider<MavenBuildAssert> getPom(String... dependencies) {
-		return mavenPom(createProjectRequest(BOOT_VERSION, dependencies));
+		@Test
+		void shouldAddClientSecurityIfMcpClientIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_3, "mcp-security", "spring-ai-mcp-client");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security");
+		}
+
+		@Test
+		void shouldAddSpringSecurityIfMcpClientIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_3, "mcp-security", "spring-ai-mcp-client");
+			assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
+		}
+
+		@Test
+		void shouldAddAuthServerSecurityIfAuthServerIsSelected() {
+			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_3, "mcp-security", "oauth2-authorization-server");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-authorization-server");
+		}
+
 	}
 
 }
