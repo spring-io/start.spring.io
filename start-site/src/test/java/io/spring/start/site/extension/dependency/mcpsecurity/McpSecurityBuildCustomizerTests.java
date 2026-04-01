@@ -47,23 +47,23 @@ class McpSecurityBuildCustomizerTests extends AbstractExtensionTests {
 		@Test
 		void shouldDoNothingIfMcpSecurityIsntSelected() {
 			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "web");
-			assertThat(pom).doesNotHaveDependency("org.springaicommunity", "mcp-server-security-boot")
-				.doesNotHaveDependency("org.springaicommunity", "mcp-client-security-boot")
-				.doesNotHaveDependency("org.springaicommunity", "mcp-authorization-server-boot");
+			assertThat(pom).doesNotHaveDependency("org.springaicommunity", "mcp-server-security-spring-boot")
+				.doesNotHaveDependency("org.springaicommunity", "mcp-client-security-spring-boot")
+				.doesNotHaveDependency("org.springaicommunity", "mcp-authorization-server-spring-boot");
 		}
 
 		@Test
 		void shouldAddDefaultSetupIfNothingElseIsSelected() {
 			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security");
 			assertThat(pom).hasDependency("org.springframework.ai", "spring-ai-starter-mcp-client");
-			assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security-boot");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security-spring-boot");
 			assertThat(pom).hasDependency("org.springframework.boot", "spring-boot-starter-security");
 		}
 
 		@Test
 		void shouldAddServerSecurityIfMcpServerIsSelected() {
 			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "spring-ai-mcp-server");
-			assertThat(pom).hasDependency("org.springaicommunity", "mcp-server-security-boot");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-server-security-spring-boot");
 		}
 
 		@Test
@@ -82,7 +82,7 @@ class McpSecurityBuildCustomizerTests extends AbstractExtensionTests {
 		@Test
 		void shouldAddClientSecurityIfMcpClientIsSelected() {
 			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "spring-ai-mcp-client");
-			assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security-boot");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-client-security-spring-boot");
 		}
 
 		@Test
@@ -94,7 +94,7 @@ class McpSecurityBuildCustomizerTests extends AbstractExtensionTests {
 		@Test
 		void shouldAddAuthServerSecurityIfAuthServerIsSelected() {
 			AssertProvider<MavenBuildAssert> pom = getPom(BOOT_4, "mcp-security", "oauth2-authorization-server");
-			assertThat(pom).hasDependency("org.springaicommunity", "mcp-authorization-server-boot");
+			assertThat(pom).hasDependency("org.springaicommunity", "mcp-authorization-server-spring-boot");
 		}
 
 	}

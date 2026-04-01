@@ -2084,7 +2084,7 @@ initializr:
           artifact-id: mcp-server-security
           description: Provides security for Spring AI's MCP server and client, and for the OAuth2 Authorization Server.
           starter: false
-          compatibilityRange: "[3.5.0,4.1.0-M1)"
+          compatibilityRange: "[3.5.0,4.2.0-M1)"
           mappings:
             - compatibilityRange: "[3.5.0,4.0.0)"
               version: 0.0.6

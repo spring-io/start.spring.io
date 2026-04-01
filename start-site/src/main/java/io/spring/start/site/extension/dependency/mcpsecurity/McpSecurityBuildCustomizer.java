@@ -20,21 +20,23 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * {@link BuildCustomizer} which adds {@code mcp-server-security},
  * {@code mcp-client-security} and {@code mcp-authorization-server} depending on which
  * other dependencies are selected.
  * <ul>
- * <li>{@code mcp-server-security-boot} is added if {@code spring-ai-mcp-server} is
+ * <li>{@code mcp-server-security-spring-boot} is added if {@code spring-ai-mcp-server} is
  * selected</li>
- * <li>{@code mcp-client-security-boot} is added if {@code spring-ai-mcp-client} is
+ * <li>{@code mcp-client-security-spring-boot} is added if {@code spring-ai-mcp-client} is
  * selected</li>
- * <li>{@code mcp-authorization-server-boot} is added if
+ * <li>{@code mcp-authorization-server-spring-boot} is added if
  * {@code oauth2-authorization-server} is selected</li>
  * </ul>
  * <p>
- * In minor {@code 0.0.x}, the {@code *-boot} modules did not exist. In that case, we add
+ * In {@code 0.0.x}, the {@code *-spring-boot} modules did not exist. In that case, we add
  * the base modules, {@code mcp-server-security}, {@code mcp-client-security} and
  * {@code mcp-authorization-server}.
  *
@@ -42,6 +44,8 @@ import io.spring.initializr.generator.version.Version;
  * @author Daniel Garnier-Moiroux
  */
 class McpSecurityBuildCustomizer implements BuildCustomizer<Build> {
+
+	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0");
 
 	private final Version platformVersion;
 
@@ -77,7 +81,7 @@ class McpSecurityBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	private void handleMcpServer(Build build, Dependency dependency) {
-		String artifactId = getArtifactId(dependency, "mcp-server-security");
+		String artifactId = getArtifactId("mcp-server-security");
 		build.dependencies().add("mcp-server-security", Dependency.from(dependency).artifactId(artifactId).build());
 		if (!build.dependencies().has("oauth2-resource-server")) {
 			build.dependencies().add("security");
@@ -85,7 +89,7 @@ class McpSecurityBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	private void handleMcpClient(Build build, Dependency dependency) {
-		String artifactId = getArtifactId(dependency, "mcp-client-security");
+		String artifactId = getArtifactId("mcp-client-security");
 		build.dependencies().add("mcp-client-security", Dependency.from(dependency).artifactId(artifactId).build());
 		if (!build.dependencies().has("security")) {
 			build.dependencies().add("security");
@@ -93,25 +97,25 @@ class McpSecurityBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	private void handleOAuth2AuthorizationServer(Build build, Dependency dependency) {
-		String artifactId = getArtifactId(dependency, "mcp-authorization-server");
+		String artifactId = getArtifactId("mcp-authorization-server");
 		build.dependencies()
 			.add("mcp-authorization-server", Dependency.from(dependency).artifactId(artifactId).build());
 	}
 
 	private void addDefaultSetup(Build build, Dependency dependency) {
 		build.dependencies().add("spring-ai-mcp-client");
-		String artifactId = getArtifactId(dependency, "mcp-client-security");
+		String artifactId = getArtifactId("mcp-client-security");
 		build.dependencies().add("mcp-client-security", Dependency.from(dependency).artifactId(artifactId).build());
 		if (!build.dependencies().has("security")) {
 			build.dependencies().add("security");
 		}
 	}
 
-	private String getArtifactId(Dependency dependency, String baseName) {
-		if (this.platformVersion.getMajor() != null && this.platformVersion.getMajor() < 4) {
-			return baseName;
+	private String getArtifactId(String baseName) {
+		if (SPRING_BOOT_4_OR_LATER.match(this.platformVersion)) {
+			return baseName + "-spring-boot";
 		}
-		return baseName + "-boot";
+		return baseName;
 	}
 
 }
