@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
+import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
@@ -27,6 +28,7 @@ import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.dependency.ldap.LdapUnboundIdBuildCustomizer;
 import io.spring.start.site.extension.dependency.liquibase.LiquibaseProjectContributor;
 import io.spring.start.site.extension.dependency.lombok.LombokGradleBuildCustomizer;
+import io.spring.start.site.extension.dependency.lombok.LombokMavenBuildCustomizer;
 import io.spring.start.site.extension.dependency.mybatis.MyBatisTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.okta.OktaHelpDocumentCustomizer;
 import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomizer;
@@ -107,6 +109,13 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("lombok")
 	public LombokGradleBuildCustomizer lombokGradleBuildCustomizer() {
 		return new LombokGradleBuildCustomizer(this.metadata);
+	}
+
+	@Bean
+	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
+	@ConditionalOnRequestedDependency("lombok")
+	LombokMavenBuildCustomizer lombokMavenBuildCustomizer() {
+		return new LombokMavenBuildCustomizer(this.metadata);
 	}
 
 	@Bean

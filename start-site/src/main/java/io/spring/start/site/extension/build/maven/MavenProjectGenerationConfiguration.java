@@ -45,10 +45,4 @@ class MavenProjectGenerationConfiguration {
 		return new AnnotationProcessorExclusionBuildCustomizer(metadata);
 	}
 
-	@Bean
-	RegisterAnnotationProcessorsBuildCustomizer registerAnnotationProcessorsBuildCustomizer(InitializrMetadata metadata,
-			ProjectDescription projectDescription) {
-		return new RegisterAnnotationProcessorsBuildCustomizer(metadata, projectDescription);
-	}
-
 }
