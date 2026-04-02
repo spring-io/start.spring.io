@@ -112,7 +112,7 @@ initializr:
         order: 50
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 2025.0.1
+            version: 2025.0.2
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
             version: 2025.1.1
       spring-cloud-azure:
