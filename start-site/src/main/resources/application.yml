@@ -1592,7 +1592,7 @@ initializr:
           description: Provides a simple, yet effective way to route to APIs in Servlet-based applications. Provides cross-cutting concerns to those APIs such as security, monitoring/metrics, and resiliency.
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway-server-mvc.html
+              href: https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway-server-webmvc.html
         - name: Reactive Gateway
           id: cloud-gateway-reactive
           mappings:
@@ -1604,7 +1604,7 @@ initializr:
             - reactive
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway.html
+              href: https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway-server-webflux.html
             - rel: guide
               href: https://github.com/spring-cloud-samples/spring-cloud-gateway-sample
               description: Using Spring Cloud Gateway
