@@ -131,7 +131,7 @@ initializr:
         additionalBoms: [ spring-cloud ]
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 7.4.4
+            version: 8.0.3
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
             version: 8.0.1
       spring-cloud-services:
