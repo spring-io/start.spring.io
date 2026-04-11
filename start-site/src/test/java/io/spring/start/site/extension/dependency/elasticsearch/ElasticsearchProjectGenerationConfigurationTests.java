@@ -26,27 +26,27 @@ import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Tests for {@link ElasticsearchProjectGenerationConfiguration}.
- *
- * @author Moritz Halbritter
- * @author Eddú Meléndez
- */
 class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtensionTests {
-
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@Test
 	void doesNothingWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "data-elasticsearch");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "web", "data-elasticsearch");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void createsElasticsearchService() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "data-elasticsearch");
+	void createsElasticsearchServiceForBoot3() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
+				"data-elasticsearch");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
+	}
+
+	@Test
+	void createsElasticsearchServiceForBoot4() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "docker-compose",
+				"data-elasticsearch");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch9.yaml"));
 	}
 
 	@Test

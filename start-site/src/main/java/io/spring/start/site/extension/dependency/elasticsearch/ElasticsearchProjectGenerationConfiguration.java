@@ -18,6 +18,8 @@ package io.spring.start.site.extension.dependency.elasticsearch;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.version.Version;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -42,28 +44,37 @@ class ElasticsearchProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer elasticsearchServiceConnectionsCustomizer(Build build,
-			DockerServiceResolver serviceResolver, Testcontainers testcontainers) {
+			DockerServiceResolver serviceResolver, Testcontainers testcontainers, ProjectDescription description) {
 		Container container = testcontainers.getContainer(SupportedContainer.ELASTICSEARCH);
 		return (serviceConnections) -> {
 			if (isElasticsearchEnabled(build)) {
-				serviceResolver.doWith("elasticsearch",
-						(service) -> serviceConnections.addServiceConnection(ServiceConnection
-							.ofContainer("elasticsearch", service, container.className(), container.generic())));
+				String serviceId = isBoot4(description) ? "elasticsearch9" : "elasticsearch";
+
+				serviceResolver.doWith(serviceId, (service) -> serviceConnections.addServiceConnection(ServiceConnection
+					.ofContainer("elasticsearch", service, container.className(), container.generic())));
 			}
 		};
 	}
 
 	@Bean
 	@ConditionalOnRequestedDependency("docker-compose")
-	ComposeFileCustomizer elasticsearchComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver) {
+	ComposeFileCustomizer elasticsearchComposeFileCustomizer(Build build, DockerServiceResolver serviceResolver,
+			ProjectDescription description) {
 		return (composeFile) -> {
 			if (isElasticsearchEnabled(build)) {
-				serviceResolver.doWith("elasticsearch",
-						(service) -> composeFile.services()
-							.add("elasticsearch",
-									service.andThen((builder) -> builder.environment("ELASTIC_PASSWORD", "secret")
-										.environment("xpack.security.enabled", "false")
-										.environment("discovery.type", "single-node"))));
+				String serviceId = isBoot4(description) ? "elasticsearch9" : "elasticsearch";
+
+				serviceResolver.doWith(serviceId,
+						(service) -> composeFile.services().add("elasticsearch", service.andThen((builder) -> {
+							builder.environment("ELASTIC_PASSWORD", "secret")
+								.environment("xpack.security.enabled", "false")
+								.environment("discovery.type", "single-node");
+
+							if (isBoot4(description)) {
+								builder.environment("xpack.security.http.ssl.enabled", "false")
+									.environment("xpack.security.transport.ssl.enabled", "false");
+							}
+						})));
 			}
 		};
 	}
@@ -71,6 +82,11 @@ class ElasticsearchProjectGenerationConfiguration {
 	private boolean isElasticsearchEnabled(Build build) {
 		return build.dependencies().has("data-elasticsearch")
 				|| build.dependencies().has("spring-ai-vectordb-elasticsearch");
+	}
+
+	private boolean isBoot4(ProjectDescription description) {
+		Version bootVersion = description.getPlatformVersion();
+		return bootVersion.compareTo(Version.parse("4.0.0-M1")) >= 0;
 	}
 
 }
