@@ -66,6 +66,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("typesense", typesense());
 		this.dockerServices.put("weaviate", weaviate());
 		this.dockerServices.put("zipkin", zipkin());
+		this.dockerServices.put("elasticsearch9", elasticsearch9());
 	}
 
 	private static DockerService activeMQ() {
@@ -285,6 +286,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("openzipkin/zipkin")
 			.website("https://hub.docker.com/r/openzipkin/zipkin/")
 			.randomPort(9411)
+			.build();
+	}
+
+	private static DockerService elasticsearch9() {
+		return DockerService.withImageAndTag("docker.elastic.co/elasticsearch/elasticsearch:9.3.3")
+			.website("https://www.docker.elastic.co/r/elasticsearch")
+			.randomPorts(9200, 9300)
 			.build();
 	}
 
