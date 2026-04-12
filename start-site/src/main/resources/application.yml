@@ -2089,7 +2089,7 @@ initializr:
             - compatibilityRange: "[3.5.0,4.0.0)"
               version: 0.0.6
             - compatibilityRange: "[4.0.0,4.2.0-M1)"
-              version: 0.1.5
+              version: 0.1.6
           links:
             - rel: reference
               href: https://github.com/spring-ai-community/mcp-security?tab=readme-ov-file#mcp-security
