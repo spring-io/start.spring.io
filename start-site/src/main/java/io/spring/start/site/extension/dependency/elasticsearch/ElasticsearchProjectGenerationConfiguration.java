@@ -65,16 +65,11 @@ class ElasticsearchProjectGenerationConfiguration {
 				String serviceId = isBoot4(description) ? "elasticsearch9" : "elasticsearch";
 
 				serviceResolver.doWith(serviceId,
-						(service) -> composeFile.services().add("elasticsearch", service.andThen((builder) -> {
-							builder.environment("ELASTIC_PASSWORD", "secret")
-								.environment("xpack.security.enabled", "false")
-								.environment("discovery.type", "single-node");
-
-							if (isBoot4(description)) {
-								builder.environment("xpack.security.http.ssl.enabled", "false")
-									.environment("xpack.security.transport.ssl.enabled", "false");
-							}
-						})));
+						(service) -> composeFile.services()
+							.add("elasticsearch",
+									service.andThen((builder) -> builder.environment("ELASTIC_PASSWORD", "secret")
+										.environment("xpack.security.enabled", "false")
+										.environment("discovery.type", "single-node"))));
 			}
 		};
 	}

@@ -26,6 +26,12 @@ import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Tests for {@link ElasticsearchProjectGenerationConfiguration}.
+ *
+ * @author Moritz Halbritter
+ * @author Eddú Meléndez
+ */
 class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
