@@ -27,6 +27,7 @@ import java.util.Map;
  * @author Moritz Halbritter
  * @author Chris Bono
  * @author Eddú Meléndez
+ * @author Venkata Naga Sai Srikanth Gollapudi
  */
 public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
@@ -117,8 +118,8 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService elasticsearch() {
 		// They don't provide a 'latest' tag
-		return DockerService.withImageAndTag("docker.elastic.co/elasticsearch/elasticsearch:7.17.10")
-			.website("https://www.docker.elastic.co/r/elasticsearch")
+		return DockerService.withImageAndTag("elasticsearch:7.17.10")
+			.website("https://hub.docker.com/_/elasticsearch")
 			.randomPorts(9200, 9300)
 			.build();
 	}
