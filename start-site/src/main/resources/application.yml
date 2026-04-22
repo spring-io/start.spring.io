@@ -479,9 +479,9 @@ initializr:
           compatibilityRange: "[3.5.0,4.1.0-M1)"
           mappings:
             - compatibilityRange: "[3.5.0,4.0.0)"
-              version: 4.0.2
+              version: 4.0.3
             - compatibilityRange: "[4.0.0,4.1.0-M1)"
-              version: 5.0.0
+              version: 5.1.0
           links:
             - rel: reference
               href: https://github.com/wimdeblauwe/htmx-spring-boot
