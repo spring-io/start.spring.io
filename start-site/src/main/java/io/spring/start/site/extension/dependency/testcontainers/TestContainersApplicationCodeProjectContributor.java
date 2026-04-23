@@ -41,6 +41,7 @@ import io.spring.start.site.container.ServiceConnections.ServiceConnection;
  * @param <S> language-specific source code
  * @author Stephane Nicoll
  * @author Moritz Halbritter
+ * @author Kaique Vieira Soares
  */
 abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDeclaration, C extends CompilationUnit<T>, S extends SourceCode<T, C>>
 		implements ProjectContributor {
@@ -121,13 +122,17 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 		});
 	}
 
-	protected void annotateContainerMethod(Annotatable annotable, String name) {
+	protected void annotateContainerMethod(Annotatable annotable, ServiceConnection serviceConnection) {
 		annotable.annotations().addSingle(BEAN_CLASS_NAME);
 		annotable.annotations().addSingle(SERVICE_CONNECTION_CLASS_NAME, (annotation) -> {
-			if (name != null) {
-				annotation.set("name", name);
+			if (serviceConnection.connectionName() != null) {
+				annotation.set("name", serviceConnection.connectionName());
 			}
 		});
+
+		for (ServiceConnections.AnnotationRequest request : serviceConnection.annotations()) {
+			annotable.annotations().addSingle(request.className(), request.customizer());
+		}
 	}
 
 	private String getTestApplicationName() {
