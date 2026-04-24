@@ -27,6 +27,7 @@ import java.util.Map;
  * @author Moritz Halbritter
  * @author Chris Bono
  * @author Eddú Meléndez
+ * @author Venkata Naga Sai Srikanth Gollapudi
  */
 public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
@@ -38,6 +39,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("activeMQClassic", activeMQClassic());
 		this.dockerServices.put("apacheActiveMQ", apacheActiveMQ());
 		this.dockerServices.put("artemis", artemis());
+		this.dockerServices.put("apacheArtemis", apacheArtemis());
 		this.dockerServices.put("azurite", azurite());
 		this.dockerServices.put("cassandra", cassandra());
 		this.dockerServices.put("chroma", chroma());
@@ -95,6 +97,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 			.build();
 	}
 
+	private static DockerService apacheArtemis() {
+		return DockerService.withImageAndTag("apache/artemis")
+			.website("https://hub.docker.com/r/apache/artemis")
+			.randomPort(61616)
+			.build();
+	}
+
 	private static DockerService azurite() {
 		return DockerService.withImageAndTag("mcr.microsoft.com/azure-storage/azurite")
 			.website("https://github.com/Azure/Azurite?tab=readme-ov-file#dockerhub")
@@ -118,8 +127,8 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	private static DockerService elasticsearch() {
 		// They don't provide a 'latest' tag
-		return DockerService.withImageAndTag("docker.elastic.co/elasticsearch/elasticsearch:7.17.10")
-			.website("https://www.docker.elastic.co/r/elasticsearch")
+		return DockerService.withImageAndTag("elasticsearch:7.17.10")
+			.website("https://hub.docker.com/_/elasticsearch")
 			.randomPorts(9200, 9300)
 			.build();
 	}
@@ -148,7 +157,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	private static DockerService milvus() {
 		return DockerService.withImageAndTag("milvusdb/milvus")
 			.website("https://hub.docker.com/r/milvusdb/milvus")
-			.randomPort(19530)
+			.randomPorts(9091, 19530)
 			.build();
 	}
 

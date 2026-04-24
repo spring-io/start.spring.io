@@ -1,0 +1,5 @@
+services:
+  artemis:
+    image: 'apache/artemis:latest'
+    ports:
+      - '61616'

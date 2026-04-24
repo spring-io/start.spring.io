@@ -17,9 +17,6 @@
 package io.spring.start.site.extension.dependency.springkafka;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
-import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
@@ -39,6 +36,7 @@ import org.springframework.context.annotation.Bean;
  * @author Stephane Nicoll
  * @author Eddú Meléndez
  * @author Moritz Halbritter
+ * @author Venkata Naga Sai Srikanth Gollapudi
  */
 @ProjectGenerationConfiguration
 class SpringKafkaProjectGenerationConfiguration {
@@ -68,27 +66,6 @@ class SpringKafkaProjectGenerationConfiguration {
 	@ConditionalOnPlatformVersion("4.0.0-M1")
 	SpringKafkaStreamsBuildCustomizer springKafkaStreamsBuildCustomizer() {
 		return new SpringKafkaStreamsBuildCustomizer();
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("kafka-streams")
-	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-	SpringKafkaStreamsMavenBuildCustomizer springKafkaStreamsMavenBuildCustomizer() {
-		return new SpringKafkaStreamsMavenBuildCustomizer();
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("kafka-streams")
-	@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
-	SpringKafkaStreamsGradleBuildCustomizer springKafkaStreamsGradleBuildCustomizer() {
-		return new SpringKafkaStreamsGradleBuildCustomizer('\'');
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("kafka-streams")
-	@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
-	SpringKafkaStreamsGradleBuildCustomizer springKafkaStreamsGradleKotlinBuildCustomizer() {
-		return new SpringKafkaStreamsGradleBuildCustomizer('\"');
 	}
 
 	private boolean isKafkaEnabled(Build build) {
