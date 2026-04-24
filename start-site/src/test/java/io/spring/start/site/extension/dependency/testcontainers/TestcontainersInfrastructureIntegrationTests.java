@@ -45,7 +45,6 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("testcontainers");
 		request.setLanguage("java");
 		ProjectStructure project = generateProject(request);
-
 		assertThat(project).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
 			.contains("import com.example.SimpleAnno;")
 			.contains("import com.example.ParamAnno;")
@@ -58,7 +57,6 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("testcontainers");
 		request.setLanguage("kotlin");
 		ProjectStructure project = generateProject(request);
-
 		assertThat(project).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
 			.contains("import com.example.SimpleAnno")
 			.contains("import com.example.ParamAnno")
@@ -71,7 +69,6 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 		ProjectRequest request = createProjectRequest("testcontainers");
 		request.setLanguage("groovy");
 		ProjectStructure project = generateProject(request);
-
 		assertThat(project).textFile("src/test/groovy/com/example/demo/TestcontainersConfiguration.groovy")
 			.contains("import com.example.SimpleAnno")
 			.contains("import com.example.ParamAnno")
@@ -85,11 +82,9 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 		@Bean
 		ServiceConnectionsCustomizer fakeInfrastructureCustomizer() {
 			return (serviceConnections) -> {
-
 				DockerService fakeDockerService = DockerService.withImageAndTag("fake-image:latest")
 					.website("https://example.com")
 					.build();
-
 				ServiceConnection connection = ServiceConnection
 					.ofContainer("fake", fakeDockerService, "com.example.FakeContainer", false)
 					.withAnnotation(ClassName.of("com.example.SimpleAnno"))
@@ -98,7 +93,6 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 						annotation.set("booleanValue", true);
 						annotation.set("intValue", 42);
 					});
-
 				serviceConnections.addServiceConnection(connection);
 			};
 		}

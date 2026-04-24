@@ -16,11 +16,13 @@
 
 package io.spring.start.site.container;
 
+import io.spring.initializr.generator.language.Annotation;
 import io.spring.initializr.generator.language.ClassName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.tuple;
 
 /**
  * Tests for {@link ServiceConnections}.
@@ -36,10 +38,8 @@ class ServiceConnectionsTests {
 				"com.example.Zeta", false);
 		ServiceConnections.ServiceConnection conn2 = ServiceConnections.ServiceConnection.ofContainer("alpha", null,
 				"com.example.Alpha", false);
-
 		connections.addServiceConnection(conn1);
 		connections.addServiceConnection(conn2);
-
 		assertThat(connections.values()).containsExactly(conn2, conn1);
 	}
 
@@ -48,18 +48,19 @@ class ServiceConnectionsTests {
 		ServiceConnections connections = new ServiceConnections();
 		ServiceConnections.ServiceConnection conn = ServiceConnections.ServiceConnection.ofContainer("test", null,
 				"com.example.Test", false);
-
 		connections.addServiceConnection(conn);
-
 		assertThatIllegalArgumentException().isThrownBy(() -> connections.addServiceConnection(conn))
 			.withMessageContaining("Connection with id 'test' already registered");
 	}
 
 	@Test
-	void annotationRequestHandlesNullAttributes() {
+	void annotationRequestHandlesNullCustomizer() {
 		ServiceConnections.AnnotationRequest request = new ServiceConnections.AnnotationRequest(
 				ClassName.of("org.example.Test"), null);
 		assertThat(request.customizer()).isNotNull();
+		Annotation built = buildAnnotationWithCustomizer(request);
+		assertThat(built.getClassName()).isEqualTo(request.className());
+		assertThat(built.getAttributes()).isEmpty();
 	}
 
 	@Test
@@ -73,7 +74,6 @@ class ServiceConnectionsTests {
 	void ofGenericContainerCreatesExpectedInstance() {
 		ServiceConnections.ServiceConnection conn = ServiceConnections.ServiceConnection.ofGenericContainer("redis",
 				null, "redisConnection");
-
 		assertThat(conn.id()).isEqualTo("redis");
 		assertThat(conn.isGenericContainer()).isTrue();
 		assertThat(conn.connectionName()).isEqualTo("redisConnection");
@@ -84,7 +84,6 @@ class ServiceConnectionsTests {
 	void ofContainerCreatesExpectedInstance() {
 		ServiceConnections.ServiceConnection conn = ServiceConnections.ServiceConnection.ofContainer("mongo", null,
 				"org.testcontainers.containers.MongoDBContainer", false);
-
 		assertThat(conn.id()).isEqualTo("mongo");
 		assertThat(conn.isGenericContainer()).isFalse();
 		assertThat(conn.connectionName()).isNull();
@@ -95,9 +94,7 @@ class ServiceConnectionsTests {
 	void withAnnotationAddsSimpleAnnotationAndPreservesImmutability() {
 		ServiceConnections.ServiceConnection original = ServiceConnections.ServiceConnection.ofContainer("test", null,
 				"com.example.Test", false);
-
 		ServiceConnections.ServiceConnection updated = original.withAnnotation(ClassName.of("org.example.Ssl"));
-
 		assertThat(original.annotations()).isEmpty();
 		assertThat(updated.annotations()).hasSize(1)
 			.extracting(ServiceConnections.AnnotationRequest::className)
@@ -106,30 +103,44 @@ class ServiceConnectionsTests {
 
 	@Test
 	void withAnnotationAddsAnnotationWithCustomizer() {
+		ClassName ssl = ClassName.of("org.example.Ssl");
 		ServiceConnections.ServiceConnection original = ServiceConnections.ServiceConnection.ofContainer("test", null,
 				"com.example.Test", false);
-
-		ServiceConnections.ServiceConnection updated = original.withAnnotation(ClassName.of("org.example.Ssl"),
-				(builder) -> {
-					builder.set("bundle", "mybundle");
-					builder.set("enabled", true);
-				});
-
-		assertThat(updated.annotations()).hasSize(1)
-			.extracting(ServiceConnections.AnnotationRequest::className)
-			.containsExactly(ClassName.of("org.example.Ssl"));
+		ServiceConnections.ServiceConnection updated = original.withAnnotation(ssl, (builder) -> {
+			builder.set("bundle", "mybundle");
+			builder.set("enabled", true);
+		});
+		assertThat(updated.annotations()).hasSize(1);
+		ServiceConnections.AnnotationRequest request = updated.annotations().get(0);
+		assertThat(request.className()).isEqualTo(ssl);
+		Annotation built = buildAnnotationWithCustomizer(request);
+		assertThat(built.getAttributes()).extracting(Annotation.Attribute::getName, (attr) -> attr.getValues().get(0))
+			.containsExactlyInAnyOrder(tuple("bundle", "mybundle"), tuple("enabled", true));
 	}
 
 	@Test
 	void withAnnotationChainingAddsMultipleAnnotations() {
+		ClassName first = ClassName.of("org.example.First");
+		ClassName second = ClassName.of("org.example.Second");
 		ServiceConnections.ServiceConnection conn = ServiceConnections.ServiceConnection
 			.ofContainer("test", null, "com.example.Test", false)
-			.withAnnotation(ClassName.of("org.example.First"))
-			.withAnnotation(ClassName.of("org.example.Second"), (builder) -> builder.set("priority", 1));
-
+			.withAnnotation(first)
+			.withAnnotation(second, (builder) -> builder.set("priority", 1));
 		assertThat(conn.annotations()).hasSize(2)
 			.extracting(ServiceConnections.AnnotationRequest::className)
-			.containsExactly(ClassName.of("org.example.First"), ClassName.of("org.example.Second"));
+			.containsExactly(first, second);
+		assertThat(buildAnnotationWithCustomizer(conn.annotations().get(0)).getAttributes()).isEmpty();
+		Annotation secondBuilt = buildAnnotationWithCustomizer(conn.annotations().get(1));
+		assertThat(secondBuilt.getClassName()).isEqualTo(second);
+		assertThat(secondBuilt.getAttributes())
+			.extracting(Annotation.Attribute::getName, (attr) -> attr.getValues().get(0))
+			.containsExactly(tuple("priority", 1));
+	}
+
+	private static Annotation buildAnnotationWithCustomizer(ServiceConnections.AnnotationRequest request) {
+		Annotation.Builder builder = Annotation.of(request.className());
+		request.customizer().accept(builder);
+		return builder.build();
 	}
 
 }

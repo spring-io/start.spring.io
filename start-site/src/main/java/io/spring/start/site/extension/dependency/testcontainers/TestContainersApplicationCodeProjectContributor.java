@@ -129,7 +129,6 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 				annotation.set("name", serviceConnection.connectionName());
 			}
 		});
-
 		for (ServiceConnections.AnnotationRequest request : serviceConnection.annotations()) {
 			annotable.annotations().addSingle(request.className(), request.customizer());
 		}
