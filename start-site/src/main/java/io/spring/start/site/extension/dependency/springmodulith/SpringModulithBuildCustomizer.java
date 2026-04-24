@@ -42,7 +42,7 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 
 	private static final Collection<String> PERSISTENCE = List.of("jdbc", "jpa", "mongodb", "neo4j");
 
-	private static final Collection<String> BROKERS = List.of("activemq", "amqp", "artemis", "kafka");
+	private static final Collection<String> BROKERS = List.of("activemq", "artemis", "kafka", "rabbitmq");
 
 	@Override
 	public void customize(Build build) {
@@ -97,8 +97,9 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 
 	private String getModulithBrokerKey(String broker) {
 		return switch (broker) {
-			case "kafka", "amqp" -> broker;
 			case "artemis", "activemq" -> "jms";
+			case "kafka" -> broker;
+			case "rabbitmq" -> "amqp";
 			default -> throw new IllegalArgumentException("Unsupported broker!");
 		};
 	}
