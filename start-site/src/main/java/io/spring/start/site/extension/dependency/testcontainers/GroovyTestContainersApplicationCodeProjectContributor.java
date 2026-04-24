@@ -42,6 +42,7 @@ import org.springframework.boot.SpringApplication;
  * {@link TestContainersApplicationCodeProjectContributor} implementation for Groovy.
  *
  * @author Stephane Nicoll
+ * @author Kaique Vieira Soares
  */
 class GroovyTestContainersApplicationCodeProjectContributor extends
 		TestContainersApplicationCodeProjectContributor<GroovyTypeDeclaration, GroovyCompilationUnit, GroovySourceCode> {
@@ -73,18 +74,17 @@ class GroovyTestContainersApplicationCodeProjectContributor extends
 		DockerService dockerService = serviceConnection.dockerService();
 		String imageId = "%s:%s".formatted(dockerService.getImage(), dockerService.getImageTag());
 		if (serviceConnection.isGenericContainer()) {
-			typeDeclaration.addMethodDeclaration(usingGenericContainer(methodName, imageId,
-					serviceConnection.connectionName(), dockerService.getPorts()));
+			typeDeclaration.addMethodDeclaration(
+					usingGenericContainer(methodName, imageId, serviceConnection, dockerService.getPorts()));
 		}
 		else {
-			typeDeclaration.addMethodDeclaration(usingSpecificContainer(methodName, imageId,
-					serviceConnection.containerClassName(), serviceConnection.containerClassNameGeneric()));
+			typeDeclaration.addMethodDeclaration(usingSpecificContainer(methodName, imageId, serviceConnection));
 		}
 
 	}
 
-	private GroovyMethodDeclaration usingGenericContainer(String methodName, String imageId, String connectionName,
-			Set<PortMapping> ports) {
+	private GroovyMethodDeclaration usingGenericContainer(String methodName, String imageId,
+			ServiceConnection serviceConnection, Set<PortMapping> ports) {
 		String portsParameter = ports.stream()
 			.map((port) -> String.valueOf(port.getContainerPort()))
 			.collect(Collectors.joining(", "));
@@ -93,17 +93,18 @@ class GroovyTestContainersApplicationCodeProjectContributor extends
 			.body(CodeBlock.ofStatement("new $T<>($L).withExposedPorts($L)",
 					Testcontainers.GENERIC_CONTAINER_CLASS_NAME, generatedDockerImageNameCode(imageId),
 					portsParameter));
-		annotateContainerMethod(method, connectionName);
+		annotateContainerMethod(method, serviceConnection);
 		return method;
 	}
 
-	private GroovyMethodDeclaration usingSpecificContainer(String methodName, String imageId, String containerClassName,
-			boolean containerClassNameGeneric) {
-		String statementFormat = containerClassNameGeneric ? "new $T<>($L)" : "new $T($L)";
+	private GroovyMethodDeclaration usingSpecificContainer(String methodName, String imageId,
+			ServiceConnection serviceConnection) {
+		String statementFormat = serviceConnection.containerClassNameGeneric() ? "new $T<>($L)" : "new $T($L)";
 		GroovyMethodDeclaration method = GroovyMethodDeclaration.method(methodName)
-			.returning(containerClassName)
-			.body(CodeBlock.ofStatement(statementFormat, containerClassName, generatedDockerImageNameCode(imageId)));
-		annotateContainerMethod(method, null);
+			.returning(serviceConnection.containerClassName())
+			.body(CodeBlock.ofStatement(statementFormat, serviceConnection.containerClassName(),
+					generatedDockerImageNameCode(imageId)));
+		annotateContainerMethod(method, serviceConnection);
 		return method;
 	}
 

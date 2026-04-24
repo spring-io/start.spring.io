@@ -43,6 +43,7 @@ import org.springframework.util.ClassUtils;
  * {@link TestContainersApplicationCodeProjectContributor} implementation for Java.
  *
  * @author Stephane Nicoll
+ * @author Kaique Vieira Soares
  */
 class JavaTestContainersApplicationCodeProjectContributor extends
 		TestContainersApplicationCodeProjectContributor<JavaTypeDeclaration, JavaCompilationUnit, JavaSourceCode> {
@@ -73,17 +74,16 @@ class JavaTestContainersApplicationCodeProjectContributor extends
 		DockerService dockerService = serviceConnection.dockerService();
 		String imageId = "%s:%s".formatted(dockerService.getImage(), dockerService.getImageTag());
 		if (serviceConnection.isGenericContainer()) {
-			typeDeclaration.addMethodDeclaration(usingGenericContainer(methodName, imageId,
-					serviceConnection.connectionName(), dockerService.getPorts()));
+			typeDeclaration.addMethodDeclaration(
+					usingGenericContainer(methodName, imageId, serviceConnection, dockerService.getPorts()));
 		}
 		else {
-			typeDeclaration.addMethodDeclaration(usingSpecificContainer(methodName, imageId,
-					serviceConnection.containerClassName(), serviceConnection.containerClassNameGeneric()));
+			typeDeclaration.addMethodDeclaration(usingSpecificContainer(methodName, imageId, serviceConnection));
 		}
 	}
 
-	private JavaMethodDeclaration usingGenericContainer(String methodName, String imageId, String connectionName,
-			Set<PortMapping> ports) {
+	private JavaMethodDeclaration usingGenericContainer(String methodName, String imageId,
+			ServiceConnection serviceConnection, Set<PortMapping> ports) {
 		String portsParameter = ports.stream()
 			.map((port) -> String.valueOf(port.getContainerPort()))
 			.collect(Collectors.joining(", "));
@@ -92,19 +92,24 @@ class JavaTestContainersApplicationCodeProjectContributor extends
 			.body(CodeBlock.ofStatement("return new $T<>($L).withExposedPorts($L)",
 					Testcontainers.GENERIC_CONTAINER_CLASS_NAME, generatedDockerImageNameCode(imageId),
 					portsParameter));
-		annotateContainerMethod(method, connectionName);
+
+		annotateContainerMethod(method, serviceConnection);
 		return method;
 	}
 
-	private JavaMethodDeclaration usingSpecificContainer(String methodName, String imageId, String containerClassName,
-			boolean containerClassNameGeneric) {
+	private JavaMethodDeclaration usingSpecificContainer(String methodName, String imageId,
+			ServiceConnection serviceConnection) {
+		String containerClassName = serviceConnection.containerClassName();
+		boolean containerClassNameGeneric = serviceConnection.containerClassNameGeneric();
+
 		String returnType = (containerClassNameGeneric) ? ClassUtils.getShortName(containerClassName) + "<?>"
 				: containerClassName;
 		String statementFormat = (containerClassNameGeneric) ? "return new $T<>($L)" : "return new $T($L)";
 		JavaMethodDeclaration method = JavaMethodDeclaration.method(methodName)
 			.returning(returnType)
 			.body(CodeBlock.ofStatement(statementFormat, containerClassName, generatedDockerImageNameCode(imageId)));
-		annotateContainerMethod(method, null);
+
+		annotateContainerMethod(method, serviceConnection);
 		return method;
 	}
 
