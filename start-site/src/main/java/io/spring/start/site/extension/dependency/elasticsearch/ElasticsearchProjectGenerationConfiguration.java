@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.elasticsearch;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.language.ClassName;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.version.Version;
 import io.spring.start.site.container.ComposeFileCustomizer;
@@ -37,9 +38,13 @@ import org.springframework.context.annotation.Configuration;
  * @author Moritz Halbritter
  * @author Stephane Nicoll
  * @author Eddú Meléndez
+ * @author Kaique Vieira Soares
  */
 @Configuration(proxyBeanMethods = false)
 class ElasticsearchProjectGenerationConfiguration {
+
+	private static final ClassName SSL_ANNOTATION = ClassName
+		.of("org.springframework.boot.testcontainers.service.connection.Ssl");
 
 	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
@@ -48,10 +53,13 @@ class ElasticsearchProjectGenerationConfiguration {
 		Container container = testcontainers.getContainer(SupportedContainer.ELASTICSEARCH);
 		return (serviceConnections) -> {
 			if (isElasticsearchEnabled(build)) {
-				String serviceId = isBoot4(description) ? "elasticsearch9" : "elasticsearch";
+				serviceResolver.doWith(isBoot4(description) ? "elasticsearch9" : "elasticsearch", (service) -> {
+					ServiceConnection connection = ServiceConnection.ofContainer("elasticsearch", service,
+							container.className(), container.generic());
 
-				serviceResolver.doWith(serviceId, (service) -> serviceConnections.addServiceConnection(ServiceConnection
-					.ofContainer("elasticsearch", service, container.className(), container.generic())));
+					serviceConnections.addServiceConnection(
+							isBoot4(description) ? connection.withAnnotation(SSL_ANNOTATION) : connection);
+				});
 			}
 		};
 	}

@@ -31,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Moritz Halbritter
  * @author Eddú Meléndez
+ * @author Kaique Vieira Soares
  */
 class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -60,6 +61,45 @@ class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtension
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
 				"spring-ai-vectordb-elasticsearch");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
+	}
+
+	@Test
+	void createsElasticsearchServiceConnectionWithSslAnnotationForBoot4() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "testcontainers",
+				"data-elasticsearch");
+		ProjectStructure structure = generateProject(request);
+
+		assertThat(structure.getProjectDirectory()
+			.resolve("src/test/java/com/example/demo/TestcontainersConfiguration.java")).content()
+			.contains("@ServiceConnection")
+			.contains("@Ssl")
+			.contains("import org.springframework.boot.testcontainers.service.connection.Ssl;");
+	}
+
+	@Test
+	void createsElasticsearchServiceConnectionWithSslAnnotationForBoot4WhenSpringAiModuleIsSelected() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "testcontainers",
+				"spring-ai-vectordb-elasticsearch");
+		ProjectStructure structure = generateProject(request);
+
+		assertThat(structure.getProjectDirectory()
+			.resolve("src/test/java/com/example/demo/TestcontainersConfiguration.java")).content()
+			.contains("@ServiceConnection")
+			.contains("@Ssl")
+			.contains("import org.springframework.boot.testcontainers.service.connection.Ssl;");
+	}
+
+	@Test
+	void doesNotCreateSslAnnotationForBoot3() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "testcontainers",
+				"data-elasticsearch");
+		ProjectStructure structure = generateProject(request);
+
+		assertThat(structure.getProjectDirectory()
+			.resolve("src/test/java/com/example/demo/TestcontainersConfiguration.java")).content()
+			.contains("@ServiceConnection")
+			.doesNotContain("@Ssl")
+			.doesNotContain("import org.springframework.boot.testcontainers.service.connection.Ssl;");
 	}
 
 }
