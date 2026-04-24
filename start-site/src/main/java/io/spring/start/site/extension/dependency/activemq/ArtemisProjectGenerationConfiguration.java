@@ -40,7 +40,7 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnRequestedDependency("artemis")
 public class ArtemisProjectGenerationConfiguration {
 
-	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.3");
+	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0");
 
 	private final boolean isSpringBoot4OrLater;
 
@@ -66,7 +66,7 @@ public class ArtemisProjectGenerationConfiguration {
 	}
 
 	private String getId() {
-		return this.isSpringBoot4OrLater ? "apacheArtemis" : "artemis";
+		return (this.isSpringBoot4OrLater) ? "apacheArtemis" : "artemis";
 	}
 
 }
