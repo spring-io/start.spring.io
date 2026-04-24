@@ -28,43 +28,26 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Wonwoo Lee
  * @author Stephane Nicoll
  * @author Moritz Halbritter
+ * @author Venkata Naga Sai Srikanth Gollapudi
  */
 class SpringKafkaProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void customizesBuildpacksBuilderWhenUsingMavenAndKafkaStreams() {
 		ProjectRequest request = createProjectRequest("kafka-streams");
-		assertThat(mavenPom(request)).containsIgnoringWhitespaces("""
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<image>
-							<runImage>paketobuildpacks/ubuntu-noble-run:latest</runImage>
-						</image>
-					</configuration>
-				</plugin>
-				""");
+		assertThat(mavenPom(request)).doesNotContain("runImage");
 	}
 
 	@Test
 	void customizesBuildpacksBuilderWhenUsingGradleGroovyAndKafkaStreams() {
 		ProjectRequest request = createProjectRequest("kafka-streams");
-		assertThat(gradleBuild(request)).containsIgnoringWhitespaces("""
-				tasks.named('bootBuildImage') {
-					runImage = 'paketobuildpacks/ubuntu-noble-run:latest'
-				}
-				""");
+		assertThat(gradleBuild(request)).doesNotContain("runImage");
 	}
 
 	@Test
 	void customizesBuildpacksBuilderWhenUsingGradleKotlinAndKafkaStreams() {
 		ProjectRequest request = createProjectRequest("kafka-streams");
-		assertThat(gradleKotlinDslBuild(request)).containsIgnoringWhitespaces("""
-				tasks.bootBuildImage {
-				    runImage = "paketobuildpacks/ubuntu-noble-run:latest"
-				}
-				""");
+		assertThat(gradleKotlinDslBuild(request)).doesNotContain("runImage");
 	}
 
 }
