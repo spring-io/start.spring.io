@@ -157,11 +157,11 @@ initializr:
         versionProperty: spring-modulith.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 1.4.10
+            version: 1.4.11
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 2.0.5
+            version: 2.0.6
           - compatibilityRange: "[4.1.0-M1,4.2.0-M1)"
-            version: 2.1.0-M4
+            version: 2.1.0-RC1
       spring-shell:
         groupId: org.springframework.shell
         artifactId: spring-shell-dependencies
