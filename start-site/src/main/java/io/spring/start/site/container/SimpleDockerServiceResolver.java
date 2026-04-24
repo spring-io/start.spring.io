@@ -39,6 +39,7 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("activeMQClassic", activeMQClassic());
 		this.dockerServices.put("apacheActiveMQ", apacheActiveMQ());
 		this.dockerServices.put("artemis", artemis());
+		this.dockerServices.put("apacheArtemis", apacheArtemis());
 		this.dockerServices.put("azurite", azurite());
 		this.dockerServices.put("cassandra", cassandra());
 		this.dockerServices.put("chroma", chroma());
@@ -91,6 +92,13 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	private static DockerService artemis() {
 		return DockerService.withImageAndTag("apache/activemq-artemis")
 			.website("https://hub.docker.com/r/apache/activemq-artemis")
+			.randomPort(61616)
+			.build();
+	}
+
+	private static DockerService apacheArtemis() {
+		return DockerService.withImageAndTag("apache/artemis")
+			.website("https://hub.docker.com/r/apache/artemis")
 			.randomPort(61616)
 			.build();
 	}
