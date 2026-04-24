@@ -27,7 +27,7 @@ import org.springframework.core.io.ClassPathResource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SpringAiChromaProjectGenerationConfiguration}
+ * Tests for {@link SpringAiMilvusProjectGenerationConfiguration}.
  *
  * @author Eddú Meléndez
  */
