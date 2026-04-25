@@ -86,6 +86,15 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 			.hasDependency(getDependency(bootVersion, "testcontainers"));
 	}
 
+	@Test
+	void buildWithSpringBoot4AndTestcontainersBatchDataMongoDbModule() {
+		assertThat(generateProject(SupportedBootVersion.V4_1, "testcontainers", "batch-data-mongodb")).mavenBuild()
+			.doesNotHaveBom("org.testcontainers", "testcontainers-bom")
+			.hasDependency(getDependency(SupportedBootVersion.V4_1, "batch-data-mongodb"))
+			.hasDependency("org.testcontainers", "testcontainers-mongodb", null, "test")
+			.hasDependency(getDependency(SupportedBootVersion.V4_1, "testcontainers"));
+	}
+
 	static Stream<Arguments> supportedTestcontainersActiveMQEntriesBuild() {
 		return Stream.of(Arguments.arguments("activemq", "activemq"), Arguments.arguments("artemis", "activemq"));
 	}
@@ -169,6 +178,19 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("elasticsearch", "https://java.testcontainers.org/modules/elasticsearch/"),
 				Arguments.arguments("mongodb", "https://java.testcontainers.org/modules/databases/mongodb/"),
 				Arguments.arguments("neo4j", "https://java.testcontainers.org/modules/databases/neo4j/"));
+	}
+
+	@Test
+	void linkToBatchDataMongoDbWhenTestContainerIsPresentIsAdded() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "testcontainers",
+				"batch-data-mongodb");
+		assertThat(helpDocument(request)).contains("https://java.testcontainers.org/modules/databases/mongodb/");
+	}
+
+	@Test
+	void linkToBatchDataMongoDbWhenTestContainerIsNotPresentIsNotAdded() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "batch-data-mongodb");
+		assertThat(helpDocument(request)).doesNotContain("https://java.testcontainers.org/modules/databases/mongodb/");
 	}
 
 	@Test

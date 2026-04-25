@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Tim Riemer
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 
@@ -50,6 +51,12 @@ class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 		Dependency dependency = springBatchTest();
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "batch");
 		assertThat(mavenPom(request)).doesNotHaveDependency(dependency.getGroupId(), dependency.getArtifactId());
+	}
+
+	@Test
+	void shouldAddBatchDataMongoDbDependency() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "batch-data-mongodb");
+		assertThat(mavenPom(request)).hasDependency(getDependency(SupportedBootVersion.V4_1, "batch-data-mongodb"));
 	}
 
 	private static Dependency springBatchTest() {
