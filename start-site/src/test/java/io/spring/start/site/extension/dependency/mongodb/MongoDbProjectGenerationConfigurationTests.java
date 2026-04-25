@@ -18,6 +18,7 @@ package io.spring.start.site.extension.dependency.mongodb;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -62,6 +63,25 @@ class MongoDbProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	void createsMongoDbServiceWhenSession() {
 		ProjectRequest request = createProjectRequest("docker-compose", "data-mongodb-reactive");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
+	}
+
+	@Test
+	void createsMongoDbServiceWhenBatchDataMongoDbIsSelected() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "docker-compose",
+				"batch-data-mongodb");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
+	}
+
+	@Test
+	void createsMongoDbServiceConnectionWhenBatchDataMongoDbIsSelected() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "testcontainers",
+				"batch-data-mongodb");
+		request.setLanguage("java");
+		assertThat(generateProject(request)).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
+			.contains("import org.testcontainers.mongodb.MongoDBContainer;")
+			.contains("@ServiceConnection")
+			.contains("MongoDBContainer mongoDbContainer()")
+			.contains("return new MongoDBContainer(DockerImageName.parse(\"mongo:latest\"));");
 	}
 
 }
