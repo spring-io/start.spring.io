@@ -69,7 +69,7 @@ class ElasticsearchProjectGenerationConfiguration {
 	}
 
 	private boolean isElasticsearchEnabled(Build build) {
-		return build.dependencies().has("data-elasticsearch")
+		return build.dependencies().has("elasticsearch") || build.dependencies().has("data-elasticsearch")
 				|| build.dependencies().has("spring-ai-vectordb-elasticsearch");
 	}
 
