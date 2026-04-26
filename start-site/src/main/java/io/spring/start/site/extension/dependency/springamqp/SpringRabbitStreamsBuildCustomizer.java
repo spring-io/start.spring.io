@@ -28,7 +28,7 @@ class SpringRabbitStreamsBuildCustomizer implements BuildCustomizer<Build> {
 
 	@Override
 	public void customize(Build build) {
-		build.dependencies().add("amqp");
+		build.dependencies().add("rabbitmq");
 	}
 
 }
