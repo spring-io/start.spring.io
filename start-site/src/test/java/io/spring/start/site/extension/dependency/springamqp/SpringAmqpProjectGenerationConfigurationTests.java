@@ -37,6 +37,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
@@ -71,6 +72,19 @@ class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTes
 	void springAmqpWithDockerCompose() {
 		ProjectRequest request = createProjectRequest("docker-compose", "amqp");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/rabbitmq.yaml"));
+	}
+
+	@Test
+	void springAmqpStreamsWithoutDockerCompose() {
+		ProjectRequest request = createProjectRequest("web", "amqp-streams");
+		ProjectStructure structure = generateProject(request);
+		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
+	}
+
+	@Test
+	void springAmqpStreamsWithDockerCompose() {
+		ProjectRequest request = createProjectRequest("docker-compose", "amqp-streams");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/rabbitmq-streams.yaml"));
 	}
 
 }
