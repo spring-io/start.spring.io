@@ -102,9 +102,9 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 1.1.4
+            version: 1.1.5
           - compatibilityRange: "[4.0.0,4.2.0-M1)"
-            version: 2.0.0-M4
+            version: 2.0.0-M5
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1896,6 +1896,7 @@ initializr:
           id: spring-ai-azure-openai
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-azure-openai
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for Azure’s OpenAI offering, powered by ChatGPT. It extends beyond traditional OpenAI capabilities, delivering AI-driven text generation with enhanced functionality.
           bom: spring-ai
           links:
@@ -2175,6 +2176,7 @@ initializr:
           id: spring-ai-openai-sdk
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-openai-sdk
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for OpenAI using the official OpenAI SDK. Alternative implementation with enhanced features and compatibility.
           bom: spring-ai
           links:
@@ -2340,6 +2342,7 @@ initializr:
           id: spring-ai-vertexai-gemini
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-vertex-ai-gemini
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for Google Vertex Gemini chat. Doesn't support embeddings.
           bom: spring-ai
           links:
