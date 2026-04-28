@@ -168,9 +168,9 @@ initializr:
         versionProperty: spring-shell.version
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 3.4.1
+            version: 3.4.2
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 4.0.1
+            version: 4.0.2
       tanzu-scg-extensions:
         groupId: com.vmware.tanzu.springcloudgateway.extensions
         artifactId: extensions-bom
