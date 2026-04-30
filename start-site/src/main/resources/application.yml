@@ -543,7 +543,7 @@ initializr:
           compatibilityRange: "[3.5.0,4.1.0-M1)"
           groupId: gg.jte
           artifactId: jte-spring-boot-starter-4
-          version: 3.2.3
+          version: 3.2.4
           mappings:
             - compatibilityRange: "[3.5.0,4.0.0)"
               artifact-id: jte-spring-boot-starter-3
