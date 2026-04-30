@@ -50,6 +50,12 @@ class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtension
 	}
 
 	@Test
+	void createsElasticsearchServiceWhenDriverIsSelected() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "elasticsearch");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
+	}
+
+	@Test
 	void createsElasticsearchServiceWhenSpringAiModuleIsSelected() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
 				"spring-ai-vectordb-elasticsearch");
