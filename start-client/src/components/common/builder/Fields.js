@@ -198,7 +198,7 @@ function Fields({
             className={`last-child ${dropdown ? 'clicked' : ''}`}
             id='favorite-add'
             onClick={() => {
-              setDropdown(true)
+              setDropdown(!dropdown)
             }}
           >
             ...
