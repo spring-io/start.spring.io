@@ -57,21 +57,22 @@ abstract class TestcontainersModuleRegistry {
 			.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")));
 		builders.add(onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault", testcontainers))
 			.customizeHelpDocument(addReferenceLink("Vault Module", "vault/")));
-		builders.add(onDependencies("data-cassandra", "data-cassandra-reactive", "spring-ai-vectordb-cassandra",
-				"spring-ai-chat-memory-repository-cassandra")
+		builders.add(onDependencies("cassandra", "data-cassandra", "data-cassandra-reactive",
+				"spring-ai-vectordb-cassandra", "spring-ai-chat-memory-repository-cassandra")
 			.customizeBuild(addModule("cassandra", testcontainers, SupportedContainer.CASSANDRA))
 			.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")));
 		builders.add(onDependencies("data-couchbase", "data-couchbase-reactive")
 			.customizeBuild(addModule("couchbase", testcontainers))
 			.customizeHelpDocument(addReferenceLink("Couchbase Module", "databases/couchbase/")));
-		builders.add(onDependencies("data-elasticsearch", "spring-ai-vectordb-elasticsearch")
+		builders.add(onDependencies("elasticsearch", "data-elasticsearch", "spring-ai-vectordb-elasticsearch")
 			.customizeBuild(addModule("elasticsearch", testcontainers, SupportedContainer.ELASTICSEARCH))
 			.customizeHelpDocument(addReferenceLink("Elasticsearch Container", "elasticsearch/")));
-		builders.add(onDependencies("data-mongodb", "data-mongodb-reactive", "batch-data-mongodb",
-				"spring-ai-vectordb-mongodb-atlas", "session-data-mongodb")
+		builders.add(onDependencies("mongodb", "data-mongodb", "data-mongodb-reactive", "batch-data-mongodb",
+				"spring-ai-vectordb-mongodb-atlas", "session-data-mongodb", "spring-ai-chat-memory-repository-mongodb")
 			.customizeBuild(addModule("mongodb", testcontainers, SupportedContainer.MONGODB))
 			.customizeHelpDocument(addReferenceLink("MongoDB Module", "databases/mongodb/")));
-		builders.add(onDependencies("data-neo4j", "spring-ai-vectordb-neo4j", "spring-ai-chat-memory-repository-neo4j")
+		builders.add(onDependencies("neo4j", "data-neo4j", "spring-ai-vectordb-neo4j",
+				"spring-ai-chat-memory-repository-neo4j")
 			.customizeBuild(addModule("neo4j", testcontainers, SupportedContainer.NEO4J))
 			.customizeHelpDocument(addReferenceLink("Neo4j Module", "databases/neo4j/")));
 		builders.add(onDependencies("opentelemetry")

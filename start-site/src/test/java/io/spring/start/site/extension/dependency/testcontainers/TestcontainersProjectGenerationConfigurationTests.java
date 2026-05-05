@@ -101,6 +101,7 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 
 	static Stream<Arguments> supportedTestcontainersSpringAiEntriesBuild() {
 		return Stream.of(Arguments.arguments("spring-ai-chat-memory-repository-cassandra", "cassandra"),
+				Arguments.arguments("spring-ai-chat-memory-repository-mongodb", "mongodb"),
 				Arguments.arguments("spring-ai-chat-memory-repository-neo4j", "neo4j"),
 				Arguments.arguments("spring-ai-vectordb-chroma", "chromadb"),
 				Arguments.arguments("spring-ai-vectordb-mariadb", "mariadb"),
@@ -155,6 +156,28 @@ class TestcontainersProjectGenerationConfigurationTests extends AbstractExtensio
 				Arguments.arguments("pulsar-reactive", "https://java.testcontainers.org/modules/pulsar/"),
 				Arguments.arguments("solace", "https://java.testcontainers.org/modules/solace/"),
 				Arguments.arguments("sqlserver", "https://java.testcontainers.org/modules/databases/mssqlserver/"));
+	}
+
+	@ParameterizedTest
+	@MethodSource("supportedEntriesHelpDocumentBoot4")
+	void linkToSupportedEntriesWhenTestContainerIsPresentIsAddedBoot4(String dependencyId, String docHref) {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "testcontainers", dependencyId);
+		assertThat(helpDocument(request)).contains(docHref);
+	}
+
+	@ParameterizedTest
+	@MethodSource("supportedEntriesHelpDocumentBoot4")
+	void linkToSupportedEntriesWhenTestContainerIsNotPresentIsNotAddedBoot4(String dependencyId, String docHref) {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, dependencyId);
+		assertThat(helpDocument(request)).doesNotContain(docHref);
+	}
+
+	static Stream<Arguments> supportedEntriesHelpDocumentBoot4() {
+		return Stream.of(
+				Arguments.arguments("cassandra", "https://java.testcontainers.org/modules/databases/cassandra/"),
+				Arguments.arguments("elasticsearch", "https://java.testcontainers.org/modules/elasticsearch/"),
+				Arguments.arguments("mongodb", "https://java.testcontainers.org/modules/databases/mongodb/"),
+				Arguments.arguments("neo4j", "https://java.testcontainers.org/modules/databases/neo4j/"));
 	}
 
 	@Test

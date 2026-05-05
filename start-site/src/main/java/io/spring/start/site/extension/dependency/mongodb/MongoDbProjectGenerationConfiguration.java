@@ -67,8 +67,10 @@ class MongoDbProjectGenerationConfiguration {
 	}
 
 	private boolean isMongoEnabled(Build build) {
-		return build.dependencies().has("data-mongodb") || build.dependencies().has("data-mongodb-reactive")
-				|| build.dependencies().has("batch-data-mongodb") || build.dependencies().has("session-data-mongodb");
+		return build.dependencies().has("mongodb") || build.dependencies().has("data-mongodb")
+				|| build.dependencies().has("data-mongodb-reactive") || build.dependencies().has("batch-data-mongodb")
+				|| build.dependencies().has("session-data-mongodb")
+				|| build.dependencies().has("spring-ai-chat-memory-repository-mongodb");
 	}
 
 }

@@ -70,6 +70,12 @@ class CassandraProjectGenerationConfigurationTests extends AbstractExtensionTest
 	}
 
 	@Test
+	void createsCassandraServiceWhenDriverIsSelected() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "cassandra");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/cassandra.yaml"));
+	}
+
+	@Test
 	void createsCassandraServiceWhenSpringAiChatMemoryIsSelected() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
 				"spring-ai-chat-memory-repository-cassandra");

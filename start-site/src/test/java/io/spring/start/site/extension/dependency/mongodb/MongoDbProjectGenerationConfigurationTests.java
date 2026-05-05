@@ -66,6 +66,19 @@ class MongoDbProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
+	void createsMongoDbServiceWhenDriverIsSelected() {
+		ProjectRequest request = createProjectRequest("docker-compose", "mongodb");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
+	}
+
+	@Test
+	void createsMongoDbServiceWhenSpringAiChatMemoryIsSelected() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
+				"spring-ai-chat-memory-repository-mongodb");
+		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/mongodb.yaml"));
+	}
+
+	@Test
 	void createsMongoDbServiceWhenBatchDataMongoDbIsSelected() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "docker-compose",
 				"batch-data-mongodb");
