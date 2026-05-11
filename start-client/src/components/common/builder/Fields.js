@@ -196,9 +196,9 @@ function Fields({
         <span className='dropdown' ref={wrapper}>
           <Button
             className={`last-child ${dropdown ? 'clicked' : ''}`}
-            id='favorite-add'
+            id='more-button'
             onClick={() => {
-              setDropdown(!dropdown)
+              setDropdown(prev => !prev)
             }}
           >
             ...
