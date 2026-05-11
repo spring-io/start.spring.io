@@ -38,7 +38,7 @@ class SpringCloudStreamBuildCustomizer implements BuildCustomizer<Build> {
 	@Override
 	public void customize(Build build) {
 		if (hasDependency("cloud-stream", build) || hasDependency("cloud-bus", build)) {
-			if (hasDependency("amqp", build)) {
+			if (hasDependency("rabbitmq", build)) {
 				build.dependencies()
 					.add("cloud-stream-binder-rabbit", "org.springframework.cloud", "spring-cloud-stream-binder-rabbit",
 							DependencyScope.COMPILE);

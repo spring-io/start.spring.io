@@ -992,8 +992,11 @@ initializr:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/messaging/spring-integration.html
         - name: Spring for RabbitMQ
-          id: amqp
+          id: rabbitmq
           description: Gives your applications a common platform to send and receive messages, and your messages a safe place to live until received.
+          mappings:
+            - compatibilityRange: "[3.5.0,4.1.0-M3)"
+              artifact-id: spring-boot-starter-amqp
           links:
             - rel: guide
               href: https://spring.io/guides/gs/messaging-rabbitmq/
@@ -1001,7 +1004,7 @@ initializr:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/messaging/amqp.html
         - name: Spring for RabbitMQ Streams
-          id: amqp-streams
+          id: rabbitmq-streams
           description: Building stream processing applications with RabbitMQ.
           groupId: org.springframework.amqp
           artifactId: spring-rabbit-stream
