@@ -143,7 +143,7 @@ easily. If you are writing a tutorial that requires certain dependencies to be s
 you can also generate a link that you can use as a reference.
 
 To use this feature, simply use the UI like you would do to create a new project. Once
-you're done, click the "Share" button. A pop-up opens with a generated link with a handy
+you're done, click the "..." (More) button and select "Share". A pop-up opens with a generated link with a handy
 "copy" button to copy the link to your clipboard.
 
 The link contains all settings that are available on start.spring.io. You can shorten it
