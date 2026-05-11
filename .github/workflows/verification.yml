@@ -21,8 +21,8 @@ jobs:
           distribution: 'liberica'
           cache: 'maven'
 
-      - name: Cache Maven/Gradle repositories for tests
-        uses: actions/cache@v5
+      - name: Restore Maven/Gradle repositories for tests cache
+        uses: actions/cache/restore@v5
         with:
           path: /tmp/start-spring-io-cache-2024-12-11
           # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
@@ -39,6 +39,13 @@ jobs:
         env:
           START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
         run: ./mvnw --batch-mode --update-snapshots --activate-profiles verification verify
+
+      - name: Save Maven/Gradle repositories for tests cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: /tmp/start-spring-io-cache-2024-12-11
+          key: test-repositories-${{ runner.os }}-${{ github.run_id }}
 
       - name: Send notification
         uses: ./.github/actions/send-notification
