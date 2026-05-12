@@ -186,7 +186,7 @@ initializr:
           - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.33.0
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 2.0.0
+            version: 2.1.0
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
@@ -2428,12 +2428,25 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html
-        - name: Timefold Solver
-          id: timefold-solver
-          compatibilityRange: "[3.5.0,4.1.0-M1)"
+        - name: Timefold Solver v1
+          id: timefold-solver-v1
+          compatibilityRange: "[3.5.0,4.0.0)"
           groupId: ai.timefold.solver
           artifactId: timefold-solver-spring-boot-starter
           description: AI solver to optimize operations and scheduling.
+          bom: timefold-solver
+          links:
+            - rel: reference
+              href:  https://timefold.ai/docs/timefold-solver/latest/quickstart/spring-boot/spring-boot-quickstart#springBootJavaQuickStart
+            - rel: sample
+              href: https://github.com/TimefoldAI/timefold-quickstarts/tree/stable/java/spring-boot-integration
+              description: Timetabling sample. Assign lessons to timeslots and rooms to produce a better schedule for teachers and students
+        - name: Timefold Solver v2
+          id: timefold-solver-v2
+          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          groupId: ai.timefold.solver
+          artifactId: timefold-solver-spring-boot-starter
+          description: AI solver to optimize operations and scheduling (Requires Java 21+).
           bom: timefold-solver
           links:
             - rel: reference
