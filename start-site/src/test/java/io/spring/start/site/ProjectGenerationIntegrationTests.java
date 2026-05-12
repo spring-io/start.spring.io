@@ -45,6 +45,8 @@ import io.spring.initializr.web.project.WebProjectRequest;
 import io.spring.start.testsupport.Homes;
 import io.spring.start.testsupport.TemporaryFiles;
 import org.apache.commons.lang3.SystemUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.parallel.Execution;
@@ -84,6 +86,11 @@ class ProjectGenerationIntegrationTests {
 		this.invoker = new ProjectGenerationInvoker<>(applicationContext,
 				new DefaultProjectRequestToDescriptionConverter());
 		this.metadata = metadataProvider.get();
+	}
+
+	@BeforeEach
+	void setUp(TestInfo testInfo) {
+		System.out.printf("Running ProjectGenerationIntegrationTests (%s)%n", testInfo.getDisplayName());
 	}
 
 	Stream<Arguments> parameters() {
