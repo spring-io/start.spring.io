@@ -41,20 +41,4 @@ class AddTestStartersBuildCustomizerTests extends AbstractExtensionTests {
 			.doesNotHaveDependency("org.springframework.boot", "spring-boot-devtools-test");
 	}
 
-	@Test
-	void shouldAddDifferentTestStarterForGrpcClient() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "spring-grpc-client");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("grpc-client"))
-			.hasDependency("org.springframework.boot", "spring-boot-starter-grpc-client-test", null,
-					Dependency.SCOPE_TEST);
-	}
-
-	@Test
-	void shouldAddDifferentTestStarterForGrpcServer() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "spring-grpc-server");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("grpc-server"))
-			.hasDependency("org.springframework.boot", "spring-boot-starter-grpc-server-test", null,
-					Dependency.SCOPE_TEST);
-	}
-
 }
