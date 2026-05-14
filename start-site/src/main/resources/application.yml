@@ -1142,6 +1142,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/batch.html
+        - name: Spring Batch MongoDB
+          id: batch-data-mongodb
+          groupId: org.springframework.boot
+          artifactId: spring-boot-starter-batch-data-mongodb
+          description: MongoDB support for Spring Batch applications.
+          compatibilityRange: "4.1.0-SNAPSHOT"
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-boot/{bootVersion}/how-to/batch.html
         - name: Hazelcast
           id: hazelcast
           groupId: org.springframework.boot
