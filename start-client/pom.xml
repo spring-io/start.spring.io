@@ -9,18 +9,13 @@
 		<version>${revision}</version>
 	</parent>
 	<artifactId>start-client</artifactId>
-	<properties>
-		<skip.frontend>false</skip.frontend>
-	</properties>
+	<name>start.spring.io client</name>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<configuration>
-					<skip>${skip.frontend}</skip>
-				</configuration>
 				<executions>
 					<execution>
 						<id>install node and yarn</id>
