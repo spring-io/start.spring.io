@@ -82,6 +82,18 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 		// @formatter:off
 				"hibernate {",
 				"	enhancement {",
+				"	}",
+				"}");
+		// @formatter:on
+	}
+
+	@Test
+	void gradleBuildAndGroovyDslWithJpaConfiguresHibernateEnhancePluginForBoot35() {
+		ProjectRequest request = createNativeProjectRequest(SupportedBootVersion.V3_5, "data-jpa");
+		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
+		// @formatter:off
+				"hibernate {",
+				"	enhancement {",
 				"		enableAssociationManagement = true",
 				"	}",
 				"}");
@@ -95,7 +107,6 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 		// @formatter:off
 						"hibernate {",
 						"	enhancement {",
-						"		enableAssociationManagement = true",
 						"	}",
 						"}");
 		// @formatter:on
@@ -126,9 +137,6 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 				"						<goals>",
 				"							<goal>enhance</goal>",
 				"						</goals>",
-				"						<configuration>",
-				"							<enableAssociationManagement>true</enableAssociationManagement>",
-				"						</configuration>",
 				"					</execution>",
 				"				</executions>",
 				"			</plugin>");
