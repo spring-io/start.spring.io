@@ -1803,7 +1803,6 @@ initializr:
           id: azure-cosmos-db
           groupId: com.azure.spring
           artifactId: spring-cloud-azure-starter-data-cosmos
-          compatibilityRange: "[3.5.0,4.0.0)"
           description: Fully managed NoSQL database service for modern app development, including Spring Data support.
           links:
             - rel: guide
