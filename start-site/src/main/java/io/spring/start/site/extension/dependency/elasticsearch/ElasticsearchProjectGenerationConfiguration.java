@@ -20,7 +20,8 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.language.ClassName;
 import io.spring.initializr.generator.project.ProjectDescription;
-import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 import io.spring.start.site.container.ComposeFileCustomizer;
 import io.spring.start.site.container.DockerServiceResolver;
 import io.spring.start.site.container.ServiceConnections.ServiceConnection;
@@ -43,6 +44,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 class ElasticsearchProjectGenerationConfiguration {
 
+	private static final VersionRange SPRING_BOOT_4_1_OR_LATER = VersionParser.DEFAULT.parseRange("4.1.0-M1");
+
 	private static final ClassName SSL_ANNOTATION = ClassName
 		.of("org.springframework.boot.testcontainers.service.connection.Ssl");
 
@@ -53,12 +56,12 @@ class ElasticsearchProjectGenerationConfiguration {
 		Container container = testcontainers.getContainer(SupportedContainer.ELASTICSEARCH);
 		return (serviceConnections) -> {
 			if (isElasticsearchEnabled(build)) {
-				serviceResolver.doWith(isBoot4(description) ? "elasticsearch9" : "elasticsearch", (service) -> {
+				boolean isBoot41 = isBoot41(description);
+				serviceResolver.doWith((isBoot41) ? "elasticsearch9" : "elasticsearch", (service) -> {
 					ServiceConnection connection = ServiceConnection.ofContainer("elasticsearch", service,
 							container.className(), container.generic());
-
-					serviceConnections.addServiceConnection(
-							isBoot4(description) ? connection.withAnnotation(SSL_ANNOTATION) : connection);
+					serviceConnections
+						.addServiceConnection((isBoot41) ? connection.withAnnotation(SSL_ANNOTATION) : connection);
 				});
 			}
 		};
@@ -70,8 +73,7 @@ class ElasticsearchProjectGenerationConfiguration {
 			ProjectDescription description) {
 		return (composeFile) -> {
 			if (isElasticsearchEnabled(build)) {
-				String serviceId = isBoot4(description) ? "elasticsearch9" : "elasticsearch";
-
+				String serviceId = isBoot41(description) ? "elasticsearch9" : "elasticsearch";
 				serviceResolver.doWith(serviceId,
 						(service) -> composeFile.services()
 							.add("elasticsearch",
@@ -87,9 +89,8 @@ class ElasticsearchProjectGenerationConfiguration {
 				|| build.dependencies().has("spring-ai-vectordb-elasticsearch");
 	}
 
-	private boolean isBoot4(ProjectDescription description) {
-		Version bootVersion = description.getPlatformVersion();
-		return bootVersion.compareTo(Version.parse("4.0.0-M1")) >= 0;
+	private boolean isBoot41(ProjectDescription description) {
+		return SPRING_BOOT_4_1_OR_LATER.match(description.getPlatformVersion());
 	}
 
 }
