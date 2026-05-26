@@ -2224,6 +2224,7 @@ initializr:
           id: spring-ai-chat-memory-repository-cosmos-db
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-cosmos-db
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for Azure Cosmos DB based chat memory.
           bom: spring-ai
           links:
@@ -2307,6 +2308,7 @@ initializr:
           id: spring-ai-vectordb-azurecosmosdb
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-vector-store-azure-cosmos-db
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for Azure Cosmos DB. Azure Cosmos DB is Microsoft’s globally distributed cloud-native database service designed for mission-critical applications.
           bom: spring-ai
           links:
