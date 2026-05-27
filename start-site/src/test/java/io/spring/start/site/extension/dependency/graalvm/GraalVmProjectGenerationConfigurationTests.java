@@ -113,6 +113,19 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
+	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePluginForBoot35() {
+		ProjectRequest request = createNativeProjectRequest(SupportedBootVersion.V3_5, "data-jpa");
+		assertThat(gradleKotlinDslBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
+		// @formatter:off
+						"hibernate {",
+						"	enhancement {",
+						"		enableAssociationManagement = true",
+						"	}",
+						"}");
+		// @formatter:on
+	}
+
+	@Test
 	void mavenBuildWithoutJpaDoesNotConfigureHibernateEnhancePlugin() {
 		assertThat(mavenPom(createNativeProjectRequest(BOOT_VERSION))).doesNotContain("hibernate-maven-plugin");
 	}
