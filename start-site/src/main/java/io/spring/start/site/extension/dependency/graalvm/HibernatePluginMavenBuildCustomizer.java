@@ -27,6 +27,7 @@ import io.spring.initializr.generator.version.VersionRange;
  *
  * @author Stephane Nicoll
  * @author Moritz Halbritter
+ * @author Taewoong Kim
  */
 // See https://docs.hibernate.org/orm/7.1/userguide/html_single/#BytecodeEnhancement
 class HibernatePluginMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
@@ -44,8 +45,7 @@ class HibernatePluginMavenBuildCustomizer implements BuildCustomizer<MavenBuild>
 		if (isSpringBoot4OrLater()) {
 			build.plugins()
 				.add("org.hibernate.orm", "hibernate-maven-plugin", (plugin) -> plugin.version("${hibernate.version}")
-					.execution("enhance", (execution) -> execution.goal("enhance")
-						.configuration((configuration) -> configuration.add("enableAssociationManagement", "true"))));
+					.execution("enhance", (execution) -> execution.goal("enhance")));
 		}
 		else {
 			build.plugins()
