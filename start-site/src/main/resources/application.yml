@@ -178,6 +178,15 @@ initializr:
         mappings:
           - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.0.1
+      tanzu-spring-sdk:
+        groupId: com.vmware.tanzu.spring
+        artifactId: tanzu-spring-sdk-dependencies
+        versionProperty: tanzu-spring-sdk.version
+        mappings:
+          - compatibilityRange: "[3.5.0,4.0.0)"
+            version: 1.0.0
+          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+            version: 1.0.0
       timefold-solver:
         groupId: ai.timefold.solver
         artifactId: timefold-solver-bom
@@ -1766,6 +1775,20 @@ initializr:
           links:
             - rel: reference
               href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/transformation.html
+    - name: VMware Tanzu Spring SDK
+      compatibilityRange: "[3.5.0,4.1.0-M1)"
+      content:
+        - name: Tanzu Spring SDK [Enterprise]
+          id: tanzu-spring-sdk
+          bom: tanzu-spring-sdk
+          description: The Tanzu Spring SDK is a Spring Boot BOM with optional libraries for exposing observability and using OpenFeature based feature flags in Tanzu Platform.
+          groupId: com.vmware.tanzu.spring
+          artifactId: tanzu-spring-starter
+          facets:
+            - tanzu-spring-enterprise
+          links:
+            - rel: reference
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring/commercial/spring-tanzu/tanzu-spring-sdk-getting-started.html
     - name: Microsoft Azure
       bom: spring-cloud-azure
       compatibilityRange: "[3.5.0,4.1.0-M1)"
