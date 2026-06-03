@@ -33,9 +33,25 @@ class ObservabilityProjectGenerationConfigurationTests extends AbstractExtension
 
 	@Test
 	void zipkinAddsDistributedTracingIfNecessary() {
+		assertThat(generateProject(SupportedBootVersion.V3_5, "zipkin")).mavenBuild()
+			.hasDependency(getDependency(SupportedBootVersion.V3_5, "zipkin"))
+			.hasDependency(getDependency(SupportedBootVersion.V3_5, "distributed-tracing"));
+	}
+
+	@Test
+	void zipkinShouldNotAddDistributedTracingIfNotNecessary() {
 		assertThat(generateProject(SupportedBootVersion.latest(), "zipkin")).mavenBuild()
 			.hasDependency(getDependency("zipkin"))
-			.hasDependency(getDependency("distributed-tracing"));
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-tracing-brave")
+			.doesNotHaveDependency("io.micrometer", "micrometer-tracing-bridge-brave");
+	}
+
+	@Test
+	void opentelemetryShouldNotAddDistributedTracing() {
+		assertThat(generateProject(SupportedBootVersion.latest(), "opentelemetry", "distributed-tracing")).mavenBuild()
+			.hasDependency(getDependency("opentelemetry"))
+			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-tracing-brave")
+			.doesNotHaveDependency("io.micrometer", "micrometer-tracing-bridge-brave");
 	}
 
 	@Test

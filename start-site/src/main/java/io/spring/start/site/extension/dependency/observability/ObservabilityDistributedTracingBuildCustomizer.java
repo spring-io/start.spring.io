@@ -34,6 +34,8 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 
 	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0-M1");
 
+	private static final String DISTRIBUTED_TRACING = "distributed-tracing";
+
 	private final Version bootVersion;
 
 	ObservabilityDistributedTracingBuildCustomizer(Version bootVersion) {
@@ -42,17 +44,21 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 
 	@Override
 	public void customize(Build build) {
-		// Zipkin without distributed tracing make no sense
-		if (build.dependencies().has("zipkin") && !build.dependencies().has("distributed-tracing")) {
-			build.dependencies().add("distributed-tracing");
+		if (isBoot4OrLater()) {
+			if (hasTracingProvider(build)) {
+				build.dependencies().remove(DISTRIBUTED_TRACING);
+			}
 		}
-		if (build.dependencies().has("wavefront") && build.dependencies().has("distributed-tracing")) {
+		else if (build.dependencies().has("zipkin") && !build.dependencies().has(DISTRIBUTED_TRACING)) {
+			build.dependencies().add(DISTRIBUTED_TRACING);
+		}
+		if (build.dependencies().has("wavefront") && build.dependencies().has(DISTRIBUTED_TRACING)) {
 			build.dependencies()
 				.add("wavefront-tracing-reporter",
 						Dependency.withCoordinates("io.micrometer", "micrometer-tracing-reporter-wavefront")
 							.scope(DependencyScope.RUNTIME));
 		}
-		if (build.dependencies().has("distributed-tracing") && isBoot4OrLater()) {
+		if (build.dependencies().has(DISTRIBUTED_TRACING) && isBoot4OrLater()) {
 			build.dependencies()
 				.add("spring-boot-micrometer-tracing-brave",
 						Dependency.withCoordinates("org.springframework.boot", "spring-boot-micrometer-tracing-brave"));
@@ -61,6 +67,10 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 						Dependency.withCoordinates("org.springframework.boot", "spring-boot-micrometer-tracing-test")
 							.scope(DependencyScope.TEST_COMPILE));
 		}
+	}
+
+	private boolean hasTracingProvider(Build build) {
+		return build.dependencies().has("zipkin") || build.dependencies().has("opentelemetry");
 	}
 
 	private boolean isBoot4OrLater() {
