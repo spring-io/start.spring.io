@@ -183,9 +183,7 @@ initializr:
         artifactId: tanzu-spring-sdk-dependencies
         versionProperty: tanzu-spring-sdk.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 1.0.0
-          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+          - compatibilityRange: "[3.5.0,4.1.0-M1)"
             version: 1.0.0
       timefold-solver:
         groupId: ai.timefold.solver
