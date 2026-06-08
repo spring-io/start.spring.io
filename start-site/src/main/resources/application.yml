@@ -2099,33 +2099,6 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html
-        - name: Model Context Protocol Client (WebFlux)
-          id: spring-ai-mcp-client-webflux
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-starter-mcp-client-webflux
-          description: Spring AI support for Model Context Protocol (MCP) clients using WebFlux reactive transport.
-          bom: spring-ai
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html
-        - name: Model Context Protocol Server (WebFlux)
-          id: spring-ai-mcp-server-webflux
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-starter-mcp-server-webflux
-          description: Spring AI support for Model Context Protocol (MCP) servers using WebFlux reactive transport.
-          bom: spring-ai
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html
-        - name: Model Context Protocol Server (WebMVC)
-          id: spring-ai-mcp-server-webmvc
-          group-id: org.springframework.ai
-          artifact-id: spring-ai-starter-mcp-server-webmvc
-          description: Spring AI support for Model Context Protocol (MCP) servers using Spring MVC transport.
-          bom: spring-ai
-          links:
-            - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html
         - name: Model Context Protocol Security [Experimental]
           id: mcp-security
           group-id: org.springaicommunity
