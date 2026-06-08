@@ -104,7 +104,7 @@ initializr:
           - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.1.7
           - compatibilityRange: "[4.0.0,4.2.0-M1)"
-            version: 2.0.0-M8
+            version: 2.0.0-RC1
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1954,7 +1954,7 @@ initializr:
           id: spring-ai-vectordb-bedrock-knowledgebase
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-vector-store-bedrock-knowledgebase
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
           description: Spring AI vector database support for Amazon Bedrock Knowledge Base. It provides fully managed Retrieval-Augmented Generation (RAG) capabilities with enterprise-grade security and privacy.
           bom: spring-ai
           links:
@@ -2010,6 +2010,7 @@ initializr:
           id: spring-ai-minimax
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-minimax
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: Spring AI support for MiniMax AI models.
           bom: spring-ai
           links:
@@ -2254,7 +2255,7 @@ initializr:
           id: spring-ai-chat-memory-repository-redis
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-redis
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
           description: Spring AI support for Redis based chat memory.
           bom: spring-ai
           links:
@@ -2309,7 +2310,7 @@ initializr:
           id: spring-ai-vectordb-s3
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-vector-store-s3
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
           description: Spring AI vector database support for AWS S3. Store and retrieve vector embeddings using Amazon S3 object storage with efficient search capabilities.
           bom: spring-ai
           links:
