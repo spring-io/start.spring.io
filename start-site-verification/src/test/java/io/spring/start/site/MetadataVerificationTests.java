@@ -67,7 +67,8 @@ class MetadataVerificationTests {
 			"com.vmware.tanzu.springcloudgateway.extensions:graphql",
 			"com.vmware.tanzu.springcloudgateway.extensions:sso",
 			"com.vmware.tanzu.springcloudgateway.extensions:traffic-control",
-			"com.vmware.tanzu.springcloudgateway.extensions:transformation");
+			"com.vmware.tanzu.springcloudgateway.extensions:transformation",
+			"com.vmware.tanzu.spring:tanzu-spring-starter", "com.vmware.tanzu.spring:tanzu-spring-sdk-dependencies");
 
 	private final InitializrMetadata metadata;
 
