@@ -19,23 +19,45 @@ package io.spring.start.site.extension.dependency.springai;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
- * Adds {@code org.springframework.ai:spring-ai-advisors-vector-store} if any model and
- * any vector store is selected.
+ * Adds {@code org.springframework.ai:spring-ai-vector-store-advisor} or
+ * {@code org.springframework.ai:spring-ai-advisors-vector-store} if any model and any
+ * vector store is selected.
  *
  * @author Moritz Halbritter
  */
 class SpringAiAdvisorsVectorStoreBuildCustomizer implements BuildCustomizer<Build> {
 
+	private static final VersionRange SPRING_BOOT_4_0_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0-M1");
+
+	private final Version bootVersion;
+
+	SpringAiAdvisorsVectorStoreBuildCustomizer(Version bootVersion) {
+		this.bootVersion = bootVersion;
+	}
+
 	@Override
 	public void customize(Build build) {
 		if (hasModel(build) && hasVectorStore(build)) {
-			Dependency advisorsVectorStore = Dependency
-				.withCoordinates("org.springframework.ai", "spring-ai-advisors-vector-store")
-				.build();
-			build.dependencies().add("spring-ai-advisors-vector-store", advisorsVectorStore);
+			Dependency dependency;
+			if (isBoot4()) {
+				dependency = Dependency.withCoordinates("org.springframework.ai", "spring-ai-vector-store-advisor")
+					.build();
+			}
+			else {
+				dependency = Dependency.withCoordinates("org.springframework.ai", "spring-ai-advisors-vector-store")
+					.build();
+			}
+			build.dependencies().add("spring-ai-vector-store-advisor", dependency);
 		}
+	}
+
+	private boolean isBoot4() {
+		return SPRING_BOOT_4_0_OR_LATER.match(this.bootVersion);
 	}
 
 	private boolean hasVectorStore(Build build) {

@@ -16,6 +16,7 @@
 
 package io.spring.start.site.extension.dependency.springai;
 
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
@@ -30,8 +31,9 @@ import org.springframework.context.annotation.Bean;
 class SpringAiProjectGenerationConfiguration {
 
 	@Bean
-	SpringAiAdvisorsVectorStoreBuildCustomizer springAiVectorStoreAdvisorsBuildCustomizer() {
-		return new SpringAiAdvisorsVectorStoreBuildCustomizer();
+	SpringAiAdvisorsVectorStoreBuildCustomizer springAiVectorStoreAdvisorsBuildCustomizer(
+			ProjectDescription description) {
+		return new SpringAiAdvisorsVectorStoreBuildCustomizer(description.getPlatformVersion());
 	}
 
 }

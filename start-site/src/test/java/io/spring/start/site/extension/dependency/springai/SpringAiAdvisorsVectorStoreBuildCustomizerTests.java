@@ -31,18 +31,25 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringAiAdvisorsVectorStoreBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
-
 	@Test
 	void shouldAddAdvisorsVectorStoreIfModelAndVectorStoreIsSelected() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "spring-ai-ollama", "spring-ai-vectordb-azure");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "spring-ai-ollama",
+				"spring-ai-vectordb-azure");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild().hasDependency("org.springframework.ai", "spring-ai-advisors-vector-store");
 	}
 
 	@Test
+	void shouldAddVectorStoreAdvisorIfModelAndVectorStoreIsSelectedWithBoot4OrLater() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "spring-ai-ollama",
+				"spring-ai-vectordb-azure");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).mavenBuild().hasDependency("org.springframework.ai", "spring-ai-vector-store-advisor");
+	}
+
+	@Test
 	void shouldNotAddAdvisorsVectorStoreIfOnlyModelIsSelected() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "spring-ai-ollama");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "spring-ai-ollama");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild()
 			.doesNotHaveDependency("org.springframework.ai", "spring-ai-advisors-vector-store");
@@ -50,7 +57,7 @@ class SpringAiAdvisorsVectorStoreBuildCustomizerTests extends AbstractExtensionT
 
 	@Test
 	void shouldNotAddAdvisorsVectorStoreIfOnlyVectorStoreIsSelected() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "spring-ai-vectordb-azure");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "spring-ai-vectordb-azure");
 		ProjectStructure project = generateProject(request);
 		assertThat(project).mavenBuild()
 			.doesNotHaveDependency("org.springframework.ai", "spring-ai-advisors-vector-store");
