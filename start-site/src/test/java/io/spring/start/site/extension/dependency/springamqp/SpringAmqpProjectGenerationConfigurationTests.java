@@ -44,32 +44,44 @@ class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTes
 		.withConfiguration(SpringAmqpProjectGenerationConfiguration.class);
 
 	@Test
-	void springAmqpTestWithAmqp() {
-		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse(SupportedBootVersion.V3_5.getVersion()));
-		description.addDependency("amqp", mock(Dependency.class));
-		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
-			.containsKeys("springAmqpTestBuildCustomizer"));
+	void amqpStarterIsAddedPriorToSpringBoot41() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "rabbitmq");
+		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-amqp");
 	}
 
 	@Test
-	void springAmqpTestWithoutAmqp() {
+	void rabbitMqStarterIsAddedAsOfSpringBoot41() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "rabbitmq");
+		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-rabbitmq");
+	}
+
+	@Test
+	void springRabbitTestWithRabbitMq() {
+		MutableProjectDescription description = new MutableProjectDescription();
+		description.setPlatformVersion(Version.parse(SupportedBootVersion.V3_5.getVersion()));
+		description.addDependency("rabbitmq", mock(Dependency.class));
+		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
+			.containsKeys("springRabbitTestBuildCustomizer"));
+	}
+
+	@Test
+	void springRabbitTestWithoutRabbitMq() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.addDependency("another", mock(Dependency.class));
 		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
-			.doesNotContainKeys("springAmqpTestBuildCustomizer"));
+			.doesNotContainKeys("springRabbitTestBuildCustomizer"));
 	}
 
 	@Test
-	void springAmqpWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest("web", "amqp");
+	void springRabbitMqWithoutDockerCompose() {
+		ProjectRequest request = createProjectRequest("web", "rabbitmq");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
-	void springAmqpWithDockerCompose() {
-		ProjectRequest request = createProjectRequest("docker-compose", "amqp");
+	void springRabbitMqWithDockerCompose() {
+		ProjectRequest request = createProjectRequest("docker-compose", "rabbitmq");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/rabbitmq.yaml"));
 	}
 

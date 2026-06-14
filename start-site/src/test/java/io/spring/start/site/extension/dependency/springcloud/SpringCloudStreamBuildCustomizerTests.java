@@ -51,10 +51,10 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 			"spring-cloud-stream-test-binder", null, Dependency.SCOPE_TEST);
 
 	@Test
-	void springCloudStreamWithRabbit() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-stream", "amqp");
+	void springCloudStreamWithRabbitMq() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-stream", "rabbitmq");
 		assertThat(mavenPom(request)).hasDependency(getDependency(BOOT_VERSION, "cloud-stream"))
-			.hasDependency(getDependency(BOOT_VERSION, "amqp"))
+			.hasDependency(getDependency(BOOT_VERSION, "rabbitmq"))
 			.hasDependency(RABBIT_BINDER)
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(TEST_BINDER)
@@ -94,24 +94,25 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudStreamWithAllBinders() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-stream", "amqp", "kafka", "kafka-streams");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-stream", "kafka", "kafka-streams",
+				"rabbitmq");
 		assertThat(mavenPom(request)).hasDependency(getDependency(BOOT_VERSION, "cloud-stream"))
-			.hasDependency(getDependency(BOOT_VERSION, "amqp"))
 			.hasDependency(getDependency(BOOT_VERSION, "kafka"))
 			.hasDependency(getDependency(BOOT_VERSION, "kafka-streams"))
-			.hasDependency(RABBIT_BINDER)
+			.hasDependency(getDependency(BOOT_VERSION, "rabbitmq"))
 			.hasDependency(KAFKA_BINDER)
 			.hasDependency(KAFKA_STREAMS_BINDER)
+			.hasDependency(RABBIT_BINDER)
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(TEST_BINDER)
 			.hasDependenciesSize(11);
 	}
 
 	@Test
-	void springCloudBusWithRabbit() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-bus", "amqp");
+	void springCloudBusWithRabbitMq() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-bus", "rabbitmq");
 		assertThat(mavenPom(request)).hasDependency(getDependency(BOOT_VERSION, "cloud-bus"))
-			.hasDependency(getDependency(BOOT_VERSION, "amqp"))
+			.hasDependency(getDependency(BOOT_VERSION, "rabbitmq"))
 			.hasDependency(RABBIT_BINDER)
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependenciesSize(5);
@@ -119,23 +120,23 @@ class SpringCloudStreamBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void springCloudBusWithKafka() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-bus", "amqp");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-bus", "kafka");
 		assertThat(mavenPom(request)).hasDependency(getDependency(BOOT_VERSION, "cloud-bus"))
-			.hasDependency(getDependency(BOOT_VERSION, "amqp"))
-			.hasDependency(RABBIT_BINDER)
+			.hasDependency(getDependency(BOOT_VERSION, "kafka"))
+			.hasDependency(KAFKA_BINDER)
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependenciesSize(5);
 	}
 
 	@Test
 	void springCloudBusWithAllBinders() {
-		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-bus", "amqp", "kafka", "kafka-streams");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-bus", "kafka", "kafka-streams", "rabbitmq");
 		assertThat(mavenPom(request)).hasDependency(getDependency(BOOT_VERSION, "cloud-bus"))
-			.hasDependency(getDependency(BOOT_VERSION, "amqp"))
 			.hasDependency(getDependency(BOOT_VERSION, "kafka"))
 			.hasDependency(getDependency(BOOT_VERSION, "kafka-streams"))
-			.hasDependency(RABBIT_BINDER)
+			.hasDependency(getDependency(BOOT_VERSION, "rabbitmq"))
 			.hasDependency(KAFKA_BINDER)
+			.hasDependency(RABBIT_BINDER)
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependenciesSize(9);
 	}

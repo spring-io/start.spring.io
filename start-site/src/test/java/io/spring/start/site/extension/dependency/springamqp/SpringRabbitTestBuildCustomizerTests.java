@@ -34,14 +34,14 @@ class SpringRabbitTestBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldAddSpringRabbitTest() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "amqp");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "rabbitmq");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.amqp", "spring-rabbit-test", null,
 				Dependency.SCOPE_TEST);
 	}
 
 	@Test
 	void shouldNotAddSpringRabbitTestForBoot4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "amqp");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "rabbitmq");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.amqp", "spring-rabbit-test");
 	}
 
