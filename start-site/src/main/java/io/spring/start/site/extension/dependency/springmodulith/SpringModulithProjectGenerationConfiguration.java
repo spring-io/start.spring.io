@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency.springmodulith;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
@@ -32,8 +33,8 @@ import org.springframework.context.annotation.Bean;
 class SpringModulithProjectGenerationConfiguration {
 
 	@Bean
-	SpringModulithBuildCustomizer springModulithBuildCustomizer() {
-		return new SpringModulithBuildCustomizer();
+	SpringModulithBuildCustomizer springModulithBuildCustomizer(ProjectDescription description) {
+		return new SpringModulithBuildCustomizer(description.getPlatformVersion());
 	}
 
 }
