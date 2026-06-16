@@ -23,6 +23,7 @@ import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.support.MetadataBuildItemResolver;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,31 +36,36 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Oliver Drotbohm
  * @author Eddú Meléndez
+ * @author Moritz Halbritter
  */
 class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 
-	private final SpringModulithBuildCustomizer customizer = new SpringModulithBuildCustomizer(Version.parse("4.1.0"));
-
 	@Test
 	void registersTestAndCoreStarterWhenModulithIsSelected() {
-		Build build = createBuild("modulith");
-		this.customizer.customize(build);
+		Build build = createBuild(SupportedBootVersion.V4_1, "modulith");
 		assertThat(build.dependencies().ids()).contains("modulith");
 		assertThat(build.dependencies().ids()).contains("modulith-starter-test");
 	}
 
 	@Test
 	void registersActuatorStarterIfActuatorsIsPresent() {
-		Build build = createBuild("modulith", "actuator");
-		this.customizer.customize(build);
-		assertThat(build.dependencies().ids()).contains("modulith-actuator");
+		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", "actuator");
+		assertThat(build.dependencies().ids()).contains("modulith-actuator", "modulith-observability-api",
+				"modulith-observability-core");
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-insight");
 	}
 
 	@Test
+	void registersActuatorStarterIfActuatorsIsPresentForOlderBootVersion() {
+		Build build = createBuild(SupportedBootVersion.V4_0, "modulith", "actuator");
+		assertThat(build.dependencies().ids()).contains("modulith-actuator", "modulith-observability");
+		assertThat(build.dependencies().ids()).doesNotContain("modulith-observability-api",
+				"modulith-observability-core", "modulith-starter-insight");
+	}
+
+	@Test
 	void registersRuntimeIfFlywayIsPresent() {
-		Build build = createBuild("modulith", "flyway");
-		this.customizer.customize(build);
+		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", "flyway");
 		assertThat(build.dependencies().ids()).contains("modulith-runtime");
 	}
 
@@ -67,9 +73,7 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	@ValueSource(strings = { "actuator", "datadog", "graphite", "influx", "new-relic", "otlp-metrics", "prometheus",
 			"wavefront", "zipkin" })
 	void registersObservabilityStarterIfObservabilityDependencyIsPresent(String dependency) {
-		Build build = createBuild("modulith");
-		build.dependencies().add(dependency);
-		this.customizer.customize(build);
+		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", dependency);
 		assertThat(build.dependencies().ids()).contains("modulith-observability-api", "modulith-observability-core");
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-insight");
 	}
@@ -77,9 +81,7 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	@ParameterizedTest
 	@ValueSource(strings = { "jdbc", "jpa", "mongodb", "neo4j" })
 	void presenceOfSpringDataModuleAddsModuleEventStarter(String store) {
-		Build build = createBuild("modulith");
-		build.dependencies().add("data-" + store);
-		this.customizer.customize(build);
+		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", "data-" + store);
 		assertThat(build.dependencies().ids()).contains("modulith-starter-" + store);
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-core");
 	}
@@ -87,8 +89,7 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	@ParameterizedTest
 	@ValueSource(strings = { "amqp", "kafka" })
 	void addsExternalizationDependency(String broker) {
-		Build build = createBuild("modulith", broker);
-		this.customizer.customize(build);
+		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", broker);
 		assertThat(build.dependencies().ids()).contains("modulith-events-" + broker);
 		assertThat(build.dependencies().ids()).contains("modulith-events-api");
 	}
@@ -96,41 +97,42 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	@ParameterizedTest
 	@ValueSource(strings = { "activemq", "artemis" })
 	void addsJmsExternalizationDependency(String broker) {
-		Build build = createBuild("modulith", broker);
-		this.customizer.customize(build);
+		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", broker);
 		assertThat(build.dependencies().ids()).contains("modulith-events-jms");
 		assertThat(build.dependencies().ids()).contains("modulith-events-api");
 	}
 
 	@Test
 	void addsInsightStarterIfBothActuatorAndObservabilityDependenciesDeclared() {
-
-		Build build = createBuild("modulith", "actuator", "otlp-metrics");
-		this.customizer.customize(build);
+		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", "actuator", "otlp-metrics");
 		assertThat(build.dependencies().ids()).contains("modulith-starter-insight");
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-actuator", "modulith-observability-api",
 				"modulith-observability-core");
 	}
 
 	@Test
-	void addsLegacyObservabilityDependenciesForOlderBootVersion() {
+	void addsInsightStarterIfBothActuatorAndObservabilityDependenciesDeclaredForOlderBootVersion() {
+		Build build = createBuild(SupportedBootVersion.V4_0, "modulith", "actuator", "otlp-metrics");
+		assertThat(build.dependencies().ids()).contains("modulith-starter-insight");
+		assertThat(build.dependencies().ids()).doesNotContain("modulith-actuator", "modulith-observability",
+				"modulith-observability-api", "modulith-observability-core");
+	}
 
-		Build build = createBuild("modulith", "otlp-metrics");
-		new SpringModulithBuildCustomizer(Version.parse("4.0.0")).customize(build);
+	@Test
+	void addsLegacyObservabilityDependenciesForOlderBootVersion() {
+		Build build = createBuild(SupportedBootVersion.V4_0, "modulith", "otlp-metrics");
 		assertThat(build.dependencies().ids()).contains("modulith-observability");
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-observability-api",
 				"modulith-observability-core", "modulith-starter-insight");
 	}
 
-	private Build createBuild(String... dependencies) {
+	private Build createBuild(SupportedBootVersion springBootVersion, String... dependencies) {
 		InitializrMetadata metadata = getMetadata();
-		MavenBuild build = new MavenBuild(new MetadataBuildItemResolver(metadata, getDefaultPlatformVersion(metadata)));
+		Version parsedVersion = Version.parse(springBootVersion.getVersion());
+		MavenBuild build = new MavenBuild(new MetadataBuildItemResolver(metadata, parsedVersion));
 		Arrays.stream(dependencies).forEach(build.dependencies()::add);
+		new SpringModulithBuildCustomizer(parsedVersion).customize(build);
 		return build;
-	}
-
-	private Version getDefaultPlatformVersion(InitializrMetadata metadata) {
-		return Version.parse(metadata.getBootVersions().getDefault().getId());
 	}
 
 }

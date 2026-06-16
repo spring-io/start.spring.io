@@ -71,17 +71,16 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	private void addActuatorAndObservabilityDependencies(DependencyContainer dependencies) {
-
-		if (dependencies.has("actuator") && OBSERVABILITY_DEPENDENCIES.stream().anyMatch(dependencies::has)) {
+		if (hasActuator(dependencies) && hasObservability(dependencies)) {
 			dependencies.add("modulith-starter-insight",
 					modulithDependency("starter-insight").scope(DependencyScope.COMPILE));
 			return;
 		}
-		if (dependencies.has("actuator")) {
+		if (hasActuator(dependencies)) {
 			dependencies.add("modulith-actuator", modulithDependency("actuator").scope(DependencyScope.RUNTIME));
 		}
-		if (dependencies.has("actuator") || OBSERVABILITY_DEPENDENCIES.stream().anyMatch(dependencies::has)) {
-			if (SPRING_BOOT_4_1_OR_LATER.match(this.version)) {
+		if (hasActuator(dependencies) || hasObservability(dependencies)) {
+			if (isBoot41orLater()) {
 				dependencies.add("modulith-observability-api",
 						modulithDependency("observability-api").scope(DependencyScope.COMPILE));
 				dependencies.add("modulith-observability-core",
@@ -92,6 +91,18 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 						modulithDependency("observability").scope(DependencyScope.RUNTIME));
 			}
 		}
+	}
+
+	private boolean isBoot41orLater() {
+		return SPRING_BOOT_4_1_OR_LATER.match(this.version);
+	}
+
+	private boolean hasActuator(DependencyContainer dependencies) {
+		return dependencies.has("actuator");
+	}
+
+	private boolean hasObservability(DependencyContainer dependencies) {
+		return OBSERVABILITY_DEPENDENCIES.stream().anyMatch(dependencies::has);
 	}
 
 	private boolean addEventPublicationRegistryBackend(Build build) {
