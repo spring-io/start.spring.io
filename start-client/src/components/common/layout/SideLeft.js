@@ -198,6 +198,21 @@ function SideLeft() {
                           Migrate Spring Boot 3.5 to 4.0
                         </a>
                       </li>
+                      <li>
+                        <button
+                          id='ql-community-starters'
+                          type='button'
+                          className='navigation-link-button'
+                          onClick={() => {
+                            dispatch({
+                              type: 'UPDATE',
+                              payload: {nav: false, community: true},
+                            })
+                          }}
+                        >
+                          Explore Additional Community-Maintained Starters
+                        </button>
+                      </li>
                     </ul>
                   </div>
                   <div className='is-mobile'>
