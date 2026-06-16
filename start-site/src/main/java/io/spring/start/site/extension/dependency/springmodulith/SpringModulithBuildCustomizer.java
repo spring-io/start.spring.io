@@ -25,6 +25,9 @@ import io.spring.initializr.generator.buildsystem.Dependency.Builder;
 import io.spring.initializr.generator.buildsystem.DependencyContainer;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Registers Spring Modulith dependencies to the build file of the project to be created,
@@ -37,25 +40,27 @@ import io.spring.initializr.generator.spring.build.BuildCustomizer;
  */
 class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final Collection<String> OBSERVABILITY_DEPENDENCIES = List.of("actuator", "datadog", "graphite",
-			"influx", "new-relic", "otlp-metrics", "prometheus", "wavefront", "zipkin");
+	private static final VersionRange SPRING_BOOT_4_1_OR_LATER = VersionParser.DEFAULT.parseRange("4.1.0-M1");
+
+	private static final Collection<String> OBSERVABILITY_DEPENDENCIES = List.of("datadog", "graphite", "influx",
+			"new-relic", "otlp-metrics", "prometheus", "wavefront", "zipkin");
 
 	private static final Collection<String> PERSISTENCE = List.of("jdbc", "jpa", "mongodb", "neo4j");
 
 	private static final Collection<String> BROKERS = List.of("activemq", "amqp", "artemis", "kafka");
 
+	private final Version version;
+
+	SpringModulithBuildCustomizer(Version version) {
+		this.version = version;
+	}
+
 	@Override
 	public void customize(Build build) {
 		DependencyContainer dependencies = build.dependencies();
-		if (dependencies.has("actuator")) {
-			dependencies.add("modulith-actuator", modulithDependency("actuator").scope(DependencyScope.RUNTIME));
-		}
+		addActuatorAndObservabilityDependencies(dependencies);
 		if (dependencies.has("flyway")) {
 			dependencies.add("modulith-runtime", modulithDependency("runtime").scope(DependencyScope.RUNTIME));
-		}
-		if (OBSERVABILITY_DEPENDENCIES.stream().anyMatch(dependencies::has)) {
-			dependencies.add("modulith-observability",
-					modulithDependency("observability").scope(DependencyScope.RUNTIME));
 		}
 		addEventPublicationRegistryBackend(build);
 		if (addEventExternalizationDependency(build)) {
@@ -63,6 +68,30 @@ class SpringModulithBuildCustomizer implements BuildCustomizer<Build> {
 		}
 		dependencies.add("modulith-starter-test",
 				modulithDependency("starter-test").scope(DependencyScope.TEST_COMPILE));
+	}
+
+	private void addActuatorAndObservabilityDependencies(DependencyContainer dependencies) {
+
+		if (dependencies.has("actuator") && OBSERVABILITY_DEPENDENCIES.stream().anyMatch(dependencies::has)) {
+			dependencies.add("modulith-starter-insight",
+					modulithDependency("starter-insight").scope(DependencyScope.COMPILE));
+			return;
+		}
+		if (dependencies.has("actuator")) {
+			dependencies.add("modulith-actuator", modulithDependency("actuator").scope(DependencyScope.RUNTIME));
+		}
+		if (dependencies.has("actuator") || OBSERVABILITY_DEPENDENCIES.stream().anyMatch(dependencies::has)) {
+			if (SPRING_BOOT_4_1_OR_LATER.match(this.version)) {
+				dependencies.add("modulith-observability-api",
+						modulithDependency("observability-api").scope(DependencyScope.COMPILE));
+				dependencies.add("modulith-observability-core",
+						modulithDependency("observability-core").scope(DependencyScope.RUNTIME));
+			}
+			else {
+				dependencies.add("modulith-observability",
+						modulithDependency("observability").scope(DependencyScope.RUNTIME));
+			}
+		}
 	}
 
 	private boolean addEventPublicationRegistryBackend(Build build) {
