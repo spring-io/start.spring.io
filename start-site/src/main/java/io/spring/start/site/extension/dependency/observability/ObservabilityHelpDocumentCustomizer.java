@@ -40,7 +40,8 @@ public class ObservabilityHelpDocumentCustomizer implements HelpDocumentCustomiz
 
 	@Override
 	public void customize(HelpDocument document) {
-		if (this.build.dependencies().has("distributed-tracing") || this.build.dependencies().has("zipkin")) {
+		if (this.build.dependencies().has("distributed-tracing") || this.build.dependencies().has("zipkin")
+				|| this.build.dependencies().has("opentelemetry")) {
 			document.gettingStarted()
 				.addReferenceDocLink("https://docs.micrometer.io/tracing/reference/index.html",
 						"Distributed Tracing Reference Guide");

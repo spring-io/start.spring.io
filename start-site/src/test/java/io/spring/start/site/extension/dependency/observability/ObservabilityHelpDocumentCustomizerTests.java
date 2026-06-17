@@ -38,6 +38,20 @@ class ObservabilityHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
+	void linksAddedToHelpDocumentForZipkin() {
+		assertHelpDocument("zipkin").contains(
+				"* [Distributed Tracing Reference Guide](https://docs.micrometer.io/tracing/reference/index.html)",
+				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/4.0.0/reference/actuator/tracing.html)");
+	}
+
+	@Test
+	void linksAddedToHelpDocumentForOpenTelemetry() {
+		assertHelpDocument("opentelemetry").contains(
+				"* [Distributed Tracing Reference Guide](https://docs.micrometer.io/tracing/reference/index.html)",
+				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/4.0.0/reference/actuator/tracing.html)");
+	}
+
+	@Test
 	void linksNotAddedToHelpDocumentForBuildWithoutTracing() {
 		assertHelpDocument().noneMatch((line) -> line.contains("Tracing"));
 	}

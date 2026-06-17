@@ -63,13 +63,18 @@ class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 		}
 	}
 
+	@Override
+	public int getOrder() {
+		return ObservabilityDistributedTracingBuildCustomizer.ORDER + 1;
+	}
+
 	private boolean hasActuator(Build build) {
 		return build.dependencies().has("actuator");
 	}
 
 	private boolean needsActuator(Build build) {
 		if (isBoot4OrLater()) {
-			return hasTracing(build) || hasPullBasedMetrics(build);
+			return hasPullBasedMetrics(build);
 		}
 		else {
 			return hasTracing(build) || hasPullBasedMetrics(build) || hasPushBasedMetrics(build);

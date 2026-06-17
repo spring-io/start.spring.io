@@ -32,6 +32,8 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<Build> {
 
+	static final int ORDER = 0;
+
 	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0-M1");
 
 	private static final String DISTRIBUTED_TRACING = "distributed-tracing";
@@ -45,20 +47,23 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 	@Override
 	public void customize(Build build) {
 		if (isBoot4OrLater()) {
-			if (hasTracingProvider(build)) {
-				build.dependencies().remove(DISTRIBUTED_TRACING);
-			}
+			handleBoot4(build);
 		}
-		else if (build.dependencies().has("zipkin") && !build.dependencies().has(DISTRIBUTED_TRACING)) {
-			build.dependencies().add(DISTRIBUTED_TRACING);
+		else {
+			handleBoot35(build);
 		}
-		if (build.dependencies().has("wavefront") && build.dependencies().has(DISTRIBUTED_TRACING)) {
-			build.dependencies()
-				.add("wavefront-tracing-reporter",
-						Dependency.withCoordinates("io.micrometer", "micrometer-tracing-reporter-wavefront")
-							.scope(DependencyScope.RUNTIME));
+	}
+
+	@Override
+	public int getOrder() {
+		return ORDER;
+	}
+
+	private void handleBoot4(Build build) {
+		if (hasTracingProvider(build)) {
+			build.dependencies().remove(DISTRIBUTED_TRACING);
 		}
-		if (build.dependencies().has(DISTRIBUTED_TRACING) && isBoot4OrLater()) {
+		else if (hasDistributedTracing(build)) {
 			build.dependencies()
 				.add("spring-boot-micrometer-tracing-brave",
 						Dependency.withCoordinates("org.springframework.boot", "spring-boot-micrometer-tracing-brave"));
@@ -69,8 +74,28 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 		}
 	}
 
+	private void handleBoot35(Build build) {
+		if (hasZipkin(build) && !hasDistributedTracing(build)) {
+			build.dependencies().add(DISTRIBUTED_TRACING);
+		}
+		if (build.dependencies().has("wavefront") && hasDistributedTracing(build)) {
+			build.dependencies()
+				.add("wavefront-tracing-reporter",
+						Dependency.withCoordinates("io.micrometer", "micrometer-tracing-reporter-wavefront")
+							.scope(DependencyScope.RUNTIME));
+		}
+	}
+
+	private boolean hasDistributedTracing(Build build) {
+		return build.dependencies().has(DISTRIBUTED_TRACING);
+	}
+
 	private boolean hasTracingProvider(Build build) {
-		return build.dependencies().has("zipkin") || build.dependencies().has("opentelemetry");
+		return hasZipkin(build) || build.dependencies().has("opentelemetry");
+	}
+
+	private boolean hasZipkin(Build build) {
+		return build.dependencies().has("zipkin");
 	}
 
 	private boolean isBoot4OrLater() {
