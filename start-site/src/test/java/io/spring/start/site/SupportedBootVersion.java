@@ -32,9 +32,13 @@ public enum SupportedBootVersion {
 	 */
 	V4_0("4.0.0"),
 	/**
-	 * 4.0.0.
+	 * 4.1.0.
 	 */
-	V4_1("4.1.0-SNAPSHOT");
+	V4_1("4.1.0"),
+	/**
+	 * 4.2.0.
+	 */
+	V4_2("4.2.0-SNAPSHOT");
 
 	private final String version;
 
@@ -56,7 +60,7 @@ public enum SupportedBootVersion {
 	 * @return the latest supported Spring Boot version
 	 */
 	public static SupportedBootVersion latest() {
-		return V4_0;
+		return V4_1;
 	}
 
 }

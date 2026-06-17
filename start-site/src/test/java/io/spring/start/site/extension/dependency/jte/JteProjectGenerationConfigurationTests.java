@@ -50,33 +50,33 @@ class JteProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldCreateTemplateDirectory() {
-		ProjectRequest request = createProjectRequest("jte");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "jte");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure).containsDirectories("src/main/jte");
 	}
 
 	@Test
 	void shouldAddProperties() {
-		ProjectRequest request = createProjectRequest("jte");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "jte");
 		assertThat(applicationProperties(request)).lines().contains("gg.jte.development-mode=true");
 	}
 
 	@Test
 	void shouldAddGitIgnoreEntries() {
-		ProjectRequest request = createProjectRequest("jte");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "jte");
 		assertThat(gitIgnore(request)).lines().contains("/jte-classes/");
 	}
 
 	@Test
 	void shouldAddHelpSection() {
-		ProjectRequest request = createProjectRequest("jte");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "jte");
 		assertThat(helpDocument(request)).lines().contains("## jte");
 	}
 
 	@Test
 	void shouldAddGradlePluginAndConfigureIt() {
 		String jteVersion = getDependency("jte").getVersion();
-		ProjectRequest request = createProjectRequest("jte");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "jte");
 		assertThat(gradleBuild(request)).hasPlugin("gg.jte.gradle", jteVersion).containsIgnoringWhitespaces("""
 				jte {
 					generate()
@@ -88,7 +88,7 @@ class JteProjectGenerationConfigurationTests extends AbstractExtensionTests {
 	@Test
 	void shouldAddMavenPluginAndConfigureIt() {
 		String jteVersion = getDependency("jte").getVersion();
-		ProjectRequest request = createProjectRequest("jte");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "jte");
 		assertThat(mavenPom(request)).containsIgnoringWhitespaces("""
 				<plugin>
 					<groupId>gg.jte</groupId>

@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.dependency.observability;
 
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.assertj.core.api.ListAssert;
 import org.junit.jupiter.api.Test;
@@ -30,25 +31,30 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ObservabilityHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
+
 	@Test
 	void linksAddedToHelpDocumentForGradleBuild() {
 		assertHelpDocument("distributed-tracing").contains(
 				"* [Distributed Tracing Reference Guide](https://docs.micrometer.io/tracing/reference/index.html)",
-				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/4.0.0/reference/actuator/tracing.html)");
+				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/%s/reference/actuator/tracing.html)"
+					.formatted(BOOT_VERSION.getVersion()));
 	}
 
 	@Test
 	void linksAddedToHelpDocumentForZipkin() {
 		assertHelpDocument("zipkin").contains(
 				"* [Distributed Tracing Reference Guide](https://docs.micrometer.io/tracing/reference/index.html)",
-				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/4.0.0/reference/actuator/tracing.html)");
+				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/%s/reference/actuator/tracing.html)"
+					.formatted(BOOT_VERSION.getVersion()));
 	}
 
 	@Test
 	void linksAddedToHelpDocumentForOpenTelemetry() {
 		assertHelpDocument("opentelemetry").contains(
 				"* [Distributed Tracing Reference Guide](https://docs.micrometer.io/tracing/reference/index.html)",
-				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/4.0.0/reference/actuator/tracing.html)");
+				"* [Getting Started with Distributed Tracing](https://docs.spring.io/spring-boot/%s/reference/actuator/tracing.html)"
+					.formatted(BOOT_VERSION.getVersion()));
 	}
 
 	@Test
@@ -57,7 +63,7 @@ class ObservabilityHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	private ListAssert<String> assertHelpDocument(String... dependencies) {
-		ProjectRequest request = createProjectRequest(dependencies);
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, dependencies);
 		request.setType("gradle-build");
 		return assertThat(helpDocument(request)).lines();
 	}

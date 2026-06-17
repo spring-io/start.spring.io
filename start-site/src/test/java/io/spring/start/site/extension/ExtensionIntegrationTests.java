@@ -38,15 +38,15 @@ public class ExtensionIntegrationTests extends AbstractExtensionTests {
 	@ValueSource(strings = { "maven-project", "gradle-project", "gradle-project-kotlin" })
 	void projectWithAllDependenciesCanBeGenerated(String type) {
 		InitializrMetadata metadata = getMetadata();
-		String platformVersion = metadata.getBootVersions().getDefault().getId();
-		String[] dependencies = allDependencies(metadata, platformVersion);
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), dependencies);
+		SupportedBootVersion springBootVersion = SupportedBootVersion.latest();
+		String[] dependencies = allDependencies(metadata, springBootVersion);
+		ProjectRequest request = createProjectRequest(springBootVersion, dependencies);
 		request.setType(type);
 		assertThatCode(() -> generateProject(request)).doesNotThrowAnyException();
 	}
 
-	private static String[] allDependencies(InitializrMetadata metadata, String platformVersion) {
-		Version targetVersion = Version.parse(platformVersion);
+	private static String[] allDependencies(InitializrMetadata metadata, SupportedBootVersion springBootVersion) {
+		Version targetVersion = Version.parse(springBootVersion.getVersion());
 		return metadata.getDependencies()
 			.getAll()
 			.stream()
