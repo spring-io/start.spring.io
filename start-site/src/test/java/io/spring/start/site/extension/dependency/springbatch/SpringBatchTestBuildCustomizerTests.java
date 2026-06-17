@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Tim Riemer
  * @author Moritz Halbritter
+ * @author Eddú Meléndez
  */
 class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 
