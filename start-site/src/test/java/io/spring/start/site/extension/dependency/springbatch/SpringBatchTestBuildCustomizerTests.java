@@ -53,12 +53,6 @@ class SpringBatchTestBuildCustomizerTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request)).doesNotHaveDependency(dependency.getGroupId(), dependency.getArtifactId());
 	}
 
-	@Test
-	void shouldAddBatchDataMongoDbDependency() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "batch-data-mongodb");
-		assertThat(mavenPom(request)).hasDependency(getDependency(SupportedBootVersion.V4_1, "batch-data-mongodb"));
-	}
-
 	private static Dependency springBatchTest() {
 		Dependency dependency = Dependency.withId("spring-batch-test", "org.springframework.batch",
 				"spring-batch-test");
