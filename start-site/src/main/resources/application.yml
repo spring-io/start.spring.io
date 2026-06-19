@@ -193,7 +193,7 @@ initializr:
           - compatibilityRange: "[3.5.0,4.0.0)"
             version: 1.33.0
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 2.1.0
+            version: 2.2.0
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
