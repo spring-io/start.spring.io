@@ -732,12 +732,19 @@ button.button {
     padding: 0;
     li {
       list-style: none;
-      a {
+      a,
+      button.navigation-link-button {
         font-size: 32px;
         line-height: 60px;
         font-weight: 600;
         color: white;
         text-decoration: none;
+        cursor: pointer;
+        background: none;
+        border: 0;
+        padding: 0;
+        font-family: $spring-font-family;
+        display: block;
         &:hover {
           color: #222;
         }

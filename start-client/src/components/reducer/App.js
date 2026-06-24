@@ -15,6 +15,7 @@ export const defaultAppContext = {
   history: false,
   favorite: false,
   favoriteAdd: false,
+  community: false,
   nav: false,
   list: false,
   theme: 'light',

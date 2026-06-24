@@ -26,6 +26,7 @@ const Share = lazy(() => import('./common/share/Share'))
 const History = lazy(() => import('./common/history/History'))
 const HotKeys = lazy(() => import('./common/builder/HotKeys'))
 const Favorite = lazy(() => import('./common/favorite/Favorite'))
+const CommunityStarters = lazy(() => import('./common/community/CommunityStarters'))
 
 export default function Application() {
   const {
@@ -40,6 +41,7 @@ export default function Application() {
     favoriteOptions,
     list,
     dependencies,
+    community: communityOpen,
   } = useContext(AppContext)
   const {
     values,
@@ -77,6 +79,7 @@ export default function Application() {
         share: false,
         explore: false,
         nav: false,
+        community: false,
         history: favoriteOptions.back === 'history',
         favorite: favoriteOptions.back === 'favorite',
         favoriteAdd: false,
@@ -193,6 +196,7 @@ export default function Application() {
           open={favoriteOpen || false}
           onClose={onEscape}
         />
+        <CommunityStarters open={communityOpen || false} onClose={onEscape} />
       </Suspense>
     </>
   )

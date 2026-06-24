@@ -1,0 +1,92 @@
+[
+  {
+    "id": "apache-camel",
+    "name": "Apache Camel",
+    "description": "Enterprise Integration Patterns library with 300+ components for connecting any system. Build routes using a fluent Java DSL, XML, or YAML inside your Spring Boot application.",
+    "groupId": "org.apache.camel.springboot",
+    "artifactId": "camel-spring-boot-starter",
+    "docUrl": "https://camel.apache.org/camel-spring-boot/latest/",
+    "repoUrl": "https://github.com/apache/camel-spring-boot",
+    "tags": ["integration", "messaging", "routing"]
+  },
+  {
+    "id": "camunda-bpm",
+    "name": "Camunda BPM",
+    "description": "BPMN 2.0 workflow and decision automation engine. Model, execute, and monitor business processes and decisions with a fully embedded process engine.",
+    "groupId": "org.camunda.bpm.springboot",
+    "artifactId": "camunda-bpm-spring-boot-starter",
+    "docUrl": "https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/",
+    "repoUrl": "https://github.com/camunda/camunda-bpm-spring-boot-starter",
+    "tags": ["workflow", "bpmn", "process"]
+  },
+  {
+    "id": "flowable",
+    "name": "Flowable",
+    "description": "Lightweight and battle-hardened Business Process Management (BPM) platform. Supports BPMN 2.0, CMMN, and DMN with a full-featured Spring Boot integration.",
+    "groupId": "org.flowable",
+    "artifactId": "flowable-spring-boot-starter",
+    "docUrl": "https://www.flowable.com/open-source/docs/",
+    "repoUrl": "https://github.com/flowable/flowable-engine",
+    "tags": ["workflow", "bpmn", "process"]
+  },
+  {
+    "id": "axon-framework",
+    "name": "Axon Framework",
+    "description": "Framework for building event-driven microservices using CQRS, Event Sourcing, and Domain-Driven Design patterns with seamless Spring Boot integration.",
+    "groupId": "org.axonframework.springboot",
+    "artifactId": "axon-spring-boot-starter",
+    "docUrl": "https://docs.axoniq.io/axon-framework/",
+    "repoUrl": "https://github.com/AxonFramework/AxonFramework",
+    "tags": ["event-sourcing", "cqrs", "messaging", "ddd"]
+  },
+  {
+    "id": "bucket4j",
+    "name": "Bucket4j Spring Boot Starter",
+    "description": "Rate-limiting and throttling library based on the token-bucket algorithm. Integrates with Spring Boot to provide declarative rate limiting via annotations and filters.",
+    "groupId": "com.giffing.bucket4j.spring.boot.starter",
+    "artifactId": "bucket4j-spring-boot-starter",
+    "docUrl": "https://github.com/MarcGiffing/bucket4j-spring-boot-starter#readme",
+    "repoUrl": "https://github.com/MarcGiffing/bucket4j-spring-boot-starter",
+    "tags": ["rate-limiting", "security", "web"]
+  },
+  {
+    "id": "logbook",
+    "name": "Zalando Logbook",
+    "description": "Extensible library for HTTP request and response logging. Integrates with Spring Boot to provide configurable, structured HTTP traffic logging for debugging and auditing.",
+    "groupId": "org.zalando",
+    "artifactId": "logbook-spring-boot-starter",
+    "docUrl": "https://github.com/zalando/logbook#spring-boot-starter",
+    "repoUrl": "https://github.com/zalando/logbook",
+    "tags": ["logging", "observability", "web"]
+  },
+  {
+    "id": "problem-spring-web",
+    "name": "Zalando Problem Spring Web",
+    "description": "Library for producing application/problem+json (RFC 7807) responses from Spring MVC and Spring WebFlux, providing a standard error response format for REST APIs.",
+    "groupId": "org.zalando",
+    "artifactId": "problem-spring-web-starter",
+    "docUrl": "https://github.com/zalando/problem-spring-web#readme",
+    "repoUrl": "https://github.com/zalando/problem-spring-web",
+    "tags": ["web", "error-handling", "rest"]
+  },
+  {
+    "id": "togglz",
+    "name": "Togglz",
+    "description": "Feature flag / feature toggle library for Java and Spring Boot. Control feature rollout at runtime without redeployment, with support for various activation strategies.",
+    "groupId": "org.togglz",
+    "artifactId": "togglz-spring-boot-starter",
+    "docUrl": "https://www.togglz.org/documentation/spring-boot-starter.html",
+    "repoUrl": "https://github.com/togglz/togglz",
+    "tags": ["feature-flags", "operations"]
+  },
+  {
+    "id": "springwolf",
+    "name": "Springwolf",
+    "description": "Automated AsyncAPI documentation for Spring Boot applications. Generates interactive AsyncAPI docs for Kafka, RabbitMQ, SQS, and other async protocols — the Swagger for async APIs.",
+    "groupId": "io.github.springwolf",
+    "artifactId": "springwolf-core",
+    "docUrl": "https://www.springwolf.dev/docs/",
+    "repoUrl": "https://github.com/springwolf/springwolf-core",
+    "tags": ["documentation", "messaging", "kafka", "async"]
+  }
+]

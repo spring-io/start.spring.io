@@ -1,0 +1,566 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'responsive';
+@use 'sass:color';
+
+$community-max-width: 1100px;
+
+.modal-community {
+  z-index: 999;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+
+  .modal-community-container {
+    max-width: $community-max-width;
+    margin: 0 auto;
+    background: white;
+  }
+
+  @include transition(all $spring-transition-duration);
+
+  .modal-content {
+    padding: $spring-8points * 3;
+    padding-top: $spring-8points * 1.5;
+    padding-bottom: $spring-8points * 2;
+    max-height: 75vh;
+    overflow: auto;
+  }
+
+  .modal-header {
+    position: relative;
+    padding: 6px $spring-8points * 3 2px;
+    border-bottom: 1px solid #ebebeb;
+
+    h1 {
+      font-size: $spring-8points * 2.5;
+      line-height: $spring-8points * 3;
+      font-weight: 600;
+    }
+
+    .button {
+      position: absolute;
+      top: 11px;
+      right: 11px;
+      font-size: $spring-font-size - 3;
+      line-height: 0.7rem;
+      margin-right: 0;
+    }
+  }
+
+  .modal-action {
+    text-align: center;
+    border-top: 1px solid $light-border;
+    padding: 16px 0 8px;
+  }
+}
+
+// Version notice banner
+
+.community-notice {
+  background: $light-background-seconday;
+  border-left: 4px solid $light-primary;
+  border-radius: $spring-radius;
+  padding: $spring-8points * 1.5 $spring-8points * 2;
+  margin-bottom: $spring-8points * 2;
+  font-size: $spring-font-size-sm;
+  line-height: 1.6;
+
+  strong {
+    color: $light-primary;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: $light-color;
+  }
+
+  .community-notice-boot {
+    font-size: $spring-8points * 1.75;
+    font-weight: 600;
+    margin-bottom: $spring-8points * 0.5;
+
+    .boot-badge {
+      display: inline-block;
+      background: $light-primary;
+      color: white;
+      font-size: $spring-font-size-sm - 1;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 10px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+  }
+}
+
+// Why section
+
+.community-why {
+  font-size: $spring-font-size-sm;
+  color: color.adjust($light-color, $lightness: 30%);
+  margin-bottom: $spring-8points * 2;
+  line-height: 1.6;
+
+  button.community-why-toggle {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    color: $light-link;
+    font-size: $spring-font-size-sm;
+    padding: 0;
+    font-family: $spring-font-family;
+    text-decoration: underline;
+    font-weight: 600;
+
+    &:hover {
+      color: color.adjust($light-link, $lightness: -10%);
+    }
+  }
+
+  .community-why-content {
+    margin-top: $spring-8points;
+    padding: $spring-8points * 1.5;
+    border: 1px solid $light-border;
+    border-radius: $spring-radius;
+    background: $light-background;
+    font-size: $spring-font-size-sm;
+    color: $light-color;
+
+    p {
+      margin: 0 0 $spring-8points;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// Search bar
+
+.community-search {
+  margin-bottom: $spring-8points * 2;
+
+  .community-search-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid $light-color;
+    padding-bottom: 2px;
+
+    &:focus-within {
+      border-color: $light-primary;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.5;
+      margin-right: 8px;
+    }
+
+    input {
+      border: 0;
+      outline: none;
+      font-family: $spring-font-family;
+      font-size: $spring-font-size;
+      font-weight: 300;
+      width: 100%;
+      background: transparent;
+      padding: 0.35rem 0 0.25rem;
+      color: $light-color;
+
+      &::placeholder {
+        color: $light-color;
+        font-style: italic;
+        font-weight: 100;
+      }
+    }
+
+    .community-search-clear {
+      border: 0;
+      background: none;
+      cursor: pointer;
+      opacity: 0.4;
+      padding: 4px;
+      color: $light-color;
+      flex-shrink: 0;
+
+      svg {
+        width: 14px;
+        height: 14px;
+        margin: 0;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+// Tags filter
+
+.community-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: $spring-8points * 2.5;
+
+  button.community-tag {
+    border: 1px solid $light-border;
+    border-radius: 12px;
+    background: transparent;
+    color: $light-color;
+    font-size: $spring-font-size-sm - 1;
+    font-family: $spring-font-family;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-weight: 400;
+    @include transition(all $spring-transition-duration);
+
+    &:hover {
+      background: $light-background-seconday;
+    }
+
+    &.active {
+      background: $light-color;
+      color: $light-background;
+      border-color: $light-color;
+    }
+  }
+}
+
+// Results count
+
+.community-results-count {
+  font-size: $spring-font-size-sm;
+  color: color.adjust($light-color, $lightness: 30%);
+  margin-bottom: $spring-8points * 1.5;
+}
+
+// Grid
+
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: $spring-8points * 2.5;
+}
+
+// Cards
+
+.community-card {
+  border: 1px solid $light-border;
+  border-radius: $spring-radius;
+  padding: $spring-8points * 2;
+  display: flex;
+  flex-direction: column;
+  background: $light-background;
+  @include transition(box-shadow $spring-transition-duration);
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .community-card-name {
+    font-size: $spring-font-size + 1;
+    font-weight: 600;
+    margin: 0 0 $spring-8points * 0.75;
+    color: $light-color;
+  }
+
+  .community-card-description {
+    font-size: $spring-font-size-sm;
+    font-weight: 300;
+    color: color.adjust($light-color, $lightness: 20%);
+    line-height: 1.6;
+    margin: 0 0 $spring-8points * 1.5;
+    flex: 1;
+  }
+
+  .community-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: $spring-8points * 1.5;
+
+    span {
+      background: $light-background-seconday;
+      border-radius: 10px;
+      padding: 1px 8px;
+      font-size: 11px;
+      font-weight: 400;
+      color: color.adjust($light-color, $lightness: 20%);
+    }
+  }
+
+  // Snippet
+
+  .community-card-snippet {
+    margin-bottom: $spring-8points * 1.5;
+
+    .snippet-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0;
+      border-bottom: 2px solid $light-border;
+
+      button.snippet-tab {
+        border: 0;
+        background: none;
+        font-family: $spring-font-family;
+        font-size: $spring-font-size-sm - 1;
+        font-weight: 600;
+        padding: 4px 12px 6px;
+        cursor: pointer;
+        color: color.adjust($light-color, $lightness: 30%);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        @include transition(all $spring-transition-duration);
+
+        &.active {
+          color: $light-color;
+          border-bottom-color: $light-color;
+        }
+
+        &:hover:not(.active) {
+          color: $light-color;
+        }
+      }
+    }
+
+    .snippet-content {
+      background: $light-background-seconday;
+      border-radius: 0 $spring-radius $spring-radius $spring-radius;
+      padding: $spring-8points $spring-8points * 1.5;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      color: $light-color;
+      overflow-x: auto;
+      white-space: pre;
+      position: relative;
+
+      button.snippet-copy {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        border: 1px solid $light-border;
+        background: $light-background;
+        border-radius: $spring-radius;
+        cursor: pointer;
+        font-family: $spring-font-family;
+        font-size: 11px;
+        padding: 2px 8px;
+        color: color.adjust($light-color, $lightness: 20%);
+        opacity: 0;
+        @include transition(opacity $spring-transition-duration);
+
+        &:hover {
+          color: $light-color;
+        }
+      }
+
+      &:hover button.snippet-copy {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Links row
+
+  .community-card-links {
+    display: flex;
+    gap: $spring-8points;
+
+    a {
+      font-size: $spring-font-size-sm - 1;
+      font-weight: 600;
+      color: $light-link;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      @include transition(border-color $spring-transition-duration);
+
+      &:hover {
+        border-bottom-color: $light-link;
+      }
+    }
+  }
+}
+
+// Empty state
+
+.community-empty {
+  text-align: center;
+  padding: $spring-8points * 6 0;
+  color: color.adjust($light-color, $lightness: 40%);
+
+  p {
+    margin: $spring-8points 0 0;
+    font-size: $spring-font-size-sm;
+  }
+}
+
+// Transitions (matching popup/modal patterns in the project)
+
+.community-enter {
+  opacity: 0;
+}
+
+.community-enter-active {
+  opacity: 1;
+  transition: all 300ms;
+}
+
+.community-exit {
+  opacity: 1;
+}
+
+.community-exit-active {
+  opacity: 0;
+  transition: all 300ms;
+}
+
+// Dark theme overrides
+
+.dark {
+  .modal-community-container {
+    background: #1b1f23;
+    color: white;
+    border: 1px solid $dark-border;
+  }
+
+  .modal-community .modal-header {
+    border-bottom-color: $dark-border;
+  }
+
+  .modal-community .modal-action {
+    border-top-color: $dark-border;
+  }
+
+  .community-notice {
+    background: $dark-background-secondary;
+
+    p {
+      color: $dark-color;
+    }
+
+    .community-notice-boot {
+      color: $dark-color;
+    }
+  }
+
+  .community-why {
+    color: color.adjust($dark-color, $lightness: -30%);
+
+    .community-why-content {
+      background: $dark-background-secondary;
+      border-color: $dark-border;
+      color: $dark-color;
+    }
+  }
+
+  .community-search {
+    .community-search-input-wrap {
+      border-color: $dark-color;
+
+      input {
+        color: $dark-color;
+        background: transparent;
+
+        &::placeholder {
+          color: color.adjust($dark-color, $lightness: -30%);
+        }
+      }
+
+      svg {
+        color: $dark-color;
+      }
+
+      .community-search-clear {
+        color: $dark-color;
+      }
+    }
+  }
+
+  .community-tags button.community-tag {
+    border-color: $dark-border;
+    color: $dark-color;
+
+    &:hover {
+      background: $dark-background-secondary;
+    }
+
+    &.active {
+      background: $dark-color;
+      color: $dark-background;
+    }
+  }
+
+  .community-results-count {
+    color: color.adjust($dark-color, $lightness: -30%);
+  }
+
+  .community-card {
+    background: $dark-background-secondary;
+    border-color: $dark-border;
+
+    .community-card-name {
+      color: $dark-color;
+    }
+
+    .community-card-description {
+      color: color.adjust($dark-color, $lightness: -20%);
+    }
+
+    .community-card-tags span {
+      background: color.adjust($dark-background-secondary, $lightness: 5%);
+      color: color.adjust($dark-color, $lightness: -20%);
+    }
+
+    .snippet-tabs button.snippet-tab {
+      color: color.adjust($dark-color, $lightness: -20%);
+
+      &.active {
+        color: $dark-color;
+        border-bottom-color: $dark-color;
+      }
+    }
+
+    .snippet-content {
+      background: $dark-background;
+      color: $dark-color;
+
+      button.snippet-copy {
+        background: $dark-background-secondary;
+        border-color: $dark-border;
+        color: color.adjust($dark-color, $lightness: -20%);
+
+        &:hover {
+          color: $dark-color;
+        }
+      }
+    }
+
+    .community-card-links a {
+      color: color.adjust($dark-link, $lightness: 20%);
+
+      &:hover {
+        border-bottom-color: color.adjust($dark-link, $lightness: 20%);
+      }
+    }
+  }
+
+  .community-empty {
+    color: color.adjust($dark-color, $lightness: -30%);
+  }
+}
