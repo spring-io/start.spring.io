@@ -1191,6 +1191,24 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/io/quartz.html
+        - name: JobRunr
+          id: jobrunr
+          version: 8.7.0
+          description: Easily schedule and process background jobs using a distributed job scheduler with a built-in dashboard.
+          starter: false
+          compatibilityRange: "[3.5.0,4.2.0-M1)"
+          mappings:
+            - compatibilityRange: "[3.5.0,4.0.0)"
+              groupId: org.jobrunr
+              artifactId: jobrunr-spring-boot-3-starter
+            - compatibilityRange: "[4.0.0,4.2.0-M1)"
+              groupId: org.jobrunr
+              artifactId: jobrunr-spring-boot-4-starter
+          links:
+            - rel: guide
+              href: https://www.jobrunr.io/en/documentation/getting-started/spring/
+            - rel: reference
+              href: https://www.jobrunr.io/en/documentation/configuration/spring/
         - name: Spring Cache Abstraction
           id: cache
           description: Provides cache-related operations, such as the ability to update the content of the cache, but does not provide the actual data store.
