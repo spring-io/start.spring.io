@@ -145,6 +145,7 @@
   },
   "resolutions": {
     "flatted": "^3.4.2",
+    "js-yaml": "^4.2.0",
     "serialize-javascript": "^7.0.3",
     "tmp": "^0.2.4",
     "uuid": "^11.1.1"
