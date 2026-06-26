@@ -32,33 +32,23 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ReactorTestBuildCustomizerTests extends AbstractExtensionTests {
 
-	@Test
-	void shouldAddTestDependency() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "webflux");
-		assertThat(mavenPom(request)).hasDependency("io.projectreactor", "reactor-test", null, Dependency.SCOPE_TEST);
-	}
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@Test
 	void shouldNotAddTestDependencyWithoutReactiveFacet() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "web");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web");
 		assertThat(mavenPom(request)).doesNotHaveDependency("io.projectreactor", "reactor-test");
 	}
 
 	@Test
-	void shouldNotAddTestDependencyForBoot4WithoutReactiveFacet() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web");
+	void shouldNotAddTestDependency() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "webflux");
 		assertThat(mavenPom(request)).doesNotHaveDependency("io.projectreactor", "reactor-test");
 	}
 
 	@Test
-	void shouldNotAddTestDependencyForBoot4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "webflux");
-		assertThat(mavenPom(request)).doesNotHaveDependency("io.projectreactor", "reactor-test");
-	}
-
-	@Test
-	void shouldAddTestDependencyForBoot4IfNonBootStarterIsUsed() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "cloud-gateway-reactive");
+	void shouldAddTestDependencyIfNonBootStarterIsUsed() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "cloud-gateway-reactive");
 		assertThat(mavenPom(request)).hasDependency("io.projectreactor", "reactor-test", null, Dependency.SCOPE_TEST);
 	}
 

@@ -54,8 +54,8 @@ public class TestcontainersProjectGenerationConfiguration {
 
 	private final Testcontainers testcontainers;
 
-	public TestcontainersProjectGenerationConfiguration(ProjectDescription projectDescription) {
-		this.testcontainers = new Testcontainers(projectDescription.getPlatformVersion());
+	public TestcontainersProjectGenerationConfiguration() {
+		this.testcontainers = new Testcontainers();
 		this.dependencies = TestcontainersModuleRegistry.create(this.testcontainers);
 	}
 

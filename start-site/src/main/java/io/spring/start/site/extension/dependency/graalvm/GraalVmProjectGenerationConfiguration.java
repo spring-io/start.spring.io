@@ -93,7 +93,7 @@ class GraalVmProjectGenerationConfiguration {
 		@Bean
 		@ConditionalOnBuildSystem(MavenBuildSystem.ID)
 		HibernatePluginMavenBuildCustomizer hibernatePluginMavenBuildCustomizer() {
-			return new HibernatePluginMavenBuildCustomizer(this.platformVersion);
+			return new HibernatePluginMavenBuildCustomizer();
 		}
 
 		@Bean

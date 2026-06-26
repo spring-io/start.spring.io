@@ -19,9 +19,6 @@ package io.spring.start.site.extension.dependency.mcpsecurity;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * {@link BuildCustomizer} which adds {@code mcp-server-security},
@@ -44,14 +41,6 @@ import io.spring.initializr.generator.version.VersionRange;
  * @author Daniel Garnier-Moiroux
  */
 class McpSecurityBuildCustomizer implements BuildCustomizer<Build> {
-
-	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0");
-
-	private final Version platformVersion;
-
-	McpSecurityBuildCustomizer(Version platformVersion) {
-		this.platformVersion = platformVersion;
-	}
 
 	@Override
 	public void customize(Build build) {
@@ -112,10 +101,7 @@ class McpSecurityBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	private String getArtifactId(String baseName) {
-		if (SPRING_BOOT_4_OR_LATER.match(this.platformVersion)) {
-			return baseName + "-spring-boot";
-		}
-		return baseName;
+		return baseName + "-spring-boot";
 	}
 
 }

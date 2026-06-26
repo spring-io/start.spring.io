@@ -43,60 +43,38 @@ class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtension
 	}
 
 	@Test
-	void createsElasticsearchServiceForBoot3() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
-				"data-elasticsearch");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
-	}
-
-	@Test
 	void createsElasticsearchServiceForBoot40WhenDriverIsSelected() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "docker-compose", "elasticsearch");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
 	}
 
 	@Test
-	void createsElasticsearchServiceForBoot41WhenDriverIsSelected() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "docker-compose", "elasticsearch");
+	void createsElasticsearchServiceWhenDriverIsSelected() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "docker-compose", "elasticsearch");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch9.yaml"));
 	}
 
 	@Test
-	void createsElasticsearchServiceForBoot41() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "docker-compose",
+	void createsElasticsearchService() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "docker-compose",
 				"data-elasticsearch");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch9.yaml"));
 	}
 
 	@Test
-	void createsElasticsearchServiceWhenSpringAiModuleIsSelected() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
-				"spring-ai-vectordb-elasticsearch");
-		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/elasticsearch.yaml"));
-	}
-
-	@Test
-	void createsElasticsearchServiceConnectionWithSslAnnotationForBoot41() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "testcontainers",
+	void createsElasticsearchServiceConnectionWithSslAnnotation() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "testcontainers",
 				"data-elasticsearch");
 		ProjectStructure structure = generateProject(request);
 		assertThatSslAnnotationIsUsed(structure);
 	}
 
 	@Test
-	void createsElasticsearchServiceConnectionWithSslAnnotationForBoot41WhenSpringAiModuleIsSelected() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "testcontainers",
+	void createsElasticsearchServiceConnectionWithSslAnnotationWhenSpringAiModuleIsSelected() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "testcontainers",
 				"spring-ai-vectordb-elasticsearch");
 		ProjectStructure structure = generateProject(request);
 		assertThatSslAnnotationIsUsed(structure);
-	}
-
-	@Test
-	void doesNotCreateSslAnnotationForBoot3() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "testcontainers",
-				"data-elasticsearch");
-		ProjectStructure structure = generateProject(request);
-		assertThatSslAnnotationIsNotUsed(structure);
 	}
 
 	private void assertThatSslAnnotationIsUsed(ProjectStructure structure) {
@@ -105,14 +83,6 @@ class ElasticsearchProjectGenerationConfigurationTests extends AbstractExtension
 			.contains("@ServiceConnection")
 			.contains("@Ssl")
 			.contains("import org.springframework.boot.testcontainers.service.connection.Ssl;");
-	}
-
-	private void assertThatSslAnnotationIsNotUsed(ProjectStructure structure) {
-		assertThat(structure.getProjectDirectory()
-			.resolve("src/test/java/com/example/demo/TestcontainersConfiguration.java")).content()
-			.contains("@ServiceConnection")
-			.doesNotContain("@Ssl")
-			.doesNotContain("import org.springframework.boot.testcontainers.service.connection.Ssl;");
 	}
 
 }

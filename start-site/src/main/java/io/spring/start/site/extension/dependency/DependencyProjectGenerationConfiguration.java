@@ -19,7 +19,6 @@ package io.spring.start.site.extension.dependency;
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ProjectDescription;
@@ -32,9 +31,7 @@ import io.spring.start.site.extension.dependency.lombok.LombokMavenBuildCustomiz
 import io.spring.start.site.extension.dependency.mybatis.MyBatisTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.okta.OktaHelpDocumentCustomizer;
 import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomizer;
-import io.spring.start.site.extension.dependency.springbatch.SpringBatchTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityRSocketBuildCustomizer;
-import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityWebAuthnBuildCustomizer;
 import io.spring.start.site.extension.dependency.springshell.SpringShellTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.thymeleaf.ThymeleafBuildCustomizer;
@@ -61,7 +58,6 @@ public class DependencyProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnPlatformVersion("4.0.0-RC1")
 	AddTestStartersBuildCustomizer addTestStartersBuildCustomizer() {
 		return new AddTestStartersBuildCustomizer();
 	}
@@ -69,20 +65,6 @@ public class DependencyProjectGenerationConfiguration {
 	@Bean
 	public ReactorTestBuildCustomizer reactorTestBuildCustomizer(ProjectDescription description) {
 		return new ReactorTestBuildCustomizer(this.metadata, description);
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("security")
-	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1)")
-	public SpringSecurityTestBuildCustomizer securityTestBuildCustomizer() {
-		return new SpringSecurityTestBuildCustomizer();
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("oauth2-client")
-	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1)")
-	SpringSecurityTestBuildCustomizer oauth2ClientTestBuildCustomizer() {
-		return new SpringSecurityTestBuildCustomizer();
 	}
 
 	@Bean
@@ -95,13 +77,6 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("spring-security-webauthn")
 	SpringSecurityWebAuthnBuildCustomizer springSecurityWebAuthnBuildCustomizer() {
 		return new SpringSecurityWebAuthnBuildCustomizer();
-	}
-
-	@Bean
-	@ConditionalOnRequestedDependency("batch")
-	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1]")
-	public SpringBatchTestBuildCustomizer batchTestBuildCustomizer() {
-		return new SpringBatchTestBuildCustomizer();
 	}
 
 	@Bean
@@ -150,7 +125,6 @@ public class DependencyProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("unboundid-ldap")
-	@ConditionalOnPlatformVersion("4.0.0-M1")
 	LdapUnboundIdBuildCustomizer ldapUnboundIdBuildCustomizer() {
 		return new LdapUnboundIdBuildCustomizer();
 	}

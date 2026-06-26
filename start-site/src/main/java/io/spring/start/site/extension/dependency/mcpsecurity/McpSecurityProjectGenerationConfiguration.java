@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.dependency.mcpsecurity;
 
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
@@ -32,8 +31,8 @@ import org.springframework.context.annotation.Bean;
 class McpSecurityProjectGenerationConfiguration {
 
 	@Bean
-	McpSecurityBuildCustomizer mcpSecurityBuildCustomizer(ProjectDescription description) {
-		return new McpSecurityBuildCustomizer(description.getPlatformVersion());
+	McpSecurityBuildCustomizer mcpSecurityBuildCustomizer() {
+		return new McpSecurityBuildCustomizer();
 	}
 
 }

@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.opentelemetry;
 
 import io.spring.initializr.generator.test.project.ProjectStructure;
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -35,20 +34,20 @@ class OpenTelemetryProjectGenerationConfigurationTests extends AbstractExtension
 
 	@Test
 	void doesNothingWithoutDockerCompose() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web", "opentelemetry");
+		ProjectRequest request = createProjectRequest("web", "opentelemetry");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory().resolve("compose.yaml")).doesNotExist();
 	}
 
 	@Test
 	void createsDockerComposeService() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "docker-compose", "opentelemetry");
+		ProjectRequest request = createProjectRequest("docker-compose", "opentelemetry");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/opentelemetry.yaml"));
 	}
 
 	@Test
 	void doesNothingWithoutTestcontainers() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web", "opentelemetry");
+		ProjectRequest request = createProjectRequest("web", "opentelemetry");
 		ProjectStructure structure = generateProject(request);
 		assertThat(structure.getProjectDirectory()
 			.resolve("src/test/java/com/example/demo/TestcontainersConfiguration.java")).doesNotExist();
@@ -56,7 +55,7 @@ class OpenTelemetryProjectGenerationConfigurationTests extends AbstractExtension
 
 	@Test
 	void createsTestcontainersBean() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "testcontainers", "opentelemetry");
+		ProjectRequest request = createProjectRequest("testcontainers", "opentelemetry");
 		request.setLanguage("java");
 		ProjectStructure projectStructure = generateProject(request);
 		assertThat(projectStructure).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")

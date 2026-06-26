@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.observability;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -32,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ObservabilityDistributedTracingBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void shouldAddMicrometerTracingOnBoot4OrLater() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "distributed-tracing");
+	void shouldAddMicrometerTracing() {
+		ProjectRequest request = createProjectRequest("distributed-tracing");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-micrometer-tracing-brave");
 		assertThat(mavenPom(request)).hasDependency("io.micrometer", "micrometer-tracing-bridge-brave");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-micrometer-tracing-test",
@@ -41,25 +40,8 @@ class ObservabilityDistributedTracingBuildCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	void shouldNotAddMicrometerTracingOnBootBefore4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "distributed-tracing");
-		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot",
-				"spring-boot-micrometer-tracing-brave");
-		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot",
-				"spring-boot-micrometer-tracing-test");
-	}
-
-	@Test
-	void shouldMaintainCompatibilityIfZipkinIsPresentOnBootBefore4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "zipkin");
-		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-zipkin");
-		assertThat(mavenPom(request)).hasDependency("io.micrometer", "micrometer-tracing-bridge-brave");
-		assertThat(mavenPom(request)).hasDependency("io.zipkin.reporter2", "zipkin-reporter-brave");
-	}
-
-	@Test
-	void shouldNotAddMicrometerTracingIfZipkinIsPresentOnBoot4OrLater() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "zipkin");
+	void shouldNotAddMicrometerTracingIfZipkinIsPresent() {
+		ProjectRequest request = createProjectRequest("zipkin");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-zipkin");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot",
 				"spring-boot-micrometer-tracing-brave");
@@ -71,8 +53,8 @@ class ObservabilityDistributedTracingBuildCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	void shouldNotAddMicrometerTracingIfZipkinAndDistributedTracingArePresentOnBoot4OrLater() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "zipkin", "distributed-tracing");
+	void shouldNotAddMicrometerTracingIfZipkinAndDistributedTracingArePresent() {
+		ProjectRequest request = createProjectRequest("zipkin", "distributed-tracing");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-zipkin");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot",
 				"spring-boot-micrometer-tracing-brave");
@@ -84,8 +66,8 @@ class ObservabilityDistributedTracingBuildCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	void shouldNotAddMicrometerTracingIfOpentelemetryIsPresentOnBoot4OrLater() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "opentelemetry");
+	void shouldNotAddMicrometerTracingIfOpentelemetryIsPresent() {
+		ProjectRequest request = createProjectRequest("opentelemetry");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-opentelemetry");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot",
 				"spring-boot-micrometer-tracing-brave");
@@ -97,9 +79,8 @@ class ObservabilityDistributedTracingBuildCustomizerTests extends AbstractExtens
 	}
 
 	@Test
-	void shouldNotAddMicrometerTracingIfOpentelemetryAndDistributedTracingArePresentOnBoot4OrLater() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "opentelemetry",
-				"distributed-tracing");
+	void shouldNotAddMicrometerTracingIfOpentelemetryAndDistributedTracingArePresent() {
+		ProjectRequest request = createProjectRequest("opentelemetry", "distributed-tracing");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-opentelemetry");
 		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot",
 				"spring-boot-micrometer-tracing-brave");

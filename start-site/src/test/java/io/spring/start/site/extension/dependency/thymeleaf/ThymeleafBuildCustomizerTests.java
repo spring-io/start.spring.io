@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.thymeleaf;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -36,25 +35,22 @@ class ThymeleafBuildCustomizerTests extends AbstractExtensionTests {
 	void thymeleafWithSpringSecurityAndSpringBootAddsExtrasDependency() {
 		ProjectRequest projectRequest = createProjectRequest("thymeleaf", "security");
 		assertThat(mavenPom(projectRequest)).hasDependency(Dependency.createSpringBootStarter("thymeleaf"))
-			.hasDependency(Dependency.createSpringBootStarter("security"))
 			.hasDependency(Dependency.withId("thymeleaf-extras-spring-security", "org.thymeleaf.extras",
 					"thymeleaf-extras-springsecurity6"));
 	}
 
 	@Test
 	void thymeleafWithOAuth2ClientAndSpringBootAddsExtrasDependency() {
-		ProjectRequest projectRequest = createProjectRequest(SupportedBootVersion.V3_5, "thymeleaf", "oauth2-client");
+		ProjectRequest projectRequest = createProjectRequest("thymeleaf", "oauth2-client");
 		assertThat(mavenPom(projectRequest)).hasDependency(Dependency.createSpringBootStarter("thymeleaf"))
-			.hasDependency(Dependency.createSpringBootStarter("oauth2-client"))
 			.hasDependency(Dependency.withId("thymeleaf-extras-spring-security", "org.thymeleaf.extras",
 					"thymeleaf-extras-springsecurity6"));
 	}
 
 	@Test
 	void thymeleafWithoutSpringSecurityDoesNotAddExtrasDependency() {
-		assertThat(mavenPom(createProjectRequest("thymeleaf", "web")))
-			.hasDependency(Dependency.createSpringBootStarter("thymeleaf"))
-			.doesNotHaveDependency("org.thymeleaf.extras", "thymeleaf-extras-springsecurity6");
+		assertThat(mavenPom(createProjectRequest("thymeleaf", "web"))).doesNotHaveDependency("org.thymeleaf.extras",
+				"thymeleaf-extras-springsecurity6");
 	}
 
 }

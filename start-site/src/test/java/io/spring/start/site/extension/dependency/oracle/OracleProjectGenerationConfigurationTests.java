@@ -51,8 +51,7 @@ class OracleProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void createsOracleFreeServiceSpringAi() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
-				"spring-ai-vectordb-oracle");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "spring-ai-vectordb-oracle");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/oracle-free.yaml"));
 	}
 

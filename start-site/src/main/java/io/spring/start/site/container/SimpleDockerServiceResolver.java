@@ -36,7 +36,6 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	public SimpleDockerServiceResolver() {
 		this.dockerServices = new HashMap<>();
 		this.dockerServices.put("activeMQ", activeMQ());
-		this.dockerServices.put("activeMQClassic", activeMQClassic());
 		this.dockerServices.put("apacheActiveMQ", apacheActiveMQ());
 		this.dockerServices.put("artemis", artemis());
 		this.dockerServices.put("apacheArtemis", apacheArtemis());
@@ -72,13 +71,6 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 	private static DockerService activeMQ() {
 		return DockerService.withImageAndTag("symptoma/activemq")
 			.website("https://hub.docker.com/r/symptoma/activemq")
-			.randomPort(61616)
-			.build();
-	}
-
-	private static DockerService activeMQClassic() {
-		return DockerService.withImageAndTag("apache/activemq-classic")
-			.website("https://hub.docker.com/r/apache/activemq")
 			.randomPort(61616)
 			.build();
 	}

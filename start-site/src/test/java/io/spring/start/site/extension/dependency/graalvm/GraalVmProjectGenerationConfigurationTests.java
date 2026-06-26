@@ -88,19 +88,6 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void gradleBuildAndGroovyDslWithJpaConfiguresHibernateEnhancePluginForBoot35() {
-		ProjectRequest request = createNativeProjectRequest(SupportedBootVersion.V3_5, "data-jpa");
-		assertThat(gradleBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
-		// @formatter:off
-				"hibernate {",
-				"	enhancement {",
-				"		enableAssociationManagement = true",
-				"	}",
-				"}");
-		// @formatter:on
-	}
-
-	@Test
 	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePlugin() {
 		ProjectRequest request = createNativeProjectRequest(BOOT_VERSION, "data-jpa");
 		assertThat(gradleKotlinDslBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
@@ -113,27 +100,8 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 	}
 
 	@Test
-	void gradleBuildAndKotlinDslWithJpaConfiguresHibernateEnhancePluginForBoot35() {
-		ProjectRequest request = createNativeProjectRequest(SupportedBootVersion.V3_5, "data-jpa");
-		assertThat(gradleKotlinDslBuild(request)).hasPlugin("org.hibernate.orm").lines().containsSequence(
-		// @formatter:off
-						"hibernate {",
-						"	enhancement {",
-						"		enableAssociationManagement = true",
-						"	}",
-						"}");
-		// @formatter:on
-	}
-
-	@Test
 	void mavenBuildWithoutJpaDoesNotConfigureHibernateEnhancePlugin() {
 		assertThat(mavenPom(createNativeProjectRequest(BOOT_VERSION))).doesNotContain("hibernate-maven-plugin");
-	}
-
-	@Test
-	void mavenBuildWithoutJpaDoesNotConfigureHibernateEnhancePluginForBoot35() {
-		assertThat(mavenPom(createNativeProjectRequest(SupportedBootVersion.V3_5)))
-			.doesNotContain("hibernate-enhance-maven-plugin");
 	}
 
 	@Test
@@ -150,32 +118,6 @@ class GraalVmProjectGenerationConfigurationTests extends AbstractExtensionTests 
 				"						<goals>",
 				"							<goal>enhance</goal>",
 				"						</goals>",
-				"					</execution>",
-				"				</executions>",
-				"			</plugin>");
-		// @formatter:on
-	}
-
-	@Test
-	void mavenBuildWithJpaConfigureHibernateEnhancePluginForBoot35() {
-		assertThat(mavenPom(createNativeProjectRequest(SupportedBootVersion.V3_5, "data-jpa"))).lines()
-			.containsSequence(
-			// @formatter:off
-				"			<plugin>",
-				"				<groupId>org.hibernate.orm.tooling</groupId>",
-				"				<artifactId>hibernate-enhance-maven-plugin</artifactId>",
-				"				<version>${hibernate.version}</version>",
-				"				<executions>",
-				"					<execution>",
-				"						<id>enhance</id>",
-				"						<goals>",
-				"							<goal>enhance</goal>",
-				"						</goals>",
-				"						<configuration>",
-				"							<enableLazyInitialization>true</enableLazyInitialization>",
-				"							<enableDirtyTracking>true</enableDirtyTracking>",
-				"							<enableAssociationManagement>true</enableAssociationManagement>",
-				"						</configuration>",
 				"					</execution>",
 				"				</executions>",
 				"			</plugin>");

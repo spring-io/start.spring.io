@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.h2;
 
 import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -32,14 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class H2ProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void shouldNotAddH2ConsoleModule() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "h2");
-		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot", "spring-boot-h2console");
-	}
-
-	@Test
-	void shouldAddH2ConsoleModuleForBoot4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "h2");
+	void shouldAddH2ConsoleModule() {
+		ProjectRequest request = createProjectRequest("h2");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-h2console", null,
 				Dependency.SCOPE_COMPILE);
 	}

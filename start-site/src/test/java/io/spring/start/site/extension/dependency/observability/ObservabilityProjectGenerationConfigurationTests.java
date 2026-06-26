@@ -32,13 +32,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ObservabilityProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void zipkinAddsDistributedTracingIfNecessary() {
-		assertThat(generateProject(SupportedBootVersion.V3_5, "zipkin")).mavenBuild()
-			.hasDependency(getDependency(SupportedBootVersion.V3_5, "zipkin"))
-			.hasDependency(getDependency(SupportedBootVersion.V3_5, "distributed-tracing"));
-	}
-
-	@Test
 	void zipkinShouldNotAddDistributedTracingIfNotNecessary() {
 		assertThat(generateProject(SupportedBootVersion.latest(), "zipkin")).mavenBuild()
 			.hasDependency(getDependency("zipkin"))
@@ -52,18 +45,6 @@ class ObservabilityProjectGenerationConfigurationTests extends AbstractExtension
 			.hasDependency(getDependency("opentelemetry"))
 			.doesNotHaveDependency("org.springframework.boot", "spring-boot-micrometer-tracing-brave")
 			.doesNotHaveDependency("io.micrometer", "micrometer-tracing-bridge-brave");
-	}
-
-	@Test
-	void wavefrontDoesNotAddDistributedTracingByDefault() {
-		assertThat(generateProject(SupportedBootVersion.V3_5, "wavefront")).mavenBuild()
-			.doesNotHaveDependency("io.micrometer", "micrometer-tracing-reporter-wavefront");
-	}
-
-	@Test
-	void wavefrontWithDistributedTracingConfigureReport() {
-		assertThat(generateProject(SupportedBootVersion.V3_5, "wavefront", "distributed-tracing")).mavenBuild()
-			.hasDependency("io.micrometer", "micrometer-tracing-reporter-wavefront", null, "runtime");
 	}
 
 	private ProjectStructure generateProject(SupportedBootVersion bootVersion, String... dependencies) {

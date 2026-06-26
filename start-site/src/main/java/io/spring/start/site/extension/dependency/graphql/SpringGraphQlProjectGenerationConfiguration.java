@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.dependency.graphql;
 
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 
 import org.springframework.context.annotation.Bean;
@@ -34,12 +33,6 @@ class SpringGraphQlProjectGenerationConfiguration {
 	@Bean
 	SpringGraphQlProjectContributor SpringGraphQlProjectContributor() {
 		return new SpringGraphQlProjectContributor();
-	}
-
-	@Bean
-	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1)")
-	SpringGraphQlBuildCustomizer SpringGraphQlBuildCustomizer() {
-		return new SpringGraphQlBuildCustomizer();
 	}
 
 }

@@ -40,16 +40,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
+
 	@Test
 	void registersTestAndCoreStarterWhenModulithIsSelected() {
-		Build build = createBuild(SupportedBootVersion.V4_1, "modulith");
+		Build build = createBuild(BOOT_VERSION, "modulith");
 		assertThat(build.dependencies().ids()).contains("modulith");
 		assertThat(build.dependencies().ids()).contains("modulith-starter-test");
 	}
 
 	@Test
 	void registersActuatorStarterIfActuatorsIsPresent() {
-		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", "actuator");
+		Build build = createBuild(BOOT_VERSION, "modulith", "actuator");
 		assertThat(build.dependencies().ids()).contains("modulith-actuator", "modulith-observability-api",
 				"modulith-observability-core");
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-insight");
@@ -65,15 +67,15 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void registersRuntimeIfFlywayIsPresent() {
-		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", "flyway");
+		Build build = createBuild(BOOT_VERSION, "modulith", "flyway");
 		assertThat(build.dependencies().ids()).contains("modulith-runtime");
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = { "actuator", "datadog", "graphite", "influx", "new-relic", "otlp-metrics", "prometheus",
-			"wavefront", "zipkin" })
+			"zipkin" })
 	void registersObservabilityStarterIfObservabilityDependencyIsPresent(String dependency) {
-		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", dependency);
+		Build build = createBuild(BOOT_VERSION, "modulith", dependency);
 		assertThat(build.dependencies().ids()).contains("modulith-observability-api", "modulith-observability-core");
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-insight");
 	}
@@ -81,7 +83,7 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	@ParameterizedTest
 	@ValueSource(strings = { "jdbc", "jpa", "mongodb", "neo4j" })
 	void presenceOfSpringDataModuleAddsModuleEventStarter(String store) {
-		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", "data-" + store);
+		Build build = createBuild(BOOT_VERSION, "modulith", "data-" + store);
 		assertThat(build.dependencies().ids()).contains("modulith-starter-" + store);
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-starter-core");
 	}
@@ -89,7 +91,7 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	@ParameterizedTest
 	@ValueSource(strings = { "amqp", "kafka" })
 	void addsExternalizationDependency(String broker) {
-		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", broker);
+		Build build = createBuild(BOOT_VERSION, "modulith", broker);
 		assertThat(build.dependencies().ids()).contains("modulith-events-" + broker);
 		assertThat(build.dependencies().ids()).contains("modulith-events-api");
 	}
@@ -97,14 +99,14 @@ class SpringModulithBuildCustomizerTests extends AbstractExtensionTests {
 	@ParameterizedTest
 	@ValueSource(strings = { "activemq", "artemis" })
 	void addsJmsExternalizationDependency(String broker) {
-		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", broker);
+		Build build = createBuild(BOOT_VERSION, "modulith", broker);
 		assertThat(build.dependencies().ids()).contains("modulith-events-jms");
 		assertThat(build.dependencies().ids()).contains("modulith-events-api");
 	}
 
 	@Test
 	void addsInsightStarterIfBothActuatorAndObservabilityDependenciesDeclared() {
-		Build build = createBuild(SupportedBootVersion.V4_1, "modulith", "actuator", "otlp-metrics");
+		Build build = createBuild(BOOT_VERSION, "modulith", "actuator", "otlp-metrics");
 		assertThat(build.dependencies().ids()).contains("modulith-starter-insight");
 		assertThat(build.dependencies().ids()).doesNotContain("modulith-actuator", "modulith-observability-api",
 				"modulith-observability-core");

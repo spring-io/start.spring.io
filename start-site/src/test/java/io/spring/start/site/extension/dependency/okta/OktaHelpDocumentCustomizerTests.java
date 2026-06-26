@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class OktaHelpDocumentCustomizerTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@Test
 	void linksAddedToHelpDocumentForGradleBuild() {

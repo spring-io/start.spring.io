@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.dependency.springkafka;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -42,13 +41,6 @@ import org.springframework.context.annotation.Bean;
 class SpringKafkaProjectGenerationConfiguration {
 
 	@Bean
-	@ConditionalOnRequestedDependency("kafka")
-	@ConditionalOnPlatformVersion("[3.5.0,4.0.0-RC1]")
-	SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
-		return new SpringKafkaBuildCustomizer();
-	}
-
-	@Bean
 	@ConditionalOnRequestedDependency("testcontainers")
 	ServiceConnectionsCustomizer kafkaServiceConnectionsCustomizer(ProjectDescription description, Build build,
 			DockerServiceResolver serviceResolver, Testcontainers testcontainers) {
@@ -63,7 +55,6 @@ class SpringKafkaProjectGenerationConfiguration {
 
 	@Bean
 	@ConditionalOnRequestedDependency("kafka-streams")
-	@ConditionalOnPlatformVersion("4.0.0-M1")
 	SpringKafkaStreamsBuildCustomizer springKafkaStreamsBuildCustomizer() {
 		return new SpringKafkaStreamsBuildCustomizer();
 	}

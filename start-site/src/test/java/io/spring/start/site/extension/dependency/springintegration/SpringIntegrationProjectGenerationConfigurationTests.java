@@ -42,11 +42,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
+
 	@Test
 	void buildWithOnlySpringIntegration() {
 		Dependency integrationTest = integrationDependency("test");
 		integrationTest.setScope(Dependency.SCOPE_TEST);
-		assertThat(generateProject(SupportedBootVersion.V4_0, "integration")).mavenBuild()
+		assertThat(generateProject(BOOT_VERSION, "integration")).mavenBuild()
 			.hasDependency(getDependency("integration"))
 			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
 			.hasDependency(integrationTest);
@@ -54,17 +56,8 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 
 	@ParameterizedTest
 	@MethodSource("supportedEntries")
-	void buildWithSupportedEntriesForBoot35(String springBootDependencyId, String integrationModuleId) {
-		assertThat(generateProject(SupportedBootVersion.V3_5, "integration", springBootDependencyId)).mavenBuild()
-			.hasDependency(getDependency("integration"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependency(integrationDependency(integrationModuleId));
-	}
-
-	@ParameterizedTest
-	@MethodSource("supportedEntries")
 	void buildWithSupportedEntriesForBoot4(String springBootDependencyId, String integrationModuleId) {
-		assertThat(generateProject(SupportedBootVersion.V4_0, "integration", springBootDependencyId)).mavenBuild()
+		assertThat(generateProject(BOOT_VERSION, "integration", springBootDependencyId)).mavenBuild()
 			.hasDependency(getDependency("integration"))
 			.hasDependency(integrationDependency(integrationModuleId));
 	}
@@ -118,7 +111,7 @@ class SpringIntegrationProjectGenerationConfigurationTests extends AbstractExten
 
 	@Test
 	void securityAddsSpringSecurityMessaging() {
-		assertThat(generateProject(SupportedBootVersion.V4_0, "integration", "security")).mavenBuild()
+		assertThat(generateProject(BOOT_VERSION, "integration", "security")).mavenBuild()
 			.hasDependency("org.springframework.security", "spring-security-messaging")
 			.doesNotHaveDependency("org.springframework.integration", "spring-integration-security");
 	}

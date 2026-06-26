@@ -16,21 +16,14 @@
 
 package io.spring.start.site.extension.dependency.springamqp;
 
-import io.spring.initializr.generator.buildsystem.Dependency;
-import io.spring.initializr.generator.project.MutableProjectDescription;
-import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.test.project.ProjectAssetTester;
 import io.spring.initializr.generator.test.project.ProjectStructure;
-import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 
 /**
  * Tests for {@link SpringAmqpProjectGenerationConfiguration}.
@@ -39,26 +32,6 @@ import static org.mockito.Mockito.mock;
  * @author Moritz Halbritter
  */
 class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTests {
-
-	private final ProjectAssetTester projectTester = new ProjectAssetTester()
-		.withConfiguration(SpringAmqpProjectGenerationConfiguration.class);
-
-	@Test
-	void springAmqpTestWithAmqp() {
-		MutableProjectDescription description = new MutableProjectDescription();
-		description.setPlatformVersion(Version.parse(SupportedBootVersion.V3_5.getVersion()));
-		description.addDependency("amqp", mock(Dependency.class));
-		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
-			.containsKeys("springAmqpTestBuildCustomizer"));
-	}
-
-	@Test
-	void springAmqpTestWithoutAmqp() {
-		MutableProjectDescription description = new MutableProjectDescription();
-		description.addDependency("another", mock(Dependency.class));
-		this.projectTester.configure(description, (context) -> assertThat(context).getBeans(BuildCustomizer.class)
-			.doesNotContainKeys("springAmqpTestBuildCustomizer"));
-	}
 
 	@Test
 	void springAmqpWithoutDockerCompose() {

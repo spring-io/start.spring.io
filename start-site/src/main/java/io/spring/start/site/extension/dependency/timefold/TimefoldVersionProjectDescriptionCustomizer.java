@@ -21,9 +21,6 @@ import java.util.Set;
 import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Validate that the requested java version is compatible with the chosen Spring Boot
@@ -35,22 +32,17 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 public class TimefoldVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
-	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0");
-
 	@Override
 	public void customize(MutableProjectDescription description) {
 		Set<String> dependencyIds = description.getRequestedDependencies().keySet();
 		if (!dependencyIds.contains("timefold-solver")) {
 			return;
 		}
-		Version bootVersion = description.getPlatformVersion();
-		if (SPRING_BOOT_4_OR_LATER.match(bootVersion)) {
-			Language language = description.getLanguage();
-			Integer javaGeneration = determineJavaGeneration(language.jvmVersion());
-			if (javaGeneration != null && javaGeneration < 21) {
-				Language compatibleLanguage = Language.forId(description.getLanguage().id(), "21");
-				description.setLanguage(compatibleLanguage);
-			}
+		Language language = description.getLanguage();
+		Integer javaGeneration = determineJavaGeneration(language.jvmVersion());
+		if (javaGeneration != null && javaGeneration < 21) {
+			Language compatibleLanguage = Language.forId(description.getLanguage().id(), "21");
+			description.setLanguage(compatibleLanguage);
 		}
 	}
 

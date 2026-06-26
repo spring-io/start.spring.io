@@ -33,16 +33,16 @@ class JooqVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@ParameterizedTest
 	@ValueSource(strings = { "17", "18", "19", "20" })
-	void java21IsRequiredWithBoot41(String jvmVersion) {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "jooq");
+	void java21IsRequired(String jvmVersion) {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "jooq");
 		request.setJavaVersion(jvmVersion);
 		assertThat(mavenPom(request)).hasProperty("java.version", "21");
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = { "21", "25", "26" })
-	void java21OrLaterIsLeftAsIsWithBoot41(String jvmVersion) {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "jooq");
+	void java21OrLaterIsLeftAsIs(String jvmVersion) {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "jooq");
 		request.setJavaVersion(jvmVersion);
 		assertThat(mavenPom(request)).hasProperty("java.version", jvmVersion);
 	}

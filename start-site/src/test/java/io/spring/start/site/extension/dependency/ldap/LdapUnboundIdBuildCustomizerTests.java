@@ -17,7 +17,6 @@
 package io.spring.start.site.extension.dependency.ldap;
 
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -31,17 +30,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LdapUnboundIdBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void shouldAddUnboundIdIfBoot4orLaterIsUsed() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "unboundid-ldap");
+	void shouldAddUnbound() {
+		ProjectRequest request = createProjectRequest("unboundid-ldap");
 		assertThat(mavenPom(request))
 			.hasDependency("org.springframework.boot", "spring-boot-starter-ldap", null, "test")
-			.hasDependency("com.unboundid", "unboundid-ldapsdk", null, "test");
-	}
-
-	@Test
-	void shouldNotAddSpringBootLdapIfNotUsingBoot4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "unboundid-ldap");
-		assertThat(mavenPom(request)).doesNotHaveDependency("org.springframework.boot", "spring-boot-ldap")
 			.hasDependency("com.unboundid", "unboundid-ldapsdk", null, "test");
 	}
 

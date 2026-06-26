@@ -36,17 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 
 	@ParameterizedTest
-	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic", "otlp-metrics", "prometheus",
-			"distributed-tracing", "zipkin", "wavefront" })
-	void actuatorIsAddedWithObservabilityEntriesForBoot3(String dependency) {
-		assertThat(generateProject(SupportedBootVersion.V3_5, dependency)).mavenBuild()
-			.hasDependency(getDependency("actuator"));
-	}
-
-	@ParameterizedTest
 	@ValueSource(strings = { "prometheus" })
 	void actuatorIsAddedWithPullBasedMetricsEntriesForBoot4(String dependency) {
-		assertThat(generateProject(SupportedBootVersion.V4_0, dependency)).mavenBuild()
+		assertThat(generateProject(SupportedBootVersion.latest(), dependency)).mavenBuild()
 			.hasDependency(getDependency("actuator"))
 			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics")
 			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics-test");
@@ -56,7 +48,7 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	@ValueSource(strings = { "datadog", "dynatrace", "influx", "graphite", "new-relic", "otlp-metrics" })
 	void actuatorIsNotAddedWithPushBasedMetricsEntriesForBoot4(String dependency) {
 		Dependency actuator = getDependency("actuator");
-		assertThat(generateProject(SupportedBootVersion.V4_0, dependency)).mavenBuild()
+		assertThat(generateProject(SupportedBootVersion.latest(), dependency)).mavenBuild()
 			.doesNotHaveDependency(actuator.getGroupId(), actuator.getArtifactId())
 			.hasDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics")
 			.hasDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics-test", null, "test");
@@ -66,13 +58,13 @@ class ObservabilityActuatorBuildCustomizerTests extends AbstractExtensionTests {
 	@ValueSource(strings = { "distributed-tracing", "zipkin", "opentelemetry" })
 	void actuatorIsNotAddedWithTracingEntriesForBoot4(String dependency) {
 		Dependency actuator = getDependency("actuator");
-		assertThat(generateProject(SupportedBootVersion.V4_0, dependency)).mavenBuild()
+		assertThat(generateProject(SupportedBootVersion.latest(), dependency)).mavenBuild()
 			.doesNotHaveDependency(actuator.getGroupId(), actuator.getArtifactId());
 	}
 
 	@Test
 	void shouldNotAddMicrometerMetricsIfActuatorIsThere() {
-		assertThat(generateProject(SupportedBootVersion.V4_0, "actuator", "datadog")).mavenBuild()
+		assertThat(generateProject(SupportedBootVersion.latest(), "actuator", "datadog")).mavenBuild()
 			.hasDependency(getDependency("actuator"))
 			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics")
 			.doesNotHaveDependency("org.springframework.boot", "spring-boot-starter-micrometer-metrics-test");

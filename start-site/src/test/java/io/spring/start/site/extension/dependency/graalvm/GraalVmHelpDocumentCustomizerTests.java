@@ -122,14 +122,7 @@ class GraalVmHelpDocumentCustomizerTests extends AbstractExtensionTests {
 	}
 
 	@Test
-	void shouldHaveGraalVM223asBaselineWhenUsingBoot3() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "native");
-		request.setType("maven-project");
-		assertHelpDocument(request).contains("GraalVM 22.3+ is required");
-	}
-
-	@Test
-	void shouldHaveGraalVM223asBaselineWhenUsingBoot4() {
+	void shouldHaveGraalVM25asBaselineWhenUsingBoot4() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "native");
 		request.setType("maven-project");
 		assertHelpDocument(request).contains("GraalVM 25+ is required");

@@ -18,7 +18,6 @@ package io.spring.start.site.extension.dependency.h2;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
-import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -35,7 +34,6 @@ import org.springframework.context.annotation.Bean;
 class H2ProjectGenerationConfiguration {
 
 	@Bean
-	@ConditionalOnPlatformVersion("4.0.0")
 	BuildCustomizer<Build> addH2ConsoleModuleBuildCustomizer() {
 		return (build) -> build.dependencies()
 			.add("spring-boot-h2console", "org.springframework.boot", "spring-boot-h2console", DependencyScope.COMPILE);

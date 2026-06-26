@@ -20,31 +20,24 @@ import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Tests for {@link DgsBuildCustomizer}.
+ *
+ * @author Brian Clozel
+ */
 class DgsBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
-
-	private Dependency dgsTest;
-
-	@BeforeEach
-	void setup() {
-		this.dgsTest = Dependency.withId("graphql-dgs-spring-graphql-starter-test", "com.netflix.graphql.dgs",
-				"graphql-dgs-spring-graphql-starter-test");
-		this.dgsTest.setScope(Dependency.SCOPE_TEST);
-	}
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V4_0;
 
 	@Test
 	void shouldAddTestingDependency() {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, "web", "netflix-dgs");
-		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("web"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST))
-			.hasDependency(this.dgsTest)
-			.hasDependenciesSize(4);
+		assertThat(mavenPom(request)).hasDependency("com.netflix.graphql.dgs",
+				"graphql-dgs-spring-graphql-starter-test", null, Dependency.SCOPE_TEST);
 	}
 
 }

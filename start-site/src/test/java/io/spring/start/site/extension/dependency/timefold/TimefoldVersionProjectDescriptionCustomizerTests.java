@@ -47,12 +47,4 @@ class TimefoldVersionProjectDescriptionCustomizerTests extends AbstractExtension
 		assertThat(mavenPom(request)).hasProperty("java.version", jvmVersion);
 	}
 
-	@ParameterizedTest
-	@ValueSource(strings = { "17", "21", "25" })
-	void javaVersionIsLeftAsIsWithBoot35(String jvmVersion) {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "timefold-solver");
-		request.setJavaVersion(jvmVersion);
-		assertThat(mavenPom(request)).hasProperty("java.version", jvmVersion);
-	}
-
 }

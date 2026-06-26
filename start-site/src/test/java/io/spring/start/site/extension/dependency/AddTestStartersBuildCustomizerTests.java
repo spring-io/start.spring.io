@@ -33,7 +33,7 @@ class AddTestStartersBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldAddTestStarter() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web", "devtools");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "web", "devtools");
 		assertThat(mavenPom(request)).hasDependency(Dependency.createSpringBootStarter("webmvc"))
 			.hasDependency(Dependency.createSpringBootStarter("webmvc-test", Dependency.SCOPE_TEST))
 			.hasDependency(Dependency.create("org.springframework.boot", "spring-boot-devtools", null,

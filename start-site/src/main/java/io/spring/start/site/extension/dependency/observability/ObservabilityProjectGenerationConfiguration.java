@@ -31,14 +31,13 @@ import org.springframework.context.annotation.Bean;
 class ObservabilityProjectGenerationConfiguration {
 
 	@Bean
-	ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer(ProjectDescription description) {
-		return new ObservabilityActuatorBuildCustomizer(description.getPlatformVersion());
+	ObservabilityActuatorBuildCustomizer observabilityActuatorBuildCustomizer() {
+		return new ObservabilityActuatorBuildCustomizer();
 	}
 
 	@Bean
-	ObservabilityDistributedTracingBuildCustomizer observabilityDistributedTracingBuildCustomizer(
-			ProjectDescription description) {
-		return new ObservabilityDistributedTracingBuildCustomizer(description.getPlatformVersion());
+	ObservabilityDistributedTracingBuildCustomizer observabilityDistributedTracingBuildCustomizer() {
+		return new ObservabilityDistributedTracingBuildCustomizer();
 	}
 
 	@Bean

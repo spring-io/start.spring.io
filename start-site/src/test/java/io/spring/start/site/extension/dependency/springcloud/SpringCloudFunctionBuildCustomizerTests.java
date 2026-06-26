@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	static final Dependency WEB_ADAPTER = Dependency.withId("cloud-function-web", "org.springframework.cloud",
 			"spring-cloud-function-web");
@@ -67,7 +67,6 @@ class SpringCloudFunctionBuildCustomizerTests extends AbstractExtensionTests {
 		BillOfMaterials bom = getBom("spring-cloud", request.getBootVersion());
 		assertThat(mavenPom(request)).hasDependency(getDependency(BOOT_VERSION, "webflux"))
 			.hasDependency(WEB_ADAPTER)
-			.hasDependenciesSize(4)
 			.hasBom("org.springframework.cloud", "spring-cloud-dependencies", "${spring-cloud.version}")
 			.hasBomsSize(1)
 			.hasProperty("spring-cloud.version", bom.getVersion());

@@ -20,7 +20,6 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
-import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
@@ -37,8 +36,8 @@ import org.springframework.context.annotation.Bean;
 public class SpringRestDocsProjectGenerationConfiguration {
 
 	@Bean
-	SpringRestDocsBuildCustomizer springRestDocsBuildCustomizer(ProjectDescription projectDescription) {
-		return new SpringRestDocsBuildCustomizer(projectDescription);
+	SpringRestDocsBuildCustomizer springRestDocsBuildCustomizer() {
+		return new SpringRestDocsBuildCustomizer();
 	}
 
 	@Bean

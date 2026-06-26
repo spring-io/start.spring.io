@@ -41,12 +41,12 @@ class InvalidJvmVersionHelpDocumentCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void warningAddedWithUnsupportedKotlinVersion() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "web");
-		request.setJavaVersion("22");
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "web");
+		request.setJavaVersion("26");
 		request.setLanguage(KotlinLanguage.ID);
 		assertHelpDocument(request).lines()
 			.containsSubsequence("# Read Me First",
-					"* The JVM level was changed from '22' to '21' as the Kotlin version does not support Java 22 yet.");
+					"* The JVM level was changed from '26' to '25' as the Kotlin version does not support Java 26 yet.");
 	}
 
 	@Test

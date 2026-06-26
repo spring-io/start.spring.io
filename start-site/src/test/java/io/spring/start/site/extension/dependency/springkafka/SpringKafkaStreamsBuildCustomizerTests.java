@@ -16,9 +16,7 @@
 
 package io.spring.start.site.extension.dependency.springkafka;
 
-import io.spring.initializr.metadata.Dependency;
 import io.spring.initializr.web.project.ProjectRequest;
-import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
 import org.junit.jupiter.api.Test;
 
@@ -32,16 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SpringKafkaStreamsBuildCustomizerTests extends AbstractExtensionTests {
 
 	@Test
-	void shouldAddDependencyToKafkaIfBoot40IsUsed() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "kafka-streams");
-		assertThat(mavenPom(request)).hasDependency(getDependency(SupportedBootVersion.V4_0, "kafka"));
-	}
-
-	@Test
-	void shouldNotAddDependencyToKafkaIfBootBefore40IsUsed() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "kafka-streams");
-		Dependency kafka = getDependency(SupportedBootVersion.V3_5, "kafka");
-		assertThat(mavenPom(request)).doesNotHaveDependency(kafka.getGroupId(), kafka.getArtifactId());
+	void shouldAddDependencyToKafka() {
+		ProjectRequest request = createProjectRequest("kafka-streams");
+		assertThat(mavenPom(request)).hasDependency(getDependency("kafka"));
 	}
 
 }

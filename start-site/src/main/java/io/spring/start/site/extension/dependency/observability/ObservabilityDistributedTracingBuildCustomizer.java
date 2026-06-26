@@ -20,9 +20,6 @@ import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Configures distributed tracing if necessary.
@@ -34,32 +31,10 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 
 	static final int ORDER = 0;
 
-	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0-M1");
-
 	private static final String DISTRIBUTED_TRACING = "distributed-tracing";
-
-	private final Version bootVersion;
-
-	ObservabilityDistributedTracingBuildCustomizer(Version bootVersion) {
-		this.bootVersion = bootVersion;
-	}
 
 	@Override
 	public void customize(Build build) {
-		if (isBoot4OrLater()) {
-			handleBoot4(build);
-		}
-		else {
-			handleBoot35(build);
-		}
-	}
-
-	@Override
-	public int getOrder() {
-		return ORDER;
-	}
-
-	private void handleBoot4(Build build) {
 		if (hasTracingProvider(build)) {
 			build.dependencies().remove(DISTRIBUTED_TRACING);
 		}
@@ -74,16 +49,9 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 		}
 	}
 
-	private void handleBoot35(Build build) {
-		if (hasZipkin(build) && !hasDistributedTracing(build)) {
-			build.dependencies().add(DISTRIBUTED_TRACING);
-		}
-		if (build.dependencies().has("wavefront") && hasDistributedTracing(build)) {
-			build.dependencies()
-				.add("wavefront-tracing-reporter",
-						Dependency.withCoordinates("io.micrometer", "micrometer-tracing-reporter-wavefront")
-							.scope(DependencyScope.RUNTIME));
-		}
+	@Override
+	public int getOrder() {
+		return ORDER;
 	}
 
 	private boolean hasDistributedTracing(Build build) {
@@ -91,15 +59,7 @@ class ObservabilityDistributedTracingBuildCustomizer implements BuildCustomizer<
 	}
 
 	private boolean hasTracingProvider(Build build) {
-		return hasZipkin(build) || build.dependencies().has("opentelemetry");
-	}
-
-	private boolean hasZipkin(Build build) {
-		return build.dependencies().has("zipkin");
-	}
-
-	private boolean isBoot4OrLater() {
-		return SPRING_BOOT_4_OR_LATER.match(this.bootVersion);
+		return build.dependencies().has("zipkin") || build.dependencies().has("opentelemetry");
 	}
 
 }

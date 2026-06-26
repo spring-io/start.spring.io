@@ -69,7 +69,7 @@ class SpringPulsarProjectGenerationConfiguration {
 		protected boolean matches(ProjectDescription description, ConditionContext context,
 				AnnotatedTypeMetadata metadata) {
 			Map<String, Dependency> requestedDependencies = description.getRequestedDependencies();
-			return requestedDependencies.containsKey("pulsar") || requestedDependencies.containsKey("pulsar-reactive");
+			return requestedDependencies.containsKey("pulsar");
 		}
 
 	}

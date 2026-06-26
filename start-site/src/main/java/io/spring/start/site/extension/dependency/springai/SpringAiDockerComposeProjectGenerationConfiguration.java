@@ -27,7 +27,6 @@ import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.spring.build.gradle.DevelopmentOnlyDependencyGradleBuildCustomizer;
 import io.spring.initializr.generator.spring.build.maven.OptionalDependencyMavenBuildCustomizer;
-import io.spring.initializr.generator.version.VersionProperty;
 import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
@@ -68,10 +67,6 @@ public class SpringAiDockerComposeProjectGenerationConfiguration {
 	OptionalDependencyMavenBuildCustomizer springAiDockerComposeMavenBuildCustomizer() {
 		return new OptionalDependencyMavenBuildCustomizer(
 				SpringAiDockerComposeProjectGenerationConfiguration.DEPENDENCY_ID);
-	}
-
-	private static VersionProperty getSpringAiVersion(InitializrMetadata metadata) {
-		return metadata.getConfiguration().getEnv().getBoms().get("spring-ai").getVersionProperty();
 	}
 
 }

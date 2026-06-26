@@ -21,9 +21,6 @@ import java.util.Set;
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionRange;
 
 /**
  * Adds the actuator if necessary.
@@ -33,27 +30,17 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 
-	private static final VersionRange SPRING_BOOT_4_OR_LATER = VersionParser.DEFAULT.parseRange("4.0.0-RC1");
-
-	private static final Set<String> TRACING = Set.of("distributed-tracing", "zipkin");
-
 	private static final Set<String> PUSH_BASED_METRICS = Set.of("datadog", "dynatrace", "graphite", "influx",
-			"new-relic", "otlp-metrics", "wavefront");
+			"new-relic", "otlp-metrics");
 
 	private static final Set<String> PULL_BASED_METRICS = Set.of("prometheus");
-
-	private final Version bootVersion;
-
-	ObservabilityActuatorBuildCustomizer(Version bootVersion) {
-		this.bootVersion = bootVersion;
-	}
 
 	@Override
 	public void customize(Build build) {
 		if (!hasActuator(build) && needsActuator(build)) {
 			build.dependencies().add("actuator");
 		}
-		if (isBoot4OrLater() && hasPushBasedMetrics(build) && !hasActuator(build)) {
+		if (hasPushBasedMetrics(build) && !hasActuator(build)) {
 			build.dependencies()
 				.add("spring-boot-starter-micrometer-metrics", "org.springframework.boot",
 						"spring-boot-starter-micrometer-metrics", DependencyScope.COMPILE);
@@ -73,16 +60,7 @@ class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 	}
 
 	private boolean needsActuator(Build build) {
-		if (isBoot4OrLater()) {
-			return hasPullBasedMetrics(build);
-		}
-		else {
-			return hasTracing(build) || hasPullBasedMetrics(build) || hasPushBasedMetrics(build);
-		}
-	}
-
-	private boolean isBoot4OrLater() {
-		return SPRING_BOOT_4_OR_LATER.match(this.bootVersion);
+		return hasPullBasedMetrics(build);
 	}
 
 	private boolean hasPullBasedMetrics(Build build) {
@@ -91,10 +69,6 @@ class ObservabilityActuatorBuildCustomizer implements BuildCustomizer<Build> {
 
 	private boolean hasPushBasedMetrics(Build build) {
 		return build.dependencies().ids().anyMatch(PUSH_BASED_METRICS::contains);
-	}
-
-	private boolean hasTracing(Build build) {
-		return build.dependencies().ids().anyMatch(TRACING::contains);
 	}
 
 }

@@ -38,8 +38,8 @@ class OnRequestedSpringAiDependencyConditionTests {
 	void shouldMatchIfSpringAiHasBeenRequested() {
 		OnRequestedSpringAiDependencyCondition condition = new OnRequestedSpringAiDependencyCondition();
 		MutableProjectDescription description = new MutableProjectDescription();
-		description.addDependency("spring-ai-azure-openai",
-				Dependency.withCoordinates("org.springframework.ai", "spring-ai-azure-openai-spring-boot-starter")
+		description.addDependency("spring-ai-anthropic",
+				Dependency.withCoordinates("org.springframework.ai", "spring-ai-anthropic-spring-boot-starter")
 					.build());
 		assertThat(matches(condition, description)).isTrue();
 	}

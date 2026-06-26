@@ -56,14 +56,13 @@ class Neo4jProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void createsNeo4jServiceWhenSpringAiModuleIsSelected() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
-				"spring-ai-vectordb-neo4j");
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose", "spring-ai-vectordb-neo4j");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/neo4j.yaml"));
 	}
 
 	@Test
 	void createsNeo4jServiceWhenSpringAiChatMemoryModuleIsSelected() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "docker-compose",
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose",
 				"spring-ai-chat-memory-repository-neo4j");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/neo4j.yaml"));
 	}

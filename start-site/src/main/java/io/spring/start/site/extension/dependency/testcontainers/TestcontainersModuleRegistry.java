@@ -51,18 +51,17 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("amqp", "amqp-streams")
 			.customizeBuild(addModule("rabbitmq", testcontainers, SupportedContainer.RABBITMQ))
 			.customizeHelpDocument(addReferenceLink("RabbitMQ Module", "rabbitmq/")));
-		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud", testcontainers))
+		builders.add(onDependencies("cloud-gcp", "cloud-gcp-pubsub").customizeBuild(addModule("gcloud"))
 			.customizeHelpDocument(addReferenceLink("GCloud Module", "gcloud/")));
-		builders.add(onDependencies("cloud-starter-consul-config").customizeBuild(addModule("consul", testcontainers))
+		builders.add(onDependencies("cloud-starter-consul-config").customizeBuild(addModule("consul"))
 			.customizeHelpDocument(addReferenceLink("Consul Module", "consul/")));
-		builders.add(onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault", testcontainers))
+		builders.add(onDependencies("cloud-starter-vault-config").customizeBuild(addModule("vault"))
 			.customizeHelpDocument(addReferenceLink("Vault Module", "vault/")));
 		builders.add(onDependencies("cassandra", "data-cassandra", "data-cassandra-reactive",
 				"spring-ai-vectordb-cassandra", "spring-ai-chat-memory-repository-cassandra")
 			.customizeBuild(addModule("cassandra", testcontainers, SupportedContainer.CASSANDRA))
 			.customizeHelpDocument(addReferenceLink("Cassandra Module", "databases/cassandra/")));
-		builders.add(onDependencies("data-couchbase", "data-couchbase-reactive")
-			.customizeBuild(addModule("couchbase", testcontainers))
+		builders.add(onDependencies("data-couchbase", "data-couchbase-reactive").customizeBuild(addModule("couchbase"))
 			.customizeHelpDocument(addReferenceLink("Couchbase Module", "databases/couchbase/")));
 		builders.add(onDependencies("elasticsearch", "data-elasticsearch", "spring-ai-vectordb-elasticsearch")
 			.customizeBuild(addModule("elasticsearch", testcontainers, SupportedContainer.ELASTICSEARCH))
@@ -78,9 +77,9 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("opentelemetry")
 			.customizeBuild(addModule("grafana-lgtm", testcontainers, SupportedContainer.GRAFANA_LGTM))
 			.customizeHelpDocument(addReferenceLink("Grafana Module", "grafana/")));
-		builders.add(onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc", testcontainers))
+		builders.add(onDependencies("data-r2dbc").customizeBuild(addModule("r2dbc"))
 			.customizeHelpDocument(addReferenceLink("R2DBC support", "databases/r2dbc/")));
-		builders.add(onDependencies("db2").customizeBuild(addModule("db2", testcontainers))
+		builders.add(onDependencies("db2").customizeBuild(addModule("db2"))
 			.customizeHelpDocument(addReferenceLink("DB2 Module", "databases/db2/")));
 		builders.add(onDependencies("kafka", "kafka-streams")
 			.customizeBuild(addModule("kafka", testcontainers, SupportedContainer.KAFKA))
@@ -97,10 +96,10 @@ abstract class TestcontainersModuleRegistry {
 		builders.add(onDependencies("postgresql", "spring-ai-vectordb-pgvector")
 			.customizeBuild(addModule("postgresql", testcontainers, SupportedContainer.POSTGRESQL))
 			.customizeHelpDocument(addReferenceLink("Postgres Module", "databases/postgres/")));
-		builders.add(onDependencies("pulsar", "pulsar-reactive")
-			.customizeBuild(addModule("pulsar", testcontainers, SupportedContainer.PULSAR))
-			.customizeHelpDocument(addReferenceLink("Pulsar Module", "pulsar/")));
-		builders.add(onDependencies("solace").customizeBuild(addModule("solace", testcontainers))
+		builders
+			.add(onDependencies("pulsar").customizeBuild(addModule("pulsar", testcontainers, SupportedContainer.PULSAR))
+				.customizeHelpDocument(addReferenceLink("Pulsar Module", "pulsar/")));
+		builders.add(onDependencies("solace").customizeBuild(addModule("solace"))
 			.customizeHelpDocument(addReferenceLink("Solace Module", "solace/")));
 		builders.add(onDependencies("sqlserver")
 			.customizeBuild(addModule("mssqlserver", testcontainers, SupportedContainer.MSSQL))
@@ -130,11 +129,10 @@ abstract class TestcontainersModuleRegistry {
 		return new Builder().matchAnyDependencyIds(dependencyIds);
 	}
 
-	private static Consumer<Build> addModule(String id, Testcontainers testcontainers) {
+	private static Consumer<Build> addModule(String id) {
 		return (build) -> build.dependencies()
-			.add("testcontainers-" + id,
-					Dependency.withCoordinates("org.testcontainers", testcontainers.resolveArtifactId(id))
-						.scope(DependencyScope.TEST_COMPILE));
+			.add("testcontainers-" + id, Dependency.withCoordinates("org.testcontainers", "testcontainers-" + id)
+				.scope(DependencyScope.TEST_COMPILE));
 	}
 
 	private static Consumer<Build> addModule(String id, Testcontainers testcontainers,

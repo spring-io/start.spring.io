@@ -34,106 +34,48 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@ParameterizedTest
 	@ValueSource(strings = { "17", "18", "19", "20" })
-	void java21IsRequiredWithBoot40(String jvmVersion) {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin");
+	void java21IsRequired(String jvmVersion) {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "vaadin");
 		request.setJavaVersion(jvmVersion);
 		assertThat(mavenPom(request)).hasProperty("java.version", "21");
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = { "21", "25", "26" })
-	void java21OrLaterIsLeftAsIsWithBoot40(String jvmVersion) {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin");
-		request.setJavaVersion(jvmVersion);
-		assertThat(mavenPom(request)).hasProperty("java.version", jvmVersion);
-	}
-
-	@ParameterizedTest
-	@ValueSource(strings = { "17", "21", "25" })
-	void javaVersionIsLeftAsIsWithBoot35(String jvmVersion) {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "vaadin");
+	void java21OrLaterIsLeftAsIs(String jvmVersion) {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "vaadin");
 		request.setJavaVersion(jvmVersion);
 		assertThat(mavenPom(request)).hasProperty("java.version", jvmVersion);
 	}
 
 	@Test
-	void mavenBuildWithVaadinAddProductionProfileWithoutProductionModeFlagOnBoot35() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V3_5, "vaadin", "data-jpa");
-		assertThat(mavenPom(request)).hasProfile("production")
-			.doesNotHaveDependency("com.vaadin", "vaadin-dev")
-			.lines()
-			.containsSequence(
-			// @formatter:off
-				"		<profile>",
-				"			<id>production</id>",
-				"			<dependencies>",
-				"				<dependency>",
-				"					<groupId>com.vaadin</groupId>",
-				"					<artifactId>vaadin-core</artifactId>",
-				"					<exclusions>",
-				"						<exclusion>",
-				"							<groupId>com.vaadin</groupId>",
-				"							<artifactId>vaadin-dev</artifactId>",
-				"						</exclusion>",
-				"					</exclusions>",
-				"				</dependency>",
-				"",
-				"			</dependencies>",
-				"			<build>",
-				"				<plugins>",
-				"					<plugin>",
-				"						<groupId>com.vaadin</groupId>",
-				"						<artifactId>vaadin-maven-plugin</artifactId>",
-				"						<version>${vaadin.version}</version>",
-				"						<executions>",
-				"							<execution>",
-				"								<id>frontend</id>",
-				"								<phase>compile</phase>",
-				"								<goals>",
-				"									<goal>prepare-frontend</goal>",
-				"									<goal>build-frontend</goal>",
-				"								</goals>",
-				"							</execution>",
-				"						</executions>",
-				"					</plugin>",
-				"				</plugins>",
-				"			</build>",
-				"		</profile>"
-		);
-	}
-
-	@Test
-	void mavenBuildWithVaadinAddsVaadinDevDependencyWithBoot4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin", "data-jpa");
-		assertThat(mavenPom(request)).doesNotHaveProfile("production")
-				.containsIgnoringWhitespaces(
-					"""
-					<dependency>
-						<groupId>com.vaadin</groupId>
-						<artifactId>vaadin-dev</artifactId>
-						<optional>true</optional>
-					</dependency>
-					""")
-				.containsIgnoringWhitespaces(
-					"""
-					<plugin>
-						<groupId>com.vaadin</groupId>
-						<artifactId>vaadin-maven-plugin</artifactId>
-						<version>${vaadin.version}</version>
-						<executions>
-							<execution>
-								<id>build-frontend</id>
-								<goals>
-									<goal>build-frontend</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					""");
+	void mavenBuildWithVaadinAddsVaadinDevDependency() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "vaadin", "data-jpa");
+		assertThat(mavenPom(request)).doesNotHaveProfile("production").containsIgnoringWhitespaces("""
+				<dependency>
+					<groupId>com.vaadin</groupId>
+					<artifactId>vaadin-dev</artifactId>
+					<optional>true</optional>
+				</dependency>
+				""").containsIgnoringWhitespaces("""
+				<plugin>
+					<groupId>com.vaadin</groupId>
+					<artifactId>vaadin-maven-plugin</artifactId>
+					<version>${vaadin.version}</version>
+					<executions>
+						<execution>
+							<id>build-frontend</id>
+							<goals>
+								<goal>build-frontend</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				""");
 	}
 
 	@Test
@@ -151,14 +93,8 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 			.resolve(Version.parse(request.getBootVersion()))
 			.getVersion();
 		assertThat(gradleBuild(request)).hasPlugin("com.vaadin", vaadinVersion)
-				.doesNotContain("developmentOnly 'com.vaadin:vaadin-dev'");
-	}
+			.contains("developmentOnly 'com.vaadin:vaadin-dev'");
 
-	@Test
-	void gradleBuildWithVaadinAddsVaadinDevDependencyWithBoot4() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "vaadin", "data-jpa");
-		assertThat(gradleBuild(request))
-				.contains("developmentOnly 'com.vaadin:vaadin-dev'");
 	}
 
 	@Test
@@ -180,12 +116,14 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
 	void shouldAddLaunchBrowserProperty() {
-		assertThat(applicationProperties(createProjectRequest(BOOT_VERSION, "vaadin"))).lines().contains("vaadin.launch-browser=true");
+		assertThat(applicationProperties(createProjectRequest(BOOT_VERSION, "vaadin"))).lines()
+			.contains("vaadin.launch-browser=true");
 	}
 
 	@Test
 	void shouldNotAddLaunchBrowserPropertyIfVaadinIsNotSelected() {
-		assertThat(applicationProperties(createProjectRequest("data-jpa"))).lines().doesNotContain("vaadin.launch-browser=true");
+		assertThat(applicationProperties(createProjectRequest("data-jpa"))).lines()
+			.doesNotContain("vaadin.launch-browser=true");
 	}
 
 }

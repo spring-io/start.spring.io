@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class RedisStackProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V3_5;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@Test
 	void doesNothingWithoutDockerCompose() {
@@ -50,7 +50,7 @@ class RedisStackProjectGenerationConfigurationTests extends AbstractExtensionTes
 
 	@Test
 	void createsRedisStackServiceWithChatMemory() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "docker-compose",
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "docker-compose",
 				"spring-ai-chat-memory-repository-redis");
 		assertThat(composeFile(request)).hasSameContentAs(new ClassPathResource("compose/redis-stack.yaml"));
 	}

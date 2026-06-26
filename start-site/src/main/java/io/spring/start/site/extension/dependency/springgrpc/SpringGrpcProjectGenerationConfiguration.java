@@ -73,7 +73,7 @@ class SpringGrpcProjectGenerationConfiguration {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnPlatformVersion("[3.5.0,4.1.0-M1)")
+	@ConditionalOnPlatformVersion("[4.0.0,4.1.0-M1)")
 	static class LegacyGrpcSupport {
 
 		private static final String GRPC_PLUGIN_VERSION = "0.9.5";

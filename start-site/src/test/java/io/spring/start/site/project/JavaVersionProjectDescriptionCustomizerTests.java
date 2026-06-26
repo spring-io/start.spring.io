@@ -63,24 +63,6 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		assertThat(gradleBuild(project(language, javaVersion, springBootVersion))).hasToolchainForJava(javaVersion);
 	}
 
-	@Test
-	void java22IsNotSupportedWithKotlinAndBoot35() {
-		assertThat(mavenPom(kotlinProject("22", SupportedBootVersion.V3_5.getVersion()))).hasProperty("java.version",
-				"21");
-	}
-
-	@Test
-	void java23IsNotSupportedWithKotlinAndBoot35() {
-		assertThat(mavenPom(kotlinProject("23", SupportedBootVersion.V3_5.getVersion()))).hasProperty("java.version",
-				"21");
-	}
-
-	@Test
-	void java25IsNotSupportedWithKotlinAndBoot35() {
-		assertThat(mavenPom(kotlinProject("25", SupportedBootVersion.V3_5.getVersion()))).hasProperty("java.version",
-				"21");
-	}
-
 	static Stream<Arguments> supportedMavenParameters() {
 		return Stream.concat(supportedJavaParameters(),
 				Stream.concat(supportedKotlinParameters(), supportedGroovyParameters()));
@@ -129,10 +111,6 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	private ProjectRequest javaProject(String javaVersion, String springBootVersion) {
 		return project("java", javaVersion, springBootVersion);
-	}
-
-	private ProjectRequest kotlinProject(String javaVersion, String springBootVersion) {
-		return project("kotlin", javaVersion, springBootVersion);
 	}
 
 }
