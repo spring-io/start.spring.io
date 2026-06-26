@@ -206,7 +206,7 @@ initializr:
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
             version: 25.1.8
           - compatibilityRange: "[4.1.0,4.2.0-M1)"
-            version: 25.2.0
+            version: 25.2.1
     platform:
       compatibilityRange: "3.5.0"
     repositories:
