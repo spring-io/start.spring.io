@@ -1,0 +1,16 @@
+services:
+  rabbitmq:
+    image: 'rabbitmq:latest'
+    environment:
+      - 'RABBITMQ_DEFAULT_PASS=secret'
+      - 'RABBITMQ_DEFAULT_USER=myuser'
+    ports:
+      - '5552'
+      - '5672'
+    configs:
+      - source: "plugins"
+        target: "/etc/rabbitmq/enabled_plugins"
+
+configs:
+  plugins:
+    content: "[rabbitmq_stream]."
