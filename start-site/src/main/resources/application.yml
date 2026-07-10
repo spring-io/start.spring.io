@@ -133,7 +133,7 @@ initializr:
           - compatibilityRange: "[3.5.0,4.0.0)"
             version: 7.4.8
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 8.0.3
+            version: 8.0.5
       spring-cloud-services:
         groupId: io.pivotal.spring.cloud
         artifactId: spring-cloud-services-dependencies
