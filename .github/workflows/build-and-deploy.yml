@@ -17,11 +17,10 @@ jobs:
       - name: Check out
         uses: actions/checkout@v7
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v5
         with:
-          java-version: '17'
-          distribution: 'liberica'
+          java-version-file: '.sdkmanrc'
           cache: 'maven'
 
       - name: Cache Maven/Gradle repositories for tests
