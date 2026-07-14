@@ -38,7 +38,7 @@ added after the original pull request but before a merge.
 * Add yourself as an `@author` to the .java files that you modify substantially (more
   than cosmetic changes).
 * Add some Javadocs and, if you change the namespace, some XSD doc elements.
-* A few unit tests would help a lot as well -- someone has to do it.
+* A few unit tests would help a lot as well — someone has to do it.
 * If no-one else is using your branch, please rebase it against the current `main` (or
   other target branch in the original project).
 * When writing a commit message please follow https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html[these conventions],
@@ -48,7 +48,7 @@ added after the original pull request but before a merge.
 == Working with the Code
 
 === Building from Source
-start.spring.io can be build from the command line using
+start.spring.io can be built from the command line using
 https://maven.apache.org/run-maven/index.html[Apache Maven] on JDK 17 or above.
 We include '`Maven Wrapper`' scripts (`./mvnw` or `mvnw.bat`) that you can run rather
 than needing to install Maven locally.

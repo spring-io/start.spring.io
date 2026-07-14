@@ -75,7 +75,7 @@ Because the conventions have detected it is a web application, the `static` and
 Also, a Maven wrapper is automatically included so that you don't have to install Maven to
 run this project (you can build it with `./mvnw install`). If you prefer, you can select
 Gradle instead in the first option at the top of the screen. This will generate a
-Gradle-based project that also contains a wrapper which can be used if you don't have
+Gradle-based project that also contains a wrapper, which can be used if you don't have
 Gradle installed (build it with `./gradlew build`).
 
 

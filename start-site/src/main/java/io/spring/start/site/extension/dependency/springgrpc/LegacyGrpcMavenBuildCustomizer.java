@@ -59,14 +59,12 @@ class LegacyGrpcMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 			plugin.version(PROTOBUF_PLUGIN_VERSION);
 			plugin.configuration((configuration) -> {
 				configuration.add("protoc", "${%s}".formatted(protobufJava.toStandardFormat()));
-				configuration.add("binaryMavenPlugins", (builder) -> {
-					builder.add("binaryMavenPlugin", (binary) -> {
-						binary.add("groupId", "io.grpc");
-						binary.add("artifactId", "protoc-gen-grpc-java");
-						binary.add("version", "${%s}".formatted(grpc.toStandardFormat()));
-						binary.add("options", "@generated=omit");
-					});
-				});
+				configuration.add("binaryMavenPlugins", (builder) -> builder.add("binaryMavenPlugin", (binary) -> {
+					binary.add("groupId", "io.grpc");
+					binary.add("artifactId", "protoc-gen-grpc-java");
+					binary.add("version", "${%s}".formatted(grpc.toStandardFormat()));
+					binary.add("options", "@generated=omit");
+				}));
 			});
 			plugin.execution("generate", (execution) -> execution.goal("generate"));
 		});

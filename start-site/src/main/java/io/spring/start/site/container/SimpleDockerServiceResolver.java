@@ -35,15 +35,12 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 
 	public SimpleDockerServiceResolver() {
 		this.dockerServices = new HashMap<>();
-		this.dockerServices.put("activeMQ", activeMQ());
 		this.dockerServices.put("apacheActiveMQ", apacheActiveMQ());
-		this.dockerServices.put("artemis", artemis());
 		this.dockerServices.put("apacheArtemis", apacheArtemis());
 		this.dockerServices.put("azurite", azurite());
 		this.dockerServices.put("cassandra", cassandra());
 		this.dockerServices.put("chroma", chroma());
 		this.dockerServices.put("elasticsearch", elasticsearch());
-		this.dockerServices.put("kafka", kafka());
 		this.dockerServices.put("kafka-native", kafkaNative());
 		this.dockerServices.put("mariaDb", mariaDb());
 		this.dockerServices.put("milvus", milvus());
@@ -68,23 +65,9 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		this.dockerServices.put("elasticsearch9", elasticsearch9());
 	}
 
-	private static DockerService activeMQ() {
-		return DockerService.withImageAndTag("symptoma/activemq")
-			.website("https://hub.docker.com/r/symptoma/activemq")
-			.randomPort(61616)
-			.build();
-	}
-
 	private static DockerService apacheActiveMQ() {
 		return DockerService.withImageAndTag("apache/activemq")
 			.website("https://hub.docker.com/r/apache/activemq")
-			.randomPort(61616)
-			.build();
-	}
-
-	private static DockerService artemis() {
-		return DockerService.withImageAndTag("apache/activemq-artemis")
-			.website("https://hub.docker.com/r/apache/activemq-artemis")
 			.randomPort(61616)
 			.build();
 	}
@@ -122,13 +105,6 @@ public class SimpleDockerServiceResolver implements DockerServiceResolver {
 		return DockerService.withImageAndTag("elasticsearch:7.17.10")
 			.website("https://hub.docker.com/_/elasticsearch")
 			.randomPorts(9200, 9300)
-			.build();
-	}
-
-	private static DockerService kafka() {
-		return DockerService.withImageAndTag("confluentinc/cp-kafka")
-			.website("https://hub.docker.com/r/confluentinc/cp-kafka")
-			.randomPort(9092)
 			.build();
 	}
 

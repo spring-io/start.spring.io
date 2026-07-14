@@ -16,7 +16,6 @@
 
 package io.spring.start.site;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -59,7 +58,7 @@ class StartApplicationIntegrationTests {
 	private InitializrMetadataProvider metadataProvider;
 
 	@Test
-	void metadataCanBeSerialized() throws URISyntaxException, IOException {
+	void metadataCanBeSerialized() throws URISyntaxException {
 		RequestEntity<Void> request = RequestEntity.get(new URI("/"))
 			.accept(MediaType.parseMediaType("application/vnd.initializr.v2.1+json"))
 			.build();

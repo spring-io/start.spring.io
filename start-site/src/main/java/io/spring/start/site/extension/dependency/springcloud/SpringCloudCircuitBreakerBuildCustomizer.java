@@ -29,7 +29,7 @@ import io.spring.initializr.metadata.InitializrMetadata;
 import org.springframework.util.ObjectUtils;
 
 /**
- * Switches to reactive Spring Cloud circuit breaker resilience4j if reactive facet is
+ * Switches to reactive Spring Cloud circuit breaker Resilience4j if reactive facet is
  * present.
  *
  * @author Madhura Bhave

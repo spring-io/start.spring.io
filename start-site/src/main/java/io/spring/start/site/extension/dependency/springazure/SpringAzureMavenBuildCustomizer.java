@@ -45,12 +45,10 @@ class SpringAzureMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 				configuration.add("appEnvironmentName", "your-app-environment-name");
 				configuration.add("region", "your-region");
 				configuration.add("appName", this.projectDescription.getName());
-				configuration.add("containers", (containers) -> {
-					containers.add("container", (container) -> {
-						container.add("type", "code");
-						container.add("directory", "${project.basedir}");
-					});
-				});
+				configuration.add("containers", (containers) -> containers.add("container", (container) -> {
+					container.add("type", "code");
+					container.add("directory", "${project.basedir}");
+				}));
 				configuration.add("ingress", (ingress) -> {
 					ingress.add("external", "true");
 					ingress.add("targetPort", "8080");

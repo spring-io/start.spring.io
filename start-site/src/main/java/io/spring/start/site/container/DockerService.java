@@ -115,7 +115,7 @@ public final class DockerService implements Consumer<ComposeService.Builder> {
 
 		private String image;
 
-		private String imageTag = "latest";
+		private String imageTag;
 
 		private String website;
 

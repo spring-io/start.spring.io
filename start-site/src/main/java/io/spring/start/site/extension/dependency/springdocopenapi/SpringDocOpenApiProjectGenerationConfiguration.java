@@ -50,6 +50,6 @@ public class SpringDocOpenApiProjectGenerationConfiguration {
 							Dependency.from(dependency).artifactId("springdoc-openapi-starter-webflux-ui").build());
 			}
 		};
-	};
+	}
 
 }

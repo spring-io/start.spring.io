@@ -18,7 +18,7 @@ package io.spring.start.site.extension.dependency.springrestdocs;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild;
 import io.spring.initializr.generator.buildsystem.gradle.GradleTask;
-import io.spring.initializr.generator.buildsystem.gradle.GradleTask.Invocation;
+import io.spring.initializr.generator.buildsystem.gradle.Invocation;
 import io.spring.initializr.generator.buildsystem.gradle.StandardGradlePlugin;
 import org.junit.jupiter.api.Test;
 

@@ -53,13 +53,7 @@ public class JunitMaxParallelismStrategy implements ParallelExecutionConfigurati
 		return DEFAULT_MAX_PARALLELISM;
 	}
 
-	private static final class FixedParallelExecutionConfiguration implements ParallelExecutionConfiguration {
-
-		private final int processors;
-
-		FixedParallelExecutionConfiguration(int processors) {
-			this.processors = processors;
-		}
+	private record FixedParallelExecutionConfiguration(int processors) implements ParallelExecutionConfiguration {
 
 		@Override
 		public int getParallelism() {
