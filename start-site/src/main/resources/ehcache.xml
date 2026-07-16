@@ -1,0 +1,17 @@
+<config
+		xmlns="http://www.ehcache.org/v3"
+		xmlns:jsr107="http://www.ehcache.org/v3/jsr107">
+
+	<cache alias="initializr.dependency-metadata">
+		<key-type copier="org.ehcache.impl.copy.IdentityCopier">java.lang.Object</key-type>
+		<value-type copier="org.ehcache.impl.copy.IdentityCopier">java.lang.Object</value-type>
+		<expiry>
+			<ttl unit="minutes">10</ttl>
+		</expiry>
+		<resources>
+			<heap unit="entries">10</heap>
+		</resources>
+		<jsr107:mbeans enable-management="true" enable-statistics="true"/>
+	</cache>
+
+</config>

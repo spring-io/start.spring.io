@@ -22,6 +22,9 @@ server:
   forward-headers-strategy: native
 
 spring:
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
   task:
     execution:
       thread-name-prefix: initializr-
