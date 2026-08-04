@@ -33,11 +33,13 @@ class AnnotationProcessorExclusionBuildCustomizerTests extends AbstractExtension
 	void annotationProcessorsAreExcludedOnlyIfTheyAreNotHandledWithMetadata() {
 		ProjectRequest request = createProjectRequest("lombok", "configuration-processor");
 		assertThat(mavenPom(request)).lines()
-			.containsSequence("					<excludes>", "						<exclude>",
+			.doesNotContainSequence("						<exclude>",
 					"							<groupId>org.projectlombok</groupId>",
-					"							<artifactId>lombok</artifactId>", "						</exclude>",
-					"					</excludes>");
-
+					"							<artifactId>lombok</artifactId>", "						</exclude>")
+			.doesNotContainSequence("						<exclude>",
+					"							<groupId>org.springframework.boot</groupId>",
+					"							<artifactId>spring-boot-configuration-processor</artifactId>",
+					"						</exclude>");
 	}
 
 	@Test

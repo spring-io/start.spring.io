@@ -16,7 +16,6 @@
 
 package io.spring.start.site.extension.build.maven;
 
-import java.util.Collections;
 import java.util.List;
 
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
@@ -32,8 +31,7 @@ import io.spring.initializr.metadata.InitializrMetadata;
  */
 class AnnotationProcessorExclusionBuildCustomizer implements BuildCustomizer<MavenBuild> {
 
-	private static final List<String> KNOWN_ANNOTATION_PROCESSORS = Collections
-		.singletonList("configuration-processor");
+	private static final List<String> KNOWN_ANNOTATION_PROCESSORS = List.of("configuration-processor", "lombok");
 
 	private final InitializrMetadata metadata;
 
