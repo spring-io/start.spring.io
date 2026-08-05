@@ -20,7 +20,6 @@ import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.metadata.InitializrMetadata;
 
 import org.springframework.context.annotation.Bean;
 
@@ -37,12 +36,6 @@ class MavenProjectGenerationConfiguration {
 	@Bean
 	MavenBuildSystemHelpDocumentCustomizer mavenBuildSystemHelpDocumentCustomizer(ProjectDescription description) {
 		return new MavenBuildSystemHelpDocumentCustomizer(description);
-	}
-
-	@Bean
-	AnnotationProcessorExclusionBuildCustomizer annotationProcessorExclusionBuildCustomizer(
-			InitializrMetadata metadata) {
-		return new AnnotationProcessorExclusionBuildCustomizer(metadata);
 	}
 
 }
