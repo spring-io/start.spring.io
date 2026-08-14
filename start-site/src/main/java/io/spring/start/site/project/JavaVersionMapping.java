@@ -18,8 +18,6 @@ package io.spring.start.site.project;
 
 import java.util.List;
 
-import io.spring.initializr.generator.language.Language;
-import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionRange;
@@ -34,40 +32,31 @@ class JavaVersionMapping {
 	private static final List<Mapping> mappings = List.of(Mapping.of("[4.0.0-M1,4.1.0-M1)", 17, 26, "2.2.0"),
 			Mapping.of("[4.1.0-M1,4.2.0-M1)", 17, 26, "2.3.0"));
 
-	private final KotlinVersionMapping kotlinMapping = new KotlinVersionMapping();
-
 	/**
 	 * Returns the minimum supported Java version.
 	 * @param springBootVersion the version of Spring Boot
-	 * @param language the project language
 	 * @return the minimum Java version
 	 */
-	int getMinJavaVersion(Version springBootVersion, Language language) {
-		Mapping mapping = findMapping(springBootVersion);
-		int result = mapping.minJavaVersion();
-		if (isKotlin(language)) {
-			return Math.max(result, this.kotlinMapping.getMinJavaVersion(mapping.kotlinVersion()));
-		}
-		return result;
+	int getMinJavaVersion(Version springBootVersion) {
+		return findMapping(springBootVersion).minJavaVersion();
 	}
 
 	/**
 	 * Returns the maximum supported Java version.
 	 * @param springBootVersion the version of Spring Boot
-	 * @param language the project language
 	 * @return the maximum Java version
 	 */
-	int getMaxJavaVersion(Version springBootVersion, Language language) {
-		Mapping mapping = findMapping(springBootVersion);
-		int result = mapping.maxJavaVersion();
-		if (isKotlin(language)) {
-			return Math.min(result, this.kotlinMapping.getMaxJavaVersion(mapping.kotlinVersion()));
-		}
-		return result;
+	int getMaxJavaVersion(Version springBootVersion) {
+		return findMapping(springBootVersion).maxJavaVersion();
 	}
 
-	private boolean isKotlin(Language language) {
-		return language instanceof KotlinLanguage;
+	/**
+	 * Returns the Kotlin version used by the given Spring Boot version.
+	 * @param springBootVersion the version of Spring Boot
+	 * @return the Kotlin version
+	 */
+	Version getKotlinVersion(Version springBootVersion) {
+		return findMapping(springBootVersion).kotlinVersion();
 	}
 
 	private Mapping findMapping(Version springBootVersion) {

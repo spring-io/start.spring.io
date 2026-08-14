@@ -21,6 +21,8 @@ import java.util.Collection;
 import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
+import io.spring.initializr.generator.project.ProjectDescriptionField;
+import io.spring.start.site.project.JavaVersionProjectDescriptionCustomizer;
 
 /**
  * Validate that the requested java version is compatible with the chosen Spring Boot
@@ -33,6 +35,11 @@ import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
 public class VaadinVersionProjectDescriptionCustomizer implements ProjectDescriptionCustomizer {
 
 	@Override
+	public int getOrder() {
+		return JavaVersionProjectDescriptionCustomizer.ORDER + 10;
+	}
+
+	@Override
 	public void customize(MutableProjectDescription description) {
 		Collection<String> dependencyIds = description.getRequestedDependencies().keySet();
 		if (!dependencyIds.contains("vaadin")) {
@@ -43,6 +50,9 @@ public class VaadinVersionProjectDescriptionCustomizer implements ProjectDescrip
 		if (javaGeneration != null && javaGeneration < 21) {
 			Language compatibleLanguage = Language.forId(description.getLanguage().id(), "21");
 			description.setLanguage(compatibleLanguage);
+			description.getChanges()
+				.add(ProjectDescriptionField.JVM_VERSION,
+						"The JVM level was changed to '21' as Vaadin requires Java 21 or later.");
 		}
 	}
 

@@ -21,9 +21,11 @@ import java.util.Set;
 import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.project.MutableProjectDescription;
 import io.spring.initializr.generator.project.ProjectDescriptionCustomizer;
+import io.spring.initializr.generator.project.ProjectDescriptionField;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionRange;
+import io.spring.start.site.project.JavaVersionProjectDescriptionCustomizer;
 
 /**
  * Validate that the requested java version is compatible with the chosen Spring Boot
@@ -38,6 +40,11 @@ public class JooqVersionProjectDescriptionCustomizer implements ProjectDescripti
 	private static final VersionRange SPRING_BOOT_4_1_OR_LATER = VersionParser.DEFAULT.parseRange("4.1.0-M1");
 
 	@Override
+	public int getOrder() {
+		return JavaVersionProjectDescriptionCustomizer.ORDER + 10;
+	}
+
+	@Override
 	public void customize(MutableProjectDescription description) {
 		Set<String> dependencyIds = description.getRequestedDependencies().keySet();
 		if (!dependencyIds.contains("jooq")) {
@@ -50,6 +57,9 @@ public class JooqVersionProjectDescriptionCustomizer implements ProjectDescripti
 			if (javaGeneration != null && javaGeneration < 21) {
 				Language compatibleLanguage = Language.forId(description.getLanguage().id(), "21");
 				description.setLanguage(compatibleLanguage);
+				description.getChanges()
+					.add(ProjectDescriptionField.JVM_VERSION,
+							"The JVM level was changed to '21' as jOOQ requires Java 21 or later.");
 			}
 		}
 	}

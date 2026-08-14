@@ -44,6 +44,26 @@ class VaadinProjectGenerationConfigurationTests extends AbstractExtensionTests {
 		assertThat(mavenPom(request)).hasProperty("java.version", "21");
 	}
 
+	@Test
+	void warningAddedWhenJavaVersionIsRaised() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "vaadin");
+		request.setJavaVersion("17");
+		assertThat(helpDocument(request)).lines()
+			.containsSubsequence("# Read Me First",
+					"* The JVM level was changed to '21' as Vaadin requires Java 21 or later.");
+	}
+
+	@Test
+	void singleWarningAddedWhenJavaVersionIsRaisedTwice() {
+		ProjectRequest request = createProjectRequest(BOOT_VERSION, "vaadin");
+		request.setJavaVersion("11");
+		assertThat(helpDocument(request)).lines()
+			.containsSubsequence("# Read Me First",
+					"* The JVM level was changed to '21' as Vaadin requires Java 21 or later.")
+			.doesNotContain(
+					"* The JVM level was changed to '17', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.");
+	}
+
 	@ParameterizedTest
 	@ValueSource(strings = { "21", "25", "26" })
 	void java21OrLaterIsLeftAsIs(String jvmVersion) {

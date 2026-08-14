@@ -32,12 +32,6 @@ import org.springframework.context.annotation.Bean;
 public class DescriptionProjectGenerationConfiguration {
 
 	@Bean
-	public InvalidJvmVersionHelpDocumentCustomizer invalidJvmVersionHelpDocumentCustomizer(ProjectDescriptionDiff diff,
-			ProjectDescription description) {
-		return new InvalidJvmVersionHelpDocumentCustomizer(diff, description);
-	}
-
-	@Bean
 	public InvalidPackageNameHelpDocumentCustomizer invalidPackageNameHelpDocumentCustomizer(
 			ProjectDescriptionDiff diff, ProjectDescription description) {
 		return new InvalidPackageNameHelpDocumentCustomizer(diff, description);

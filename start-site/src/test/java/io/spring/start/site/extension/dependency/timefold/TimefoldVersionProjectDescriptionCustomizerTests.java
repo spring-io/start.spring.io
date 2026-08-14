@@ -19,6 +19,7 @@ package io.spring.start.site.extension.dependency.timefold;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -37,6 +38,15 @@ class TimefoldVersionProjectDescriptionCustomizerTests extends AbstractExtension
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "timefold-solver");
 		request.setJavaVersion(jvmVersion);
 		assertThat(mavenPom(request)).hasProperty("java.version", "21");
+	}
+
+	@Test
+	void warningAddedWhenJavaVersionIsRaised() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "timefold-solver");
+		request.setJavaVersion("17");
+		assertThat(helpDocument(request)).lines()
+			.containsSubsequence("# Read Me First",
+					"* The JVM level was changed to '21' as Timefold requires Java 21 or later.");
 	}
 
 	@ParameterizedTest
