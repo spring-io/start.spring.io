@@ -31,6 +31,7 @@ import io.spring.start.site.extension.dependency.lombok.LombokMavenBuildCustomiz
 import io.spring.start.site.extension.dependency.mybatis.MyBatisTestBuildCustomizer;
 import io.spring.start.site.extension.dependency.okta.OktaHelpDocumentCustomizer;
 import io.spring.start.site.extension.dependency.reactor.ReactorTestBuildCustomizer;
+import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityLdapBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityRSocketBuildCustomizer;
 import io.spring.start.site.extension.dependency.springsecurity.SpringSecurityWebAuthnBuildCustomizer;
 import io.spring.start.site.extension.dependency.springshell.SpringShellTestBuildCustomizer;
@@ -71,6 +72,12 @@ public class DependencyProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("security")
 	public SpringSecurityRSocketBuildCustomizer securityRSocketBuildCustomizer() {
 		return new SpringSecurityRSocketBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("security")
+	public SpringSecurityLdapBuildCustomizer securityLdapBuildCustomizer() {
+		return new SpringSecurityLdapBuildCustomizer();
 	}
 
 	@Bean
