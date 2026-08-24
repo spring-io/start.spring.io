@@ -48,6 +48,15 @@ abstract class SpringCloudContractGradleBuildCustomizer implements BuildCustomiz
 		.snapshotsEnabled(true)
 		.build();
 
+	private static final String CONTRACT_VERIFIER_DEPENDENCY_ID = "org.springframework.cloud:spring-cloud-contract-verifier";
+
+	/**
+	 * As of the {@code 2025.1.3} Spring Cloud release train, Spring Cloud Contract is no
+	 * longer part of {@code spring-cloud-dependencies}. Fall back to the dedicated
+	 * {@code spring-cloud-contract} bom.
+	 */
+	private static final String CONTRACT_BOM_NAME = "spring-cloud-contract";
+
 	private final ProjectDescription description;
 
 	private final SpringCloudProjectVersionResolver projectsVersionResolver;
@@ -61,8 +70,7 @@ abstract class SpringCloudContractGradleBuildCustomizer implements BuildCustomiz
 	@Override
 	public void customize(GradleBuild build) {
 		Version platformVersion = this.description.getPlatformVersion();
-		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(platformVersion,
-				"org.springframework.cloud:spring-cloud-contract-verifier");
+		String sccPluginVersion = resolveSccPluginVersion(platformVersion);
 		if (sccPluginVersion == null) {
 			logger.warn(
 					"Spring Cloud Contract Verifier Gradle plugin version could not be resolved for Spring Boot version: "
@@ -79,6 +87,16 @@ abstract class SpringCloudContractGradleBuildCustomizer implements BuildCustomiz
 		}
 		build.tasks().customize("contractTest", (task) -> task.invoke("useJUnitPlatform"));
 		configurePluginRepositories(build, sccPluginVersion);
+	}
+
+	private String resolveSccPluginVersion(Version platformVersion) {
+		String sccPluginVersion = this.projectsVersionResolver.resolveVersion(platformVersion,
+				CONTRACT_VERIFIER_DEPENDENCY_ID);
+		if (sccPluginVersion != null) {
+			return sccPluginVersion;
+		}
+		return this.projectsVersionResolver.resolveVersion(CONTRACT_BOM_NAME, platformVersion,
+				CONTRACT_VERIFIER_DEPENDENCY_ID);
 	}
 
 	protected abstract void configureContractsDsl(GradleBuild build);
