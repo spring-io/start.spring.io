@@ -44,7 +44,7 @@ class SpringCloudProjectVersionResolver {
 
 	/**
 	 * Resolve the version of a specified artifact that matches the provided Spring Boot
-	 * version.
+	 * version, using the {@code spring-cloud} bom.
 	 * @param platformVersion the Spring Boot version to check the Spring Cloud Release
 	 * train version against
 	 * @param dependencyId the dependency id of the Spring Cloud artifact in the form of
@@ -52,15 +52,26 @@ class SpringCloudProjectVersionResolver {
 	 * @return the appropriate project version or {@code null} if the resolution failed
 	 */
 	String resolveVersion(Version platformVersion, String dependencyId) {
-		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get("spring-cloud");
+		return resolveVersion("spring-cloud", platformVersion, dependencyId);
+	}
+
+	/**
+	 * Resolve the version of a specified artifact that matches the provided Spring Boot
+	 * version, using the bom registered under the given name.
+	 * @param bomName the name of the bom, as registered in the initializr metadata
+	 * @param platformVersion the Spring Boot version to check the bom's version against
+	 * @param dependencyId the dependency id of the artifact managed by the bom, in the
+	 * form of {@code groupId:artifactId}
+	 * @return the appropriate project version or {@code null} if the resolution failed
+	 */
+	String resolveVersion(String bomName, Version platformVersion, String dependencyId) {
+		BillOfMaterials bom = this.metadata.getConfiguration().getEnv().getBoms().get(bomName);
 		if (bom == null) {
 			return null;
 		}
-		String releaseTrainVersion = bom.resolve(platformVersion).getVersion();
-		logger.info("Retrieving version for artifact: " + dependencyId + " and release train version: "
-				+ releaseTrainVersion);
-		return this.versionResolver
-			.resolveDependencies("org.springframework.cloud", "spring-cloud-dependencies", releaseTrainVersion)
+		String bomVersion = bom.resolve(platformVersion).getVersion();
+		logger.info("Retrieving version for artifact: " + dependencyId + " and bom version: " + bomVersion);
+		return this.versionResolver.resolveDependencies(bom.getGroupId(), bom.getArtifactId(), bomVersion)
 			.get(dependencyId);
 	}
 

@@ -105,7 +105,14 @@ initializr:
         order: 50
         mappings:
           - compatibilityRange: "[4.0.0,4.2.0-M1)"
-            version: 2025.1.2
+            version: 2025.1.3
+      spring-cloud-contract:
+        groupId: org.springframework.cloud
+        artifactId: spring-cloud-contract-dependencies
+        versionProperty: spring-cloud-contract.version
+        mappings:
+          - compatibilityRange: "[4.0.0,4.2.0-M1)"
+            version: 5.0.3
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
@@ -1354,7 +1361,7 @@ initializr:
             - rel: reference
               href: https://java.testcontainers.org/
         - name: Contract Verifier
-          bom: spring-cloud
+          bom: spring-cloud-contract
           compatibilityRange: "[4.0.0,4.2.0-M1)"
           id: cloud-contract-verifier
           description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
@@ -1365,7 +1372,7 @@ initializr:
             - rel: reference
               href: https://docs.spring.io/spring-cloud-contract/reference/
         - name: Contract Stub Runner
-          bom: spring-cloud
+          bom: spring-cloud-contract
           compatibilityRange: "[4.0.0,4.2.0-M1)"
           id: cloud-contract-stub-runner
           description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
