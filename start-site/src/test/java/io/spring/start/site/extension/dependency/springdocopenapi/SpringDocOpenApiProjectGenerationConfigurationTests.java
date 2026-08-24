@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringDocOpenApiProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V4_0;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V4_1;
 
 	@Test
 	void shouldDoNothingIfNotSelected() {
