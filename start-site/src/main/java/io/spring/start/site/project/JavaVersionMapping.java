@@ -21,6 +21,10 @@ import java.util.List;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionRange;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.springframework.core.log.LogMessage;
 
 /**
  * Maps Spring Boot versions to minimum and maximum Java versions.
@@ -29,8 +33,10 @@ import io.spring.initializr.generator.version.VersionRange;
  */
 class JavaVersionMapping {
 
+	private static final Log logger = LogFactory.getLog(JavaVersionMapping.class);
+
 	private static final List<Mapping> mappings = List.of(Mapping.of("[4.0.0-M1,4.1.0-M1)", 17, 26, "2.2.0"),
-			Mapping.of("[4.1.0-M1,4.2.0-M1)", 17, 26, "2.3.0"));
+			Mapping.of("[4.1.0-M1,4.2.0-M1)", 17, 26, "2.3.0"), Mapping.of("[4.2.0-M1,4.3.0-M1)", 17, 26, "2.4.0"));
 
 	/**
 	 * Returns the minimum supported Java version.
@@ -65,7 +71,8 @@ class JavaVersionMapping {
 				return mapping;
 			}
 		}
-		throw new IllegalStateException("Missing mapping for " + springBootVersion);
+		logger.warn(LogMessage.format("Failed to find mapping for Spring Boot %s", springBootVersion));
+		return mappings.get(mappings.size() - 1);
 	}
 
 	private record Mapping(VersionRange range, int minJavaVersion, int maxJavaVersion, Version kotlinVersion) {
