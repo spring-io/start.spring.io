@@ -16,24 +16,14 @@
 
 package io.spring.start.site.extension.dependency.springcloud;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
-import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
-import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
-import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
-import io.spring.initializr.generator.project.contributor.ProjectContributor;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * {@link ProjectGenerationConfiguration} for generation of projects that depend on Spring
@@ -78,43 +68,6 @@ class SpringCloudProjectGenerationConfiguration {
 	@Bean
 	SpringCloudCircuitBreakerBuildCustomizer springCloudCircuitBreakerBuildCustomizer() {
 		return new SpringCloudCircuitBreakerBuildCustomizer(this.metadata, this.description);
-	}
-
-	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnRequestedDependency("cloud-contract-verifier")
-	static class SpringCloudContractConfiguration {
-
-		@Bean
-		ProjectContributor springCloudContractDirectoryProjectContributor(Build build) {
-			String contractDirectory = (build instanceof MavenBuild) ? "src/test/resources/contracts"
-					: "src/contractTest/resources/contracts";
-			return (projectRoot) -> {
-				Path migrationDirectory = projectRoot.resolve(contractDirectory);
-				Files.createDirectories(migrationDirectory);
-			};
-		}
-
-		@Bean
-		@ConditionalOnBuildSystem(MavenBuildSystem.ID)
-		SpringCloudContractMavenBuildCustomizer springCloudContractMavenBuildCustomizer(ProjectDescription description,
-				SpringCloudProjectVersionResolver versionResolver) {
-			return new SpringCloudContractMavenBuildCustomizer(description, versionResolver);
-		}
-
-		@Bean
-		@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_GROOVY)
-		SpringCloudContractGroovyDslGradleBuildCustomizer springCloudContractGroovyDslGradleBuildCustomizer(
-				ProjectDescription description, SpringCloudProjectVersionResolver versionResolver) {
-			return new SpringCloudContractGroovyDslGradleBuildCustomizer(description, versionResolver);
-		}
-
-		@Bean
-		@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
-		SpringCloudContractKotlinDslGradleBuildCustomizer springCloudContractKotlinDslGradleBuildCustomizer(
-				ProjectDescription description, SpringCloudProjectVersionResolver versionResolver) {
-			return new SpringCloudContractKotlinDslGradleBuildCustomizer(description, versionResolver);
-		}
-
 	}
 
 }
