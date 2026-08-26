@@ -52,7 +52,7 @@ initializr:
         artifactId: datasource-micrometer-bom
         versionProperty: datasource-micrometer.version
         mappings:
-          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+          - compatibilityRange: "[4.0.0,4.3.0-M1)"
             version: 2.2.1
       codecentric-spring-boot-admin:
         groupId: de.codecentric
@@ -1308,7 +1308,7 @@ initializr:
         - name: Datasource Micrometer
           id: datasource-micrometer
           bom: datasource-micrometer
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          compatibilityRange: "[4.0.0,4.3.0-M1)"
           groupId: net.ttddyy.observation
           artifactId: datasource-micrometer-spring-boot
           description: Add Micrometer observability instrumentation for JDBC operations.
