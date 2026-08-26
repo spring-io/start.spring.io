@@ -142,9 +142,11 @@ initializr:
         versionProperty: spring-modulith.version
         mappings:
           - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 2.0.7
+            version: 2.0.8
           - compatibilityRange: "[4.1.0-M1,4.2.0-M1)"
-            version: 2.1.0
+            version: 2.1.1
+          - compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
+            version: 2.2.0-M1
       spring-shell:
         groupId: org.springframework.shell
         artifactId: spring-shell-dependencies
@@ -244,7 +246,7 @@ initializr:
         - name: Spring Modulith
           id: modulith
           bom: spring-modulith
-          compatibilityRange: "[4.0.0,4.2.0-M1)"
+          compatibilityRange: "[4.0.0,4.3.0-M1)"
           group-id: org.springframework.modulith
           artifact-id: spring-modulith-starter-core
           description: Support for building modular monolithic applications.
