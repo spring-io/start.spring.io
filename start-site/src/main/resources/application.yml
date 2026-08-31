@@ -1940,6 +1940,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html
+        - name: Tool Search Advisor
+          id: spring-ai-tool-search-advisor
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-tool-search-advisor
+          description: Spring AI Starter for the Tool Search Advisor, enabling dynamic tool discovery via a search index.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/tools/tool-search-tool.html
         - name: Model Context Protocol Security [Experimental]
           id: mcp-security
           group-id: org.springaicommunity
