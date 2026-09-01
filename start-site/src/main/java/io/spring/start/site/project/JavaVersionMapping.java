@@ -36,7 +36,7 @@ class JavaVersionMapping {
 	private static final Log logger = LogFactory.getLog(JavaVersionMapping.class);
 
 	private static final List<Mapping> mappings = List.of(Mapping.of("[4.0.0-M1,4.1.0-M1)", 17, 26, "2.2.0"),
-			Mapping.of("[4.1.0-M1,4.2.0-M1)", 17, 26, "2.3.0"), Mapping.of("[4.2.0-M1,4.3.0-M1)", 17, 26, "2.4.0"));
+			Mapping.of("[4.1.0-M1,4.2.0-M1)", 17, 26, "2.3.0"), Mapping.of("[4.2.0-M1,4.3.0-M1)", 17, 27, "2.4.0"));
 
 	/**
 	 * Returns the minimum supported Java version.
