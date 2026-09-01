@@ -173,8 +173,8 @@ initializr:
         artifactId: timefold-solver-bom
         versionProperty: timefold-solver.version
         mappings:
-          - compatibilityRange: "[4.0.0,4.1.0-M1)"
-            version: 2.5.0
+          - compatibilityRange: "[4.0.0,4.2.0-M1)"
+            version: 2.6.0
       vaadin:
         groupId: com.vaadin
         artifactId: vaadin-bom
