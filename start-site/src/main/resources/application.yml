@@ -1360,7 +1360,6 @@ initializr:
           description: Provides a platform neutral way for running a LDAP server in unit tests.
           groupId: org.springframework.boot
           artifactId: spring-boot-starter-ldap
-          scope: test
           links:
             - rel: reference
               href: https://docs.spring.io/spring-boot/{bootVersion}/reference/data/nosql.html#data.nosql.ldap.embedded

@@ -32,8 +32,7 @@ class LdapUnboundIdBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void shouldAddUnbound() {
 		ProjectRequest request = createProjectRequest("unboundid-ldap");
-		assertThat(mavenPom(request))
-			.hasDependency("org.springframework.boot", "spring-boot-starter-ldap", null, "test")
+		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-ldap")
 			.hasDependency("com.unboundid", "unboundid-ldapsdk", null, "test");
 	}
 
