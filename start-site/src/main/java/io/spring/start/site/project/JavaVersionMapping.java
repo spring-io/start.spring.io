@@ -65,6 +65,14 @@ class JavaVersionMapping {
 		return findMapping(springBootVersion).kotlinVersion();
 	}
 
+	/**
+	 * Returns the highest Java version known by the mappings.
+	 * @return the maximum known Java version
+	 */
+	int getMaxKnownJavaVersion() {
+		return mappings.stream().mapToInt(Mapping::maxJavaVersion).max().orElseThrow();
+	}
+
 	private Mapping findMapping(Version springBootVersion) {
 		for (Mapping mapping : mappings) {
 			if (mapping.match(springBootVersion)) {

@@ -18,6 +18,7 @@ package io.spring.start.site.project;
 
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.VersionParser;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -52,6 +53,11 @@ class JavaVersionMappingTests {
 	@ParameterizedTest(name = "Spring Boot {0} | Kotlin {1}")
 	void kotlinVersion(String bootVersion, String expectedKotlinVersion) {
 		assertThat(this.mapping.getKotlinVersion(toVersion(bootVersion))).isEqualTo(toVersion(expectedKotlinVersion));
+	}
+
+	@Test
+	void maxKnownJavaVersion() {
+		assertThat(this.mapping.getMaxKnownJavaVersion()).isEqualTo(27);
 	}
 
 	private Version toVersion(String version) {

@@ -125,6 +125,11 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		assertHelpDocument("${another.version}").doesNotContain("# Read Me First");
 	}
 
+	@Test
+	void java27IsSupportedOnBoot42() {
+		assertThat(mavenPom(javaProject("27", "4.2.0"))).hasProperty("java.version", "27");
+	}
+
 	private TextAssert assertHelpDocument(ProjectRequest request) {
 		return assertThat(helpDocument(request));
 	}
