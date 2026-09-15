@@ -53,7 +53,7 @@ initializr:
         versionProperty: datasource-micrometer.version
         mappings:
           - compatibilityRange: "[4.0.0,4.3.0-M1)"
-            version: 2.2.1
+            version: 2.3.0
       codecentric-spring-boot-admin:
         groupId: de.codecentric
         artifactId: spring-boot-admin-dependencies
