@@ -42,7 +42,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final String LEGACY_VERSION_PREFIX = "1.";
 
-	private static final int MAX_JAVA_VERSION = 26;
+	private static final int MAX_JAVA_VERSION = 27;
 
 	private static final String JDK_VERSION_RANGE_WIKI = "https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range";
 

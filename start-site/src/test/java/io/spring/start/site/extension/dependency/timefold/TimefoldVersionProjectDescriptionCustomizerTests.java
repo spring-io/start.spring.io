@@ -50,7 +50,7 @@ class TimefoldVersionProjectDescriptionCustomizerTests extends AbstractExtension
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "21", "25", "26" })
+	@ValueSource(strings = { "21", "25", "27" })
 	void java21OrLaterIsLeftAsIsWithBoot40(String jvmVersion) {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "timefold-solver");
 		request.setJavaVersion(jvmVersion);

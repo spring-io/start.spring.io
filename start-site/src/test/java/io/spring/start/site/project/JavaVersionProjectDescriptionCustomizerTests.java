@@ -61,7 +61,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@Test
 	void warningAddedWithUnsupportedKotlinVersion() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.latest(), "web");
-		request.setJavaVersion("26");
+		request.setJavaVersion("27");
 		request.setLanguage(KotlinLanguage.ID);
 		assertHelpDocument(request).lines()
 			.containsSubsequence("# Read Me First",
@@ -115,7 +115,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	@Test
 	void kotlinIsCappedByTheKotlinVersionOfThePlatform() {
 		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "web");
-		request.setJavaVersion("26");
+		request.setJavaVersion("27");
 		request.setLanguage(KotlinLanguage.ID);
 		assertThat(mavenPom(request)).hasProperty("java.version", "24");
 	}
@@ -164,7 +164,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		return Stream.of(java("17", SupportedBootVersion.latest().getVersion()),
 				java("21", SupportedBootVersion.latest().getVersion()),
 				java("25", SupportedBootVersion.latest().getVersion()),
-				java("26", SupportedBootVersion.latest().getVersion()));
+				java("27", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Stream<Arguments> supportedKotlinParameters() {
@@ -174,7 +174,7 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 	private static Stream<Arguments> supportedGroovyParameters() {
 		return Stream.of(groovy("21", SupportedBootVersion.latest().getVersion()),
 				groovy("25", SupportedBootVersion.latest().getVersion()),
-				groovy("26", SupportedBootVersion.latest().getVersion()));
+				groovy("27", SupportedBootVersion.latest().getVersion()));
 	}
 
 	private static Arguments java(String javaVersion, String springBootVersion) {
