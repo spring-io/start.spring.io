@@ -152,7 +152,7 @@ initializr:
         artifactId: spring-shell-dependencies
         versionProperty: spring-shell.version
         mappings:
-          - compatibilityRange: "[4.0.0,4.1.0-M1)"
+          - compatibilityRange: "[4.0.0,4.2.0-M1)"
             version: 4.0.2
       tanzu-scg-extensions:
         groupId: com.vmware.tanzu.springcloudgateway.extensions
@@ -1131,7 +1131,7 @@ initializr:
           id: spring-shell
           groupId: org.springframework.shell
           artifactId: spring-shell-starter
-          compatibilityRange: "[4.0.0,4.1.0-M1)"
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
           description: Build command line applications with spring.
           bom: spring-shell
           links:
