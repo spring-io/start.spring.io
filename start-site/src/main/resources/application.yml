@@ -98,6 +98,8 @@ initializr:
         mappings:
           - compatibilityRange: "[4.0.0,4.2.0-M1)"
             version: 2.0.1
+          - compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
+            version: 2.1.0-M1
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1798,7 +1800,7 @@ initializr:
             - rel: guide
               href: https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample
     - name: AI
-      compatibilityRange: "[4.0.0,4.2.0-M1)"
+      compatibilityRange: "[4.0.0,4.3.0-M1)"
       content:
         - name: Anthropic Claude
           id: spring-ai-anthropic
@@ -1840,7 +1842,7 @@ initializr:
           id: spring-ai-vectordb-bedrock-knowledgebase
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-vector-store-bedrock-knowledgebase
-          compatibilityRange: "[4.0.0,4.2.0-M1)"
+          compatibilityRange: "[4.0.0,4.3.0-M1)"
           description: Spring AI vector database support for Amazon Bedrock Knowledge Base. It provides fully managed Retrieval-Augmented Generation (RAG) capabilities with enterprise-grade security and privacy.
           bom: spring-ai
           links:
@@ -2088,7 +2090,7 @@ initializr:
           id: spring-ai-chat-memory-repository-redis
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-chat-memory-repository-redis
-          compatibilityRange: "[4.0.0,4.2.0-M1)"
+          compatibilityRange: "[4.0.0,4.3.0-M1)"
           description: Spring AI support for Redis based chat memory.
           bom: spring-ai
           links:
@@ -2143,7 +2145,7 @@ initializr:
           id: spring-ai-vectordb-s3
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-vector-store-s3
-          compatibilityRange: "[4.0.0,4.2.0-M1)"
+          compatibilityRange: "[4.0.0,4.3.0-M1)"
           description: Spring AI vector database support for AWS S3. Store and retrieve vector embeddings using Amazon S3 object storage with efficient search capabilities.
           bom: spring-ai
           links:
