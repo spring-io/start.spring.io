@@ -42,8 +42,6 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 
 	private static final String LEGACY_VERSION_PREFIX = "1.";
 
-	private static final int MAX_JAVA_VERSION = 27;
-
 	private static final String JDK_VERSION_RANGE_WIKI = "https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range";
 
 	private final JavaVersionMapping javaVersionMapping = new JavaVersionMapping();
@@ -123,7 +121,7 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 		try {
 			int parsedGeneration = Integer.parseInt(generation);
 			// A version beyond the ones we know about is left as is
-			return (parsedGeneration <= MAX_JAVA_VERSION) ? parsedGeneration : null;
+			return (parsedGeneration <= this.javaVersionMapping.getMaxKnownJavaVersion()) ? parsedGeneration : null;
 		}
 		catch (NumberFormatException ex) {
 			return null;
