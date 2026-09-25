@@ -943,7 +943,7 @@ initializr:
           id: rabbitmq
           description: Gives your applications a common platform to send and receive messages, and your messages a safe place to live until received.
           mappings:
-            - compatibilityRange: "[3.5.0,4.1.0-M3)"
+            - compatibilityRange: "[4.0.0,4.2.0-M1)"
               artifact-id: spring-boot-starter-amqp
           links:
             - rel: guide

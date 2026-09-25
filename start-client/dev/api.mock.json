@@ -668,7 +668,7 @@
             }
           },
           {
-            "id": "amqp",
+            "id": "rabbitmq",
             "name": "Spring for RabbitMQ",
             "description": "Gives your applications a common platform to send and receive messages, and your messages a safe place to live until received.",
             "_links": {

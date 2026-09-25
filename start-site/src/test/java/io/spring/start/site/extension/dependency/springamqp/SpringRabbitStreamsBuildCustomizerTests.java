@@ -33,12 +33,12 @@ class SpringRabbitStreamsBuildCustomizerTests extends AbstractExtensionTests {
 	@Test
 	void shouldDoNothingIfRabbitMqStreamsIsNotSelected() {
 		ProjectRequest project = createProjectRequest("web");
-		Dependency amqp = getDependency("rabbitmq");
-		assertThat(mavenPom(project)).doesNotHaveDependency(amqp.getGroupId(), amqp.getArtifactId());
+		Dependency rabbitMq = getDependency("rabbitmq");
+		assertThat(mavenPom(project)).doesNotHaveDependency(rabbitMq.getGroupId(), rabbitMq.getArtifactId());
 	}
 
 	@Test
-	void shouldAddAmqpIfRabbitMqStreamsIsSelected() {
+	void shouldAddRabbitMqIfRabbitMqStreamsIsSelected() {
 		ProjectRequest project = createProjectRequest("rabbitmq-streams");
 		assertThat(mavenPom(project)).hasDependency(getDependency("rabbitmq"));
 	}

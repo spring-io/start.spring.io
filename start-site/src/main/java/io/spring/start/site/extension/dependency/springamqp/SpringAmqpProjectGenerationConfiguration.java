@@ -66,7 +66,7 @@ class SpringAmqpProjectGenerationConfiguration {
 
 	@ConditionalOnRequestedDependency("rabbitmq-streams")
 	@Configuration(proxyBeanMethods = false)
-	static class RabbityMqStreamsConfiguration {
+	static class RabbitMqStreamsConfiguration {
 
 		@Bean
 		SpringRabbitStreamsBuildCustomizer springRabbitStreamsBuildCustomizer() {

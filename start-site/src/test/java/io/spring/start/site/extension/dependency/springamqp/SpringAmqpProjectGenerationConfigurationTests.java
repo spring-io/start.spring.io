@@ -35,14 +35,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SpringAmqpProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
 	@Test
-	void amqpStarterIsAddedPriorToSpringBoot41() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_0, "rabbitmq");
+	void amqpStarterIsAddedPriorToSpringBoot42() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "rabbitmq");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-amqp");
 	}
 
 	@Test
-	void rabbitMqStarterIsAddedAsOfSpringBoot41() {
-		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_1, "rabbitmq");
+	void rabbitMqStarterIsAddedAsOfSpringBoot42() {
+		ProjectRequest request = createProjectRequest(SupportedBootVersion.V4_2, "rabbitmq");
 		assertThat(mavenPom(request)).hasDependency("org.springframework.boot", "spring-boot-starter-rabbitmq");
 	}
 
