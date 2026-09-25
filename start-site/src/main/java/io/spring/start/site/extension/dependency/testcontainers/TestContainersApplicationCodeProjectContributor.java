@@ -128,6 +128,9 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 			if (serviceConnection.connectionName() != null) {
 				annotation.set("name", serviceConnection.connectionName());
 			}
+			if (serviceConnection.connectionType() != null) {
+				annotation.set("type", serviceConnection.connectionType());
+			}
 		});
 		for (ServiceConnections.AnnotationRequest request : serviceConnection.annotations()) {
 			annotable.annotations().addSingle(request.className(), request.customizer());

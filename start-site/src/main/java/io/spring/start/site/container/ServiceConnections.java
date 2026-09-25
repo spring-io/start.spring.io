@@ -32,6 +32,7 @@ import io.spring.initializr.generator.language.ClassName;
  *
  * @author Stephane Nicoll
  * @author Kaique Vieira Soares
+ * @author Moritz Halbritter
  */
 public class ServiceConnections {
 
@@ -76,11 +77,14 @@ public class ServiceConnections {
 	 * parameter
 	 * @param connectionName the value for the {@code name} attribute of
 	 * {@code @ServiceConnection} when not {@code null}
+	 * @param connectionType the value for the {@code type} attribute of
+	 * {@code @ServiceConnection} when not {@code null}
 	 * @param annotations additional annotations to place on the generated method after
 	 * {@code @Bean} and {@code @ServiceConnection}
 	 */
 	public record ServiceConnection(String id, DockerService dockerService, String containerClassName,
-			boolean containerClassNameGeneric, String connectionName, List<AnnotationRequest> annotations) {
+			boolean containerClassNameGeneric, String connectionName, ClassName connectionType,
+			List<AnnotationRequest> annotations) {
 
 		public ServiceConnection {
 			annotations = (annotations != null) ? List.copyOf(annotations) : List.of();
@@ -122,7 +126,19 @@ public class ServiceConnections {
 			List<AnnotationRequest> newAnnotations = new ArrayList<>(this.annotations);
 			newAnnotations.add(new AnnotationRequest(annotationClassName, customizer));
 			return new ServiceConnection(this.id, this.dockerService, this.containerClassName,
-					this.containerClassNameGeneric, this.connectionName, newAnnotations);
+					this.containerClassNameGeneric, this.connectionName, this.connectionType, newAnnotations);
+		}
+
+		/**
+		 * Set the {@code type} attribute of {@code @ServiceConnection}. Returns a new
+		 * instance; this record is not modified.
+		 * @param connectionType the connection details type to create, for example
+		 * {@code RabbitStreamConnectionDetails}
+		 * @return a new {@link ServiceConnection} with the connection type
+		 */
+		public ServiceConnection withConnectionType(ClassName connectionType) {
+			return new ServiceConnection(this.id, this.dockerService, this.containerClassName,
+					this.containerClassNameGeneric, this.connectionName, connectionType, this.annotations);
 		}
 
 		/**
@@ -137,7 +153,7 @@ public class ServiceConnections {
 		public static ServiceConnection ofGenericContainer(String id, DockerService dockerService,
 				String connectionName) {
 			return new ServiceConnection(id, dockerService, Testcontainers.GENERIC_CONTAINER_CLASS_NAME, true,
-					connectionName, List.of());
+					connectionName, null, List.of());
 		}
 
 		/**
@@ -152,7 +168,7 @@ public class ServiceConnections {
 		 */
 		public static ServiceConnection ofContainer(String id, DockerService dockerService, String containerClassName,
 				boolean containerClassNameGeneric) {
-			return new ServiceConnection(id, dockerService, containerClassName, containerClassNameGeneric, null,
+			return new ServiceConnection(id, dockerService, containerClassName, containerClassNameGeneric, null, null,
 					List.of());
 		}
 	}

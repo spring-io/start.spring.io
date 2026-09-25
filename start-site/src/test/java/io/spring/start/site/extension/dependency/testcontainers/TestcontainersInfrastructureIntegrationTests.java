@@ -36,6 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * generator can render annotations independently of specific modules.
  *
  * @author Kaique Vieira Soares
+ * @author Moritz Halbritter
  */
 @Import(TestcontainersInfrastructureIntegrationTests.InfrastructureTestConfiguration.class)
 class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTests {
@@ -76,6 +77,39 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 			.contains("@ParamAnno(stringValue = \"value\", booleanValue = true, intValue = 42)");
 	}
 
+	@Test
+	void rendersConnectionTypeInJava() {
+		ProjectRequest request = createProjectRequest("testcontainers");
+		request.setLanguage("java");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
+			.contains("import com.example.FakeConnectionDetails;")
+			.contains("@ServiceConnection(type = FakeConnectionDetails.class)")
+			.contains("@ServiceConnection\n");
+	}
+
+	@Test
+	void rendersConnectionTypeInKotlin() {
+		ProjectRequest request = createProjectRequest("testcontainers");
+		request.setLanguage("kotlin");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
+			.contains("import com.example.FakeConnectionDetails")
+			.contains("@ServiceConnection(type = FakeConnectionDetails::class)")
+			.contains("@ServiceConnection\n");
+	}
+
+	@Test
+	void rendersConnectionTypeInGroovy() {
+		ProjectRequest request = createProjectRequest("testcontainers");
+		request.setLanguage("groovy");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).textFile("src/test/groovy/com/example/demo/TestcontainersConfiguration.groovy")
+			.contains("import com.example.FakeConnectionDetails")
+			.contains("@ServiceConnection(type = FakeConnectionDetails)")
+			.contains("@ServiceConnection\n");
+	}
+
 	@TestConfiguration
 	static class InfrastructureTestConfiguration {
 
@@ -94,6 +128,10 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 						annotation.set("intValue", 42);
 					});
 				serviceConnections.addServiceConnection(connection);
+				ServiceConnection typedConnection = ServiceConnection
+					.ofContainer("typed", fakeDockerService, "com.example.TypedContainer", false)
+					.withConnectionType(ClassName.of("com.example.FakeConnectionDetails"));
+				serviceConnections.addServiceConnection(typedConnection);
 			};
 		}
 

@@ -28,6 +28,7 @@ import static org.assertj.core.api.Assertions.tuple;
  * Tests for {@link ServiceConnections}.
  *
  * @author Kaique Vieira Soares
+ * @author Moritz Halbritter
  */
 class ServiceConnectionsTests {
 
@@ -66,7 +67,7 @@ class ServiceConnectionsTests {
 	@Test
 	void serviceConnectionHandlesNullAnnotations() {
 		ServiceConnections.ServiceConnection conn = new ServiceConnections.ServiceConnection("test", null,
-				"com.example.Test", false, null, null);
+				"com.example.Test", false, null, null, null);
 		assertThat(conn.annotations()).isEmpty();
 	}
 
@@ -77,6 +78,7 @@ class ServiceConnectionsTests {
 		assertThat(conn.id()).isEqualTo("redis");
 		assertThat(conn.isGenericContainer()).isTrue();
 		assertThat(conn.connectionName()).isEqualTo("redisConnection");
+		assertThat(conn.connectionType()).isNull();
 		assertThat(conn.annotations()).isEmpty();
 	}
 
@@ -87,7 +89,39 @@ class ServiceConnectionsTests {
 		assertThat(conn.id()).isEqualTo("mongo");
 		assertThat(conn.isGenericContainer()).isFalse();
 		assertThat(conn.connectionName()).isNull();
+		assertThat(conn.connectionType()).isNull();
 		assertThat(conn.annotations()).isEmpty();
+	}
+
+	@Test
+	void withConnectionTypeSetsTypeAndPreservesImmutability() {
+		ClassName type = ClassName.of("org.example.ConnectionDetails");
+		ServiceConnections.ServiceConnection original = ServiceConnections.ServiceConnection.ofContainer("test", null,
+				"com.example.Test", false);
+		ServiceConnections.ServiceConnection updated = original.withConnectionType(type);
+		assertThat(original.connectionType()).isNull();
+		assertThat(updated.connectionType()).isEqualTo(type);
+	}
+
+	@Test
+	void withConnectionTypePreservesNameAndAnnotations() {
+		ClassName ssl = ClassName.of("org.example.Ssl");
+		ServiceConnections.ServiceConnection conn = ServiceConnections.ServiceConnection
+			.ofGenericContainer("redis", null, "redis")
+			.withAnnotation(ssl)
+			.withConnectionType(ClassName.of("org.example.ConnectionDetails"));
+		assertThat(conn.connectionName()).isEqualTo("redis");
+		assertThat(conn.annotations()).extracting(ServiceConnections.AnnotationRequest::className).containsExactly(ssl);
+	}
+
+	@Test
+	void withAnnotationPreservesConnectionType() {
+		ClassName type = ClassName.of("org.example.ConnectionDetails");
+		ServiceConnections.ServiceConnection conn = ServiceConnections.ServiceConnection
+			.ofContainer("test", null, "com.example.Test", false)
+			.withConnectionType(type)
+			.withAnnotation(ClassName.of("org.example.Ssl"));
+		assertThat(conn.connectionType()).isEqualTo(type);
 	}
 
 	@Test
