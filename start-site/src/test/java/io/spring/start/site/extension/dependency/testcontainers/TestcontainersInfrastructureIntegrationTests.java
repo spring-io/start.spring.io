@@ -85,7 +85,7 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 		assertThat(project).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
 			.contains("import com.example.FakeConnectionDetails;")
 			.contains("@ServiceConnection(type = FakeConnectionDetails.class)")
-			.contains("@ServiceConnection\n");
+			.containsPattern("@ServiceConnection\\R");
 	}
 
 	@Test
@@ -96,7 +96,7 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 		assertThat(project).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
 			.contains("import com.example.FakeConnectionDetails")
 			.contains("@ServiceConnection(type = [FakeConnectionDetails::class])")
-			.contains("@ServiceConnection\n");
+			.containsPattern("@ServiceConnection\\R");
 	}
 
 	@Test
@@ -107,7 +107,7 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 		assertThat(project).textFile("src/test/groovy/com/example/demo/TestcontainersConfiguration.groovy")
 			.contains("import com.example.FakeConnectionDetails")
 			.contains("@ServiceConnection(type = FakeConnectionDetails)")
-			.contains("@ServiceConnection\n");
+			.containsPattern("@ServiceConnection\\R");
 	}
 
 	@Test
