@@ -95,7 +95,7 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 		ProjectStructure project = generateProject(request);
 		assertThat(project).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
 			.contains("import com.example.FakeConnectionDetails")
-			.contains("@ServiceConnection(type = FakeConnectionDetails::class)")
+			.contains("@ServiceConnection(type = [FakeConnectionDetails::class])")
 			.contains("@ServiceConnection\n");
 	}
 
@@ -108,6 +108,36 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 			.contains("import com.example.FakeConnectionDetails")
 			.contains("@ServiceConnection(type = FakeConnectionDetails)")
 			.contains("@ServiceConnection\n");
+	}
+
+	@Test
+	void rendersConnectionTypesInJava() {
+		ProjectRequest request = createProjectRequest("testcontainers");
+		request.setLanguage("java");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).textFile("src/test/java/com/example/demo/TestcontainersConfiguration.java")
+			.contains("import com.example.OtherConnectionDetails;")
+			.contains("@ServiceConnection(type = { FakeConnectionDetails.class, OtherConnectionDetails.class })");
+	}
+
+	@Test
+	void rendersConnectionTypesInKotlin() {
+		ProjectRequest request = createProjectRequest("testcontainers");
+		request.setLanguage("kotlin");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).textFile("src/test/kotlin/com/example/demo/TestcontainersConfiguration.kt")
+			.contains("import com.example.OtherConnectionDetails")
+			.contains("@ServiceConnection(type = [FakeConnectionDetails::class, OtherConnectionDetails::class])");
+	}
+
+	@Test
+	void rendersConnectionTypesInGroovy() {
+		ProjectRequest request = createProjectRequest("testcontainers");
+		request.setLanguage("groovy");
+		ProjectStructure project = generateProject(request);
+		assertThat(project).textFile("src/test/groovy/com/example/demo/TestcontainersConfiguration.groovy")
+			.contains("import com.example.OtherConnectionDetails")
+			.contains("@ServiceConnection(type = [ FakeConnectionDetails, OtherConnectionDetails ])");
 	}
 
 	@TestConfiguration
@@ -130,8 +160,13 @@ class TestcontainersInfrastructureIntegrationTests extends AbstractExtensionTest
 				serviceConnections.addServiceConnection(connection);
 				ServiceConnection typedConnection = ServiceConnection
 					.ofContainer("typed", fakeDockerService, "com.example.TypedContainer", false)
-					.withConnectionType(ClassName.of("com.example.FakeConnectionDetails"));
+					.withConnectionTypes(ClassName.of("com.example.FakeConnectionDetails"));
 				serviceConnections.addServiceConnection(typedConnection);
+				ServiceConnection multiTypedConnection = ServiceConnection
+					.ofContainer("multi-typed", fakeDockerService, "com.example.MultiTypedContainer", false)
+					.withConnectionTypes(ClassName.of("com.example.FakeConnectionDetails"),
+							ClassName.of("com.example.OtherConnectionDetails"));
+				serviceConnections.addServiceConnection(multiTypedConnection);
 			};
 		}
 

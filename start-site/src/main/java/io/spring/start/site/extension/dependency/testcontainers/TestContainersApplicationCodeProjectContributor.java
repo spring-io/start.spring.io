@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import io.spring.initializr.generator.language.Annotatable;
+import io.spring.initializr.generator.language.Annotation.AttributeKind;
 import io.spring.initializr.generator.language.ClassName;
 import io.spring.initializr.generator.language.CodeBlock;
 import io.spring.initializr.generator.language.CompilationUnit;
@@ -128,8 +129,8 @@ abstract class TestContainersApplicationCodeProjectContributor<T extends TypeDec
 			if (serviceConnection.connectionName() != null) {
 				annotation.set("name", serviceConnection.connectionName());
 			}
-			if (serviceConnection.connectionType() != null) {
-				annotation.set("type", serviceConnection.connectionType());
+			if (!serviceConnection.connectionTypes().isEmpty()) {
+				annotation.set("type", AttributeKind.ARRAY, serviceConnection.connectionTypes().toArray());
 			}
 		});
 		for (ServiceConnections.AnnotationRequest request : serviceConnection.annotations()) {

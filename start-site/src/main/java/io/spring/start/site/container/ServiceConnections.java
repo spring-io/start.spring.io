@@ -77,16 +77,17 @@ public class ServiceConnections {
 	 * parameter
 	 * @param connectionName the value for the {@code name} attribute of
 	 * {@code @ServiceConnection} when not {@code null}
-	 * @param connectionType the value for the {@code type} attribute of
-	 * {@code @ServiceConnection} when not {@code null}
+	 * @param connectionTypes the values for the {@code type} attribute of
+	 * {@code @ServiceConnection} when not empty
 	 * @param annotations additional annotations to place on the generated method after
 	 * {@code @Bean} and {@code @ServiceConnection}
 	 */
 	public record ServiceConnection(String id, DockerService dockerService, String containerClassName,
-			boolean containerClassNameGeneric, String connectionName, ClassName connectionType,
+			boolean containerClassNameGeneric, String connectionName, List<ClassName> connectionTypes,
 			List<AnnotationRequest> annotations) {
 
 		public ServiceConnection {
+			connectionTypes = (connectionTypes != null) ? List.copyOf(connectionTypes) : List.of();
 			annotations = (annotations != null) ? List.copyOf(annotations) : List.of();
 		}
 
@@ -126,19 +127,19 @@ public class ServiceConnections {
 			List<AnnotationRequest> newAnnotations = new ArrayList<>(this.annotations);
 			newAnnotations.add(new AnnotationRequest(annotationClassName, customizer));
 			return new ServiceConnection(this.id, this.dockerService, this.containerClassName,
-					this.containerClassNameGeneric, this.connectionName, this.connectionType, newAnnotations);
+					this.containerClassNameGeneric, this.connectionName, this.connectionTypes, newAnnotations);
 		}
 
 		/**
-		 * Set the {@code type} attribute of {@code @ServiceConnection}. Returns a new
-		 * instance; this record is not modified.
-		 * @param connectionType the connection details type to create, for example
-		 * {@code RabbitStreamConnectionDetails}
-		 * @return a new {@link ServiceConnection} with the connection type
+		 * Set the {@code type} attribute of {@code @ServiceConnection}, replacing any
+		 * previous types. Returns a new instance; this record is not modified.
+		 * @param connectionTypes the connection details types to create, for example
+		 * {@code RabbitConnectionDetails} and {@code RabbitStreamConnectionDetails}
+		 * @return a new {@link ServiceConnection} with the connection types
 		 */
-		public ServiceConnection withConnectionType(ClassName connectionType) {
+		public ServiceConnection withConnectionTypes(ClassName... connectionTypes) {
 			return new ServiceConnection(this.id, this.dockerService, this.containerClassName,
-					this.containerClassNameGeneric, this.connectionName, connectionType, this.annotations);
+					this.containerClassNameGeneric, this.connectionName, List.of(connectionTypes), this.annotations);
 		}
 
 		/**
