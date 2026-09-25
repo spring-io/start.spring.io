@@ -156,7 +156,7 @@ function HistoryItem({ time, value, name, isoDate, onClose, editingId, setEditin
     <li>
       <a
         className='item'
-        href={`/#${value}`}
+        href={`/#!${value}`}
         onClick={() => {
           onClose()
         }}

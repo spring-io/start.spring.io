@@ -18,7 +18,7 @@ function FavoriteItem({ name, value, onClose, onRemove, onUpdate }) {
     <li>
       <a
         className='item'
-        href={`/#${value}`}
+        href={`/#!${value}`}
         onClick={() => {
           onClose()
         }}

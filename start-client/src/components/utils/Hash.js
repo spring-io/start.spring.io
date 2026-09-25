@@ -12,12 +12,13 @@ const getHash = () => {
 
 const clearHash = () => {
   if (window.location.hash) {
-    if (window.history.pushState) {
-      window.history.pushState(null, null, window.location.pathname)
-    } else {
-      window.history.hash = ``
-    }
+    window.history.pushState(null, null, window.location.pathname)
   }
+}
+
+// Strips the "#" or "#!" prefix, e.g. "#!type=maven-project" -> "type=maven-project"
+export const parseHash = hash => {
+  return queryString.parse(hash.replace(/^#!?/, ''))
 }
 
 export default function useHash() {
@@ -38,7 +39,7 @@ export default function useHash() {
 
   useEffect(() => {
     if (complete && hash) {
-      const params = queryString.parse(`?${hash.substr(2)}`)
+      const params = parseHash(hash)
       dispatch({ type: 'LOAD', payload: { params, lists: config.lists } })
       if (params?.platformVersion) {
         dispatchApp({
@@ -52,7 +53,7 @@ export default function useHash() {
         toast.success(`Configuration loaded.`)
       }
     }
-  }, [complete, hash, dispatch, config])
+  }, [complete, hash, dispatch, config, dispatchApp])
 
   return null
 }
