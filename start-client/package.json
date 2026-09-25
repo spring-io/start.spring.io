@@ -134,8 +134,16 @@
       "<rootDir>/node_modules/react-addons-test-utils"
     ],
     "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+      "^.+\\.(js|jsx|ts|tsx)$": [
+        "babel-jest",
+        {
+          "configFile": "./.babelrc"
+        }
+      ]
     },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(query-string|decode-uri-component|filter-obj|split-on-first)/)"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",

@@ -12,17 +12,13 @@ const getHash = () => {
 
 const clearHash = () => {
   if (window.location.hash) {
-    if (window.history.pushState) {
-      window.history.pushState(null, null, window.location.pathname)
-    } else {
-      window.location.hash = ''
-    }
+    window.history.pushState(null, null, window.location.pathname)
   }
 }
 
-export const parseHash = (hash = '') => {
-  const cleanHash = (hash || '').replace(/^#[!/]*/, '')
-  return queryString.parse(cleanHash)
+// Strips the "#" or "#!" prefix, e.g. "#!type=maven-project" -> "type=maven-project"
+export const parseHash = hash => {
+  return queryString.parse(hash.replace(/^#!?/, ''))
 }
 
 export default function useHash() {
