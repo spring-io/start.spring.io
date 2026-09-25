@@ -20,6 +20,7 @@ import java.util.List;
 
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.metadata.MetadataElement;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -72,6 +73,21 @@ class JavaVersionMappingIntegrationTests {
 				.doesNotThrowAnyException();
 		}
 		assertThat(output).doesNotContain("Failed to find mapping for Spring Boot");
+	}
+
+	@Test
+	void javaVersionsAreKnown() {
+		// A Java version above the known ceiling skips the Spring Boot constraints
+		List<Integer> javaVersions = this.metadataProvider.get()
+			.getJavaVersions()
+			.getContent()
+			.stream()
+			.map(MetadataElement::getId)
+			.map(Integer::parseInt)
+			.toList();
+		assertThat(javaVersions).isNotEmpty()
+			.allSatisfy((javaVersion) -> assertThat(javaVersion)
+				.isLessThanOrEqualTo(this.mapping.getMaxKnownJavaVersion()));
 	}
 
 }

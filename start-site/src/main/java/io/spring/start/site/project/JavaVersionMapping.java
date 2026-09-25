@@ -38,6 +38,11 @@ class JavaVersionMapping {
 	private static final List<Mapping> mappings = List.of(Mapping.of("[4.0.0-M1,4.1.0-M1)", 17, 27, "2.2.0"),
 			Mapping.of("[4.1.0-M1,4.2.0-M1)", 17, 27, "2.3.0"), Mapping.of("[4.2.0-M1,4.3.0-M1)", 17, 27, "2.4.0"));
 
+	private static final int MAX_KNOWN_JAVA_VERSION = mappings.stream()
+		.mapToInt(Mapping::maxJavaVersion)
+		.max()
+		.orElseThrow();
+
 	/**
 	 * Returns the minimum supported Java version.
 	 * @param springBootVersion the version of Spring Boot
@@ -70,7 +75,7 @@ class JavaVersionMapping {
 	 * @return the maximum known Java version
 	 */
 	int getMaxKnownJavaVersion() {
-		return mappings.stream().mapToInt(Mapping::maxJavaVersion).max().orElseThrow();
+		return MAX_KNOWN_JAVA_VERSION;
 	}
 
 	private Mapping findMapping(Version springBootVersion) {

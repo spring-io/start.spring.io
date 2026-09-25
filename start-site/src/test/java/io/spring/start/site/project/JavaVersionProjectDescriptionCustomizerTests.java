@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.test.io.TextAssert;
+import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.web.project.ProjectRequest;
 import io.spring.start.site.SupportedBootVersion;
 import io.spring.start.site.extension.AbstractExtensionTests;
@@ -27,6 +28,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -125,9 +127,14 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 		assertHelpDocument("${another.version}").doesNotContain("# Read Me First");
 	}
 
-	@Test
-	void java27IsSupportedOnBoot42() {
-		assertThat(mavenPom(javaProject("27", "4.2.0"))).hasProperty("java.version", "27");
+	@ParameterizedTest
+	@EnumSource
+	void maxKnownJavaIsCappedBySpringBoot(SupportedBootVersion bootVersion) {
+		JavaVersionMapping mapping = new JavaVersionMapping();
+		String maxKnown = Integer.toString(mapping.getMaxKnownJavaVersion());
+		int expected = mapping.getMaxJavaVersion(Version.parse(bootVersion.getVersion()));
+		assertThat(mavenPom(javaProject(maxKnown, bootVersion.getVersion()))).hasProperty("java.version",
+				Integer.toString(expected));
 	}
 
 	private TextAssert assertHelpDocument(ProjectRequest request) {
