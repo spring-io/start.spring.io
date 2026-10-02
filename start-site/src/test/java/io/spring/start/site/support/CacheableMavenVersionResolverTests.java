@@ -34,11 +34,14 @@ import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Tests for {@link CacheableMavenVersionResolver}.
  *
  * @author Stephane Nicoll
+ * @author Moritz Halbritter
  */
 @SpringBootTest
 @ActiveProfiles("test")
@@ -81,6 +84,13 @@ class CacheableMavenVersionResolverTests {
 			.formatted(SupportedBootVersion.latest().getVersion()));
 		assertThat(valueWrapper).isNotNull();
 		assertThat(valueWrapper.get()).isInstanceOf(Map.class);
+	}
+
+	@Test
+	void closeClosesDelegate() {
+		MavenVersionResolver delegate = mock(MavenVersionResolver.class);
+		new CacheableMavenVersionResolver(delegate).close();
+		verify(delegate).close();
 	}
 
 }

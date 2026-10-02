@@ -53,6 +53,11 @@ public class CacheableMavenVersionResolver implements MavenVersionResolver, KeyG
 	}
 
 	@Override
+	public void close() {
+		this.delegate.close();
+	}
+
+	@Override
 	public Object generate(Object target, Method method, Object... params) {
 		String prefix = (method.getName().equals("resolveDependencies")) ? "dependencies" : "plugins";
 		return "%s-%s:%s:%s".formatted(prefix, params[0], params[1], params[2]);
