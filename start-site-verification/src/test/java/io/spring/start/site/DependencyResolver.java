@@ -25,34 +25,26 @@ import java.util.stream.Stream;
 
 import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.start.testsupport.Homes;
-import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
-import org.eclipse.aether.DefaultRepositorySystemSession;
+import org.apache.maven.repository.supplier.RepositorySystemSupplier;
+import org.apache.maven.repository.supplier.SessionBuilderSupplier;
 import org.eclipse.aether.RepositorySystem;
-import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.RepositorySystemSession.CloseableSession;
 import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.collection.CollectRequest;
 import org.eclipse.aether.collection.CollectResult;
 import org.eclipse.aether.collection.DependencyCollectionException;
-import org.eclipse.aether.connector.basic.BasicRepositoryConnectorFactory;
 import org.eclipse.aether.graph.Dependency;
 import org.eclipse.aether.graph.DependencyFilter;
 import org.eclipse.aether.graph.DependencyNode;
 import org.eclipse.aether.graph.DependencyVisitor;
-import org.eclipse.aether.impl.DefaultServiceLocator;
-import org.eclipse.aether.internal.impl.DefaultRepositorySystem;
-import org.eclipse.aether.repository.LocalRepository;
 import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.repository.RemoteRepository.Builder;
 import org.eclipse.aether.repository.RepositoryPolicy;
 import org.eclipse.aether.resolution.ArtifactDescriptorException;
 import org.eclipse.aether.resolution.ArtifactDescriptorRequest;
-import org.eclipse.aether.spi.connector.RepositoryConnectorFactory;
-import org.eclipse.aether.spi.connector.transport.TransporterFactory;
-import org.eclipse.aether.spi.locator.ServiceLocator;
 import org.eclipse.aether.transfer.AbstractTransferListener;
 import org.eclipse.aether.transfer.TransferEvent;
 import org.eclipse.aether.transfer.TransferResource;
-import org.eclipse.aether.transport.http.HttpTransporterFactory;
 import org.eclipse.aether.util.artifact.JavaScopes;
 import org.eclipse.aether.util.filter.DependencyFilterUtils;
 import org.eclipse.aether.util.graph.visitor.FilteringDependencyVisitor;
@@ -60,7 +52,7 @@ import org.eclipse.aether.util.repository.SimpleArtifactDescriptorPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-final class DependencyResolver {
+final class DependencyResolver implements AutoCloseable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DependencyResolver.class);
 
@@ -69,29 +61,25 @@ final class DependencyResolver {
 
 	private static final Map<String, List<Dependency>> managedDependencies = new ConcurrentHashMap<>();
 
-	private final RepositorySystemSession repositorySystemSession;
+	private final CloseableSession repositorySystemSession;
 
 	private final RepositorySystem repositorySystem;
 
-	@SuppressWarnings("deprecation")
 	DependencyResolver(Path localRepositoryLocation) {
-		try {
-			ServiceLocator serviceLocator = createServiceLocator();
-			DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
-			session.setTransferListener(new Slf4jTransferListener());
-			session.setArtifactDescriptorPolicy(new SimpleArtifactDescriptorPolicy(false, false));
-			LocalRepository localRepository = new LocalRepository(localRepositoryLocation.toFile());
-			this.repositorySystem = serviceLocator.getService(RepositorySystem.class);
-			session
-				.setLocalRepositoryManager(this.repositorySystem.newLocalRepositoryManager(session, localRepository));
-			session.setUserProperties(System.getProperties());
-			session.setIgnoreArtifactDescriptorRepositories(true);
-			session.setReadOnly();
-			this.repositorySystemSession = session;
-		}
-		catch (Exception ex) {
-			throw new RuntimeException(ex);
-		}
+		this.repositorySystem = new RepositorySystemSupplier().get();
+		this.repositorySystemSession = new SessionBuilderSupplier(this.repositorySystem).get()
+			.setTransferListener(new Slf4jTransferListener())
+			.setArtifactDescriptorPolicy(new SimpleArtifactDescriptorPolicy(false, false))
+			.withLocalRepositoryBaseDirectories(localRepositoryLocation)
+			.setUserProperties(System.getProperties())
+			.setIgnoreArtifactDescriptorRepositories(true)
+			.build();
+	}
+
+	@Override
+	public void close() {
+		this.repositorySystemSession.close();
+		this.repositorySystem.shutdown();
 	}
 
 	private static RepositoryPolicy repositoryPolicy(boolean enabled, String updatePolicy) {
@@ -117,13 +105,12 @@ final class DependencyResolver {
 
 	static List<String> resolveDependencies(Homes homes, String groupId, String artifactId, String version,
 			List<BillOfMaterials> boms, List<RemoteRepository> repositories) {
-		DependencyResolver resolver = new DependencyResolver(homes.get().resolve("repository"));
-		List<Dependency> managedDependencies = resolver.getManagedDependencies(boms, repositories);
-		Dependency aetherDependency = new Dependency(new DefaultArtifact(groupId, artifactId, "pom",
-				resolver.getVersion(groupId, artifactId, version, managedDependencies)), "compile");
-		CollectRequest collectRequest = new CollectRequest(aetherDependency, repositories);
-		collectRequest.setManagedDependencies(managedDependencies);
-		try {
+		try (DependencyResolver resolver = new DependencyResolver(homes.get().resolve("repository"))) {
+			List<Dependency> managedDependencies = resolver.getManagedDependencies(boms, repositories);
+			Dependency aetherDependency = new Dependency(new DefaultArtifact(groupId, artifactId, "pom",
+					resolver.getVersion(groupId, artifactId, version, managedDependencies)), "compile");
+			CollectRequest collectRequest = new CollectRequest(aetherDependency, repositories);
+			collectRequest.setManagedDependencies(managedDependencies);
 			CollectResult result = resolver.collectDependencies(collectRequest);
 			return DependencyCollector.collect(result.getRoot(), RuntimeTransitiveOnlyDependencyFilter.INSTANCE);
 		}
@@ -176,15 +163,6 @@ final class DependencyResolver {
 			}
 		}
 		return null;
-	}
-
-	@SuppressWarnings("deprecation")
-	private static ServiceLocator createServiceLocator() {
-		DefaultServiceLocator locator = MavenRepositorySystemUtils.newServiceLocator();
-		locator.addService(RepositorySystem.class, DefaultRepositorySystem.class);
-		locator.addService(RepositoryConnectorFactory.class, BasicRepositoryConnectorFactory.class);
-		locator.addService(TransporterFactory.class, HttpTransporterFactory.class);
-		return locator;
 	}
 
 	static class DependencyCollector implements DependencyVisitor {
