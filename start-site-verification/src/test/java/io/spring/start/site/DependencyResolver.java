@@ -27,6 +27,7 @@ import io.spring.initializr.metadata.BillOfMaterials;
 import io.spring.start.testsupport.Homes;
 import org.apache.maven.repository.supplier.RepositorySystemSupplier;
 import org.apache.maven.repository.supplier.SessionBuilderSupplier;
+import org.eclipse.aether.DefaultRepositoryCache;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession.CloseableSession;
 import org.eclipse.aether.artifact.DefaultArtifact;
@@ -61,6 +62,8 @@ final class DependencyResolver implements AutoCloseable {
 
 	private static final Map<String, List<Dependency>> managedDependencies = new ConcurrentHashMap<>();
 
+	private static final Map<Path, DependencyResolver> dependencyResolvers = new ConcurrentHashMap<>();
+
 	private final CloseableSession repositorySystemSession;
 
 	private final RepositorySystem repositorySystem;
@@ -68,6 +71,7 @@ final class DependencyResolver implements AutoCloseable {
 	DependencyResolver(Path localRepositoryLocation) {
 		this.repositorySystem = new RepositorySystemSupplier().get();
 		this.repositorySystemSession = new SessionBuilderSupplier(this.repositorySystem).get()
+			.setCache(new DefaultRepositoryCache())
 			.setTransferListener(new Slf4jTransferListener())
 			.setArtifactDescriptorPolicy(new SimpleArtifactDescriptorPolicy(false, false))
 			.withLocalRepositoryBaseDirectories(localRepositoryLocation)
@@ -87,25 +91,16 @@ final class DependencyResolver implements AutoCloseable {
 	}
 
 	static RemoteRepository createRemoteRepository(String id, String url, boolean snapshot) {
-		return createRemoteRepository(id, url, snapshot, getSnapshotPolicy(), RepositoryPolicy.UPDATE_POLICY_NEVER);
-	}
-
-	private static String getSnapshotPolicy() {
-		String env = System.getenv("START_SPRING_IO_SNAPSHOT_POLICY");
-		return (env != null) ? env : RepositoryPolicy.UPDATE_POLICY_ALWAYS;
-	}
-
-	static RemoteRepository createRemoteRepository(String id, String url, boolean snapshot, String snapshotPolicy,
-			String releasePolicy) {
 		Builder repositoryBuilder = new Builder(id, "default", url);
-		repositoryBuilder.setSnapshotPolicy(repositoryPolicy(snapshot, snapshotPolicy));
-		repositoryBuilder.setReleasePolicy(repositoryPolicy(!snapshot, releasePolicy));
+		repositoryBuilder.setSnapshotPolicy(repositoryPolicy(snapshot, RepositoryPolicy.UPDATE_POLICY_ALWAYS));
+		repositoryBuilder.setReleasePolicy(repositoryPolicy(!snapshot, RepositoryPolicy.UPDATE_POLICY_NEVER));
 		return repositoryBuilder.build();
 	}
 
 	static List<String> resolveDependencies(Homes homes, String groupId, String artifactId, String version,
 			List<BillOfMaterials> boms, List<RemoteRepository> repositories) {
-		try (DependencyResolver resolver = new DependencyResolver(homes.get().resolve("repository"))) {
+		DependencyResolver resolver = getDependencyResolver(homes.get().resolve("repository"));
+		try {
 			List<Dependency> managedDependencies = resolver.getManagedDependencies(boms, repositories);
 			Dependency aetherDependency = new Dependency(new DefaultArtifact(groupId, artifactId, "pom",
 					resolver.getVersion(groupId, artifactId, version, managedDependencies)), "compile");
@@ -117,6 +112,14 @@ final class DependencyResolver implements AutoCloseable {
 		catch (DependencyCollectionException ex) {
 			throw new RuntimeException(ex);
 		}
+	}
+
+	private static DependencyResolver getDependencyResolver(Path localRepository) {
+		return dependencyResolvers.computeIfAbsent(localRepository, (path) -> {
+			DependencyResolver resolver = new DependencyResolver(path);
+			Runtime.getRuntime().addShutdownHook(new Thread(resolver::close));
+			return resolver;
+		});
 	}
 
 	private List<Dependency> getManagedDependencies(List<BillOfMaterials> boms, List<RemoteRepository> repositories) {
