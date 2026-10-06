@@ -12,7 +12,7 @@ const getHash = () => {
 
 const clearHash = () => {
   if (window.location.hash) {
-    window.history.pushState(null, null, window.location.pathname)
+    window.history.replaceState(null, null, window.location.pathname)
   }
 }
 
