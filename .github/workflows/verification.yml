@@ -6,10 +6,15 @@ on:
     - cron: '15 3 * * *'
   workflow_dispatch:
 
+env:
+  START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
+
 jobs:
   verification:
     name: Verification
     runs-on: ubuntu-latest
+    if: ${{ github.repository == 'spring-io/start.spring.io' }}
+    timeout-minutes: 30
     steps:
       - name: Check out
         uses: actions/checkout@v7
@@ -23,7 +28,7 @@ jobs:
       - name: Restore Maven/Gradle repositories for tests cache
         uses: actions/cache/restore@v6
         with:
-          path: /tmp/start-spring-io-cache-2024-12-11
+          path: ${{ env.START_SPRING_IO_TMPDIR }}
           # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
           key: test-repositories-${{ runner.os }}-${{ github.run_id }}
           restore-keys: test-repositories-${{ runner.os }}
@@ -35,16 +40,13 @@ jobs:
           key: node-modules-${{ hashFiles('start-client/yarn.lock') }}
 
       - name: Run verification tests
-        env:
-          JUNIT_MAX_PARALLELISM: "1"
-          START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
         run: ./mvnw --batch-mode --update-snapshots --activate-profiles verification verify
 
       - name: Save Maven/Gradle repositories for tests cache
         if: always()
         uses: actions/cache/save@v6
         with:
-          path: /tmp/start-spring-io-cache-2024-12-11
+          path: ${{ env.START_SPRING_IO_TMPDIR }}
           key: test-repositories-${{ runner.os }}-${{ github.run_id }}
 
       - name: Send notification

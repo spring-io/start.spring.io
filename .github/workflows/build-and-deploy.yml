@@ -9,6 +9,8 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+env:
+  START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
 jobs:
   build:
     name: Build and deploy
@@ -26,7 +28,7 @@ jobs:
       - name: Cache Maven/Gradle repositories for tests
         uses: actions/cache@v6
         with:
-          path: /tmp/start-spring-io-cache-2024-12-11
+          path: ${{ env.START_SPRING_IO_TMPDIR }}
           # See https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
           key: test-repositories-${{ runner.os }}-${{ github.run_id }}
           restore-keys: test-repositories-${{ runner.os }}
@@ -39,7 +41,6 @@ jobs:
 
       - name: Build with Maven
         env:
-          START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
           GOOGLE_TAGMANAGER_ID: ${{ vars.GOOGLE_TAGMANAGER_ID }}
         run: ./mvnw --batch-mode --update-snapshots verify
 

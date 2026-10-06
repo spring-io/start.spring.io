@@ -4,11 +4,19 @@ on: pull_request
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  START_SPRING_IO_TMPDIR: /tmp/start-spring-io-cache-2024-12-11
+
 jobs:
   build:
     name: Build pull request
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'spring-io/start.spring.io' }}
+    timeout-minutes: 60
     steps:
       - name: Check out
         uses: actions/checkout@v7
@@ -19,5 +27,12 @@ jobs:
           java-version-file: '.sdkmanrc'
           cache: 'maven'
 
+      - name: Restore Maven/Gradle repositories for tests cache
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ env.START_SPRING_IO_TMPDIR }}
+          key: test-repositories-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: test-repositories-${{ runner.os }}
+
       - name: Build with Maven
-        run: ./mvnw --batch-mode --update-snapshots verify
+        run: ./mvnw --batch-mode --update-snapshots --activate-profiles full verify
