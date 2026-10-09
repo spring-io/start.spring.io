@@ -27,17 +27,34 @@ describe('parseHash', () => {
 })
 
 describe('useHash', () => {
-  it('replaces a share hash instead of pushing history', () => {
-    const pushState = jest.fn()
-    const replaceState = jest.fn()
+  let pushState
+  let replaceState
+  let renderer
+
+  // Stub the browser window, the test environment has none
+  beforeEach(() => {
+    pushState = jest.fn()
+    replaceState = jest.fn()
     global.window = {
       location: { hash: '#!type=maven-project', pathname: '/' },
       history: { pushState, replaceState },
       addEventListener: jest.fn(),
       removeEventListener: jest.fn(),
     }
+  })
 
-    let renderer
+  // Runs even if an assertion fails, so the stub never leaks
+  afterEach(() => {
+    if (renderer) {
+      act(() => {
+        renderer.unmount()
+      })
+      renderer = undefined
+    }
+    delete global.window
+  })
+
+  it('replaces a share hash instead of pushing history', () => {
     act(() => {
       renderer = create(
         <AppContext.Provider
@@ -54,16 +71,7 @@ describe('useHash', () => {
       )
     })
 
-    expect(replaceState).toHaveBeenCalledWith(
-      null,
-      null,
-      window.location.pathname
-    )
+    expect(replaceState).toHaveBeenCalledWith(null, null, '/')
     expect(pushState).not.toHaveBeenCalled()
-
-    act(() => {
-      renderer.unmount()
-    })
-    delete global.window
   })
 })
