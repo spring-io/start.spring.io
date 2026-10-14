@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>io.spring.start</groupId>
 		<artifactId>start-parent</artifactId>
-		<version>${revision}</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>start-site-verification</artifactId>
 	<name>start.spring.io website verification</name>

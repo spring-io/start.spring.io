@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.spring.start</groupId>
         <artifactId>start-parent</artifactId>
-        <version>${revision}</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>test-support</artifactId>
     <name>Support utilities for tests</name>

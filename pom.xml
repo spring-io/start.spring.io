@@ -14,12 +14,11 @@
 	</parent>
 	<groupId>io.spring.start</groupId>
 	<artifactId>start-parent</artifactId>
-	<version>${revision}</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>start.spring.io</name>
 
 	<properties>
-		<revision>0.0.1-SNAPSHOT</revision>
 		<disable.checks>false</disable.checks>
 		<spring-initializr.version>0.25.0-SNAPSHOT</spring-initializr.version>
 		<spring-javaformat.version>0.0.48</spring-javaformat.version>
@@ -61,17 +60,17 @@
 			<dependency>
 				<groupId>io.spring.start</groupId>
 				<artifactId>start-client</artifactId>
-				<version>${revision}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.spring.start</groupId>
 				<artifactId>start-site</artifactId>
-				<version>${revision}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.spring.start</groupId>
 				<artifactId>test-support</artifactId>
-				<version>${revision}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.azure.spring</groupId>
@@ -86,11 +85,6 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>flatten-maven-plugin</artifactId>
-					<version>1.7.1</version>
-				</plugin>
 				<plugin>
 					<groupId>io.spring.javaformat</groupId>
 					<artifactId>spring-javaformat-maven-plugin</artifactId>
@@ -157,32 +151,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>flatten-maven-plugin</artifactId>
-				<inherited>true</inherited>
-				<executions>
-					<execution>
-						<!-- Tidy up all POMs before they are published -->
-						<id>flatten</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>flatten</goal>
-						</goals>
-						<configuration>
-							<updatePomFile>true</updatePomFile>
-							<flattenMode>oss</flattenMode>
-							<pomElements>
-								<parent>expand</parent>
-								<distributionManagement>remove</distributionManagement>
-								<repositories>remove</repositories>
-							</pomElements>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
 
 	<repositories>
