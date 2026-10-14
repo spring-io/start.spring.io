@@ -25,6 +25,10 @@ spring:
   cache:
     jcache:
       config: classpath:ehcache.xml
+  http:
+    clients:
+      connect-timeout: 5s
+      read-timeout: 10s
   task:
     execution:
       thread-name-prefix: initializr-
