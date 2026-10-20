@@ -112,7 +112,10 @@ class JavaVersionProjectDescriptionCustomizerTests extends AbstractExtensionTest
 
 	@Test
 	void warningNotAddedWithUnparseableVersion() {
-		assertHelpDocument("${another.version}").doesNotContain("# Read Me First");
+		ProjectRequest request = createProjectRequest("web");
+		request.setType("maven-project");
+		request.setJavaVersion("${another.version}");
+		assertHelpDocument(request).doesNotContain("# Read Me First");
 	}
 
 	@ParameterizedTest
