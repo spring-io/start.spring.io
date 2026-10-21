@@ -1604,11 +1604,11 @@ initializr:
       content:
         - name: Governance Starter [Enterprise]
           id: tanzu-governance-starter
-          compatibilityRange: "[3.5.0,4.0.0)"
+          compatibilityRange: "[4.0.0,4.2.0-M1)"
           description: The Enterprise Spring Boot Governance Starter library enforces cipher and TLS security based on the industry standard, and empowers Spring developers to auto-generate compliance and governance reporting information for their applications.
           groupId: com.vmware.tanzu.spring.governance
           artifactId: governance-starter
-          version: 1.3.1
+          version: 2.0.1
           facets:
             - tanzu-spring-enterprise
           links:
