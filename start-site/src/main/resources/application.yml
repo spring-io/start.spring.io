@@ -172,8 +172,8 @@ initializr:
         artifactId: extensions-bom
         versionProperty: tanzu-scg-extensions.version
         mappings:
-          - compatibilityRange: "[3.5.0,4.0.0)"
-            version: 1.0.1
+          - compatibilityRange: "[4.1.0,4.2.0-M1)"
+            version: 1.1.0
       tanzu-spring-sdk:
         groupId: com.vmware.tanzu.spring
         artifactId: tanzu-spring-sdk-dependencies
@@ -1600,10 +1600,11 @@ initializr:
             - rel: reference
               href: https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/index.html
     - name: VMware Tanzu Spring Enterprise Extensions
-      compatibilityRange: "[3.5.0,4.0.0)"
+      compatibilityRange: "[4.1.0,4.2.0-M1)"
       content:
         - name: Governance Starter [Enterprise]
           id: tanzu-governance-starter
+          compatibilityRange: "[3.5.0,4.0.0)"
           description: The Enterprise Spring Boot Governance Starter library enforces cipher and TLS security based on the industry standard, and empowers Spring developers to auto-generate compliance and governance reporting information for their applications.
           groupId: com.vmware.tanzu.spring.governance
           artifactId: governance-starter
@@ -1623,7 +1624,7 @@ initializr:
             - tanzu-spring-enterprise
           links:
             - rel: reference
-              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/access-control.html
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring-cloud-gateway-extensions/1-1-0/scg-extensions/access-control.html
         - name: Spring Cloud Gateway Custom [Enterprise]
           id: tanzu-scg-custom
           bom: tanzu-scg-extensions
@@ -1634,7 +1635,7 @@ initializr:
             - tanzu-spring-enterprise
           links:
             - rel: reference
-              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/custom.html
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring-cloud-gateway-extensions/1-1-0/scg-extensions/custom.html
         - name: Spring Cloud Gateway GraphQL [Enterprise]
           id: tanzu-scg-graphql
           bom: tanzu-scg-extensions
@@ -1645,7 +1646,7 @@ initializr:
             - tanzu-spring-enterprise
           links:
             - rel: reference
-              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/graphql.html
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring-cloud-gateway-extensions/1-1-0/scg-extensions/graphql.html
         - name: Spring Cloud Gateway Single Sign On [Enterprise]
           id: tanzu-scg-sso
           bom: tanzu-scg-extensions
@@ -1656,7 +1657,7 @@ initializr:
             - tanzu-spring-enterprise
           links:
             - rel: reference
-              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/sso.html
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring-cloud-gateway-extensions/1-1-0/scg-extensions/sso.html
         - name: Spring Cloud Gateway Traffic Control [Enterprise]
           id: tanzu-scg-traffic-control
           bom: tanzu-scg-extensions
@@ -1667,7 +1668,7 @@ initializr:
             - tanzu-spring-enterprise
           links:
             - rel: reference
-              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/traffic-control.html
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring-cloud-gateway-extensions/1-1-0/scg-extensions/traffic-control.html
         - name: Spring Cloud Gateway Transformation [Enterprise]
           id: tanzu-scg-transformation
           bom: tanzu-scg-extensions
@@ -1678,7 +1679,7 @@ initializr:
             - tanzu-spring-enterprise
           links:
             - rel: reference
-              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/spring-cloud-gateway-extensions/1-0-0/scg-extensions/transformation.html
+              href: https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring-cloud-gateway-extensions/1-1-0/scg-extensions/transformation.html
     - name: VMware Tanzu Spring SDK
       compatibilityRange: "[4.0.0,4.1.0-M1)"
       content:
