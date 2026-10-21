@@ -19,7 +19,7 @@ server:
     enabled: true
     mime-types: application/json,text/css,text/html
     min-response-size: 2048
-  forward-headers-strategy: native
+  forward-headers-strategy: none
 
 spring:
   cache:
@@ -50,6 +50,7 @@ initializr:
     elastic:
       uri: ${elastic-uri:}
   env:
+    service-url: "https://start.spring.io"
     boms:
       datasource-micrometer:
         groupId: net.ttddyy.observation
