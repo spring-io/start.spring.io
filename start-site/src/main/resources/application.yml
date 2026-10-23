@@ -119,6 +119,12 @@ initializr:
             version: 2026.0.0-SNAPSHOT
             repositories:
               - spring-snapshots
+          - compatibilityRange: "[4.0.9,4.1.0-M1)"
+            version: 2025.1.4
+          - compatibilityRange: "[4.0.9-SNAPSHOT,4.1.0-M1)"
+            version: 2025.1.4-SNAPSHOT
+            repositories:
+              - spring-snapshots
       spring-cloud-azure:
         groupId: com.azure.spring
         artifactId: spring-cloud-azure-dependencies
