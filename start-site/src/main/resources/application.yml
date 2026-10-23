@@ -102,9 +102,9 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[4.0.0,4.2.0-M1)"
-            version: 2.0.1
+            version: 2.0.2
           - compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
-            version: 2.1.0-M1
+            version: 2.1.0-RC1
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1892,6 +1892,33 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/embeddings/google-genai-embeddings.html
+        - name: Google GenAI Image
+          id: spring-ai-google-genai-image
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-google-genai-image
+          description: Spring AI support for Google GenAI image models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/image/google-genai-image.html
+        - name: Google GenAI Transcription
+          id: spring-ai-google-genai-transcription
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-google-genai-transcription
+          description: Spring AI support for Google GenAI transcription models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/audio/transcriptions/google-genai-transcriptions.html
+        - name: Google GenAI Text to Speech
+          id: spring-ai-google-genai-tts
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-google-genai-tts
+          description: Spring AI support for Google GenAI text-to-speech models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/audio/speech/google-genai-speech.html
         - name: Apache Cassandra Vector Database
           id: spring-ai-vectordb-cassandra
           group-id: org.springframework.ai
@@ -1955,6 +1982,15 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html
+        - name: JDBC Session
+          id: spring-ai-model-session-jdbc
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-session-jdbc
+          description: Spring AI Starter for the JDBC backed Session support.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/session.html
         - name: Tool Search Advisor
           id: spring-ai-tool-search-advisor
           group-id: org.springframework.ai
