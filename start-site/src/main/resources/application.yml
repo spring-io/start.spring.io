@@ -113,7 +113,7 @@ initializr:
         mappings:
           - compatibilityRange: "[4.0.0,4.2.0-M1)"
             version: 2025.1.3
-          - compatibilityRange: "[4.2.0-RC1,4.2.0-SNAPSHOT)"
+          - compatibilityRange: "[4.2.0-M1,4.2.0-SNAPSHOT)"
             version: 2026.0.0-RC1
           - compatibilityRange: "[4.2.0-SNAPSHOT,4.3.0-M1)"
             version: 2026.0.0-SNAPSHOT
