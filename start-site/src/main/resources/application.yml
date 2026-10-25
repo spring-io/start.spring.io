@@ -476,8 +476,10 @@ initializr:
           starter: true
           compatibilityRange: "[4.0.0,4.2.0-M1)"
           mappings:
-            - compatibilityRange: "[4.0.0,4.2.0-M1)"
-              version: 3.1.0
+            - compatibilityRange: "[4.0.0,4.1.0-M1)"
+              version: 3.0.3
+            - compatibilityRange: "[4.1.0-M1,4.2.0-M1)"
+              version: 3.2.0
           links:
             - rel: reference
               href: https://springdoc.org/
