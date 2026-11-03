@@ -1133,7 +1133,7 @@ initializr:
           compatibilityRange: "[4.0.0,4.2.0-M1)"
           mappings:
             - compatibilityRange: "[4.0.0,4.2.0-M1)"
-              version: 9.0.0
+              version: 9.0.3
               groupId: org.jobrunr
               artifactId: jobrunr-spring-boot-4-starter
           links:
