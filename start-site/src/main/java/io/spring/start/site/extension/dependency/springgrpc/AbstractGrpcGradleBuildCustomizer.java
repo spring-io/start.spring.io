@@ -9,7 +9,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleExtensionContaine
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 
 /**
- * Abstract base class for {@link BuildCustomizer} to deal withj Gradle based gRPC
+ * Abstract base class for {@link BuildCustomizer} to deal with Gradle based gRPC
  * projects.
  *
  * @author Moritz Halbritter
@@ -31,8 +31,7 @@ abstract class AbstractGrpcGradleBuildCustomizer implements BuildCustomizer<Grad
 		customizeExtensions(build.extensions());
 	}
 
-	protected void customizeExtensions(GradleExtensionContainer extensions) {
-	}
+	protected abstract void customizeExtensions(GradleExtensionContainer extensions);
 
 	protected String quote(String value) {
 		return this.quote + value + this.quote;

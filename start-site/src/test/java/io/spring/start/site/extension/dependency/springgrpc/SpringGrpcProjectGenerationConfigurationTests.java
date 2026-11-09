@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTests {
 
-	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.V4_1;
+	private static final SupportedBootVersion BOOT_VERSION = SupportedBootVersion.latest();
 
 	@Test
 	void shouldDoNothingIfSpringGrpcIsntSelected() {
@@ -33,7 +33,14 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	void shouldAddGrpcPluginForGradleGroovy(String entry) {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, entry);
 		request.setType("gradle-project");
-		assertThat(gradleBuild(request)).hasPlugin("com.google.protobuf", "0.9.6");
+		assertThat(gradleBuild(request)).hasPlugin("com.google.protobuf", "0.9.6").containsIgnoringWhitespaces("""
+				protobuf {
+					plugins {
+						grpc {
+						}
+					}
+				}
+				""");
 	}
 
 	@ParameterizedTest
@@ -41,7 +48,15 @@ class SpringGrpcProjectGenerationConfigurationTests extends AbstractExtensionTes
 	void shouldAddGrpcPluginForGradleKotlin(String entry) {
 		ProjectRequest request = createProjectRequest(BOOT_VERSION, entry);
 		request.setType("gradle-project-kotlin");
-		assertThat(gradleKotlinDslBuild(request)).hasPlugin("com.google.protobuf", "0.9.6");
+		assertThat(gradleKotlinDslBuild(request)).hasPlugin("com.google.protobuf", "0.9.6")
+			.contains("import com.google.protobuf.gradle.id")
+			.containsIgnoringWhitespaces("""
+					protobuf {
+						plugins {
+							id("grpc")
+						}
+					}
+					""");
 	}
 
 	@ParameterizedTest
