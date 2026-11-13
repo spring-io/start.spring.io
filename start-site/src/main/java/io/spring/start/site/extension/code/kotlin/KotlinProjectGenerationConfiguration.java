@@ -6,11 +6,13 @@ package io.spring.start.site.extension.code.kotlin;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnLanguage;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.spring.code.kotlin.InitializrMetadataKotlinVersionResolver;
+import io.spring.initializr.generator.spring.code.kotlin.KotlinCompilerArgsCustomizer;
 import io.spring.initializr.generator.spring.code.kotlin.KotlinVersionResolver;
 import io.spring.initializr.generator.spring.documentation.HelpDocumentCustomizer;
 import io.spring.initializr.metadata.InitializrMetadata;
@@ -25,6 +27,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Stephane Nicoll
  * @author Eddú Meléndez
+ * @author Moritz Halbritter
  */
 @ProjectGenerationConfiguration
 @ConditionalOnLanguage(KotlinLanguage.ID)
@@ -41,6 +44,12 @@ class KotlinProjectGenerationConfiguration {
 	ReactorKotlinExtensionsCustomizer reactorKotlinExtensionsCustomizer(InitializrMetadata metadata,
 			ProjectDescription description) {
 		return new ReactorKotlinExtensionsCustomizer(metadata, description);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("validation")
+	KotlinCompilerArgsCustomizer typeAnnotationsCompilerArgsCustomizer() {
+		return (kotlinVersion, compilerArgs) -> compilerArgs.add("-Xemit-jvm-type-annotations");
 	}
 
 	@Configuration
