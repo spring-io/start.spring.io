@@ -27,7 +27,7 @@ class SbomCycloneDxGradleBuildCustomizer implements BuildCustomizer<GradleBuild>
 
 	SbomCycloneDxGradleBuildCustomizer(ProjectDescription description) {
 		this.description = description;
-		this.pluginVersionMapping = new PluginVersionMapping("3.6.0");
+		this.pluginVersionMapping = new PluginVersionMapping("3.6.1");
 	}
 
 	@Override
