@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright 2012 - present the original author or authors.
-  -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -132,6 +128,32 @@
 							<version>${spring-javaformat.version}</version>
 						</dependency>
 					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<executions>
+						<!-- Ship root LICENSE and NOTICE in META-INF of every jar -->
+						<execution>
+							<id>copy-legal-files</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>copy-resources</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
+								<resources>
+									<resource>
+										<directory>${maven.multiModuleProjectDirectory}</directory>
+										<includes>
+											<include>LICENSE</include>
+											<include>NOTICE</include>
+										</includes>
+									</resource>
+								</resources>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>com.github.eirslett</groupId>
