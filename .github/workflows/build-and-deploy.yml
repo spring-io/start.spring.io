@@ -59,7 +59,8 @@ jobs:
             --name start-spring-io \
             --service spring-asa \
             --resource-group spring-asa \
-            --artifact-path start-site/target/start-site-exec.jar
+            --artifact-path start-site/target/start-site-exec.jar \
+            --jvm-options="-XX:-UseBASE64Intrinsics"
 
       - name: Send notification
         uses: ./.github/actions/send-notification
