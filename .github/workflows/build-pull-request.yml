@@ -19,16 +19,16 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Check out
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
 
       - name: Set up JDK
-        uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        uses: actions/setup-java@v6.2.0
         with:
           java-version-file: '.sdkmanrc'
           cache: 'maven'
 
       - name: Restore Maven/Gradle repositories for tests cache
-        uses: actions/cache/restore@v6
+        uses: actions/cache/restore@v6.1.0
         with:
           path: ${{ env.START_SPRING_IO_TMPDIR }}
           key: test-repositories-${{ runner.os }}-${{ github.run_id }}
