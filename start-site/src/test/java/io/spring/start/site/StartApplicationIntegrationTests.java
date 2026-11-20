@@ -5,9 +5,6 @@
 
 package io.spring.start.site;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataBuilder;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
@@ -16,16 +13,13 @@ import tools.jackson.databind.json.JsonMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.cache.test.autoconfigure.AutoConfigureCache;
-import org.springframework.boot.resttestclient.TestRestTemplate;
-import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.client.RestTestClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,34 +31,42 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @AutoConfigureCache
-@AutoConfigureTestRestTemplate
+@AutoConfigureRestTestClient
 class StartApplicationIntegrationTests {
 
 	@Autowired
-	private TestRestTemplate restTemplate;
+	private RestTestClient restClient;
 
 	@Autowired
 	private InitializrMetadataProvider metadataProvider;
 
 	@Test
-	void metadataCanBeSerialized() throws URISyntaxException {
-		RequestEntity<Void> request = RequestEntity.get(new URI("/"))
+	void metadataCanBeSerialized() {
+		String body = this.restClient.get()
+			.uri("/")
 			.accept(MediaType.parseMediaType("application/vnd.initializr.v2.1+json"))
-			.build();
-		ResponseEntity<String> response = this.restTemplate.exchange(request, String.class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		new JsonMapper().readTree(response.getBody());
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody(String.class)
+			.returnResult()
+			.getResponseBody();
+		new JsonMapper().readTree(body);
 	}
 
 	@Test
-	void configurationCanBeSerialized() throws URISyntaxException {
-		RequestEntity<Void> request = RequestEntity.get(new URI("/metadata/config"))
+	void configurationCanBeSerialized() {
+		byte[] body = this.restClient.get()
+			.uri("/metadata/config")
 			.accept(MediaType.APPLICATION_JSON)
-			.build();
-		ResponseEntity<byte[]> response = this.restTemplate.exchange(request, byte[].class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody(byte[].class)
+			.returnResult()
+			.getResponseBody();
 		InitializrMetadata actual = InitializrMetadataBuilder.create()
-			.withInitializrMetadata(new ByteArrayResource(response.getBody()))
+			.withInitializrMetadata(new ByteArrayResource(body))
 			.build();
 		assertThat(actual).isNotNull();
 		InitializrMetadata expected = this.metadataProvider.get();

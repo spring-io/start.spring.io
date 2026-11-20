@@ -19,7 +19,10 @@ server:
     enabled: true
     mime-types: application/json,text/css,text/html
     min-response-size: 2048
-  forward-headers-strategy: none
+  request:
+    header:
+      forwarded:
+        strategy: none
 
 spring:
   cache:

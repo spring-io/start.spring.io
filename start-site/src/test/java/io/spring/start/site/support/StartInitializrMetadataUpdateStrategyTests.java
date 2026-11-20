@@ -20,7 +20,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -36,14 +36,15 @@ class StartInitializrMetadataUpdateStrategyTests {
 
 	private static final JsonMapper jsonMapper = new JsonMapper();
 
-	private RestTemplate restTemplate;
+	private RestClient restClient;
 
 	private MockRestServiceServer mockServer;
 
 	@BeforeEach
 	void setUp() {
-		this.restTemplate = new RestTemplate();
-		this.mockServer = MockRestServiceServer.createServer(this.restTemplate);
+		RestClient.Builder builder = RestClient.builder();
+		this.mockServer = MockRestServiceServer.bindTo(builder).build();
+		this.restClient = builder.build();
 	}
 
 	@Test
@@ -52,7 +53,7 @@ class StartInitializrMetadataUpdateStrategyTests {
 			.addBootVersion("0.0.8.RELEASE", false)
 			.build();
 		assertThat(metadata.getBootVersions().getDefault().getId()).isEqualTo("0.0.9.RELEASE");
-		StartInitializrMetadataUpdateStrategy provider = new StartInitializrMetadataUpdateStrategy(this.restTemplate,
+		StartInitializrMetadataUpdateStrategy provider = new StartInitializrMetadataUpdateStrategy(this.restClient,
 				jsonMapper);
 		expectJson(metadata.getConfiguration().getEnv().getSpringBootMetadataUrl(),
 				"metadata/springio/spring-boot.json");
@@ -68,7 +69,7 @@ class StartInitializrMetadataUpdateStrategyTests {
 
 	@Test
 	void noVersionsAreHandled() {
-		StartInitializrMetadataUpdateStrategy provider = new StartInitializrMetadataUpdateStrategy(this.restTemplate,
+		StartInitializrMetadataUpdateStrategy provider = new StartInitializrMetadataUpdateStrategy(this.restClient,
 				jsonMapper);
 		List<DefaultMetadataElement> elements = provider.fetchSpringBootVersions(null);
 		assertThat(elements).isNull();

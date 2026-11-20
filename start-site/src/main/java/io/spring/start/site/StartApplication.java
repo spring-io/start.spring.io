@@ -21,14 +21,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 
 /**
  * Initializr website application.
@@ -53,11 +52,10 @@ public class StartApplication {
 	}
 
 	@Bean
-	public StartInitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy(
-			RestTemplateBuilder restTemplateBuilder, JsonMapper jsonMapper) {
-		RestTemplate restTemplate = restTemplateBuilder.defaultHeader(HttpHeaders.USER_AGENT, "start.spring.io")
-			.build();
-		return new StartInitializrMetadataUpdateStrategy(restTemplate, jsonMapper);
+	public StartInitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy(RestClient.Builder restClientBuilder,
+			JsonMapper jsonMapper) {
+		RestClient restClient = restClientBuilder.defaultHeader(HttpHeaders.USER_AGENT, "start.spring.io").build();
+		return new StartInitializrMetadataUpdateStrategy(restClient, jsonMapper);
 	}
 
 	@Bean

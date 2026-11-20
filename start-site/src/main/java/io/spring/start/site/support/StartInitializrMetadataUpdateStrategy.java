@@ -13,7 +13,7 @@ import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
 import io.spring.initializr.web.support.SpringIoInitializrMetadataUpdateStrategy;
 import tools.jackson.databind.json.JsonMapper;
 
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 
 /**
  * An {@link InitializrMetadataUpdateStrategy} that performs additional filtering of
@@ -27,8 +27,8 @@ public class StartInitializrMetadataUpdateStrategy extends SpringIoInitializrMet
 
 	private static final Version MINIMUM_BOOT_VERSION = Version.parse("4.0.0");
 
-	public StartInitializrMetadataUpdateStrategy(RestTemplate restTemplate, JsonMapper jsonMapper) {
-		super(restTemplate, jsonMapper);
+	public StartInitializrMetadataUpdateStrategy(RestClient restClient, JsonMapper jsonMapper) {
+		super(restClient, jsonMapper);
 	}
 
 	@Override
