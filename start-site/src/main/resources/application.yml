@@ -102,9 +102,9 @@ initializr:
         versionProperty: spring-ai.version
         mappings:
           - compatibilityRange: "[4.0.0,4.2.0-M1)"
-            version: 2.0.1
+            version: 2.0.3
           - compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
-            version: 2.1.0-M1
+            version: 2.1.0
       spring-cloud:
         groupId: org.springframework.cloud
         artifactId: spring-cloud-dependencies
@@ -1876,7 +1876,7 @@ initializr:
           bom: spring-ai
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/bedrock-converse.html
+              href: https://docs.spring.io/spring-ai/reference/api/chat/bedrock-converse.html
         - name: Amazon Bedrock Knowledge Base
           id: spring-ai-vectordb-bedrock-knowledgebase
           group-id: org.springframework.ai
@@ -1885,7 +1885,7 @@ initializr:
           bom: spring-ai
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/bedrock-knowledgebase.html
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/bedrock-knowledge-base.html
         - name: DeepSeek
           id: spring-ai-deepseek
           group-id: org.springframework.ai
@@ -1903,7 +1903,7 @@ initializr:
           bom: spring-ai
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/speech/elevenlabs-speech.html
+              href: https://docs.spring.io/spring-ai/reference/api/audio/speech/elevenlabs-speech.html
         - name: Google GenAI
           id: spring-ai-google-genai
           group-id: org.springframework.ai
@@ -1921,7 +1921,36 @@ initializr:
           bom: spring-ai
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/embeddings/google-genai-embeddings.html
+              href: https://docs.spring.io/spring-ai/reference/api/embeddings/google-genai-embeddings-text.html
+        - name: Google GenAI Image
+          id: spring-ai-google-genai-image
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-google-genai-image
+          description: Spring AI support for Google GenAI (Gemini) image generation models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/image/google-genai-image.html
+        - name: Google GenAI Text-to-Speech
+          id: spring-ai-google-genai-tts
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-google-genai-tts
+          compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
+          description: Spring AI support for Google GenAI (Gemini) text-to-speech models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/audio/speech/google-genai-speech.html
+        - name: Google GenAI Transcription
+          id: spring-ai-google-genai-transcription
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-google-genai-transcription
+          compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
+          description: Spring AI support for Google GenAI (Gemini) audio transcription models.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/audio/transcriptions/google-genai-transcriptions.html
         - name: Apache Cassandra Vector Database
           id: spring-ai-vectordb-cassandra
           group-id: org.springframework.ai
@@ -2133,6 +2162,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
+        - name: JDBC AI Session Repository
+          id: spring-ai-session-jdbc
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-session-jdbc
+          compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
+          description: Spring AI support for JDBC based session memory.
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/session/jdbc.html
         - name: Oracle Vector Database
           id: spring-ai-vectordb-oracle
           group-id: org.springframework.ai
@@ -2186,7 +2225,7 @@ initializr:
           bom: spring-ai
           links:
             - rel: reference
-              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/s3.html
+              href: https://docs.spring.io/spring-ai/reference/api/vectordbs/s3-vector-store.html
         - name: MariaDB Vector Database
           id: spring-ai-vectordb-mariadb
           group-id: org.springframework.ai
@@ -2205,6 +2244,16 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/image/stabilityai-image.html
+        - name: System One
+          id: spring-ai-systemone
+          group-id: org.springframework.ai
+          artifact-id: spring-ai-starter-model-systemone
+          compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
+          description: Spring AI support for System One decision models (classification with probabilities).
+          bom: spring-ai
+          links:
+            - rel: reference
+              href: https://docs.spring.io/spring-ai/reference/api/decision/systemone-decision.html
         - name: Transformers (ONNX) Embeddings
           id: spring-ai-transformers
           group-id: org.springframework.ai
