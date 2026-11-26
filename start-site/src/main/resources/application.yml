@@ -2162,12 +2162,12 @@ initializr:
           links:
             - rel: reference
               href: https://docs.spring.io/spring-ai/reference/api/chat-memory.html
-        - name: JDBC Session Memory
+        - name: JDBC AI Session Repository
           id: spring-ai-session-jdbc
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-session-jdbc
           compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
-          description: Spring AI support for JDBC based session memory. It stores conversations as an append-only log of events, with turn-aware compaction of the history.
+          description: Spring AI support for JDBC based session memory.
           bom: spring-ai
           links:
             - rel: reference
@@ -2249,7 +2249,7 @@ initializr:
           group-id: org.springframework.ai
           artifact-id: spring-ai-starter-model-systemone
           compatibilityRange: "[4.2.0-M1,4.3.0-M1)"
-          description: Spring AI support for decision models served over the System One protocol, such as TypeSafe and Ollama.
+          description: Spring AI support for System One decision models (classification with probabilities).
           bom: spring-ai
           links:
             - rel: reference
