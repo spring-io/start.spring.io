@@ -202,7 +202,7 @@ initializr:
         versionProperty: vaadin.version
         mappings:
           - compatibilityRange: "[4.1.0,4.3.0-M1)"
-            version: 25.3.6
+            version: 25.3.7
     platform:
       compatibilityRange: "4.0.0"
     repositories:
